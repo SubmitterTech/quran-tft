@@ -1,0 +1,15 @@
+{
+  "files": {
+    "main.css": "/qurantft/static/css/main.13e41f1e.css",
+    "main.js": "/qurantft/static/js/main.57453d77.js",
+    "static/js/787.0f8d78ff.chunk.js": "/qurantft/static/js/787.0f8d78ff.chunk.js",
+    "index.html": "/qurantft/index.html",
+    "main.13e41f1e.css.map": "/qurantft/static/css/main.13e41f1e.css.map",
+    "main.57453d77.js.map": "/qurantft/static/js/main.57453d77.js.map",
+    "787.0f8d78ff.chunk.js.map": "/qurantft/static/js/787.0f8d78ff.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.13e41f1e.css",
+    "static/js/main.57453d77.js"
+  ]
+}
