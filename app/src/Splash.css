@@ -1,0 +1,19 @@
+.splash-line {
+  animation: fadeIn 1s ease-in-out forwards, colorChange 10s infinite;
+  opacity: 0;
+}
+
+@keyframes fadeIn {
+  to {
+      opacity: 1;
+  }
+}
+
+@keyframes colorChange {
+  0% { background-color: #ffd700; } /* Golden color */
+  25% { background-color: #fbbf24; } /* Very light golden color */
+  50% { background-color: #f1f5f9; } /* Light slate */
+  75% { background-color: #f9fafb; } /* Very light gray */
+  100% { background-color: #f3f4f6; } /* Light gray */
+}
+
