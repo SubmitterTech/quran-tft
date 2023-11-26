@@ -8,7 +8,7 @@ const Splash = () => {
 
     // Forward to the source
     const openPdf = () => {
-        window.location.href = '/quran-english1667577051837.pdf';
+        window.location.href = '/quran-tft/quran-english1667577051837.pdf';
     };
 
     return (
