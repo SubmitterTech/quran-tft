@@ -6,6 +6,11 @@ const Splash = () => {
     // Split the text into lines
     const lines = splashData.text.split('\n');
 
+    // Forward to the source
+    const openPdf = () => {
+        window.location.href = '/quran-english1667577051837.pdf';
+    };
+
     return (
         <div className="splash-screen h-screen flex flex-col w-full p-1 justify-between text-center text-neutral-100">
             <div className="flex flex-col w-full space-y-2 md:space-y-4 mt-4">
@@ -31,7 +36,10 @@ const Splash = () => {
                 ))}
             </div>
 
-            <div>
+            <div 
+            className="text-[#ffd700] cursor-pointer"
+            onClick={openPdf}
+            >
                 <p>{lines[7]}</p>
                 <p>{lines[8]}</p>
                 <p>{lines[9]}</p>
