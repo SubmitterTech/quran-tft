@@ -101,13 +101,13 @@ def structure_quran_pages(file_path, start_page, end_page):
                 notes = pageInfo
 
             structured_data[page_number] = {
-                "page": [pageInfo[0], pageInfo[0].split(" ")[-1]] if page_number == 24 else pageInfo,
+                "page": [pageInfo[0], pageInfo[0].split(" ")[-1]] if page_number == 23 else pageInfo,
                 "sura": sura,
                 "verses": versesData,
                 "titles": titles,
                 "notes": {
-                    "data": notes[0:-4] if page_number == 24 else notes[0:-2],
-                    "cumulativefrequencyofthewordGOD": notes[-3] if (page_number == 24 and notes[-3]) else notes[-2],
+                    "data": notes[0:-4] if page_number == 23 else notes[0:-2],
+                    "cumulativefrequencyofthewordGOD": notes[-3] if (page_number == 23 and notes[-3]) else notes[-2],
                     "cumulativesumofverseswhereGODwordoccurs": notes[-1]
                 }
             }
@@ -117,7 +117,7 @@ def structure_quran_pages(file_path, start_page, end_page):
 
 # Usage
 file_path = 'quraninpages.json'  # Path to your JSON file
-start_page = 24
+start_page = 23
 end_page =  float('inf')  # Set to a very large number to include all pages
 
 structured_quran = structure_quran_pages(file_path, start_page, end_page)

@@ -2,10 +2,13 @@ import React from 'react';
 import splashData from '../assets/splash.json';
 import '../Splash.css';
 
-const Splash = () => {
+const Splash = ({onHideSplash}) => {
     // Split the text into lines
     const lines = splashData.text.split('\n');
 
+    const handleTap = async (e) => {
+       onHideSplash();
+    };
     // Forward to the source
     const openPdf = () => {
         window.location.href = '/quran-tft/quran-english1667577051837.pdf';
@@ -20,7 +23,8 @@ const Splash = () => {
                 <h2 className="text-3xl font-bold">{lines[4]}</h2>
                 <p className="text-2xl ">{lines[5]}</p>
             </div>
-            <div className="flex flex-col items-center justify-end">
+            <button className="flex flex-col items-center justify-end"
+                onClick = {handleTap}>
                 {/* 19 lines for animated splash, starting from the bottom */}
                 {Array.from({ length: 19 }).map((_, index) => (
                     <div
@@ -34,11 +38,11 @@ const Splash = () => {
 
                     </div>
                 ))}
-            </div>
+            </button>
 
-            <div 
-            className="text-[#ffd700] cursor-pointer"
-            onClick={openPdf}
+            <div
+                className="text-[#ffd700] cursor-pointer"
+                onClick={openPdf}
             >
                 <p>{lines[7]}</p>
                 <p>{lines[8]}</p>

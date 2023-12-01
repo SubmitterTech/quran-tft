@@ -30,7 +30,7 @@ def extract_pages_inorder_to_json(pdf_path, start_page, end_page, json_file):
     texts = [extract_text(pdf_path, page_numbers=[page]) for page in range(start_page - 1, end_page)]
     texts = [post_process_text(text) for text in texts]
     with open(json_file, 'w') as file:
-        json_data = [{"page": page_num + 1, "text": text} for page_num, text in enumerate(texts, start=start_page)]
+        json_data = [{"page": page_num, "text": text} for page_num, text in enumerate(texts, start=start_page)]
         json.dump(json_data, file, indent=4)
 
 
