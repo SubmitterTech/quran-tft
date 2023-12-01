@@ -21,7 +21,11 @@ const Book = ({ bookContent }) => {
 
         // Render normal book content for other pages
         const currentPageData = bookContent.find(page => page.page === currentPage);
-        if (!currentPageData) return <div>Loading...</div>;
+        if (!currentPageData) return <div className="text-neutral-200/80 flex flex-1 items-center justify-center w-full ">
+            <div>
+                Loading ...
+            </div>
+        </div>;
 
         // Split text into paragraphs for better readability
         const paragraphs = currentPageData.text.split('\n\n').map((para, index) => {
@@ -29,18 +33,26 @@ const Book = ({ bookContent }) => {
         });
 
         return (
-            <div className="text-neutral-200 text-xl overflow-auto px-6 py-4">
+            <div className="text-neutral-200 text-xl overflow-auto flex-1 p-2">
                 {paragraphs}
             </div>
         );
     };
 
     return (
-        <div className="flex flex-col items-center justify-center p-4 h-screen">
-            <h2 className="text-2xl font-bold mb-4">Page {currentPage}</h2>
-            <button onClick={prevPage} className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 mr-2">Previous Page</button>
-            <button onClick={nextPage} className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 ml-2">Next Page</button>
+        <div className="flex flex-col justify-start h-screen">
+            <div className="w-full flex items-center justify-start">
+                <h2 className="text-sm font-bold text-neutral-200/50 p-2">Page {currentPage}</h2>
+            </div>
+
             {renderBookContent()}
+            <div className="w-full flex">
+                <div className="flex w-full items-center justify-between p-2">
+
+                    <button onClick={prevPage} className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 mr-2">Previous Page</button>
+                    <button onClick={nextPage} className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 ml-2">Next Page</button>
+                </div>
+            </div>
         </div>
     );
 };
