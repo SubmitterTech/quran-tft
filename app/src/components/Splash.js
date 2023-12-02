@@ -21,7 +21,7 @@ const Splash = ({onHideSplash}) => {
                 <h2 className="text-3xl font-bold">{lines[2]}</h2>
                 <h2 className="text-3xl font-bold">{lines[3]}</h2>
                 <h2 className="text-3xl font-bold">{lines[4]}</h2>
-                <p className="text-2xl ">{lines[5]}</p>
+                <p className="text-lg ">{lines[5]}</p>
             </div>
             <button className="flex flex-col items-center justify-end"
                 onClick = {handleTap}>

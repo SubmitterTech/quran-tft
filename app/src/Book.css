@@ -1,0 +1,32 @@
+.neonText {
+    color: #e5e5e5;
+    text-shadow:
+        0 0 7px #e5e5e5,
+        0 0 10px #e5e5e5,
+        0 0 21px #e5e5e5;
+       
+}
+
+
+.animatedText {
+    animation: pulsate 1.5s infinite alternate;
+}
+
+@keyframes pulsate {
+
+    100% {
+
+        text-shadow:
+            0 0 4px #e5e5e5,
+            0 0 7px #e5e5e5,
+            0 0 11px #e5e5e5;
+            
+    }
+
+    0% {
+
+        text-shadow:
+            0 0 2px #e5e5e5,
+            0 0 4px #e5e5e5;
+    }
+}
