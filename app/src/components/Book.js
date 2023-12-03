@@ -1,17 +1,88 @@
 import React, { useState } from 'react';
 import Pages from '../components/Pages';
+import quranData from '../assets/structured_quran.json';
 import '../Book.css';
 
 const Book = ({ bookContent }) => {
-    const [currentPage, setCurrentPage] = useState(13); // Starting with the first page of your content
+    const [currentPage, setCurrentPage] = useState(13);
+    const [pageHistory, setPageHistory] = useState([]);
+
+    const updatePage = (newPage) => {
+        setPageHistory(prevHistory => [...prevHistory, currentPage]);
+        setCurrentPage(newPage);
+    };
 
     const nextPage = () => {
-        setCurrentPage((prev) => prev + 1);
+        updatePage(currentPage + 1);
     };
 
     const prevPage = () => {
-        setCurrentPage((prev) => (prev > 13 ? prev - 1 : prev));
+        if (pageHistory.length > 0) {
+            // Get the last page from history and remove it from the history array
+            const lastPage = pageHistory[pageHistory.length - 1];
+            setPageHistory(prevHistory => prevHistory.slice(0, -1));
+            setCurrentPage(lastPage);
+        }
     };
+
+    const createReferenceMap = () => {
+        const referenceMap = {};
+    
+        Object.entries(quranData).forEach(([pageNumber, value]) => {
+            // Ensure that pageValues is an array
+            const pageValues = Array.isArray(value.page) ? value.page : [value.page];
+            const suraVersePattern = /\d+:\d+-\d+/g;
+            let matches = [];
+    
+            pageValues.forEach(pageValue => {
+                const match = pageValue.match(suraVersePattern);
+                if (match) {
+                    matches = matches.concat(match);
+                }
+            });
+    
+            referenceMap[pageNumber] = matches;
+        });
+    
+        return referenceMap;
+    };
+
+    const referenceMap = createReferenceMap();
+
+    const handleClickReference = (reference) => {
+        console.log("Reference clicked:", reference);
+    
+        // Parse the reference to extract sura and verse information
+        let [sura, verses] = reference.split(':');
+        let verseStart, verseEnd;
+        if (verses.includes('-')) {
+            [verseStart, verseEnd] = verses.split('-').map(Number);
+        } else {
+            verseStart = verseEnd = parseInt(verses);
+        }
+    
+        // Iterate over the referenceMap to find the correct page number
+        let foundPageNumber = null;
+        Object.entries(referenceMap).forEach(([pageNumber, suraVersesArray]) => {
+            suraVersesArray.forEach(suraVerses => {
+                let [suraMap, verseRange] = suraVerses.split(':');
+                let [verseStartMap, verseEndMap] = verseRange.split('-').map(Number);
+    
+                if (suraMap === sura && verseStart >= verseStartMap && verseEnd <= verseEndMap) {
+                    foundPageNumber = pageNumber;
+                }
+            });
+        });
+    
+       if (foundPageNumber) {
+            console.log("Page number:", foundPageNumber);
+            updatePage(parseInt(foundPageNumber));
+        } else {
+            console.log("Reference not found in the book.");
+        }
+    };
+    
+
 
     // Function to render the book's content
     const renderBookContent = () => {
@@ -27,11 +98,6 @@ const Book = ({ bookContent }) => {
                 Loading ...
             </div>
         </div>;
-
-        const handleClickReference = (reference) => {
-            console.log("Reference clicked:", reference);
-            // Implement logic when a reference is clicked
-        };
 
         const parseReferences = (text) => {
             const referenceRegex = /(\d+:\d+(?:-\d+)?(?:,\s*\d+)*)/g;
@@ -57,7 +123,7 @@ const Book = ({ bookContent }) => {
         });
 
         return (
-            <div className="text-neutral-200 text-xl overflow-auto flex-1 p-3 text-justify lg:text-start">
+            <div className="text-neutral-200 text-xl overflow-auto flex-1 p-3 text-justify lg:text-start indent-8">
                 {paragraphs}
             </div>
         );
