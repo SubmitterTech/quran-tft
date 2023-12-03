@@ -16,6 +16,36 @@ const Pages = ({ selectedPage }) => {
         setShowExplanation(prev => ({ ...prev, [key]: !prev[key] }));
     };
 
+    const renderTable = (tableData) => {
+        const columnCount = tableData.title.length;
+        const rows = [];
+
+        for (let i = 0; i < tableData.values.length; i += columnCount) {
+            rows.push(tableData.values.slice(i, i + columnCount));
+        }
+
+        return (
+            <table className="table-auto border-collapse border-2 border-sky-500 text-right">
+                <thead>
+                    <tr>
+                        {tableData.title.map((header, index) => (
+                            <th key={index} className="border-2 border-sky-500 p-2 ">{header}</th>
+                        ))}
+                    </tr>
+                </thead>
+                <tbody>
+                    {rows.map((row, rowIndex) => (
+                        <tr key={rowIndex}>
+                            {row.map((cell, cellIndex) => (
+                                <td key={cellIndex} className="border-2 border-sky-500 p-2">{cell}</td>
+                            ))}
+                        </tr>
+                    ))}
+                </tbody>
+            </table>
+        );
+    };
+
     return (
         <div className="flex w-full flex-1 flex-col text-neutral-200 text-xl overflow-auto">
 
@@ -51,23 +81,32 @@ const Pages = ({ selectedPage }) => {
                 {Object.entries(pageData.verses).map(([verseNumber, verseText]) => (
                     <>
                         {pageData.titles[verseNumber] &&
-                            <div className="bg-neutral-700 rounded shadow-xl m-2 p-4 break-words whitespace-pre-wrap">
+                            <div className="bg-neutral-700 italic rounded shadow-xl m-2 p-4 text-sm md:text-md lg:text-lg text-center break-words whitespace-pre-wrap">
                                 {pageData.titles[verseNumber]}
                             </div>}
 
-                        <div className="flex rounded m-2 p-2 shadow-xl bg-sky-700" key={verseNumber}>
-                            <strong className="text-neutral-300/70 text-md flex items-center">{verseNumber}.</strong>
-                            <div className="p-1">
-                                {verseText}
-                            </div>
+                        <div className="flex rounded m-2 p-2 shadow-xl bg-sky-700 text-justify text-md md:text-lg" key={verseNumber}>
+                            <p className="p-1">
+                                <span className="text-neutral-300/70 text-md font-bold">{`${verseNumber}. `}</span>
+                                <span className="text-neutral-200">
+                                    {verseText}
+                                </span>
+                            </p>
                         </div>
                     </>
                 ))}
             </div>
-            <div className="bg-sky-600 m-2 rounded p-4 text-neutral-300">
-                <h3>Notes:</h3>
-                {pageData.notes.data.map((note, index) => <p key={index}>{note}</p>)}
-            </div>
+            {pageData.notes.data.length > 0 &&
+                <div className="bg-neutral-600 m-2 rounded p-3 text-sm md:text-md lg:text-lg text-justify text-neutral-300 flex flex-col space-y-4 whitespace-pre-line">
+                    <h3>Notes:</h3>
+                    {pageData.notes.data.map((note, index) => <p className="" key={index}>{note}</p>)}
+                    {pageData.notes.tables && pageData.notes.tables.map((table, index) => (
+                        <div key={index}>
+                            {renderTable(table)}
+                        </div>
+                    ))}
+                </div>
+            }
         </div>
     );
 };

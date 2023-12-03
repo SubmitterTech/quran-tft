@@ -123,14 +123,14 @@ const Book = ({ bookContent }) => {
         });
 
         return (
-            <div className="text-neutral-200 text-xl overflow-auto flex-1 p-3 text-justify lg:text-start indent-8">
+            <div className="text-neutral-200 overflow-auto flex-1 p-3 text-justify lg:text-start indent-8 text-lg md:text-xl">
                 {paragraphs}
             </div>
         );
     };
 
     return (
-        <div className="flex flex-col justify-start h-screen bg-sky-800 ">
+        <div className="flex flex-col justify-start h-screen bg-sky-800">
             <div className="w-full flex items-center justify-start">
                 <h2 className="text-sm font-bold text-neutral-200/50 p-2">Page {currentPage}</h2>
             </div>
