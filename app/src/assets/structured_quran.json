@@ -4,74 +4,46 @@
             "The Key (Al-Fãtehah) 1:1-7",
             "1"
         ],
-        "sura": [
-            "Sura 1: The Key (Al- Fãtehah)"
-        ],
         "verses": {
             "1": "In the name of GOD, Most Gracious, Most Merciful",
             "2": "Praise be to GOD, Lord of the universe",
+            "3": "Most Gracious, Most Merciful. ",
             "4": "Master of the Day of Judgment",
             "5": "You alone we worship",
             "6": "Guide us in the right path;",
             "7": "the path of those whom You blessed; not of those who have deserved wrath, nor of the strayers."
         },
-        "titles": {
-            "6": "3.  Most Gracious, Most Merciful. "
-        },
+        "titles": {"1": "♦ ♦ ♦ ♦\nSura 1: The Key\n(Al-Fãtehah)"},
         "notes": {
             "data": [
-                "*1:1 The first verse in the Quran represents the foundation upon which a superhuman",
-                "19-based mathematical miracle is built. This important statement consists of 19 Arabic",
-                "letters, and every word in it occurs in the whole Quran in multiples of 19 (see Appendices",
-                "1 & 29 for the details).",
-                "*1:1-7 Sura 1 is God’s gift to us to establish contact with Him through the daily Contact",
-                "Prayers. This fact is supported by an earth-shattering, simple-to-understand-but-impos-",
-                "sible-to-imitate  mathematical  composition  that  challenges  the  greatest  mathematicians",
-                "on earth, and stumps them; it is far beyond human capabilities:",
-                "(1) The sura number, followed by the numbers of verses, next to each other, give 1 1 2",
-                "3 4 5  6 7. This number is a multiple of 19.",
-                "(2) If we substitute the number of letters per verse in place of verse numbers, we get 1",
-                "19 17 12 11 19 18 43. This number is also a multiple of 19.",
-                "(3) If we insert the total gematrical value of every verse, we get 1 19 786 17 581 12 618",
-                "11 241 19 836 18 1072 43 6009. This number is a multiple of 19.",
-                "(4)  The  number  shown  above  includes  all  para-",
-                "meters of Sura 1, and consists of 38 digits (19x2).",
-                "(5) It  is  noteworthy  that  this  38-digit  number  is  still",
-                "divisible  by  19  when  we  write  its  components  back-",
-                "wards,  from  right  to  left,  as  practiced  by  the  Arabs.",
-                "Thus, 6009 43 1072 18 836 19 241 11 618 12 581 17",
-                "786 19 1 is also a multiple of 19.",
-                "(6) The mathematical representations mentioned",
-                "above participate in numerous extraordinary math-",
-                "ematical phenomena to confirm all details of the five    Totals             139                 10143",
-                "daily Contact Prayers (Appendix 15).",
-                "(7) Many more astounding phenomena are given in Appendix One. Thus, the reader",
-                "is handed, at the outset, tangible proof that this is God’s message to the world.",
-                "Verse #  No of",
-                "Letters",
-                "19",
-                "17",
-                "12",
-                "11",
-                "19",
-                "18",
-                "43",
-                "Gematrical",
-                "Value",
-                "786",
-                "581",
-                "618",
-                "241",
-                "836",
-                "1072",
-                "6009",
-                "1",
-                "2",
-                "3",
-                "4",
-                "5",
-                "6",
-                "7"
+                "*1:1 The first verse in the Quran represents the foundation upon which a superhuman 19-based mathematical miracle is built. This important statement consists of 19 Arabic letters, and every word in it occurs in the whole Quran in multiples of 19 (see Appendices 1 & 29 for the details).",
+                "*1:1-7 Sura 1 is God’s gift to us to establish contact with Him through the daily Contact Prayers. This fact is supported by an earth-shattering, simple-to-understand-but-impossible-to-imitate  mathematical  composition  that  challenges  the  greatest  mathematicians on earth, and stumps them; it is far beyond human capabilities:",
+                "(1) The sura number, followed by the numbers of verses, next to each other, give 1 1 2 3 4 5 6 7. This number is a multiple of 19.",
+                "(2) If we substitute the number of letters per verse in place of verse numbers, we get 1 19 17 12 11 19 18 43. This number is also a multiple of 19.",
+                "(3) If we insert the total gematrical value of every verse, we get 1 19 786 17 581 12 618 11 241 19 836 18 1072 43 6009. This number is a multiple of 19.",
+                "(4)  The  number  shown  above  includes  all  parameters of Sura 1, and consists of 38 digits (19x2).",
+                "(5) It  is  noteworthy  that  this  38-digit  number  is  still divisible  by  19  when  we  write  its  components  backwards,  from  right  to  left,  as  practiced  by  the  Arabs. \n\nThus, 6009 43 1072 18 836 19 241 11 618 12 581 17 786 19 1 is also a multiple of 19.",
+                "(6) The mathematical representations mentioned above participate in numerous extraordinary mathematical phenomena to confirm all details of the five daily Contact Prayers (Appendix 15).",
+                "(7) Many more astounding phenomena are given in Appendix One. Thus, the reader is handed, at the outset, tangible proof that this is God’s message to the world."
+            ],
+            "tables": [
+                {
+                    "title": [
+                        "Verse #",
+                        "No of Letters",
+                        "Gematrical Value"
+                    ],
+                    "values": [
+                        "1","19","786",
+                        "2","17","581",
+                        "3","12","618",
+                        "4","11","241",
+                        "5","19","836",
+                        "6","18","1072",
+                        "7","43","6009",
+                        "Totals","139","10143"
+                    ]
+                }
             ],
             "cumulativefrequencyofthewordGOD": "2",
             "cumulativesumofverseswhereGODwordoccurs": "3"
@@ -82,56 +54,30 @@
             "2",
             "The Heifer (Al-Baqarah) 2:1-8"
         ],
-        "sura": [
-            "Sura 2: The Heifer",
-            "(Al-Baqarah)",
-            "In the name of God,",
-            "Most Gracious, Most Merciful"
-        ],
         "verses": {
-            "1": "A",
-            "2": "This scripture is infallible; a beacon for the righteous; (1) The Righteous.",
+            "1": "A.L.M.*",
+            "2": "This scripture is infallible; a beacon for the righteous;",
             "3": "who believe in the unseen, observe the Contact Prayers (Salat),* and from our** provisions to them, they give to charity.",
             "4": "And they believe in what was revealed to you, and in what was revealed before you, and with regard to the Hereafter, they are absolutely certain.*",
-            "5": "These  are  guided  by  their  Lord;",
+            "5": "These  are  guided  by  their  Lord; these are the winners.",
             "6": "As for those who disbelieve, it is the same for them; whether you warn them, or not warn them, they cannot believe.*",
-            "7": "GOD seals their minds and their hearing, and their eyes are veiled.",
+            "7": "GOD seals their minds and their hearing, and their eyes are veiled. They have incurred severe retribution.",
             "8": "Then there are those who say, “We believe in GOD and the Last Day,”"
         },
         "titles": {
-            "3": "Three Categories of People ",
-            "6": "these are the winners. (2) The Disbelievers ",
-            "8": "They have incurred severe retribu- tion. (3) The Hypocrites "
+            "1": "♦ ♦ ♦ ♦\nSura 2: The Heifer\n(Al-Baqarah)\nIn the name of God, Most Gracious, Most Merciful",
+            "3": "Three Categories of People\n\n(1) The Righteous.",
+            "6": "(2) The Disbelievers ",
+            "8": "(3) The Hypocrites "
         },
         "notes": {
             "data": [
-                "*2:1 These initials remained a divinely guarded secret for 1400 years. Now we recognize",
-                "them  as  a  major  component  of  the  Quran’s  extraordinary  mathematical  code  (see",
-                "Appendices  1,  2,  24,  and  26).  The  meaning  of  A.L.M.  is  pointed  out  in  Verse  2:  “This",
-                "scripture is infallible.” This is incontrovertibly proven by the fact that the frequencies of",
-                "occurrence of these three initials in this sura are 4502, 3202, and 2195, respectively. The",
-                "sum of these numbers is 9899, or 19x521. Thus, these most frequent letters of the Arabic",
-                "language  are  mathematically  placed  according  to  a  super-human  pattern.  These  same",
-                "initials also prefix Suras 3, 29, 30, 31, and 32, and their frequencies of occurrence add",
-                "up to multiples of 19 in each one of these suras.",
-                "*2:3  Since  the  Contact  Prayers  are  decreed  five  times  a  day,  they  constitute  the  prime",
-                "source  of  nourishment  for  our  souls.  Along  with  all  other  practices  in  Submission,  the",
-                "Contact Prayers were originally revealed through Abraham (21:73, 22:78). Although these",
-                "five  daily  prayers  were  practiced  before  the  revelation  of  the  Quran,  each  Contact",
-                "Prayer is specifically mentioned in the Quran (24:58, 11:114, 17:78, & 2:238). Appen-",
-                "dices 1 & 15 provide physical evidence supporting all the details of the Contact Prayers,",
-                "including  the number of units  (Rak‘aas)  and  the numbers of  bowings,  prostrations,  and",
-                "Tashahhuds in each prayer.",
-                "**2:3  When  God  uses  the  plural  tense,  this  indicates  that  other  entities,  usually  the",
-                "angels, are involved. When God spoke to Moses, the singular form was used (20:12-14).",
+                "*2:1 These initials remained a divinely guarded secret for 1400 years. Now we recognize them  as  a  major  component  of  the  Quran’s  extraordinary  mathematical  code  (see Appendices  1,  2,  24,  and  26).  The  meaning  of  A.L.M.  is  pointed  out  in  Verse  2:  “This scripture is infallible.” This is incontrovertibly proven by the fact that the frequencies of occurrence of these three initials in this sura are 4502, 3202, and 2195, respectively. The sum of these numbers is 9899, or 19x521. Thus, these most frequent letters of the Arabic language  are  mathematically  placed  according  to  a  super-human  pattern.  These  same initials also prefix Suras 3, 29, 30, 31, and 32, and their frequencies of occurrence add up to multiples of 19 in each one of these suras.",
+                "*2:3  Since  the  Contact  Prayers  are  decreed  five  times  a  day,  they  constitute  the  prime source  of  nourishment  for  our  souls.  Along  with  all  other  practices  in  Submission,  the Contact Prayers were originally revealed through Abraham (21:73, 22:78). Although these five  daily  prayers  were  practiced  before  the  revelation  of  the  Quran,  each  Contact Prayer is specifically mentioned in the Quran (24:58, 11:114, 17:78, & 2:238). Appendices 1 & 15 provide physical evidence supporting all the details of the Contact Prayers, including  the number of units  (Rak‘aas)  and  the numbers of  bowings,  prostrations,  and Tashahhuds in each prayer.",
+                "**2:3  When  God  uses  the  plural  tense,  this  indicates  that  other  entities,  usually  the angels, are involved. When God spoke to Moses, the singular form was used (20:12-14).",
                 "See Appendix 10.",
-                "*2:4 Despite severe distortions that afflicted the previous scriptures, God’s truth can still",
-                "be  found  in  them.  Both  the  Old  Testament  and  the  New  Testament  still  advocate",
-                "absolute  devotion to God  ALONE  (Deuteronomy 6:4-5, Mark 12:29-30).  All  distortions",
-                "are easily detectable.",
-                "*2:6-7 Those who make a decision to reject God are helped in that direction; they are",
-                "prevented by God from seeing any proof or guidance for as long as they maintain such",
-                "a decision. The consequences of such a disastrous decision are spelled out in Verse 7."
+                "*2:4 Despite severe distortions that afflicted the previous scriptures, God’s truth can still be  found  in  them.  Both  the  Old  Testament  and  the  New  Testament  still  advocate absolute  devotion to God  ALONE  (Deuteronomy 6:4-5, Mark 12:29-30).  All  distortions are easily detectable.",
+                "*2:6-7 Those who make a decision to reject God are helped in that direction; they are prevented by God from seeing any proof or guidance for as long as they maintain such a decision. The consequences of such a disastrous decision are spelled out in Verse 7."
             ],
             "cumulativefrequencyofthewordGOD": "18",
             "cumulativesumofverseswhereGODwordoccurs": "4"
@@ -145,6 +91,7 @@
         "sura": [],
         "verses": {
             "9": "In trying to deceive GOD and those who  believe,  they  only  deceive themselves without perceiving.",
+            "10": "In  their  minds  there  is  a  disease. Consequently,  GOD  augments  their disease. They have incurred a painful retribution for their lying.",
             "11": "When they are told, “Do not commit  evil,”  they  say,  “But  we  are righteous!”",
             "12": "In fact, they are evildoers, but they do not perceive.",
             "13": "When they are told,  “Believe like the people who believed,” they say, “Shall we believe like the fools who believed?” In fact, it is they who are fools, but they do not know.",
@@ -161,7 +108,6 @@
             "24": "If you cannot do this—and you can never  do  this—then  beware  of  the Hellfire, whose fuel is people and rocks; it awaits the disbelievers."
         },
         "titles": {
-            "11": "10.  In  their  minds  there  is  a  disease. Consequently,  GOD  augments  their disease. They have incurred a pain- ful retribution for their lying. ",
             "20": "The Light of Faith ",
             "23": "Mathematical Challenge ",
             "24": "Allegorical Description of Hell "
@@ -169,13 +115,7 @@
         "notes": {
             "data": [
                 "*2:20 “He” and “she” do not necessarily imply natural gender in Arabic (Appendix 4).",
-                "*2:23-24 The Quran’s miraculous mathematical code provides numerous proofs as it",
-                "spells out the name “Rashad Khalifa” as God’s servant mentioned here. Some literary",
-                "giants,  including  Al-Mutanabby  and  Taha  Hussein,  have  answered  the  literary  chal-",
-                "lenge, but they had no awareness of the Quran’s mathematical composition. It is the",
-                "Quran’s  mathematical  code,  revealed  through  God’s  Messenger  of  the  Covenant,",
-                "Rashad Khalifa, that is the real challenge—for it can never be imitated. See Appendices",
-                "1, 2, 24, & 26 for the detailed proofs."
+                "*2:23-24 The Quran’s miraculous mathematical code provides numerous proofs as it spells out the name “Rashad Khalifa” as God’s servant mentioned here. Some literary giants,  including  Al-Mutanabby  and  Taha  Hussein,  have  answered  the  literary  challenge, but they had no awareness of the Quran’s mathematical composition. It is the Quran’s  mathematical  code,  revealed  through  God’s  Messenger  of  the  Covenant, Rashad Khalifa, that is the real challenge—for it can never be imitated. See Appendices 1, 2, 24, & 26 for the detailed proofs."
             ],
             "cumulativefrequencyofthewordGOD": "13",
             "cumulativesumofverseswhereGODwordoccurs": "153"
@@ -189,36 +129,26 @@
         "sura": [],
         "verses": {
             "25": "Give good news to those who believe and lead a righteous life that they will have gardens with flowing streams.  When  provided  with  a provision of fruits therein, they will say, “This is what was provided for us previously.” Thus, they are given allegorical descriptions. They will have pure spouses therein, and they abide therein forever.",
-            "26": "GOD does not shy away from citing any kind of allegory,* from the tiny mosquito and greater. As for those who believe, they know that it is the truth  from  their  Lord.  As  for  those who disbelieve, they say, “What did GOD mean by such an allegory?”",
+            "26": "GOD does not shy away from citing any kind of allegory,* from the tiny mosquito and greater. As for those who believe, they know that it is the truth  from  their  Lord.  As  for  those who disbelieve, they say, “What did GOD mean by such an allegory?” He  misleads  many  thereby,  and guides many thereby. But He never misleads thereby except the wicked,",
             "27": "who violate GOD’s covenant after pledging to uphold it, sever what GOD has commanded to be joined, and  commit  evil.  These  are  the losers.",
             "28": "How can you disbelieve in GOD when you were dead and He gave you life, then He puts you to death, then He brings you back to life, then to Him you ultimately return?",
             "29": "He is the One who created for you everything  on  earth,  then  turned  to the sky and perfected seven universes therein,* and He is fully aware of all things.",
-            "30": "Recall  that  your  Lord  said  to  the angels,  “I  am  placing  a  representative (a temporary god) on Earth.”",
+            "30": "Recall  that  your  Lord  said  to  the angels,  “I  am  placing  a  representative (a temporary god) on Earth.” They said, “Will You place therein one who will spread evil therein and shed blood, while we sing Your praises,  glorify  You,  and  uphold Your  absolute  authority?”  He  said, “I know what you do not know.”",
             "31": "He  taught  Adam  all  the  names* then presented  them to the angels, saying, “Give me the names of these, if you are right.”"
         },
         "titles": {
             "25": "Allegorical Description of Paradise ",
-            "27": "He  misleads  many  thereby,  and guides many thereby. But He never misleads thereby except the wicked, ",
             "28": "Two Deaths and Two Lives for the Disbelievers* ",
             "30": "Satan: A Temporary “god”* ",
-            "31": "They said, “Will You place therein one who will spread evil therein and shed blood, while we sing Your praises,  glorify  You,  and  uphold Your  absolute  authority?”  He  said, “I know what you do not know.” The Test Begins "
+            "31": "The Test Begins "
         },
         "notes": {
             "data": [
                 "*2:26 See Appendix 5 for further discussion of Heaven and Hell.",
-                "*2:28 The righteous do not really die; they go straight to Heaven. When their interim on",
-                "this  earth  comes  to  an  end,  the  angels  of  death  simply  invite  them  to  go  to  the  same",
-                "Paradise where Adam and Eve once lived (2:154, 3:169, 8:24, 22:58, 16:32, 36:20-27,",
-                "44:56, 89:27-30). Thus, while the righteous experience only the first death following our",
-                "original sin,  the unrighteous go through two deaths  (40:11).  At the time of death,  the",
-                "disbelievers  know  their  miserable  fate  (8:50,  47:27),  then  they  suffer  a  continuous",
-                "nightmare that lasts until Hell is created (40:46, 89:23, Appendix 17).",
-                "*2:29 Our universe with its billion galaxies, spanning distances of billions of light years,",
-                "is the smallest and innermost of seven universes (Appendix 6). Please look up 41:10-11.",
-                "*2:30-37 These verses answer such crucial questions as: “Why are we here?” (See",
-                "Appendix 7).",
-                "*2:31  These  are  the  names  of  the  animals,  the  automobile,  the  submarine,  the  space",
-                "satellite, the VCR, and all other objects to be encountered by the human beings on Earth."
+                "*2:28 The righteous do not really die; they go straight to Heaven. When their interim on this  earth  comes  to  an  end,  the  angels  of  death  simply  invite  them  to  go  to  the  same Paradise where Adam and Eve once lived (2:154, 3:169, 8:24, 22:58, 16:32, 36:20-27, 44:56, 89:27-30). Thus, while the righteous experience only the first death following our original sin,  the unrighteous go through two deaths  (40:11).  At the time of death,  the disbelievers  know  their  miserable  fate  (8:50,  47:27),  then  they  suffer  a  continuous nightmare that lasts until Hell is created (40:46, 89:23, Appendix 17).",
+                "*2:29 Our universe with its billion galaxies, spanning distances of billions of light years, is the smallest and innermost of seven universes (Appendix 6). Please look up 41:10-11.",
+                "*2:30-37 These verses answer such crucial questions as: “Why are we here?” (See Appendix 7).",
+                "*2:31  These  are  the  names  of  the  animals,  the  automobile,  the  submarine,  the  space satellite, the VCR, and all other objects to be encountered by the human beings on Earth."
             ],
             "cumulativefrequencyofthewordGOD": "18",
             "cumulativesumofverseswhereGODwordoccurs": "234"
@@ -236,7 +166,7 @@
             "34": "When  we  said  to  the  angels,  “Fall prostrate  before  Adam,”  they  fell prostrate,  except  Satan;  he  refused, was too arrogant, and a disbeliever.",
             "35": "We  said,  “O  Adam,  live  with  your wife  in  Paradise,  and  eat  therefrom generously,  as  you  please,  but  do  not approach this tree, lest you sin.”",
             "36": "But  the  devil  duped  them,  and caused  their  eviction  therefrom.  We said,  “Go  down  as  enemies  of  one another.  On  Earth  shall  be  your habitation  and  provision  for  awhile.”",
-            "37": "Then,  Adam  received  from  his  Lord words,  whereby  He  redeemed  him.",
+            "37": "Then,  Adam  received  from  his  Lord words,  whereby  He  redeemed  him. He is the Redeemer, Most Merciful.",
             "38": "We  said,  “Go  down  therefrom,  all of  you.  When  guidance  comes  to  you from  Me,  those  who  follow  My guidance  will  have  no  fear,  nor  will they grieve.",
             "39": "“As  for  those  who  disbelieve  and reject  our  revelations,  they  will  be dwellers  of  Hell,  wherein  they  abide forever.”",
             "40": "O  Children  of  Israel,  remember  My favor,  which  I  bestowed  upon  you, and  fulfill  your  part  of  the  covenant, that  I  fulfill  My  part  of  the  covenant, and reverence Me.",
@@ -251,13 +181,11 @@
         },
         "titles": {
             "37": "Specific Words* ",
-            "38": "He is the Redeemer, Most Merciful. ",
             "40": "Divine Commandments to All Jews: “You Shall Believe in This Quran.” "
         },
         "notes": {
             "data": [
-                "*2:37 Similarly, God has given us specific, mathematically coded words, the words of",
-                "Sura 1, to establish contact with Him (see Footnote 1:1 and Appendix 15)."
+                "*2:37 Similarly, God has given us specific, mathematically coded words, the words of Sura 1, to establish contact with Him (see Footnote 1:1 and Appendix 15)."
             ],
             "cumulativefrequencyofthewordGOD": "18",
             "cumulativesumofverseswhereGODwordoccurs": "234"
@@ -275,7 +203,7 @@
             "51": "Yet,  when  we  summoned  Moses  for forty  nights,  you  worshiped  the  calf in his absence, and turned wicked.*",
             "52": "Still,  we  pardoned  you  thereafter that you may be appreciative.",
             "53": "Recall  that  we  gave  Moses  scripture and  the  statute  book,  that  you  may be guided.",
-            "54": "Recall  that  Moses  said  to  his  people,  “O  my  people,  you  have  wronged  your  souls  by  worshiping  the  calf. the Redeemer, Most Merciful.",
+            "54": "Recall  that  Moses  said  to  his  people,  “O  my  people,  you  have  wronged  your  souls  by  worshiping  the  calf. You  must  repent  to  your  Creator. You shall kill your egos. This is better  for  you  in  the  sight  of  your Creator.”  He  did  redeem  you.  He  is the Redeemer, Most Merciful.",
             "55": "Recall  that  you  said,  “O  Moses,  we will not believe unless we see GOD, physically.”  Consequently,  the  lightning struck you, as you looked.",
             "56": "We  then  revived  you,  after  you  had died, that you may be appreciative.",
             "57": "We  shaded  you  with  clouds  (in Sinai),  and  sent  down  to  you  manna and  quails:  “Eat  from  the  good things  we  provided  for  you.”  They did  not  hurt  us  (by  rebelling);  they only hurt their own souls.",
@@ -284,22 +212,16 @@
             "60": "Recall  that  Moses  sought  water  for his  people.  We  said,  “Strike  the  rock with  your  staff.”  Whereupon,  twelve springs  gushed  out  therefrom.  The members  of  each  tribe  knew  their own  water.  Eat  and  drink  from GOD’s  provisions,  and  do  not  roam the earth corruptingly."
         },
         "titles": {
-            "54": "Kill Your Ego* ",
-            "55": "You  must  repent  to  your  Creator. You shall kill your egos. This is bet- ter  for  you  in  the  sight  of  your Creator.”  He  did  redeem  you.  He  is Physical Evidence* ",
-            "58": "Lack of Confidence in God: They Refuse to Enter Jerusalem ",
-            "60": "More Miracles "
+            "54": "Kill Your Ego*",
+            "55": "Physical Evidence*",
+            "58": "Lack of Confidence in God:\nThey Refuse to Enter Jerusalem",
+            "60": "More Miracles"
         },
         "notes": {
             "data": [
-                "*2:51  This  incident  reflects  the  humans’  idolatrous  tendency.  Despite  the  profound",
-                "miracles, Moses’ followers worshiped the calf in his absence, and Moses ended up with",
-                "only  two  believers  (5:23).  As  pointed  out  in  the  Introduction,  the  humans  are  rebels",
-                "whose egos are their gods.",
-                "*2:54 It is the ego that led to Satan’s fall. It is the ego that caused our exile to this world,",
-                "and it is the ego that is keeping most of us from redemption to God’s Kingdom.",
-                "*2:55 It is noteworthy that the word “GOD” in this verse is the 19th occurrence, and this",
-                "is the verse where the people demanded “physical evidence.” The Quran’s mathematical",
-                "code,  based  on  the  number  19,  provides  such  physical  evidence.  Note  also  that",
+                "*2:51  This  incident  reflects  the  humans’  idolatrous  tendency.  Despite  the  profound miracles, Moses’ followers worshiped the calf in his absence, and Moses ended up with only  two  believers  (5:23).  As  pointed  out  in  the  Introduction,  the  humans  are  rebels whose egos are their gods.",
+                "*2:54 It is the ego that led to Satan’s fall. It is the ego that caused our exile to this world, and it is the ego that is keeping most of us from redemption to God’s Kingdom.",
+                "*2:55 It is noteworthy that the word “GOD” in this verse is the 19th occurrence, and this is the verse where the people demanded “physical evidence.” The Quran’s mathematical code,  based  on  the  number  19,  provides  such  physical  evidence.  Note  also  that",
                 "2 + 55 = 57=19x3."
             ],
             "cumulativefrequencyofthewordGOD": "20",
@@ -313,13 +235,13 @@
         ],
         "sura": [],
         "verses": {
-            "61": "Recall that you said, “O Moses, we can no longer tolerate one kind of food. Call upon your Lord to produce for us such earthly crops as beans,  cucumbers,  garlic,  lentils, and onions.” He said, “Do you wish to substitute that which is inferior for that which is good? Go down to Egypt, where you can find what you asked for.” They have incurred condemnation,  humiliation,  and  disgrace, and brought upon themselves wrath from GOD. This is because they rejected GOD’s revelations, and  killed  the  prophets  unjustly. transgressed.",
-            "62": "Surely,  those  who  believe,  those who are Jewish, the Christians, and the converts; anyone who (1) believes in GOD, and (2) believes in the Last Day, and (3) leads a righteous life, will receive their recompense from their Lord. they grieve.",
+            "61": "Recall that you said, “O Moses, we can no longer tolerate one kind of food. Call upon your Lord to produce for us such earthly crops as beans,  cucumbers,  garlic,  lentils, and onions.” He said, “Do you wish to substitute that which is inferior for that which is good? Go down to Egypt, where you can find what you asked for.” They have incurred condemnation,  humiliation,  and  disgrace, and brought upon themselves wrath from GOD. This is because they rejected GOD’s revelations, and  killed  the  prophets  unjustly. This is because they disobeyed and transgressed.",
+            "62": "Surely,  those  who  believe,  those who are Jewish, the Christians, and the converts; anyone who (1) believes in GOD, and (2) believes in the Last Day, and (3) leads a righteous life, will receive their recompense from their Lord. They have nothing to fear, nor will they grieve.",
             "63": "We made a covenant with you, as we raised Mount Sinai above you: “You shall uphold what we have given you strongly,  and  remember  its  contents, that you may be saved.”",
             "64": "But you turned away thereafter, and if it were not for GOD’s grace towards you and His mercy, you would have been doomed.",
-            "65": "You have known about those among you who desecrated the Sabbath.",
+            "65": "You have known about those among you who desecrated the Sabbath. We said to them, “Be you as despicable as apes.”",
             "66": "We set them up as an example for their generation, as well as subsequent  generations,  and  an  enlightenment for the righteous.",
-            "67": "Moses  said  to  his  people,  “GOD commands you to sacrifice a heifer.”",
+            "67": "Moses  said  to  his  people,  “GOD commands you to sacrifice a heifer.” They said, “Are you mocking us?” He said, “GOD forbid, that I should behave like the ignorant ones.”",
             "68": "They said, “Call upon your Lord to show us which one.” He said, “He says  that  she  is  a  heifer  that  is neither too old, nor too young; of an intermediate age. Now, carry out what you are commanded to do.”",
             "69": "They said, “Call upon your Lord to show us her color.” He said, “He says that she is a yellow heifer, bright colored, pleases the beholders.”",
             "70": "They said, “Call upon your Lord to show us which one. The heifers look alike to us and, GOD willing, we will be guided.”",
@@ -327,20 +249,13 @@
         },
         "titles": {
             "61": "Israel Rebels ",
-            "62": "This is because they disobeyed and Unity of All Submitters ",
-            "63": "They have nothing to fear, nor will Covenant with Israel ",
-            "66": "We said to them, “Be you as despi- cable as apes.” ",
-            "67": "The Heifer* ",
-            "68": "They said, “Are you mocking us?” He said, “GOD forbid, that I should behave like the ignorant ones.” "
+            "62": "Unity of\nAll Submitters ",
+            "63": "Covenant with Israel ",
+            "67": "The Heifer* "
         },
         "notes": {
             "data": [
-                "*2:67 Although this sura contains important laws and commandments, including the",
-                "contact prayers, fasting, Hajj pilgrimage, and the laws of marriage, divorce, etc., the",
-                "name given to the sura is “The Heifer.” This reflects the crucial importance of submis-",
-                "sion  to  God  and  immediate,  unwavering  obedience  to  our  Creator.  Such  submission",
-                "proves  our  belief  in  God’s  omnipotence  and  absolute  authority.  See  also  the  Bible’s",
-                "Book of Numbers, Chapter 19."
+                "*2:67 Although this sura contains important laws and commandments, including the contact prayers, fasting, Hajj pilgrimage, and the laws of marriage, divorce, etc., the name given to the sura is “The Heifer.” This reflects the crucial importance of submission  to  God  and  immediate,  unwavering  obedience  to  our  Creator.  Such  submission proves  our  belief  in  God’s  omnipotence  and  absolute  authority.  See  also  the  Bible’s Book of Numbers, Chapter 19."
             ],
             "cumulativefrequencyofthewordGOD": "27",
             "cumulativesumofverseswhereGODwordoccurs": "673"
@@ -369,15 +284,12 @@
         "titles": {
             "72": "Purpose of the Heifer ",
             "75": "Distorting the Word of God ",
-            "80": "Eternity of Heaven and Hell* ",
+            "80": "Eternity of\nHeaven and Hell* ",
             "83": "The Commandments "
         },
         "notes": {
             "data": [
-                "*2:80-82 It is an established belief among corrupted Muslims that they will suffer in Hell",
-                "only in proportion to the number of sins they had committed, then they will get out of",
-                "Hell and go to Heaven. They also believe that Muhammad will intercede on their behalf,",
-                "and will take them out of Hell. Such beliefs are contrary to the Quran (Appendix 8)."
+                "*2:80-82 It is an established belief among corrupted Muslims that they will suffer in Hell only in proportion to the number of sins they had committed, then they will get out of Hell and go to Heaven. They also believe that Muhammad will intercede on their behalf, and will take them out of Hell. Such beliefs are contrary to the Quran (Appendix 8)."
             ],
             "cumulativefrequencyofthewordGOD": "39",
             "cumulativesumofverseswhereGODwordoccurs": "1362"
@@ -386,34 +298,28 @@
     "31": {
         "page": [
             "The Heifer (Al-Baqarah) 2:84-92",
-            "9",
-            "47",
-            "1805"
+            "9"
         ],
         "sura": [],
         "verses": {
             "84": "We  made  a  covenant  with  you,  that you  shall  not  shed  your  blood,  nor shall  you  evict  each  other  from  your homes.  You  agreed  and  bore  witness.",
-            "85": "Yet,  here  you  are  killing  each  other, and  evicting  some  of  you  from  their homes,  banding  against  them  sinfully  and  maliciously.  Even  when  they surrendered,  you  demanded  ransom  from  them.  Evicting  them  was prohibited  for  you  in  the  first  place.",
-            "86": "It  is  they  who  bought  this  lowly  life at  the  expense  of  the  Hereafter. they be helped.",
-            "87": "We  gave  Moses  the  scripture,  and subsequent  to  him  we  sent  other messengers,  and  we  gave  Jesus,  son of  Mary,  profound  miracles  and supported  him  with  the  Holy  Spirit. killed.",
+            "85": "Yet,  here  you  are  killing  each  other, and  evicting  some  of  you  from  their homes,  banding  against  them  sinfully  and  maliciously.  Even  when  they surrendered,  you  demanded  ransom  from  them.  Evicting  them  was prohibited  for  you  in  the  first  place. Do  you  believe  in  part  of  the  scripture  and  disbelieve  in  part?  What should  be  the  retribution  for  those among  you  who  do  this,  except humiliation  in  this  life,  and  a  far worse  retribution  on  the  Day  of Resurrection?  GOD  is  never  unaware of anything you do.",
+            "86": "It  is  they  who  bought  this  lowly  life at  the  expense  of  the  Hereafter. Consequently,  the  retribution  is never  commuted  for  them,  nor  can they be helped.",
+            "87": "We  gave  Moses  the  scripture,  and subsequent  to  him  we  sent  other messengers,  and  we  gave  Jesus,  son of  Mary,  profound  miracles  and supported  him  with  the  Holy  Spirit. Is  it  not  a  fact  that  every  time  a messenger  went  to  you  with  anything  you  disliked,  your  ego  caused you  to  be  arrogant? Some  of  them you  rejected,  and  some  of  them  you killed.",
+            "88": "Some  would  say,  “Our  minds  are made up!” Instead, it is a curse from GOD, as a consequence of their disbelief,  that  keeps  them  from  believing, except for a few of them.",
             "89": "When  this  scripture  came  to  them from  GOD,  and  even  though  it agrees  with,  and  confirms  what  they have,  and  even  though  they  used  to prophesy  its  advent  when  they talked  with  the  disbelievers,  when their  own  prophecy  came  to  pass, they  disbelieved  therein.  GOD’s condemnation  thus  afflicts  the  disbelievers.",
-            "90": "Miserable  indeed  is  what  they  sold their  souls  for—rejecting  these revelations  of  GOD  out  of  sheer resentment  that  GOD  should  bestow  His  grace  upon  whomever  He chooses  from  among  His  servants. incurred a humiliating retribution.",
-            "91": "When  they  are  told,  “You  shall  believe  in  these  revelations  of  GOD,”",
-            "88": "Some  would  say,  “Our  minds  are made up!” Instead, it is a curse from",
+            "90": "Miserable  indeed  is  what  they  sold their  souls  for—rejecting  these revelations  of  GOD  out  of  sheer resentment  that  GOD  should  bestow  His  grace  upon  whomever  He chooses  from  among  His  servants. Consequently,  they  incurred  wrath upon  wrath.  The  disbelievers  have incurred a humiliating retribution.",
+            "91": "When  they  are  told,  “You  shall  believe  in  these  revelations  of  GOD,” they  say,  “We  believe  only  in  what was  sent  down  to  us.”  Thus,  they disbelieve  in  subsequent  revelations,  even  if  it  is  the  truth  from  their Lord,  and  even  though  it  confirms what  they  have!  Say,  “Why  then  did you  kill  GOD’s  prophets,  if  you  were believers?”",
             "92": "Moses  went  to  you  with  profound miracles,  yet  you  worshiped  the  calf in  his  absence,  and  you  turned  wicked."
         },
         "titles": {
-            "86": "Do  you  believe  in  part  of  the  scrip- ture  and  disbelieve  in  part?  What should  be  the  retribution  for  those among  you  who  do  this,  except humiliation  in  this  life,  and  a  far worse  retribution  on  the  Day  of Resurrection?  GOD  is  never  un- aware of anything you do. ",
-            "87": "Consequently,  the  retribution  is never  commuted  for  them,  nor  can The Prophets of Israel ",
-            "89": "Is  it  not  a  fact  that  every  time  a messenger  went  to  you  with  any- thing  you  disliked,  your  ego  caused you  to  be  arrogant?  Some  of  them you  rejected,  and  some  of  them  you GOD, as a consequence of their dis- belief,  that  keeps  them  from  believ- ing, except for a few of them. The Quran Consummates All Scriptures ",
-            "91": "Consequently,  they  incurred  wrath upon  wrath.  The  disbelievers  have ",
-            "88": "they  say,  “We  believe  only  in  what was  sent  down  to  us.”  Thus,  they disbelieve  in  subsequent  revela- tions,  even  if  it  is  the  truth  from  their Lord,  and  even  though  it  confirms what  they  have!  Say,  “Why  then  did you  kill  GOD’s  prophets,  if  you  were believers?” Learning From Israel’s History Tragic Statement: “My mind is made up!” "
+            "87": "The Prophets of Israel ",
+            "88": "Tragic Statement:\n“My mind is made up!”",
+            "89": "The Quran\nConsummates All Scriptures ",
+            "91": "Learning From\nIsrael’s History "
         },
         "notes": {
-            "data": [
-                "The Heifer (Al-Baqarah) 2:84-92",
-                "9"
-            ],
+            "data": [],
             "cumulativefrequencyofthewordGOD": "47",
             "cumulativesumofverseswhereGODwordoccurs": "1805"
         }
@@ -427,27 +333,24 @@
         "verses": {
             "93": "We made a covenant with you, as we raised  Mount  Sinai  above  you, saying, “You shall uphold the commandments  we  have  given  you, strongly, and listen.” They said, “We hear, but we disobey.” Their hearts became filled with adoration for the calf,  due  to  their  disbelief.  Say, “Miserable indeed is what your faith dictates upon you, if you do have any faith.”",
             "94": "Say, “If the abode of the Hereafter is reserved for you at GOD, to the exclusion of all other people, then you should long for death, if you are truthful.”",
-            "95": "They never long for it, because of what their hands have sent forth.",
+            "95": "They never long for it, because of what their hands have sent forth. GOD is fully aware of the wicked.",
             "96": "In fact, you will find them the most covetous of life; even more so than the idol worshipers. The one of them  wishes  to  live  a  thousand years. But this will not spare him any retribution, no matter how long he lives. GOD is seer of everything they do.",
             "97": "Say, “Anyone who opposes Gabriel should know that he has brought down this (Quran) into your heart, in accordance with GOD’s will, confirming  previous  scriptures,  and providing guidance and good news for the believers.”",
             "98": "Anyone  who  opposes  GOD,  and His angels, and His messengers, and Gabriel and Michael, should know that GOD opposes the disbelievers.",
             "99": "We  have  sent  down  to  you  such clear revelations, and only the wicked will reject them.",
             "100": "Is it not a fact that when they make a covenant and pledge to keep it, some of them always disregard it? In fact, most of them do not believe.",
             "101": "Now that a messenger from GOD has come to them,* and even though he proves and confirms their own scripture,  some  followers  of  the scripture  (Jews,  Christians,  and Muslims) disregard GOD’s scripture behind their backs, as if they never had any scripture.",
-            "102": "They pursued what the devils taught concerning Solomon’s kingdom. without pointing out: “This is a test. anyone against the will of GOD. only knew.",
+            "102": "They pursued what the devils taught concerning Solomon’s kingdom. Solomon, however, was not a disbeliever, but the devils were disbelievers. They  taught  the  people sorcery, and that which was sent down through the two angels of Babel, Haroot and Maroot. These two did not divulge such knowledge without pointing out: “This is a test. You shall not abuse such knowledge.” But the people used it in such evil schemes as the breaking up of marriages.  They  can  never  harm anyone against the will of GOD. They thus learn what hurts them, not what benefits them, and they know full well that whoever practices witchcraft will have no share in the  Hereafter.  Miserable  indeed is what they sell their souls for, if they only knew.",
             "103": "If they believe and lead a righteous life, the reward from GOD is far better, if they only knew."
         },
         "titles": {
-            "96": "GOD is fully aware of the wicked. ",
-            "97": "Gabriel Mediates the Revelation ",
+            "97": "Gabriel\nMediates\nthe Revelation ",
             "101": "Disregarding God’s Scripture ",
-            "102": "Witchcraft Condemned ",
-            "103": "Solomon, however, was not a dis- believer, but the devils were dis- believers.  They  taught  the  people sorcery, and that which was sent down through the two angels of Babel, Haroot and Maroot. These two did not divulge such knowledge You shall not abuse such knowl- edge.” But the people used it in such evil schemes as the breaking up of marriages.  They  can  never  harm They thus learn what hurts them, not what benefits them, and they know full well that whoever prac- tices witchcraft will have no share in the  Hereafter.  Miserable  indeed is what they sell their souls for, if they "
+            "102": "Witchcraft Condemned "
         },
         "notes": {
             "data": [
-                "*2:101 God’s Messenger of the Covenant is prophesied in the Old Testament (Malachi",
-                "3:1-3), the New Testament (Luke 17:22-37), and this Final Testament (3:81)."
+                "*2:101 God’s Messenger of the Covenant is prophesied in the Old Testament (Malachi 3:1-3), the New Testament (Luke 17:22-37), and this Final Testament (3:81)."
             ],
             "cumulativefrequencyofthewordGOD": "57",
             "cumulativesumofverseswhereGODwordoccurs": "2591"
@@ -460,12 +363,12 @@
         ],
         "sura": [],
         "verses": {
-            "104": "O  you  who  believe,  do  not  say, “Raa‘ena”*  (be  our  shepherd).  Instead,  you  should  say,  “Unzurna” retribution.",
+            "104": "O  you  who  believe,  do  not  say, “Raa‘ena”*  (be  our  shepherd).  Instead,  you  should  say,  “Unzurna” (watch  over  us),  and  listen.  The  disbelievers  have  incurred  a  painful retribution.",
             "105": "Neither  the  disbelievers  among  the followers  of  the  scripture,  nor  the idol  worshipers,  wish  to  see  any blessings  come  down  to  you  from your  Lord.  However,  GOD  showers His  blessings  upon  whomever  He chooses.  GOD  possesses  infinite grace.",
             "106": "When  we  abrogate  any  miracle,  or cause  it  to  be  forgotten,  we  produce a  better  miracle,  or  at  least  an  equal one.  Do  you  not  recognize  the  fact that GOD is Omnipotent?",
             "107": "Do  you  not  recognize  the  fact  that GOD  possesses  the  kingship  of  the heavens  and  the  earth;  that  you  have none  besides  GOD  as  your  Lord and Master?",
             "108": "Do you wish  to demand of  your  messenger  what  was  demanded  of Moses  in  the  past?  Anyone  who chooses  disbelief,  instead  of  belief, has truly strayed off the right path.",
-            "109": "Many  followers  of  the  scripture would rather see you revert to dis-",
+            "109": "Many  followers  of  the  scripture would rather see you revert to disbelief,  now  that  you  have  believed. This  is  due  to  jealousy  on  their  part, after  the  truth  has  become  evident to  them.  You  shall  pardon  them, and  leave  them  alone,  until  GOD issues  His  judgment.  GOD  is  Omnipotent. ",
             "110": "You  shall  observe  the  Contact  Prayers  (Salat)  and  give  the  obligatory charity  (Zakat).  Any  good  you  send forth  on  behalf  of  your  souls,  you will find it at GOD. GOD is seer of everything you do.",
             "111": "Some  have  said,  “No  one  will  enter Paradise  except  Jews  or  Christians!”  Such  is  their  wishful  thinking. Say, “Show us your proof, if you are right.”",
             "112": "Indeed,  those  who  submit  themselves  absolutely  to  GOD  alone, while  leading  a  righteous  life,  will receive  their  recompense  from  their Lord;  they  have  nothing  to  fear,  nor will they grieve.*",
@@ -473,19 +376,15 @@
         },
         "titles": {
             "104": "Twisting the Words of Supplication ",
-            "105": "(watch  over  us),  and  listen.  The  dis- believers  have  incurred  a  painful Jealousy Condemned ",
-            "106": "The Ultimate Miracle: The Quran’s Mathematical Code* ",
-            "110": "belief,  now  that  you  have  believed. This  is  due  to  jealousy  on  their  part, after  the  truth  has  become  evident to  them.  You  shall  pardon  them, and  leave  them  alone,  until  GOD issues  His  judgment.  GOD  is  Om- nipotent. ",
-            "111": "All Believers Are Redeemed, Regardless of the Name of Their Religion ",
-            "112": "Submission: The Only Religion "
+            "105": "Jealousy Condemned ",
+            "106": "The Ultimate Miracle:\nThe Quran’s\nMathematical Code* ",
+            "111": "All Believers Are Redeemed,\nRegardless of the Name\nof Their Religion ",
+            "112": "Submission:\nThe Only Religion "
         },
         "notes": {
             "data": [
-                "*2:104 The word “Raa‘ena” was abused by some Hebrew-speaking people, and twisted",
-                "to sound like a dirty word (see also 4:46).",
-                "*2:106 The Quran’s mathematical miracle is perpetual & greater than previous miracles",
-                "(34:45,  74:35).  Like  the  Quran  itself,  it  confirms,  consummates,  and  supersedes  all",
-                "previous miracles.",
+                "*2:104 The word “Raa‘ena” was abused by some Hebrew-speaking people, and twisted to sound like a dirty word (see also 4:46).",
+                "*2:106 The Quran’s mathematical miracle is perpetual & greater than previous miracles (34:45,  74:35).  Like  the  Quran  itself,  it  confirms,  consummates,  and  supersedes  all previous miracles.",
                 "*2:111-112 See 2:62 and 5:69."
             ],
             "cumulativefrequencyofthewordGOD": "68",
@@ -503,30 +402,24 @@
             "115": "To  GOD  belongs  the  east  and  the west;  wherever  you  go  there  will  be the  presence  of  GOD.  GOD  is  Omnipresent, Omniscient.",
             "116": "They  said,  “GOD  has  begotten  a son!”  Be  He  glorified;  never!  To Him  belongs  everything  in  the heavens  and  the  earth;  all  are  subservient to Him.",
             "117": "The  Initiator  of  the  heavens  and  the earth:  to  have  anything  done,  He simply says to it, “Be,” and it is.",
-            "118": "Those  who  possess  no  knowledge say,  “If  only GOD  could  speak  to us, or  some  miracle  could  come  to  us!”",
+            "118": "Those  who  possess  no  knowledge say,  “If  only GOD  could  speak  to us, or  some  miracle  could  come  to  us!” Others  before  them  have  uttered similar  utterances;  their  minds  are similar.  We  do  manifest  the  miracles  for  those  who  have  attained  certainty.",
             "119": "We  have  sent  you*  with  the  truth  as a  bearer  of  good  news,  as  well  as  a warner.  You  are  not  answerable  for those who incur Hell.",
             "120": "Neither  the  Jews,  nor  the  Christians,  will  accept  you,  unless  you  follow  their  religion.  Say,  “GOD’s guidance  is  the  true  guidance.”  If you  acquiesce  to  their  wishes,  despite the knowledge you have received, you will find no ally or supporter to help you against GOD.",
             "121": "Those  who  received  the  scripture, and  know  it  as  it  should  be  known, will  believe  in  this.  As  for  those  who disbelieve, they are the losers.",
             "122": "O  Children  of  Israel,  remember  My favor  which  I  bestowed  upon  you, and  that  I  blessed  you  more  than  any other people.",
             "123": "Beware  of  the  day  when  no  soul  will help  another  soul,  no  ransom  will  be accepted,  no  intercession  will  be useful, and no one will be helped.",
-            "124": "Recall  that  Abraham  was  put  to  the test  by  his  Lord,  through  certain commands,  and  he  fulfilled  them.",
-            "125": "We  have  rendered  the  shrine  (the Ka‘aba)  a  focal  point  for  the  people, and  a  safe  sanctuary.  You  may  use Abraham’s  shrine  as  a  prayer  house.",
+            "124": "Recall  that  Abraham  was  put  to  the test  by  his  Lord,  through  certain commands,  and  he  fulfilled  them. (God)  said,  “I  am  appointing  you  an imam  for  the  people.”  He  said, “And  also  my  descendants?”  He said,  “My  covenant  does  not  include the transgressors.”",
+            "125": "We  have  rendered  the  shrine  (the Ka‘aba)  a  focal  point  for  the  people, and  a  safe  sanctuary.  You  may  use Abraham’s  shrine  as  a  prayer  house. We  commissioned  Abraham  and  Ismail:  “You  shall  purify  My  house  for those  who  visit,  those  who  live  there, and those who bow and prostrate.”",
             "126": "Abraham  prayed:  “My  Lord,  make this  a  peaceful  land,  and  provide  its people  with  fruits.  Provide  for  those who  believe  in  GOD  and  the  Last Day.”  (God)  said,  “I  will  also  provide  for  those  who  disbelieve.  I  will let  them  enjoy,  temporarily,  then commit  them  to  the  retribution  of Hell, and a miserable destiny.”"
         },
         "titles": {
             "114": "You Shall Frequent the Masjid ",
             "116": "Gross Blasphemy ",
-            "119": "Others  before  them  have  uttered similar  utterances;  their  minds  are similar.  We  do  manifest  the  mira- cles  for  those  who  have  attained  cer- tainty. ",
-            "124": "Abraham ",
-            "125": "(God)  said,  “I  am  appointing  you  an imam  for  the  people.”  He  said, “And  also  my  descendants?”  He said,  “My  covenant  does  not  include the transgressors.” ",
-            "126": "We  commissioned  Abraham  and  Is- mail:  “You  shall  purify  My  house  for those  who  visit,  those  who  live  there, and those who bow and prostrate.” "
+            "124": "Abraham "
         },
         "notes": {
             "data": [
-                "*2:119 It is my obligation to point out that the identity of this messenger is confirmed",
-                "to be “Rashad Khalifa,” God’s Messenger of the Covenant. By adding the gematrical",
-                "value of “Rashad” (505), plus the gematrical value of “Khalifa” (725), plus the verse",
-                "number (119), we get 1349, a multiple of 19. See 3:81 and Appendix Two."
+                "*2:119 It is my obligation to point out that the identity of this messenger is confirmed to be “Rashad Khalifa,” God’s Messenger of the Covenant. By adding the gematrical value of “Rashad” (505), plus the gematrical value of “Khalifa” (725), plus the verse number (119), we get 1349, a multiple of 19. See 3:81 and Appendix Two."
             ],
             "cumulativefrequencyofthewordGOD": "77",
             "cumulativesumofverseswhereGODwordoccurs": "4062"
@@ -541,32 +434,26 @@
         "verses": {
             "127": "As Abraham raised the foundations of the shrine, together with Ismail (they  prayed):  “Our  Lord,  accept this from us. You are the Hearer, the Omniscient.",
             "128": "“Our Lord, make us submitters to You, and from our descendants let there be a community of submitters to You. Teach us the rites of our religion, and redeem us. You are the Redeemer, Most Merciful.",
-            "129": "“Our Lord, and raise among them a messenger to recite to them Your revelations, teach them the scripture and wisdom, and purify them.",
+            "129": "“Our Lord, and raise among them a messenger to recite to them Your revelations, teach them the scripture and wisdom, and purify them. You are the Almighty, Most Wise.”",
             "130": "Who would forsake the religion of Abraham, except one who fools his own soul? We have chosen him in this world, and in the Hereafter he will be with the righteous.",
             "131": "When his Lord said to him, “Submit,” he said, “I submit to the Lord of the universe.”",
             "132": "Moreover,  Abraham  exhorted  his children to do the same, and so did Jacob: “O my children, GOD has pointed out the religion for you; do not die except as submitters.”",
-            "133": "Had you witnessed Jacob on his death bed; he said to his children, “What will you worship after I die?”",
-            "134": "Such is a community from the past done.",
+            "133": "Had you witnessed Jacob on his death bed; he said to his children, “What will you worship after I die?” They said, “We will worship your god; the god of your fathers Abraham, Ismail, and Isaac; the one god. To Him we are submitters.”",
+            "134": "Such is a community from the past. They are responsible for what they earned, and you are responsible for what you earned. You are not answerable for anything they have done.",
             "135": "They said, “You have to be Jewish or Christian, to be guided.” Say, “We follow the religion of Abraham —monotheism—he  never  was  an idol worshiper.”",
             "136": "Say, “We believe in GOD, and in what was sent down to us, and in what was sent down to Abraham, Ismail, Isaac, Jacob, and the Patriarchs; and in what was given to Moses and Jesus, and all the prophets from their Lord. We make no distinction among any of them. To Him alone we are submitters.”",
             "137": "If they believe as you do, then they are guided. But if they turn away, then they are in opposition. GOD will spare you their opposition; He is the Hearer, the Omniscient.",
             "138": "Such is GOD’s system, and whose system is better than GOD’s? “Him alone we worship.”"
         },
         "titles": {
-            "127": "Abraham Delivered All the Practices of Submission (Islam) ",
-            "130": "You are the Almighty, Most Wise.” ",
-            "135": "They said, “We will worship your god; the god of your fathers Abra- ham, Ismail, and Isaac; the one god. To Him we are submitters.” They are responsible for what they earned, and you are responsible for what you earned. You are not an- swerable for anything they have Submission (Islam): Abraham’s Religion * ",
-            "136": "No Distinction Among God’s  Messengers "
+            "127": "Abraham Delivered All the\nPractices of Submission (Islam) ",
+            "135": "Submission (Islam): Abraham’s Religion * ",
+            "136": "No Distinction\nAmong\nGod’s Messengers "
         },
         "notes": {
             "data": [
-                "*2:135 The Quran repeatedly informs us that Submission is the religion of Abraham",
-                "(3:95, 4:125, 6:161, 22:78). Abraham received a practical “scripture,” namely, all the",
-                "duties and practices of Submission [the Contact Prayers (Salat), the obligatory charity",
-                "(Zakat), the fasting of Ramadan, and the Hajj pilgrimage]. Muhammad was a follower",
-                "of Abraham’s religion, as we see in 16:123; he delivered this Final Testament, the Quran.",
-                "The  third  messenger  of  Submission  delivered  the  religion’s  proof  of  authenticity  (see",
-                "3:81 and Appendices 1, 2, 24, & 26)."
+                "*2:135 The Quran repeatedly informs us that Submission is the religion of Abraham (3:95, 4:125, 6:161, 22:78). Abraham received a practical “scripture,” namely, all the duties and practices of Submission [the Contact Prayers (Salat), the obligatory charity (Zakat), the fasting of Ramadan, and the Hajj pilgrimage]. Muhammad was a follower of Abraham’s religion, as we see in 16:123; he delivered this Final Testament, the Quran.",
+                "The  third  messenger  of  Submission  delivered  the  religion’s  proof  of  authenticity  (see 3:81 and Appendices 1, 2, 24, & 26)."
             ],
             "cumulativefrequencyofthewordGOD": "82",
             "cumulativesumofverseswhereGODwordoccurs": "4605"
@@ -582,8 +469,8 @@
             "139": "Say, “Do you argue with us about GOD, when He is our Lord and your Lord? We are responsible for our deeds, and you are responsible for your deeds. To Him alone we are devoted.”",
             "140": "Do you say that Abraham, Ismail, Isaac,  Jacob,  and  the  Patriarchs were Jewish or Christian? Say, “Do you know better than GOD? Who is more evil than one who conceals a testimony  he  has  learned  from GOD? GOD is never unaware of anything you do.”",
             "141": "That  was  a  community  from  the past. They are responsible for what they earned, and you are responsible for what you earned. You are not answerable for anything they did.",
-            "142": "The fools among the people would say, “Why did they change the direction of their Qiblah?”* Say, “To GOD belongs the east and the west;",
-            "143": "We  thus  made  you  an  impartial community, that you may serve as witnesses among the people, and the messenger serves as a witness among you. We changed the direction of your original Qiblah only to distinguish those among you who readily follow the messenger from those who would turn back on their heels. It was a difficult test, but not for those who are guided by GOD.",
+            "142": "The fools among the people would say, “Why did they change the direction of their Qiblah?”* Say, “To GOD belongs the east and the west; He guides whoever wills in a straight path.”",
+            "143": "We  thus  made  you  an  impartial community, that you may serve as witnesses among the people, and the messenger serves as a witness among you. We changed the direction of your original Qiblah only to distinguish those among you who readily follow the messenger from those who would turn back on their heels. It was a difficult test, but not for those who are guided by GOD. GOD never puts your worship to waste. GOD is Compassionate towards the people, Most Merciful. ",
             "144": "We  have  seen  you  turning  your  face about  the  sky  (searching  for  the  right direction).  We  now  assign  a  Qiblah that  is  pleasing  to  you.  Henceforth, you  shall  turn  your  face  towards  the Sacred  Masjid.  Wherever  you  may be,  all  of  you  shall  turn  your  faces towards  it.  Those  who  received  the previous  scripture  know  that  this  is the  truth  from  their  Lord.  GOD  is never unaware of anything they do.",
             "145": "Even if you show the followers of the scripture every kind of miracle, they will not follow your Qiblah. Nor shall you follow their Qiblah. They do not even follow each others’ Qiblah. If you acquiesce to their wishes, after the knowledge that has come to you, you will belong with the transgressors.",
             "146": "Those who received the scripture recognize the truth herein, as they recognize their own children. Yet, some  of  them  conceal  the  truth, knowingly.",
@@ -592,17 +479,12 @@
         },
         "titles": {
             "142": "Abolition of Bigotry and Prejudice* ",
-            "143": "He guides whoever wills in a straight path.” ",
-            "144": "GOD never puts your worship to waste. GOD is Compassionate to- wards the people, Most Merciful. Qiblah Restored to Mecca ",
-            "146": "Abuse of the Scripture: Selective Emphasis and Concealment "
+            "144": "Qiblah Restored to Mecca ",
+            "146": "Abuse of the Scripture:\nSelective Emphasis\nand Concealment "
         },
         "notes": {
             "data": [
-                "*2:142-145 “Qiblah” is the direction one faces during the Contact Prayers (Salat). When",
-                "Gabriel  conveyed  to  Muhammad  the  command  to  face  Jerusalem  instead  of  Mecca,",
-                "the hypocrites were exposed. The Arabs were strongly prejudiced in favor of the Ka‘aba",
-                "as  their  “Qiblah.”  Only  the  true  believers  were  able  to  overcome  their  prejudices;  they",
-                "readily obeyed the messenger."
+                "*2:142-145 “Qiblah” is the direction one faces during the Contact Prayers (Salat). When Gabriel  conveyed  to  Muhammad  the  command  to  face  Jerusalem  instead  of  Mecca, the hypocrites were exposed. The Arabs were strongly prejudiced in favor of the Ka‘aba as  their  “Qiblah.”  Only  the  true  believers  were  able  to  overcome  their  prejudices;  they readily obeyed the messenger."
             ],
             "cumulativefrequencyofthewordGOD": "93",
             "cumulativesumofverseswhereGODwordoccurs": "5461"
@@ -624,7 +506,7 @@
             "155": "We  will  surely  test  you  through some  fear,  hunger,  and  loss  of  money, lives, and crops. Give good news to the steadfast.*",
             "156": "When  an  affliction  befalls  them, they  say,  “We  belong  to  GOD,  and to Him we are returning.”",
             "157": "These  have  deserved  blessings  from their  Lord  and  mercy.  These  are  the guided ones.",
-            "158": "The  knolls  of  Safa  and  Marwah  are among  the  rites  decreed  by  GOD.",
+            "158": "The  knolls  of  Safa  and  Marwah  are among  the  rites  decreed  by  GOD. Anyone  who  observes  Hajj  or  ‘Umrah  commits  no  error  by  traversing the  distance  between  them.  If  one volunteers  more  righteous  works, then  GOD  is  Appreciative,  Omniscient. ",
             "159": "Those  who  conceal  our  revelations and  guidance,  after  proclaiming them  for  the  people  in  the  scripture, are  condemned  by  GOD;  they  are condemned by all the condemners.",
             "160": "As  for  those  who  repent,  reform, and  proclaim,  I  redeem  them.  I  am the Redeemer, Most Merciful.",
             "161": "Those  who  disbelieve  and  die  as  disbelievers,  have  incurred  the  condemnation  of  GOD,  the  angels,  and all  the  people  (on  the  Day  of  Judgment)."
@@ -632,19 +514,14 @@
         "titles": {
             "149": "Qiblah Restored to Mecca ",
             "154": "Where Do We Go From Here? ",
-            "158": "Hajj Pilgrimage ",
-            "159": "Anyone  who  observes  Hajj  or  ‘Um- rah  commits  no  error  by  traversing the  distance  between  them.  If  one volunteers  more  righteous  works, then  GOD  is  Appreciative,  Omnis- cient. Gross Offense "
+            "158": "Hajj\nPilgrimage ",
+            "159": "Gross Offense "
         },
         "notes": {
             "data": [
-                "*2:149 A glaring proof of the idolatry committed by today’s “Muslims” is the designation",
-                "of Muhammad’s tomb as a “Sacred Masjid.” The Quran mentions only one “Sacred",
-                "Masjid.”",
-                "*2:154 The righteous do not really die; they simply leave their bodies here and go to the",
-                "same Paradise where Adam and Eve once lived. See Appendix 17 for the proof and the",
-                "details.",
-                "*2:155 The test is designed to prove that we worship God alone under all circumstances",
-                "(29:2)."
+                "*2:149 A glaring proof of the idolatry committed by today’s “Muslims” is the designation of Muhammad’s tomb as a “Sacred Masjid.” The Quran mentions only one “Sacred Masjid.”",
+                "*2:154 The righteous do not really die; they simply leave their bodies here and go to the same Paradise where Adam and Eve once lived. See Appendix 17 for the proof and the details.",
+                "*2:155 The test is designed to prove that we worship God alone under all circumstances (29:2)."
             ],
             "cumulativefrequencyofthewordGOD": "101",
             "cumulativesumofverseswhereGODwordoccurs": "6551"
@@ -674,16 +551,13 @@
             "164": "Overwhelming Signs of God ",
             "165": "The Idols Disown Their Idolizers* ",
             "168": "Satan Prohibits Lawful Things ",
-            "170": "Maintaining the Status Quo: A Human Tragedy ",
+            "170": "Maintaining the Status Quo:\nA Human Tragedy ",
             "172": "Only Four Meats Prohibited* "
         },
         "notes": {
             "data": [
-                "*2:165-166 Jesus, Mary, Muhammad, Ali, and the saints will disown their idolizers on",
-                "the Day of Resurrection. See also 16:86, 35:14, 46:6, and the Gospel of Matthew 7:21-23.",
-                "*2:172-173  Throughout  the  Quran,  only  four  meats  are  prohibited  (6:145,  16:115,",
-                "Appendix 16). Dietary prohibitions beyond these four are tantamount to idol worship",
-                "(6:121,148,150; 7:32)."
+                "*2:165-166 Jesus, Mary, Muhammad, Ali, and the saints will disown their idolizers on the Day of Resurrection. See also 16:86, 35:14, 46:6, and the Gospel of Matthew 7:21-23.",
+                "*2:172-173  Throughout  the  Quran,  only  four  meats  are  prohibited  (6:145,  16:115, Appendix 16). Dietary prohibitions beyond these four are tantamount to idol worship (6:121,148,150; 7:32)."
             ],
             "cumulativefrequencyofthewordGOD": "113",
             "cumulativesumofverseswhereGODwordoccurs": "7731"
@@ -696,10 +570,10 @@
         ],
         "sura": [],
         "verses": {
-            "174": "Those  who  conceal  GOD’s  revelations  in  the  scripture,  in  exchange for  a  cheap  material  gain,  eat  but fire  into  their  bellies.  GOD  will  not speak  to  them  on  the  Day  of  Resurrection,  nor  will  He  purify  them.",
+            "174": "Those  who  conceal  GOD’s  revelations  in  the  scripture,  in  exchange for  a  cheap  material  gain,  eat  but fire  into  their  bellies.  GOD  will  not speak  to  them  on  the  Day  of  Resurrection,  nor  will  He  purify  them. They  have  incurred  a  painful  retribution.",
             "175": "It  is  they  who  chose  the  straying instead  of  guidance,  and  the  retribution  instead  of  forgiveness.  Consequently,  they  will  have  to  endure Hell.",
             "176": "This  is  because  GOD  has  revealed this  scripture,  bearing  the  truth,  and those  who  dispute  the  scripture  are the most ardent opponents.",
-            "177": "Righteousness  is  not  turning  your faces  towards  the  east  or  the  west. are the righteous.",
+            "177": "Righteousness  is  not  turning  your faces  towards  the  east  or  the  west. Righteous  are  those  who  believe  in GOD,  the  Last  Day,  the  angels,  the scripture,  and  the  prophets;  and they  give  the  money,  cheerfully, to  the  relatives,  the  orphans,  the needy,  the  traveling  alien,  the  beggars,  and  to  free  the  slaves;  and  they observe  the  Contact  Prayers  (Salat) and  give  the  obligatory  charity (Zakat);  and  they  keep  their  word whenever  they  make  a  promise;  and they steadfastly persevere in the face  of  persecution,  hardship,  and war.  These  are  the  truthful;  these are the righteous.",
             "178": "O  you  who  believe,  equivalence  is the  law  decreed  for  you  when  dealing  with  murder—the  free  for  the free,  the  slave  for  the  slave,  the female  for  the  female.  If  one  is  pardoned  by  the  victim’s  kin,  an  appreciative  response  is  in  order,  and an  equitable  compensation  shall  be paid.  This  is  an  alleviation  from  your Lord  and  mercy.  Anyone  who  transgresses  beyond  this  incurs  a  painful retribution.",
             "179": "Equivalence  is  a  life  saving  law  for you,  O  you  who  possess  intelligence, that you may be righteous.",
             "180": "It  is  decreed  that  when  death  approaches,  you  shall  write  a  will  for the  benefit  of  the  parents  and  relatives,  equitably.  This  is  a  duty  upon the righteous.",
@@ -707,23 +581,15 @@
             "182": "If  one  sees  gross  injustice  or  bias  on the  part  of  a  testator,  and  takes  corrective  action  to  restore  justice  to the will, he commits no sin. GOD is Forgiver, Most Merciful."
         },
         "titles": {
-            "174": "Corrupted Religious Leaders Conceal the Quran’s Miracle* ",
-            "175": "They  have  incurred  a  painful  retri- bution. ",
+            "174": "Corrupted Religious Leaders\nConceal the Quran’s Miracle* ",
             "177": "Righteousness Defined ",
-            "178": "Righteous  are  those  who  believe  in GOD,  the  Last  Day,  the  angels,  the scripture,  and  the  prophets;  and they  give  the  money,  cheerfully, to  the  relatives,  the  orphans,  the needy,  the  traveling  alien,  the  beg- gars,  and  to  free  the  slaves;  and  they observe  the  Contact  Prayers  (Salat) and  give  the  obligatory  charity (Zakat);  and  they  keep  their  word whenever  they  make  a  promise;  and they steadfastly persevere in the face  of  persecution,  hardship,  and war.  These  are  the  truthful;  these Discouraging Capital Punishment* ",
+            "178": "Discouraging Capital Punishment* ",
             "180": "Write A Will "
         },
         "notes": {
             "data": [
-                "*2:174-176 Despite their recognition of God’s mathematical miracle in the Quran, the",
-                "corrupted religious leaders tried for many years to conceal this awesome miracle. Many",
-                "of them admitted that they resented the fact that Rashad Khalifa, not them, was blessed",
-                "with the miracle.",
-                "*2:178  The  Quran  clearly  discourages  capital  punishment.  Every  kind  of  excuse  is",
-                "provided to spare lives, including the life of the murderer. The victim’s kin may find it",
-                "better, under certain circumstances, to spare the life of the murderer in exchange for an",
-                "equitable compensation. Also capital punishment is not applicable if, for example, a",
-                "woman kills a man, or vice versa."
+                "*2:174-176 Despite their recognition of God’s mathematical miracle in the Quran, the corrupted religious leaders tried for many years to conceal this awesome miracle. Many of them admitted that they resented the fact that Rashad Khalifa, not them, was blessed with the miracle.",
+                "*2:178  The  Quran  clearly  discourages  capital  punishment.  Every  kind  of  excuse  is provided to spare lives, including the life of the murderer. The victim’s kin may find it better, under certain circumstances, to spare the life of the murderer in exchange for an equitable compensation. Also capital punishment is not applicable if, for example, a woman kills a man, or vice versa."
             ],
             "cumulativefrequencyofthewordGOD": "119",
             "cumulativesumofverseswhereGODwordoccurs": "8621"
@@ -738,27 +604,22 @@
         "verses": {
             "183": "O you who believe, fasting is decreed for you, as it was decreed for those before you, that you may attain salvation.",
             "184": "Specific days (are designated for fasting); if one is ill or traveling, an equal number of other  days  may  be substituted.  Those  who  can  fast,  but with  great  difficulty,  may  substitute feeding  one  poor  person  for  each day of breaking the fast. If one volunteers (more righteous works), it is better. But fasting is the best for you, if you only knew.",
-            "185": "Ramadan  is  the  month  during  which the  Quran  was  revealed,  providing guidance  for  the  people,  clear teachings,  and  the  statute  book.",
+            "185": "Ramadan  is  the  month  during  which the  Quran  was  revealed,  providing guidance  for  the  people,  clear teachings,  and  the  statute  book. Those  of  you  who  witness  this month shall fast therein. Those who are  ill  or  traveling  may  substitute  the same  number  of  other  days.  GOD wishes for you convenience, not hardship,  that  you  may  fulfill  your obligations, and to glorify GOD for guiding you, and to express your appreciation. ",
             "186": "When  My  servants  ask  you  about Me, I am always near. I answer their prayers  when they pray  to Me. The people shall respond to Me and believe in Me, in order to be guided.",
-            "187": "Permitted for you is sexual intercourse with your wives during the nights of fasting. They are the keepers of your secrets, and you are the keepers of their secrets. GOD knew that  you  used  to  betray  your  souls, and He has redeemed you, and has pardoned  you.  Henceforth,  you  may have  intercourse  with  them,  seeking what  GOD  has  permitted  for  you.",
+            "187": "Permitted for you is sexual intercourse with your wives during the nights of fasting. They are the keepers of your secrets, and you are the keepers of their secrets. GOD knew that  you  used  to  betray  your  souls, and He has redeemed you, and has pardoned  you.  Henceforth,  you  may have  intercourse  with  them,  seeking what  GOD  has  permitted  for  you. You  may  eat  and  drink  until  the white  thread  of  light  becomes  distinguishable  from  the  dark  thread  of night  at  dawn.  Then,  you  shall  fast until  sunset.  Sexual  intercourse  is prohibited if you decide to retreat to the  masjid (during  the last ten days of Ramadan).  These  are  GOD’s  laws; you  shall  not  transgress  them.  GOD thus  clarifies  His  revelations  for  the people,  that  they  may  attain  salvation. ",
             "188": "You  shall  not  take  each  others’ money illicitly, nor shall you bribe the officials to deprive others of some of their rights illicitly, while you know.",
             "189": "They ask you about the phases of the moon! Say, “They provide a timing device  for  the  people,  and  determine  the time of Hajj.”  It  is not righteous  to  beat  around  the  bush;* righteousness  is  attained  by  upholding  the  commandments  and  by being  straightforward.  You  shall  observe GOD, that you may succeed."
         },
         "titles": {
             "183": "Fasting Emphasized and Modified* ",
-            "186": "Those  of  you  who  witness  this month shall fast therein. Those who are  ill  or  traveling  may  substitute  the same  number  of  other  days.  GOD wishes for you convenience, not hardship,  that  you  may  fulfill  your obligations, and to glorify GOD for guiding you, and to express your ap- preciation. God Answers the Prayers of “His Servants” ",
-            "188": "You  may  eat  and  drink  until  the white  thread  of  light  becomes  dis- tinguishable  from  the  dark  thread  of night  at  dawn.  Then,  you  shall  fast until  sunset.  Sexual  intercourse  is prohibited if you decide to retreat to the  masjid (during  the last ten days of Ramadan).  These  are  GOD’s  laws; you  shall  not  transgress  them.  GOD thus  clarifies  His  revelations  for  the people,  that  they  may  attain  salva- tion. Bribery, Corruption Condemned ",
+            "186": "God Answers the Prayers\nof “His Servants” ",
+            "188": "Bribery, Corruption Condemned ",
             "189": "Do Not Beat Around the Bush "
         },
         "notes": {
             "data": [
-                "*2:183-187  Like  all  duties  in  Submission,  fasting  was  decreed  through  Abraham  (22:78,",
-                "Appendices  9 &  15).  Prior to revelation of  the Quran, sexual intercourse was  prohibited",
-                "throughout  the  fasting  period.  This  rule  is  modified  in  2:187  to  allow  intercourse  during",
-                "the nights of Ramadan.",
-                "*2:189 The literal Quranic idiom says: “Do not enter the homes through the back doors.”",
-                "The  question  about  the  phases  of  the  moon  is  an  example  of  beating  around  the  bush;",
-                "there were bad ulterior motives behind this question."
+                "*2:183-187  Like  all  duties  in  Submission,  fasting  was  decreed  through  Abraham  (22:78, Appendices  9 &  15).  Prior to revelation of  the Quran, sexual intercourse was  prohibited throughout  the  fasting  period.  This  rule  is  modified  in  2:187  to  allow  intercourse  during the nights of Ramadan.",
+                "*2:189 The literal Quranic idiom says: “Do not enter the homes through the back doors.” The  question  about  the  phases  of  the  moon  is  an  example  of  beating  around  the  bush; there were bad ulterior motives behind this question."
             ],
             "cumulativefrequencyofthewordGOD": "126",
             "cumulativesumofverseswhereGODwordoccurs": "9182"
@@ -776,24 +637,20 @@
             "192": "If  they  refrain,  then  GOD  is  Forgiver, Most Merciful.",
             "193": "You may also fight them to eliminate  oppression,  and  to  worship GOD freely. If they refrain, you shall not  aggress;  aggression  is permitted only against the aggressors.",
             "194": "During  the  Sacred  Months,  aggression may be met by an equivalent response.  If  they  attack  you, you may retaliate by  inflicting an equitable  retribution.  You  shall  observe GOD and know that GOD is with the righteous.",
-            "195": "You shall spend in the cause of GOD; do not throw yourselves with your  own  hands  into  destruction. the charitable.",
+            "195": "You shall spend in the cause of GOD; do not throw yourselves with your  own  hands  into  destruction. You shall be charitable; GOD loves the charitable.",
             "196": "You  shall  observe the  complete rites of Hajj and ‘Umrah for GOD. If you  are  prevented,  you  shall  send  an offering,  and  do  not  resume  cutting your  hair  until  your  offering  has reached  its  destination.  If  you  are  ill, or  suffering  a  head  injury  (and  you must cut your hair), you shall expiate by  fasting,  or  giving  to  charity,  or some  other  form  of  worship.  During the  normal  Hajj,  if  you  break  the state  of  Ihraam  (sanctity)  between ‘Umrah  and  Hajj,  you  shall  expiate by  offering  an  animal  sacrifice.  If you  cannot  afford  it,  you  shall  fast three  days  during  Hajj  and  seven when  you  return  home—this  completes ten—provided you do not live at  the  Sacred  Masjid.  You  shall  observe GOD, and know that GOD is strict in enforcing retribution.",
             "197": "Hajj shall be observed in the specified months.* Whoever sets out to observe Hajj shall refrain from sexual  intercourse,  misconduct,  and arguments  throughout  Hajj.  What ever good you do, GOD is fully aware  thereof.  As  you  prepare  your provisions  for  the  journey,  the  best provision  is  righteousness.  You shall observe Me, O you who possess intelligence."
         },
         "titles": {
             "190": "Rules of War* ",
-            "196": "You shall be charitable; GOD loves Hajj and ‘Umrah Pilgrimage* ",
+            "196": "Hajj and ‘Umrah Pilgrimage* ",
             "197": "The Four Months of Hajj (Zul-Hijjah, Muharram, Safar, & Rabi I) "
         },
         "notes": {
             "data": [
-                "*2:190 All fighting is regulated by the basic rule in 60:8-9. Fighting is allowed strictly in",
-                "self-defense,  while  aggression  and  oppression  are  strongly  condemned  throughout  the",
-                "Quran.",
+                "*2:190 All fighting is regulated by the basic rule in 60:8-9. Fighting is allowed strictly in self-defense,  while  aggression  and  oppression  are  strongly  condemned  throughout  the Quran.",
                 "*2:196 See the details of Hajj and ‘Umrah in Appendix 15.",
-                "*2:197 Hajj can be observed any time during the Sacred Months: Zul-Hijjah, Muhar-",
-                "ram,  Safar,  and  Rabi  I.  Local  governments  restrict  Hajj  to  a  few  days  for  their  own",
-                "convenience. See 9:37."
+                "*2:197 Hajj can be observed any time during the Sacred Months: Zul-Hijjah, Muharram,  Safar,  and  Rabi  I.  Local  governments  restrict  Hajj  to  a  few  days  for  their  own convenience. See 9:37."
             ],
             "cumulativefrequencyofthewordGOD": "138",
             "cumulativesumofverseswhereGODwordoccurs": "10539"
@@ -814,25 +671,22 @@
             "203": "You  shall  commemorate  GOD  for  a number  of  days  (in  Mena);  whoever hastens  to  do  this  in  two  days  commits  no  sin,  and  whoever  stays longer  commits  no  sin,  so  long  as righteousness  is  maintained.  You shall  observe  GOD,  and  know  that before Him you will be gathered.",
             "204": "Among  the  people,  one  may  impress you with his utterances concerning  this  life,  and  may  even  call upon  GOD  to  witness  his  innermost thoughts,  while  he  is  a  most  ardent opponent.",
             "205": "As  soon  as  he  leaves,  he  roams  the earth  corruptingly,  destroying  properties  and  lives.  GOD  does  not  love corruption.",
-            "206": "When  he  is  told,  “Observe  GOD,” Hell; what a miserable abode.",
+            "206": "When  he  is  told,  “Observe  GOD,” he  becomes  arrogantly  indignant. Consequently,  his  only  destiny  is Hell; what a miserable abode.",
             "207": "Then  there  are  those  who  dedicate their  lives  to  serving  GOD;  GOD  is compassionate  towards  such  worshipers.",
             "208": "O  you  who  believe,  you  shall  embrace  total  submission;  do  not  follow the steps of Satan, for he is your most ardent enemy.",
             "209": "If  you  backslide,  after  the  clear proofs  have  come  to  you,  then  know that GOD is Almighty, Most Wise.",
-            "210": "Are  they  waiting  until  GOD  Himself comes  to  them  in  dense  clouds, together  with  the  angels?  When  this happens,  the  whole  matter  will  be terminated,  and  to  GOD  everything will be returned.* Miracles Bring Greater Responsibility*",
+            "210": "Are  they  waiting  until  GOD  Himself comes  to  them  in  dense  clouds, together  with  the  angels?  When  this happens,  the  whole  matter  will  be terminated,  and  to  GOD  everything will be returned.* ",
             "211": "Ask  the  Children  of  Israel  how many  profound  miracles  have  we shown  them!  For  those  who  disregard  the  blessings  bestowed  upon them by GOD, GOD is most strict in retribution."
         },
         "titles": {
             "203": "Mena: Last Rites of Hajj ",
             "204": "Appearances May Be Deceiving ",
-            "207": "he  becomes  arrogantly  indignant. Consequently,  his  only  destiny  is "
+            "211": "Miracles Bring Greater Responsibility*"
         },
         "notes": {
             "data": [
-                "*2:210 This world is a test; it is our last chance to restore ourselves back into God’s",
-                "kingdom  by  denouncing  idol  worship  (see  the  INTRODUCTION).  If  God  and  His",
-                "angels show up, everyone will believe, and the test will no longer be valid.",
-                "*2:211  The  Quran’s  mathematical  miracle  is  a  great  blessing,  and  brings  with  it  an",
-                "awesome responsibility (please see 5:115)."
+                "*2:210 This world is a test; it is our last chance to restore ourselves back into God’s kingdom  by  denouncing  idol  worship  (see  the  INTRODUCTION).  If  God  and  His angels show up, everyone will believe, and the test will no longer be valid.",
+                "*2:211  The  Quran’s  mathematical  miracle  is  a  great  blessing,  and  brings  with  it  an awesome responsibility (please see 5:115)."
             ],
             "cumulativefrequencyofthewordGOD": "155",
             "cumulativesumofverseswhereGODwordoccurs": "12993"
@@ -844,21 +698,20 @@
         ],
         "sura": [],
         "verses": {
-            "212": "This worldly life is adorned in the eyes of the disbelievers, and they ridicule those who believe. However, the righteous will be far above them on the Day of Resurrection. without limits.",
+            "212": "This worldly life is adorned in the eyes of the disbelievers, and they ridicule those who believe. However, the righteous will be far above them on the Day of Resurrection. GOD blesses whomever He wills, without limits.",
             "213": "The people used to be one community when GOD sent the prophets as bearers of good news, as well as warners. He sent down with them the scripture, bearing the truth, to judge among the people in their disputes. Ironically, those who received the scripture were the ones who rejected any new scripture, despite clear proofs given to them. This is due to jealousy on their part. GOD guides those who believe to the truth that is disputed by all others, in accordance with His will. GOD guides whoever wills in a straight path.*",
             "214": "Do  you  expect  to  enter  Paradise without  being  tested  like  those before you? They were tested with hardship and adversity, and were shaken up, until the messenger and those who believed with him said, “Where is GOD’s victory?” GOD’s victory is near.",
             "215": "They ask you about giving: say, “The charity you give shall go to the parents, the relatives, the orphans, the poor, and the traveling alien.” Any good  you  do,  GOD  is  fully  aware thereof.",
             "216": "Fighting may be imposed on you, even though you dislike it. But you may dislike something which is good for you, and you may like something which is bad for you. GOD knows while you do not know.",
-            "217": "They  ask  you  about  the  Sacred Months  and  fighting  therein:  say, “Fighting  therein  is  a  sacrilege. you from your religion, if they can. they abide forever.",
+            "217": "They  ask  you  about  the  Sacred Months  and  fighting  therein:  say, “Fighting  therein  is  a  sacrilege. you from your religion, if they can. However, repelling from the path of GOD and disbelieving in Him and in the sanctity of the Sacred Masjid, and evicting its people, are greater sacrileges in the sight of GOD. Oppression  is  worse  than  murder.” They will always fight you to revert Those among you who revert from their  religion,  and  die  as  disbelievers, have nullified their works in this life and the Hereafter. These are the dwellers of Hell, wherein they abide forever.",
             "218": "Those who believe, and those who emigrate and strive in the cause of GOD, have deserved GOD’s mercy."
         },
         "titles": {
             "212": "Shortsightedness ",
-            "213": "GOD blesses whomever He wills, Disastrous Jealousy ",
+            "213": "Disastrous Jealousy ",
             "215": "Recipients of Charity ",
-            "216": "Believers: The Ultimate Victors ",
-            "217": "Oppression Condemned ",
-            "218": "However, repelling from the path of GOD and disbelieving in Him and in the sanctity of the Sacred Masjid, and evicting its people, are greater sacrileges in the sight of GOD. Op- pression  is  worse  than  murder.” They will always fight you to revert Those among you who revert from their  religion,  and  die  as  disbe- lievers, have nullified their works in this life and the Hereafter. These are the dwellers of Hell, wherein "
+            "216": "Believers:\nThe Ultimate Victors ",
+            "217": "Oppression Condemned "
         },
         "notes": {
             "data": [
@@ -876,9 +729,9 @@
         "sura": [],
         "verses": {
             "219": "They  ask  you  about  intoxicants  and gambling:  say,  “In  them  there  is  a gross  sin,  and  some  benefits  for  the people.  But  their  sinfulness  far  outweighs  their  benefit.”  They  also  ask you  what  to  give  to  charity:  say,  “The excess.”  GOD  thus  clarifies  the revelations  for  you,  that  you  may reflect,",
-            "220": "upon  this  life  and  the  Hereafter",
+            "220": "upon  this  life  and  the  Hereafter. And  they  ask  you  about  the  orphans: say,  “Bringing  them  up  as  righteous persons  is  the  best  you  can  do  for them.  If  you  mix  their  property  with yours,  you  shall  treat  them  as  family members.”  GOD  knows  the  righteous  and  the  wicked.  Had  GOD willed,    He    could    have  imposed harsher  rules  upon  you.  GOD  is  Almighty, Most Wise.",
             "221": "Do  not  marry  idolatresses  unless they  believe;  a  believing  woman  is better  than  an  idolatress,  even  if  you like  her.  Nor  shall  you  give  your daughters  in  marriage  to  idolatrous men,  unless  they  believe.  A  believing  man  is  better  than  an  idolater, even if you like him. These invite to Hell,  while  GOD  invites  to  Paradise and  forgiveness,  as  He  wills.  He clarifies  His  revelations  for  the people, that they may take heed.",
-            "222": "They  ask  you  about  menstruation: say, “It is harmful; you shall avoid sexual  intercourse  with  the  women during  menstruation;  do  not  approach  them  until  they  are  rid  of  it.",
+            "222": "They  ask  you  about  menstruation: say, “It is harmful; you shall avoid sexual  intercourse  with  the  women during  menstruation;  do  not  approach  them  until  they  are  rid  of  it. Once they are rid of it, you may have intercourse  with  them  in  the  manner designed  by  GOD.  GOD  loves  the repenters,  and  He  loves  those  who are clean.” ",
             "223": "Your  women  are  the  bearers  of  your seed.  Thus,  you  may  enjoy  this  privilege however you like, so long as you  maintain  righteousness.  You shall  observe  GOD,  and  know  that you will meet Him. Give good news to the believers.",
             "224": "Do  not  subject  GOD’s  name  to  your casual  swearing,  that  you  may  appear  righteous,  pious,  or  to  attain credibility  among  the  people.  GOD is Hearer, Knower.",
             "225": "GOD  does  not  hold  you  responsible for  the  mere  utterance  of  oaths;  He holds  you  responsible  for  your  innermost  intentions.  GOD  is  Forgiver, Clement.",
@@ -886,20 +739,15 @@
             "227": "If  they  go  through  with  the  divorce, then GOD is Hearer, Knower."
         },
         "titles": {
-            "219": "Intoxicants  and  Gambling Prohibited* ",
-            "221": "And  they  ask  you  about  the  orphans: say,  “Bringing  them  up  as  righteous persons  is  the  best  you  can  do  for them.  If  you  mix  their  property  with yours,  you  shall  treat  them  as  family members.”  GOD  knows  the  right- eous  and  the  wicked.  Had  GOD willed,    He    could    have  imposed harsher  rules  upon  you.  GOD  is  Al- mighty, Most Wise. Do Not Marry Idol Worshipers ",
+            "219": "Intoxicants  and  Gambling\nProhibited* ",
+            "221": "Do Not Marry Idol Worshipers ",
             "222": "Menstruation ",
-            "223": "Once they are rid of it, you may have intercourse  with  them  in  the  manner designed  by  GOD.  GOD  loves  the repenters,  and  He  loves  those  who are clean.” ",
-            "224": "Do Not Take God’s Name in Vain ",
+            "224": "Do Not Take\nGod’s Name in Vain ",
             "226": "Laws of Divorce "
         },
         "notes": {
             "data": [
-                "*2:219  The  world  now  recognizes  that  the  economic  benefits  from  manufacturing",
-                "alcoholic beverages and illicit drugs are not worth the traffic fatalities, brain damage to",
-                "children of alcoholic mothers, family crises, and other disastrous consequences. Check",
-                "with  “Alcoholics  Anonymous”  and  “Gamblers  Anonymous”  for  more  information.  See",
-                "also 5:90-91."
+                "*2:219  The  world  now  recognizes  that  the  economic  benefits  from  manufacturing alcoholic beverages and illicit drugs are not worth the traffic fatalities, brain damage to children of alcoholic mothers, family crises, and other disastrous consequences. Check with  “Alcoholics  Anonymous”  and  “Gamblers  Anonymous”  for  more  information.  See also 5:90-91."
             ],
             "cumulativefrequencyofthewordGOD": "182",
             "cumulativesumofverseswhereGODwordoccurs": "16505"
@@ -908,69 +756,54 @@
     "45": {
         "page": [
             "The Heifer (Al-Baqarah) 2:228-234",
-            "23",
-            "200",
-            "18122"
+            "23"
         ],
         "sura": [],
         "verses": {
-            "228": "The  divorced  women  shall  wait three  menstruations  (before  marrying another man). It is not lawful for them to conceal what GOD creates in their wombs, if they believe in GOD and the Last Day. (In case of pregnancy), the husband’s wishes shall supersede the wife’s wishes, if he wants to remarry her. The women have rights, as well as obligations, equitably. Thus, the man’s wishes prevail (in case of pregnancy). GOD is Almighty, Most Wise. back  anything  he had  given her. unjust.",
+            "228": "The  divorced  women  shall  wait three  menstruations  (before  marrying another man). It is not lawful for them to conceal what GOD creates in their wombs, if they believe in GOD and the Last Day. (In case of pregnancy), the husband’s wishes shall supersede the wife’s wishes, if he wants to remarry her. The women have rights, as well as obligations, equitably. Thus, the man’s wishes prevail (in case of pregnancy). GOD is Almighty, Most Wise. back  anything  he had  given her.",
+            "229": "Divorce  may  be  retracted  twice. The divorced woman shall be allowed  to  live  in  the  same  home amicably, or leave it amicably. It is not lawful for the husband to take However, the couple may fear that they may transgress GOD’s law. If there is fear that they may transgress GOD’s law, they commit no error if the wife willingly gives back whatever she chooses. These are GOD’s laws; do not transgress them. Those who transgress GOD’s laws are the unjust.",
             "230": "If he divorces her (for the third time), it is unlawful for him to remarry her, unless  she  marries  another  man, then he divorces her. The first husband can then remarry her, so long as they observe GOD’s laws. These are GOD’s laws; He explains them for people who know.",
-            "231": "If you divorce the women, once they fulfill their interim (three menstruations), you shall allow them to live in the same home amicably, or let them leave amicably. Do not force them to stay against their will, as a rethat GOD is aware of all things.",
-            "232": "If you divorce the women, once they fulfill their interim, do not prevent them  from  remarrying  their  husbands, if they reconcile amicably. while you do not know.",
+            "231": "If you divorce the women, once they fulfill their interim (three menstruations), you shall allow them to live in the same home amicably, or let them leave amicably. Do not force them to stay against their will, as a revenge.  Anyone  who  does  this wrongs  his  own  soul.  Do  not  take GOD’s revelations in vain. Remember GOD’s blessings upon you, and that He sent down to you the scripture and wisdom to enlighten you. You shall observe GOD, and know that GOD is aware of all things.",
+            "232": "If you divorce the women, once they fulfill their interim, do not prevent them  from  remarrying  their  husbands, if they reconcile amicably. This  shall  be  heeded  by  those among you who believe in GOD and the Last Day. This is purer for you, and more righteous. GOD knows, while you do not know.",
             "233": "Divorced  mothers  shall nurse their infants two full years, if the father so wishes. The father shall provide the mother’s food and clothing equitably. No one shall be burdened beyond his  ability.  No  mother  shall  beharmed on account of her infant, nor shall the father be harmed because of his infant. (If the father dies),  his  inheritor  shall  assume these responsibilities. If the infant’s parents mutually agree to part, after due consultation, they commit  no error by doing so. You commit no error by hiring nursing mothers, so long as you pay them equitably. You shall observe GOD, and know that GOD is Seer of everything you do.",
             "234": "Those who die and leave wives, their widows shall wait four months and ten days (before they remarry). Once they fulfill their interim, you commit no error by letting them do whatever righteous matters they wish to do."
         },
         "titles": {
-            "230": "229. Divorce  may  be  retracted  twice. The divorced woman shall be al- lowed  to  live  in  the  same  home amicably, or leave it amicably. It is not lawful for the husband to take However, the couple may fear that they may transgress GOD’s law. If there is fear that they may transgress GOD’s law, they commit no error if the wife willingly gives back what- ever she chooses. These are GOD’s laws; do not transgress them. Those who transgress GOD’s laws are the ",
-            "231": "Do Not Throw The Divorcees Out Onto the Streets ",
-            "232": "venge.  Anyone  who  does  this wrongs  his  own  soul.  Do  not  take GOD’s revelations in vain. Remem- ber GOD’s blessings upon you, and that He sent down to you the scrip- ture and wisdom to enlighten you. You shall observe GOD, and know ",
-            "233": "This  shall  be  heeded  by  those among you who believe in GOD and the Last Day. This is purer for you, and more righteous. GOD knows, ",
-            "234": "You Shall Observe The Pre-Marriage Interims "
+            "231": "Do Not Throw\nThe Divorcees\nOut Onto the Streets ",
+            "234": "You Shall Observe\nThe Pre-Marriage Interims "
         },
         "notes": {
-            "data": [
-                "The Heifer (Al-Baqarah) 2:228-234",
-                "23"
-            ],
+            "data": [],
             "cumulativefrequencyofthewordGOD": "200",
             "cumulativesumofverseswhereGODwordoccurs": "18122"
         }
     },
     "46": {
         "page": [
-            "24                                                                  The Heifer (Al-Baqarah) 2:235-243"
+            "24",
+            "The Heifer (Al-Baqarah) 2:235-243"
         ],
         "sura": [],
         "verses": {
-            "235": "You commit no sin by announcing your engagement to the women, or keeping it secret. GOD knows that you will think about them. Do not meet them secretly, unless you have something righteous to discuss. Do not consummate the marriage until their interim is fulfilled. You should know that GOD knows your innermost  thoughts,  and observe  Him.",
-            "236": "You commit no error by divorcing the women before touching them, or before setting the dowry for them. upon the righteous.",
-            "237": "If you divorce them before touching them,  but after  you had set the dowry for them, the compensation shall be half the dowry, unless they voluntarily forfeit their rights, or the party  responsible  for  causing  the divorce chooses to forfeit the dowry. everything you do.",
+            "235": "You commit no sin by announcing your engagement to the women, or keeping it secret. GOD knows that you will think about them. Do not meet them secretly, unless you have something righteous to discuss. Do not consummate the marriage until their interim is fulfilled. You should know that GOD knows your innermost  thoughts,  and observe  Him. You should know that GOD is Forgiver, Clement.",
+            "236": "You commit no error by divorcing the women before touching them, or before setting the dowry for them. In this case, you shall compensate them—the rich as he can afford and the poor as he can afford—an  equitable compensation. This is a duty upon the righteous.",
+            "237": "If you divorce them before touching them,  but after  you had set the dowry for them, the compensation shall be half the dowry, unless they voluntarily forfeit their rights, or the party  responsible  for  causing  the divorce chooses to forfeit the dowry. To forfeit is closer to righteousness. You  shall  maintain  the  amicable relations among you. GOD is Seer of everything you do.",
             "238": "You shall consistently observe the Contact Prayers, especially the middle prayer, and devote yourselves totally to GOD.",
-            "239": "Under  unusual  circumstances,  you may pray while walking or riding. what you never knew.",
+            "239": "Under  unusual  circumstances,  you may pray while walking or riding. Once you are safe, you shall commemorate GOD as He taught you what you never knew.",
             "240": "Those who die and leave wives, a will shall provide their wives with support for a year, provided they stay within the same household. If they leave, you commit no sin by letting them do whatever they wish, so long as righteousness is maintained.  GOD  is  Almighty,  Most Wise.",
             "241": "The  divorcees  also  shall  be  provided for, equitably. This is a duty upon the righteous.",
             "242": "GOD thus explains His revelations for you, that you may understand.",
             "243": "Have you noted those who fled their homes—though  they  were  in  the thousands—fearing  death?  GOD said to them, “Die,” then revived them. GOD showers His grace upon the people, but most people are unappreciative."
         },
         "titles": {
-            "236": "You should know that GOD is For- giver, Clement. Breaking the Engagement ",
-            "237": "In this case, you shall compensate them—the  rich  as  he  can afford  and the  poor  as  he  can  afford—an  equi- table compensation. This is a duty ",
-            "238": "To forfeit is closer to righteousness. You  shall  maintain  the  amicable relations among you. GOD is Seer of You Shall Observe the Contact Prayers* ",
-            "240": "Once you are safe, you shall com- memorate GOD as He taught you Alimony For Widows and Divorcees ",
+            "236": "Breaking the Engagement ",
+            "238": "You Shall Observe the Contact Prayers* ",
+            "240": "Alimony For Widows and Divorcees ",
             "243": "Striving in the Cause of God "
         },
         "notes": {
             "data": [
-                "*2:238 All five prayers are found in 2:238, 11:114, 17:78, & 24:58. When the Quran was",
-                "revealed,  the  Contact  Prayers  (Salat)  had  already  been  in  existence  (Appendix  9).  The",
-                "details of all five prayers—what to recite and the number of units (Rak‘aas) per prayer,",
-                "etc.—are mathematically confirmed. For example, writing down the number of units for",
-                "each of the five prayers, next to each other, we get 24434, 19x1286. Also, if we use [*] to",
-                "represent Sura 1 (Al-Fãtehah), where [*] = the sura number (1), followed by the number",
-                "of verses (7), followed by the number of each verse, the number of letters in each verse,",
-                "and the gematrical value of every letter, writing down 2 [*] [*] 4 [*] [*] [*] [*] 4 [*]",
-                "[*] [*] [*] 3 [*] [*] [*] 4 [*] [*] [*] [*] produces a multiple of 19 (see 1:1)."
+                "*2:238 All five prayers are found in 2:238, 11:114, 17:78, & 24:58. When the Quran was revealed,  the  Contact  Prayers  (Salat)  had  already  been  in  existence  (Appendix  9).  The details of all five prayers—what to recite and the number of units (Rak‘aas) per prayer, etc.—are mathematically confirmed. For example, writing down the number of units for each of the five prayers, next to each other, we get 24434, 19x1286. Also, if we use [*] to represent Sura 1 (Al-Fãtehah), where [*] = the sura number (1), followed by the number of verses (7), followed by the number of each verse, the number of letters in each verse, and the gematrical value of every letter, writing down 2 [*] [*] 4 [*] [*] [*] [*] 4 [*] [*] [*] [*] 3 [*] [*] [*] 4 [*] [*] [*] [*] produces a multiple of 19 (see 1:1)."
             ],
             "cumulativefrequencyofthewordGOD": "210",
             "cumulativesumofverseswhereGODwordoccurs": "19796"
@@ -985,19 +818,18 @@
         "verses": {
             "244": "You shall fight in the cause of GOD, and  know  that  GOD  is  Hearer, Knower.",
             "245": "Who would lend GOD a loan of righteousness, to have it repaid to them multiplied manifold? GOD is the One who provides and withholds, and to Him you will be returned.",
-            "246": "Have you noted the leaders of Israel after Moses? They said to their prophet, “If you appoint a king to lead us, we will fight in the cause of GOD.” He said, “Is it your intention that, if fighting is decreed for you, you will not fight?” They said, “Why should we not fight in the cause of GOD, when we have been deprived of our homes, and our children?”",
+            "246": "Have you noted the leaders of Israel after Moses? They said to their prophet, “If you appoint a king to lead us, we will fight in the cause of GOD.” He said, “Is it your intention that, if fighting is decreed for you, you will not fight?” They said, “Why should we not fight in the cause of GOD, when we have been deprived of our homes, and our children?” Yet, when fighting was decreed for them, they turned away, except a few. GOD is aware of the transgressors.",
             "247": "Their prophet said to them, “GOD has appointed Taloot (Saul) to be your king.” They said, “How can he have kingship over us when we are more worthy of kingship than he; he is not even rich?” He said, “GOD has chosen him over you, and has blessed him with an abundance in knowledge  and  in  body.”  GOD grants His kingship to whomever He wills. GOD is Bounteous, Omniscient.",
             "248": "Their  prophet  said  to  them,  “The sign of his kingship is that the Ark of the  Covenant  will  be  restored  to you, bringing assurances from your Lord, and relics left by the people of Moses and the people of Aaron. It will be carried by the angels. This should be a convincing sign for you, if you are really believers.”",
-            "249": "When  Saul  took  command  of  the troops, he said, “GOD is putting you to the test by means of a stream.",
+            "249": "When  Saul  took  command  of  the troops, he said, “GOD is putting you to the test by means of a stream. Anyone who drinks from it does not belong with  me—only  those  who do not  taste  it  belong  with  me—unless it is just a single sip.” They drank from it, except a few of them. When he crossed it with those who believed, they said, “Now we lack the strength  to  face  Goliath  and  his troops.” Those who were conscious of  meeting  GOD  said,  “Many  a small army defeated a large army by GOD’s leave. GOD is with those who steadfastly persevere.”",
             "250": "When  they  faced  Goliath and  his troops,  they  prayed,  “Our  Lord, grant  us  steadfastness,  strengthen our foothold, and support us against the disbelieving people.”",
             "251": "They  defeated  them  by  GOD’s leave,  and  David  killed  Goliath. showers His grace upon the people."
         },
         "titles": {
             "246": "Saul* ",
-            "247": "Yet, when fighting was decreed for them, they turned away, except a few. GOD is aware of the transgres- sors. Questioning God’s Wisdom ",
+            "247": "Questioning\nGod’s Wisdom ",
             "248": "Ark of the Covenant ",
-            "249": "David and Goliath ",
-            "250": "Anyone who drinks from it does not belong with  me—only  those  who do not  taste  it  belong  with  me—unless it is just a single sip.” They drank from it, except a few of them. When he crossed it with those who be- lieved, they said, “Now we lack the strength  to  face  Goliath  and  his troops.” Those who were conscious of  meeting  GOD  said,  “Many  a small army defeated a large army by GOD’s leave. GOD is with those who steadfastly persevere.” "
+            "249": "David and Goliath "
         },
         "notes": {
             "data": [
@@ -1015,31 +847,24 @@
         "sura": [],
         "verses": {
             "252": "These are GOD’s revelations recite them through you,* truthfully, for you are one of the messengers.",
-            "253": "These messengers; we blessed some of them more than others. For example, GOD spoke to one, and we raised some of them to higher ranks. the clear proofs had come to them. will.",
+            "253": "These messengers; we blessed some of them more than others. For example, GOD spoke to one, and we raised some of them to higher ranks. the clear proofs had come to them. And we gave Jesus, son of Mary, profound  miracles and supported him with the Holy Spirit. Had GOD willed, their followers would not have fought with each other, after Instead, they disputed among themselves; some of them believed, and some disbelieved. Had GOD willed, they would not have fought. Everything is in accordance with GOD’s will.",
             "254": "O you who believe, you shall give to charity from the provisions we have given to you, before a day comes where there is no trade, no nepotism, and no intercession. The disbelievers are the unjust.",
             "255": "GOD: there is no other god besides Him, the Living, the Eternal. Never a moment of unawareness or slumber overtakes Him. To Him belongs everything in the heavens and everything on earth. Who could intercede with  Him,  except  in  accordance with His will? He knows their past, and their future. No one attains any knowledge, except as He wills. His dominion encompasses the heavens and the earth, and ruling them never burdens Him. He is the Most High, the Great.",
             "256": "There shall be no compulsion in religion: the right way is now distinct from the wrong way. Anyone who denounces the devil and believes in GOD  has  grasped  the  strongest bond; one that never breaks. GOD is Hearer, Omniscient.",
-            "257": "GOD is Lord of those who believe;",
+            "257": "GOD is Lord of those who believe; He leads them out of darkness into the light. As for those who disbelieve, their lords are their idols; they lead them out of the light into darkness—these  will  be  the  dwellers of Hell; they abide in it forever. ",
             "258": "Have you noted the one who argued with  Abraham  about  his  Lord, though GOD had given him kingship?  Abraham  said,  “My  Lord grants life and death.” He said, “I grant  life and death.”  Abraham said, “GOD brings the sun from the east, can you bring it  from the west?” The disbeliever was stumped. GOD does not guide the wicked."
         },
         "titles": {
             "253": "Many Messengers / One Message ",
-            "254": "And we gave Jesus, son of Mary, profound  miracles and supported him with the Holy Spirit. Had GOD willed, their followers would not have fought with each other, after Instead, they disputed among them- selves; some of them believed, and some disbelieved. Had GOD willed, they would not have fought. Every- thing is in accordance with GOD’s No Intercession * ",
+            "254": "No Intercession * ",
             "256": "No Compulsion in Religion ",
-            "258": "He leads them out of darkness into the light. As for those who dis- believe, their lords are their idols; they lead them out of the light into darkness—these  will  be  the  dwell- ers of Hell; they abide in it forever. Abraham’s Courageous Debate "
+            "258": "Abraham’s Courageous Debate "
         },
         "notes": {
             "data": [
-                "*2:252  In keeping  with  the mathematical  composition of  the  Quran, God has  willed",
-                "that  the name of the messenger  mentioned here shall be  spelled out  mathematically.",
-                "The discovery of the Quran’s miraculous 19-based code has been divinely reserved for",
-                "God’s Messenger of the Covenant. By adding this verse number (252), plus the gematri-",
-                "cal value of “Rashad” (505), plus the gematrical value of “Khalifa” (725) we get",
-                "252 + 505 + 725 = 1482, or 19x78. Please see Appendices 2 and 26 for the complete",
-                "details related to the proven identity of God’s Messenger of the Covenant, to whom this",
-                "verse clearly refers.",
-                "*2:254 One of Satan’s clever tricks is attributing the power of intercession to powerless",
-                "human idols such as Jesus and Muhammad (Appendix 8)."
+                "*2:252  In keeping  with  the mathematical  composition of  the  Quran, God has  willed that  the name of the messenger  mentioned here shall be  spelled out  mathematically. The discovery of the Quran’s miraculous 19-based code has been divinely reserved for God’s Messenger of the Covenant. By adding this verse number (252), plus the gematrical value of “Rashad” (505), plus the gematrical value of “Khalifa” (725) we get",
+                "252 + 505 + 725 = 1482, or 19x78. Please see Appendices 2 and 26 for the complete details related to the proven identity of God’s Messenger of the Covenant, to whom this verse clearly refers.",
+                "*2:254 One of Satan’s clever tricks is attributing the power of intercession to powerless human idols such as Jesus and Muhammad (Appendix 8)."
             ],
             "cumulativefrequencyofthewordGOD": "241",
             "cumulativesumofverseswhereGODwordoccurs": "22809"
@@ -1054,7 +879,7 @@
         "verses": {
             "259": "Consider the one who passed by a ghost town and wondered, “How can GOD revive this after it had died?” GOD then put him to death for a hundred years, then resurrected him. He said, “How long have you stayed here?” He said, “I have been here a day, or part of the day.” He said, “No! You have been here a hundred years. Yet, look at your food and drink; they did not spoil.  Look  at  your  donkey—we thus render you a lesson for the people. Now, note how we construct the bones, then cover them with flesh.” When he realized what had happened, he said, “Now I know that GOD is Omnipotent.”",
             "260": "Abraham said, “My Lord, show me how You revive the dead.” He said, “Do you not believe?” He said, “Yes, but I wish to reassure my heart.” He said, “Take four birds, study their marks, place a piece of each bird on top of a hill, then call them to you. They will come to you in a hurry. You should know that GOD is Almighty, Most Wise.”",
-            "261": "The example of those who spend their monies in the cause of GOD is that of a grain that produces seven spikes, with a hundred grains in each  spike.  GOD  multiplies  this manifold for whomever He wills.",
+            "261": "The example of those who spend their monies in the cause of GOD is that of a grain that produces seven spikes, with a hundred grains in each  spike.  GOD  multiplies  this manifold for whomever He wills. GOD is Bounteous, Knower. ",
             "262": "Those who spend their money in the cause of GOD, then do not follow their charity with insult or harm, will receive their recompense from their Lord; they have nothing to fear, nor will they grieve.",
             "263": "Kind  words  and  compassion  are better than a charity that is followed by insult. GOD is Rich, Clement.",
             "264": "O you who believe, do not nullify your charities by inflicting reproach and insult, like one who spends his money to show off, while disbelieving in GOD and the Last Day. His example is like a rock covered with a thin layer of soil; as soon as heavy rain falls, it washes off the soil, leaving it a useless rock. They gain nothing from their efforts. GOD does not guide disbelieving people.",
@@ -1065,14 +890,11 @@
             "259": "Lesson About Death * ",
             "260": "Every Believer Needs Assurance ",
             "261": "The Best Investment ",
-            "262": "GOD is Bounteous, Knower. ",
             "265": "Charity "
         },
         "notes": {
             "data": [
-                "*2:259 The lesson we learn here is that the period of death—only the unrighteous die;",
-                "the righteous go straight to Heaven—passes like one day (see 18:19-25 and Appendix",
-                "17)."
+                "*2:259 The lesson we learn here is that the period of death—only the unrighteous die; the righteous go straight to Heaven—passes like one day (see 18:19-25 and Appendix 17)."
             ],
             "cumulativefrequencyofthewordGOD": "255",
             "cumulativesumofverseswhereGODwordoccurs": "24909"
@@ -1085,33 +907,27 @@
         ],
         "sura": [],
         "verses": {
-            "267": "O you who believe, you shall give to charity from the good things you earn, and from what we have produced for you from the earth. Do not pick out the bad therein to give away, when you yourselves do not accept it unless your eyes are closed. Praiseworthy.",
+            "267": "O you who believe, you shall give to charity from the good things you earn, and from what we have produced for you from the earth. Do not pick out the bad therein to give away, when you yourselves do not accept it unless your eyes are closed. You should know that GOD is Rich, Praiseworthy.",
             "268": "The devil promises you poverty and commands you to commit evil, while GOD  promises  you  forgiveness from Him and grace. GOD is Bounteous, Omniscient.",
             "269": "He bestows wisdom upon whomever He chooses, and whoever attains wisdom, has attained a great bounty. Only those who possess intelligence will take heed.",
             "270": "Any charity you give, or a charitable pledge you fulfill, GOD is fully aware thereof. As for the wicked, they will have no helpers.",
             "271": "If you declare your charities, they are still good. But if you keep them anonymous, and give them to the poor, it is better for you, and remits more of your sins. GOD is fully Cognizant of everything you do.",
             "272": "You are not responsible for guiding anyone. GOD is the only one who guides whoever chooses (to be guided). Any charity you give is for your own good. Any charity you give shall be for the sake of GOD. Any charity you  give  will  be  repaid  to  you, without the least injustice.",
             "273": "Charity shall go to the poor who are suffering in the cause of GOD, and cannot emigrate. The unaware may think that they are rich, due to their dignity. But you can recognize them by certain signs; they never beg from the  people  persistently.  Whatever charity you give, GOD is fully aware thereof.",
-            "274": "Those who give to charity night and day, secretly and publicly, receive their recompense from their Lord; will they grieve.",
-            "275": "Those who charge usury are in the same position as those controlled by the devil’s influence. This is because they claim that usury is the same as commerce. However, GOD permits commerce,  and  prohibits  usury. wherein they abide forever.",
+            "274": "Those who give to charity night and day, secretly and publicly, receive their recompense from their Lord; they will have nothing to fear, nor will they grieve.",
+            "275": "Those who charge usury are in the same position as those controlled by the devil’s influence. This is because they claim that usury is the same as commerce. However, GOD permits commerce,  and  prohibits  usury. Thus,  whoever  heeds  this  commandment  from  his  Lord,  and refrains from usury, he may keep his past  earnings,  and  his  judgment rests with GOD. As for those who persist in usury, they incur Hell, wherein they abide forever.",
             "276": "GOD condemns usury, and blesses charities. GOD dislikes every disbeliever, guilty."
         },
         "titles": {
             "267": "What to Give ",
-            "268": "You should know that GOD is Rich, ",
             "269": "Wisdom: A Great Treasure ",
             "270": "Anonymous Charity Better ",
             "272": "God is the Only One Who Guides ",
-            "275": "they will have nothing to fear, nor Usury Prohibited* ",
-            "276": "Thus,  whoever  heeds  this  com- mandment  from  his  Lord,  and refrains from usury, he may keep his past  earnings,  and  his  judgment rests with GOD. As for those who persist in usury, they incur Hell, "
+            "275": "Usury Prohibited* "
         },
         "notes": {
             "data": [
-                "*2:275-278  It  is an established economic principle that excessive interest on  loans can",
-                "utterly  destroy  a  whole  country.  During  the  last  few  years  we  have  witnessed  the",
-                "devastation  of  the  economies  of  many  nations  where  excessive  interest  is  charged.",
-                "Normal interest—less than 20%—where no one is victimized and everyone is satisfied, is",
-                "not usury."
+                "*2:275-278  It  is an established economic principle that excessive interest on  loans can utterly  destroy  a  whole  country.  During  the  last  few  years  we  have  witnessed  the devastation  of  the  economies  of  many  nations  where  excessive  interest  is  charged. Normal interest—less than 20%—where no one is victimized and everyone is satisfied, is not usury."
             ],
             "cumulativefrequencyofthewordGOD": "268",
             "cumulativesumofverseswhereGODwordoccurs": "27081"
@@ -1124,27 +940,22 @@
         ],
         "sura": [],
         "verses": {
-            "277": "Those who believe and lead a righteous life, and observe the Contact Prayers (Salat), and give the obligatory  charity  (Zakat),  they  receive their recompense from their Lord; will they grieve.",
+            "277": "Those who believe and lead a righteous life, and observe the Contact Prayers (Salat), and give the obligatory  charity  (Zakat),  they  receive their recompense from their Lord; they will have nothing to fear, nor will they grieve.",
             "278": "O you who believe, you shall observe GOD and refrain from all kinds of usury, if you are believers.",
             "279": "If you do not, then expect a war from GOD and His messenger. But if you repent, you may keep your capitals, without inflicting injustice, or incurring injustice.",
             "280": "If the debtor is unable to pay, wait for a better time. If you give up the loan as a charity, it would be better for you, if you only knew.",
             "281": "Beware of the day when you are returned to GOD, and every soul is paid for everything it had done, without the least injustice.",
-            "282": "O you who believe, when you transact a loan for any period, you shall write it down. An impartial scribe shall do the writing. No scribe shall refuse to perform this service, according to GOD’s teachings. He shall write, while the debtor dictates the terms. He shall observe GOD his Lord and never cheat. If the debtor is mentally incapable, or helpless, or cannot dictate, his guardian shall dictate equitably. Two men shall serve as witnesses; if not two men, testify when called upon to do so. harmed on account of his services. you. GOD is Omniscient.",
+            "282": "O you who believe, when you transact a loan for any period, you shall write it down. An impartial scribe shall do the writing. No scribe shall refuse to perform this service, according to GOD’s teachings. He shall write, while the debtor dictates the terms. He shall observe GOD his Lord and never cheat. If the debtor is mentally incapable, or helpless, or cannot dictate, his guardian shall dictate equitably. Two men shall serve as witnesses; if not two men, testify when called upon to do so. harmed on account of his services. then a man and two women whose testimony  is  acceptable  to  all.* Thus,  if  one  woman  becomes  biased, the other will remind her. It is the  obligation  of  the  witnesses  to Do not tire of writing the details, no matter how long, including the time of  repayment.  This  is  equitable  in the sight of GOD, assures better wit- nessing, and eliminates any doubts you may have. Business transactions that  you execute  on  the  spot need not be recorded, but have them witnessed. No scribe or witness shall be If you harm them, it would be wickedness on your part. You shall observe  GOD,  and  GOD  will  teach you. GOD is Omniscient.",
             "283": "If you are traveling, and no scribe is available, a bond shall be posted to guarantee repayment. If one is trusted in this manner, he shall return the bond when due, and he shall observe GOD his Lord. Do not withhold any testimony by concealing what you had witnessed. Anyone who withholds a testimony is sinful at heart. GOD is fully aware of everything you do.",
             "284": "To GOD belongs everything in the heavens and the earth. Whether you declare your innermost thoughts, or keep them hidden, GOD holds you responsible for them. He forgives whomever He wills, and punishes whomever He wills. GOD is Omnipotent."
         },
         "titles": {
             "277": "Divine Guarantee ",
-            "278": "they will have nothing to fear, nor ",
-            "282": "Write Down Financial Transactions ",
-            "283": "then a man and two women whose testimony  is  acceptable  to  all.* Thus,  if  one  woman  becomes  bi- ased, the other will remind her. It is the  obligation  of  the  witnesses  to Do not tire of writing the details, no matter how long, including the time of  repayment.  This  is  equitable  in the sight of GOD, assures better wit- nessing, and eliminates any doubts you may have. Business transactions that  you execute  on  the  spot need not be recorded, but have them wit- nessed. No scribe or witness shall be If you harm them, it would be wick- edness on your part. You shall ob- serve  GOD,  and  GOD  will  teach "
+            "282": "Write Down Financial Transactions "
         },
         "notes": {
             "data": [
-                "*2:282 Financial transactions are the ONLY situations where two women may sub-",
-                "stitute for one man as witness. This is to guard against the real possibility that one witness",
-                "may marry the other witness, and thus cause her to be biased. It is a recognized fact that",
-                "women are more emotionally vulnerable than men."
+                "*2:282 Financial transactions are the ONLY situations where two women may substitute for one man as witness. This is to guard against the real possibility that one witness may marry the other witness, and thus cause her to be biased. It is a recognized fact that women are more emotionally vulnerable than men."
             ],
             "cumulativefrequencyofthewordGOD": "282",
             "cumulativesumofverseswhereGODwordoccurs": "28768"
@@ -1156,35 +967,26 @@
             "The Heifer 2:285-286 & The Amramites (Ãli-’Imrãn) 3:1-8"
         ],
         "sura": [
-            "Sura 3:  The  Amramites"
         ],
         "verses": {
             "285": "The messenger has believed in what was sent down to him from his Lord, and so did the believers. They believe in GOD, His angels, His scripture,  and  His  messengers:  “We make no distinction among any of His messengers.” They say, “We hear, and we obey.* Forgive us, our Lord. To You is the ultimate destiny.”",
             "286": "GOD never burdens a soul beyond its means: to its credit is what it earns, and against it is what it commits. “Our Lord, do not condemn us if we forget or make mistakes. Our Lord, and protect us from blaspheming against You, like those before us have done. Our Lord, protect us from sinning until it becomes too late for us to repent. Pardon us and forgive us. You are our Lord and Master. Grant us victory over the disbelieving people.”",
-            "1": "A",
-            "2": "GOD: there is no god except He;",
+            "1": "A.L.M.*",
+            "2": "GOD: there is no god except He; the Living, the Eternal.",
             "3": "He sent down to you this scripture, truthfully,  confirming  all  previous scriptures, and He sent down the Torah and the Gospel",
-            "4": "before that, to guide the people, and He  sent down  the  statute book. revelations incur severe retribution. GOD is Almighty, Avenger.",
+            "4": "before that, to guide the people, and He  sent down  the  statute book. Those who disbelieve in GOD’s revelations incur severe retribution. GOD is Almighty, Avenger.",
             "5": "Nothing is hidden from GOD, on earth, or in the heaven.",
             "6": "He is the One who shapes you in the wombs as He wills. There is no other god  besides  Him;  the  Almighty, Most Wise.",
-            "7": "He sent down to you this scripture, containing  straightforward  verses— which constitute the essence of the scripture—as  well  as  multiplemeaning  or  allegorical  verses. and to extricate a certain meaning. possess intelligence will take heed.",
+            "7": "He sent down to you this scripture, containing  straightforward  verses— which constitute the essence of the scripture—as  well  as  multiplemeaning  or  allegorical  verses. and to extricate a certain meaning. Those who harbor doubts in their hearts  will  pursue  the  multiplemeaning verses to create confusion, None  knows  the  true  meaning thereof except GOD and those well founded in knowledge. They say, “We believe in this—all of it comes from our Lord.” Only those who possess intelligence will take heed.",
             "8": "“Our Lord, let not our hearts waver, now  that  You  have  guided  us. are the Grantor."
         },
         "titles": {
             "285": "You Shall Not Make Any Distinction Among God’s Messengers ",
-            "1": "♦ ♦ ♦ ♦ (Ãli-’Imrãn) In the name of God, Most Gracious, Most Merciful ",
-            "3": "the Living, the Eternal. ",
-            "5": "Those who disbelieve in GOD’s ",
-            "8": "Those who harbor doubts in their hearts  will  pursue  the  multiple- meaning verses to create confusion, None  knows  the  true  meaning thereof except GOD and those well founded in knowledge. They say, “We believe in this—all of it comes from our Lord.” Only those who "
+            "1": "♦ ♦ ♦ ♦\nSura 3: The Amramites\n(Ãli-’Imrãn)\nIn the name of God, Most Gracious, Most Merciful"
         },
         "notes": {
             "data": [
-                "*2:285 One of the major commandments is: “You shall not make any distinction among",
-                "God’s messengers” (2:136, 3:84, 4:150). The believers react by saying, “We hear and we",
-                "obey,” while the idol worshipers argue back to justify their insistence upon mentioning",
-                "Muhammad’s  name  next  to  God’s,  to  the  exclusion  of  all  other  messengers.  The",
-                "corrupted Muslims mention Muhammad in their profession of faith (Shahaadah) and",
-                "during their Contact Prayers (see 72:18).",
+                "*2:285 One of the major commandments is: “You shall not make any distinction among God’s messengers” (2:136, 3:84, 4:150). The believers react by saying, “We hear and we obey,” while the idol worshipers argue back to justify their insistence upon mentioning Muhammad’s  name  next  to  God’s,  to  the  exclusion  of  all  other  messengers.  The corrupted Muslims mention Muhammad in their profession of faith (Shahaadah) and during their Contact Prayers (see 72:18).",
                 "*3:1 See Footnote 2:1 and Appendix One."
             ],
             "cumulativefrequencyofthewordGOD": "289",
@@ -1206,14 +1008,14 @@
             "16": "They  say,  “Our  Lord,  we  have believed,  so  forgive  us  our  sins,  and spare us the agony of the hellfire.”",
             "17": "They  are  steadfast,  truthful,  submitting,  charitable,  and  meditators  at dawn.",
             "13": "An  example  has  been  set  for  you  by the  two  armies  who  clashed—one army  was  fighting  in  the  cause  of GOD,  while  the  other  was  disbelieving.  They  saw  with  their  own  eyes that  they  were  twice  as  many.  GOD supports  with  His  victory  whomever He  wills.  This  should  provide  an  assurance  for  those  who  possess  vision.",
-            "14": "Adorned  for  the  people  are  the worldly  pleasures,  such  as  the  women,  having  children,  piles  upon  piles of  gold  and  silver,  trained  horses, livestock, and crops. These are the The Most Important Commandment*",
+            "14": "Adorned  for  the  people  are  the worldly  pleasures,  such  as  the  women,  having  children,  piles  upon  piles of  gold  and  silver,  trained  horses, livestock, and crops. These are the materials  of  this  world.  A  far  better ",
             "18": "GOD  bears  witness  that  there  is  no god except He, and so do the angels and  those  who  possess  knowledge. He, the Almighty, Most Wise.",
             "19": "The  only  religion  approved  by  GOD is  “Submission.”  Ironically,  those who  have  received  the  scripture  are the  ones  who  dispute  this  fact, despite  the  knowledge  they  have received,  due  to  jealousy.  For  such rejectors  of  GOD’s  revelations, GOD is most strict in reckoning."
         },
         "titles": {
-            "15": "materials  of  this  world.  A  far  better ",
             "13": "Believers: The Ultimate Victors ",
             "14": "Different Priorities ",
+            "18": "The Most Important Commandment*",
             "19": "Truthfully  and  equitably,  He  is  the absolute  god;  there  is  no  god  but Submission: The Only Religion "
         },
         "notes": {
