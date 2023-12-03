@@ -4,12 +4,25 @@
         0 0 7px #e5e5e5,
         0 0 10px #e5e5e5,
         0 0 21px #e5e5e5;
-       
+
 }
 
 
 .animatedText {
     animation: pulsate 1.5s infinite alternate;
+}
+
+.animatedBorder {
+    animation: pulsate 1.5s infinite alternate;
+    border: 0.1rem solid #fff;
+    border-radius: 0.4rem;
+    padding: 0.4em;
+    box-shadow:
+        0 0 .1rem #fff,
+        0 0 .2rem #fff,
+        0 0 2rem #38bdf8,
+        0 0 0.8rem #38bdf8,
+        inset 0 0 1.3rem #38bdf8;
 }
 
 @keyframes pulsate {
@@ -20,7 +33,7 @@
             0 0 4px #e5e5e5,
             0 0 7px #e5e5e5,
             0 0 11px #e5e5e5;
-            
+
     }
 
     0% {
