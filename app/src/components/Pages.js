@@ -46,6 +46,35 @@ const Pages = ({ selectedPage }) => {
         );
     };
 
+    const parsePageVerses = () => {
+        let suraVerseRanges = [];
+
+        pageData.page.forEach(pageItem => {
+            const suraVerseInfo = pageItem.match(/\d+:\d+-\d+/g);
+            if (suraVerseInfo) {
+                suraVerseInfo.forEach(range => {
+                    const [sura, verses] = range.split(':');
+                    const [start, end] = verses.split('-').map(Number);
+                    suraVerseRanges.push({ sura: parseInt(sura), start, end });
+                });
+            }
+        });
+
+        // Sort and map the verses based on the sura and verse range information
+        const sortedVerses = [];
+        suraVerseRanges.forEach(({ sura, start, end }) => {
+            for (let i = start; i <= end; i++) {
+                if (pageData.verses[i]) {
+                    sortedVerses.push([i, pageData.verses[i]]);
+                }
+            }
+        });
+
+        return sortedVerses;
+    };
+
+    const sortedVerses = parsePageVerses();
+
     return (
         <div className="flex w-full flex-1 flex-col text-neutral-200 text-xl overflow-auto">
 
@@ -78,7 +107,7 @@ const Pages = ({ selectedPage }) => {
                     </div>
 
                 </div>
-                {Object.entries(pageData.verses).map(([verseNumber, verseText]) => (
+                {sortedVerses.map(([verseNumber, verseText]) => (
                     <>
                         {pageData.titles[verseNumber] &&
                             <div className="bg-neutral-700 italic rounded shadow-xl m-2 p-4 text-sm md:text-md lg:text-lg text-center break-words whitespace-pre-wrap">
