@@ -63,7 +63,8 @@ const Pages = ({ selectedPage }) => {
         // Sort and map the verses based on the sura and verse range information
         const sortedVerses = [];
         suraVerseRanges.forEach(({ sura, start, end }) => {
-            for (let i = start; i <= end; i++) {
+
+            for (let i = start; i <= (end ? end : 1); i++) {
                 if (pageData.verses[i]) {
                     sortedVerses.push([i, pageData.verses[i]]);
                 }
