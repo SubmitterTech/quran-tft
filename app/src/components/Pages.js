@@ -50,7 +50,7 @@ const Pages = ({ selectedPage }) => {
         let suraVerseRanges = [];
 
         pageData.page.forEach(pageItem => {
-            const suraVerseInfo = pageItem.match(/\d+:\d+-\d+/g);
+            const suraVerseInfo = pageItem.match(/\d+:\d+-?\d*/g);
             if (suraVerseInfo) {
                 suraVerseInfo.forEach(range => {
                     const [sura, verses] = range.split(':');
@@ -114,10 +114,10 @@ const Pages = ({ selectedPage }) => {
                                 {pageData.titles[verseNumber]}
                             </div>}
 
-                        <div className="flex rounded m-2 p-2 shadow-xl bg-sky-700 text-justify text-md md:text-lg" key={verseNumber}>
+                        <div className="flex rounded m-2 p-2 shadow-xl bg-sky-700 text-justify text-base md:text-lg xl:text-xl" key={verseNumber}>
                             <p className="p-1">
-                                <span className="text-neutral-300/70 text-md font-bold">{`${verseNumber}. `}</span>
-                                <span className="text-neutral-200">
+                                <span className="text-neutral-300/50 font-bold ">{`${verseNumber}. `}</span>
+                                <span className="text-neutral-200 ">
                                     {verseText}
                                 </span>
                             </p>
@@ -126,9 +126,9 @@ const Pages = ({ selectedPage }) => {
                 ))}
             </div>
             {pageData.notes.data.length > 0 &&
-                <div className="bg-neutral-600 m-2 rounded p-3 text-sm md:text-md lg:text-lg text-justify text-neutral-300 flex flex-col space-y-4 whitespace-pre-line">
+                <div className="bg-neutral-700 m-2 rounded p-2 text-sm md:text-md lg:text-lg text-justify text-neutral-300 flex flex-col space-y-4 whitespace-pre-line">
                     <h3>Notes:</h3>
-                    {pageData.notes.data.map((note, index) => <p className="" key={index}>{note}</p>)}
+                    {pageData.notes.data.map((note, index) => <p className="bg-neutral-600 rounded shadow-md px-2 py-3 text-neutral-200" key={index}>{note}</p>)}
                     {pageData.notes.tables && pageData.notes.tables.map((table, index) => (
                         <div key={index}>
                             {renderTable(table)}

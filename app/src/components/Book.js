@@ -132,15 +132,16 @@ const Book = ({ bookContent }) => {
     return (
         <div className="flex flex-col justify-start h-screen bg-sky-800">
             <div className="w-full flex items-center justify-start">
-                <h2 className="text-sm font-bold text-neutral-200/50 p-2">Page {currentPage}</h2>
+                
             </div>
 
             {renderBookContent()}
             <div className="w-full flex">
                 <div className="flex w-full items-center justify-between p-2">
 
-                    <button onClick={prevPage} className=" text-neutral-300 px-2 py-1 rounded mr-2 border-2 text-sm border-neutral-300">Previous Page</button>
-                    <button onClick={nextPage} className=" text-neutral-300 px-2 py-1 rounded ml-2 border-2 text-sm border-neutral-300">Next Page</button>
+                    <button onClick={prevPage} className="w-28 text-neutral-300 px-2 py-1 rounded mr-2 border-2 text-sm border-neutral-300">Previous Page</button>
+                    <h2 className="text-sm font-bold text-neutral-200/50 p-2">Page {currentPage}</h2>
+                    <button onClick={nextPage} className="w-28 text-neutral-300 px-2 py-1 rounded ml-2 border-2 text-sm border-neutral-300">Next Page</button>
                 </div>
             </div>
         </div>
