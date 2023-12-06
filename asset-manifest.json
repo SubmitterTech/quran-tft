@@ -1,15 +1,15 @@
 {
   "files": {
     "main.css": "/quran-tft/static/css/main.164388ab.css",
-    "main.js": "/quran-tft/static/js/main.f1654876.js",
+    "main.js": "/quran-tft/static/js/main.9c05dae7.js",
     "static/js/787.0f8d78ff.chunk.js": "/quran-tft/static/js/787.0f8d78ff.chunk.js",
     "index.html": "/quran-tft/index.html",
     "main.164388ab.css.map": "/quran-tft/static/css/main.164388ab.css.map",
-    "main.f1654876.js.map": "/quran-tft/static/js/main.f1654876.js.map",
+    "main.9c05dae7.js.map": "/quran-tft/static/js/main.9c05dae7.js.map",
     "787.0f8d78ff.chunk.js.map": "/quran-tft/static/js/787.0f8d78ff.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.164388ab.css",
-    "static/js/main.f1654876.js"
+    "static/js/main.9c05dae7.js"
   ]
 }
