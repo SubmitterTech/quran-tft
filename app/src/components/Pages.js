@@ -4,10 +4,25 @@ import quranData from '../assets/structured_quran.json';
 const Pages = ({ selectedPage }) => {
     const [pageData, setPageData] = useState(null);
     const [showExplanation, setShowExplanation] = useState({ GODnameFrequency: false, GODnameSum: false });
-
+    const [pageTitle, setPageTitle] = useState([]);
 
     useEffect(() => {
         setPageData(quranData[selectedPage]);
+
+        if (quranData[selectedPage]) {
+            const newPageTitles = [];
+            quranData[selectedPage].page.forEach((pi) => {
+                if (/\d+:\d+/.test(pi)) {
+                    if (pi.includes("&")) {
+                        pi.split("&").forEach(part => newPageTitles.push(part.trim()));
+                    } else {
+                        newPageTitles.push(pi);
+                    }
+                }
+            });
+
+            setPageTitle(newPageTitles);
+        }
     }, [selectedPage]);
 
     if (!pageData) return <div className="text-neutral-200/80 flex flex-1 items-center justify-center w-full ">Loading...</div>;
@@ -47,46 +62,45 @@ const Pages = ({ selectedPage }) => {
     };
 
     const parsePageVerses = () => {
-        let suraVerseRanges = [];
-
-        pageData.page.forEach(pageItem => {
-            const suraVerseInfo = pageItem.match(/\d+:\d+-?\d*/g);
-            if (suraVerseInfo) {
-                suraVerseInfo.forEach(range => {
-                    const [sura, verses] = range.split(':');
-                    const [start, end] = verses.split('-').map(Number);
-                    suraVerseRanges.push({ sura: parseInt(sura), start, end });
+        let sortedVerses = [];
+        if (pageData.sura) {
+            Object.entries(pageData.sura).forEach(([suraNumber, suraInfo]) => {
+                Object.entries(suraInfo.verses).forEach(([verseNumber, verseText]) => {
+                    sortedVerses.push({
+                        suraNumber: parseInt(suraNumber),
+                        verseNumber: parseInt(verseNumber),
+                        verseText,
+                        title: suraInfo.titles ? suraInfo.titles[verseNumber] : null
+                    });
                 });
-            }
-        });
+            });
 
-        // Sort and map the verses based on the sura and verse range information
-        const sortedVerses = [];
-        suraVerseRanges.forEach(({ sura, start, end }) => {
-
-            for (let i = start; i <= (end ? end : 1); i++) {
-                if (pageData.verses[i]) {
-                    sortedVerses.push([i, pageData.verses[i]]);
+            // Sort first by sura number, then by verse number if sura numbers are the same
+            sortedVerses.sort((a, b) => {
+                if (a.suraNumber !== b.suraNumber) {
+                    return a.suraNumber - b.suraNumber;
                 }
-            }
-        });
-
+                return a.verseNumber - b.verseNumber;
+            });
+        }
         return sortedVerses;
     };
 
     const sortedVerses = parsePageVerses();
 
+
     return (
         <div className="flex w-full flex-1 flex-col text-neutral-200 text-xl overflow-auto">
-
             <div className="relative flex flex-col space-y-4 mb-2">
-                <div className="sticky top-0 backdrop-blur-md p-2 rounded shadow-xl flex">
+                <div className="sticky top-0 py-2 px-3 bg-sky-800 shadow-lg flex">
                     <div className="flex w-full justify-between text-sm lg:text-lg items-center">
-
-                        <div className="">
-                            <h1>{pageData.page.join(" - ")}</h1>
+                        <div className="flex flex-col">
+                            {pageTitle.map((title, index) => (
+                                <h1 key={index}>{title}</h1>
+                            ))}
                         </div>
                     </div>
+
                     <div className=" flex flex-col text-end text-sm space-y-2">
                         <p className="cursor-pointer" onClick={() => toggleExplanation('GODnameFrequency')}>
                             {pageData.notes.cumulativefrequencyofthewordGOD}
@@ -108,14 +122,14 @@ const Pages = ({ selectedPage }) => {
                     </div>
 
                 </div>
-                {sortedVerses.map(([verseNumber, verseText]) => (
-                    <>
-                        {pageData.titles[verseNumber] &&
+                {sortedVerses.map(({ suraNumber, verseNumber, verseText, title }) => (
+                    <React.Fragment key={suraNumber + ":" + verseNumber}>
+                        {title &&
                             <div className="bg-neutral-700 italic rounded shadow-xl m-2 p-4 text-sm md:text-md lg:text-lg text-center break-words whitespace-pre-wrap">
-                                {pageData.titles[verseNumber]}
+                                {title}
                             </div>}
 
-                        <div className="flex rounded m-2 p-2 shadow-xl bg-sky-700 text-justify text-base md:text-lg xl:text-xl" key={verseNumber}>
+                        <div className="flex rounded m-2 p-2 shadow-xl bg-sky-700 text-justify text-base md:text-lg xl:text-xl">
                             <p className="p-1">
                                 <span className="text-neutral-300/50 font-bold ">{`${verseNumber}. `}</span>
                                 <span className="text-neutral-200 ">
@@ -123,7 +137,7 @@ const Pages = ({ selectedPage }) => {
                                 </span>
                             </p>
                         </div>
-                    </>
+                    </React.Fragment>
                 ))}
             </div>
             {pageData.notes.data.length > 0 &&
