@@ -7,11 +7,11 @@
         "sura": {
             "1": {
                 "verses": {
-                    "1": "In the name of GOD, Most Gracious, Most Merciful",
-                    "2": "Praise be to GOD, Lord of the universe",
+                    "1": "In the name of GOD, Most Gracious, Most Merciful.*",
+                    "2": "Praise be to GOD, Lord of the universe.",
                     "3": "Most Gracious, Most Merciful. ",
-                    "4": "Master of the Day of Judgment",
-                    "5": "You alone we worship",
+                    "4": "Master of the Day of Judgment.",
+                    "5": "You alone we worship. You alone we ask for help.",
                     "6": "Guide us in the right path;",
                     "7": "the path of those whom You blessed; not of those who have deserved wrath, nor of the strayers."
                 },
@@ -313,7 +313,7 @@
                     "72": "You had killed a person, then disputed among yourselves. GOD was to expose what you tried to conceal.",
                     "73": "We said, “Strike (the victim) with part (of the heifer).” That is when GOD brought the victim back to life, and showed you His signs, that you may understand.",
                     "74": "Despite  this,  your  hearts  hardened like  rocks, or even harder. For there are  rocks  from  which  rivers  gush out.  Others  crack  and  release  gentle streams,  and  other  rocks  cringe  out of reverence for GOD.  GOD is never unaware of anything you do.",
-                    "75": "Do you expect them to believe as you do, when some of them used to hear the word of GOD, then distort it,  with  full  understanding  thereof, and deliberately? Concealing the Word of God",
+                    "75": "Do you expect them to believe as you do, when some of them used to hear the word of GOD, then distort it,  with  full  understanding  thereof, and deliberately? ",
                     "76": "And when they meet the believers, they say, “We believe,” but when they  get  together  with  each  other, they say, “Do not inform (the believers) of the information given to you by GOD, lest you provide them with  support  for  their  argument concerning your Lord. Do you not understand?”",
                     "77": "Do they not know that GOD knows everything they conceal, and everything they declare?",
                     "78": "Among them are gentiles who do not know the scripture, except through  hearsay,  then  assume  that they know it.",
@@ -326,6 +326,7 @@
                 "titles": {
                     "72": "Purpose of the Heifer ",
                     "75": "Distorting the Word of God ",
+                    "76": "Concealing the\nWord of God",
                     "80": "Eternity of\nHeaven and Hell* ",
                     "83": "The Commandments "
                 }
@@ -1120,12 +1121,12 @@
                     "9": "“Our  Lord,  You  will  surely  gather the  people  on  a  day  that  is  inevitable.  GOD  never  breaks  a  promise.”",
                     "10": "Those  who  disbelieve  will  never  be helped  by  their  money,  nor  by  their children,  against  GOD.  They  will  be fuel for Hell.",
                     "11": "Like  Pharaoh’s  people  and  those before  them,  they  rejected  our  revelations  and,  consequently,  GOD punished  them  for  their  sins.  GOD is strict in enforcing retribution.",
-                    "12": "Say  to  those  who  disbelieve,  “You will  be  defeated,  then  gathered  in Hell; what a miserable abode!” abode is reserved at GOD.",
+                    "12": "Say  to  those  who  disbelieve,  “You will  be  defeated,  then  gathered  in Hell; what a miserable abode!” ",
                     "15": "Say,  “Let  me  inform  you  of  a  much better  deal:  for  those  who  lead  a righteous  life,  reserved  at  their Lord,  are  gardens  with  flowing streams,  and  pure  spouses,  and  joy in GOD’s blessings.” GOD is Seer of His worshipers.",
                     "16": "They  say,  “Our  Lord,  we  have believed,  so  forgive  us  our  sins,  and spare us the agony of the hellfire.”",
                     "17": "They  are  steadfast,  truthful,  submitting,  charitable,  and  meditators  at dawn.",
                     "13": "An  example  has  been  set  for  you  by the  two  armies  who  clashed—one army  was  fighting  in  the  cause  of GOD,  while  the  other  was  disbelieving.  They  saw  with  their  own  eyes that  they  were  twice  as  many.  GOD supports  with  His  victory  whomever He  wills.  This  should  provide  an  assurance  for  those  who  possess  vision.",
-                    "14": "Adorned  for  the  people  are  the worldly  pleasures,  such  as  the  women,  having  children,  piles  upon  piles of  gold  and  silver,  trained  horses, livestock, and crops. These are the materials  of  this  world.  A  far  better ",
+                    "14": "Adorned  for  the  people  are  the worldly  pleasures,  such  as  the  women,  having  children,  piles  upon  piles of  gold  and  silver,  trained  horses, livestock, and crops. These are the materials  of  this  world.  A  far  better abode is reserved at GOD.",
                     "18": "GOD  bears  witness  that  there  is  no god except He, and so do the angels and  those  who  possess  knowledge. Truthfully  and  equitably,  He  is  the absolute  god;  there  is  no  god  but He, the Almighty, Most Wise.",
                     "19": "The  only  religion  approved  by  GOD is  “Submission.”  Ironically,  those who  have  received  the  scripture  are the  ones  who  dispute  this  fact, despite  the  knowledge  they  have received,  due  to  jealousy.  For  such rejectors  of  GOD’s  revelations, GOD is most strict in reckoning."
                 },
@@ -1457,13 +1458,14 @@
                     "133": "You  should  eagerly  race  towards forgiveness  from  your  Lord  and  a Paradise  whose  width  encompasses the  heavens  and  the  earth;  it  awaits the righteous,",
                     "134": "who  give  to  charity  during  the  good times, as well as the bad times. They are  suppressors  of  anger,  and  pardoners of the people. GOD loves the charitable.",
                     "135": "If  they  fall  in  sin  or  wrong  their souls,  they  remember  GOD  and  ask forgiveness  for  their  sins—and  who forgives  the  sins  except  GOD—and they  do  not  persist  in  sins,  knowingly.",
-                    "136": "Their  recompense  is  forgiveness from  their  Lord,  and  gardens  with flowing  streams;  they  abide  therein forever.  What  a  blessed  reward  for the workers! Victory for the Righteous",
+                    "136": "Their  recompense  is  forgiveness from  their  Lord,  and  gardens  with flowing  streams;  they  abide  therein forever.  What  a  blessed  reward  for the workers!",
                     "137": "Precedents  have  been  set  for  you  in the  past;  roam  the  earth  and  note the  consequences  for  the  unbelievers."
                 },
                 "titles": {
                     "124": "God’s Angels Help the Believers ",
                     "130": "Usury Prohibited* ",
-                    "133": "Attributes of the Righteous "
+                    "133": "Attributes of the Righteous ",
+                    "137": "Victory for the Righteous"
                 }
             }
         },
@@ -1741,7 +1743,7 @@
                     "18": "Not acceptable is the repentance of those who commit sins until death comes to them, then say, “Now I repent.”  Nor  is  it  acceptable  from those who die as disbelievers. For these,  we  have  prepared  a  painful retribution.",
                     "19": "O you who believe, it is not lawful for you to inherit what the women leave behind, against their will. You shall not force them to give up anything you had given them, unless they commit a proven adultery. You shall treat them nicely. If you dislike them, you may dislike something wherein GOD has placed a lot of good.",
                     "20": "If you wish to marry another wife, in place of your present wife, and you had given any of them a great deal, you shall not take back anything you had  given  her.  Would  you  take  it fraudulently,  maliciously,  and  sinfully?",
-                    "21": "How could you take it back, after you have been intimate with each other, and they had taken from  you a solemn pledge? Respect for the Father",
+                    "21": "How could you take it back, after you have been intimate with each other, and they had taken from  you a solemn pledge? ",
                     "22": "Do not marry the women who were previously  married  to  your  fathers —existing  marriages  are  exempted and shall not be broken—for it is a gross  offense,  and  an  abominable act.",
                     "23": "Prohibited for you (in marriage) are your  mothers,  your  daughters,  your sisters,  the  sisters  of  your  fathers, the  sisters  of  your  mothers,  the daughters  of  your  brother,  the daughters  of  your  sister,  your  nursing  mothers,  the girls  who nursed from the same woman as you, the mothers of your wives, the daughters of your wives with whom you have  consummated  the  marriage— if  the marriage  has  not been consummated,  you  may  marry  the daughter.  Also  prohibited  for  you are the women who were married to your genetic sons. Also, you shall not be married to two sisters at the same time—but do not break up existing marriages. GOD is Forgiver, Most Merciful."
                 },
@@ -1749,6 +1751,7 @@
                     "15": "Health Quarantine ",
                     "17": "Repentance ",
                     "20": "Protection for Women ",
+                    "22": "Respect for the Father",
                     "23": "Incest Forbidden "
                 }
             }
@@ -1949,7 +1952,7 @@
         "sura": {
             "4": {
                 "verses": {
-                    "78": "Wherever  you  are,  death  will  catch up with you, even if you live in formidable  castles.  When  something good  happens  to  them,  they  say, “This  is  from  GOD,”  and  when something  bad  afflicts  them,  they blame  you.  Say,  “Everything  comes from  GOD.”  Why  do  these  people misunderstand almost everything? Nothing Bad Comes From God",
+                    "78": "Wherever  you  are,  death  will  catch up with you, even if you live in formidable  castles.  When  something good  happens  to  them,  they  say, “This  is  from  GOD,”  and  when something  bad  afflicts  them,  they blame  you.  Say,  “Everything  comes from  GOD.”  Why  do  these  people misunderstand almost everything?",
                     "79": "Anything  good  that  happens  to  you is  from  GOD,  and  anything  bad  that happens to you is from  you. We have sent  you  as  a  messenger  to  the people,*  and  GOD  suffices  as  witness.",
                     "80": "Whoever  obeys  the  messenger  is obeying  GOD.  As  for  those  who  turn away,  we  did  not  send  you  as  their guardian.",
                     "81": "They  pledge  obedience,  but  as  soon as they leave you, some of them harbor  intentions  contrary  to  what  they say.  GOD  records  their  innermost intentions.  You  shall  disregard them,  and  put  your  trust  in  GOD. GOD suffices as an advocate. ",
@@ -1958,10 +1961,11 @@
                     "85": "Whoever  mediates  a  good  deed receives  a  share  of  the  credit  thereof,  and  whoever  mediates  an  evil work,  incurs  a  share  thereof.  GOD controls all things.",
                     "86": "When  greeted  with  a  greeting,  you shall  respond  with  a  better  greeting or  at  least  an  equal  one.  GOD  reckons all things.",
                     "82": "Why  do  they  not  study  the  Quran carefully?  If  it  were  from  other  than GOD,  they  would  have  found  in  it numerous contradictions.*",
-                    "87": "GOD:  there  is  no  god  except  He"
+                    "87": "GOD: there is no god except He. He  will  surely  summon  you  on  the Day  of  Resurrection—the  inevitable  day.  Whose  narration  is  more truthful than GOD’s?"
                 },
                 "titles": {
                     "78": "God is the Doer of Everything* ",
+                    "79": "Nothing Bad Comes From God",
                     "82": "Proof of Divine Authorship ",
                     "83": "Beware of the Devil’s Rumors ",
                     "85": "Responsibility ",
@@ -2096,7 +2100,7 @@
                     "119": "“I  will  mislead  them,  I  will  entice them,  I  will  command  them  to  (forbid the eating of certain meats by) marking  the  ears  of  livestock,  and  I will  command  them  to  distort  the creation  of  GOD.”  Anyone  who  accepts  the  devil  as  a  lord,  instead  of GOD, has incurred a profound loss.",
                     "120": "He  promises  them  and  entices them;  what  the  devil  promises  is  no more than an illusion.",
                     "121": "These  have  incurred  Hell  as  their final abode, and can never evade it.",
-                    "122": "As  for those who believe and lead a righteous  life,  we  will  admit  them into  gardens  with  flowing  streams, wherein  they  live  forever.  Such  is  the truthful  promise  of  GOD.  Whose  utterances  are  more  truthful  than GOD’s? The Law",
+                    "122": "As  for those who believe and lead a righteous  life,  we  will  admit  them into  gardens  with  flowing  streams, wherein  they  live  forever.  Such  is  the truthful  promise  of  GOD.  Whose  utterances  are  more  truthful  than GOD’s?",
                     "123": "It  is  not  in  accordance  with  your wishes,  or  the  wishes  of  the  people of  the  scripture:  anyone  who  commits evil pays for it, and will have no helper or supporter against GOD.",
                     "124": "As  for  those  who  lead  a  righteous life,  male  or  female,  while  believing, they  enter  Paradise;  without  the slightest injustice.",
                     "125": "Who  is  better  guided  in  his  religion than  one  who  submits  totally  to GOD,  leads  a  righteous  life,  according  to  the  creed  of  Abraham:  monotheism?  GOD  has  chosen  Abraham as a beloved friend.",
@@ -2107,6 +2111,7 @@
                     "130": "If  the  couple  must  decide  to  part, GOD  will  provide  for  each  of  them from  His  bounties.  GOD  is  Bounteous, Most Wise."
                 },
                 "titles": {
+                    "123": "The Law",
                     "125": "Abraham:\nOriginal Messenger of Islam * ",
                     "128": "Divorce Discouraged ",
                     "129": "Polygamy Discouraged* "
@@ -2164,7 +2169,7 @@
             "4": {
                 "verses": {
                     "143": "They  waver  in  between,  neither belonging to this group, nor that group.  Whomever  GOD  sends astray, you will never find a way to guide him.",
-                    "144": "O you who believe, you shall not ally yourselves with the disbelievers, instead of the believers. Do you wish to provide GOD with a clear proof against you? They Think That They Are Believers",
+                    "144": "O you who believe, you shall not ally yourselves with the disbelievers, instead of the believers. Do you wish to provide GOD with a clear proof against you?",
                     "145": "The hypocrites will be committed to the lowest pit of Hell, and you will find no one to help them.",
                     "146": "Only  those  who  repent,  reform, hold fast to GOD, and devote their religion absolutely to GOD alone, will be counted with the believers. GOD will bless the believers with a great recompense.",
                     "147": "What will GOD gain from punishing you, if you became appreciative and believed?  GOD  is  Appreciative, Omniscient.",
@@ -2179,6 +2184,7 @@
                     "156": "(They are condemned) for disbelieving and uttering about Mary a gross lie."
                 },
                 "titles": {
+                    "144": "They Think That They\nAre Believers",
                     "148": "Do Not Use Bad Language ",
                     "150": "You Shall Not\nMake Any Distinction\nAmong God’s Messengers ",
                     "153": "Lessons From Israel "
@@ -3463,7 +3469,7 @@
                     "99": "Have  they  taken  GOD’s  plans  for granted?  None  takes  GOD’s  plans for granted except the losers.",
                     "100": "Does it ever occur to those who inherit  the  earth  after  previous  generations  that,  if  we  will,  we  can punish  them  for  their  sins,  and  seal their  hearts,  causing  them  to  turn deaf?",
                     "101": "We  narrate  to  you  the  history  of those  communities:  their  messengers  went  to  them  with  clear  proofs, but  they  were  not  to  believe  in  what they  had  rejected  before.  GOD  thus seals the hearts of the disbelievers.",
-                    "102": "We  found  that  most  of  them  disregard  their  covenant;  we  found most of them wicked.* Moses",
+                    "102": "We  found  that  most  of  them  disregard  their  covenant;  we  found most of them wicked.*",
                     "103": "After  (those  messengers,)  we  sent Moses  with  our  signs  to  Pharaoh and  his  people,  but  they  transgressed.  Note  the  consequences  for  the wicked.",
                     "104": "Moses  said,  “O  Pharaoh,  I  am  a messenger  from  the  Lord  of  the universe.",
                     "105": "“It  is  incumbent  upon  me  that  I  do not  say  about  GOD  except  the  truth. I come to you with a sign  from your Lord; let the Children of Israel go.” ",
@@ -3476,7 +3482,8 @@
                 },
                 "titles": {
                     "94": "Blessings in Disguise ",
-                    "96": "Most People Make\nthe Wrong Choice "
+                    "96": "Most People Make\nthe Wrong Choice ",
+                    "103": "Moses"
                 }
             }
         },
@@ -3504,9 +3511,9 @@
                     "117": "We  then  inspired  Moses:  “Throw down  your  staff,”  whereupon  it swallowed  whatever  they  fabricated.",
                     "118": "Thus,  the  truth  prevailed,  and  what they did was nullified.",
                     "119": "They  were  defeated  then  and  there; they were humiliated. ",
-                    "120": "The magicians fell prostrate",
+                    "120": "The magicians fell prostrate.",
                     "121": "They  said,  “We  believe  in  the  Lord of the universe.",
-                    "122": "“The Lord of Moses and Aaron",
+                    "122": "“The Lord of Moses and Aaron.”",
                     "123": "Pharaoh  said,  “Did  you  believe  in him  without  my  permission?  This must  be  a  conspiracy  you  schemed in  the  city,  in  order  to  take  its  people away. You will surely find out.",
                     "124": "“I  will  cut  your  hands  and  feet  on alternate  sides,  then  I  will  crucify you all.”",
                     "125": "They  said,  “We  will  then  return  to our Lord. “Our  Lord,  grant  us  steadfastness, and let us die as submitters.” ",
@@ -4373,7 +4380,7 @@
                     "127": "Whenever  a  sura  was  revealed, some of them would look at each other as if to say: “Does anyone see you?” Then they left. Thus, GOD has  diverted  their  hearts,  for  they are people who do not comprehend.",
                     "124": "When  a  sura  was  revealed,  some  of them  would  say,  “Did  this  sura strengthen  the  faith  of  anyone  among  you?”  Indeed,  it  did  strengthen  the  faith  of  those  who  believed, and they rejoice in any revelation.",
                     "125": "As  for  those  who  harbored  doubts in  their  hearts,  it  actually  added  unholiness  to  their  unholiness,  and they died as disbelievers.",
-                    "126": "Do  they  not  see  that  they  suffer  from exacting  trials  every  year  once  or twice?  Yet,  they  consistently  fail  to repent, and fail to take heed? In the name of God, Most Gracious, Most Merciful"
+                    "126": "Do  they  not  see  that  they  suffer  from exacting  trials  every  year  once  or twice?  Yet,  they  consistently  fail  to repent, and fail to take heed?"
                 },
                 "titles": {
                     "122": "The Importance of\nReligious Education ",
@@ -5034,7 +5041,7 @@
             "11": {
                 "verses": {
                     "121": "Say to those who disbelieve, “Do whatever you can, and so will we.",
-                    "122": "“Then wait; we too will wait",
+                    "122": "“Then wait; we too will wait.”",
                     "123": "To GOD belongs the future of the heavens and the earth, and all matters are controlled by Him. You shall worship Him and trust in Him. Your Lord is never unaware of anything you do. "
                 },
                 "titles": {}
@@ -5537,7 +5544,7 @@
                     "26": "And the example of the bad word is that of a bad tree chopped at the soil level; it has no roots to keep it standing.",
                     "27": "GOD strengthens those who believe with the proven word, in this life and in the Hereafter. And GOD sends the transgressors astray. Everything is in accordance with GOD’s will.",
                     "28": "Have you noted those who responded to GOD’s blessings by disbelieving, and thus brought disaster upon their own families?",
-                    "29": "Hell is their destiny, wherein they burn; what a miserable end! Idol Worship: The Mother of All Evil",
+                    "29": "Hell is their destiny, wherein they burn; what a miserable end! ",
                     "30": "They set up rivals to rank with GOD and to divert others from His path. Say, “Enjoy for awhile; your final destiny is Hell.” ",
                     "31": "Exhort My servants who believed to observe the Contact Prayers (Salat), and to give (to charity) from our provisions  to  them,  secretly  and publicly, before a day comes where there is neither trade, nor nepotism."
                 },
@@ -5547,6 +5554,7 @@
                     "22": "Satan Disowns His Followers ",
                     "24": "Truth vs. Falsehood ",
                     "28": "They Remove Their Families From\nGod’s Protection ",
+                    "30": "Idol Worship: The Mother of All Evil",
                     "31": "Crucial Commandments "
                 }
             }
@@ -5679,7 +5687,7 @@
                     "35": "“You  have  incurred  My  condemnation until the Day of Judgment.”",
                     "36": "He  said,  “My  Lord,  respite  me  until the day they are resurrected.”",
                     "37": "He said, “You are respited. ",
-                    "38": "“Until the specified day and time",
+                    "38": "“Until the specified day and time.”",
                     "39": "He  said,  “My  Lord,  since  You  have willed  that  I  go  astray,  I  will  surely entice  them  on  earth;  I  will  send them all astray."
                 },
                 "titles": {
@@ -5724,7 +5732,7 @@
                     "58": "They  said,  “We  are  being  dispatched to guilty people.",
                     "59": "“As  for  Lot’s  family,  we  will  save them all.",
                     "60": "“But  not  his  wife;  she  is  destined  to be with the doomed.”",
-                    "61": "The messengers went to Lot’s town",
+                    "61": "The messengers went to Lot’s town.",
                     "62": "He  said,  “You  are  unknown  people.”",
                     "63": "They  said,  “We  bring  to  you  what they have been doubting.",
                     "64": "“We  bring  to  you  the  truth;  we  are truthful.",
@@ -5732,7 +5740,7 @@
                     "66": "We  delivered  to  him  this  command: those  people  are  to  be  annihilated  in the morning.",
                     "67": "The people of the city came joyfully. ",
                     "68": "He  said,  “These  are  my  guests;  do not embarrass me.",
-                    "69": "“Fear GOD, and do not shame me",
+                    "69": "“Fear GOD, and do not shame me.”",
                     "70": "They  said,  “Did  we  not  enjoin  you from contacting anyone?”",
                     "71": "He  said,  “Here  are  my  daughters,  if you must.”",
                     "72": "But,  alas,  they  were  totally  blinded by their lust.",
@@ -5761,7 +5769,7 @@
                     "74": "We  turned  it  upside  down,  and showered  them  with  devastating rocks.",
                     "75": "This  is  a  lesson  for  those  who  possess intelligence.",
                     "76": "This will always be the system. ",
-                    "77": "This is a sign for the believers",
+                    "77": "This is a sign for the believers.",
                     "78": "The  people  of  the  woods  also  were transgressors.",
                     "79": "Consequently,  we  avenged  from them,  and  both  communities  are fully documented.",
                     "80": "The  people  of  Al-Hijr  disbelieved the messengers.",
@@ -5777,7 +5785,7 @@
                     "90": "We will deal with the dividers. ",
                     "91": "They accept the Quran only partially.",
                     "92": "By  your  Lord,  we  will  question  them all,",
-                    "93": "about everything they have done",
+                    "93": "about everything they have done.",
                     "94": "Therefore,  carry  out  the  orders given  to  you,  and  disregard  the  idol worshipers.",
                     "95": "We will spare you the mockers,",
                     "96": "who  set  up  another  god  beside GOD. They will surely find out.",
@@ -5867,7 +5875,7 @@
                     "29": "Therefore, enter  the gates of Hell, wherein you abide forever. What a miserable  destiny  for  the  arrogant ones.",
                     "30": "As for the righteous, when they are asked, “What do you think of these revelations from your Lord,” they say, “Good.” For those who lead a righteous life, happiness, and the abode of the Hereafter is even better. What a blissful abode for the righteous.",
                     "31": "The gardens of Eden are reserved for them, wherein rivers flow. They have  anything  they  wish  therein. GOD thus rewards the righteous. ",
-                    "32": "The angels terminate their lives in a  state  of  righteousness,  saying, “Peace be upon you. Enter Paradise (now) as a reward for your works.”* The Disbelievers",
+                    "32": "The angels terminate their lives in a  state  of  righteousness,  saying, “Peace be upon you. Enter Paradise (now) as a reward for your works.”* ",
                     "33": "Are they waiting for the angels to come to them, or until your Lord’s judgment  comes  to pass?  Those before them  did the same thing. GOD is not the One who wronged them; they are the ones who wronged their own souls. ",
                     "34": "They have incurred the consequences of their evil works, and the very things they ridiculed came back to haunt them.",
                     "35": "The  idol  worshipers  say, “Had GOD willed, we would not worship any idols besides Him, nor would our parents. Nor would we prohibit anything besides His prohibitions.” Those before them have done the same. Can the messengers do anything but deliver the complete message?"
@@ -5876,6 +5884,7 @@
                     "28": "Death for the Disbelievers ",
                     "30": "The Believers Do Not Really Die* ",
                     "32": "They Go Straight to Paradise ",
+                    "33": "The Disbelievers",
                     "35": "Famous Excuse "
                 }
             }
@@ -5984,7 +5993,7 @@
                     "73": "Yet, they worship beside GOD what possesses no provisions for them in the heavens, nor on earth, nor can provide them with anything.",
                     "74": "Therefore, do not cite the examples for GOD; GOD knows while you do not know.",
                     "75": "GOD cites the example of a slave who is owned, and is totally powerless,  compared  to  one  whom  we blessed with good provisions, from which he gives to charity secretly and publicly. Are they equal? Praise be to GOD, most of them do not know.",
-                    "76": "And GOD cites the example of two men: one is dumb, lacks the ability to do anything, is totally dependent on  his  master—whichever  way  he directs him, he cannot produce anything good. Is he equal to one who rules with justice, and is guided in the right path? This Life is Very Short",
+                    "76": "And GOD cites the example of two men: one is dumb, lacks the ability to do anything, is totally dependent on  his  master—whichever  way  he directs him, he cannot produce anything good. Is he equal to one who rules with justice, and is guided in the right path?",
                     "77": "To GOD belongs the future of the heavens and the earth. As far as He is concerned, the end of the world (the Hour) is a blink of an eye away, or even closer. GOD is Omnipotent.",
                     "78": "GOD brought you out of your mothers’ bellies knowing nothing, and He gave you the hearing, the eyesight, and the brains, that you may be appreciative.",
                     "79": "Do they not see the birds committed to fly in the atmosphere of the sky? None holds them up in the air except GOD. This should be (sufficient) proof for people who believe.",
@@ -5994,7 +6003,8 @@
                 "titles": {
                     "71": "No Partners With God ",
                     "73": "Idol Worship:\nNot Very Intelligent ",
-                    "75": "The Rich Believer is Better\nthan the Poor Believer "
+                    "75": "The Rich Believer is Better\nthan the Poor Believer ",
+                    "77": "This Life is Very Short"
                 }
             }
         },
@@ -6883,7 +6893,7 @@
                     "64": "We  do  not  come  down  except  by  the command  of  your  Lord.  To  Him belongs  our  past,  our  future,  and everything  between  them.  Your Lord is never forgetful.",
                     "65": "The  Lord  of  the  heavens  and  the earth,  and  everything  between them;  you  shall  worship  Him  and steadfastly  persevere  in  worshiping Him.  Do  you  know  of  anyone  who equals Him?",
                     "66": "The  human  being  asks,  “After  I  die, do I come back to life?”",
-                    "67": "Did  the  human  being  forget  that  we created  him  already,  and  he  was nothing? Special Warning to the Leaders",
+                    "67": "Did  the  human  being  forget  that  we created  him  already,  and  he  was nothing?",
                     "68": "By  your  Lord,  we  will  certainly  summon  them,  together  with  the  devils, and  will  gather  them  around  Hell, humiliated.",
                     "69": "Then  we  will  pick  out  from  each group  the  most  ardent  opponent  of the Most Gracious.",
                     "70": "We  know  full  well  those  who  are most deserving of burning therein.",
@@ -6899,6 +6909,7 @@
                     "80": "Then  we  inherit  everything  he  possessed,  and  he  comes  back  to  us  all alone."
                 },
                 "titles": {
+                    "68": "Special Warning to the Leaders",
                     "72": "Everyone Sees Hell* ",
                     "73": "The Majority "
                 }
@@ -6987,23 +6998,23 @@
                     "16": "“Do  not  be  diverted  therefrom  by those  who  do  not  believe  in  it— those  who  pursue  their  own  opinions—lest you fall.",
                     "17": "“What  is  this  in  your  right  hand, Moses?”",
                     "18": "He  said,  “This  is  my  staff it, herd  my sheep with it, and I use it for other purposes.”",
-                    "19": "He said, “Throw it down, Moses",
+                    "19": "He said, “Throw it down, Moses.”",
                     "20": "He  threw  it  down,  whereupon  it turned into a moving serpent.",
                     "21": "He  said,  “Pick  it  up;  do  not  be afraid.  We  will  return  it  to  its  original state.",
                     "22": "“And  hold  your  hand  under  your wing;  it  will  come  out  white  without a blemish; another proof.",
                     "23": "“We  thus  show  you  some  of  our great portents.",
                     "24": "“Go  to  Pharaoh,  for  he  has  transgressed.”",
                     "25": "He said, “My Lord, cool my temper. ",
-                    "26": "“And make this matter easy for me",
-                    "27": "“And untie a knot from my tongue",
-                    "28": "“So they can understand my speech",
+                    "26": "“And make this matter easy for me.",
+                    "27": "“And untie a knot from my tongue.",
+                    "28": "“So they can understand my speech.",
                     "29": "“And  appoint  an  assistant  for  me from my family.",
                     "30": "“My brother Aaron. ",
-                    "31": "“Strengthen me with him",
+                    "31": "“Strengthen me with him.",
                     "32": "“Let  him  be  my  partner  in  this  matter.",
                     "33": "“That we may glorify You frequently.",
                     "34": "“And commemorate You frequently.",
-                    "35": "“You are Seer of us",
+                    "35": "“You are Seer of us.”",
                     "36": "He  said,  “Your  request  is  granted, O Moses.",
                     "37": "“We have blessed you another time. ",
                     "38": "“When  we  revealed  to  your  mother what we revealed.",
@@ -7820,7 +7831,7 @@
                     "37": "“We only live this life—we live and die—and  we  will  never  be  resurrected.",
                     "38": "“He is just a man who fabricated lies and attributed them to GOD. We will never believe him.”",
                     "39": "He said, “My Lord, grant me victory, for they have disbelieved me.”",
-                    "40": "He said, “Soon they will be sorry",
+                    "40": "He said, “Soon they will be sorry.”",
                     "41": "The  retribution  struck  them,  equitably, and thus, we turned them into ruins. The wicked people perished.",
                     "42": "Subsequently,  we  established  other generations after them.",
                     "43": "No community can advance its predetermined fate, nor delay it.",
@@ -7883,7 +7894,7 @@
                     "78": "He  is  the  One  who  granted  you the  hearing,  the  eyesight,  and  the brains. Rarely are you appreciative.",
                     "79": "He  is  the  One  who  established  you on  earth,  and  before  Him  you  will  be summoned.",
                     "80": "He  is  the  One  who  controls  life  and death,  and  He  is  the  One  who  alternates  the  night  and  day.  Do  you  not understand?",
-                    "81": "They said what their ancestors said",
+                    "81": "They said what their ancestors said.",
                     "82": "They  said,  “After  we  die  and  become  dust  and  bones,  we  get  resurrected?",
                     "83": "“Such  promises  were  given  to  us and  to  our  parents  in  the  past.  These are  no  more  than  tales  from  the past.”",
                     "84": "Say,  “To  whom  belongs  the  earth and everyone on it, if you know?”",
@@ -7933,7 +7944,7 @@
                     "106": "They  will  say,  “Our  Lord,  our  wickedness  overwhelmed  us,  and  we were people gone astray.",
                     "107": "“Our  Lord,  take  us  out  of  this;  if  we return  (to  our  old  behavior),  then  we are really wicked.”",
                     "108": "He  will  say,  “Abide  therein,  humiliated, and do not speak to Me.",
-                    "109": "“A  group  of  My  servants  used  to  say, ‘Our  Lord,  we  have  believed,  so  forgive  us  and  shower  us  with  mercy. Of  all  the  merciful  ones,  You  are  the Most Merciful.’ ",
+                    "109": "“A  group  of  My  servants  used  to  say, ‘Our  Lord,  we  have  believed,  so  forgive  us  and  shower  us  with  mercy. Of  all  the  merciful  ones,  You  are  the Most Merciful.’",
                     "110": "“But  you  mocked  and  ridiculed them,  to  the  extent  that  you  forgot Me. You used to laugh at them.",
                     "111": "“I  have  rewarded  them  today,  in return  for  their  steadfastness,  by making them the winners.”",
                     "112": "He  said,  “How  long  have  you  lasted on earth? How many years?”"
@@ -8398,7 +8409,7 @@
                     "14": "“Also,  they  consider  me  a  fugitive;  I fear lest they kill me.”",
                     "15": "He  said,  “No,  (they  will  not) with My proofs. We will be with you, listening.",
                     "16": "“Go  to  Pharaoh  and  say,  ‘We  are messengers  from  the  Lord  of  the universe.",
-                    "17": "“ ‘Let the Children of Israel go",
+                    "17": "“‘Let the Children of Israel go.’”",
                     "18": "He  said,  “Did  we  not  raise  you  from infancy,  and  you  spent  many  years with us?",
                     "19": "“Then  you  committed  the  crime that  you  committed,  and  you  were ungrateful.”",
                     "20": "He  said,  “Indeed,  I  did  it  when  I  was astray.",
@@ -8448,17 +8459,17 @@
                     "43": "Moses  said  to  them  “Throw  what you are going to throw.”",
                     "44": "They  threw  their  ropes  and  sticks, and  said,  “By  Pharaoh’s  majesty,  we will be the victors.”",
                     "45": "Moses  threw  his  staff,  whereupon  it swallowed what they fabricated.",
-                    "46": "The magicians fell prostrate",
+                    "46": "The magicians fell prostrate.",
                     "47": "They  said,  “We  believe  in  the  Lord of the universe.",
-                    "48": "“The Lord of Moses and Aaron",
+                    "48": "“The Lord of Moses and Aaron.”",
                     "49": "He  said,  “Did  you  believe  with  him before I give you permission? He must  be  your  teacher,  who  taught you  magic. You  will  surely  find  out. I  will  cut  your  hands  and  feet  on alternate  sides.  I  will  crucify  you all.” ",
                     "50": "They  said,  “This  will  not  change  our decision; to our Lord we will return.",
                     "51": "“We  hope  that  our  Lord  will  forgive us  our  sins,  especially  that  we  are  the first believers.”",
                     "52": "We  inspired  Moses:  “Travel  with My servants; you will be pursued.”",
                     "53": "Pharaoh sent to the cities callers. ",
-                    "54": "(Proclaiming,) “This is a small gang",
-                    "55": "“They are now opposing us",
-                    "56": "“Let us all beware of them",
+                    "54": "(Proclaiming,) “This is a small gang.",
+                    "55": "“They are now opposing us.",
+                    "56": "“Let us all beware of them.”",
                     "57": "Consequently,  we  deprived  them  of gardens and springs.",
                     "58": "And  treasures  and  an  honorable position.",
                     "59": "Then  we  made  it  an  inheritance  for the Children of Israel.",
@@ -8491,7 +8502,7 @@
                 "verses": {
                     "67": "This  should  be  a  sufficient  proof, but most people are not believers.",
                     "68": "Most  assuredly,  your  Lord  is  the Almighty, Most Merciful.",
-                    "69": "Narrate to them Abraham’s history",
+                    "69": "Narrate to them Abraham’s history.",
                     "70": "He  said  to  his  father  and  his  people, “What is this you are worshiping?”",
                     "71": "They  said,  “We  worship  statues;  we are totally devoted to them.”",
                     "72": "He  said,  “Can  they  hear  you  when you implore?",
@@ -8519,17 +8530,17 @@
                     "94": "They  will  be  thrown  therein,  together with the strayers.",
                     "95": "And all of Satan’s soldiers. ",
                     "96": "They will say as they feud therein,",
-                    "97": "“By GOD, we were far astray",
+                    "97": "“By GOD, we were far astray.",
                     "98": "“How  could  we  set  you  up  to  rank with the Lord of the universe?",
                     "99": "“Those  who  misled  us  were  wicked.",
                     "100": "“Now we have no intercessors. ",
-                    "101": "“Nor a single close friend",
+                    "101": "“Nor a single close friend.",
                     "102": "“If  only  we  could  get  another chance, we would then believe.”",
                     "103": "This  should  be  a  good  lesson most people are not believers.",
                     "104": "Your  Lord  is  the  Almighty,  Most Merciful.",
                     "105": "The  people  of  Noah  disbelieved  the messengers.",
                     "106": "Their  brother  Noah  said  to  them, “Would you not be righteous?",
-                    "107": "“I am an honest messenger to you"
+                    "107": "“I am an honest messenger to you."
                 },
                 "titles": {
                     "69": "Abraham ",
@@ -8567,9 +8578,9 @@
                     "120": "Then we drowned the others. ",
                     "121": "This  should  be  a  lesson,  but  most people are not believers.",
                     "122": "Most  assuredly,  your  Lord  is  the Almighty, Most Merciful.",
-                    "123": "‘Ãd disbelieved the messengers",
+                    "123": "‘Ãd disbelieved the messengers.",
                     "124": "Their  brother  Hûd  said  to  them, “Would you not be righteous?",
-                    "125": "“I am an honest messenger to you",
+                    "125": "“I am an honest messenger to you.",
                     "126": "“You  shall  reverence  GOD,  and obey me.",
                     "127": "“I  do  not  ask  you  for  any  wage;  my wage  comes  from  the  Lord  of  the universe.",
                     "128": "“You  build  on  every  hill  a  mansion for vanity’s sake.",
@@ -8582,16 +8593,16 @@
                     "135": "“I  fear  for  you  the  retribution  of  an awesome day.”",
                     "136": "They  said,  “It  is  the  same  whether you preach, or not preach.",
                     "137": "“That  affliction  was  limited  to  our ancestors.",
-                    "138": "“No retribution will ever befall us",
+                    "138": "“No retribution will ever befall us.”",
                     "139": "They  thus  disbelieved  and,  consequently,  we  annihilated  them.  This should  be  a  lesson,  but  most  people are not believers.",
                     "140": "Most  assuredly,  your  Lord  is  the Almighty, Most Merciful.",
                     "141": "Thamoud  disbelieved  the  messengers.",
                     "142": "Their  brother  Sãleh  said  to  them, “Would you not be righteous?",
-                    "143": "“I am an honest messenger to you",
+                    "143": "“I am an honest messenger to you.",
                     "144": "“You  shall  reverence  GOD,  and obey me."
                 },
                 "titles": {
-                    "124": "Hûd ",
+                    "123": "Hûd ",
                     "141": "Sãleh  "
                 }
             }
@@ -8612,7 +8623,7 @@
                 "verses": {
                     "145": "“I  do  not  ask  you  for  any  wage;  my wage  comes  only  from  the  Lord  of the universe.",
                     "146": "“Do  you  suppose  you  will  be  left forever, secure in this state?",
-                    "147": "“You enjoy gardens and springs",
+                    "147": "“You enjoy gardens and springs.",
                     "148": "“And  crops  and  date  palms  with delicious fruits.",
                     "149": "“You  carve  out  of  the  mountains luxurious mansions.",
                     "150": "“You  shall  reverence  GOD,  and obey me.",
@@ -8622,18 +8633,18 @@
                     "154": "“You  are  no  more  than  a  human  like us.  Produce  a  miracle,  if  you  are truthful.”",
                     "155": "He  said,  “Here  is  a  camel  that  will drink  only  on  a  day  that  is  assigned to  her;  a  day  that  is  different  from your specified days of drinking.",
                     "156": "“Do  not  touch  her  with  any  harm, lest  you  incur  retribution  on  an awesome day.”",
-                    "157": "They  slaughtered  her,  and  thus  incurred sorrow. people are not believers.",
-                    "158": "The  retribution  overwhelmed  them. This  should  be  a  lesson,  but  most ",
+                    "157": "They  slaughtered  her,  and  thus  incurred sorrow. ",
+                    "158": "The  retribution  overwhelmed  them. This  should  be  a  lesson,  but  most people are not believers.",
                     "159": "Most  assuredly,  your  Lord  is  the Almighty, Most Merciful.",
                     "160": "The  people  of  Lot  disbelieved  the messengers.",
                     "161": "Their  brother  Lot  said  to  them, “Would you not be righteous?",
-                    "162": "“I am an honest messenger to you",
+                    "162": "“I am an honest messenger to you.",
                     "163": "“You  shall  reverence  GOD,  and obey me.",
                     "164": "“I  do  not  ask  you  for  any  wage;  my wage  comes  only  from  the  Lord  of the universe.",
                     "165": "“Do  you  have  sex  with  the  males,  of all the people?",
                     "166": "“You  forsake  the  wives  that  your Lord  has  created  for  you!  Indeed, you are transgressing people.”",
                     "167": "They  said,  “Unless  you  refrain,  O Lot, you will be banished.”",
-                    "168": "He said, “I deplore your actions",
+                    "168": "He said, “I deplore your actions.”",
                     "169": "“My  Lord,  save  me  and  my  family from their works.”",
                     "170": "We saved him and all his family. ",
                     "171": "But  not  the  old  woman;  she  was doomed.",
@@ -8643,7 +8654,7 @@
                     "175": "Most  assuredly,  your  Lord  is  the Almighty, Most Merciful.",
                     "176": "The  People  of  the  Woods  disbelieved the messengers.",
                     "177": "Shu‘aib  said  to  them,  “Would  you not be righteous?",
-                    "178": "“I am an honest messenger to you",
+                    "178": "“I am an honest messenger to you.",
                     "179": "“You  shall  reverence  GOD,  and obey me.",
                     "180": "“I  do  not  ask  you  for  any  wage;  my wage  comes  only  from  the  Lord  of the universe."
                 },
@@ -8717,8 +8728,8 @@
         "sura": {
             "26": {
                 "verses": {
-                    "210": "The devils can never reveal this",
-                    "211": "They neither would, nor could",
+                    "210": "The devils can never reveal this.",
+                    "211": "They neither would, nor could.",
                     "212": "For  they  are  prevented  from  hearing.",
                     "213": "Therefore,  do  not  idolize  beside GOD  any  other  god,  lest  you  incur the retribution.",
                     "214": "You  shall  preach  to  the  people  who are closest to you.",
@@ -8727,7 +8738,7 @@
                     "217": "And  put  your  trust  in  the  Almighty, Most Merciful.",
                     "218": "Who  sees  you  when  you  meditate during the night.",
                     "219": "And your frequent prostrations. ",
-                    "220": "He is the Hearer, the Omniscient",
+                    "220": "He is the Hearer, the Omniscient.",
                     "221": "Shall  I  inform  you  upon  whom  the devils descend?",
                     "222": "They  descend  upon  every  guilty  fabricator.",
                     "223": "They  pretend  to  listen,  but  most  of them are liars.",
@@ -9143,7 +9154,7 @@
             "28": {
                 "verses": {
                     "60": "Everything that is given to you is only the material of this life, and its vanity. What is with GOD is far better, and everlasting. Do you not understand?",
-                    "61": "Is one whom we promised a good promise that will surely come to pass, equal to one whom we provide with the temporary materials of this life, then suffers eternal doom on the Day of Resurrection? The Idols Disown Their Idolizers",
+                    "61": "Is one whom we promised a good promise that will surely come to pass, equal to one whom we provide with the temporary materials of this life, then suffers eternal doom on the Day of Resurrection? ",
                     "62": "The day will come when He calls upon  them,  saying,  “Where  are those idols you had set up beside Me?”",
                     "63": "Those who  incurred  the  judgment will say, “Our Lord, these are the ones we misled; we misled them only because we ourselves had gone astray. We now devote ourselves totally to You. They were not really worshiping us.”",
                     "64": "It will be said, “Call upon your idols (to help you).” They will call upon them,  but  they  will  not  respond. They will suffer the retribution, and wish that they were guided! ",
@@ -9160,6 +9171,7 @@
                     "75": "We will select from every community a witness, then say, “Present your proof.” They will realize then that all truth belongs with GOD, while the idols they had fabricated will abandon them."
                 },
                 "titles": {
+                    "61": "The Idols Disown Their Idolizers",
                     "65": "Our Response to the Messengers ",
                     "71": "God’s Blessings ",
                     "74": "Idols Possess No Power "
@@ -9424,9 +9436,7 @@
     "264": {
         "page": [
             "242",
-            "Romans (Al-Room) 30:4-21",
-            "1913",
-            "104205"
+            "Romans (Al-Room) 30:4-21"
         ],
         "sura": {
             "30": {
@@ -9512,7 +9522,7 @@
         "sura": {
             "30": {
                 "verses": {
-                    "35": "Have  we  given  them  authorization that justifies their idolatry? you.” Most of them were idol worshipers.",
+                    "35": "Have  we  given  them  authorization that justifies their idolatry?",
                     "36": "When  we  bestow  mercy  upon  the people,  they  rejoice  therein.  But when adversity befalls them, as a consequence  of  their  own  works, they become despondent.",
                     "37": "Do they not realize that GOD increases the provision for whomever He  wills,  or  reduces  it?  These should be  lessons  for people who believe.",
                     "44": "Whoever  disbelieves,  disbelieves  to the detriment of his own soul, while those who lead a righteous life, do so to strengthen and develop their own souls.",
@@ -9522,7 +9532,7 @@
                     "46": "Among His proofs is that He sends the winds with good omen, to shower you with His mercy, and to allow the ships to run in the sea in accordance with His rules, and for you to seek  His  bounties  (through  commerce), that you may be appreciative.",
                     "40": "GOD is the One who created you He is the One who provides for you. He is the One who puts you to death. He is the One who resurrects you. Can any of your idols do any of these things? Be He glorified. He is much too exalted to have any partners.",
                     "41": "Disasters  have  spread  throughout the land and sea, because of what the people have committed. He thus lets them taste the consequences of some of their works, that they may return (to the right works).",
-                    "42": "Say,  “Roam  the  earth  and  note the consequences for those before Guaranteed Victory for the Believers",
+                    "42": "Say,  “Roam  the  earth  and  note the consequences for those before you.” Most of them were idol worshipers.",
                     "43": "Therefore, you shall devote yourself completely  to  this  perfect  religion, before a day comes which is made inevitable by GOD. On that day, they will be shocked.",
                     "47": "We  have  sent  messengers  before you to their people, with profound signs.  Subsequently,  we  punished those who transgressed. It is our duty that we grant victory to the believers.",
                     "48": "GOD  is  the  One  who  sends  the winds, to stir up clouds, to be spread throughout  the  sky  in  accordance with His will. He then piles the clouds up, then you see the rain coming down therefrom.  When it falls on whomever He chooses from among His servants, they rejoice.",
@@ -9530,7 +9540,8 @@
                 },
                 "titles": {
                     "41": "Who Is Worthy of Worship? ",
-                    "42": "Learning From History "
+                    "42": "Learning From History ",
+                    "47": "Guaranteed Victory for the Believers"
                 }
             }
         },
@@ -9875,7 +9886,7 @@
                     "39": "Those  who  deliver  GOD’s  messages,  and  who  reverence  Him alone,  shall  never  fear  anyone  but GOD.  GOD  is  the  most  efficient reckoner.",
                     "40": "Muhammad  was  not  the  father  of any  man  among  you.  He  was  a  messenger  of  GOD  and  the  final  prophet. GOD is fully aware of all things.",
                     "41": "O  you  who  believe,  you  shall  remember GOD frequently.*",
-                    "42": "You  shall  glorify  Him  day  and  night",
+                    "42": "You  shall  glorify  Him  day  and  night.",
                     "43": "He  is  the  One  who  helps  you,  together  with  His  angels,  to  lead  you out  of  darkness  into  the  light.  He  is Most  Merciful  towards  the  believers.",
                     "44": "Their  greeting  the  day  they  meet Him  is,  “Peace,”  and  He  has  prepared  for  them  a  generous  recompense.",
                     "45": "O  prophet,  we  have  sent  you  as  a witness,  a  bearer  of  good  news,  as well as a warner.",
@@ -10215,7 +10226,7 @@
                     "20": "Nor are the darkness and the light. ",
                     "21": "Nor  are  the  coolness  of  the  shade and the heat of the sun.",
                     "22": "Nor  are  the  living  and  the  dead; GOD  causes  whomever  He  wills  to hear.  You  cannot  make  hearers  out of those in the graves.",
-                    "23": "You are no more than a warner",
+                    "23": "You are no more than a warner.",
                     "24": "We  have  sent  you*  with  the  truth,  a bearer  of  good  news,  as  well  as  a warner.  Every  community  must  receive a warner.",
                     "25": "If  they  disbelieve  you,  those  before them  have  also  disbelieved.  Their messengers  went  to  them  with  clear proofs,  and  the  Psalms,  and  the  enlightening scriptures.",
                     "26": "Subsequently,  I  punished  those  who disbelieved;  how  terrible  was  My retribution! ",
@@ -10297,7 +10308,7 @@
             "36": {
                 "verses": {
                     "3": "Most  assuredly,  you  (Rashad)  are one of the messengers.*",
-                    "4": "On a straight path",
+                    "4": "On a straight path.",
                     "5": "This  revelation  is  from  the  Almighty, Most Merciful.",
                     "6": "To  warn  people  whose  parents were  never  warned,  and  therefore, they are unaware.",
                     "7": "It  has  been  predetermined  that most of them do not believe.",
@@ -10433,7 +10444,7 @@
             "267"
         ],
         "sura": {
-            "37": {
+            "36": {
                 "verses": {
                     "70": "To preach to those who are alive, and to expose the disbelievers.",
                     "71": "Have they not seen that we created for them, with our own hands, livestock that they own?",
@@ -10448,7 +10459,14 @@
                     "80": "He is the One who creates for you, from the green trees, fuel which you burn for light.",
                     "81": "Is not the One who created the heavens and the earth able to recreate the same? Yes indeed; He is the Creator, the Omniscient.",
                     "82": "All He needs to do to carry out any command is say to it, “Be,” and it is.",
-                    "83": "Therefore, glory be to the One in whose hand is the sovereignty over all things, and to Him you will be returned.* ",
+                    "83": "Therefore, glory be to the One in whose hand is the sovereignty over all things, and to Him you will be returned.* "
+                },
+                "titles": {
+                    "80": "Powerless Idols"
+                }
+            },
+            "37": {
+                "verses": {
                     "1": "The arrangers in columns.",
                     "2": "The blamers of those to be blamed.",
                     "3": "The reciters of the messages.",
@@ -10459,8 +10477,7 @@
                     "8": "They cannot spy on the High Society; they get bombarded from every side."
                 },
                 "titles": {
-                    "1": "♦ ♦ ♦ ♦\nSura 37: The Arrangers\n(Al-Sãffãt)\nIn the name of God, Most Gracious, Most Merciful",
-                    "80": "Powerless Idols"
+                    "1": "♦ ♦ ♦ ♦\nSura 37: The Arrangers\n(Al-Sãffãt)\nIn the name of God, Most Gracious, Most Merciful"
                 }
             }
         },
@@ -10485,8 +10502,8 @@
                     "9": "They  have  been  condemned;  they have incurred an eternal retribution.",
                     "10": "If any of them ventures to charge the outer  limits,  he  gets  struck  with  a fierce projectile.",
                     "11": "Ask  them,  “Are  they  more  difficult to  create,  or  the  other  creations?” We created them from wet mud. ",
-                    "12": "While you are awed, they mock",
-                    "13": "When reminded, they take no heed",
+                    "12": "While you are awed, they mock.",
+                    "13": "When reminded, they take no heed.",
                     "14": "When  they  see  proof,  they  ridicule it.",
                     "15": "They say, “This is obviously magic!",
                     "16": "“After  we  die  and  become  dust  and bones, do we get resurrected?",
@@ -10554,7 +10571,7 @@
                     "57": "“If  it  were  not  for  my  Lord’s  blessing,  I  would  have  been  with  you now.",
                     "58": "“(Do you still believe) that we die,",
                     "59": "“only  the  first  death,  and  we  never receive any requital?”",
-                    "60": "Such is the greatest triumph",
+                    "60": "Such is the greatest triumph.",
                     "61": "This  is  what  every  worker  should work for.",
                     "62": "Is  this  a  better  destiny,  or  the  tree  of bitterness?",
                     "63": "We  have  rendered  it  a  punishment for the transgressors.",
@@ -10562,8 +10579,8 @@
                     "65": "Its  flowers  look  like  the  devils’ heads.",
                     "66": "They  will  eat  from  it  until  their  bellies are filled up.",
                     "67": "Then  they  will  top  it  with  a  hellish drink.",
-                    "68": "Then they will return to Hell. They Followed Their Parents Blindly ",
-                    "69": "They found their parents astray",
+                    "68": "Then they will return to Hell. ",
+                    "69": "They found their parents astray.",
                     "70": "And  they  blindly  followed  in  their footsteps.",
                     "71": "Most  of  the  previous  generations have strayed in the same manner.",
                     "72": "We have sent to them warners. ",
@@ -10576,8 +10593,9 @@
                     "79": "Peace  be  upon  Noah  among  the peoples."
                 },
                 "titles": {
-                    "50": "The Dwellers of Heaven Visit the Dwellers of Hell ",
+                    "50": "The Dwellers of Heaven Visit the\nDwellers of Hell ",
                     "60": "Redemption: The Greatest Triumph ",
+                    "69": "They Followed Their Parents Blindly",
                     "75": "Noah "
                 }
             }
@@ -10600,7 +10618,7 @@
                 "verses": {
                     "80": "We thus reward the righteous.",
                     "81": "He  is  one  of  our  believing  servants.",
-                    "82": "We drowned all the others. Abraham ",
+                    "82": "We drowned all the others.",
                     "83": "Among  his  followers  was  Abraham.",
                     "84": "He  came  to his Lord  wholeheartedly.",
                     "85": "He  said  to  his  father  and  his  people, “What are you worshiping?",
@@ -10612,7 +10630,7 @@
                     "90": "He  then  turned  on  their  idols,  saying, “Would you like to eat?",
                     "92": "“Why do you not speak?”",
                     "93": "He then destroyed them. ",
-                    "94": "They went to him in a great rage",
+                    "94": "They went to him in a great rage.",
                     "95": "He  said,  “How  can  you  worship what you carve?",
                     "96": "“When  GOD  has  created  you,  and everything you make!”",
                     "97": "They  said,  “Let  us  build  a  great  fire, and throw him into it.”",
@@ -10622,20 +10640,22 @@
                     "101": "We gave him good news of a good child.",
                     "102": "When  he  grew  enough  to  work  with him,  he  said,  “My  son,  I  see  in  a dream  that  I  am  sacrificing  you. What  do  you  think?”  He  said,  “O  my father,  do  what  you  are  commanded to do. You will find me, GOD willing, patient.” ",
                     "103": "They  both  submitted,  and  he  put  his forehead down (to sacrifice him).",
-                    "104": "We called him: “O Abraham",
+                    "104": "We called him: “O Abraham.",
                     "105": "“You  have  believed  the  dream thus reward the righteous.",
                     "106": "That was an exacting test indeed. ",
                     "107": "We  ransomed  (Ismail)  by  substituting an animal sacrifice.",
                     "108": "And  we  preserved  his  history  for subsequent generations.",
-                    "109": "Peace be upon Abraham. Birth of Isaac ",
-                    "110": "We thus reward the righteous",
-                    "111": "He is one of our believing servants",
+                    "109": "Peace be upon Abraham. ",
+                    "110": "We thus reward the righteous.",
+                    "111": "He is one of our believing servants.",
                     "112": "Then  we  gave  him  the  good  news about  the  birth  of  Isaac,  to  be  one  of the righteous prophets.",
                     "113": "We  blessed  him  and  Isaac their  descendants,  some  are  righteous,  and  some  are  wicked  transgressors."
                 },
                 "titles": {
+                    "83": "Abraham",
                     "102": "Satanic Dream* ",
-                    "105": "God Intervenes\nto Save\nAbraham and Ismail "
+                    "105": "God Intervenes\nto Save\nAbraham and Ismail ",
+                    "112": "Birth of Isaac"
                 }
             }
         },
@@ -10655,29 +10675,29 @@
         "sura": {
             "37": {
                 "verses": {
-                    "114": "We also blessed Moses and Aaron",
+                    "114": "We also blessed Moses and Aaron.",
                     "115": "We delivered them and their people from the great disaster.",
                     "116": "We supported them, until they became the winners.",
                     "117": "We gave both of them the profound scripture.",
-                    "118": "We guided them in the right path",
+                    "118": "We guided them in the right path.",
                     "119": "We preserved their history for subsequent generations.",
-                    "120": "Peace be upon Moses and Aaron",
-                    "121": "We thus reward the righteous",
+                    "120": "Peace be upon Moses and Aaron.",
+                    "121": "We thus reward the righteous.",
                     "122": "Both of them were among our righteous servants.",
-                    "123": "Elias was one of the messengers",
+                    "123": "Elias was one of the messengers.",
                     "124": "He said to his people, “Would you not work righteousness?",
                     "125": "“Do you worship a statue, instead of the Supreme Creator?",
                     "126": "“GOD; your Lord, and the Lord of your forefathers!”",
                     "127": "They disbelieved him ly, they had to be called to account.",
                     "132": "He was one of our believing servants.",
-                    "133": "Lot was one of the messengers",
-                    "134": "We saved him and all his family",
-                    "135": "Only the old woman was doomed",
-                    "136": "We annihilated all the others",
-                    "137": "You still pass by their ruins by day",
+                    "133": "Lot was one of the messengers.",
+                    "134": "We saved him and all his family.",
+                    "135": "Only the old woman was doomed.",
+                    "136": "We annihilated all the others.",
+                    "137": "You still pass by their ruins by day.",
                     "138": "And by night stand?",
-                    "139": "Jonah was one of the messengers",
-                    "140": "He escaped to the loaded ship",
+                    "139": "Jonah was one of the messengers.",
+                    "140": "He escaped to the loaded ship.",
                     "141": "He rebelled and thus, he joined the losers.",
                     "142": "Consequently, the fish swallowed him, and he was the one to blame.",
                     "143": "If it were not that he resorted to meditation (on God),",
@@ -10687,7 +10707,7 @@
                     "128": "Only GOD’s servants who are absolutely devoted to Him alone (are saved).",
                     "129": "We preserved his history for subsequent generations.",
                     "130": "Peace be upon Elias, and all those like Elias.",
-                    "131": "We thus reward the righteous",
+                    "131": "We thus reward the righteous.",
                     "147": "Then we sent him to a hundred thousand,* or more.",
                     "148": "They did believe, and we let them enjoy this life.",
                     "149": "Ask them if your Lord has daughters, while they have sons!",
@@ -10716,8 +10736,8 @@
         "sura": {
             "37": {
                 "verses": {
-                    "151": "Indeed,  they  grossly  blaspheme",
-                    "170": "But they disbelieved, and they will when they say— surely find out.",
+                    "151": "Indeed,  they  grossly  blaspheme when they say—",
+                    "170": "But they disbelieved, and they will surely find out.",
                     "152": "“GOD has begotten a son they are liars.",
                     "153": "Did He choose the girls over the boys?",
                     "154": "What is wrong with your logic? ",
@@ -10728,22 +10748,22 @@
                     "159": "GOD be glorified; far above their claims.",
                     "160": "Only GOD’s servants who are devoted to Him alone (are saved).",
                     "161": "Indeed, you and what you worship. ",
-                    "162": "Cannot impose anything on Him",
-                    "163": "Only you will burn in Hell",
+                    "162": "Cannot impose anything on Him.",
+                    "163": "Only you will burn in Hell.",
                     "171": "Our decision is already decreed for our servants the messengers.",
                     "172": "They are surely the victors. ",
-                    "173": "Our soldiers are the winners",
-                    "174": "So disregard them for awhile",
-                    "175": "Watch them; they too will watch",
+                    "173": "Our soldiers are the winners.",
+                    "174": "So disregard them for awhile.",
+                    "175": "Watch them; they too will watch.",
                     "176": "Do they challenge our retribution?",
                     "177": "When it hits them one day, it will be a miserable day; they have been sufficiently warned.",
-                    "178": "Disregard them for awhile. ",
-                    "179": "Watch them; they too will watch",
+                    "178": "Disregard them for awhile.",
+                    "179": "Watch them; they too will watch.",
                     "180": "Glory be to your Lord, the great Lord; far above their claims.",
-                    "181": "Peace be upon the messengers. ",
+                    "181": "Peace be upon the messengers.",
                     "182": "Praise be to GOD, Lord of the universe.",
-                    "164": "Each one of us has a specific job",
-                    "165": "We are the arrangers",
+                    "164": "Each one of us has a specific job.",
+                    "165": "We are the arrangers.",
                     "166": "We have duly glorified (our Lord)",
                     "167": "They used to say,",
                     "168": "“Had we received the correct instructions from our parents,",
@@ -10837,8 +10857,8 @@
                     "34": "We thus put Solomon to the test; we blessed him with vast material wealth, but he steadfastly submitted.*",
                     "35": "He said, “My Lord, forgive me, and grant me a kingship never attained by anyone else. You are the Grantor.”",
                     "36": "We (answered his prayer and) committed  the  wind  at  his  disposal, pouring rain wherever he wanted.",
-                    "37": "And the devils, building and diving",
-                    "38": "Others were placed at his disposal",
+                    "37": "And the devils, building and diving.",
+                    "38": "Others were placed at his disposal.",
                     "39": "“This is our provision to you; you may give generously, or withhold, without limits.”"
                 },
                 "titles": {
@@ -10878,12 +10898,12 @@
                     "49": "This is a reminder: The righteous have deserved a wonderful destiny.",
                     "50": "The gardens of Eden will open up their gates for them.",
                     "51": "Relaxing therein, they will be given many kinds of fruits and drinks.",
-                    "52": "They will have wonderful spouses",
-                    "54": "Our provisions are inexhaustible ",
+                    "52": "They will have wonderful spouses.",
+                    "54": "Our provisions are inexhaustible.",
                     "55": "As for the transgressors, they have incurred a miserable destiny.",
                     "56": "Hell  is  where they  burn;  what  a miserable abode!",
                     "57": "What they taste therein will be hellish drinks and bitter food.",
-                    "58": "And much more of the same kind",
+                    "58": "And much more of the same kind.",
                     "59": "“This is a group to be thrown into Hell with you.” They will not be welcomed (by the residents of Hell). They have deserved to burn in the hellfire.",
                     "60": "The newcomers will respond, “Nor are you welcomed. You are the ones who preceded us and misled us. Therefore,  suffer  this  miserable end.”",
                     "61": "They will also say, “Our Lord, these are the ones who led us into this; double the retribution of hellfire for them.” ",
@@ -10921,7 +10941,7 @@
                     "83": "“Except  Your worshipers who  are devoted absolutely to You alone.”",
                     "84": "He said, “This is the truth, and the The Great Feud truth is all that I utter.",
                     "67": "Say, “Here is awesome news. ",
-                    "68": "“That you are totally oblivious to",
+                    "68": "“That you are totally oblivious to.",
                     "69": "“I  had  no  knowledge  previously, about the feud in the High Society.*",
                     "70": "“I am inspired that my sole mission is to deliver the warnings to you.”",
                     "71": "Your Lord said to the angels, “I am creating a human being from clay.",
@@ -10934,7 +10954,7 @@
                     "78": "“You have incurred My condemnation until the Day of Judgment.”",
                     "79": "He said, “My Lord, respite me till the Day of Resurrection.”",
                     "80": "He said, “You are respited. ",
-                    "81": "“Until the appointed day",
+                    "81": "“Until the appointed day.”",
                     "82": "He said, “I swear by Your majesty, that I will send them all astray.",
                     "85": "“I will fill Hell with you and all those who follow you.”",
                     "86": "Say, “I do not ask you for any wage, and I am not an imposter.",
@@ -11727,7 +11747,7 @@
                     "11": "He is the One who sends down from the  sky  water,  in  exact  measure,  to revive  dead  lands  therewith.  Similarly, you will be resurrected.",
                     "12": "He  is  the  One  who  created  all  kinds, in  pairs  (male  and  female),  and  He created  for  you  ships  and  livestock to ride.",
                     "13": "As  you rest on top of  them,  you  shall appreciate  such  a  blessing  from your  Lord,  and  say,  “Glory  be  to  the One  who  subdued  this  for  us.  We could  not  have  controlled  them  by ourselves.",
-                    "14": "“We ultimately return to our Lord Angels As Daughters: A Blasphemy",
+                    "14": "“We ultimately return to our Lord.”",
                     "15": "They  even  assigned  for  Him  a  share from  His  own  creation!  Surely,  the human  being  is  profoundly  unappreciative.",
                     "16": "Has  He  chosen  from  among  His creations  daughters  for  Himself, while blessing you with sons?",
                     "17": "When one of them is given news (of a  daughter)  as  they  claimed  for  the Most  Gracious,  his  face  is  darkened with misery and anger!",
@@ -11737,7 +11757,8 @@
                     "21": "Have  we  given  them  a  book  before this, and they are upholding it?"
                 },
                 "titles": {
-                    "6": "The Plan for Redemption"
+                    "6": "The Plan for Redemption",
+                    "15": "Angels As Daughters: A Blasphemy"
                 }
             }
         },
@@ -11958,12 +11979,12 @@
                     "23": "(God  said,)  “Travel  with  My  servants during the night; you will be pursued.",
                     "24": "“Cross the sea quickly; their troops will be drowned.”",
                     "25": "Thus, they left behind many gardens and springs.",
-                    "26": "Crops and a luxurious life",
-                    "27": "Blessings that they enjoyed",
+                    "26": "Crops and a luxurious life.",
+                    "27": "Blessings that they enjoyed.",
                     "28": "All these we caused to be inherited by other people.",
                     "29": "Neither the heaven, nor the earth wept over them, and they were not respited.",
                     "30": "Meanwhile, we  saved  the Children of Israel from the humiliating persecution.",
-                    "31": "From Pharaoh; he was a tyrant",
+                    "31": "From Pharaoh; he was a tyrant.",
                     "32": "We have chosen them from among all the people, knowingly.",
                     "33": "We showed them so many proofs, which constituted a great test.",
                     "34": "The present generations say,",
@@ -11976,17 +11997,17 @@
                     "41": "That is the day when no friend can help his friend in any way; no one can be helped.",
                     "42": "Only those who attain mercy from GOD.  He  is the Almighty,  Most Merciful.",
                     "43": "Surely, the tree of bitterness—",
-                    "44": "will provide the food for the sinful",
+                    "44": "will provide the food for the sinful.",
                     "45": "Like lye, it will boil in the stomachs.",
-                    "46": "Like the boiling of hellish drinks",
+                    "46": "Like the boiling of hellish drinks.",
                     "47": "Take him and throw him into the center of Hell.",
                     "48": "Then pour upon his head the retribution of the Inferno.",
                     "49": "“Taste this; you were so powerful, so honorable.”",
                     "50": "This is what you used to doubt. ",
                     "51": "The righteous will be in a secure position.",
-                    "52": "Enjoying gardens and springs",
+                    "52": "Enjoying gardens and springs.",
                     "53": "Wearing velvet and satin; close to each other.",
-                    "54": "We grant them wonderful spouses"
+                    "54": "We grant them wonderful spouses."
                 },
                 "titles": {
                     "34": "Expect The Same Consequences",
@@ -12584,39 +12605,33 @@
                     "3": "Bringing provisions.",
                     "4": "Distributing them as commanded.",
                     "5": "What  is  promised  to  you  will  surely come to pass.",
-                    "6": "The Day of Judgment is inevitable",
-                    "7": "Despite the perfectly created sky",
-                    "8": "You continue to dispute the truth",
+                    "6": "The Day of Judgment is inevitable.",
+                    "7": "Despite the perfectly created sky.",
+                    "8": "You continue to dispute the truth.",
                     "9": "Deviating  therefrom  are  the  deviators.",
-                    "10": "Woe to the falsifiers",
+                    "10": "Woe to the falsifiers.",
                     "11": "In  their  blundering,  they  are  totally heedless.",
-                    "12": "They question the Day of Judgment",
+                    "12": "They question the Day of Judgment.",
                     "13": "The  day  they  are  presented  to  the fire.",
                     "14": "Taste  the  retribution;  this  is  what you used to challenge.",
                     "15": "The  righteous  have  deserved  gardens and springs.",
-                    "22": "In  the  heaven  is  your  provision,  and everything that is promised to you.",
-                    "23": "By  the  Lord  of  the  heaven  and  the earth,  this  is  as  true  as  the  fact  that you speak.",
-                    "24": "Have  you  noted  the  history  of Abraham’s honorable guests?",
-                    "25": "They  visited  him,  saying,  “Peace He said, “Peace to you, strangers!”",
-                    "26": "He  asked  his  family  to  prepare  a  fat calf.",
-                    "27": "When  he  offered  it  to  them,  he remarked, “Do you not eat?”",
-                    "28": "He  harbored  fear  of  them said,  “Have  no  fear,”  and  they  gave good news of a knowledgeable son.",
-                    "29": "His  wife  was  astonished wrinkled  face:  “I  am  a  sterile  old woman.”",
-                    "30": "They  said,  “Thus  said  your  Lord is the Most Wise, the Omniscient.”",
-                    "31": "He  said,  “What  are  you  up  to,  O messengers?”",
-                    "32": "They  said,  “We  have  been  dispatched to criminal people.",
-                    "33": "“We  will  shower  them  with  rocks  of clay.",
-                    "34": "“Marked  by  your  Lord  for  the  trans-",
-                    "16": "They  receive  their  Lord’s  rewards, gressors.” for they used to be pious.",
-                    "17": "Rarely  did  they  sleep  the  whole night.",
-                    "18": "At  dawn,  they  prayed  for  forgiveness.",
-                    "19": "A  portion  of  their  money  was  set aside for the beggar and the needy.",
-                    "20": "The  earth  is  full  of  signs  for  those who are certain.",
-                    "21": "And within yourselves; can you see?",
-                    "35": "We then delivered all the believers",
-                    "36": "We  did  not  find  in  it  except  one house of submitters.",
-                    "37": "We set it up as a lesson for those who fear the painful retribution.",
-                    "38": "In Moses (there is a lesson) him  to  Pharaoh  with  manifest proofs.",
+                    "22": "In  the  heaven  is  your  provision,  and everything that is promised to you. ",
+                    "23": "By  the  Lord  of  the  heaven  and  the earth,  this  is  as  true  as  the  fact  that you speak.  ",
+                    "24": "Have  you  noted  the  history  of Abraham’s honorable guests? ",
+                    "25": "They  visited  him,  saying,  “Peace.” He said, “Peace to you, strangers!” ",
+                    "26": "He  asked  his  family  to  prepare  a  fat calf. ",
+                    "27": "When  he  offered  it  to  them,  he remarked, “Do you not eat?” ",
+                    "28": "He  harbored  fear  of  them.  They said,  “Have  no  fear,”  and  they  gave good news of a knowledgeable son. ",
+                    "29": "His  wife  was  astonished.  Noting  her wrinkled  face:  “I  am  a  sterile  old woman.” ",
+                    "30": "They  said,  “Thus  said  your  Lord.  He is the Most Wise, the Omniscient.” ",
+                    "31": "He  said,  “What  are  you  up  to,  O messengers?” ",
+                    "32": "They  said,  “We  have  been  dispatched to criminal people. ",
+                    "33": "“We will shower them with rocks of clay. ",
+                    "34": "“Marked  by  your  Lord  for  the  transgressors.” ",
+                    "35": "We then delivered all the believers. ",
+                    "36": "We did  not  find  in  it except one house of submitters. ",
+                    "37": "We set it up as a lesson for those who fear the painful retribution. ",
+                    "38": "In Moses (there is a lesson). We sent him  to  Pharaoh  with  manifest proofs. ",
                     "39": "But  he  turned  away,  in  arrogance, and said, “Magician, or crazy.”"
                 },
                 "titles": {
@@ -12697,7 +12712,7 @@
         "sura": {
             "52": {
                 "verses": {
-                    "11": "Woe  on  that  day  to  the  disbe-",
+                    "11": "Woe  on  that  day  to  the  disbelievers—",
                     "12": "who are in their blundering, heedless.",
                     "13": "They will be herded into Gehenna, forcibly.",
                     "14": "This is the Fire in which you used to disbelieve.",
@@ -12826,16 +12841,16 @@
                     "39": "Every human being is responsible for his own works.",
                     "40": "And  everyone’s  works  will  be shown.",
                     "41": "Then they will be paid fully for such works.",
-                    "42": "To your Lord is the final destiny",
+                    "42": "To your Lord is the final destiny.",
                     "43": "He is the One who makes you laugh or cry.",
                     "44": "He is the One who controls death and life.",
                     "45": "He is the One who created the two kinds, male and female—",
-                    "46": "from a tiny drop of semen",
-                    "47": "He will effect the recreation",
+                    "46": "from a tiny drop of semen.",
+                    "47": "He will effect the recreation.",
                     "48": "He is the One who makes you rich or poor.",
-                    "49": "He is the Lord of the galaxies",
+                    "49": "He is the Lord of the galaxies.",
                     "50": "He is the One who annihilated ancient ‘Aad.",
-                    "51": "And wiped out Thamoud",
+                    "51": "And wiped out Thamoud.",
                     "52": "Also  the  people  of  Noah  before that; they were evil transgressors.",
                     "53": "The  evil  communities  (of  Sodom and Gomorrah) were the lowliest."
                 },
@@ -12863,7 +12878,7 @@
                     "55": "Which of your Lord’s marvels can you deny?",
                     "56": "This is a warning like the older ones.",
                     "57": "The inevitable is imminent. ",
-                    "58": "None beside GOD can relieve it",
+                    "58": "None beside GOD can relieve it.",
                     "59": "Are you questioning this matter?",
                     "60": "Are you laughing, instead of crying?",
                     "61": "Are you insisting on your ways?",
@@ -12920,7 +12935,7 @@
                     "20": "It  tossed  the  people  around  as  if they were decayed palm tree trunks.",
                     "21": "How  terrible  was  My  retribution after the warnings!",
                     "22": "We  made  the  Quran  easy  to  learn Does any of you wish to learn?",
-                    "23": "Thamoud rejected the warnings",
+                    "23": "Thamoud rejected the warnings.",
                     "24": "They  said,  “Shall  we  follow  one  of us;  a  human  being?  We  will  then  go astray, then end up in Hell.",
                     "25": "“Did  the  message  come  down  to him,  instead  of  us?  He  is  a  flagrant liar.”",
                     "26": "They  will  find  out  tomorrow  who  the flagrant liar is.",
@@ -12929,7 +12944,7 @@
                     "38": "Early  the  next  morning,  a  devastating retribution struck them.",
                     "39": "Suffer  My  retribution;  you  have been warned.",
                     "40": "We  made  the  Quran  easy  to  learn Does any of you wish to learn?",
-                    "41": "Pharaoh’s people were warned",
+                    "41": "Pharaoh’s people were warned.",
                     "42": "They  rejected  all  our  signs quently,  we  requited  them  as  an  Almighty, Omnipotent should.",
                     "27": "We  are  sending  the  camel  as  a  test for  them.  Watch  them  and  be  patient.",
                     "43": "Are  your  disbelievers  better  than those  disbelievers?  Have  you  been absolved by the scripture?",
@@ -13222,24 +13237,24 @@
                     "74": "You shall glorify the name of your Lord, the Great.",
                     "75": "I  swear  by  the  positions  of  the stars.",
                     "76": "This is an oath, if you only knew, that is awesome.*",
-                    "77": "This is an honorable Quran",
+                    "77": "This is an honorable Quran.",
                     "78": "In a protected book. ",
                     "79": "None can grasp it except the sincere.*",
                     "80": "A revelation from the Lord of the universe.",
                     "81": "Are  you  disregarding  this  narration?",
                     "82": "Do you make it your business that you disbelieve?",
                     "83": "When the time comes and it (your soul) reaches your throat—",
-                    "84": "you will then look around",
+                    "84": "you will then look around.",
                     "85": "We are closer to it than you are, but you do not see.",
                     "86": "If it is true that you do not owe any accounting—",
                     "87": "why do you not restore (your soul), if you are truthful?",
                     "88": "If he is one of those close to Me—",
                     "89": "then joy, flowers, and gardens of bliss.",
                     "90": "And if he is one of the right—",
-                    "91": "peace is the lot of those on the right",
+                    "91": "peace is the lot of those on the right.",
                     "92": "But if he is one of the disbelievers, the strayers—",
                     "93": "then an abode of inferno—",
-                    "94": "and burning in Hell",
+                    "94": "and burning in Hell.",
                     "95": "This is the absolute truth. ",
                     "96": "You shall glorify the name of your Lord, the Great."
                 },
@@ -13907,23 +13922,23 @@
                     "3": "You  have attained  a recompense that is well deserved.",
                     "4": "You are blessed with a great moral character.",
                     "5": "You will see, and they will see.",
-                    "6": "Which of you are condemned",
+                    "6": "Which of you are condemned.",
                     "7": "Your Lord is fully aware of those who strayed off His path, and He is fully aware of those who are guided.",
                     "8": "Do not obey the rejectors.",
                     "9": "They wish that you compromise, so they too can compromise.",
-                    "10": "Do not obey every lowly swearer",
+                    "10": "Do not obey every lowly swearer.",
                     "11": "A slanderer, a backbiter.",
                     "12": "Forbidder of charity, a transgressor, a sinner.",
                     "13": "Unappreciative, and greedy.",
                     "14": "Even though he possessed enough money and children.",
                     "15": "When our revelations are recited to him,   he   says,   “Tales  from  the past!”",
-                    "16": "We will mark his face",
+                    "16": "We will mark his face.",
                     "17": "We have tested them like we tested the owners of the garden who swore that they will harvest it in the morning.",
-                    "18": "They were so absolutely sure",
+                    "18": "They were so absolutely sure.",
                     "19": "A passing (storm) from your Lord passed by it while they were asleep.",
                     "20": "By morning, it was barren.",
                     "21": "They called on each other in the morning.",
-                    "22": "“Let us harvest the crop",
+                    "22": "“Let us harvest the crop.”",
                     "23": "On their way, they confided to each other.",
                     "24": "That from then on, none of them would be poor.",
                     "25": "They were so absolutely sure of their harvest.",
@@ -13931,7 +13946,7 @@
                     "27": "“Now, we have nothing!”",
                     "28": "The righteous among them said, “If only you had glorified (God)!”",
                     "29": "They said, “Glory be to our Lord We have transgressed.”",
-                    "30": "They started to blame each other",
+                    "30": "They started to blame each other.",
                     "31": "They said, “Woe to us. We sinned.",
                     "32": "“May our Lord grant us a better one. We repent to our Lord.”",
                     "33": "Such was the requital bution of the Hereafter is far worse, if they only knew.",
@@ -14020,48 +14035,46 @@
         "sura": {
             "69": {
                 "verses": {
-                    "18": "On  that  day,  you  will  be  exposed,",
-                    "40": "This  is  the  utterance  of  an  honornothing of you can be hidden. able messenger.",
-                    "41": "Not  the  utterance  of  a  poet;  rarely",
-                    "19": "As  for  the  one  who  receives  his record  with  his  right  hand,  he  will say, “Come read my record. do you believe.",
+                    "18": "On  that  day,  you  will  be  exposed, nothing of you can be hidden.",
+                    "40": "This  is  the  utterance  of  an  honorable messenger.",
+                    "41": "Not  the  utterance  of  a  poet; rarely do you believe.",
+                    "19": "As  for  the  one  who  receives  his record  with  his  right  hand,  he  will say, “Come read my record. ",
                     "42": "Nor  the  utterance  of  a  soothsayer; rarely do you take heed.",
-                    "20": "“I  did  believe  that  I  was  going  to  be",
-                    "43": "A  revelation  from  the  Lord  of  the held accountable.” universe.",
-                    "21": "He has deserved a happy life",
-                    "22": "In an exalted Paradise",
-                    "23": "Its fruits are within reach",
+                    "20": "“I  did  believe  that  I  was  going  to  be held accountable.”",
+                    "43": "A  revelation  from  the  Lord  of the  universe.",
+                    "21": "He has deserved a happy life.",
+                    "22": "In an exalted Paradise.",
+                    "23": "Its fruits are within reach.",
                     "24": "Eat  and  drink  happily  in  return  for your works in days past.",
                     "25": "As for him who is given his record in his left hand, he will say, “Oh, I wish I never received my record.",
-                    "26": "“I wish I never knew my account",
-                    "27": "“I wish my death was eternal",
-                    "28": "“My money cannot help me",
-                    "29": "“All my power is gone",
-                    "30": "Take him and shackle him",
-                    "31": "Burn him in Hell",
+                    "26": "“I wish I never knew my account.",
+                    "27": "“I wish my death was eternal.",
+                    "28": "“My money cannot help me.",
+                    "29": "“All my power is gone.” ",
+                    "30": "Take him and shackle him.",
+                    "31": "Burn him in Hell.",
                     "32": "In  a  chain  that  is  seventy  arms  long, tie him up.",
                     "33": "For he did not believe in GOD, Most Great.",
                     "34": "Nor  did  he  advocate  the  feeding  of the poor.",
                     "35": "Consequently,  he  has  no  friend here.",
                     "36": "Nor  any  food,  except  the  bitter variety.",
-                    "37": "Food for the sinners",
-                    "38": "I swear by what you see",
-                    "39": "And what you do not see Muhammad Forbidden from Issuing Any Religious Teachings",
+                    "37": "Food for the sinners.",
+                    "38": "I swear by what you see.",
+                    "39": "And what you do not see.",
                     "44": "Had  he  uttered  any  other  teachings.",
-                    "45": "We would have punished him",
+                    "45": "We would have punished him.",
                     "46": "We  would  have  stopped  the  revelations to him.",
                     "47": "None  of  you  could  have  helped him.",
                     "48": "This  is  a  reminder  for  the  righteous.",
                     "49": "We  know;  some  of  you  are  rejectors.",
                     "50": "It  is  but  sorrow  for  the  disbelievers.",
-                    "51": "It is the absolute truth",
-                    "52": "Therefore,  you  shall  glorify  the name of your Lord, Most Great.",
-                    "1": "A  questioner  may  question  the  inevitable retribution.",
-                    "2": "For  the  disbelievers,  none  can  stop it.",
-                    "3": "From  GOD;  Possessor  of  the  highest Height."
+                    "51": "It is the absolute truth.",
+                    "52": "Therefore,  you  shall  glorify  the name of your Lord, Most Great."
                 },
                 "titles": {
                     "19": "The Believers",
-                    "25": "The Disbelievers"
+                    "25": "The Disbelievers",
+                    "44": "Muhammad Forbidden from\nIssuing Any Religious Teachings"
                 }
             },
             "70": {
@@ -14093,34 +14106,34 @@
                 "verses": {
                     "4": "The  angels,  with  their  reports,  climb to  Him  in  a  day  that  equals  fifty thousand years.",
                     "5": "Therefore,  you  shall  resort  to  a  gracious patience.",
-                    "6": "For they see it far away",
-                    "7": "While we see it very close",
+                    "6": "For they see it far away.",
+                    "7": "While we see it very close.",
                     "8": "The day will come when the sky will be like molten rocks.",
                     "9": "The  mountains  will  be  like  fluffy wool.",
                     "10": "No  friend  will  care  about  his  close friend.",
                     "11": "When  they  see  them,  the  guilty  will wish  he  could  give  his  own  children as  ransom,  to  spare  him  the  retribution of that day.",
-                    "12": "Also his spouse, and his brother",
-                    "13": "Even his whole tribe that raised him",
+                    "12": "Also his spouse, and his brother.",
+                    "13": "Even his whole tribe that raised him.",
                     "14": "Even  all  the  people  on  earth,  if  it would save him.",
-                    "15": "No; it is aflame",
-                    "16": "Eager to burn",
-                    "17": "It calls on those who turned away",
-                    "18": "Those who hoarded and counted",
-                    "19": "Indeed, the human being is anxious",
+                    "15": "No; it is aflame.",
+                    "16": "Eager to burn.",
+                    "17": "It calls on those who turned away.",
+                    "18": "Those who hoarded and counted.",
+                    "19": "Indeed, the human being is anxious.",
                     "20": "If  touched  by  adversity,  despondent.",
-                    "21": "If blessed by wealth, stingy",
-                    "22": "Except for the worshipers",
+                    "21": "If blessed by wealth, stingy.",
+                    "22": "Except for the worshipers.",
                     "23": "Who  always  observe  their  contact prayers (Salat).",
-                    "24": "Part of their money is set aside",
-                    "25": "For the poor and the needy",
+                    "24": "Part of their money is set aside.",
+                    "25": "For the poor and the needy.",
                     "26": "They  believe  in  the  Day  of  Judgment.",
                     "27": "They  reverence  their  Lord’s  requital.",
                     "28": "Their  Lord’s  requital  is  not  taken for granted.",
-                    "29": "They keep their chastity",
+                    "29": "They keep their chastity.",
                     "30": "(They  have  relations)  only  with  their spouses, or what is legally theirs—",
                     "31": "anyone  who  transgresses  these  limits is a sinner.",
                     "32": "And  the  believers  keep  their  word; they are trustworthy.",
-                    "33": "Their testimony is truthful",
+                    "33": "Their testimony is truthful.",
                     "34": "They  consistently  observe  their  contact prayers (Salat) on time.",
                     "35": "They  have  deserved  a  position  of honor in Paradise.",
                     "36": "What  is  keeping  those  who  disbelieved from joining you?",
@@ -14157,7 +14170,7 @@
                     "5": "He said, “My Lord, I have invited my people night and day.",
                     "6": "“But my invitation only increased their aversion.",
                     "7": "“Whenever I invited them to be forgiven  by  You, they  placed  their fingers in their ears, covered themselves  with  their  clothes,  insisted, and turned arrogant.",
-                    "8": "“Then I invited them publicly",
+                    "8": "“Then I invited them publicly.",
                     "9": "“Then I proclaimed to them loudly, and I spoke to them privately.",
                     "10": "“I said, ‘Implore your Lord for forgiveness; He is Forgiving.",
                     "11": "“ ‘He will then shower you generously with rain.",
@@ -14169,9 +14182,9 @@
                     "17": "And GOD germinated you from the earth like plants.",
                     "18": "Then He returns you into it, and He will surely bring you out.",
                     "19": "GOD made the earth habitable for you.",
-                    "20": "That you may build roads therein",
+                    "20": "That you may build roads therein.",
                     "21": "Noah  said,  “My  Lord,  they  disobeyed me, and followed those who were  even  more  corrupted  when blessed with money and children.",
-                    "22": "“They schemed terrible schemes",
+                    "22": "“They schemed terrible schemes.",
                     "23": "“They said, ‘Do not abandon your gods. Do not abandon Wadd, Suwaa‘, Yaghouth, Ya‘ooq, and Nasr.",
                     "24": "“They misled many the wicked plunge deeper into loss.”",
                     "25": "Because  of  their  sins  they  were drowned and assigned to the hellfire. They found no helpers to protect them from GOD.",
@@ -14353,36 +14366,37 @@
         "sura": {
             "74": {
                 "verses": {
-                    "30": "Over it is nineteen",
+                    "30": "Over it is nineteen.*",
                     "31": "We appointed angels to be guardians of Hell, and we assigned their number (19) (1) to disturb the disbelievers, (2)  to  convince the  Christians and Jews (that this is a divine scripture), (3) to  strengthen  the  faith  of  the faithful, (4) to  remove  all  traces  of  doubt from the hearts of Christians, Jews, as well as the believers, and (5)  to  expose  those  who  harbor doubt in their hearts, and the disbelievers; they will say, “What did GOD mean by this allegory?” GOD thus  sends  astray  whomever  He wills,  and  guides  whomever  He wills. None knows the soldiers of your Lord except He. This is a reminder for the people.",
                     "32": "Absolutely, (I swear) by the moon.",
-                    "33": "And the night as it passes",
-                    "34": "And the morning as it shines One of the  Great Miracles",
-                    "35": "This is one of the great miracles",
-                    "36": "A warning to the human race",
+                    "33": "And the night as it passes.",
+                    "34": "And the morning as it shines. ",
+                    "35": "This is one of the great miracles.*",
+                    "36": "A warning to the human race.",
                     "37": "For those among you who wish to advance, or regress.",
-                    "38": "Every soul is trapped by its sins",
-                    "39": "Except for those on the right",
+                    "38": "Every soul is trapped by its sins.",
+                    "39": "Except for those on the right.",
                     "40": "While in Paradise, they will ask.",
                     "41": "About the guilty.",
                     "42": "“What brought you to this retribution?”",
                     "43": "They will say, “We did not observe the contact prayers (Salat).",
-                    "44": "“We did not feed the poor",
-                    "45": "“We blundered with the blunderers",
+                    "44": "“We did not feed the poor.",
+                    "45": "“We blundered with the blunderers.",
                     "46": "“We disbelieved in the Day of Judgment.",
-                    "47": "“Until certainty came to us now",
+                    "47": "“Until certainty came to us now.”",
                     "48": "The  intercession  of  the  intercessors will never help them.",
                     "49": "Why are they so averse to this reminder?",
-                    "50": "Running like zebras",
+                    "50": "Running like zebras.",
                     "51": "Who are fleeing from the lion!",
                     "52": "Does  each  one  of  them  want  to receive the scripture personally?",
                     "53": "Indeed,  they  do  not  fear  the  Hereafter.",
                     "54": "Indeed, this is a reminder.",
-                    "55": "For those who wish to take heed",
+                    "55": "For those who wish to take heed.",
                     "56": "They  cannot  take  heed  against GOD’s will. He is the source of righteousness;  He  is  the  source  of forgiveness."
                 },
                 "titles": {
-                    "30": "The Quran’s Common\nDenominator "
+                    "30": "The Quran’s Common\nDenominator ",
+                    "35": "One of\nthe Great Miracles"
                 }
             },
             "75": {
@@ -14411,22 +14425,22 @@
             "353"
         ],
         "sura": {
-            "76": {
+            "75": {
                 "verses": {
                     "5": "But  the  human  being  tends  to  believe  only  what  he  sees in  front of him.",
                     "6": "He  doubts  the  Day  of  Resurrection!",
-                    "7": "Once the vision is sharpened",
-                    "8": "And the moon is eclipsed",
+                    "7": "Once the vision is sharpened.",
+                    "8": "And the moon is eclipsed.",
                     "9": "And  the  sun  and  the  moon  crash into one another.",
                     "10": "The  human  being  will  say  on  that day, “Where is the escape?”",
-                    "11": "Absolutely, there is no escape",
+                    "11": "Absolutely, there is no escape.",
                     "12": "To  your  Lord,  on  that  day,  is  the final destiny.",
                     "13": "The  human  being  will  be  informed, on  that  day,  of  everything  he  did  to advance  himself,  and  everything  he did to regress himself.",
                     "14": "The  human  being  will  be  his  own judge.",
-                    "25": "Expecting the worst",
+                    "25": "Expecting the worst.",
                     "26": "Indeed,  when  (the  soul)  reaches  the throat.",
                     "27": "And it is ordered: “Let go!”",
-                    "28": "He knows it is the end",
+                    "28": "He knows it is the end.",
                     "29": "Each  leg  will  lay  motionless  next  to the other leg.",
                     "30": "To  your  Lord,  on  that  day,  is  the summoning.",
                     "31": "For  he  observed  neither  the  charity, nor the contact prayers (Salat).",
@@ -14435,20 +14449,28 @@
                     "34": "You have deserved this.",
                     "35": "Indeed, you have deserved this.",
                     "36": "Does  the  human  being  think  that  he will go to nothing?",
-                    "15": "No excuses will be accepted",
-                    "37": "Was  he  not  a  drop  of  ejected  seMuhammad Forbidden From Explaining the Quran",
+                    "15": "No excuses will be accepted.",
+                    "37": "Was  he  not  a  drop  of  ejected  semen?",
                     "16": "Do  not  move  your  tongue  to  hasten it.",
                     "17": "It  is  we  who  will  collect  it  into Quran.",
                     "18": "Once  we  recite  it,  you  shall  follow such a Quran.",
-                    "19": "Then it is we who will explain it",
-                    "20": "Indeed, you love this fleeting life",
-                    "21": "While disregarding the Hereafter",
+                    "19": "Then it is we who will explain it.",
+                    "20": "Indeed, you love this fleeting life.",
+                    "21": "While disregarding the Hereafter.",
                     "22": "Some  faces,  on  that  day,  will  be happy.",
-                    "23": "Looking at their Lord",
+                    "23": "Looking at their Lord.",
                     "24": "Other  faces  will  be,  on  that  day, miserable. men?",
                     "38": "Then  He  created  an  embryo  out  of it!",
                     "39": "He made it into male or female!",
                     "40": "Is  He  then  unable  to  revive  the dead?",
+                    "1": "Is  it  not  a  fact  that  there  was  a  time when the human being was nothing to be mentioned?"
+                },
+                "titles": {
+                    "16": "Muhammad Forbidden From\nExplaining the Quran"
+                }
+            },
+            "76": {
+                "verses": {
                     "1": "Is  it  not  a  fact  that  there  was  a  time when the human being was nothing to be mentioned?"
                 },
                 "titles": {
@@ -14584,16 +14606,16 @@
             "77": {
                 "verses": {
                     "39": "If  you  have  any  schemes, go  ahead and scheme. ",
-                    "40": "Woe on that day to the rejectors",
+                    "40": "Woe on that day to the rejectors.",
                     "41": "The  righteous  will  enjoy  shade  and springs.",
-                    "42": "And fruits that they desire",
+                    "42": "And fruits that they desire.",
                     "43": "Eat  and  drink  happily  in  return  for your works.",
-                    "44": "We thus reward the virtuous",
-                    "45": "Woe on that day to the rejectors",
+                    "44": "We thus reward the virtuous.",
+                    "45": "Woe on that day to the rejectors.",
                     "46": "Eat  and  enjoy  temporarily;  you  are guilty.",
-                    "47": "Woe on that day to the rejectors",
+                    "47": "Woe on that day to the rejectors.",
                     "48": "When  they  are  told,  “Bow  down,” they do not bow down.",
-                    "49": "Woe on that day to the rejectors",
+                    "49": "Woe on that day to the rejectors.",
                     "50": "Which  Hadith,  other  than  this,  do they uphold?"
                 },
                 "titles": {}
@@ -14714,21 +14736,21 @@
             "79": {
                 "verses": {
                     "29": "He  made  its  night  dark, and  brightened its morn.",
-                    "30": "He made the earth egg-shaped",
+                    "30": "He made the earth egg-shaped.*",
                     "31": "From  it, He  produced  its  own  water and pasture.",
-                    "32": "He established the mountains",
+                    "32": "He established the mountains.",
                     "33": "All  this  to  provide  life  support  for you and your animals.",
                     "34": "Then, when the great blow comes.",
                     "35": "That  is  the  day  when  the  human  will remember everything he did.",
-                    "36": "Hell will be brought into existence",
-                    "37": "As for the one who transgressed",
+                    "36": "Hell will be brought into existence.",
+                    "37": "As for the one who transgressed.",
                     "38": "Who  was  preoccupied  with  this life.",
-                    "39": "Hell will be the abode",
+                    "39": "Hell will be the abode.",
                     "40": "As  for  the  one  who  reverenced  the majesty  of  his  Lord,  and  enjoined the self from sinful lusts.",
-                    "41": "Paradise will be the abode",
+                    "41": "Paradise will be the abode.",
                     "42": "They  ask  you  about  the  Hour,  and when it will take place!",
                     "43": "It  is  not  you  (Muhammad)  who  is destined to announce its time.",
-                    "44": "Your Lord decides its fate",
+                    "44": "Your Lord decides its fate.",
                     "45": "Your  mission  is  to  warn  those  who expect it.",
                     "46": "The day they see it, they will feel as if  they  lasted  one  evening  or  half  a day."
                 },
@@ -14792,13 +14814,13 @@
                     "32": "To  provide  life  support  for  you  and your animals.",
                     "33": "Then, when the blow comes to pass.",
                     "34": "That  is  the  day  when  one  flees  from his brother.",
-                    "35": "From his mother and father",
-                    "36": "From his spouse and children",
+                    "35": "From his mother and father.",
+                    "36": "From his spouse and children.",
                     "37": "Each  one  of  them,  on  that  day,  worries about his own destiny.",
                     "38": "Some  faces  on  that  day  will  be happy.",
-                    "39": "Laughing and joyful",
+                    "39": "Laughing and joyful.",
                     "40": "Other  faces,  on  that  day,  will  be covered with misery.",
-                    "41": "Overwhelmed by remorse",
+                    "41": "Overwhelmed by remorse.",
                     "42": "These are the wicked disbelievers."
                 },
                 "titles": {}
