@@ -5,7 +5,7 @@ import Jump from '../components/Jump';
 import '../assets/Book.css';
 
 const Book = ({ bookContent }) => {
-    const [currentPage, setCurrentPage] = useState(parseInt(localStorage.getItem("qurantft-pn")));
+    const [currentPage, setCurrentPage] = useState(parseInt(localStorage.getItem("qurantft-pn"))? parseInt(localStorage.getItem("qurantft-pn")) : 13);
     const [pageHistory, setPageHistory] = useState([]);
     const [isModalOpen, setModalOpen] = useState(false);
     const [selectedSura, setSelectedSura] = useState(null);
