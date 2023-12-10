@@ -5,7 +5,7 @@ import Jump from '../components/Jump';
 import '../assets/Book.css';
 
 const Book = ({ bookContent }) => {
-    const [currentPage, setCurrentPage] = useState(parseInt(localStorage.getItem("qurantft-pn"))? parseInt(localStorage.getItem("qurantft-pn")) : 13);
+    const [currentPage, setCurrentPage] = useState(parseInt(localStorage.getItem("qurantft-pn")) ? parseInt(localStorage.getItem("qurantft-pn")) : 13);
     const [pageHistory, setPageHistory] = useState([]);
     const [isModalOpen, setModalOpen] = useState(false);
     const [selectedSura, setSelectedSura] = useState(null);
@@ -54,7 +54,7 @@ const Book = ({ bookContent }) => {
             }
         }
     };
-    
+
 
     const createReferenceMap = () => {
         const referenceMap = {};
@@ -115,30 +115,52 @@ const Book = ({ bookContent }) => {
 
 
 
-    // Function to render the book's content
     const renderBookContent = () => {
         // Render Pages component when current page is 23 or more
         if (currentPage >= 23) {
             return <Pages selectedPage={currentPage} selectedSura={selectedSura} selectedVerse={selectedVerse} />;
         }
 
-        // Render normal book content for other pages
+        if (currentPage == 22) {
+            return (
+            <div className="w-screen h-screen flex items-center justify-center text-neutral-300">
+                Sura List Loading...
+            </div>);
+        }
+        const combinedContent = [];
         const currentPageData = bookContent.find(page => page.page === currentPage);
-        if (!currentPageData) return <div className="text-neutral-200/80 flex flex-1 items-center justify-center w-full ">
-            <div>
-                Loading ...
-            </div>
-        </div>;
+
+        if (currentPageData.titles) { // Render normal book content for other pages
+            if (!currentPageData) {
+                return <div className="text-neutral-200/80 flex flex-1 items-center justify-center w-full ">Loading...</div>;
+            }
+
+            // Add titles to combined content
+            Object.entries(currentPageData.titles).forEach(([key, value]) => {
+                combinedContent.push({ type: 'title', content: value, order: parseInt(key) });
+            });
+
+            // Add text paragraphs to combined content
+            Object.entries(currentPageData.text).forEach(([key, value]) => {
+                combinedContent.push({ type: 'text', content: value, order: parseInt(key) });
+            });
+
+            // Add evidence to combined content
+            Object.entries(currentPageData.evidence).forEach(([key, value]) => {
+                combinedContent.push({ type: 'evidence', content: value, order: parseInt(key) });
+            });
+        }
+        // Sort the combined content by order
+        combinedContent.sort((a, b) => a.order - b.order);
 
         const parseReferences = (text) => {
-            const referenceRegex = /(\d+:\d+(?:-\d+)?(?:,\s*\d+)*)/g;
-            const parts = text.split(referenceRegex);
-            return parts.map((part, index) => {
+            const referenceRegex = /(\d+:\d+(?:-\d+)?)/g;
+            return text.split(referenceRegex).map((part, index) => {
                 if (part.match(referenceRegex)) {
                     return (
                         <span
                             key={index}
-                            className=" cursor-pointer animatedText"
+                            className="cursor-pointer text-sky-300"
                             onClick={() => handleClickReference(part)}
                         >
                             {part}
@@ -149,13 +171,31 @@ const Book = ({ bookContent }) => {
             });
         };
 
-        const paragraphs = currentPageData.text.split('\n\n').map((para, index) => {
-            return <p key={index} className="mb-4 ">{parseReferences(para)}</p>;
+        // Render combined content
+        const renderContent = combinedContent.map((item, index) => {
+            if (item.type === 'title') {
+                return (
+                    <div className={`w-full my-3 flex items-center justify-center text-center font-bold text-neutral-100  whitespace-pre-line ${item.order === 0 ? "text-2xl" : "itelic text-base"}`}>
+                        <h2 key={`title-${index}`}>{item.content}</h2>
+                    </div>
+                );
+            } else if (item.type === 'text') {
+                return <p key={`text-${index}`} className="mb-4 indent-4">{parseReferences(item.content)}</p>;
+            } else if (item.type === 'evidence') {
+                return (
+                    <div key={`evidence-${index}`} className={`bg-sky-700 rounded text-sm md:text-base p-3 my-3 border-2 border-neutral-400`}>
+                        {Object.entries(item.content.lines).map(([lineKey, lineValue]) => (
+                            <p className="my-1" key={lineKey}>{lineValue}</p>
+                        ))}
+                        <p>[ {item.content.ref.join(', ')} ]</p>
+                    </div>
+                );
+            }
         });
 
         return (
             <div className="text-neutral-200 overflow-auto flex-1 p-3 text-justify lg:text-start text-lg md:text-xl">
-                {paragraphs}
+                {renderContent}
             </div>
         );
     };
