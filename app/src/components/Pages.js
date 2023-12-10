@@ -3,10 +3,29 @@ import quranData from '../assets/structured_quran.json';
 
 const Pages = ({ selectedPage, selectedSura, selectedVerse }) => {
     const [pageData, setPageData] = useState(null);
-    const [showExplanation, setShowExplanation] = useState({ GODnameFrequency: false, GODnameSum: false });
+    const [showExplanation, setShowExplanation] = useState({ GODnamefrequency: false, GODnamesum: false });
     const [pageTitle, setPageTitle] = useState([]);
     const verseRefs = useRef({});
     const topRef = useRef(null);
+
+    const [notify, setNotify] = useState(false);
+
+    useEffect(() => {
+        if (notify) {
+            setTimeout(() => {
+                setNotify(false);
+            }, 4000);
+        }
+    }, [notify]);
+
+    const forceScroll = () => {
+        const verseKey = `${parseInt(selectedSura)}:${parseInt(selectedVerse)}`;
+
+        if (verseRefs.current[verseKey]) {
+            verseRefs.current[verseKey].scrollIntoView({ behavior: 'smooth', block: 'center' });
+            setNotify(true);
+        }
+    };
 
     useEffect(() => {
         setPageData(quranData[selectedPage]);
@@ -22,22 +41,22 @@ const Pages = ({ selectedPage, selectedSura, selectedVerse }) => {
                     }
                 }
             });
-
             setPageTitle(newPageTitles);
         }
 
         if (!selectedVerse && topRef.current) {
-            topRef.current.scrollIntoView({ behavior: 'smooth' , block: 'start'});
+            topRef.current.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        } else {
+            setTimeout(() => {
+                forceScroll();
+            }, 200);
+            forceScroll();
         }
-    }, [selectedPage, selectedVerse]);
+    }, [selectedPage, selectedSura, selectedVerse]);
 
     useEffect(() => {
-        // Scroll to the selected verse
-        const verseKey = `${selectedSura}:${selectedVerse}`;
-        if (verseRefs.current[verseKey]) {
-            verseRefs.current[verseKey].scrollIntoView({ behavior: 'smooth', block: 'center' });
-        } else {
-            console.log("Could not find position of the verse to focus");
+        if (selectedVerse) {
+            forceScroll();
         }
     }, [selectedSura, selectedVerse]);
 
@@ -124,19 +143,19 @@ const Pages = ({ selectedPage, selectedSura, selectedVerse }) => {
                     </div>
 
                     <div className=" flex flex-col text-end text-sm space-y-2">
-                        <p className="cursor-pointer" onClick={() => toggleExplanation('GODnameFrequency')}>
+                        <p className="cursor-pointer" onClick={() => toggleExplanation('GODnamefrequency')}>
                             {pageData.notes.cumulativefrequencyofthewordGOD}
                         </p>
-                        {showExplanation.GODnameFrequency && (
+                        {showExplanation.GODnamefrequency && (
                             <div className="transition duration-500 ease-in-out transform translate-x-2 p-1 bg-neutral-700 rounded">
                                 Cumulative frequency of the word GOD
                             </div>
                         )}
 
-                        <p className="cursor-pointer" onClick={() => toggleExplanation('GODnameSum')}>
+                        <p className="cursor-pointer" onClick={() => toggleExplanation('GODnamesum')}>
                             {pageData.notes.cumulativesumofverseswhereGODwordoccurs}
                         </p>
-                        {showExplanation.GODnameSum && (
+                        {showExplanation.GODnamesum && (
                             <div className="transition duration-500 ease-in-out transform translate-x-2 p-1 bg-neutral-700 rounded">
                                 Cumulative sum of verses where GOD word occurs
                             </div>
@@ -144,25 +163,28 @@ const Pages = ({ selectedPage, selectedSura, selectedVerse }) => {
                     </div>
 
                 </div>
-                {sortedVerses.map(({ suraNumber, verseNumber, verseText, title }) => (
-                    <React.Fragment key={verseNumber + ":" + suraNumber}>
-                        {title &&
-                            <div className="bg-neutral-600 italic rounded shadow-xl m-2 p-4 text-sm md:text-md lg:text-lg text-center break-words whitespace-pre-wrap">
-                                {title}
-                            </div>}
-
-                        <div
-                            ref={(el) => verseRefs.current[`${suraNumber}:${verseNumber}`] = el}
-                            className="flex rounded m-2 p-2 shadow-xl bg-sky-700 text-justify text-base md:text-lg xl:text-xl">
-                            <p className="p-1">
-                                <span className="text-neutral-300/50 font-bold ">{`${verseNumber}. `}</span>
-                                <span className="text-neutral-200 ">
-                                    {verseText}
-                                </span>
-                            </p>
-                        </div>
-                    </React.Fragment>
-                ))}
+                {sortedVerses.map(({ suraNumber, verseNumber, verseText, title }) => {
+                    return (
+                        <React.Fragment key={verseNumber + ":" + suraNumber}>
+                            {title &&
+                                <div className="bg-neutral-600 italic rounded shadow-xl m-2 p-4 text-sm md:text-md lg:text-lg text-center break-words whitespace-pre-wrap">
+                                    {title}
+                                </div>
+                            }
+                            
+                            <div
+                                ref={(el) => verseRefs.current[`${suraNumber}:${verseNumber}`] = el}
+                                className={`flex rounded m-2 p-2 shadow-xl text-justify text-base md:text-lg xl:text-xl bg-sky-700 ${notify && (parseInt(selectedSura) === parseInt(suraNumber) && parseInt(selectedVerse) === parseInt(verseNumber)) ? "animate-pulse" : "animate-none"}`}>
+                                <p className="p-1">
+                                    <span className="text-neutral-300/50 font-bold ">{`${verseNumber}. `}</span>
+                                    <span className="text-neutral-200 ">
+                                        {verseText}
+                                    </span>
+                                </p>
+                            </div>
+                        </React.Fragment>
+                    );
+                })}
             </div>
             {pageData.notes.data.length > 0 &&
                 <div className="bg-neutral-700 m-2 rounded p-2 text-sm md:text-md lg:text-lg text-justify text-neutral-300 flex flex-col space-y-4 whitespace-pre-line">

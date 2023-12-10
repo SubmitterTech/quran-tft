@@ -107,7 +107,7 @@ const Book = ({ bookContent }) => {
 
         if (foundPageNumber) {
             console.log("Page number:", foundPageNumber);
-            updatePage(parseInt(foundPageNumber));
+            updatePage(foundPageNumber, sura, verseStart);
         } else {
             console.log("Reference not found in the book.");
         }
