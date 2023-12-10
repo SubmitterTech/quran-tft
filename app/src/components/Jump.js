@@ -74,7 +74,7 @@ const Jump = ({ currentPage, quran, onClose, onConfirm }) => {
     };
 
     const handleSubmit = () => {
-        onConfirm(selectedPage, suraNumber, verseNumber);
+        onConfirm(selectedPage, suraNumber, verseNumber ? verseNumber : "1");
         onClose();
     };
 
