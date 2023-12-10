@@ -1,10 +1,12 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import quranData from '../assets/structured_quran.json';
 
-const Pages = ({ selectedPage }) => {
+const Pages = ({ selectedPage, selectedSura, selectedVerse }) => {
     const [pageData, setPageData] = useState(null);
     const [showExplanation, setShowExplanation] = useState({ GODnameFrequency: false, GODnameSum: false });
     const [pageTitle, setPageTitle] = useState([]);
+    const verseRefs = useRef({});
+    const topRef = useRef(null);
 
     useEffect(() => {
         setPageData(quranData[selectedPage]);
@@ -23,7 +25,22 @@ const Pages = ({ selectedPage }) => {
 
             setPageTitle(newPageTitles);
         }
-    }, [selectedPage]);
+
+        if (!selectedVerse && topRef.current) {
+            topRef.current.scrollIntoView({ behavior: 'smooth' , block: 'start'});
+        }
+    }, [selectedPage, selectedVerse]);
+
+    useEffect(() => {
+        // Scroll to the selected verse
+        const verseKey = `${selectedSura}:${selectedVerse}`;
+        if (verseRefs.current[verseKey]) {
+            verseRefs.current[verseKey].scrollIntoView({ behavior: 'smooth', block: 'center' });
+        } else {
+            console.log("Could not find position of the verse to focus");
+        }
+    }, [selectedSura, selectedVerse]);
+
 
     if (!pageData) return <div className="text-neutral-200/80 flex flex-1 items-center justify-center w-full ">Loading...</div>;
 
@@ -88,13 +105,18 @@ const Pages = ({ selectedPage }) => {
 
     const sortedVerses = parsePageVerses();
 
+    const handlePageTitleClicked = () => {
+        console.log(pageTitle)
+    };
 
     return (
         <div className="flex w-full flex-1 flex-col text-neutral-200 text-xl overflow-auto">
-            <div className="relative flex flex-col space-y-4 mb-2">
+            <div ref={topRef} className="relative flex flex-col space-y-4 mb-2">
                 <div className="sticky top-0 py-2 px-3 bg-sky-800 shadow-lg flex">
-                    <div className="flex w-full justify-between text-sm lg:text-lg items-center">
-                        <div className="flex flex-col">
+                    <div
+                        onClick={() => handlePageTitleClicked()}
+                        className="flex w-full justify-between text-sm lg:text-lg items-center mr-2">
+                        <div className="flex flex-col font-bold space-y-2">
                             {pageTitle.map((title, index) => (
                                 <h1 key={index}>{title}</h1>
                             ))}
@@ -123,13 +145,15 @@ const Pages = ({ selectedPage }) => {
 
                 </div>
                 {sortedVerses.map(({ suraNumber, verseNumber, verseText, title }) => (
-                    <React.Fragment key={suraNumber + ":" + verseNumber}>
+                    <React.Fragment key={verseNumber + ":" + suraNumber}>
                         {title &&
-                            <div className="bg-neutral-700 italic rounded shadow-xl m-2 p-4 text-sm md:text-md lg:text-lg text-center break-words whitespace-pre-wrap">
+                            <div className="bg-neutral-600 italic rounded shadow-xl m-2 p-4 text-sm md:text-md lg:text-lg text-center break-words whitespace-pre-wrap">
                                 {title}
                             </div>}
 
-                        <div className="flex rounded m-2 p-2 shadow-xl bg-sky-700 text-justify text-base md:text-lg xl:text-xl">
+                        <div
+                            ref={(el) => verseRefs.current[`${suraNumber}:${verseNumber}`] = el}
+                            className="flex rounded m-2 p-2 shadow-xl bg-sky-700 text-justify text-base md:text-lg xl:text-xl">
                             <p className="p-1">
                                 <span className="text-neutral-300/50 font-bold ">{`${verseNumber}. `}</span>
                                 <span className="text-neutral-200 ">

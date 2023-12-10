@@ -4,13 +4,10 @@ import Book from '../components/Book';
 import introductionContent from '../assets/introduction.json';
 
 function Root() {
-    const [showSplash, setShowSplash] = useState(true);
+    const [showSplash, setShowSplash] = useState(localStorage.getItem("qurantft-pn") ? false : true);
 
     const hideSplash = () => {
-        // Set a timeout to hide the splash screen after a specified delay
-        setTimeout(() => {
-            setShowSplash(false);
-        }, 1000); // Delay in milliseconds, e.g., 3000ms = 3 seconds
+        setShowSplash(false);
     };
     return (
         <div className="Root select-none bg-sky-700 flex flex-col h-screen">

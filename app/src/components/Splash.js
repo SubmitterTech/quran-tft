@@ -1,6 +1,6 @@
 import React from 'react';
 import splashData from '../assets/splash.json';
-import '../Splash.css';
+import '../assets/Splash.css';
 
 const Splash = ({onHideSplash}) => {
     // Split the text into lines
