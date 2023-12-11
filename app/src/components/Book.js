@@ -117,15 +117,15 @@ const Book = ({ bookContent }) => {
 
     const renderBookContent = () => {
         // Render Pages component when current page is 23 or more
-        if (currentPage >= 23) {
+        if (parseInt(currentPage) >= 23) {
             return <Pages selectedPage={currentPage} selectedSura={selectedSura} selectedVerse={selectedVerse} />;
         }
 
-        if (currentPage == 22) {
+        if (parseInt(currentPage) === 22) {
             return (
-            <div className="w-screen h-screen flex items-center justify-center text-neutral-300">
-                Sura List Loading...
-            </div>);
+                <div className="w-screen h-screen flex items-center justify-center text-neutral-300">
+                    Sura List Loading...
+                </div>);
         }
         const combinedContent = [];
         const currentPageData = bookContent.find(page => page.page === currentPage);
@@ -161,8 +161,8 @@ const Book = ({ bookContent }) => {
                         <span
                             key={index}
                             className="cursor-pointer text-sky-300"
-                            onClick={() => handleClickReference(part)}
-                        >
+                            onClick={() => handleClickReference(part)}>
+
                             {part}
                         </span>
                     );
@@ -175,19 +175,25 @@ const Book = ({ bookContent }) => {
         const renderContent = combinedContent.map((item, index) => {
             if (item.type === 'title') {
                 return (
-                    <div className={`w-full my-3 flex items-center justify-center text-center font-bold text-neutral-100  whitespace-pre-line ${item.order === 0 ? "text-2xl" : "itelic text-base"}`}>
+                    <div className={`w-full my-3 flex items-center justify-center text-center bg-neutral-700 rounded p-2 font-semibold text-neutral-300  whitespace-pre-line ${item.order === 0 ? "text-2xl font-bold" : " text-base"}`}>
                         <h2 key={`title-${index}`}>{item.content}</h2>
                     </div>
                 );
             } else if (item.type === 'text') {
-                return <p key={`text-${index}`} className="mb-4 indent-4">{parseReferences(item.content)}</p>;
+                return <p key={`text-${index}`} className="my-4 indent-7">{parseReferences(item.content)}</p>;
             } else if (item.type === 'evidence') {
                 return (
-                    <div key={`evidence-${index}`} className={`bg-sky-700 rounded text-sm md:text-base p-3 my-3 border-2 border-neutral-400`}>
+                    <div key={`evidence-${index}`} className={`bg-sky-700 rounded text-sm md:text-base p-3 my-3 border-2 border-neutral-700`}>
                         {Object.entries(item.content.lines).map(([lineKey, lineValue]) => (
-                            <p className="my-1" key={lineKey}>{lineValue}</p>
+                            <p className="my-2" key={lineKey}>{lineValue}</p>
                         ))}
                         <p>[ {item.content.ref.join(', ')} ]</p>
+                    </div>
+                );
+            } else {
+                return (
+                    <div className="text-neutral-200/80 flex flex-1 items-center justify-center w-full">
+                        Unrecognized structered data or could not parse the data ...
                     </div>
                 );
             }
