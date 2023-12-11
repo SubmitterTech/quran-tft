@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect, useRef, useCallback } from 'react';
 import quranData from '../assets/structured_quran.json';
 
 const Pages = ({ selectedPage, selectedSura, selectedVerse }) => {
@@ -18,14 +18,14 @@ const Pages = ({ selectedPage, selectedSura, selectedVerse }) => {
         }
     }, [notify]);
 
-    const forceScroll = () => {
+    const forceScroll = useCallback(() => {
         const verseKey = `${parseInt(selectedSura)}:${parseInt(selectedVerse)}`;
 
         if (verseRefs.current[verseKey]) {
             verseRefs.current[verseKey].scrollIntoView({ behavior: 'smooth', block: 'center' });
             setNotify(true);
         }
-    };
+    }, [selectedSura, selectedVerse]);
 
     useEffect(() => {
         setPageData(quranData[selectedPage]);
@@ -52,19 +52,31 @@ const Pages = ({ selectedPage, selectedSura, selectedVerse }) => {
             }, 200);
             forceScroll();
         }
-    }, [selectedPage, selectedSura, selectedVerse]);
+    }, [selectedPage, selectedSura, selectedVerse, forceScroll]);
 
     useEffect(() => {
-        if (selectedVerse) {
-            forceScroll();
+        if (showExplanation['GODnamefrequency']) {
+            const timer = setTimeout(() => {
+                setShowExplanation(prev => ({ ...prev, 'GODnamefrequency': false }));
+            }, 7000);
+            return () => clearTimeout(timer);
         }
-    }, [selectedSura, selectedVerse]);
+    }, [showExplanation]);
+
+    useEffect(() => {
+        if (showExplanation['GODnamesum']) {
+            const timer = setTimeout(() => {
+                setShowExplanation(prev => ({ ...prev, 'GODnamesum': false }));
+            }, 7000);
+            return () => clearTimeout(timer);
+        }
+    }, [showExplanation]);
 
 
     if (!pageData) return <div className="text-neutral-200/80 flex flex-1 items-center justify-center w-full ">Loading...</div>;
 
-    const toggleExplanation = (key) => {
-        setShowExplanation(prev => ({ ...prev, [key]: !prev[key] }));
+    const openExplanation = (key) => {
+        setShowExplanation(prev => ({ ...prev, [key]: true }));
     };
 
     const renderTable = (tableData) => {
@@ -129,8 +141,8 @@ const Pages = ({ selectedPage, selectedSura, selectedVerse }) => {
     };
 
     return (
-        <div className="flex w-full flex-1 flex-col text-neutral-200 text-xl overflow-auto">
-            <div ref={topRef} className="relative flex flex-col space-y-4 mb-2">
+        <div className="flex relative w-full flex-1 flex-col text-neutral-200 text-xl overflow-auto">
+            <div ref={topRef} className="relative flex flex-col space-y-1.5 mb-2">
                 <div className="sticky top-0 py-2 px-3 bg-sky-800 shadow-lg flex">
                     <div
                         onClick={() => handlePageTitleClicked()}
@@ -142,39 +154,40 @@ const Pages = ({ selectedPage, selectedSura, selectedVerse }) => {
                         </div>
                     </div>
 
-                    <div className=" flex flex-col text-end text-sm space-y-2">
-                        <p className="cursor-pointer" onClick={() => toggleExplanation('GODnamefrequency')}>
+                    <div className="flex flex-col text-end text-sm justify-between flex-1">
+                        <p className="cursor-pointer" onClick={() => openExplanation('GODnamefrequency')}>
                             {pageData.notes.cumulativefrequencyofthewordGOD}
                         </p>
                         {showExplanation.GODnamefrequency && (
-                            <div className="transition duration-500 ease-in-out transform translate-x-2 p-1 bg-neutral-700 rounded">
+                            <div className="absolute top-1 -left-1 shadow-lg transition duration-500 ease-in-out transform translate-x-2 p-3 bg-neutral-700 rounded">
                                 Cumulative frequency of the word GOD
                             </div>
                         )}
-
-                        <p className="cursor-pointer" onClick={() => toggleExplanation('GODnamesum')}>
+                        <p className="cursor-pointer" onClick={() => openExplanation('GODnamesum')}>
                             {pageData.notes.cumulativesumofverseswhereGODwordoccurs}
                         </p>
                         {showExplanation.GODnamesum && (
-                            <div className="transition duration-500 ease-in-out transform translate-x-2 p-1 bg-neutral-700 rounded">
-                                Cumulative sum of verses where GOD word occurs
+                            <div className="absolute top-1 -left-1 shadow-lg transition duration-500 ease-in-out transform translate-x-2 p-3 whitespace-pre-line bg-neutral-700 rounded">
+                                {`Cumulative sum of verses where GOD\nword occurs`}
                             </div>
                         )}
                     </div>
-
                 </div>
                 {sortedVerses.map(({ suraNumber, verseNumber, verseText, title }) => {
+                    const hasAsterisk = verseText.includes('*') || (title && title.includes('*'));
+                    const verseClassName = `flex rounded m-2 p-2 shadow-lg text-justify text-base md:text-lg xl:text-xl bg-sky-700 ${notify && (parseInt(selectedSura) === parseInt(suraNumber) && parseInt(selectedVerse) === parseInt(verseNumber)) ? "animate-pulse" : "animate-none"} ${hasAsterisk ? "border border-sky-100" : ""}`;
+                    const titleClassName = `bg-neutral-600 italic rounded shadow-lg mx-2 p-4 text-sm md:text-md lg:text-lg text-center break-words whitespace-pre-wrap ${hasAsterisk ? "border border-sky-100" : ""}`;
+
                     return (
                         <React.Fragment key={verseNumber + ":" + suraNumber}>
                             {title &&
-                                <div className="bg-neutral-600 italic rounded shadow-xl m-2 p-4 text-sm md:text-md lg:text-lg text-center break-words whitespace-pre-wrap">
+                                <div className={titleClassName}>
                                     {title}
                                 </div>
                             }
-                            
                             <div
                                 ref={(el) => verseRefs.current[`${suraNumber}:${verseNumber}`] = el}
-                                className={`flex rounded m-2 p-2 shadow-xl text-justify text-base md:text-lg xl:text-xl bg-sky-700 ${notify && (parseInt(selectedSura) === parseInt(suraNumber) && parseInt(selectedVerse) === parseInt(verseNumber)) ? "animate-pulse" : "animate-none"}`}>
+                                className={verseClassName}>
                                 <p className="p-1">
                                     <span className="text-neutral-300/50 font-bold ">{`${verseNumber}. `}</span>
                                     <span className="text-neutral-200 ">
@@ -185,6 +198,7 @@ const Pages = ({ selectedPage, selectedSura, selectedVerse }) => {
                         </React.Fragment>
                     );
                 })}
+
             </div>
             {pageData.notes.data.length > 0 &&
                 <div className="bg-neutral-700 m-2 rounded p-2 text-sm md:text-md lg:text-lg text-justify text-neutral-300 flex flex-col space-y-4 whitespace-pre-line">
