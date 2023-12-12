@@ -1,15 +1,87 @@
-import React, { useState, useEffect, useRef, useCallback } from 'react';
+import React, { useState, useEffect, useRef, useCallback, useMemo } from 'react';
 import quranData from '../assets/structured_quran.json';
 
-const Pages = ({ selectedPage, selectedSura, selectedVerse }) => {
+const Pages = ({ selectedPage, selectedSura, selectedVerse , handleClickReference }) => {
     const [pageData, setPageData] = useState(null);
     const [showExplanation, setShowExplanation] = useState({ GODnamefrequency: false, GODnamesum: false });
     const [pageTitle, setPageTitle] = useState([]);
     const verseRefs = useRef({});
     const topRef = useRef(null);
+    const noteRefs = useRef({});
 
     const [notify, setNotify] = useState(false);
 
+    const parseReferences = (text) => {
+        const referenceRegex = /(\d+:\d+(?:-\d+)?)/g;
+        return text.split(referenceRegex).map((part, index) => {
+            if (part.match(referenceRegex)) {
+                return (
+                    <span
+                        key={index}
+                        className="cursor-pointer text-sky-300"
+                        onClick={() => handleClickReference(part)}>
+
+                        {part}
+                    </span>
+                );
+            }
+            return part;
+        });
+    };
+
+    const parseNoteReferences = (notes) => {
+        const noteRefsMap = {};
+        notes.forEach((note, index) => {
+            // Extract references like "2:1", "2:1-5", or "2:1,3"
+            const referencePattern = /\d+:\d+(-\d+)?(,\d+)?/g;
+            let ref = note.split(" ")[0]
+            if (ref === "*" || ref === "**") {
+                ref = note.split(" ")[1]
+            }
+            const match = ref.match(referencePattern);
+
+            if (match) {
+                noteRefsMap[match] = index;
+            }
+
+        });
+        return noteRefsMap;
+
+    };
+
+    const noteReferencesMap = useMemo(() => {
+        // Here we handle the case when pageData or pageData.notes or pageData.notes.data is null or undefined
+        if (!pageData || !pageData.notes || !pageData.notes.data) {
+            return {};
+        }
+        return parseNoteReferences(pageData.notes.data);
+    }, [pageData]);
+
+    const handleTitleClick = useCallback((suraVerseRef) => {
+        // Extract the numeric value of the verse from suraVerseRef
+        const verseRef = parseInt(suraVerseRef.split(':')[1]);
+    
+        // Initialize a variable to store the matching note index
+        let matchingNoteIndex;
+    
+        // Iterate over the keys in noteReferencesMap to find a range match
+        Object.keys(noteReferencesMap).forEach((key) => {
+            // Split the key into sura and verse parts, and then check for verse range
+            const keyVerseRange = key.split(':')[1];
+            const [rangeStart, rangeEnd] = keyVerseRange.includes('-') ? keyVerseRange.split('-').map(Number) : [parseInt(keyVerseRange), parseInt(keyVerseRange)];
+    
+            // Check if verseRef is within the range specified by the key, considering only verse numbers
+            if (verseRef >= rangeStart && (!rangeEnd || verseRef <= rangeEnd)) {
+                matchingNoteIndex = noteReferencesMap[key];
+            }
+        });
+    
+        // If a matching note index is found, scroll to the note
+        if (matchingNoteIndex !== undefined && noteRefs.current[matchingNoteIndex]) {
+            noteRefs.current[matchingNoteIndex].scrollIntoView({ behavior: 'smooth', block: 'center' });
+        }
+    }, [noteReferencesMap]);
+    
     useEffect(() => {
         if (notify) {
             setTimeout(() => {
@@ -109,6 +181,8 @@ const Pages = ({ selectedPage, selectedSura, selectedVerse }) => {
         );
     };
 
+
+
     const parsePageVerses = () => {
         let sortedVerses = [];
         if (pageData.sura) {
@@ -135,6 +209,7 @@ const Pages = ({ selectedPage, selectedSura, selectedVerse }) => {
     };
 
     const sortedVerses = parsePageVerses();
+
 
     const handlePageTitleClicked = () => {
         console.log(pageTitle)
@@ -175,19 +250,22 @@ const Pages = ({ selectedPage, selectedSura, selectedVerse }) => {
                 </div>
                 {sortedVerses.map(({ suraNumber, verseNumber, verseText, title }) => {
                     const hasAsterisk = verseText.includes('*') || (title && title.includes('*'));
-                    const verseClassName = `flex rounded m-2 p-2 shadow-lg text-justify text-base md:text-lg xl:text-xl bg-sky-700 ${notify && (parseInt(selectedSura) === parseInt(suraNumber) && parseInt(selectedVerse) === parseInt(verseNumber)) ? "animate-pulse" : "animate-none"} ${hasAsterisk ? "border border-sky-100" : ""}`;
-                    const titleClassName = `bg-neutral-600 italic rounded shadow-lg mx-2 p-4 text-sm md:text-md lg:text-lg text-center break-words whitespace-pre-wrap ${hasAsterisk ? "border border-sky-100" : ""}`;
-
+                    const verseClassName = `flex rounded m-2 p-2 shadow-lg text-justify text-base md:text-lg xl:text-xl bg-sky-700 ${notify && (parseInt(selectedSura) === parseInt(suraNumber) && parseInt(selectedVerse) === parseInt(verseNumber)) ? "animate-pulse" : "animate-none"} ${hasAsterisk ? "ring-1 ring-sky-100 my-1" : ""}`;
+                    const titleClassName = `bg-neutral-600 italic rounded shadow-lg mx-2 p-3 text-base md:text-md lg:text-lg text-center break-words whitespace-pre-wrap ${hasAsterisk ? "ring-1 ring-sky-100 my-1" : ""}`;
+                    const verseKey = `${suraNumber}:${verseNumber}`;
+                    const noteReference = hasAsterisk ? verseKey : null;
                     return (
                         <React.Fragment key={verseNumber + ":" + suraNumber}>
                             {title &&
-                                <div className={titleClassName}>
+                                <div className={`${titleClassName} ${hasAsterisk ? "cursor-pointer" : ""}`}
+                                    onClick={() => hasAsterisk && handleTitleClick(noteReference)}>
                                     {title}
                                 </div>
                             }
                             <div
-                                ref={(el) => verseRefs.current[`${suraNumber}:${verseNumber}`] = el}
-                                className={verseClassName}>
+                                ref={(el) => verseRefs.current[verseKey] = el}
+                                className={`${verseClassName} ${hasAsterisk ? "cursor-pointer" : ""}`}
+                                onClick={() => hasAsterisk && handleTitleClick(noteReference)}>
                                 <p className="p-1">
                                     <span className="text-neutral-300/50 font-bold ">{`${verseNumber}. `}</span>
                                     <span className="text-neutral-200 ">
@@ -200,12 +278,20 @@ const Pages = ({ selectedPage, selectedSura, selectedVerse }) => {
                 })}
 
             </div>
-            {pageData.notes.data.length > 0 &&
+            {
+                pageData.notes.data.length > 0 &&
                 <div className="bg-neutral-700 m-2 rounded p-2 text-sm md:text-md lg:text-lg text-justify text-neutral-300 flex flex-col space-y-4 whitespace-pre-line">
                     <h3>Notes:</h3>
-                    {pageData.notes.data.map((note, index) => <p className="bg-neutral-600 rounded shadow-md px-2 py-3 text-neutral-200" key={index}>{note}</p>)}
+                    {pageData.notes.data.map((note, index) =>
+                        <p
+                            className="bg-neutral-600 rounded shadow-md px-2 py-3 text-neutral-200"
+                            ref={(el) => noteRefs.current[index] = el}
+                            key={index}>
+                            {parseReferences(note)}
+                        </p>)}
                     {pageData.notes.tables && pageData.notes.tables.map((table, index) => (
-                        <div key={index}>
+                        <div
+                            key={index} >
                             {renderTable(table)}
                         </div>
                     ))}

@@ -38,7 +38,7 @@ const Book = ({ bookContent }) => {
 
 
     const nextPage = () => {
-        updatePage(currentPage + 1);
+        updatePage(parseInt(currentPage) + 1);
     };
 
     const prevPage = () => {
@@ -81,7 +81,6 @@ const Book = ({ bookContent }) => {
     const referenceMap = createReferenceMap();
 
     const handleClickReference = (reference) => {
-        console.log("Reference clicked:", reference);
 
         // Parse the reference to extract sura and verse information
         let [sura, verses] = reference.split(':');
@@ -106,26 +105,51 @@ const Book = ({ bookContent }) => {
         });
 
         if (foundPageNumber) {
-            console.log("Page number:", foundPageNumber);
             updatePage(foundPageNumber, sura, verseStart);
         } else {
             console.log("Reference not found in the book.");
         }
     };
 
+    const parseReferences = (text) => {
+        const referenceRegex = /(\d+:\d+(?:-\d+)?)/g;
+        return text.split(referenceRegex).map((part, index) => {
+            if (part.match(referenceRegex)) {
+                return (
+                    <span
+                        key={index}
+                        className="cursor-pointer text-sky-300"
+                        onClick={() => handleClickReference(part)}>
 
+                        {part}
+                    </span>
+                );
+            }
+            return part;
+        });
+    };
 
     const renderBookContent = () => {
+
+        if (parseInt(currentPage) >= 395) {
+            return (
+                <div className="w-screen h-screen flex items-center justify-center text-neutral-300 text-3xl font-bold ">
+                    Appendices
+                </div>
+            );
+        }
+
         // Render Pages component when current page is 23 or more
-        if (parseInt(currentPage) >= 23) {
-            return <Pages selectedPage={currentPage} selectedSura={selectedSura} selectedVerse={selectedVerse} />;
+        if (parseInt(currentPage) >= 23 && parseInt(currentPage) <= 394) {
+            return <Pages selectedPage={currentPage} selectedSura={selectedSura} selectedVerse={selectedVerse} handleClickReference={handleClickReference} />;
         }
 
         if (parseInt(currentPage) === 22) {
             return (
                 <div className="w-screen h-screen flex items-center justify-center text-neutral-300">
                     Sura List Loading...
-                </div>);
+                </div>
+            );
         }
         const combinedContent = [];
         const currentPageData = bookContent.find(page => page.page === currentPage);
@@ -153,23 +177,6 @@ const Book = ({ bookContent }) => {
         // Sort the combined content by order
         combinedContent.sort((a, b) => a.order - b.order);
 
-        const parseReferences = (text) => {
-            const referenceRegex = /(\d+:\d+(?:-\d+)?)/g;
-            return text.split(referenceRegex).map((part, index) => {
-                if (part.match(referenceRegex)) {
-                    return (
-                        <span
-                            key={index}
-                            className="cursor-pointer text-sky-300"
-                            onClick={() => handleClickReference(part)}>
-
-                            {part}
-                        </span>
-                    );
-                }
-                return part;
-            });
-        };
 
         // Render combined content
         const renderContent = combinedContent.map((item, index) => {
