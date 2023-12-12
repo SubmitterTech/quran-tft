@@ -3,13 +3,18 @@ import Pages from '../components/Pages';
 import quranData from '../assets/structured_quran.json';
 import Jump from '../components/Jump';
 import '../assets/Book.css';
+import introductionContent from '../assets/introduction.json';
+import appendicesContent from '../assets/appendices.json';
 
-const Book = ({ bookContent }) => {
+
+
+const Book = () => {
     const [currentPage, setCurrentPage] = useState(parseInt(localStorage.getItem("qurantft-pn")) ? parseInt(localStorage.getItem("qurantft-pn")) : 13);
     const [pageHistory, setPageHistory] = useState([]);
     const [isModalOpen, setModalOpen] = useState(false);
     const [selectedSura, setSelectedSura] = useState(null);
     const [selectedVerse, setSelectedVerse] = useState(null);
+    const bookContent = introductionContent.concat(appendicesContent);
 
     const handleJump = async (page, suraNumber, verseNumber) => {
         updatePage(parseInt(page), suraNumber, verseNumber);
@@ -131,7 +136,7 @@ const Book = ({ bookContent }) => {
 
     const renderBookContent = () => {
 
-        if (parseInt(currentPage) >= 395) {
+        if (parseInt(currentPage) >= 395 && parseInt(currentPage) <= 396) {
             return (
                 <div className="w-screen h-screen flex items-center justify-center text-neutral-300 text-3xl font-bold ">
                     Appendices
@@ -152,31 +157,31 @@ const Book = ({ bookContent }) => {
             );
         }
         const combinedContent = [];
-        const currentPageData = bookContent.find(page => page.page === currentPage);
 
-        if (currentPageData.titles) { // Render normal book content for other pages
-            if (!currentPageData) {
-                return <div className="text-neutral-200/80 flex flex-1 items-center justify-center w-full ">Loading...</div>;
-            }
+        const currentPageData = bookContent ? bookContent.find(iterator => iterator.page === currentPage) : null;
 
-            // Add titles to combined content
-            Object.entries(currentPageData.titles).forEach(([key, value]) => {
-                combinedContent.push({ type: 'title', content: value, order: parseInt(key) });
-            });
 
-            // Add text paragraphs to combined content
-            Object.entries(currentPageData.text).forEach(([key, value]) => {
-                combinedContent.push({ type: 'text', content: value, order: parseInt(key) });
-            });
-
-            // Add evidence to combined content
-            Object.entries(currentPageData.evidence).forEach(([key, value]) => {
-                combinedContent.push({ type: 'evidence', content: value, order: parseInt(key) });
-            });
+        if (!currentPageData.titles) {
+            return <div className="text-neutral-200/80 flex flex-1 items-center justify-center w-full ">Loading...</div>;
         }
+
+        // Add titles to combined content
+        Object.entries(currentPageData.titles).forEach(([key, value]) => {
+            combinedContent.push({ type: 'title', content: value, order: parseInt(key) });
+        });
+
+        // Add text paragraphs to combined content
+        Object.entries(currentPageData.text).forEach(([key, value]) => {
+            combinedContent.push({ type: 'text', content: value, order: parseInt(key) });
+        });
+
+        // Add evidence to combined content
+        Object.entries(currentPageData.evidence).forEach(([key, value]) => {
+            combinedContent.push({ type: 'evidence', content: value, order: parseInt(key) });
+        });
+
         // Sort the combined content by order
         combinedContent.sort((a, b) => a.order - b.order);
-
 
         // Render combined content
         const renderContent = combinedContent.map((item, index) => {
@@ -187,14 +192,16 @@ const Book = ({ bookContent }) => {
                     </div>
                 );
             } else if (item.type === 'text') {
-                return <p key={`text-${index}`} className="my-4 indent-7">{parseReferences(item.content)}</p>;
+                return <p key={`text-${index}`} className="my-4 indent-7 ">{parseReferences(item.content)}</p>;
             } else if (item.type === 'evidence') {
                 return (
-                    <div key={`evidence-${index}`} className={`bg-sky-700 rounded text-sm md:text-base p-3 my-3 border-2 border-neutral-700`}>
+                    <div key={`evidence-${index}`} className={`bg-sky-700 rounded text-sm md:text-base p-3 border-2 border-sky-600`}>
                         {Object.entries(item.content.lines).map(([lineKey, lineValue]) => (
-                            <p className="my-2" key={lineKey}>{lineValue}</p>
+                            <p className="my-2 whitespace-pre" key={lineKey}>{lineValue}</p>
                         ))}
-                        <p>[ {item.content.ref.join(', ')} ]</p>
+                        {item.content.ref.length > 0 && (
+                            <p>{parseReferences("[" + item.content.ref.join(', ') + "]")}</p>
+                        )}
                     </div>
                 );
             } else {
@@ -207,7 +214,7 @@ const Book = ({ bookContent }) => {
         });
 
         return (
-            <div className="text-neutral-200 overflow-auto flex-1 p-3 text-justify lg:text-start text-lg md:text-xl">
+            <div className="text-neutral-200 overflow-auto flex-1 p-3 text-justify lg:text-start text-base md:text-xl">
                 {renderContent}
             </div>
         );
