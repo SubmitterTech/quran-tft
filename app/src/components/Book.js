@@ -195,9 +195,9 @@ const Book = () => {
                 return <p key={`text-${index}`} className="my-4 indent-7 ">{parseReferences(item.content)}</p>;
             } else if (item.type === 'evidence') {
                 return (
-                    <div key={`evidence-${index}`} className={`bg-sky-700 rounded text-sm md:text-base p-3 border-2 border-sky-600`}>
+                    <div key={`evidence-${index}`} className={`bg-sky-700 rounded text-sm md:text-base p-3 border-2 mb-2 border-sky-600`}>
                         {Object.entries(item.content.lines).map(([lineKey, lineValue]) => (
-                            <p className="my-2 whitespace-pre" key={lineKey}>{lineValue}</p>
+                            <p className="my-2 whitespace-pre-wrap" key={lineKey}>{parseReferences(lineValue)}</p>
                         ))}
                         {item.content.ref.length > 0 && (
                             <p>{parseReferences("[" + item.content.ref.join(', ') + "]")}</p>
