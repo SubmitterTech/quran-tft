@@ -10,7 +10,7 @@ function Root() {
         setShowSplash(false);
     };
     return (
-        <div className="Root select-none bg-sky-700 flex flex-col h-screen">
+        <div className="Root select-none flex flex-col h-screen">
             {showSplash && <Splash onHideSplash={hideSplash} />}
             {!showSplash && <Book bookContent={introductionContent} />}
         </div>
