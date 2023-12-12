@@ -1,15 +1,37 @@
 {
   "files": {
-    "main.css": "/quran-tft/static/css/main.127b2e40.css",
-    "main.js": "/quran-tft/static/js/main.33a50fc1.js",
+    "main.css": "/quran-tft/static/css/main.8ef094e7.css",
+    "main.js": "/quran-tft/static/js/main.c129f1e1.js",
     "static/js/787.0f8d78ff.chunk.js": "/quran-tft/static/js/787.0f8d78ff.chunk.js",
+    "static/media/22.jpg": "/quran-tft/static/media/22.9c37b3b115d50da24f3c.jpg",
+    "static/media/26.jpg": "/quran-tft/static/media/26.75789abd12f9eec547b5.jpg",
+    "static/media/18.jpg": "/quran-tft/static/media/18.6f6eb1ec9ada42f1cf30.jpg",
+    "static/media/9.jpg": "/quran-tft/static/media/9.98f900767fadd8a10020.jpg",
+    "static/media/17.jpg": "/quran-tft/static/media/17.6b9f3c756a155ff86d0d.jpg",
+    "static/media/4.jpg": "/quran-tft/static/media/4.20b556d7f1f4fa32a11e.jpg",
+    "static/media/10.jpg": "/quran-tft/static/media/10.45732d0e6ded7209f219.jpg",
+    "static/media/16.jpg": "/quran-tft/static/media/16.8efcd73c3f10d51a8a7c.jpg",
+    "static/media/1.jpg": "/quran-tft/static/media/1.c1ef2bd09269fa5ed011.jpg",
+    "static/media/25.jpg": "/quran-tft/static/media/25.c9d4b8b3746fd940a9c7.jpg",
+    "static/media/3.jpg": "/quran-tft/static/media/3.0abb21b8c2208ce18780.jpg",
+    "static/media/19.jpg": "/quran-tft/static/media/19.57d78fd5befed5739da8.jpg",
+    "static/media/5.jpg": "/quran-tft/static/media/5.05527b500722c4ee1cd7.jpg",
+    "static/media/27.jpg": "/quran-tft/static/media/27.056df155d20b38c46989.jpg",
+    "static/media/20.jpg": "/quran-tft/static/media/20.a3c30d563e247386c912.jpg",
+    "static/media/28.jpg": "/quran-tft/static/media/28.fd62944c04f281918810.jpg",
+    "static/media/0.jpg": "/quran-tft/static/media/0.49a3a893f3374aecb388.jpg",
+    "static/media/2.jpg": "/quran-tft/static/media/2.e1ccfc9e0a19ade43531.jpg",
+    "static/media/13.jpg": "/quran-tft/static/media/13.19d7084b87622af053c7.jpg",
+    "static/media/21.jpg": "/quran-tft/static/media/21.23ac05521d0e0b29798d.jpg",
+    "static/media/15.jpg": "/quran-tft/static/media/15.572476d0590280592147.jpg",
+    "static/media/14.jpg": "/quran-tft/static/media/14.c9a40204a2e2dffc1bd8.jpg",
     "index.html": "/quran-tft/index.html",
-    "main.127b2e40.css.map": "/quran-tft/static/css/main.127b2e40.css.map",
-    "main.33a50fc1.js.map": "/quran-tft/static/js/main.33a50fc1.js.map",
+    "main.8ef094e7.css.map": "/quran-tft/static/css/main.8ef094e7.css.map",
+    "main.c129f1e1.js.map": "/quran-tft/static/js/main.c129f1e1.js.map",
     "787.0f8d78ff.chunk.js.map": "/quran-tft/static/js/787.0f8d78ff.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.127b2e40.css",
-    "static/js/main.33a50fc1.js"
+    "static/css/main.8ef094e7.css",
+    "static/js/main.c129f1e1.js"
   ]
 }
