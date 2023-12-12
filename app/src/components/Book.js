@@ -15,6 +15,7 @@ const Book = () => {
     const [selectedSura, setSelectedSura] = useState(null);
     const [selectedVerse, setSelectedVerse] = useState(null);
     const bookContent = introductionContent.concat(appendicesContent);
+    const images = require.context('../assets/', false, /\.jpg$/);
 
     const handleJump = async (page, suraNumber, verseNumber) => {
         updatePage(parseInt(page), suraNumber, verseNumber);
@@ -180,6 +181,12 @@ const Book = () => {
             combinedContent.push({ type: 'evidence', content: value, order: parseInt(key) });
         });
 
+        if (currentPageData.picture) {
+            // Add pictures to combined content
+            Object.entries(currentPageData.picture).forEach(([key, value]) => {
+                combinedContent.push({ type: 'picture', no: value["no"], order: parseInt(key), text: value["text"] });
+            });
+        }
         // Sort the combined content by order
         combinedContent.sort((a, b) => a.order - b.order);
 
@@ -202,6 +209,24 @@ const Book = () => {
                         {item.content.ref.length > 0 && (
                             <p>{parseReferences("[" + item.content.ref.join(', ') + "]")}</p>
                         )}
+                    </div>
+                );
+            } else if (item.type === 'picture') {
+
+                const imageUrl = images(`./${item.no}.jpg`);
+                return (
+                    <div className=" flex flex-col flex-1 items-center justify-center w-full">
+                        <div className="text-neutral-200/80 w-full text-base flex justify-center">
+                            {item.text}
+                        </div>
+                        <div className="rounded shadow-lg flex justify-center">
+
+                            <img
+                                src={imageUrl}
+                                alt={imageUrl}
+                                className=" object-center"
+                            />
+                        </div>
                     </div>
                 );
             } else {
