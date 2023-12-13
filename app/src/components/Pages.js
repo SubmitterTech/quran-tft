@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useRef, useCallback, useMemo } from 'react';
+import Verse from '../components/Verse';
 import quranData from '../assets/structured_quran.json';
 
 const Pages = ({ selectedPage, selectedSura, selectedVerse, handleClickReference }) => {
@@ -11,6 +12,14 @@ const Pages = ({ selectedPage, selectedSura, selectedVerse, handleClickReference
 
     const [notify, setNotify] = useState(false);
 
+    const clickReferenceController = (part) => {
+        if (parseInt(selectedSura) === parseInt(part.split(":")[0]) && parseInt(selectedVerse) === parseInt(part.split(":")[1])) {
+            forceScroll();
+        } else {
+            handleClickReference(part);
+        }
+    };
+
     const parseReferences = (text) => {
         const referenceRegex = /(\d+:\d+(?:-\d+)?)/g;
         return text.split(referenceRegex).map((part, index) => {
@@ -19,7 +28,7 @@ const Pages = ({ selectedPage, selectedSura, selectedVerse, handleClickReference
                     <span
                         key={index}
                         className="cursor-pointer text-sky-300"
-                        onClick={() => handleClickReference(part)}>
+                        onClick={() => clickReferenceController(part)}>
 
                         {part}
                     </span>
@@ -223,6 +232,14 @@ const Pages = ({ selectedPage, selectedSura, selectedVerse, handleClickReference
         return count;
     };
 
+    const handleVerseClick = (hasAsterisk, key) => {
+        if (hasAsterisk) {
+            handleTitleClick(key);
+        } else {
+            console.log("Unknown action from verse to page")
+        };
+    }
+
     return (
         <div className="flex relative w-full flex-1 flex-col text-neutral-200 text-xl overflow-auto">
             <div ref={topRef} className="relative flex flex-col space-y-1.5 mb-2">
@@ -258,7 +275,7 @@ const Pages = ({ selectedPage, selectedSura, selectedVerse, handleClickReference
                 </div>
                 {sortedVerses.map(({ suraNumber, verseNumber, verseText, title }) => {
                     const hasAsterisk = verseText.includes('*') || (title && title.includes('*'));
-                    const verseClassName = `flex rounded m-2 p-2 shadow-lg text-justify text-base md:text-lg xl:text-xl bg-sky-700 ${notify && (parseInt(selectedSura) === parseInt(suraNumber) && parseInt(selectedVerse) === parseInt(verseNumber)) ? "animate-pulse" : "animate-none"} ${hasAsterisk ? "ring-1 ring-sky-100 my-1" : ""}`;
+                    const verseClassName = `transition-all duration-1000 ease-linear flex cursor-pointer rounded m-2 p-2 shadow-lg text-justify text-base md:text-lg xl:text-xl`;
                     const titleClassName = `bg-neutral-600 italic rounded shadow-lg mx-2 p-3 text-base md:text-md lg:text-lg text-center break-words whitespace-pre-wrap ${hasAsterisk ? "ring-1 ring-sky-100 my-1" : ""}`;
                     const verseKey = `${suraNumber}:${verseNumber}`;
                     const noteReference = hasAsterisk ? verseKey : null;
@@ -270,17 +287,17 @@ const Pages = ({ selectedPage, selectedSura, selectedVerse, handleClickReference
                                     {title}
                                 </div>
                             }
-                            <div
-                                ref={(el) => verseRefs.current[verseKey] = el}
-                                className={`${verseClassName} ${hasAsterisk ? "cursor-pointer" : ""}`}
-                                onClick={() => hasAsterisk && handleTitleClick(noteReference)}>
-                                <p className="p-1">
-                                    <span className="text-neutral-300/50 font-bold ">{`${verseNumber}. `}</span>
-                                    <span className="text-neutral-200 ">
-                                        {verseText}
-                                    </span>
-                                </p>
-                            </div>
+                            <Verse
+                                verseClassName={verseClassName}
+                                hasAsterisk={hasAsterisk}
+                                suraNumber={suraNumber}
+                                verseNumber={verseNumber}
+                                verseText={verseText}
+                                verseRefs={verseRefs}
+                                verseKey={verseKey}
+                                handleVerseClick={handleVerseClick}
+                                pulse={notify && (parseInt(selectedSura) === parseInt(suraNumber) && parseInt(selectedVerse) === parseInt(verseNumber))}
+                            />
                         </React.Fragment>
                     );
                 })}
