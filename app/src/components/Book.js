@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import Pages from '../components/Pages';
-import quranData from '../assets/structured_quran.json';
+import quranData from '../assets/qurantft.json';
 import Jump from '../components/Jump';
 import '../assets/Book.css';
 import introductionContent from '../assets/introduction.json';

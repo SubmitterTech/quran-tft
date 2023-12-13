@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 
-const Verse = ({ verseClassName, hasAsterisk, suraNumber, verseNumber, verseText, verseRefs, handleVerseClick, pulse }) => {
+const Verse = ({ verseClassName, hasAsterisk, suraNumber, verseNumber, verseText, encryptedText, verseRefs, handleVerseClick, pulse }) => {
     const [mode, setMode] = useState("idle");
     const [cn, setCn] = useState(verseClassName);
 
@@ -69,8 +69,8 @@ const Verse = ({ verseClassName, hasAsterisk, suraNumber, verseNumber, verseText
                     <div className=" w-full rounded bg-sky-600 flex items-center h-16 justify-start p-2 mb-2">
                         GOD word count UI
                     </div>
-                    <div className=" w-full rounded bg-violet-500 flex items-center justify-end text-end p-2 mb-2">
-                        Arabic clickable representation
+                    <div className=" w-full rounded bg-neutral-600 flex items-center justify-end text-end p-2 mb-2">
+                        {encryptedText}
                     </div>
                     <div className=" w-full rounded bg-neutral-600 flex items-center justify-center p-2 ">
                         Related Verses

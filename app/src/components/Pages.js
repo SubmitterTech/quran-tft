@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef, useCallback, useMemo } from 'react';
 import Verse from '../components/Verse';
-import quranData from '../assets/structured_quran.json';
+import quranData from '../assets/qurantft.json';
 
 const Pages = ({ selectedPage, selectedSura, selectedVerse, handleClickReference }) => {
     const [pageData, setPageData] = useState(null);
@@ -201,6 +201,7 @@ const Pages = ({ selectedPage, selectedSura, selectedVerse, handleClickReference
                         suraNumber: parseInt(suraNumber),
                         verseNumber: parseInt(verseNumber),
                         verseText,
+                        encryptedText: suraInfo.encrypted[verseNumber],
                         title: suraInfo.titles ? suraInfo.titles[verseNumber] : null
                     });
                 });
@@ -273,7 +274,7 @@ const Pages = ({ selectedPage, selectedSura, selectedVerse, handleClickReference
                         )}
                     </div>
                 </div>
-                {sortedVerses.map(({ suraNumber, verseNumber, verseText, title }) => {
+                {sortedVerses.map(({ suraNumber, verseNumber, verseText, encryptedText, title }) => {
                     const hasAsterisk = verseText.includes('*') || (title && title.includes('*'));
                     const verseClassName = `transition-all duration-1000 ease-linear flex cursor-pointer rounded m-2 p-2 shadow-lg text-justify text-base md:text-lg xl:text-xl`;
                     const titleClassName = `bg-neutral-600 italic rounded shadow-lg mx-2 p-3 text-base md:text-md lg:text-lg text-center break-words whitespace-pre-wrap ${hasAsterisk ? "ring-1 ring-sky-100 my-1" : ""}`;
@@ -293,6 +294,7 @@ const Pages = ({ selectedPage, selectedSura, selectedVerse, handleClickReference
                                 suraNumber={suraNumber}
                                 verseNumber={verseNumber}
                                 verseText={verseText}
+                                encryptedText={encryptedText}
                                 verseRefs={verseRefs}
                                 verseKey={verseKey}
                                 handleVerseClick={handleVerseClick}
