@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 
 const Jump = ({ currentPage, quran, onClose, onConfirm }) => {
-    const [suraNumber, setSuraNumber] = useState("1");
+    const [suraNumber, setSuraNumber] = useState("0");
     const [verseNumber, setVerseNumber] = useState("1");
     const [selectedPage, setSelectedPage] = useState(currentPage);
     const [pageTitles, setPageTitles] = useState({});
@@ -108,6 +108,7 @@ const Jump = ({ currentPage, quran, onClose, onConfirm }) => {
                             onChange={handleSuraChange}
                             value={suraNumber}
                             className=" w-18 rounded text-end px-4 py-2 shadow-lg text-neutral-200 bg-sky-800 placeholder:text-neutral-300 focus:ring-2 focus:ring-inset focus:ring-sky-600 ">
+                            <option key="0" value="0" disabled></option>
                             {Object.keys(versesInSuras).map(sura => (
                                 <option key={sura} value={sura}>{sura}</option>
                             ))}

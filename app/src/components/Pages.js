@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef, useCallback, useMemo } from 'react';
 import quranData from '../assets/structured_quran.json';
 
-const Pages = ({ selectedPage, selectedSura, selectedVerse , handleClickReference }) => {
+const Pages = ({ selectedPage, selectedSura, selectedVerse, handleClickReference }) => {
     const [pageData, setPageData] = useState(null);
     const [showExplanation, setShowExplanation] = useState({ GODnamefrequency: false, GODnamesum: false });
     const [pageTitle, setPageTitle] = useState([]);
@@ -60,28 +60,28 @@ const Pages = ({ selectedPage, selectedSura, selectedVerse , handleClickReferenc
     const handleTitleClick = useCallback((suraVerseRef) => {
         // Extract the numeric value of the verse from suraVerseRef
         const verseRef = parseInt(suraVerseRef.split(':')[1]);
-    
+
         // Initialize a variable to store the matching note index
         let matchingNoteIndex;
-    
+
         // Iterate over the keys in noteReferencesMap to find a range match
         Object.keys(noteReferencesMap).forEach((key) => {
             // Split the key into sura and verse parts, and then check for verse range
             const keyVerseRange = key.split(':')[1];
             const [rangeStart, rangeEnd] = keyVerseRange.includes('-') ? keyVerseRange.split('-').map(Number) : [parseInt(keyVerseRange), parseInt(keyVerseRange)];
-    
+
             // Check if verseRef is within the range specified by the key, considering only verse numbers
             if (verseRef >= rangeStart && (!rangeEnd || verseRef <= rangeEnd)) {
                 matchingNoteIndex = noteReferencesMap[key];
             }
         });
-    
+
         // If a matching note index is found, scroll to the note
         if (matchingNoteIndex !== undefined && noteRefs.current[matchingNoteIndex]) {
             noteRefs.current[matchingNoteIndex].scrollIntoView({ behavior: 'smooth', block: 'center' });
         }
     }, [noteReferencesMap]);
-    
+
     useEffect(() => {
         if (notify) {
             setTimeout(() => {
@@ -215,6 +215,14 @@ const Pages = ({ selectedPage, selectedSura, selectedVerse , handleClickReferenc
         console.log(pageTitle)
     };
 
+    const formatHitCount = (count) => {
+        const factor = 19;
+        if (count % factor === 0) {
+            return `${count} (${factor} x ${count / factor})`;
+        }
+        return count;
+    };
+
     return (
         <div className="flex relative w-full flex-1 flex-col text-neutral-200 text-xl overflow-auto">
             <div ref={topRef} className="relative flex flex-col space-y-1.5 mb-2">
@@ -234,16 +242,16 @@ const Pages = ({ selectedPage, selectedSura, selectedVerse , handleClickReferenc
                             {pageData.notes.cumulativefrequencyofthewordGOD}
                         </p>
                         {showExplanation.GODnamefrequency && (
-                            <div className="absolute top-1 -left-1 shadow-lg transition duration-500 ease-in-out transform translate-x-2 p-3 bg-neutral-700 rounded">
-                                Cumulative frequency of the word GOD
+                            <div className="absolute w-40 top-1 right-20 shadow-lg transition duration-500 ease-in-out transform translate-x-2 p-3 bg-neutral-700 rounded break-word">
+                                Cumulative frequency of the word GOD = {formatHitCount(parseInt(pageData.notes.cumulativefrequencyofthewordGOD))}
                             </div>
                         )}
                         <p className="cursor-pointer" onClick={() => openExplanation('GODnamesum')}>
                             {pageData.notes.cumulativesumofverseswhereGODwordoccurs}
                         </p>
                         {showExplanation.GODnamesum && (
-                            <div className="absolute top-1 -left-1 shadow-lg transition duration-500 ease-in-out transform translate-x-2 p-3 whitespace-pre-line bg-neutral-700 rounded">
-                                {`Cumulative sum of verses where GOD\nword occurs`}
+                            <div className="absolute w-40 top-1 right-20 shadow-lg transition duration-500 ease-in-out transform translate-x-2 p-3 bg-neutral-700 rounded break-word">
+                                Cumulative sum of verses where GOD word occurs = {formatHitCount(parseInt(pageData.notes.cumulativesumofverseswhereGODwordoccurs))}
                             </div>
                         )}
                     </div>
