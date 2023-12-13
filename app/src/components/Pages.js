@@ -240,7 +240,13 @@ const Pages = ({ selectedPage, selectedSura, selectedVerse, handleClickReference
             console.log("Unknown action from verse to page")
         };
     }
-
+    
+    const grapFocus = (sura, verse) => {
+        const verseKey = `${parseInt(sura)}:${parseInt(verse)}`;
+        if (verseRefs.current[verseKey]) {
+            verseRefs.current[verseKey].scrollIntoView({ behavior: 'smooth', block: 'center' });
+        }
+    };
     return (
         <div className="flex relative w-full flex-1 flex-col text-neutral-200 text-xl overflow-auto">
             <div ref={topRef} className="relative flex flex-col space-y-1.5 mb-2">
@@ -299,6 +305,7 @@ const Pages = ({ selectedPage, selectedSura, selectedVerse, handleClickReference
                                 verseKey={verseKey}
                                 handleVerseClick={handleVerseClick}
                                 pulse={notify && (parseInt(selectedSura) === parseInt(suraNumber) && parseInt(selectedVerse) === parseInt(verseNumber))}
+                                grapFocus={grapFocus}
                             />
                         </React.Fragment>
                     );

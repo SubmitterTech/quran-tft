@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 
-const Verse = ({ verseClassName, hasAsterisk, suraNumber, verseNumber, verseText, encryptedText, verseRefs, handleVerseClick, pulse }) => {
+const Verse = ({ verseClassName, hasAsterisk, suraNumber, verseNumber, verseText, encryptedText, verseRefs, handleVerseClick, pulse , grapFocus}) => {
     const [mode, setMode] = useState("idle");
     const [cn, setCn] = useState(verseClassName);
 
@@ -41,6 +41,7 @@ const Verse = ({ verseClassName, hasAsterisk, suraNumber, verseNumber, verseText
             setMode("idle");
         } else if (mode === "idle") {
             setMode("reading");
+            grapFocus(suraNumber, verseNumber);
         } else if (mode === "reading") {
             if (hasAsterisk) {
                 setMode("light");
