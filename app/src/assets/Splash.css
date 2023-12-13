@@ -10,10 +10,10 @@
 }
 
 @keyframes colorChange {
-  0% { background-color: #ffd700; } /* Golden color */
-  25% { background-color: #fbbf24; } /* Very light golden color */
-  50% { background-color: #f1f5f9; } /* Light slate */
-  75% { background-color: #f9fafb; } /* Very light gray */
-  100% { background-color: #f3f4f6; } /* Light gray */
+  0% { background-color: #38bdf8; }
+  25% { background-color: #38bdf8; }
+  50% { background-color: #7dd3fc; }
+  75% { background-color: #e0f2fe; }
+  100% { background-color: #e0f2fe; }
 }
 

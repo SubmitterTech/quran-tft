@@ -41,7 +41,7 @@ const Splash = ({onHideSplash}) => {
             </button>
 
             <div
-                className="text-[#ffd700] cursor-pointer"
+                className="text-sky-400 cursor-pointer"
                 onClick={openPdf}
             >
                 <p>{lines[7]}</p>
