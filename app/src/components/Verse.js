@@ -1,8 +1,33 @@
-import React, { useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 
-const Verse = ({ verseClassName, hasAsterisk, suraNumber, verseNumber, verseText, encryptedText, verseRefs, handleVerseClick, pulse , grapFocus}) => {
+const Verse = ({ verseClassName, hasAsterisk, suraNumber, verseNumber, verseText, encryptedText, verseRefs, handleVerseClick, pulse, grapFocus, Gwordcount }) => {
     const [mode, setMode] = useState("idle");
     const [cn, setCn] = useState(verseClassName);
+    const [text, setText] = useState(verseText);
+
+    const lightGODwords = useCallback((verse) => {
+        const regex = /\b(GOD)\b/g;
+        return verse.split(regex).reduce((prev, current, index) => {
+            if (index % 2 === 0) {
+                return [...prev, current];
+            } else {
+                Gwordcount++;
+                return [...prev, <span key={index} className="font-bold text-sky-400">GOD<sub style={{ fontSize: 11 }}>{Gwordcount}</sub></span>];
+            }
+        }, []);
+    }, [Gwordcount]);
+
+    const lightAllahwords = (text) => {
+        let parts = [];
+        const namesOfGOD = "الله"; // or a regular expression that includes "الله"
+
+        parts = text.split(new RegExp(`(${namesOfGOD})`, 'g')).reverse();
+        return parts.map((part, index) =>
+            part.match(new RegExp(namesOfGOD)) ? <span key={index} className="text-sky-400 " dir="rtl">{part}</span> : <span key={index} dir="rtl">{part}</span>
+        );
+
+    };
+
 
     useEffect(() => {
         if (hasAsterisk) {
@@ -25,14 +50,16 @@ const Verse = ({ verseClassName, hasAsterisk, suraNumber, verseNumber, verseText
 
 
     useEffect(() => {
+        setText(verseText)
         if (mode === "reading") {
             setCn(verseClassName + " flex-col bg-neutral-800 ")
+            setText(lightGODwords(verseText))
         } else if (mode === "light") {
             setCn(verseClassName + " bg-sky-700 ring-1 ring-sky-100 my-2");
         } else if (mode === "idle") {
             setCn(verseClassName + " bg-sky-700 ")
         }
-    }, [mode, verseClassName]);
+    }, [mode, verseClassName, verseText, lightGODwords]);
 
 
     const handleClick = () => {
@@ -61,18 +88,15 @@ const Verse = ({ verseClassName, hasAsterisk, suraNumber, verseNumber, verseText
             <p className="p-1 w-full">
                 <span className="text-neutral-300/50 font-bold ">{`${verseNumber}. `}</span>
                 <span className="text-neutral-200 ">
-                    {verseText}
+                    {text}
                 </span>
             </p>
 
             {mode === "reading" &&
                 <div className="w-full flex flex-col mt-2">
-                    <div className=" w-full rounded bg-sky-600 flex items-center h-16 justify-start p-2 mb-2">
-                        GOD word count UI
-                    </div>
-                    <div className=" w-full rounded bg-neutral-600 flex items-center justify-end text-end p-2 mb-2">
-                        {encryptedText}
-                    </div>
+                    <p className=" w-full rounded bg-neutral-600 p-2 mb-2 text-end" >
+                        {lightAllahwords(encryptedText)}
+                    </p>
                     <div className=" w-full rounded bg-neutral-600 flex items-center justify-center p-2 ">
                         Related Verses
                     </div>

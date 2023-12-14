@@ -12,6 +12,8 @@ const Pages = ({ selectedPage, selectedSura, selectedVerse, handleClickReference
 
     const [notify, setNotify] = useState(false);
 
+    let Gwordcount = quranData[(parseInt(selectedPage) - 1) + ""]?.notes ? parseInt(quranData[(parseInt(selectedPage) - 1) + ""].notes.cumulativefrequencyofthewordGOD) : 0;
+
     const clickReferenceController = (part) => {
         if (parseInt(selectedSura) === parseInt(part.split(":")[0]) && parseInt(selectedVerse) === parseInt(part.split(":")[1])) {
             forceScroll();
@@ -240,7 +242,6 @@ const Pages = ({ selectedPage, selectedSura, selectedVerse, handleClickReference
             console.log("Unknown action from verse to page")
         };
     }
-    
     const grapFocus = (sura, verse) => {
         const verseKey = `${parseInt(sura)}:${parseInt(verse)}`;
         if (verseRefs.current[verseKey]) {
@@ -306,6 +307,7 @@ const Pages = ({ selectedPage, selectedSura, selectedVerse, handleClickReference
                                 handleVerseClick={handleVerseClick}
                                 pulse={notify && (parseInt(selectedSura) === parseInt(suraNumber) && parseInt(selectedVerse) === parseInt(verseNumber))}
                                 grapFocus={grapFocus}
+                                Gwordcount={Gwordcount}
                             />
                         </React.Fragment>
                     );
