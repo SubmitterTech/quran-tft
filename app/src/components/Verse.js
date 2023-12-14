@@ -124,7 +124,7 @@ const Verse = ({ verseClassName, hasAsterisk, suraNumber, verseNumber, verseText
         setText(verseText);
         let highlighted = lightGODwords(verseText);
         if (mode === "reading") {
-            setCn(verseClassName + " flex-col bg-neutral-800 ");
+            setCn(verseClassName + " flex-col bg-neutral-800");
             setText(highlighted);
         } else if (mode === "light") {
             setCn(verseClassName + " bg-sky-700 ring-1 ring-sky-100 my-2");
@@ -158,7 +158,7 @@ const Verse = ({ verseClassName, hasAsterisk, suraNumber, verseNumber, verseText
             ref={(el) => verseRefs.current[currentVerseKey] = el}
             className={`${cn}`}
             onClick={() => handleClick()}>
-            <p className="p-1 w-full">
+            <p className="px-1 w-full">
                 <span className="text-neutral-300/50 font-bold ">{`${verseNumber}. `}</span>
                 <span className="text-neutral-200 ">
                     {text}
