@@ -6,13 +6,103 @@ const Pages = ({ selectedPage, selectedSura, selectedVerse, handleClickReference
     const [pageData, setPageData] = useState(null);
     const [showExplanation, setShowExplanation] = useState({ GODnamefrequency: false, GODnamesum: false });
     const [pageTitle, setPageTitle] = useState([]);
+    const [pageGWC, setPageGWC] = useState({ "0:0": quranData[(parseInt(selectedPage) - 1) + ""]?.notes ? parseInt(quranData[(parseInt(selectedPage) - 1) + ""].notes.cumulativefrequencyofthewordGOD) : 0 });
     const verseRefs = useRef({});
     const topRef = useRef(null);
     const noteRefs = useRef({});
 
     const [notify, setNotify] = useState(false);
 
-    let Gwordcount = quranData[(parseInt(selectedPage) - 1) + ""]?.notes ? parseInt(quranData[(parseInt(selectedPage) - 1) + ""].notes.cumulativefrequencyofthewordGOD) : 0;
+    const forceScroll = useCallback(() => {
+        const verseKey = `${parseInt(selectedSura)}:${parseInt(selectedVerse)}`;
+
+        if (verseRefs.current[verseKey]) {
+            verseRefs.current[verseKey].scrollIntoView({ behavior: 'smooth', block: 'center' });
+            setNotify(true);
+        }
+    }, [selectedSura, selectedVerse]);
+
+    useEffect(() => {
+        setPageData(quranData[selectedPage]);
+        setPageGWC({ "0:0": quranData[(parseInt(selectedPage) - 1) + ""]?.notes ? parseInt(quranData[(parseInt(selectedPage) - 1) + ""].notes.cumulativefrequencyofthewordGOD) : 0 });
+        if (quranData[selectedPage]) {
+            const newPageTitles = [];
+            quranData[selectedPage].page.forEach((pi) => {
+                if (/\d+:\d+/.test(pi)) {
+                    if (pi.includes("&")) {
+                        pi.split("&").forEach(part => newPageTitles.push(part.trim()));
+                    } else {
+                        newPageTitles.push(pi);
+                    }
+                }
+            });
+            setPageTitle(newPageTitles);
+        }
+
+        if (!selectedVerse && topRef.current) {
+            topRef.current.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        } else {
+            setTimeout(() => {
+                forceScroll();
+            }, 200);
+            forceScroll();
+        }
+    }, [selectedPage, selectedSura, selectedVerse, forceScroll]);
+
+
+    const parsePageVerses = () => {
+        let sortedVerses = [];
+        if (pageData && pageData.sura) {
+            Object.entries(pageData.sura).forEach(([suraNumber, suraInfo]) => {
+                Object.entries(suraInfo.verses).forEach(([verseNumber, verseText]) => {
+                    sortedVerses.push({
+                        suraNumber: parseInt(suraNumber),
+                        verseNumber: parseInt(verseNumber),
+                        verseText,
+                        encryptedText: suraInfo.encrypted[verseNumber],
+                        title: suraInfo.titles ? suraInfo.titles[verseNumber] : null
+                    });
+                });
+            });
+
+            // Sort first by sura number, then by verse number if sura numbers are the same
+            sortedVerses.sort((a, b) => {
+                if (a.suraNumber !== b.suraNumber) {
+                    return a.suraNumber - b.suraNumber;
+                }
+                return a.verseNumber - b.verseNumber;
+            });
+        }
+        return sortedVerses;
+    };
+
+    const sortedVerses = parsePageVerses();
+
+    const countGODwords = (verse) => {
+        const regex = /\b(GOD)\b/g;
+        return (verse.match(regex) || []).length;
+    };
+
+    const calculatePageGWC = () => {
+        const sortedVerses = parsePageVerses(pageData);
+        let newPageGWC = { "0:0": quranData[(parseInt(selectedPage) - 1) + ""]?.notes ? parseInt(quranData[(parseInt(selectedPage) - 1) + ""].notes.cumulativefrequencyofthewordGOD) : 0 };
+    
+        sortedVerses.forEach(({ suraNumber, verseNumber, verseText }) => {
+            const count = countGODwords(verseText);
+            const key = `${suraNumber}:${verseNumber}`;
+            const previousKey = Object.keys(newPageGWC).filter(k => k.startsWith(`${suraNumber}:`)).pop() || "0:0";
+    
+            if (count > 0) {
+                newPageGWC[key] = (newPageGWC[previousKey] || 0) + count;
+            }
+        });
+    
+        return newPageGWC;
+    };
+    
+
+    // Call this function before rendering Verse components
+    const updatedPageGWC = calculatePageGWC();
 
     const clickReferenceController = (part) => {
         if (parseInt(selectedSura) === parseInt(part.split(":")[0]) && parseInt(selectedVerse) === parseInt(part.split(":")[1])) {
@@ -101,42 +191,9 @@ const Pages = ({ selectedPage, selectedSura, selectedVerse, handleClickReference
         }
     }, [notify]);
 
-    const forceScroll = useCallback(() => {
-        const verseKey = `${parseInt(selectedSura)}:${parseInt(selectedVerse)}`;
+    
 
-        if (verseRefs.current[verseKey]) {
-            verseRefs.current[verseKey].scrollIntoView({ behavior: 'smooth', block: 'center' });
-            setNotify(true);
-        }
-    }, [selectedSura, selectedVerse]);
-
-    useEffect(() => {
-        setPageData(quranData[selectedPage]);
-
-        if (quranData[selectedPage]) {
-            const newPageTitles = [];
-            quranData[selectedPage].page.forEach((pi) => {
-                if (/\d+:\d+/.test(pi)) {
-                    if (pi.includes("&")) {
-                        pi.split("&").forEach(part => newPageTitles.push(part.trim()));
-                    } else {
-                        newPageTitles.push(pi);
-                    }
-                }
-            });
-            setPageTitle(newPageTitles);
-        }
-
-        if (!selectedVerse && topRef.current) {
-            topRef.current.scrollIntoView({ behavior: 'smooth', block: 'start' });
-        } else {
-            setTimeout(() => {
-                forceScroll();
-            }, 200);
-            forceScroll();
-        }
-    }, [selectedPage, selectedSura, selectedVerse, forceScroll]);
-
+   
     useEffect(() => {
         if (showExplanation['GODnamefrequency']) {
             const timer = setTimeout(() => {
@@ -194,33 +251,7 @@ const Pages = ({ selectedPage, selectedSura, selectedVerse, handleClickReference
 
 
 
-    const parsePageVerses = () => {
-        let sortedVerses = [];
-        if (pageData.sura) {
-            Object.entries(pageData.sura).forEach(([suraNumber, suraInfo]) => {
-                Object.entries(suraInfo.verses).forEach(([verseNumber, verseText]) => {
-                    sortedVerses.push({
-                        suraNumber: parseInt(suraNumber),
-                        verseNumber: parseInt(verseNumber),
-                        verseText,
-                        encryptedText: suraInfo.encrypted[verseNumber],
-                        title: suraInfo.titles ? suraInfo.titles[verseNumber] : null
-                    });
-                });
-            });
-
-            // Sort first by sura number, then by verse number if sura numbers are the same
-            sortedVerses.sort((a, b) => {
-                if (a.suraNumber !== b.suraNumber) {
-                    return a.suraNumber - b.suraNumber;
-                }
-                return a.verseNumber - b.verseNumber;
-            });
-        }
-        return sortedVerses;
-    };
-
-    const sortedVerses = parsePageVerses();
+    
 
 
     const handlePageTitleClicked = () => {
@@ -248,6 +279,7 @@ const Pages = ({ selectedPage, selectedSura, selectedVerse, handleClickReference
             verseRefs.current[verseKey].scrollIntoView({ behavior: 'smooth', block: 'center' });
         }
     };
+
     return (
         <div className="flex relative w-full flex-1 flex-col text-neutral-200 text-xl overflow-auto">
             <div ref={topRef} className="relative flex flex-col space-y-1.5 mb-2">
@@ -287,6 +319,22 @@ const Pages = ({ selectedPage, selectedSura, selectedVerse, handleClickReference
                     const titleClassName = `bg-neutral-600 italic rounded shadow-lg mx-2 p-3 text-base md:text-md lg:text-lg text-center break-words whitespace-pre-wrap ${hasAsterisk ? "ring-1 ring-sky-100 my-1" : ""}`;
                     const verseKey = `${suraNumber}:${verseNumber}`;
                     const noteReference = hasAsterisk ? verseKey : null;
+
+                    const countGODwords = (verse) => {
+                        const regex = /\b(GOD)\b/g;
+                        let count = 0;
+
+                        verse.split(regex).forEach((part, index) => {
+                            if (index % 2 !== 0) {
+                                ++count;
+                            }
+                        });
+
+                        return count;
+                    };
+
+                    pageGWC[verseKey] = countGODwords(verseText)
+
                     return (
                         <React.Fragment key={verseNumber + ":" + suraNumber}>
                             {title &&
@@ -307,7 +355,7 @@ const Pages = ({ selectedPage, selectedSura, selectedVerse, handleClickReference
                                 handleVerseClick={handleVerseClick}
                                 pulse={notify && (parseInt(selectedSura) === parseInt(suraNumber) && parseInt(selectedVerse) === parseInt(verseNumber))}
                                 grapFocus={grapFocus}
-                                Gwordcount={Gwordcount}
+                                pageGWC={updatedPageGWC}
                             />
                         </React.Fragment>
                     );

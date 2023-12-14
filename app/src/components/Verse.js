@@ -1,33 +1,36 @@
 import React, { useCallback, useEffect, useState } from 'react';
 
-const Verse = ({ verseClassName, hasAsterisk, suraNumber, verseNumber, verseText, encryptedText, verseRefs, handleVerseClick, pulse, grapFocus, Gwordcount }) => {
+const Verse = ({ verseClassName, hasAsterisk, suraNumber, verseNumber, verseText, encryptedText, verseRefs, handleVerseClick, pulse, grapFocus, pageGWC }) => {
     const [mode, setMode] = useState("idle");
     const [cn, setCn] = useState(verseClassName);
     const [text, setText] = useState(verseText);
 
     const lightGODwords = useCallback((verse) => {
         const regex = /\b(GOD)\b/g;
+        let localCount = 0;
+
         return verse.split(regex).reduce((prev, current, index) => {
             if (index % 2 === 0) {
                 return [...prev, current];
             } else {
-                Gwordcount++;
-                return [...prev, <span key={index} className="font-bold text-sky-400">GOD<sub style={{ fontSize: 11 }}>{Gwordcount}</sub></span>];
+                localCount++;
+                return [...prev, <span key={index} className="font-bold text-sky-400">GOD<sub style={{ fontSize: 11 }}>{pageGWC[`${suraNumber}:${verseNumber}`] - localCount + 1}</sub></span>];
             }
         }, []);
-    }, [Gwordcount]);
+    }, [pageGWC, verseNumber, suraNumber]);
+
 
     const lightAllahwords = (text) => {
-        let parts = [];
-        const namesOfGOD = "الله"; // or a regular expression that includes "الله"
+        if (parseInt(pageGWC[`${suraNumber}:${verseNumber}`]) > 0) {
+            let parts = [];
+            const namesOfGOD = "الله"; // or a regular expression that includes "الله"
 
-        parts = text.split(new RegExp(`(${namesOfGOD})`, 'g')).reverse();
-        return parts.map((part, index) =>
-            part.match(new RegExp(namesOfGOD)) ? <span key={index} className="text-sky-400 " dir="rtl">{part}</span> : <span key={index} dir="rtl">{part}</span>
-        );
-
+            parts = text.split(new RegExp(`(${namesOfGOD})`, 'g')).reverse();
+            return parts.map((part, index) =>
+                part.match(new RegExp(namesOfGOD)) ? <span key={index} className="text-sky-400 " dir="rtl">{part}</span> : <span key={index} dir="rtl">{part}</span>
+            );
+        }
     };
-
 
     useEffect(() => {
         if (hasAsterisk) {
@@ -50,16 +53,18 @@ const Verse = ({ verseClassName, hasAsterisk, suraNumber, verseNumber, verseText
 
 
     useEffect(() => {
-        setText(verseText)
+        setText(verseText);
+        let highlighted = lightGODwords(verseText);
         if (mode === "reading") {
-            setCn(verseClassName + " flex-col bg-neutral-800 ")
-            setText(lightGODwords(verseText))
+            setCn(verseClassName + " flex-col bg-neutral-800 ");
+            setText(highlighted);
         } else if (mode === "light") {
             setCn(verseClassName + " bg-sky-700 ring-1 ring-sky-100 my-2");
         } else if (mode === "idle") {
-            setCn(verseClassName + " bg-sky-700 ")
+            setCn(verseClassName + " bg-sky-700 ");
         }
     }, [mode, verseClassName, verseText, lightGODwords]);
+
 
 
     const handleClick = () => {
