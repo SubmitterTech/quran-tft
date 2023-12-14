@@ -7,30 +7,37 @@ const Verse = ({ verseClassName, hasAsterisk, suraNumber, verseNumber, verseText
 
     const lightGODwords = useCallback((verse) => {
         const regex = /\b(GOD)\b/g;
-        let localCount = 0;
 
         return verse.split(regex).reduce((prev, current, index) => {
             if (index % 2 === 0) {
                 return [...prev, current];
             } else {
-                localCount++;
-                return [...prev, <span key={index} className="font-bold text-sky-400">GOD<sub style={{ fontSize: 11 }}>{pageGWC[`${suraNumber}:${verseNumber}`] - localCount + 1}</sub></span>];
+                return [...prev, <span key={index} className="font-bold text-sky-400">GOD</span>];
             }
         }, []);
-    }, [pageGWC, verseNumber, suraNumber]);
+    }, []);
 
 
     const lightAllahwords = (text) => {
-        if (parseInt(pageGWC[`${suraNumber}:${verseNumber}`]) > 0) {
-            let parts = [];
-            const namesOfGOD = "الله"; // or a regular expression that includes "الله"
-
-            parts = text.split(new RegExp(`(${namesOfGOD})`, 'g')).reverse();
-            return parts.map((part, index) =>
-                part.match(new RegExp(namesOfGOD)) ? <span key={index} className="text-sky-400 " dir="rtl">{part}</span> : <span key={index} dir="rtl">{part}</span>
-            );
-        }
+        let parts = [];
+        const namesofGOD = "الله|لله"; // Regular expression to match "الله" or "لله"
+        let localCount = 0;
+    
+        parts = text.split(new RegExp(`(${namesofGOD})`, 'g')).reverse();
+        return parts.map((part, index) => {
+            if (part.match(new RegExp(namesofGOD))) {
+                localCount++;
+                return (
+                    <span key={index} className="text-sky-400 " dir="rtl">
+                        {part}<sub> {pageGWC[`${suraNumber}:${verseNumber}`] - localCount + 1} </sub>
+                    </span>
+                );
+            } else {
+                return <span key={index} dir="rtl">{part}</span>;
+            }
+        });
     };
+    
 
     useEffect(() => {
         if (hasAsterisk) {
