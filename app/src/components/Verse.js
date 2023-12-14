@@ -6,12 +6,13 @@ const Verse = ({ verseClassName, hasAsterisk, suraNumber, verseNumber, verseText
     const [cn, setCn] = useState(verseClassName);
     const [text, setText] = useState(verseText);
     const currentVerseKey = `${suraNumber}:${verseNumber}`;
+    const [relatedVerses, setRelatedVerses] = useState([]);
 
     const onRelatedVerseClick = (verseKey) => {
         handleClickReference(verseKey);
     };
 
-    const findRelatedVerses = () => {
+    const findRelatedVerses = useCallback(() => {
         const related = [];
 
         // Function to add individual verse keys from a group relation
@@ -53,11 +54,17 @@ const Verse = ({ verseClassName, hasAsterisk, suraNumber, verseNumber, verseText
         });
 
         return [...new Set(related)]; // Remove duplicates
-    };
+    },[currentVerseKey]);
 
 
 
-    const relatedVerses = findRelatedVerses();
+    useEffect(() => {
+        if (mode === "reading") {
+            const foundRelatedVerses = findRelatedVerses();
+            setRelatedVerses(foundRelatedVerses);
+        }
+    }, [mode, currentVerseKey, findRelatedVerses]);
+
 
     const lightGODwords = useCallback((verse) => {
         const regex = /\b(GOD)\b/g;
