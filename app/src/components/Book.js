@@ -87,7 +87,6 @@ const Book = () => {
     const referenceMap = createReferenceMap();
 
     const handleClickReference = (reference) => {
-
         // Parse the reference to extract sura and verse information
         let [sura, verses] = reference.split(':');
         let verseStart, verseEnd;
@@ -100,11 +99,13 @@ const Book = () => {
         // Iterate over the referenceMap to find the correct page number
         let foundPageNumber = null;
         Object.entries(referenceMap).forEach(([pageNumber, suraVersesArray]) => {
+            if (foundPageNumber) return; // Skip further iterations if page is already found
+
             suraVersesArray.forEach(suraVerses => {
                 let [suraMap, verseRange] = suraVerses.split(':');
-                let [verseStartMap, verseEndMap] = verseRange.split('-').map(Number);
+                let [verseStartMap, verseEndMap] = verseRange.includes('-') ? verseRange.split('-').map(Number) : [parseInt(verseRange), parseInt(verseRange)];
 
-                if (suraMap === sura && verseStart >= verseStartMap && verseEnd <= verseEndMap) {
+                if (suraMap === sura && !(verseEnd < verseStartMap || verseStart > verseEndMap)) {
                     foundPageNumber = pageNumber;
                 }
             });
