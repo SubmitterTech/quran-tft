@@ -1,9 +1,63 @@
 import React, { useCallback, useEffect, useState } from 'react';
+import relationalData from '../assets/map.json'; // Import relational data
 
-const Verse = ({ verseClassName, hasAsterisk, suraNumber, verseNumber, verseText, encryptedText, verseRefs, handleVerseClick, pulse, grapFocus, pageGWC }) => {
+const Verse = ({ verseClassName, hasAsterisk, suraNumber, verseNumber, verseText, encryptedText, verseRefs, handleVerseClick, pulse, grapFocus, pageGWC, handleClickReference }) => {
     const [mode, setMode] = useState("idle");
     const [cn, setCn] = useState(verseClassName);
     const [text, setText] = useState(verseText);
+    const currentVerseKey = `${suraNumber}:${verseNumber}`;
+
+    const onRelatedVerseClick = (verseKey) => {
+        handleClickReference(verseKey);
+    };
+
+    const findRelatedVerses = () => {
+        const related = [];
+
+        // Function to add individual verse keys from a group relation
+        const addGroupRelation = (groupRelation) => {
+            const [sura, verses] = groupRelation.split(':');
+            verses.split(',').forEach(verse => {
+                const individualKey = `${sura}:${verse}`;
+                if (individualKey !== currentVerseKey) { // Exclude the current verse key
+                    related.push(individualKey);
+                }
+            });
+        };
+
+        // Check if current verse is a key in the map
+        if (relationalData[currentVerseKey]) {
+            relationalData[currentVerseKey].forEach(relation => {
+                if (relation.includes(',')) {
+                    addGroupRelation(relation);
+                } else if (relation !== currentVerseKey) { // Exclude the current verse key
+                    related.push(relation);
+                }
+            });
+        }
+
+        // Check if current verse is in the values of any key
+        Object.entries(relationalData).forEach(([key, verses]) => {
+            if (verses.includes(currentVerseKey)) {
+                if (key.includes(',')) {
+                    addGroupRelation(key);
+                } else {
+                    related.push(key);
+                }
+            }
+            verses.forEach(relation => {
+                if (relation.includes(',') && relation.includes(currentVerseKey)) {
+                    addGroupRelation(key);
+                }
+            });
+        });
+
+        return [...new Set(related)]; // Remove duplicates
+    };
+
+
+
+    const relatedVerses = findRelatedVerses();
 
     const lightGODwords = useCallback((verse) => {
         const regex = /\b(GOD)\b/g;
@@ -22,14 +76,14 @@ const Verse = ({ verseClassName, hasAsterisk, suraNumber, verseNumber, verseText
         let parts = [];
         const namesofGOD = "الله|لله"; // Regular expression to match "الله" or "لله"
         let localCount = 0;
-    
+
         parts = text.split(new RegExp(`(${namesofGOD})`, 'g')).reverse();
         return parts.map((part, index) => {
             if (part.match(new RegExp(namesofGOD))) {
                 localCount++;
                 return (
                     <span key={index} className="text-sky-400 " dir="rtl">
-                        {part}<sub> {pageGWC[`${suraNumber}:${verseNumber}`] - localCount + 1} </sub>
+                        {part}<sub> {pageGWC[currentVerseKey] - localCount + 1} </sub>
                     </span>
                 );
             } else {
@@ -37,7 +91,7 @@ const Verse = ({ verseClassName, hasAsterisk, suraNumber, verseNumber, verseText
             }
         });
     };
-    
+
 
     useEffect(() => {
         if (hasAsterisk) {
@@ -76,7 +130,7 @@ const Verse = ({ verseClassName, hasAsterisk, suraNumber, verseNumber, verseText
 
     const handleClick = () => {
         if (mode === "light") {
-            handleVerseClick(hasAsterisk, `${suraNumber}:${verseNumber}`)
+            handleVerseClick(hasAsterisk, currentVerseKey)
             setMode("idle");
         } else if (mode === "idle") {
             setMode("reading");
@@ -94,7 +148,7 @@ const Verse = ({ verseClassName, hasAsterisk, suraNumber, verseNumber, verseText
 
     return (
         <div
-            ref={(el) => verseRefs.current[`${suraNumber}:${verseNumber}`] = el}
+            ref={(el) => verseRefs.current[currentVerseKey] = el}
             className={`${cn}`}
             onClick={() => handleClick()}>
             <p className="p-1 w-full">
@@ -109,9 +163,16 @@ const Verse = ({ verseClassName, hasAsterisk, suraNumber, verseNumber, verseText
                     <p className=" w-full rounded bg-neutral-600 p-2 mb-2 text-end" >
                         {lightAllahwords(encryptedText)}
                     </p>
-                    <div className=" w-full rounded bg-neutral-600 flex items-center justify-center p-2 ">
-                        Related Verses
-                    </div>
+                    {relatedVerses.length > 0 &&
+                        <div className=" w-full rounded bg-neutral-600  p-2 ">
+                            <div>
+                                {relatedVerses.map(verseKey => (
+                                    <button className="bg-sky-600 p-2 rounded m-1 text-neutral-200" key={verseKey} onClick={() => onRelatedVerseClick(verseKey)}>
+                                        {verseKey}
+                                    </button>
+                                ))}
+                            </div>
+                        </div>}
                 </div>
             }
         </div>

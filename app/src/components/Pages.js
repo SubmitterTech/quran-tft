@@ -191,9 +191,6 @@ const Pages = ({ selectedPage, selectedSura, selectedVerse, handleClickReference
         }
     }, [notify]);
 
-    
-
-   
     useEffect(() => {
         if (showExplanation['GODnamefrequency']) {
             const timer = setTimeout(() => {
@@ -248,11 +245,6 @@ const Pages = ({ selectedPage, selectedSura, selectedVerse, handleClickReference
             </table>
         );
     };
-
-
-
-    
-
 
     const handlePageTitleClicked = () => {
         console.log(pageTitle)
@@ -356,6 +348,7 @@ const Pages = ({ selectedPage, selectedSura, selectedVerse, handleClickReference
                                 pulse={notify && (parseInt(selectedSura) === parseInt(suraNumber) && parseInt(selectedVerse) === parseInt(verseNumber))}
                                 grapFocus={grapFocus}
                                 pageGWC={updatedPageGWC}
+                                handleClickReference={handleClickReference}
                             />
                         </React.Fragment>
                     );
