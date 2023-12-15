@@ -119,7 +119,7 @@ const Pages = ({ selectedPage, selectedSura, selectedVerse, handleClickReference
                 return (
                     <span
                         key={index}
-                        className="cursor-pointer text-sky-300"
+                        className="cursor-pointer text-sky-400"
                         onClick={() => clickReferenceController(part)}>
 
                         {part}
@@ -273,12 +273,12 @@ const Pages = ({ selectedPage, selectedSura, selectedVerse, handleClickReference
     };
 
     return (
-        <div className="flex relative w-full flex-1 flex-col text-neutral-200 text-xl overflow-auto">
-            <div ref={topRef} className="relative flex flex-col space-y-1.5 mb-2">
-                <div className="sticky top-0 py-2 px-3 bg-sky-800 shadow-lg flex">
+        <div className="flex relative w-full flex-1 flex-col text-neutral-300 text-xl overflow-auto">
+            <div ref={topRef} className="relative flex flex-col">
+                <div className="sticky top-0 py-2 px-3 bg-sky-950 shadow-lg flex">
                     <div
                         onClick={() => handlePageTitleClicked()}
-                        className="flex w-full justify-between text-sm lg:text-lg items-center mr-2">
+                        className="flex w-full text-sm lg:text-lg flex-1 mx-2">
                         <div className="flex flex-col font-bold space-y-2">
                             {pageTitle.map((title, index) => (
                                 <h1 key={index}>{title}</h1>
@@ -286,29 +286,12 @@ const Pages = ({ selectedPage, selectedSura, selectedVerse, handleClickReference
                         </div>
                     </div>
 
-                    <div className="flex flex-col text-end text-sm justify-between flex-1">
-                        <p className="cursor-pointer" onClick={() => openExplanation('GODnamefrequency')}>
-                            {pageData.notes.cumulativefrequencyofthewordGOD}
-                        </p>
-                        {showExplanation.GODnamefrequency && (
-                            <div className="absolute w-40 top-1 right-20 shadow-lg transition duration-500 ease-in-out transform translate-x-2 p-3 bg-neutral-700 rounded break-word">
-                                Cumulative frequency of the word GOD = {formatHitCount(parseInt(pageData.notes.cumulativefrequencyofthewordGOD))}
-                            </div>
-                        )}
-                        <p className="cursor-pointer" onClick={() => openExplanation('GODnamesum')}>
-                            {pageData.notes.cumulativesumofverseswhereGODwordoccurs}
-                        </p>
-                        {showExplanation.GODnamesum && (
-                            <div className="absolute w-40 top-1 right-20 shadow-lg transition duration-500 ease-in-out transform translate-x-2 p-3 bg-neutral-700 rounded break-word">
-                                Cumulative sum of verses where GOD word occurs = {formatHitCount(parseInt(pageData.notes.cumulativesumofverseswhereGODwordoccurs))}
-                            </div>
-                        )}
-                    </div>
+                   
                 </div>
                 {sortedVerses.map(({ suraNumber, verseNumber, verseText, encryptedText, title }) => {
                     const hasAsterisk = verseText.includes('*') || (title && title.includes('*'));
-                    const verseClassName = `transition-all duration-1000 ease-linear flex cursor-pointer rounded m-2 p-2 shadow-lg text-justify text-base md:text-lg xl:text-xl`;
-                    const titleClassName = `bg-neutral-600 italic rounded shadow-lg mx-2 p-3 text-base md:text-md lg:text-lg text-center break-words whitespace-pre-wrap ${hasAsterisk ? "ring-1 ring-sky-100 my-1" : ""}`;
+                    const verseClassName = `transition-colors duration-1000 ease-linear flex cursor-pointer rounded mx-2 mt-1.5 p-2 shadow text-justify text-base md:text-lg xl:text-xl`;
+                    const titleClassName = `bg-neutral-700 italic font-semibold rounded shadow-lg mx-2 mt-1.5 p-3 text-base md:text-md lg:text-lg text-center break-words whitespace-pre-wrap ${hasAsterisk ? "ring-1 ring-neutral-300 mt-2.5 mb-1.5" : ""}`;
                     const verseKey = `${suraNumber}:${verseNumber}`;
                     const noteReference = hasAsterisk ? verseKey : null;
 
@@ -354,20 +337,41 @@ const Pages = ({ selectedPage, selectedSura, selectedVerse, handleClickReference
                     );
                 })}
 
+                <div className="sticky bottom-0 mt-3 py-2 px-3 bg-sky-950 flex">
+                    <div className="flex text-sm justify-between flex-1">
+                        <p className="cursor-pointer" onClick={() => openExplanation('GODnamefrequency')}>
+                            {pageData.notes.cumulativefrequencyofthewordGOD}
+                        </p>
+                        {showExplanation.GODnamefrequency && (
+                            <div className="absolute w-36 left-1.5 -translate-y-24 text-start shadow-lg p-3 bg-neutral-800 rounded break-word">
+                                Cumulative frequency of the word GOD = {formatHitCount(parseInt(pageData.notes.cumulativefrequencyofthewordGOD))}
+                            </div>
+                        )}
+                        <p className="cursor-pointer" onClick={() => openExplanation('GODnamesum')}>
+                            {pageData.notes.cumulativesumofverseswhereGODwordoccurs}
+                        </p>
+                        {showExplanation.GODnamesum && (
+                            <div className="absolute w-36 -translate-y-28 right-1.5 text-end shadow-lg p-3 bg-neutral-800 rounded break-word">
+                                Cumulative sum of verses where GOD word occurs = {formatHitCount(parseInt(pageData.notes.cumulativesumofverseswhereGODwordoccurs))}
+                            </div>
+                        )}
+                    </div>
+                </div>
+
             </div>
             {
                 pageData.notes.data.length > 0 &&
-                <div className="bg-neutral-700 m-2 rounded p-2 text-sm md:text-md lg:text-lg text-justify text-neutral-300 flex flex-col space-y-4 whitespace-pre-line">
+                <div className="bg-neutral-800 m-1.5 mt-3 rounded p-2 text-sm md:text-md lg:text-lg text-justify text-neutral-300 flex flex-col space-y-4 whitespace-pre-line">
                     <h3>Notes:</h3>
                     {pageData.notes.data.map((note, index) =>
                         <p
-                            className="bg-neutral-600 rounded shadow-md px-2 py-3 text-neutral-200"
+                            className="bg-neutral-700 rounded shadow-md px-2 py-3 text-neutral-300"
                             ref={(el) => noteRefs.current[index] = el}
                             key={index}>
                             {parseReferences(note)}
                         </p>)}
                     {pageData.notes.tables && pageData.notes.tables.map((table, index) => (
-                        <div
+                        <div className="flex justify-center"
                             key={index} >
                             {renderTable(table)}
                         </div>
