@@ -124,12 +124,12 @@ const Verse = ({ verseClassName, hasAsterisk, suraNumber, verseNumber, verseText
         setText(verseText);
         let highlighted = lightGODwords(verseText);
         if (mode === "reading") {
-            setCn(verseClassName + " flex-col bg-neutral-800");
+            setCn(verseClassName + " flex-col bg-neutral-800 ring-1 ring-sky-400/50 mb-1");
             setText(highlighted);
         } else if (mode === "light") {
-            setCn(verseClassName + " bg-sky-700 ring-1 ring-sky-100 my-2");
+            setCn(verseClassName + " bg-sky-800 ring-1 ring-sky-400/80 my-1");
         } else if (mode === "idle") {
-            setCn(verseClassName + " bg-sky-700 ");
+            setCn(verseClassName + " bg-sky-800 ");
         }
     }, [mode, verseClassName, verseText, lightGODwords]);
 
@@ -158,12 +158,12 @@ const Verse = ({ verseClassName, hasAsterisk, suraNumber, verseNumber, verseText
             ref={(el) => verseRefs.current[currentVerseKey] = el}
             className={`${cn}`}
             onClick={() => handleClick()}>
-            <p className="px-1 w-full">
-                <span className="text-neutral-300/50 font-bold ">{`${verseNumber}. `}</span>
-                <span className="text-neutral-200 ">
+            <div className="px-1 w-full">
+                <span className="text-sky-400/70">{`${verseNumber}. `}</span>
+                <span className="text-neutral-300">
                     {text}
                 </span>
-            </p>
+            </div>
 
             {mode === "reading" &&
                 <div className="w-full flex flex-col mt-2">
@@ -174,7 +174,7 @@ const Verse = ({ verseClassName, hasAsterisk, suraNumber, verseNumber, verseText
                         <div className=" w-full rounded bg-neutral-600  p-2 ">
                             <div>
                                 {relatedVerses.map(verseKey => (
-                                    <button className="bg-sky-600 p-2 rounded m-1 text-neutral-200" key={verseKey} onClick={() => onRelatedVerseClick(verseKey)}>
+                                    <button className="bg-sky-700 p-2 rounded m-1 text-neutral-200" key={verseKey} onClick={() => onRelatedVerseClick(verseKey)}>
                                         {verseKey}
                                     </button>
                                 ))}

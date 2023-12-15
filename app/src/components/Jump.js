@@ -90,7 +90,7 @@ const Jump = ({ currentPage, quran, onClose, onConfirm }) => {
 
     return (
         <div className="w-screen h-screen animated fadeIn faster fixed left-0 top-0 flex flex-col-1 justify-center items-center inset-0 z-10 outline-none focus:outline-none backdrop-blur-lg" id="jump-screen">
-            <div className="flex flex-col items-center justify-center bg-sky-700 rounded shadow-xl w-full mx-2">
+            <div className="flex flex-col items-center justify-center bg-sky-900 rounded shadow-xl w-full mx-2">
                 <div className=" w-full flex space-x-3 text-neutral-300 mt-3">
                     <div className="w-full px-4 py-2 flex justify-end ">
                         Sura :
@@ -107,7 +107,7 @@ const Jump = ({ currentPage, quran, onClose, onConfirm }) => {
                             name="sura"
                             onChange={handleSuraChange}
                             value={suraNumber}
-                            className=" w-18 rounded text-end px-4 py-2 shadow-lg text-neutral-200 bg-sky-800 placeholder:text-neutral-300 focus:ring-2 focus:ring-inset focus:ring-sky-600 ">
+                            className=" w-18 rounded text-end px-4 py-2 shadow-lg text-neutral-200 bg-sky-700 placeholder:text-neutral-300 focus:ring-2 focus:ring-inset focus:ring-sky-600 ">
                             <option key="0" value="0" disabled></option>
                             {Object.keys(versesInSuras).map(sura => (
                                 <option key={sura} value={sura}>{sura}</option>
@@ -121,25 +121,27 @@ const Jump = ({ currentPage, quran, onClose, onConfirm }) => {
                             name="verse"
                             onChange={handleVerseChange}
                             value={verseNumber}
-                            className=" w-20 rounded px-4 py-2 shadow-lg text-neutral-200 bg-sky-800 placeholder:text-neutral-300 focus:ring-2 focus:ring-inset focus:ring-sky-600 ">
+                            className=" w-20 rounded px-4 py-2 shadow-lg text-neutral-200 bg-sky-700 placeholder:text-neutral-300 focus:ring-2 focus:ring-inset focus:ring-sky-600 ">
                             {suraNumber && versesInSuras[suraNumber] ? versesInSuras[suraNumber].map(verse => (
                                 <option key={verse} value={verse}>{verse}</option>
                             )) : null}
                         </select>
                     </div>
                 </div>
-                <div className="w-full px-3 py-2 flex flex-col justify-start text-neutral-300 mt-10 flex-1">
-                    <div className="flex w-full text-neutral-300 mb-4 text-sm">
-                        Page {selectedPage}
+                <div className="w-full p-3 text-neutral-300 flex-1 mt-7">
+                    <div className="w-full bg-sky-950 p-3 shadow-xl rounded">
+                        <div className="flex w-full text-neutral-300 mb-4 text-sm">
+                            Page {selectedPage}
+                        </div>
+                        {pageTitles[selectedPage] && pageTitles[selectedPage].map((title, index) => (
+                            <h1 key={index}>{title}</h1>
+                        ))}
                     </div>
-                    {pageTitles[selectedPage] && pageTitles[selectedPage].map((title, index) => (
-                        <h1 key={index}>{title}</h1>
-                    ))}
                 </div>
-                <div className="flex w-full justify-between text-neutral-100 mt-7">
+                <div className="flex w-full justify-between items-center text-neutral-100 mt-7">
                     <div className="p-2 flex flex-col w-full items-center justify-between">
                         <button className="flex justify-center" onClick={handleSubmit}>
-                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-8 h-8">
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-7 h-7">
                                 <path strokeLinecap="round" strokeLinejoin="round" d="M9 8.25H7.5a2.25 2.25 0 00-2.25 2.25v9a2.25 2.25 0 002.25 2.25h9a2.25 2.25 0 002.25-2.25v-9a2.25 2.25 0 00-2.25-2.25H15m0-3l-3-3m0 0l-3 3m3-3V15" />
                             </svg>
                         </button>
@@ -149,7 +151,7 @@ const Jump = ({ currentPage, quran, onClose, onConfirm }) => {
                     </div>
                     <div className="p-2 flex flex-col w-full items-center justify-between">
                         <button className="flex justify-center" onClick={goIntro}>
-                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" className="w-8 h-8">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" className="w-7 h-7">
                                 <path fillRule="evenodd" d="M7.5 3.75A1.5 1.5 0 006 5.25v13.5a1.5 1.5 0 001.5 1.5h6a1.5 1.5 0 001.5-1.5V15a.75.75 0 011.5 0v3.75a3 3 0 01-3 3h-6a3 3 0 01-3-3V5.25a3 3 0 013-3h6a3 3 0 013 3V9A.75.75 0 0115 9V5.25a1.5 1.5 0 00-1.5-1.5h-6zm5.03 4.72a.75.75 0 010 1.06l-1.72 1.72h10.94a.75.75 0 010 1.5H10.81l1.72 1.72a.75.75 0 11-1.06 1.06l-3-3a.75.75 0 010-1.06l3-3a.75.75 0 011.06 0z" clipRule="evenodd" />
                             </svg>
                         </button>
@@ -160,7 +162,7 @@ const Jump = ({ currentPage, quran, onClose, onConfirm }) => {
                     <div className="p-2 flex flex-col w-full items-center justify-between">
 
                         <button className="flex justify-center" onClick={goApps}>
-                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" className="w-8 h-8">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" className="w-7 h-7">
                                 <path fillRule="evenodd" d="M7.5 3.75A1.5 1.5 0 006 5.25v13.5a1.5 1.5 0 001.5 1.5h6a1.5 1.5 0 001.5-1.5V15a.75.75 0 011.5 0v3.75a3 3 0 01-3 3h-6a3 3 0 01-3-3V5.25a3 3 0 013-3h6a3 3 0 013 3V9A.75.75 0 0115 9V5.25a1.5 1.5 0 00-1.5-1.5h-6zm10.72 4.72a.75.75 0 011.06 0l3 3a.75.75 0 010 1.06l-3 3a.75.75 0 11-1.06-1.06l1.72-1.72H9a.75.75 0 010-1.5h10.94l-1.72-1.72a.75.75 0 010-1.06z" clipRule="evenodd" />
                             </svg>
                         </button>
@@ -170,7 +172,7 @@ const Jump = ({ currentPage, quran, onClose, onConfirm }) => {
                     </div>
                     <div className="p-2 flex flex-col w-full items-center justify-between">
                         <button className="flex justify-center" onClick={onClose}>
-                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-8 h-8">
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-7 h-7">
                                 <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
                             </svg>
 

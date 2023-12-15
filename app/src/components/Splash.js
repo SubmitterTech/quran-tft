@@ -15,13 +15,13 @@ const Splash = ({onHideSplash}) => {
     };
 
     return (
-        <div className="splash-screen h-screen flex flex-col w-full p-1 justify-between text-center text-neutral-100">
-            <div className="flex flex-col w-full space-y-2 md:space-y-4 mt-4">
+        <div className="splash-screen h-screen flex flex-col w-full p-1 justify-between text-center bg-sky-700 text-neutral-200">
+            <div className="flex flex-col w-full space-y-2 md:space-y-3 mt-4">
                 <h1 className="text-6xl font-extrabold">{lines[0]}</h1>
                 <h2 className="text-3xl font-bold">{lines[2]}</h2>
                 <h2 className="text-3xl font-bold">{lines[3]}</h2>
                 <h2 className="text-3xl font-bold">{lines[4]}</h2>
-                <p className="text-lg ">{lines[5]}</p>
+                <p className="text-lg">{lines[5]}</p>
             </div>
             <button className="flex flex-col items-center justify-end"
                 onClick = {handleTap}>
