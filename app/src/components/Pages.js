@@ -2,7 +2,7 @@ import React, { useState, useEffect, useRef, useCallback, useMemo } from 'react'
 import Verse from '../components/Verse';
 import quranData from '../assets/qurantft.json';
 
-const Pages = ({ selectedPage, selectedSura, selectedVerse, handleClickReference }) => {
+const Pages = ({ selectedPage, selectedSura, selectedVerse, handleClickReference, handleClickAppReference }) => {
     const [pageData, setPageData] = useState(null);
     const [showExplanation, setShowExplanation] = useState({ GODnamefrequency: false, GODnamesum: false });
     const [pageTitle, setPageTitle] = useState([]);
@@ -86,20 +86,20 @@ const Pages = ({ selectedPage, selectedSura, selectedVerse, handleClickReference
     const calculatePageGWC = () => {
         const sortedVerses = parsePageVerses(pageData);
         let newPageGWC = { "0:0": quranData[(parseInt(selectedPage) - 1) + ""]?.notes ? parseInt(quranData[(parseInt(selectedPage) - 1) + ""].notes.cumulativefrequencyofthewordGOD) : 0 };
-    
+
         sortedVerses.forEach(({ suraNumber, verseNumber, verseText }) => {
             const count = countGODwords(verseText);
             const key = `${suraNumber}:${verseNumber}`;
             const previousKey = Object.keys(newPageGWC).filter(k => k.startsWith(`${suraNumber}:`)).pop() || "0:0";
-    
+
             if (count > 0) {
                 newPageGWC[key] = (newPageGWC[previousKey] || 0) + count;
             }
         });
-    
+
         return newPageGWC;
     };
-    
+
 
     // Call this function before rendering Verse components
     const updatedPageGWC = calculatePageGWC();
@@ -113,22 +113,48 @@ const Pages = ({ selectedPage, selectedSura, selectedVerse, handleClickReference
     };
 
     const parseReferences = (text) => {
-        const referenceRegex = /(\d+:\d+(?:-\d+)?)/g;
-        return text.split(referenceRegex).map((part, index) => {
-            if (part.match(referenceRegex)) {
-                return (
-                    <span
-                        key={index}
-                        className="cursor-pointer text-sky-400"
-                        onClick={() => clickReferenceController(part)}>
+        // Define the regular expressions
+        const verseRegex = /(\d+:\d+(?:-\d+)?)/g;
+        const appendixRegex = /Appendix?/g;
 
+        // This function replaces appendix number parts with clickable elements
+        const replaceAppendixNumbers = (appendixPart) => {
+            // Split the appendix part by numbers and separators
+            return appendixPart.split(/(\d+|\s+|,|&|and)/gi).map((segment, index) => {
+                // Check if the segment is a number, if so, make it clickable
+                if (segment.match(/^\d+$/)) {
+                    return (
+                        <span key={index} className="cursor-pointer text-sky-400" onClick={() => handleClickAppReference(segment)}>
+                            {segment}
+                        </span>
+                    );
+                } else {
+                    // If it's not a number, return the segment as is
+                    return segment;
+                }
+            });
+        };
+
+        // Split the text into parts and process each part
+        return text.split(verseRegex).map((part, index) => {
+            if (part.match(appendixRegex)) {
+                // If the part matches an appendix reference, process it further
+                return replaceAppendixNumbers(part);
+            } else if (part.match(verseRegex)) {
+                // If the part matches a verse reference, we can return a clickable element
+                return (
+                    <span key={index} className="cursor-pointer text-sky-400" onClick={() => clickReferenceController(part)}>
                         {part}
                     </span>
                 );
             }
-            return part;
+            else {
+                // If it doesn't match anything, return the part as plain text
+                return part;
+            }
         });
     };
+
 
     const parseNoteReferences = (notes) => {
         const noteRefsMap = {};
@@ -286,7 +312,7 @@ const Pages = ({ selectedPage, selectedSura, selectedVerse, handleClickReference
                         </div>
                     </div>
 
-                   
+
                 </div>
                 {sortedVerses.map(({ suraNumber, verseNumber, verseText, encryptedText, title }) => {
                     const hasAsterisk = verseText.includes('*') || (title && title.includes('*'));

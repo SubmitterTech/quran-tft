@@ -17,6 +17,30 @@ const Book = () => {
     const bookContent = introductionContent.concat(appendicesContent);
     const images = require.context('../assets/', false, /\.jpg$/);
 
+    const [appendicesMap, setAppendicesMap] = useState({});
+
+    useEffect(() => {
+        if (appendicesContent) {
+            const appList = appendicesContent.find(iterator => iterator.page === 396)?.evidence["2"]?.lines;
+
+            if (appList) {
+                const newMap = {};
+
+                Object.entries(appList).forEach(([key, value], index) => {
+                    if (index !== 0) {
+                        const details = value.split(".").filter(element => element);
+                        if (details.length >= 3) {
+                            newMap[parseInt(details[0])] = parseInt(details[2]) + 22;
+                        }
+                    }
+                });
+
+                setAppendicesMap(newMap);
+            }
+        }
+    }, []);
+
+
     const handleJump = async (page, suraNumber, verseNumber) => {
         updatePage(parseInt(page), suraNumber, verseNumber);
     };
@@ -131,25 +155,59 @@ const Book = () => {
         }
     };
 
-    const parseReferences = (text) => {
-        const referenceRegex = /(\d+:\d+(?:-\d+)?)/g;
-        return text.split(referenceRegex).map((part, index) => {
-            if (part.match(referenceRegex)) {
-                return (
-                    <span
-                        key={index}
-                        className="cursor-pointer text-sky-400"
-                        onClick={() => handleClickReference(part)}>
+    const handleClickAppReference = (number) => {
+        updatePage(appendicesMap[parseInt(number)]);
+    };
 
+    const parseReferences = (text) => {
+        // Define the regular expressions
+        const verseRegex = /(\d+:\d+(?:-\d+)?)/g;
+        const appendixRegex = /Appendix?/g;
+
+        // This function replaces appendix number parts with clickable elements
+        const replaceAppendixNumbers = (appendixPart) => {
+            // Split the appendix part by numbers and separators
+            return appendixPart.split(/(\d+|\s+|,|&|and)/gi).map((segment, index) => {
+                // Check if the segment is a number, if so, make it clickable
+                if (segment.match(/^\d+$/)) {
+                    return (
+                        <span key={index} className="cursor-pointer text-sky-500" onClick={() => handleClickAppReference(segment)}>
+                            {segment}
+                        </span>
+                    );
+                } else {
+                    // If it's not a number, return the segment as is
+                    return segment;
+                }
+            });
+        };
+
+        // Split the text into parts and process each part
+        return text.split(verseRegex).map((part, index) => {
+            if (part.match(appendixRegex)) {
+                // If the part matches an appendix reference, process it further
+                return replaceAppendixNumbers(part);
+            } else if (part.match(verseRegex)) {
+                // If the part matches a verse reference, we can return a clickable element
+                return (
+                    <span key={index} className="cursor-pointer text-sky-500" onClick={() => handleClickReference(part)}>
                         {part}
                     </span>
                 );
             }
-            return part;
+            else {
+                // If it doesn't match anything, return the part as plain text
+                return part;
+            }
         });
     };
 
+
+
+
+
     const renderTable = (tableData) => {
+        const tableRef = tableData.ref;
         const columnCount = tableData.title.length;
         const rows = [];
 
@@ -158,24 +216,29 @@ const Book = () => {
         }
 
         return (
-            <table className="table-auto bg-neutral-800 border-collapse border-2 border-neutral-900 text-center mb-3 w-full">
-                <thead>
-                    <tr>
-                        {tableData.title.map((header, index) => (
-                            <th key={index} className="border-2 border-neutral-900 p-2 ">{header}</th>
-                        ))}
-                    </tr>
-                </thead>
-                <tbody>
-                    {rows.map((row, rowIndex) => (
-                        <tr key={rowIndex}>
-                            {row.map((cell, cellIndex) => (
-                                <td key={cellIndex} className="border-2 border-neutral-900 p-2">{cell}</td>
+            <div className="w-full flex flex-col text-neutral-400">
+                <div className="bg-neutral-800 w-full rounded text-sm py-2 text-center ">
+                    {tableRef}
+                </div>
+                <table title={tableRef} className="table-auto bg-neutral-800 border-collapse border-2 border-neutral-900 text-center mb-3 w-full">
+                    <thead>
+                        <tr>
+                            {tableData.title.map((header, index) => (
+                                <th key={index} className="border-2 border-neutral-900 p-2 ">{header}</th>
                             ))}
                         </tr>
-                    ))}
-                </tbody>
-            </table>
+                    </thead>
+                    <tbody>
+                        {rows.map((row, rowIndex) => (
+                            <tr key={rowIndex}>
+                                {row.map((cell, cellIndex) => (
+                                    <td key={cellIndex} className="border-2 border-neutral-900 p-2">{cell}</td>
+                                ))}
+                            </tr>
+                        ))}
+                    </tbody>
+                </table>
+            </div>
         );
     };
 
@@ -183,7 +246,7 @@ const Book = () => {
 
         // Render Pages component when current page is 23 or more
         if (parseInt(currentPage) >= 23 && parseInt(currentPage) <= 394) {
-            return <Pages selectedPage={currentPage} selectedSura={selectedSura} selectedVerse={selectedVerse} handleClickReference={handleClickReference} />;
+            return <Pages selectedPage={currentPage} selectedSura={selectedSura} selectedVerse={selectedVerse} handleClickReference={handleClickReference} handleClickAppReference={handleClickAppReference}/>;
         }
 
         if (parseInt(currentPage) === 22) {
@@ -197,6 +260,62 @@ const Book = () => {
                 </div>
             );
         }
+
+        if (parseInt(currentPage) === 395) {
+            return (
+                <div
+                    onClick={nextPage}
+                    className="w-screen h-screen flex items-center justify-center  text-neutral-300">
+                    <div className="text-4xl mx-2">
+                        Appendices
+                    </div>
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-7 h-7">
+                        <path strokeLinecap="round" strokeLinejoin="round" d="M15 15l6-6m0 0l-6-6m6 6H9a6 6 0 000 12h3" />
+                    </svg>
+                </div>
+            );
+        }
+
+        if (parseInt(currentPage) === 396) {
+            const cpd = bookContent ? bookContent.find(iterator => iterator.page === currentPage) : null;
+
+            if (!cpd || !cpd.evidence["2"] || !cpd.evidence["2"].lines) {
+                return <p>Content not available</p>;
+            }
+
+            const content = cpd.evidence["2"].lines;
+            const renderedContent = Object.entries(content).map(([key, value]) => {
+                const elements = value.split(".").filter(element => element);
+                if (parseInt(key) === 1) {
+                    const titles = elements[0].split(" ").filter(element => element);
+                    return (
+                        <div className=" text-neutral-300 w-full flex justify-center" key={key}>
+                            <div className="p-3">{titles[0]}</div>
+                        </div>
+                    );
+                } else {
+                    return (
+                        <div
+                            onClick={() => updatePage(parseInt(elements[2]) + 22)}
+                            className="flex w-full justify-between">
+                            <div className=" font-semibold rounded p-3 m-1 bg-neutral-900 w-12 flex items-center justify-center">
+                                <p className="" key={key}>{elements[0]}</p>
+                            </div>
+                            <div className="rounded p-3 mr-2 m-1 bg-neutral-800 w-full text-base flex items-center">
+                                <p className="" key={key}>{elements[1]}</p>
+                            </div>
+                        </div>
+                    );
+                }
+            });
+
+            return (
+                <div className="w-screen h-screen flex flex-col overflow-auto text-neutral-300">
+                    {renderedContent}
+                </div>);
+        }
+
+
         const combinedContent = [];
 
         const currentPageData = bookContent ? bookContent.find(iterator => iterator.page === currentPage) : null;
@@ -259,7 +378,7 @@ const Book = () => {
                 );
             } else if (item.type === 'evidence') {
                 return (
-                    <div key={`evidence-${index}`} className={`bg-neutral-800 rounded shadow-lg text-sm md:text-base p-3 border my-3 border-neutral-900`}>
+                    <div key={`evidence-${index}`} className={`bg-neutral-800 text-neutral-400 rounded shadow-lg text-sm md:text-base p-3 border my-3 border-neutral-950`}>
                         {Object.entries(item.content.lines).map(([lineKey, lineValue]) => (
                             <p className=" whitespace-pre-wrap my-1" key={lineKey}>{parseReferences(lineValue)}</p>
                         ))}
