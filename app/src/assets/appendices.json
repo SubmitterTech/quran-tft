@@ -158,119 +158,106 @@
     {
         "page": 399,
         "text": {
-           "1": "The Quran is characterized by a unique phenomenon never found in any other book; 29 suras are prefixed with 14 different sets of “Quranic Initials,” consisting of one to five letters per set. Fourteen letters, half the Arabic alphabet, participate in these initials. The significance of the Quranic initials remained a divinely guarded secret for 14 centuries.",
-           "2": "The Quran states in 10:20 and 25:4-6 that its miracle, i.e., proof of divine authorship, was destined to remain secret for a specific predetermined interim:",
-           "4": "The Quranic Initials constitute a major portion of the Quran’s 19-based mathematical miracle."
-        
+            "1": "The Quran is characterized by a unique phenomenon never found in any other book; 29 suras are prefixed with 14 different sets of “Quranic Initials,” consisting of one to five letters per set. Fourteen letters, half the Arabic alphabet, participate in these initials. The significance of the Quranic initials remained a divinely guarded secret for 14 centuries.",
+            "2": "The Quran states in 10:20 and 25:4-6 that its miracle, i.e., proof of divine authorship, was destined to remain secret for a specific predetermined interim:",
+            "5": "The Quranic Initials constitute a major portion of the Quran’s 19-based mathematical miracle."
         },
-        "picture": {
-            
-        },
-        "evidence": {
-           
-            "3": {
-                "lines": {
-                    "1": "They said, “Why hasn’t a miracle come down to him from his Lord?” Say, “Only God knows the future. Therefore, wait, and I will wait along with you.” [10:20]",
-                    "2": "******",
-                    "3": "Those who disbelieved said, “This is no more than a fabrication by him, with the help of other people.” Indeed, they uttered a blasphemy; a falsehood. Others said, “Tales from the past that he wrote down; they were dictated to him day and night.” Say, “This was sent down from the One who knows ‘the secret’ in the heavens and the earth.” Surely, He is Forgiving, Most Merciful. [25:4-6]"
-    
-                },
-                "ref": [
-                    
-                ]
-            },
-            "5": {
-                "lines": {
-                    "1": "No. No. Title Initials",
-                    "2": "1. 2 The Heifer A.L.M.",
-                    "3": "2. 3 The Amramites A.L.M.",
-                    "4": "3. 7 The Purgatory A.L.M.S",
-                    "5": "4. 10 Jonah A.L.R.",
-                    "6": "5. 11 Hûd A.L.R.",
-                    "7": "6. 12 Joseph A.L.R.",
-                    "8": "7. 13 Thunder A.L.M.R.",
-                    "9": "8. 14 Abraham A.L.R.",
-                    "10": "9. 15 Al-Hijr Valley A.L.R.",
-                    "11": "10. 19 Mary K.H.Y.‘A.S.",
-                    "12": "11. 20 T.H. T.H.",
-                    "13": "12. 26 The Poets T.S.M.",
-                    "14": "13. 27 The Ant T.S.",
-                    "15": "14. 28 History T.S.M.",
-                    "16": "15. 29 The Spider A.L.M.",
-                    "17": "16. 30 The Romans A.L.M.",
-                    "18": "17. 31 Luqmaan A.L.M.",
-                    "19": "18. 32 Prostration A.L.M.",
-                    "20": "19. 36 Y.S. Y.S.",
-                    "21": "20. 38 S. S.",
-                    "22": "21. 40 Forgiver H.M.",
-                    "23": "22. 41 Elucidated H.M.",
-                    "24": "23. 42 Consultation H.M. ‘A.S.Q.",
-                    "25": "24. 43 Ornaments H.M.",
-                    "26": "25. 44 Smoke H.M.",
-                    "27": "26. 45 Kneeling H.M.",
-                    "28": "27. 46 The Dunes H.M.",
-                    "29": "28. 50 Q. Q.",
-                    "30": "29. 68 The Pen NuN"
-                },
-                "ref": [
-                    
+        "picture": {},
+        "table": {
+            "1": {
+                "ref": "Table 1: List of the Quranic Initials and Their Suras",
+                "title": [
+                    "No",
+                    "Sura No",
+                    "Sura Title",
+                    "Quranic Initials"
+                ],
+                "values": [
+                     "1.", "2 ", "The Heifer", "A.L.M.",
+                     "2.", "3 ", "The Amramites", "A.L.M.",
+                     "3.", "7 ", "The Purgatory","A.L.M.S",
+                     "4.", "10", "Jonah","A.L.R.",
+                     "5.", "11", "Hûd","A.L.R.",
+                     "6.", "12", "Joseph","A.L.R.",
+                     "7.", "13", "Thunder","A.L.M.R.",
+                     "8.", "14", "Abraham","A.L.R.",
+                     "9.", "15", "Al-Hijr Valley","A.L.R.",
+                    "10.", "19", "Mary","K.H.Y.‘A.S.",
+                    "11.", "20", "T.H.","T.H.",
+                    "12.", "26", "The Poets","T.S.M.",
+                    "13.", "27", "The Ant","T.S.",
+                    "14.", "28", "History","T.S.M.",
+                    "15.", "29", "The Spider"," A.L.M.",
+                    "16.", "30", "The Romans ","A.L.M.",
+                    "17.", "31", "Luqmaan ","A.L.M.",
+                    "18.", "32", "Prostration ","A.L.M.",
+                    "19.", "36", "Y.S. ","Y.S.",
+                    "20.", "38", "S. ","S.",
+                    "21.", "40", "Forgiver ","H.M.",
+                    "22.", "41", "Elucidated ","H.M.",
+                    "23.", "42", "Consultation ","H.M. ‘A.S.Q.",
+                    "24.", "43", "Ornaments ","H.M.",
+                    "25.", "44", "Smoke ","H.M.",
+                    "26.", "45", "Kneeling ","H.M.",
+                    "27.", "46", "The Dunes ","H.M.",
+                    "28.", "50", "Q. ","Q.",
+                    "29.", "68", "The Pen ","NuN"
                 ]
             }
-          
+        },
+        "evidence": {
+            "3": {
+                "lines": {
+                    "1": "They said, “Why hasn’t a miracle come down to him from his Lord?” Say, “Only God knows the future. Therefore, wait, and I will wait along with you.”"
+
+                },
+                "ref": ["10:20"]
+            },
+            "4": {
+                "lines": {
+                    "3": "Those who disbelieved said, “This is no more than a fabrication by him, with the help of other people.” Indeed, they uttered a blasphemy; a falsehood. Others said, “Tales from the past that he wrote down; they were dictated to him day and night.” Say, “This was sent down from the One who knows ‘the secret’ in the heavens and the earth.” Surely, He is Forgiving, Most Merciful."                    
+                },
+                "ref": ["25:4-6"]
+            }
         },
         "titles": {
-            "1":"The Literary Mathematical Composition"
-    
+            "1": "The Literary Mathematical Composition"
         }
     },
     {
         "page": 400,
         "text": {
-           "1": "In 1968, I realized that the existing English translations of the Quran did not present the truthful message of God’s Final Testament. For example, the two most popular translators, Yusuf Ali and Marmaduke Pickthall, could not overcome their corrupted religious traditions when it came to the Quran’s great criterion in 39:45.",
-           "3": "Yusuf Ali omitted the crucial word “ALONE” from his translation, and altered the rest of the verse by inserting the word “(gods).” Thus, he utterly destroyed this most important Quranic criterion. He translated 39:45 as follows:",
-           "5": "The expression “When God, the One and Only, is mentioned,” is not the same as saying, “When God alone is mentioned.” One can mention “God, the One and Only,” and also mention Muhammad or Jesus, and no one will be upset. But if “God ALONE is mentioned,” you cannot mention anyone else, and a lot of people—those who idolize Muhammad or Jesus—will be upset. Thus, Yusuf Ali could not bring himself to present the truth of the Quran, if it exposed his corrupted belief.",
-           "6": "Marmaduke Pickthall translated “ALONE” correctly, but destroyed the criterion by inserting his personal belief in parentheses; he translated 39:45 as follows:",
-           "8": "When I saw the truth of God’s word thus distorted, I decided to translate the Quran, at least for the benefit of my own children. Since I was a chemist by profession, and despite my extensive religious background—my father was a renowned Sufi leader in Egypt—I vowed to God that I would not move from one verse to the next unless I fully understood it.",
-           "9": "I purchased all the available books of Quranic translations and exegeses (Tafseer) I could find, placed them on a large table, and began my translation. The first sura, The Key, was completed in a few days. The first verse in Sura 2 is “A.L.M.” The translation of this verse took four years, and coincided with the divine unveiling of “the secret,” the great mathematical Miracle of the Quran.",
-           "10": "The books of Quranic exegeses unanimously agreed that “no one knows the meaning or significance of the Quranic Initials A.L.M., or any other initials.” I decided to write the Quran into the computer, analyze the whole text, and see if there were any mathematical correlations among these Quranic initials."
-        
+            "1": "In 1968, I realized that the existing English translations of the Quran did not present the truthful message of God’s Final Testament. For example, the two most popular translators, Yusuf Ali and Marmaduke Pickthall, could not overcome their corrupted religious traditions when it came to the Quran’s great criterion in 39:45.",
+            "3": "Yusuf Ali omitted the crucial word “ALONE” from his translation, and altered the rest of the verse by inserting the word “(gods).” Thus, he utterly destroyed this most important Quranic criterion. He translated 39:45 as follows:",
+            "5": "The expression “When God, the One and Only, is mentioned,” is not the same as saying, “When God alone is mentioned.” One can mention “God, the One and Only,” and also mention Muhammad or Jesus, and no one will be upset. But if “God ALONE is mentioned,” you cannot mention anyone else, and a lot of people—those who idolize Muhammad or Jesus—will be upset. Thus, Yusuf Ali could not bring himself to present the truth of the Quran, if it exposed his corrupted belief.",
+            "6": "Marmaduke Pickthall translated “ALONE” correctly, but destroyed the criterion by inserting his personal belief in parentheses; he translated 39:45 as follows:",
+            "8": "When I saw the truth of God’s word thus distorted, I decided to translate the Quran, at least for the benefit of my own children. Since I was a chemist by profession, and despite my extensive religious background—my father was a renowned Sufi leader in Egypt—I vowed to God that I would not move from one verse to the next unless I fully understood it.",
+            "9": "I purchased all the available books of Quranic translations and exegeses (Tafseer) I could find, placed them on a large table, and began my translation. The first sura, The Key, was completed in a few days. The first verse in Sura 2 is “A.L.M.” The translation of this verse took four years, and coincided with the divine unveiling of “the secret,” the great mathematical Miracle of the Quran.",
+            "10": "The books of Quranic exegeses unanimously agreed that “no one knows the meaning or significance of the Quranic Initials A.L.M., or any other initials.” I decided to write the Quran into the computer, analyze the whole text, and see if there were any mathematical correlations among these Quranic initials."
         },
-        "picture": {
-            
-        },
+        "picture": {},
         "evidence": {
-           
             "2": {
                 "lines": {
-                    "1": "When God ALONE is mentioned, the hearts of those who do not believe in the Hereafter shrink with aversion. But when others are mentioned beside Him, they rejoice. [39:45]"
-    
+                    "1": "When God ALONE is mentioned, the hearts of those who do not believe in the Hereafter shrink with aversion. But when others are mentioned beside Him, they rejoice."
                 },
-                "ref": [
-                    
-                ]
+                "ref": ["39:45"]
             },
             "4": {
                 "lines": {
                     "1": "When God, the One and Only, is mentioned, the hearts of those who believe not in the Hereafter are filled with disgust and horror; but when (gods) other than He are mentioned, behold, they are filled with joy. [39:45] (according to A. Yusuf Ali)"
                 },
-                "ref": [
-                    
-                ]
+                "ref": []
             },
             "7": {
                 "lines": {
                     "1": "And when Allah alone is mentioned, the hearts of those who believe not in the Hereafter are repelled, and when those (whom they worship) beside Him are mentioned, behold! they are glad. [39:45] (according to Marmaduke Pickthal)"
                 },
-                "ref": [
-                    
-                ]
+                "ref": []
             }
-            
-          
         },
         "titles": {
             "1": "Historical Background"
-    
         }
     },
     {
@@ -284,79 +271,67 @@
             "6": "Sura 50 consists of 45 verses, and 50 + 45 = 95, same total as in Sura 42.",
             "7": "By counting the letter “Q” in every “Verse 19” throughout the Quran, the total count comes to 76, 19x4. Here is a summary of the Q-related data:",
             "9": "Glimpses of the Quran’s mathematical composition began to emerge. For example, it was observed that the people who disbelieved in Lot are mentioned in 50:13 and occur in the Quran 13 times—7:80; 11:70, 74, 89; 21:74; 22:43; 26:160; 27:54, 56; 29:28; 38:13; 50:13; and 54:33. Consistently, they are referred to as “Qawm,” with the single exception of the Q-initialed Sura 50 where they are referred to as “Ikhwaan.” Obviously, if the regular, Q-containing word “Qawm” were used, the count of the letter “Q” in Sura 50 would have become 58, and this whole phenomenon would have disappeared. With the recognized absolute accuracy of mathematics, the alteration of a single letter destroys the system."
-
-        
         },
-        "picture": {
-            
-        },
+        "picture": {},
         "evidence": {
-           
             "8": {
                 "lines": {
                     "1": "1. The frequency of occurrence of “Q” in Sura “Q” (No. 50) is 57, 19x3.",
-                    "2": "2. The letter “Q” occurs in the other Q-initialed sura (No. 42) exactly the same",
-                    "3": "number of times, 57.",
-                    "4": "3. The total occurrence of the letter “Q” in the two Q-initialed suras is 114,",
-                    "5": "which equals the number of suras in the Quran.",
-                    "6": "4. “The Quran” is mentioned in the Quran 57 times.",
-                    "7": "5. The description of the Quran as “Majid” (Glorious) is correlated with the",
-                    "8": "frequency of occurrence of the letter “Q” in each of the Q-initialed suras. The",
-                    "9": "word “Majid” has a gematrical value of 57.",
-                    "10": "7. Sura 42 consists of 53 verses, and 42 + 53 is 95, or 19x5.",
-                    "11": "8. Sura 50 consists of 45 verses, and 50 + 45 is also 95, 19x5.",
-                    "12": "9. The number of Q’s in all verses numbered “19” throughout the Quran is 76,",
-                    "13": "19x4."   
+                    "2": "2. The letter “Q” occurs in the other Q-initialed sura (No. 42) exactly the same number of times, 57.",
+                    "3": "3. The total occurrence of the letter “Q” in the two Q-initialed suras is 114, which equals the number of suras in the Quran.",
+                    "4": "4. “The Quran” is mentioned in the Quran 57 times.",
+                    "5": "5. The description of the Quran as “Majid” (Glorious) is correlated with the frequency of occurrence of the letter “Q” in each of the Q-initialed suras. The word “Majid” has a gematrical value of 57.",
+                    "6": "6. Sura 42 consists of 53 verses, and 42 + 53 is 95, or 19x5.",
+                    "7": "7. Sura 50 consists of 45 verses, and 50 + 45 is also 95, 19x5.",
+                    "8": "8. The number of Q’s in all verses numbered “19” throughout the Quran is 76, 19x4."
                 },
-                "ref": [
-                    
-                ]
+                "ref": []
             }
-          
         },
         "titles": {
             "2": "The Quranic Initial “Q” (Qaaf)"
-    
         }
     },
     {
         "page": 402,
         "text": {
-           "1": "Another relevant example is the reference to Mecca in 3:96 as “Becca”! This strange spelling of the renowned city has puzzled Islamic scholars for many centuries. Although Mecca is mentioned in the Quran properly spelled in 48:24, the letter “M” is substituted with a “B” in 3:96. It turns out that Sura 3 is an M-initialed sura, and the count of the letter “M” would have deviated from the Quran’s code if “Mecca” was spelled correctly in 3:96.",
-           "2": "This initial is unique; it occurs in one sura, 68, and the name of the letter is spelled out as three letters—Noon Wow Noon—in the original text, and is therefore counted as two N’s. The total count of this letter in the N-initialed sura is 133, 19x7.",
-           "3": "The fact that “N” is the last Quranic Initial (see Table 1) brings out a number of special observations. For example, the number of verses from the first Quranic Initial (A.L.M. of 2:1) to the last initial (N. of 68:1) is 5263, or 19x277.",
-           "4": "The word “God” (Allah) occurs 2641 (19x139) times between the first initial and the last initial. Since the total occurrence of the word “God” is 2698, it follows that its occurrence outside the initials “A.L.M.” of 2:1 on one side, and the initial “N” of 68:1 on the other side, is 57, 19x3. Tables 9 to 20 prove that the initial “NuN” must be spelled out to show two N’s.",
-           "5": "This initial prefixes three suras, 7, 19, and 38, and the total occurrence of the letter “S” (Saad) in these three suras is 152, 19x8 (Table 2). It is noteworthy that in 7:69, the word “Bastatan” is written in some printings with a “Saad,” instead of “Seen.” This is an erroneous distortion that violates the Quran’s code. By looking at the oldest available copy of the Quran, the Tashkent Copy, it was found that the word “Bastatan” is correctly written with a “Seen” (see photocopy below)."
-        
+            "1": "Another relevant example is the reference to Mecca in 3:96 as “Becca”! This strange spelling of the renowned city has puzzled Islamic scholars for many centuries. Although Mecca is mentioned in the Quran properly spelled in 48:24, the letter “M” is substituted with a “B” in 3:96. It turns out that Sura 3 is an M-initialed sura, and the count of the letter “M” would have deviated from the Quran’s code if “Mecca” was spelled correctly in 3:96.",
+            "2": "This initial is unique; it occurs in one sura, 68, and the name of the letter is spelled out as three letters—Noon Wow Noon—in the original text, and is therefore counted as two N’s. The total count of this letter in the N-initialed sura is 133, 19x7.",
+            "3": "The fact that “N” is the last Quranic Initial (see Table 1) brings out a number of special observations. For example, the number of verses from the first Quranic Initial (A.L.M. of 2:1) to the last initial (N. of 68:1) is 5263, or 19x277.",
+            "4": "The word “God” (Allah) occurs 2641 (19x139) times between the first initial and the last initial. Since the total occurrence of the word “God” is 2698, it follows that its occurrence outside the initials “A.L.M.” of 2:1 on one side, and the initial “N” of 68:1 on the other side, is 57, 19x3. Tables 9 to 20 prove that the initial “NuN” must be spelled out to show two N’s.",
+            "5": "This initial prefixes three suras, 7, 19, and 38, and the total occurrence of the letter “S” (Saad) in these three suras is 152, 19x8 (Table 2). It is noteworthy that in 7:69, the word “Bastatan” is written in some printings with a “Saad,” instead of “Seen.” This is an erroneous distortion that violates the Quran’s code. By looking at the oldest available copy of the Quran, the Tashkent Copy, it was found that the word “Bastatan” is correctly written with a “Seen” (see photocopy below)."
         },
         "picture": {
-            "6": {
+            "7": {
                 "no": "4",
                 "text": "Photocopy from the Tashkent Quran."
+            },
+            "8": {
+                "no": "5"
+            }
+        },
+
+        "table": {
+            "6": {
+                "ref": "Table 2: The Frequency of Occurrence of the Letter “S” in the Saad-initialed Suras",
+                "title": [
+                    "Sura",
+                    "Frequency of “S”"
+                ],
+                "values": [
+                     "7 ", "97 ",
+                     "19", "26 ",
+                     "38", "29 ",
+                     "  ", "152 ",
+                     "  ", "(19x8)"
+                ]
             }
         },
         "evidence": {
-           
-            "6": {
-                "lines": {
-                    "1": "Sura Frequency of “S”",
-                    "2": "7 97",
-                    "3": "19 26",
-                    "4": "38 29",
-                    "5": "152",
-                    "6": "(19x8)"
-    
-                },
-                "ref": [
-                    "Table 2: The Frequency of Occurrence of the Letter “S” in the Saad-initialed Suras"
-                ]
-            }
-          
         },
         "titles": {
             "2": "NuN (Noon)",
             "5": "S (Saad)"
-    
         }
     },
     {

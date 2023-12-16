@@ -149,6 +149,36 @@ const Book = () => {
         });
     };
 
+    const renderTable = (tableData) => {
+        const columnCount = tableData.title.length;
+        const rows = [];
+
+        for (let i = 0; i < tableData.values.length; i += columnCount) {
+            rows.push(tableData.values.slice(i, i + columnCount));
+        }
+
+        return (
+            <table className="table-auto bg-neutral-800 border-collapse border-2 border-neutral-900 text-center mb-3 w-full">
+                <thead>
+                    <tr>
+                        {tableData.title.map((header, index) => (
+                            <th key={index} className="border-2 border-neutral-900 p-2 ">{header}</th>
+                        ))}
+                    </tr>
+                </thead>
+                <tbody>
+                    {rows.map((row, rowIndex) => (
+                        <tr key={rowIndex}>
+                            {row.map((cell, cellIndex) => (
+                                <td key={cellIndex} className="border-2 border-neutral-900 p-2">{cell}</td>
+                            ))}
+                        </tr>
+                    ))}
+                </tbody>
+            </table>
+        );
+    };
+
     const renderBookContent = () => {
 
         // Render Pages component when current page is 23 or more
@@ -163,7 +193,7 @@ const Book = () => {
                         <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
                         <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
                     </svg>
-                     Sura List Loading...
+                    Sura List Loading...
                 </div>
             );
         }
@@ -203,6 +233,13 @@ const Book = () => {
                 combinedContent.push({ type: 'picture', no: value["no"], order: parseInt(key), text: value["text"] });
             });
         }
+
+        if (currentPageData.table) {
+            // Add pictures to combined content
+            Object.entries(currentPageData.table).forEach(([key, value]) => {
+                combinedContent.push({ type: 'table', content: value, order: parseInt(key) });
+            });
+        }
         // Sort the combined content by order
         combinedContent.sort((a, b) => a.order - b.order);
 
@@ -232,7 +269,6 @@ const Book = () => {
                     </div>
                 );
             } else if (item.type === 'picture') {
-
                 const imageUrl = images(`./${item.no}.jpg`);
                 return (
                     <div className=" flex flex-col flex-1 items-center justify-center w-full px-1">
@@ -252,6 +288,9 @@ const Book = () => {
                         </div>}
                     </div>
                 );
+            } else if (item.type === 'table') {
+                return (renderTable(item.content));
+
             } else {
                 return (
                     <div className="text-neutral-200/80 flex flex-1 items-center justify-center w-full">
