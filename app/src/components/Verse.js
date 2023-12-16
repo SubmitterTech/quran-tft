@@ -124,12 +124,12 @@ const Verse = ({ verseClassName, hasAsterisk, suraNumber, verseNumber, verseText
         setText(verseText);
         let highlighted = lightGODwords(verseText);
         if (mode === "reading") {
-            setCn(verseClassName + " flex-col bg-neutral-800 ring-1 ring-sky-400/50 my-1");
+            setCn(verseClassName + " flex-col bg-neutral-800 ring-1 ring-sky-400/50");
             setText(highlighted);
         } else if (mode === "light") {
-            setCn(verseClassName + " bg-sky-800 ring-1 ring-sky-400/80 my-1.5");
+            setCn(verseClassName + " bg-sky-800 border border-sky-400/80");
         } else if (mode === "idle") {
-            setCn(verseClassName + " bg-sky-800 my-0.5");
+            setCn(verseClassName + " bg-sky-800");
         }
     }, [mode, verseClassName, verseText, lightGODwords]);
 

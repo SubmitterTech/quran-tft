@@ -290,8 +290,8 @@ const Pages = ({ selectedPage, selectedSura, selectedVerse, handleClickReference
                 </div>
                 {sortedVerses.map(({ suraNumber, verseNumber, verseText, encryptedText, title }) => {
                     const hasAsterisk = verseText.includes('*') || (title && title.includes('*'));
-                    const verseClassName = `transition-colors duration-1000 ease-linear flex cursor-pointer rounded mx-2 p-2 shadow text-justify text-base md:text-lg xl:text-xl`;
-                    const titleClassName = `bg-neutral-700 italic font-semibold rounded shadow-lg mx-2 mb-0.5 mt-1.5 p-3 text-base md:text-md lg:text-lg text-center break-words whitespace-pre-wrap ${hasAsterisk ? "ring-1 ring-neutral-300 mb-1.5 mt-2.5" : ""}`;
+                    const verseClassName = `transition-colors duration-1000 ease-linear flex cursor-pointer rounded mx-2 my-1 p-2 shadow text-justify text-base md:text-lg xl:text-xl`;
+                    const titleClassName = `bg-neutral-700 italic font-semibold rounded shadow-lg mx-2 mt-1.5 mb-0.5 p-3 text-base md:text-md lg:text-lg text-center break-words whitespace-pre-wrap ${hasAsterisk ? "ring-1 ring-neutral-300 mt-2" : ""}`;
                     const verseKey = `${suraNumber}:${verseNumber}`;
                     const noteReference = hasAsterisk ? verseKey : null;
 
