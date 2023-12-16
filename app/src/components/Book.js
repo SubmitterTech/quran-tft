@@ -156,7 +156,9 @@ const Book = () => {
     };
 
     const handleClickAppReference = (number) => {
-        updatePage(appendicesMap[parseInt(number)]);
+        if (number > 0 && number < 40) {
+            updatePage(appendicesMap[parseInt(number)]);
+        }
     };
 
     const parseReferences = (text) => {
