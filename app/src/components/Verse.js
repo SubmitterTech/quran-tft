@@ -84,7 +84,7 @@ const Verse = ({ verseClassName, hasAsterisk, suraNumber, verseNumber, verseText
         const namesofGOD = "الله|لله"; // Regular expression to match "الله" or "لله"
         let localCount = 0;
 
-        parts = text.split(new RegExp(`(${namesofGOD})`, 'g')).reverse();
+        parts = text.split(new RegExp(`(${namesofGOD})`, 'g'));
         return parts.map((part, index) => {
             if (part.match(new RegExp(namesofGOD))) {
                 localCount++;
@@ -124,12 +124,12 @@ const Verse = ({ verseClassName, hasAsterisk, suraNumber, verseNumber, verseText
         setText(verseText);
         let highlighted = lightGODwords(verseText);
         if (mode === "reading") {
-            setCn(verseClassName + " flex-col bg-neutral-800 ring-1 ring-sky-400/50 mb-1");
+            setCn(verseClassName + " flex-col bg-neutral-800 ring-1 ring-sky-400/50 my-1");
             setText(highlighted);
         } else if (mode === "light") {
-            setCn(verseClassName + " bg-sky-800 ring-1 ring-sky-400/80 my-1");
+            setCn(verseClassName + " bg-sky-800 ring-1 ring-sky-400/80 my-1.5");
         } else if (mode === "idle") {
-            setCn(verseClassName + " bg-sky-800 ");
+            setCn(verseClassName + " bg-sky-800 my-0.5");
         }
     }, [mode, verseClassName, verseText, lightGODwords]);
 
@@ -167,7 +167,7 @@ const Verse = ({ verseClassName, hasAsterisk, suraNumber, verseNumber, verseText
 
             {mode === "reading" &&
                 <div className="w-full flex flex-col mt-2">
-                    <p className=" w-full rounded bg-neutral-600 p-2 mb-2 text-end" >
+                    <p className=" w-full rounded bg-neutral-600 p-2 mb-2 text-start" dir="rtl" >
                         {lightAllahwords(encryptedText)}
                     </p>
                     {relatedVerses.length > 0 &&
