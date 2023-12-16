@@ -73,7 +73,7 @@ const Verse = ({ verseClassName, hasAsterisk, suraNumber, verseNumber, verseText
             if (index % 2 === 0) {
                 return [...prev, current];
             } else {
-                return [...prev, <span key={index} className="font-bold text-sky-400">GOD</span>];
+                return [...prev, <span key={index} className="font-bold text-sky-600">GOD</span>];
             }
         }, []);
     }, []);
@@ -89,7 +89,7 @@ const Verse = ({ verseClassName, hasAsterisk, suraNumber, verseNumber, verseText
             if (part.match(new RegExp(namesofGOD))) {
                 localCount++;
                 return (
-                    <span key={index} className="text-sky-400 " dir="rtl">
+                    <span key={index} className="text-sky-600 " dir="rtl">
                         {part}<sub> {pageGWC[currentVerseKey] - localCount + 1} </sub>
                     </span>
                 );
@@ -124,12 +124,12 @@ const Verse = ({ verseClassName, hasAsterisk, suraNumber, verseNumber, verseText
         setText(verseText);
         let highlighted = lightGODwords(verseText);
         if (mode === "reading") {
-            setCn(verseClassName + " flex-col bg-neutral-800 ring-1 ring-sky-400/50");
+            setCn(verseClassName + " flex-col bg-neutral-100 ring-1 ring-neutral-900/50");
             setText(highlighted);
         } else if (mode === "light") {
-            setCn(verseClassName + " bg-sky-800 border border-sky-400/80");
+            setCn(verseClassName + " bg-neutral-300 border border-neutral-800/80");
         } else if (mode === "idle") {
-            setCn(verseClassName + " bg-sky-800");
+            setCn(verseClassName + " bg-neutral-300");
         }
     }, [mode, verseClassName, verseText, lightGODwords]);
 
@@ -159,22 +159,22 @@ const Verse = ({ verseClassName, hasAsterisk, suraNumber, verseNumber, verseText
             className={`${cn}`}
             onClick={() => handleClick()}>
             <div className="px-1 w-full">
-                <span className="text-sky-400/70">{`${verseNumber}. `}</span>
-                <span className="text-neutral-300">
+                <span className="text-sky-600">{`${verseNumber}. `}</span>
+                <span className="text-neutral-800">
                     {text}
                 </span>
             </div>
 
             {mode === "reading" &&
                 <div className="w-full flex flex-col mt-2">
-                    <p className=" w-full rounded bg-neutral-600 p-2 mb-2 text-start" dir="rtl" >
+                    <p className=" w-full rounded bg-neutral-200 p-2 mb-2 text-start" dir="rtl" >
                         {lightAllahwords(encryptedText)}
                     </p>
                     {relatedVerses.length > 0 &&
-                        <div className=" w-full rounded bg-neutral-600  p-2 ">
+                        <div className=" w-full rounded bg-neutral-200 p-2 ">
                             <div>
                                 {relatedVerses.map(verseKey => (
-                                    <button className="bg-sky-700 p-2 rounded m-1 text-neutral-200" key={verseKey} onClick={() => onRelatedVerseClick(verseKey)}>
+                                    <button className="bg-neutral-100 p-2 rounded m-1 shadow-lg text-sky-600" key={verseKey} onClick={() => onRelatedVerseClick(verseKey)}>
                                         {verseKey}
                                     </button>
                                 ))}

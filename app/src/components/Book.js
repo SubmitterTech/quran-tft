@@ -173,7 +173,7 @@ const Book = () => {
                 // Check if the segment is a number, if so, make it clickable
                 if (segment.match(/^\d+$/)) {
                     return (
-                        <span key={index} className="cursor-pointer text-sky-500" onClick={() => handleClickAppReference(segment)}>
+                        <span key={index} className="cursor-pointer text-sky-600" onClick={() => handleClickAppReference(segment)}>
                             {segment}
                         </span>
                     );
@@ -192,7 +192,7 @@ const Book = () => {
             } else if (part.match(verseRegex)) {
                 // If the part matches a verse reference, we can return a clickable element
                 return (
-                    <span key={index} className="cursor-pointer text-sky-500" onClick={() => handleClickReference(part)}>
+                    <span key={index} className="cursor-pointer text-sky-600" onClick={() => handleClickReference(part)}>
                         {part}
                     </span>
                 );
@@ -218,11 +218,11 @@ const Book = () => {
         }
 
         return (
-            <div className="w-full flex flex-col text-neutral-400">
-                <div className="bg-neutral-800 w-full rounded text-sm py-2 text-center ">
+            <div className="w-full flex flex-col text-neutral-700">
+                <div className="bg-neutral-100 w-full rounded text-sm py-2 text-center ">
                     {tableRef}
                 </div>
-                <table title={tableRef} className="table-auto bg-neutral-800 border-collapse border-2 border-neutral-900 text-center mb-3 w-full">
+                <table title={tableRef} className="table-auto bg-neutral-100 border-collapse border-2 border-neutral-900 text-center mb-3 w-full">
                     <thead>
                         <tr>
                             {tableData.title.map((header, index) => (
@@ -253,7 +253,7 @@ const Book = () => {
 
         if (parseInt(currentPage) === 22) {
             return (
-                <div className="w-screen h-screen flex items-center justify-center text-neutral-300">
+                <div className="w-screen h-screen flex items-center justify-center text-neutral-800">
                     <svg className="animate-spin -ml-1 mr-3 h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
                         <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
                         <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
@@ -267,7 +267,7 @@ const Book = () => {
             return (
                 <div
                     onClick={nextPage}
-                    className="w-screen h-screen flex items-center justify-center  text-neutral-300">
+                    className="w-screen h-screen flex items-center justify-center  text-neutral-800">
                     <div className="text-4xl mx-2">
                         Appendices
                     </div>
@@ -291,7 +291,7 @@ const Book = () => {
                 if (parseInt(key) === 1) {
                     const titles = elements[0].split(" ").filter(element => element);
                     return (
-                        <div className=" text-neutral-300 w-full flex justify-center" key={key}>
+                        <div className=" text-neutral-800 w-full flex justify-center" key={key}>
                             <div className="p-3">{titles[0]}</div>
                         </div>
                     );
@@ -300,10 +300,10 @@ const Book = () => {
                         <div
                             onClick={() => updatePage(parseInt(elements[2]) + 22)}
                             className="flex w-full justify-between">
-                            <div className=" font-semibold rounded p-3 m-1 bg-neutral-900 w-12 flex items-center justify-center">
+                            <div className=" font-semibold rounded p-3 m-1 bg-neutral-100 w-12 flex items-center justify-center">
                                 <p className="" key={key}>{elements[0]}</p>
                             </div>
-                            <div className="rounded p-3 mr-2 m-1 bg-neutral-800 w-full text-base flex items-center">
+                            <div className="rounded p-3 mr-2 m-1 bg-neutral-100 w-full text-base flex items-center">
                                 <p className="" key={key}>{elements[1]}</p>
                             </div>
                         </div>
@@ -312,7 +312,7 @@ const Book = () => {
             });
 
             return (
-                <div className="w-screen h-screen flex flex-col overflow-auto text-neutral-300">
+                <div className="w-screen h-screen flex flex-col overflow-auto text-neutral-800">
                     {renderedContent}
                 </div>);
         }
@@ -324,7 +324,7 @@ const Book = () => {
 
 
         if (!currentPageData || !currentPageData.titles) {
-            return <div className="text-neutral-200/80 flex flex-1 items-center justify-center w-full ">
+            return <div className="text-neutral-900/80 flex flex-1 items-center justify-center w-full ">
                 <svg className="animate-spin -ml-1 mr-3 h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
                     <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
                     <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
@@ -368,19 +368,19 @@ const Book = () => {
         const renderContent = combinedContent.map((item, index) => {
             if (item.type === 'title') {
                 return (
-                    <div className={`w-full my-3 flex items-center justify-center text-center bg-sky-700 rounded p-2 font-semibold text-neutral-300  whitespace-pre-line ${item.order === 0 ? "text-2xl font-bold" : " text-base"}`}>
+                    <div className={`w-full my-3 flex items-center justify-center text-center bg-neutral-100 rounded p-2 font-semibold text-neutral-800  whitespace-pre-line ${item.order === 0 ? "text-2xl font-bold" : " text-base"}`}>
                         <h2 key={`title-${index}`}>{item.content}</h2>
                     </div>
                 );
             } else if (item.type === 'text') {
                 return (
-                    <div className="rounded bg-neutral-700 text-neutral-300 p-2 shadow-lg mb-3 flex w-fit justify-center">
+                    <div className="rounded bg-neutral-300 text-neutral-800 p-2 shadow-lg mb-3 flex w-fit justify-center">
                         <p key={`text-${index}`} className="px-1">{parseReferences(item.content)}</p>
                     </div>
                 );
             } else if (item.type === 'evidence') {
                 return (
-                    <div key={`evidence-${index}`} className={`bg-neutral-800 text-neutral-400 rounded shadow-lg text-sm md:text-base p-3 border my-3 border-neutral-950`}>
+                    <div key={`evidence-${index}`} className={`bg-neutral-100 text-neutral-700 rounded shadow-lg text-sm md:text-base p-3 border my-3 border-neutral-950`}>
                         {Object.entries(item.content.lines).map(([lineKey, lineValue]) => (
                             <p className=" whitespace-pre-wrap my-1" key={lineKey}>{parseReferences(lineValue)}</p>
                         ))}
@@ -402,7 +402,7 @@ const Book = () => {
                                 className=" object-center"
                             />
                         </div>
-                        {item.text && <div className="text-sky-200/70 w-full text-base flex justify-center">
+                        {item.text && <div className="text-neutral-900/70 w-full text-base flex justify-center">
                             <div className="p-2">
                                 {item.text}
                             </div>
@@ -414,7 +414,7 @@ const Book = () => {
 
             } else {
                 return (
-                    <div className="text-neutral-200/80 flex flex-1 items-center justify-center w-full">
+                    <div className="text-neutral-900/80 flex flex-1 items-center justify-center w-full">
                         Unrecognized structered data or could not parse the data ...
                     </div>
                 );
@@ -422,19 +422,19 @@ const Book = () => {
         });
 
         return (
-            <div className="text-neutral-200 overflow-auto flex-1 p-3 text-justify lg:text-start text-base md:text-xl">
+            <div className="text-neutral-900 overflow-auto flex-1 p-3 text-justify lg:text-start text-base md:text-xl">
                 {renderContent}
             </div>
         );
     };
 
     return (
-        <div className="flex flex-col justify-start h-screen bg-sky-950">
+        <div className="flex flex-col justify-start h-screen bg-neutral-200">
             {renderBookContent()}
             <div className="w-full flex z-20">
                 <div className="flex w-full items-center justify-between p-2">
                     <button onClick={prevPage}
-                        className="w-28 text-neutral-300 px-2 py-1 rounded mr-2 flex justify-center">
+                        className="w-28 text-neutral-800 px-2 py-1 rounded mr-2 flex justify-center">
                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-7 h-7">
                             <path strokeLinecap="round" strokeLinejoin="round" d="M9 15L3 9m0 0l6-6M3 9h12a6 6 0 010 12h-3" />
                         </svg>
@@ -442,10 +442,10 @@ const Book = () => {
                     <div
                         onClick={() => setModalOpen(!isModalOpen)}
                         className="">
-                        <h2 className="text-sm font-bold text-neutral-200/50 p-2">Page {currentPage}</h2>
+                        <h2 className="text-sm font-bold text-neutral-900/50 p-2">Page {currentPage}</h2>
                     </div>
                     <button onClick={nextPage}
-                        className="w-28 text-neutral-300 px-2 py-1 rounded ml-2 flex justify-center">
+                        className="w-28 text-neutral-800 px-2 py-1 rounded ml-2 flex justify-center">
                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-7 h-7">
                             <path strokeLinecap="round" strokeLinejoin="round" d="M15 15l6-6m0 0l-6-6m6 6H9a6 6 0 000 12h3" />
                         </svg>

@@ -124,7 +124,7 @@ const Pages = ({ selectedPage, selectedSura, selectedVerse, handleClickReference
                 // Check if the segment is a number, if so, make it clickable
                 if (segment.match(/^\d+$/)) {
                     return (
-                        <span key={index} className="cursor-pointer text-sky-400" onClick={() => handleClickAppReference(segment)}>
+                        <span key={index} className="cursor-pointer text-sky-600" onClick={() => handleClickAppReference(segment)}>
                             {segment}
                         </span>
                     );
@@ -143,7 +143,7 @@ const Pages = ({ selectedPage, selectedSura, selectedVerse, handleClickReference
             } else if (part.match(verseRegex)) {
                 // If the part matches a verse reference, we can return a clickable element
                 return (
-                    <span key={index} className="cursor-pointer text-sky-400" onClick={() => clickReferenceController(part)}>
+                    <span key={index} className="cursor-pointer text-sky-600" onClick={() => clickReferenceController(part)}>
                         {part}
                     </span>
                 );
@@ -236,7 +236,7 @@ const Pages = ({ selectedPage, selectedSura, selectedVerse, handleClickReference
     }, [showExplanation]);
 
 
-    if (!pageData) return <div className="text-neutral-200/80 flex flex-1 items-center justify-center w-full ">Loading...</div>;
+    if (!pageData) return <div className="text-neutral-900/80 flex flex-1 items-center justify-center w-full ">Loading...</div>;
 
     const openExplanation = (key) => {
         setShowExplanation(prev => ({ ...prev, [key]: true }));
@@ -251,11 +251,11 @@ const Pages = ({ selectedPage, selectedSura, selectedVerse, handleClickReference
         }
 
         return (
-            <table className="table-auto border-collapse border-2 border-sky-500 text-right">
+            <table className="table-auto border-collapse border-2 border-sky-600 text-right">
                 <thead>
                     <tr>
                         {tableData.title.map((header, index) => (
-                            <th key={index} className="border-2 border-sky-500 p-2 ">{header}</th>
+                            <th key={index} className="border-2 border-sky-600 p-2 ">{header}</th>
                         ))}
                     </tr>
                 </thead>
@@ -263,7 +263,7 @@ const Pages = ({ selectedPage, selectedSura, selectedVerse, handleClickReference
                     {rows.map((row, rowIndex) => (
                         <tr key={rowIndex}>
                             {row.map((cell, cellIndex) => (
-                                <td key={cellIndex} className="border-2 border-sky-500 p-2">{cell}</td>
+                                <td key={cellIndex} className="border-2 border-sky-600 p-2">{cell}</td>
                             ))}
                         </tr>
                     ))}
@@ -299,9 +299,9 @@ const Pages = ({ selectedPage, selectedSura, selectedVerse, handleClickReference
     };
 
     return (
-        <div className="flex relative w-full flex-1 flex-col text-neutral-300 text-base overflow-auto">
+        <div className="flex relative w-full flex-1 flex-col text-neutral-800 text-base overflow-auto">
             <div ref={topRef} className="relative flex flex-col">
-                <div className="sticky top-0 py-2 px-3 bg-sky-950 shadow-lg flex">
+                <div className="sticky top-0 py-2 px-3 bg-neutral-200 shadow-lg flex">
                     <div
                         onClick={() => handlePageTitleClicked()}
                         className="flex w-full text-sm lg:text-lg flex-1 mx-2">
@@ -317,7 +317,7 @@ const Pages = ({ selectedPage, selectedSura, selectedVerse, handleClickReference
                 {sortedVerses.map(({ suraNumber, verseNumber, verseText, encryptedText, title }) => {
                     const hasAsterisk = verseText.includes('*') || (title && title.includes('*'));
                     const verseClassName = `transition-colors duration-1000 ease-linear flex cursor-pointer rounded mx-2 my-1 p-2 shadow text-justify text-base md:text-lg xl:text-xl`;
-                    const titleClassName = `bg-neutral-700 italic font-semibold rounded shadow-lg mx-2 mt-1.5 mb-0.5 p-3 text-base md:text-md lg:text-lg text-center break-words whitespace-pre-wrap ${hasAsterisk ? "ring-1 ring-neutral-300 mt-2" : ""}`;
+                    const titleClassName = `bg-neutral-100 italic font-semibold rounded shadow-lg mx-2 mt-1.5 mb-0.5 p-3 text-base md:text-md lg:text-lg text-center break-words whitespace-pre-wrap ${hasAsterisk ? "ring-1 ring-neutral-800/80 mt-2" : ""}`;
                     const verseKey = `${suraNumber}:${verseNumber}`;
                     const noteReference = hasAsterisk ? verseKey : null;
 
@@ -363,13 +363,13 @@ const Pages = ({ selectedPage, selectedSura, selectedVerse, handleClickReference
                     );
                 })}
 
-                <div className="sticky bottom-0 mt-3 py-2 px-3 bg-sky-950 flex">
+                <div className="sticky bottom-0 mt-3 py-2 px-3 bg-neutral-200 flex">
                     <div className="flex text-sm justify-between flex-1">
                         <p className="cursor-pointer" onClick={() => openExplanation('GODnamefrequency')}>
                             {pageData.notes.cumulativefrequencyofthewordGOD}
                         </p>
                         {showExplanation.GODnamefrequency && (
-                            <div className="absolute w-36 left-1.5 -translate-y-24 text-start shadow-lg p-3 bg-neutral-800 rounded break-word">
+                            <div className="absolute w-36 left-1.5 -translate-y-24 text-start shadow-lg p-3 bg-neutral-100 rounded break-word">
                                 Cumulative frequency of the word GOD = {formatHitCount(parseInt(pageData.notes.cumulativefrequencyofthewordGOD))}
                             </div>
                         )}
@@ -377,7 +377,7 @@ const Pages = ({ selectedPage, selectedSura, selectedVerse, handleClickReference
                             {pageData.notes.cumulativesumofverseswhereGODwordoccurs}
                         </p>
                         {showExplanation.GODnamesum && (
-                            <div className="absolute w-36 -translate-y-28 right-1.5 text-end shadow-lg p-3 bg-neutral-800 rounded break-word">
+                            <div className="absolute w-36 -translate-y-28 right-1.5 text-end shadow-lg p-3 bg-neutral-100 rounded break-word">
                                 Cumulative sum of verses where GOD word occurs = {formatHitCount(parseInt(pageData.notes.cumulativesumofverseswhereGODwordoccurs))}
                             </div>
                         )}
@@ -387,11 +387,11 @@ const Pages = ({ selectedPage, selectedSura, selectedVerse, handleClickReference
             </div>
             {
                 pageData.notes.data.length > 0 &&
-                <div className="bg-neutral-800 m-1.5 mt-3 rounded p-2 text-sm md:text-md lg:text-lg text-justify text-neutral-300 flex flex-col space-y-4 whitespace-pre-line">
+                <div className="bg-neutral-100 m-1.5 mt-3 rounded p-2 text-sm md:text-md lg:text-lg text-justify text-neutral-800 flex flex-col space-y-4 whitespace-pre-line">
                     <h3>Notes:</h3>
                     {pageData.notes.data.map((note, index) =>
                         <p
-                            className="bg-neutral-700 rounded shadow-md px-2 py-3 text-neutral-300"
+                            className="bg-neutral-200 rounded shadow-md px-2 py-3 text-neutral-800"
                             ref={(el) => noteRefs.current[index] = el}
                             key={index}>
                             {parseReferences(note)}
