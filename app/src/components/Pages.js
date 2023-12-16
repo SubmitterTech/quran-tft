@@ -301,7 +301,7 @@ const Pages = ({ selectedPage, selectedSura, selectedVerse, handleClickReference
     return (
         <div className="flex relative w-full flex-1 flex-col text-neutral-800 text-base overflow-auto">
             <div ref={topRef} className="relative flex flex-col">
-                <div className="sticky top-0 py-2 px-3 bg-neutral-200 shadow-lg flex">
+                <div className="sticky top-0 py-2 px-3 bg-neutral-200 shadow-md flex">
                     <div
                         onClick={() => handlePageTitleClicked()}
                         className="flex w-full text-sm lg:text-lg flex-1 mx-2">
@@ -316,8 +316,8 @@ const Pages = ({ selectedPage, selectedSura, selectedVerse, handleClickReference
                 </div>
                 {sortedVerses.map(({ suraNumber, verseNumber, verseText, encryptedText, title }) => {
                     const hasAsterisk = verseText.includes('*') || (title && title.includes('*'));
-                    const verseClassName = `transition-colors duration-1000 ease-linear flex cursor-pointer rounded mx-2 my-1 p-2 shadow text-justify text-base md:text-lg xl:text-xl`;
-                    const titleClassName = `bg-neutral-100 italic font-semibold rounded shadow-lg mx-2 mt-1.5 mb-0.5 p-3 text-base md:text-md lg:text-lg text-center break-words whitespace-pre-wrap ${hasAsterisk ? "ring-1 ring-neutral-800/80 mt-2" : ""}`;
+                    const verseClassName = `transition-colors duration-1000 ease-linear flex cursor-pointer rounded mx-2 my-1 p-2 shadow-md text-justify text-base md:text-lg xl:text-xl`;
+                    const titleClassName = `bg-neutral-100 italic font-semibold rounded shadow-md mx-2 mt-1.5 mb-0.5 p-3 text-base md:text-md lg:text-lg text-center break-words whitespace-pre-wrap ${hasAsterisk ? "ring-1 ring-neutral-800/80 mt-2" : ""}`;
                     const verseKey = `${suraNumber}:${verseNumber}`;
                     const noteReference = hasAsterisk ? verseKey : null;
 
@@ -369,7 +369,7 @@ const Pages = ({ selectedPage, selectedSura, selectedVerse, handleClickReference
                             {pageData.notes.cumulativefrequencyofthewordGOD}
                         </p>
                         {showExplanation.GODnamefrequency && (
-                            <div className="absolute w-36 left-1.5 -translate-y-24 text-start shadow-lg p-3 bg-neutral-100 rounded break-word">
+                            <div className="absolute w-36 left-1.5 -translate-y-24 text-start shadow-md p-3 bg-neutral-100 rounded break-word">
                                 Cumulative frequency of the word GOD = {formatHitCount(parseInt(pageData.notes.cumulativefrequencyofthewordGOD))}
                             </div>
                         )}
@@ -377,7 +377,7 @@ const Pages = ({ selectedPage, selectedSura, selectedVerse, handleClickReference
                             {pageData.notes.cumulativesumofverseswhereGODwordoccurs}
                         </p>
                         {showExplanation.GODnamesum && (
-                            <div className="absolute w-36 -translate-y-28 right-1.5 text-end shadow-lg p-3 bg-neutral-100 rounded break-word">
+                            <div className="absolute w-36 -translate-y-28 right-1.5 text-end shadow-md p-3 bg-neutral-100 rounded break-word">
                                 Cumulative sum of verses where GOD word occurs = {formatHitCount(parseInt(pageData.notes.cumulativesumofverseswhereGODwordoccurs))}
                             </div>
                         )}

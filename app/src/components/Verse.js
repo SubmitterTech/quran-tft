@@ -167,14 +167,14 @@ const Verse = ({ verseClassName, hasAsterisk, suraNumber, verseNumber, verseText
 
             {mode === "reading" &&
                 <div className="w-full flex flex-col mt-2">
-                    <p className=" w-full rounded bg-neutral-200 p-2 mb-2 text-start" dir="rtl" >
+                    <p className=" w-full rounded bg-neutral-200 p-2 mb-2 text-start shadow-inner" dir="rtl" >
                         {lightAllahwords(encryptedText)}
                     </p>
                     {relatedVerses.length > 0 &&
                         <div className=" w-full rounded bg-neutral-200 p-2 ">
                             <div>
                                 {relatedVerses.map(verseKey => (
-                                    <button className="bg-neutral-100 p-2 rounded m-1 shadow-lg text-sky-600" key={verseKey} onClick={() => onRelatedVerseClick(verseKey)}>
+                                    <button className="bg-neutral-100 p-2 rounded m-1 shadow-md text-sky-600" key={verseKey} onClick={() => onRelatedVerseClick(verseKey)}>
                                         {verseKey}
                                     </button>
                                 ))}

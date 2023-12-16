@@ -374,13 +374,13 @@ const Book = () => {
                 );
             } else if (item.type === 'text') {
                 return (
-                    <div className="rounded bg-neutral-300 text-neutral-800 p-2 shadow-lg mb-3 flex w-fit justify-center">
+                    <div className="rounded bg-neutral-300 text-neutral-800 p-2 shadow-md mb-3 flex w-fit justify-center">
                         <p key={`text-${index}`} className="px-1">{parseReferences(item.content)}</p>
                     </div>
                 );
             } else if (item.type === 'evidence') {
                 return (
-                    <div key={`evidence-${index}`} className={`bg-neutral-100 text-neutral-700 rounded shadow-lg text-sm md:text-base p-3 border my-3 border-neutral-950`}>
+                    <div key={`evidence-${index}`} className={`bg-neutral-100 text-neutral-700 rounded shadow-md text-sm md:text-base p-3 border my-3 border-neutral-950`}>
                         {Object.entries(item.content.lines).map(([lineKey, lineValue]) => (
                             <p className=" whitespace-pre-wrap my-1" key={lineKey}>{parseReferences(lineValue)}</p>
                         ))}
@@ -394,7 +394,7 @@ const Book = () => {
                 return (
                     <div className=" flex flex-col flex-1 items-center justify-center w-full px-1">
 
-                        <div className="rounded shadow-lg flex justify-center">
+                        <div className="rounded shadow-md flex justify-center">
 
                             <img
                                 src={imageUrl}

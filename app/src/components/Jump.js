@@ -90,7 +90,7 @@ const Jump = ({ currentPage, quran, onClose, onConfirm }) => {
 
     return (
         <div className="w-screen h-screen animated fadeIn faster fixed left-0 top-0 flex flex-col-1 justify-center items-center inset-0 z-10 outline-none focus:outline-none backdrop-blur-lg" id="jump-screen">
-            <div className="flex flex-col items-center justify-center bg-neutral-300 rounded shadow-xl w-full mx-2">
+            <div className="flex flex-col items-center justify-center bg-neutral-300 rounded shadow-md w-full mx-2">
                 <div className=" w-full flex space-x-3 text-neutral-800 mt-3">
                     <div className="w-full px-4 py-2 flex justify-end ">
                         Sura :
@@ -107,7 +107,7 @@ const Jump = ({ currentPage, quran, onClose, onConfirm }) => {
                             name="sura"
                             onChange={handleSuraChange}
                             value={suraNumber}
-                            className=" w-18 rounded text-end px-4 py-2 shadow-lg text-neutral-900 bg-neutral-100 placeholder:text-sky-600 focus:ring-2 focus:ring-inset focus:ring-sky-600 ">
+                            className=" w-18 rounded text-end px-4 py-2 shadow-md text-neutral-900 bg-neutral-100 placeholder:text-sky-600 focus:ring-2 focus:ring-inset focus:ring-sky-600 ">
                             <option key="0" value="0" disabled></option>
                             {Object.keys(versesInSuras).map(sura => (
                                 <option key={sura} value={sura}>{sura}</option>
@@ -121,7 +121,7 @@ const Jump = ({ currentPage, quran, onClose, onConfirm }) => {
                             name="verse"
                             onChange={handleVerseChange}
                             value={verseNumber}
-                            className=" w-20 rounded px-4 py-2 shadow-lg text-neutral-900 bg-neutral-100 placeholder:text-sky-600 focus:ring-2 focus:ring-inset focus:ring-sky-600 ">
+                            className=" w-20 rounded px-4 py-2 shadow-md text-neutral-900 bg-neutral-100 placeholder:text-sky-600 focus:ring-2 focus:ring-inset focus:ring-sky-600 ">
                             {suraNumber && versesInSuras[suraNumber] ? versesInSuras[suraNumber].map(verse => (
                                 <option key={verse} value={verse}>{verse}</option>
                             )) : null}
@@ -129,7 +129,7 @@ const Jump = ({ currentPage, quran, onClose, onConfirm }) => {
                     </div>
                 </div>
                 <div className="w-full p-3 text-neutral-800 flex-1 mt-7">
-                    <div className="w-full bg-neutral-200 p-3 shadow-xl rounded">
+                    <div className="w-full bg-neutral-200 p-3 shadow-md rounded">
                         <div className="flex w-full text-neutral-800 mb-4 text-sm">
                             Page {selectedPage}
                         </div>
