@@ -116,30 +116,74 @@ const Pages = ({ selectedPage, selectedSura, selectedVerse, handleClickReference
         // Define the regular expressions
         const verseRegex = /(\d+:\d+(?:-\d+)?)/g;
         const appendixRegex = /Appendix?/g;
+        const introRegex = /introduction/gi;
 
-        // This function replaces appendix number parts with clickable elements
+
         const replaceAppendixNumbers = (appendixPart) => {
-            // Split the appendix part by numbers and separators
-            return appendixPart.split(/(\d+|\s+|,|&|and)/gi).map((segment, index) => {
-                // Check if the segment is a number, if so, make it clickable
-                if (segment.match(/^\d+$/)) {
-                    return (
-                        <span key={index} className="cursor-pointer text-sky-600" onClick={() => handleClickAppReference(segment)}>
-                            {segment}
-                        </span>
-                    );
-                } else {
-                    // If it's not a number, return the segment as is
-                    return segment;
+            const startIndex = appendixPart.search(appendixRegex);
+            let endIndex = startIndex;
+            let isNumberStarted = false;
+
+            for (let i = startIndex; i < appendixPart.length; i++) {
+                const char = appendixPart[i];
+                if (/\d/.test(char)) {
+                    isNumberStarted = true;
+                    endIndex = i;
+                } else if (isNumberStarted && !(/[,&\s]|and/.test(char))) {
+                    break;
                 }
-            });
+            }
+
+            const appendixReference = appendixPart.substring(startIndex, endIndex + 1);
+            const parts = appendixReference.split(/(\d+|\s+|,|&|and)/gi);
+
+            return (
+                <>
+                    {appendixPart.substring(0, startIndex)}
+                    {parts.map((segment, index) => {
+                        if (segment.match(/^\d+$/) && parseInt(segment) >= 1 && parseInt(segment) <= 39) {
+                            return (
+                                <span key={index} className="cursor-pointer text-sky-600" onClick={() => handleClickAppReference(segment)}>
+                                    {segment}
+                                </span>
+                            );
+                        } else {
+                            return segment;
+                        }
+                    })}
+                    {appendixPart.substring(endIndex + 1)}
+                </>
+            );
         };
+
 
         // Split the text into parts and process each part
         return text.split(verseRegex).map((part, index) => {
             if (part.match(appendixRegex)) {
-                // If the part matches an appendix reference, process it further
-                return replaceAppendixNumbers(part);
+                // Split the part into pieces with "."
+                const pieces = part.split('.');
+
+                // Create an array to hold JSX elements and strings
+                const elements = [];
+
+                // Re-iterate over the pieces to find which piece is matching
+                for (let i = 0; i < pieces.length; i++) {
+                    if (appendixRegex.test(pieces[i])) {
+                        // Process the matching piece and add it to the elements array
+                        elements.push(replaceAppendixNumbers(pieces[i]));
+                    } else {
+                        // If the piece does not match, add it as a string
+                        elements.push(pieces[i]);
+                    }
+
+                    // Add the period back as a string, except for the last piece
+                    if (i < pieces.length - 1) {
+                        elements.push('.');
+                    }
+                }
+
+                // Return the array of JSX elements and strings
+                return elements;
             } else if (part.match(verseRegex)) {
                 // If the part matches a verse reference, we can return a clickable element
                 return (
@@ -147,8 +191,31 @@ const Pages = ({ selectedPage, selectedSura, selectedVerse, handleClickReference
                         {part}
                     </span>
                 );
-            }
-            else {
+            } else if (introRegex.test(part)) {
+                // Split the part into segments around introRegex matches
+                const segments = part.split(introRegex);
+
+                // Create an array to hold JSX elements and strings
+                const elements = [];
+
+                // Iterate over the segments
+                segments.forEach((segment, index) => {
+                    // Push the regular segment as plain text
+                    elements.push(segment);
+
+                    // If this is not the last segment, add the intro match as a clickable span
+                    if (index < segments.length - 1) {
+                        elements.push(
+                            <span key={index} className="cursor-pointer text-sky-600" onClick={() => clickReferenceController("Introduction")}>
+                                Introduction
+                            </span>
+                        );
+                    }
+                });
+
+                // Return the array of JSX elements and strings
+                return elements;
+            } else {
                 // If it doesn't match anything, return the part as plain text
                 return part;
             }
