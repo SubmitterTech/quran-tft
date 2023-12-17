@@ -309,7 +309,7 @@ const Book = () => {
                 <div className="bg-neutral-100 w-full rounded text-sm py-2 text-center ">
                     {tableRef}
                 </div>
-                <table title={tableRef} className="table-auto bg-neutral-100 border-collapse border-2 border-neutral-900 text-center mb-3 w-full">
+                <table title={tableRef} className="table-auto bg-neutral-100 border-collapse border-2 border-neutral-900 text-center mb-3 w-full text-sm md:text-base">
                     <thead>
                         <tr>
                             {tableData.title.map((header, index) => (
