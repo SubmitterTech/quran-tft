@@ -176,8 +176,11 @@
                     "2": "The grey area represents the vast majority that repented and submitted. "
                 },
                 "ref": [
-                    ""
-                ]
+                ],
+                "special": {
+                    "key": 2,
+                    "data": []
+                }
             },
             "3": {
                 "lines": {

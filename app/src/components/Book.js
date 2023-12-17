@@ -458,9 +458,9 @@ const Book = () => {
                     return (
                         <div className="w-full flex flex-col flex-1 my-3">
                             <div key={`evidence-${index}`}
-                                className="bg-neutral-100 text-neutral-700 rounded shadow-md text-sm md:text-base border border-neutral-950 flex justify-between w-full">
+                                className="bg-neutral-100 text-neutral-700 rounded shadow-md text-sm md:text-base border border-neutral-700 flex justify-between w-full">
 
-                                <div className="relative bg-neutral-700 w-1/12 h-fit flex flex-wrap">
+                                <div className="relative bg-neutral-700 w-1/12 h-fit flex flex-wrap ">
                                     {/* Render SVGs for index 0 in this div */}
                                     {Object.entries(data).map(([key, value]) => {
                                         if (parseInt(key) === 0) {
@@ -478,7 +478,7 @@ const Book = () => {
                                     })}
                                 </div>
 
-                                <div className="relative w-full bg-neutral-100 h-fit flex flex-wrap">
+                                <div className="relative w-full bg-neutral-100 h-fit flex flex-wrap rounded-r">
                                     {/* Render SVGs for index 1 in this div */}
                                     {Object.entries(data).map(([key, value]) => {
                                         if (parseInt(key) === 1) {
@@ -529,6 +529,41 @@ const Book = () => {
                                 </div>
 
                             </div>
+                        </div>
+
+                    );
+                }
+                // SPECIAL RENDER 2
+                else if (item.content.special && item.content.special.key === 2) {
+
+                    return (
+                        <div className="w-full flex flex-col flex-1 my-3">
+                            <div key={`evidence-${index}`}
+                                className=" text-gray-700 rounded shadow-md text-sm md:text-base border border-gray-950 flex justify-between w-full items-stretch">
+                                <div className="relative w-full bg-gray-100 flex flex-wrap justify-center p-2 text-gray-700 rounded-l">
+                                    {item.content.lines["1"]}
+                                </div>
+                                <div className="relative bg-gray-500 w-[3%] flex flex-wrap py-2">
+
+                                </div>
+
+                            </div>
+                            <div className="w-full flex justify-end py-0.5">
+                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6">
+                                    <path strokeLinecap="round" strokeLinejoin="round" d="M15.75 17.25L12 21m0 0l-3.75-3.75M12 21V3" />
+                                </svg>
+                            </div>
+                            <div key={`evidence-${index + 1}`}
+                                className=" text-gray-700 rounded shadow-md text-sm md:text-base border border-gray-950 flex justify-between w-full items-stretch">
+                                <div className="relative w-full bg-gray-500 flex flex-wrap justify-center p-2 text-gray-200 rounded-l">
+                                    {item.content.lines["2"]}
+                                </div>
+                                <div className="relative bg-gray-900 w-[3%] flex flex-wrap py-2">
+
+                                </div>
+
+                            </div>
+
                         </div>
 
                     );
