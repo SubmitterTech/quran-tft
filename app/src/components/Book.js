@@ -72,7 +72,7 @@ const Book = () => {
         let newPage = parseInt(currentPage) >= 508 ? parseInt(currentPage) : parseInt(currentPage) + 1;
 
         // Skip specified pages
-        const skipPages = [7, 8, 9, 10, 11, 12];
+        const skipPages = [8, 9, 10, 12];
         while (skipPages.includes(newPage)) {
             newPage++;
         }
@@ -88,7 +88,7 @@ const Book = () => {
             setCurrentPage(lastPage);
         } else {
             // Skip specified pages when decrementing
-            const skipPages = [7, 8, 9, 10, 11, 12];
+            const skipPages = [8, 9, 10, 12];
             let newPage = parseInt(currentPage) > 5 ? parseInt(currentPage) - 1 : parseInt(currentPage);
 
             while (skipPages.includes(newPage)) {
@@ -325,13 +325,70 @@ const Book = () => {
         }
 
         if (parseInt(currentPage) === 22) {
+            const cpd = bookContent ? bookContent.find(iterator => iterator.page === currentPage) : null;
+
+            if (!cpd || !cpd.evidence["2"] || !cpd.evidence["2"].lines) {
+                return <p>Content not available</p>;
+            }
+
+            const content = cpd.evidence["2"].lines;
+            const renderedContent = Object.entries(content).map(([key, value]) => {
+                const elements = value.split(".")
+                    .filter(element => element.trim().length > 0); // Filter out elements that are only spaces
+
+                const no = elements[0];
+                let name = elements[1];
+                let arabic = elements[2];
+                let versecount = elements[3];
+                let page = elements[4];
+
+                if (elements.length > 5) {
+                    name = elements[1] + " " + elements[2];
+                    arabic = elements[3];
+                    versecount = elements[4];
+                    page = elements[5];
+                }
+
+                if (parseInt(key) === 0) {
+                    return (
+                        <div className=" text-neutral-800 w-full flex justify-between" key={key}>
+                            <div className="p-3 w-1/6 flex justify-center text-center">{no}</div>
+                            <div className="p-3 w-full flex justify-center">{name}</div>
+                            <div className="p-3 w-1/6 flex justify-center text-center">{arabic}</div>
+                        </div>
+                    );
+                } else {
+                    return (
+                        <div
+                            onClick={() => updatePage(parseInt(page) + 22)}
+                            className="flex w-full justify-between">
+                            <div className="font-semibold rounded m-1 bg-neutral-100 w-1/6 text-sm flex items-center justify-center">
+                                <p className="" key={key + no}>{no}</p>
+                            </div>
+                            <div className="ring-1 ring-neutral-400 flex w-full rounded m-1 shadow-md">
+                                <div className="rounded-l px-2 py-1  bg-neutral-100 w-full text-base flex items-center justify-center">
+                                    <p className="text-center" key={key + name + no}>{name}</p>
+                                </div>
+                                <div className="rounded-r p-1  bg-neutral-100 w-full text-base flex items-center justify-center">
+                                    <p className="" key={key + arabic}>{arabic}</p>
+                                </div>
+                            </div>
+                            <div className="rounded px-2 py-1 m-1 bg-neutral-100 w-1/6 text-base flex items-center justify-center">
+                                <p className="" key={key + versecount}>{versecount}</p>
+                            </div>
+                        </div>
+                    );
+                }
+            });
+
             return (
-                <div className="w-screen h-screen flex items-center justify-center text-neutral-800">
-                    <svg className="animate-spin -ml-1 mr-3 h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
-                        <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
-                        <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
-                    </svg>
-                    Sura List Loading...
+                <div className="w-screen h-screen flex flex-col overflow-auto text-neutral-800">
+                    <div className="w-full p-3">
+                        <div className={`w-full flex items-center justify-center text-center bg-neutral-100 rounded p-2 font-semibold text-neutral-800  text-2xl shadow-md`}>
+                            <h2 key={`title-1}`}>{cpd.titles["1"]}</h2>
+                        </div>
+                    </div>
+                    {renderedContent}
                 </div>
             );
         }
