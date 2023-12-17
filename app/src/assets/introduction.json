@@ -144,12 +144,16 @@
         "evidence": {
             "2": {
                 "lines": {
-                    "1": "World population from now (1990) to the end of the  world (2280). ",
-                    "2": "[ The black section represents the world population since Adam ]"
+                    "1": "World population from now (1990) to the end of the world (2280).",
+                    "2": "The black section represents the world population since Adam"
                 },
                 "ref": [
-                    ""
-                ]
+                    "20:52"
+                ],
+                "special": {
+                    "key": 1,
+                    "data": [7,77]
+                }
             }
         },
         "titles": {

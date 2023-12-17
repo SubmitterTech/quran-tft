@@ -452,6 +452,87 @@ const Book = () => {
                     </div>
                 );
             } else if (item.type === 'evidence') {
+                // SPECIAL RENDER 1
+                if (item.content.special && item.content.special.key === 1) {
+                    const data = item.content.special.data;
+                    return (
+                        <div className="w-full flex flex-col flex-1 my-3">
+                            <div key={`evidence-${index}`}
+                                className="bg-neutral-100 text-neutral-700 rounded shadow-md text-sm md:text-base border border-neutral-950 flex justify-between w-full">
+
+                                <div className="relative bg-neutral-700 w-1/12 h-fit flex flex-wrap">
+                                    {/* Render SVGs for index 0 in this div */}
+                                    {Object.entries(data).map(([key, value]) => {
+                                        if (parseInt(key) === 0) {
+                                            return Array.from({ length: value }, (_, i) => (
+                                                <div className="p-0.5">
+
+                                                    <svg key={i} xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="text-neutral-100 w-2.5 h-3 md:h-5 md:w-5 lg:h-6 lg:w-6">
+                                                        <path strokeLinecap="round" strokeLinejoin="round" d="M15.75 6a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0zM4.501 20.118a7.5 7.5 0 0114.998 0A17.933 17.933 0 0112 21.75c-2.676 0-5.216-.584-7.499-1.632z" />
+                                                    </svg>
+                                                </div>
+
+                                            ));
+                                        }
+                                        return null;
+                                    })}
+                                </div>
+
+                                <div className="relative w-full bg-neutral-100 h-fit flex flex-wrap">
+                                    {/* Render SVGs for index 1 in this div */}
+                                    {Object.entries(data).map(([key, value]) => {
+                                        if (parseInt(key) === 1) {
+                                            return Array.from({ length: value }, (_, i) => (
+                                                <div className="p-0.5">
+                                                    <svg key={i} xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="text-neutral-900 w-2.5 h-3 md:h-5 md:w-5 lg:h-6 lg:w-6">
+                                                        <path strokeLinecap="round" strokeLinejoin="round" d="M15.75 6a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0zM4.501 20.118a7.5 7.5 0 0114.998 0A17.933 17.933 0 0112 21.75c-2.676 0-5.216-.584-7.499-1.632z" />
+                                                    </svg>
+                                                </div>
+                                            ));
+                                        }
+                                        return null;
+                                    })}
+                                </div>
+
+                            </div>
+                            <div className="w-full flex justify-between">
+                                <div className="relative h-6 w-1/12">
+                                    <div className="absolute -right-6 text-xs">
+                                        1990
+                                    </div>
+                                </div>
+                                <div className=" h-6 w-10/12">
+
+                                </div>
+                                <div className="relative h-6 w-1/12 text-xs">
+                                    <div className="absolute -right-2">
+                                        2280
+                                    </div>
+                                </div>
+
+                            </div>
+                            <div className="w-full flex flex-col rounded border border-neutral-700 p-1">
+                                <div className="w-full flex items-center justify-between">
+                                    <div className="w-6 h-6 rounded bg-neutral-100 border border-neutral-300 shadow-md">
+
+                                    </div>
+                                    <div className="flex ml-1 w-full text-sm">
+                                        {item.content.lines["1"]}
+                                    </div>
+                                </div>
+                                <div className="w-full flex items-center justify-between mt-1">
+                                    <div className="w-6 h-6 rounded bg-neutral-700 shadow-md">
+                                    </div>
+                                    <div className="ml-1 w-full text-sm">
+                                        {item.content.lines["2"]}
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+
+                    );
+                }
                 return (
                     <div key={`evidence-${index}`} className={`bg-neutral-100 text-neutral-700 rounded shadow-md text-sm md:text-base p-3 border my-3 border-neutral-950`}>
                         {Object.entries(item.content.lines).map(([lineKey, lineValue]) => (
