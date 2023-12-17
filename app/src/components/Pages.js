@@ -126,11 +126,24 @@ const Pages = ({ selectedPage, selectedSura, selectedVerse, handleClickReference
 
             for (let i = startIndex; i < appendixPart.length; i++) {
                 const char = appendixPart[i];
+
+                // Check if the next characters form the word "and"
+                const isAndAhead = appendixPart.substring(i, i + 3).toLowerCase() === 'and';
+
                 if (/\d/.test(char)) {
                     isNumberStarted = true;
                     endIndex = i;
-                } else if (isNumberStarted && !(/[,&\s]|and/.test(char))) {
-                    break;
+                } else if (isNumberStarted && !(/[,&\s]/.test(char))) {
+                    if (char === '&' || isAndAhead) {
+                        // If an '&' or "and" is found, skip the "and" sequence by advancing 'i'
+                        if (isAndAhead) {
+                            i += 2; // Skip the next two characters of "and"
+                        }
+                        continue;
+                    } else if (!/\s/.test(char)) {
+                        // If the character is not a whitespace and not part of "and", stop detecting
+                        break;
+                    }
                 }
             }
 

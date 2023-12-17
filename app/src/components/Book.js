@@ -176,16 +176,30 @@ const Book = () => {
             const startIndex = appendixPart.search(appendixRegex);
             let endIndex = startIndex;
             let isNumberStarted = false;
-
+            
             for (let i = startIndex; i < appendixPart.length; i++) {
                 const char = appendixPart[i];
+            
+                // Check if the next characters form the word "and"
+                const isAndAhead = appendixPart.substring(i, i + 3).toLowerCase() === 'and';
+            
                 if (/\d/.test(char)) {
                     isNumberStarted = true;
                     endIndex = i;
-                } else if (isNumberStarted && !(/[,&\s]|and/.test(char))) {
-                    break;
+                } else if (isNumberStarted && !(/[,&\s]/.test(char))) {
+                    if (char === '&' || isAndAhead) {
+                        // If an '&' or "and" is found, skip the "and" sequence by advancing 'i'
+                        if (isAndAhead) {
+                            i += 2; // Skip the next two characters of "and"
+                        }
+                        continue;
+                    } else if (!/\s/.test(char)) {
+                        // If the character is not a whitespace and not part of "and", stop detecting
+                        break;
+                    }
                 }
             }
+            
 
             const appendixReference = appendixPart.substring(startIndex, endIndex + 1);
             const parts = appendixReference.split(/(\d+|\s+|,|&|and)/gi);
@@ -515,16 +529,16 @@ const Book = () => {
                     return (
                         <div className="w-full flex flex-col flex-1 my-3">
                             <div key={`evidence-${index}`}
-                                className="bg-neutral-100 text-neutral-700 rounded shadow-md text-sm md:text-base border border-neutral-700 flex justify-between w-full">
+                                className="bg-neutral-100 text-neutral-700 rounded shadow-md text-sm md:text-base border border-neutral-700 flex justify-between w-full items-stretch">
 
-                                <div className="relative bg-neutral-700 w-1/12 h-fit flex flex-wrap ">
+                                <div className="relative bg-neutral-700 w-[11%] flex flex-wrap ">
                                     {/* Render SVGs for index 0 in this div */}
                                     {Object.entries(data).map(([key, value]) => {
                                         if (parseInt(key) === 0) {
                                             return Array.from({ length: value }, (_, i) => (
                                                 <div className="p-0.5">
 
-                                                    <svg key={i} xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="text-neutral-100 w-2.5 h-3 md:h-5 md:w-5 lg:h-6 lg:w-6">
+                                                    <svg key={i} xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="text-neutral-100 w-3 h-3 md:h-5 md:w-5 lg:h-6 lg:w-6">
                                                         <path strokeLinecap="round" strokeLinejoin="round" d="M15.75 6a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0zM4.501 20.118a7.5 7.5 0 0114.998 0A17.933 17.933 0 0112 21.75c-2.676 0-5.216-.584-7.499-1.632z" />
                                                     </svg>
                                                 </div>
@@ -541,7 +555,7 @@ const Book = () => {
                                         if (parseInt(key) === 1) {
                                             return Array.from({ length: value }, (_, i) => (
                                                 <div className="p-0.5">
-                                                    <svg key={i} xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="text-neutral-900 w-2.5 h-3 md:h-5 md:w-5 lg:h-6 lg:w-6">
+                                                    <svg key={i} xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="text-neutral-900 w-3 h-3 md:h-5 md:w-5 lg:h-6 lg:w-6">
                                                         <path strokeLinecap="round" strokeLinejoin="round" d="M15.75 6a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0zM4.501 20.118a7.5 7.5 0 0114.998 0A17.933 17.933 0 0112 21.75c-2.676 0-5.216-.584-7.499-1.632z" />
                                                     </svg>
                                                 </div>
@@ -553,15 +567,17 @@ const Book = () => {
 
                             </div>
                             <div className="w-full flex justify-between">
-                                <div className="relative h-6 w-1/12">
-                                    <div className="absolute -right-6 text-xs">
+                                <div className="relative h-6 w-[11%]">
+                                    <div className="absolute -left-2 text-xs">
+                                        Adam
+                                    </div>
+                                </div>
+                                <div className="relative h-6 w-[100%]">
+                                    <div className="absolute -left-1 text-xs">
                                         1990
                                     </div>
                                 </div>
-                                <div className=" h-6 w-10/12">
-
-                                </div>
-                                <div className="relative h-6 w-1/12 text-xs">
+                                <div className="relative h-6 w-[11%] text-xs">
                                     <div className="absolute -right-2">
                                         2280
                                     </div>
