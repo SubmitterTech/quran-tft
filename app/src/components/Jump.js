@@ -93,10 +93,10 @@ const Jump = ({ translationApplication, currentPage, quran, onClose, onConfirm }
             <div className="flex flex-col items-center justify-center bg-neutral-300 rounded shadow-md w-full mx-2">
                 <div className=" w-full flex space-x-3 text-neutral-800 mt-3">
                     <div className="w-full px-4 py-2 flex justify-end ">
-                        {translationApplication.sura} :
+                        {translationApplication?.sura} :
                     </div>
                     <div className="w-full py-2 flex items-center justify-start">
-                        {translationApplication.verse}
+                        {translationApplication?.verse}
                     </div>
 
                 </div>
@@ -131,7 +131,7 @@ const Jump = ({ translationApplication, currentPage, quran, onClose, onConfirm }
                 <div className="w-full p-3 text-neutral-800 flex-1 mt-7">
                     <div className="w-full bg-neutral-200 p-3 shadow-md rounded">
                         <div className="flex w-full text-neutral-800 mb-4 text-sm">
-                            {translationApplication.page} {selectedPage}
+                            {translationApplication?.page} {selectedPage}
                         </div>
                         {pageTitles[selectedPage] && pageTitles[selectedPage].map((title, index) => (
                             <h1 key={index}>{title}</h1>
@@ -146,7 +146,7 @@ const Jump = ({ translationApplication, currentPage, quran, onClose, onConfirm }
                             </svg>
                         </button>
                         <div className="flex text-neutral-900/50 text-sm items-center justify-center p-2">
-                            {translationApplication.open}
+                            {translationApplication?.open}
                         </div>
                     </div>
                     <div className="p-2 flex flex-col w-full items-center justify-between">
@@ -156,7 +156,7 @@ const Jump = ({ translationApplication, currentPage, quran, onClose, onConfirm }
                             </svg>
                         </button>
                         <div className="flex text-neutral-900/50 text-sm items-center justify-center p-2">
-                            {translationApplication.intro}
+                            {translationApplication?.intro}
                         </div>
                     </div>
                     <div className="p-2 flex flex-col w-full items-center justify-between">
@@ -167,7 +167,7 @@ const Jump = ({ translationApplication, currentPage, quran, onClose, onConfirm }
                             </svg>
                         </button>
                         <div className="flex text-neutral-900/50 text-sm items-center justify-center p-2">
-                            {translationApplication.appendices}
+                            {translationApplication?.appendices}
                         </div>
                     </div>
                     <div className="p-2 flex flex-col w-full items-center justify-between">
@@ -178,7 +178,7 @@ const Jump = ({ translationApplication, currentPage, quran, onClose, onConfirm }
 
                         </button>
                         <div className="flex text-neutral-900/50 text-sm items-center justify-center p-2">
-                            {translationApplication.cancel}
+                            {translationApplication?.cancel}
                         </div>
                     </div>
                 </div>

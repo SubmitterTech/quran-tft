@@ -281,7 +281,7 @@ const Book = ({ translationApplication, introductionContent, quranData, appendic
                     if (index < segments.length - 1) {
                         elements.push(
                             <span key={index} className="cursor-pointer text-sky-600" onClick={() => handleClickReference("Introduction")}>
-                                 {translationApplication.intro}
+                                 {translationApplication?.intro}
                             </span>
                         );
                     }
@@ -348,7 +348,7 @@ const Book = ({ translationApplication, introductionContent, quranData, appendic
             if (!cpd || !cpd.evidence["2"] || !cpd.evidence["2"].lines) {
                 return (
                     <div className="text-neutral-900/80 flex flex-1 items-center justify-center w-full ">
-                        {translationApplication.contentNotAvailable}
+                        {translationApplication?.contentNotAvailable}
                     </div>
                 )
             }
@@ -421,7 +421,7 @@ const Book = ({ translationApplication, introductionContent, quranData, appendic
                     onClick={nextPage}
                     className="w-screen h-screen flex items-center justify-center  text-neutral-800">
                     <div className="text-4xl mx-2">
-                        {translationApplication.appendices}
+                        {translationApplication?.appendices}
                     </div>
                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-7 h-7">
                         <path strokeLinecap="round" strokeLinejoin="round" d="M15 15l6-6m0 0l-6-6m6 6H9a6 6 0 000 12h3" />
@@ -436,7 +436,7 @@ const Book = ({ translationApplication, introductionContent, quranData, appendic
             if (!cpd || !cpd.evidence["2"] || !cpd.evidence["2"].lines) {
                 return (
                     <div className="text-neutral-900/80 flex flex-1 items-center justify-center w-full ">
-                        {translationApplication.contentNotAvailable}
+                        {translationApplication?.contentNotAvailable}
                     </div>
                 )
             }
@@ -485,7 +485,7 @@ const Book = ({ translationApplication, introductionContent, quranData, appendic
                     <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
                     <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
                 </svg>
-                {translationApplication.loading}
+                {translationApplication?.loading}
             </div>;
         }
 
@@ -581,7 +581,7 @@ const Book = ({ translationApplication, introductionContent, quranData, appendic
                             <div className="w-full flex justify-between">
                                 <div className="relative h-6 w-[11%]">
                                     <div className="absolute -left-2 text-xs">
-                                        {translationApplication.adam}
+                                        {translationApplication?.adam}
                                     </div>
                                 </div>
                                 <div className="relative h-6 w-[100%]">
@@ -684,7 +684,7 @@ const Book = ({ translationApplication, introductionContent, quranData, appendic
             } else {
                 return (
                     <div className="text-neutral-900/80 flex flex-1 items-center justify-center w-full">
-                        {translationApplication.unrecognizedData}
+                        {translationApplication?.unrecognizedData}
                     </div>
                 );
             }
