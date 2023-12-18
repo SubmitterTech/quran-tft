@@ -1,0 +1,18 @@
+{
+    "contentNotAvailable": "İçerik erişilebilir değil",
+    "loading": "Yükleniyor...",
+    "unrecognizedData": "Tanınmayan yapılandırılmış veriler veya veriler ayrıştırılamadı...",
+    "appendices": "Ekler",
+    "appendix": "Ek",
+    "page": "Sayfa",
+    "adam": "Adem",
+    "intro": "Giriş",
+    "sura": "Sure",
+    "verse": "Ayet",
+    "open": "Aç",
+    "cancel": "İptal",
+    "notes": "Notlar",
+    "gw": "TANRI",
+    "wc1": "TANRI kelimelerinin eklenerek artan sıklığı",
+    "wc2": "TANRI geçen ayet numaralarının eklenerek artan toplamı"
+}

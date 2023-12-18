@@ -1,21 +1,19 @@
 import React, { useState, useEffect } from 'react';
 import Pages from '../components/Pages';
-import quranData from '../assets/qurantft.json';
 import Jump from '../components/Jump';
-import '../assets/Book.css';
-import introductionContent from '../assets/introduction.json';
-import appendicesContent from '../assets/appendices.json';
+import '../assets/css/Book.css';
 
-
-
-const Book = () => {
+const Book = ({ translationApplication, introductionContent, quranData, appendicesContent, translation }) => {
     const [currentPage, setCurrentPage] = useState(parseInt(localStorage.getItem("qurantft-pn")) ? parseInt(localStorage.getItem("qurantft-pn")) : 5);
     const [pageHistory, setPageHistory] = useState([]);
     const [isModalOpen, setModalOpen] = useState(false);
     const [selectedSura, setSelectedSura] = useState(null);
     const [selectedVerse, setSelectedVerse] = useState(null);
-    const bookContent = introductionContent.concat(appendicesContent);
-    const images = require.context('../assets/', false, /\.jpg$/);
+    const [bookContent, setBookContent] = useState(null);
+
+    const images = require.context('../assets/pictures/', false, /\.jpg$/);
+
+
 
     const [appendicesMap, setAppendicesMap] = useState({});
 
@@ -38,7 +36,14 @@ const Book = () => {
                 setAppendicesMap(newMap);
             }
         }
-    }, []);
+    }, [appendicesContent]);
+
+
+    useEffect(() => {
+        if (introductionContent && appendicesContent) {
+            setBookContent(introductionContent.concat(appendicesContent))
+        }
+    }, [appendicesContent, introductionContent]);
 
 
     const handleJump = async (page, suraNumber, verseNumber) => {
@@ -176,13 +181,13 @@ const Book = () => {
             const startIndex = appendixPart.search(appendixRegex);
             let endIndex = startIndex;
             let isNumberStarted = false;
-            
+
             for (let i = startIndex; i < appendixPart.length; i++) {
                 const char = appendixPart[i];
-            
+
                 // Check if the next characters form the word "and"
                 const isAndAhead = appendixPart.substring(i, i + 3).toLowerCase() === 'and';
-            
+
                 if (/\d/.test(char)) {
                     isNumberStarted = true;
                     endIndex = i;
@@ -199,7 +204,7 @@ const Book = () => {
                     }
                 }
             }
-            
+
 
             const appendixReference = appendixPart.substring(startIndex, endIndex + 1);
             const parts = appendixReference.split(/(\d+|\s+|,|&|and)/gi);
@@ -276,7 +281,7 @@ const Book = () => {
                     if (index < segments.length - 1) {
                         elements.push(
                             <span key={index} className="cursor-pointer text-sky-600" onClick={() => handleClickReference("Introduction")}>
-                                Introduction
+                                 {translationApplication.intro}
                             </span>
                         );
                     }
@@ -332,17 +337,20 @@ const Book = () => {
     };
 
     const renderBookContent = () => {
-
-        // Render Pages component when current page is 23 or more
+        // Render Pages component when current page is 23 to 394
         if (parseInt(currentPage) >= 23 && parseInt(currentPage) <= 394) {
-            return <Pages selectedPage={currentPage} selectedSura={selectedSura} selectedVerse={selectedVerse} handleClickReference={handleClickReference} handleClickAppReference={handleClickAppReference} />;
+            return <Pages translationApplication={translationApplication} quranData={quranData} translation={translation} selectedPage={currentPage} selectedSura={selectedSura} selectedVerse={selectedVerse} handleClickReference={handleClickReference} handleClickAppReference={handleClickAppReference} />;
         }
 
         if (parseInt(currentPage) === 22) {
             const cpd = bookContent ? bookContent.find(iterator => iterator.page === currentPage) : null;
 
             if (!cpd || !cpd.evidence["2"] || !cpd.evidence["2"].lines) {
-                return <p>Content not available</p>;
+                return (
+                    <div className="text-neutral-900/80 flex flex-1 items-center justify-center w-full ">
+                        {translationApplication.contentNotAvailable}
+                    </div>
+                )
             }
 
             const content = cpd.evidence["2"].lines;
@@ -413,7 +421,7 @@ const Book = () => {
                     onClick={nextPage}
                     className="w-screen h-screen flex items-center justify-center  text-neutral-800">
                     <div className="text-4xl mx-2">
-                        Appendices
+                        {translationApplication.appendices}
                     </div>
                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-7 h-7">
                         <path strokeLinecap="round" strokeLinejoin="round" d="M15 15l6-6m0 0l-6-6m6 6H9a6 6 0 000 12h3" />
@@ -426,7 +434,11 @@ const Book = () => {
             const cpd = bookContent ? bookContent.find(iterator => iterator.page === currentPage) : null;
 
             if (!cpd || !cpd.evidence["2"] || !cpd.evidence["2"].lines) {
-                return <p>Content not available</p>;
+                return (
+                    <div className="text-neutral-900/80 flex flex-1 items-center justify-center w-full ">
+                        {translationApplication.contentNotAvailable}
+                    </div>
+                )
             }
 
             const content = cpd.evidence["2"].lines;
@@ -473,7 +485,7 @@ const Book = () => {
                     <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
                     <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
                 </svg>
-                Loading...
+                {translationApplication.loading}
             </div>;
         }
 
@@ -569,7 +581,7 @@ const Book = () => {
                             <div className="w-full flex justify-between">
                                 <div className="relative h-6 w-[11%]">
                                     <div className="absolute -left-2 text-xs">
-                                        Adam
+                                        {translationApplication.adam}
                                     </div>
                                 </div>
                                 <div className="relative h-6 w-[100%]">
@@ -617,9 +629,7 @@ const Book = () => {
                                     {item.content.lines["1"]}
                                 </div>
                                 <div className="relative bg-gray-500 w-[3%] flex flex-wrap py-2">
-
                                 </div>
-
                             </div>
                             <div className="w-full flex justify-end py-0.5">
                                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6">
@@ -634,11 +644,8 @@ const Book = () => {
                                 <div className="relative bg-gray-900 w-[3%] flex flex-wrap py-2">
 
                                 </div>
-
                             </div>
-
                         </div>
-
                     );
                 }
                 return (
@@ -677,7 +684,7 @@ const Book = () => {
             } else {
                 return (
                     <div className="text-neutral-900/80 flex flex-1 items-center justify-center w-full">
-                        Unrecognized structered data or could not parse the data ...
+                        {translationApplication.unrecognizedData}
                     </div>
                 );
             }
@@ -704,7 +711,7 @@ const Book = () => {
                     <div
                         onClick={() => setModalOpen(!isModalOpen)}
                         className="">
-                        <h2 className="text-sm font-bold text-neutral-900/50 p-2">Page {currentPage}</h2>
+                        <h2 className="text-sm font-bold text-neutral-900/50 p-2">{translationApplication.page} {currentPage}</h2>
                     </div>
                     <button onClick={nextPage}
                         className="w-28 text-neutral-800 px-2 py-1 rounded ml-2 flex justify-center">
@@ -716,6 +723,7 @@ const Book = () => {
             </div>
             {isModalOpen &&
                 <Jump
+                    translationApplication={translationApplication}
                     currentPage={currentPage}
                     quran={quranData}
                     onClose={handleCloseModal}

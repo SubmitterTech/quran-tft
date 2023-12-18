@@ -1,7 +1,7 @@
 import React, { useCallback, useEffect, useState } from 'react';
 import relationalData from '../assets/map.json'; // Import relational data
 
-const Verse = ({ verseClassName, hasAsterisk, suraNumber, verseNumber, verseText, encryptedText, verseRefs, handleVerseClick, pulse, grapFocus, pageGWC, handleClickReference }) => {
+const Verse = ({ translationApplication, verseClassName, hasAsterisk, suraNumber, verseNumber, verseText, encryptedText, verseRefs, handleVerseClick, pulse, grapFocus, pageGWC, handleClickReference }) => {
     const [mode, setMode] = useState("idle");
     const [cn, setCn] = useState(verseClassName);
     const [text, setText] = useState(verseText);
@@ -54,8 +54,7 @@ const Verse = ({ verseClassName, hasAsterisk, suraNumber, verseNumber, verseText
         });
 
         return [...new Set(related)]; // Remove duplicates
-    },[currentVerseKey]);
-
+    }, [currentVerseKey]);
 
 
     useEffect(() => {
@@ -67,16 +66,17 @@ const Verse = ({ verseClassName, hasAsterisk, suraNumber, verseNumber, verseText
 
 
     const lightGODwords = useCallback((verse) => {
-        const regex = /\b(GOD)\b/g;
+        const gw = translationApplication.gw;
+        const regex = new RegExp(`\\b(${gw})\\b`, 'g');
 
         return verse.split(regex).reduce((prev, current, index) => {
             if (index % 2 === 0) {
                 return [...prev, current];
             } else {
-                return [...prev, <span key={index} className="font-bold text-sky-600">GOD</span>];
+                return [...prev, <span key={index} className="font-bold text-sky-600">{gw}</span>];
             }
         }, []);
-    }, []);
+    }, [translationApplication.gw]);
 
 
     const lightAllahwords = (text) => {

@@ -1,8 +1,7 @@
 import React, { useState, useEffect, useRef, useCallback, useMemo } from 'react';
 import Verse from '../components/Verse';
-import quranData from '../assets/qurantft.json';
 
-const Pages = ({ selectedPage, selectedSura, selectedVerse, handleClickReference, handleClickAppReference }) => {
+const Pages = ({ translationApplication, quranData, translation, selectedPage, selectedSura, selectedVerse, handleClickReference, handleClickAppReference }) => {
     const [pageData, setPageData] = useState(null);
     const [showExplanation, setShowExplanation] = useState({ GODnamefrequency: false, GODnamesum: false });
     const [pageTitle, setPageTitle] = useState([]);
@@ -47,20 +46,28 @@ const Pages = ({ selectedPage, selectedSura, selectedVerse, handleClickReference
             }, 200);
             forceScroll();
         }
-    }, [selectedPage, selectedSura, selectedVerse, forceScroll]);
+    }, [quranData, selectedPage, selectedSura, selectedVerse, forceScroll]);
 
 
     const parsePageVerses = () => {
         let sortedVerses = [];
         if (pageData && pageData.sura) {
+            const verseRegex = /(\d+:\d+(?:-\d*)?)/g;
+            let pageNo = 0;
+            Object.entries(pageData.page).forEach(([, content]) => {
+                if (!content.match(verseRegex)) {
+                    pageNo = parseInt(content) + 22
+                }
+            });
             Object.entries(pageData.sura).forEach(([suraNumber, suraInfo]) => {
-                Object.entries(suraInfo.verses).forEach(([verseNumber, verseText]) => {
+
+                Object.entries(suraInfo.verses).forEach(([verseNumber]) => {
                     sortedVerses.push({
                         suraNumber: parseInt(suraNumber),
                         verseNumber: parseInt(verseNumber),
-                        verseText,
+                        verseText: translation ? translation[pageNo].sura[suraNumber].verses[verseNumber] : suraInfo.verses[verseNumber],
                         encryptedText: suraInfo.encrypted[verseNumber],
-                        title: suraInfo.titles ? suraInfo.titles[verseNumber] : null
+                        title: translation ? translation[pageNo].sura[suraNumber].titles[verseNumber] : suraInfo.titles ? suraInfo.titles[verseNumber] : null
                     });
                 });
             });
@@ -79,7 +86,9 @@ const Pages = ({ selectedPage, selectedSura, selectedVerse, handleClickReference
     const sortedVerses = parsePageVerses();
 
     const countGODwords = (verse) => {
-        const regex = /\b(GOD)\b/g;
+        const gw = translationApplication.gw;
+
+        const regex = new RegExp(`\\b(${gw})\\b`, 'g');
         return (verse.match(regex) || []).length;
     };
 
@@ -220,7 +229,7 @@ const Pages = ({ selectedPage, selectedSura, selectedVerse, handleClickReference
                     if (index < segments.length - 1) {
                         elements.push(
                             <span key={index} className="cursor-pointer text-sky-600" onClick={() => clickReferenceController("Introduction")}>
-                                Introduction
+                                {translationApplication.intro}
                             </span>
                         );
                     }
@@ -425,6 +434,7 @@ const Pages = ({ selectedPage, selectedSura, selectedVerse, handleClickReference
                                 </div>
                             }
                             <Verse
+                                translationApplication={translationApplication}
                                 verseClassName={verseClassName}
                                 hasAsterisk={hasAsterisk}
                                 suraNumber={suraNumber}
@@ -450,7 +460,7 @@ const Pages = ({ selectedPage, selectedSura, selectedVerse, handleClickReference
                         </p>
                         {showExplanation.GODnamefrequency && (
                             <div className="absolute w-36 left-1.5 -translate-y-24 text-start shadow-md p-3 bg-neutral-100 rounded break-word">
-                                Cumulative frequency of the word GOD = {formatHitCount(parseInt(pageData.notes.cumulativefrequencyofthewordGOD))}
+                                {translationApplication.wc1} = {formatHitCount(parseInt(pageData.notes.cumulativefrequencyofthewordGOD))}
                             </div>
                         )}
                         <p className="cursor-pointer" onClick={() => openExplanation('GODnamesum')}>
@@ -458,7 +468,7 @@ const Pages = ({ selectedPage, selectedSura, selectedVerse, handleClickReference
                         </p>
                         {showExplanation.GODnamesum && (
                             <div className="absolute w-36 -translate-y-28 right-1.5 text-end shadow-md p-3 bg-neutral-100 rounded break-word">
-                                Cumulative sum of verses where GOD word occurs = {formatHitCount(parseInt(pageData.notes.cumulativesumofverseswhereGODwordoccurs))}
+                                {translationApplication.wc2} = {formatHitCount(parseInt(pageData.notes.cumulativesumofverseswhereGODwordoccurs))}
                             </div>
                         )}
                     </div>
@@ -468,7 +478,7 @@ const Pages = ({ selectedPage, selectedSura, selectedVerse, handleClickReference
             {
                 pageData.notes.data.length > 0 &&
                 <div className="bg-neutral-100 m-1.5 mt-3 rounded p-2 text-sm md:text-md lg:text-lg text-justify text-neutral-800 flex flex-col space-y-4 whitespace-pre-line">
-                    <h3>Notes:</h3>
+                    <h3>{translationApplication.notes}:</h3>
                     {pageData.notes.data.map((note, index) =>
                         <p
                             className="bg-neutral-200 rounded shadow-md px-2 py-3 text-neutral-800"

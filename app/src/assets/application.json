@@ -1,0 +1,18 @@
+{
+    "contentNotAvailable": "Content not available",
+    "loading": "Loading...",
+    "unrecognizedData": "Unrecognized structured data or could not parse the data...",
+    "appendices": "Appendices",
+    "appendix": "Ek",
+    "page": "Page",
+    "adam": "Adam",
+    "intro": "Introduction",
+    "sura": "Sura",
+    "verse": "Verse",
+    "open": "Open",
+    "cancel": "Cancel",
+    "notes": "Notes",
+    "gw": "GOD",
+    "wc1": "Cumulative frequency of the word GOD",
+    "wc2": "Cumulative sum of verses where GOD word occurs"
+}
