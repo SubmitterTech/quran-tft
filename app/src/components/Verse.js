@@ -66,7 +66,7 @@ const Verse = ({ translationApplication, verseClassName, hasAsterisk, suraNumber
 
 
     const lightGODwords = useCallback((verse) => {
-        const gw = translationApplication.gw;
+        const gw = translationApplication ? translationApplication.gw : "GOD";
         const regex = new RegExp(`\\b(${gw})\\b`, 'g');
 
         return verse.split(regex).reduce((prev, current, index) => {
@@ -76,7 +76,7 @@ const Verse = ({ translationApplication, verseClassName, hasAsterisk, suraNumber
                 return [...prev, <span key={index} className="font-bold text-sky-600">{gw}</span>];
             }
         }, []);
-    }, [translationApplication.gw]);
+    }, [translationApplication]);
 
 
     const lightAllahwords = (text) => {

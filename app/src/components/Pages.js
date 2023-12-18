@@ -86,7 +86,7 @@ const Pages = ({ translationApplication, quranData, translation, selectedPage, s
     const sortedVerses = parsePageVerses();
 
     const countGODwords = (verse) => {
-        const gw = translationApplication.gw;
+        const gw = translationApplication ? translationApplication.gw : "GOD";
 
         const regex = new RegExp(`\\b(${gw})\\b`, 'g');
         return (verse.match(regex) || []).length;
@@ -229,7 +229,7 @@ const Pages = ({ translationApplication, quranData, translation, selectedPage, s
                     if (index < segments.length - 1) {
                         elements.push(
                             <span key={index} className="cursor-pointer text-sky-600" onClick={() => clickReferenceController("Introduction")}>
-                                {translationApplication.intro}
+                                {translationApplication?.intro}
                             </span>
                         );
                     }
@@ -460,7 +460,7 @@ const Pages = ({ translationApplication, quranData, translation, selectedPage, s
                         </p>
                         {showExplanation.GODnamefrequency && (
                             <div className="absolute w-36 left-1.5 -translate-y-24 text-start shadow-md p-3 bg-neutral-100 rounded break-word">
-                                {translationApplication.wc1} = {formatHitCount(parseInt(pageData.notes.cumulativefrequencyofthewordGOD))}
+                                {translationApplication?.wc1} = {formatHitCount(parseInt(pageData.notes.cumulativefrequencyofthewordGOD))}
                             </div>
                         )}
                         <p className="cursor-pointer" onClick={() => openExplanation('GODnamesum')}>
@@ -468,7 +468,7 @@ const Pages = ({ translationApplication, quranData, translation, selectedPage, s
                         </p>
                         {showExplanation.GODnamesum && (
                             <div className="absolute w-36 -translate-y-28 right-1.5 text-end shadow-md p-3 bg-neutral-100 rounded break-word">
-                                {translationApplication.wc2} = {formatHitCount(parseInt(pageData.notes.cumulativesumofverseswhereGODwordoccurs))}
+                                {translationApplication?.wc2} = {formatHitCount(parseInt(pageData.notes.cumulativesumofverseswhereGODwordoccurs))}
                             </div>
                         )}
                     </div>
@@ -478,7 +478,7 @@ const Pages = ({ translationApplication, quranData, translation, selectedPage, s
             {
                 pageData.notes.data.length > 0 &&
                 <div className="bg-neutral-100 m-1.5 mt-3 rounded p-2 text-sm md:text-md lg:text-lg text-justify text-neutral-800 flex flex-col space-y-4 whitespace-pre-line">
-                    <h3>{translationApplication.notes}:</h3>
+                    <h3>{translationApplication?.notes}:</h3>
                     {pageData.notes.data.map((note, index) =>
                         <p
                             className="bg-neutral-200 rounded shadow-md px-2 py-3 text-neutral-800"

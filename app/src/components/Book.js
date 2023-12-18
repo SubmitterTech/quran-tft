@@ -711,7 +711,7 @@ const Book = ({ translationApplication, introductionContent, quranData, appendic
                     <div
                         onClick={() => setModalOpen(!isModalOpen)}
                         className="">
-                        <h2 className="text-sm font-bold text-neutral-900/50 p-2">{translationApplication.page} {currentPage}</h2>
+                        <h2 className="text-sm font-bold text-neutral-900/50 p-2">{translationApplication?.page} {currentPage}</h2>
                     </div>
                     <button onClick={nextPage}
                         className="w-28 text-neutral-800 px-2 py-1 rounded ml-2 flex justify-center">
