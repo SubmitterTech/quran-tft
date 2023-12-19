@@ -10,7 +10,7 @@ import application from '../assets/application.json';
 function Root() {
     const [showSplash, setShowSplash] = useState(localStorage.getItem("qurantft-pn") ? false : true);
     const [translation, setTranslation] = useState(null);
-    const [translationApplication, setTranslationApplication] = useState(null);
+    const [translationApplication, setTranslationApplication] = useState(application);
 
     const lang = navigator.language || navigator.userLanguage;
 
@@ -37,7 +37,6 @@ function Root() {
                 setTranslationApplication(translatedApplication.default);
             } else {
                 console.error('Translation Application file not found for language:', language);
-                setTranslationApplication(application);
             }
 
         } catch (error) {
