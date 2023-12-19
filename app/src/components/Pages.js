@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef, useCallback, useMemo } from 'react';
 import Verse from '../components/Verse';
 
-const Pages = ({ translationApplication, quranData, translation, selectedPage, selectedSura, selectedVerse, handleClickReference, handleClickAppReference }) => {
+const Pages = ({ colors, theme, translationApplication, quranData, translation, selectedPage, selectedSura, selectedVerse, handleClickReference, handleClickAppReference }) => {
     const [pageData, setPageData] = useState(null);
     const [showExplanation, setShowExplanation] = useState({ GODnamefrequency: false, GODnamesum: false });
     const [pageTitle, setPageTitle] = useState([]);
@@ -87,7 +87,6 @@ const Pages = ({ translationApplication, quranData, translation, selectedPage, s
 
     const countGODwords = (verse) => {
         const gw = translationApplication ? translationApplication.gw : "GOD";
-
         const regex = new RegExp(`\\b(${gw})\\b`, 'g');
         return (verse.match(regex) || []).length;
     };
@@ -105,10 +104,9 @@ const Pages = ({ translationApplication, quranData, translation, selectedPage, s
                 newPageGWC[key] = (newPageGWC[previousKey] || 0) + count;
             }
         });
-
+        
         return newPageGWC;
     };
-
 
     // Call this function before rendering Verse components
     const updatedPageGWC = calculatePageGWC();
@@ -165,7 +163,7 @@ const Pages = ({ translationApplication, quranData, translation, selectedPage, s
                     {parts.map((segment, index) => {
                         if (segment.match(/^\d+$/) && parseInt(segment) >= 1 && parseInt(segment) <= 39) {
                             return (
-                                <span key={index} className="cursor-pointer text-sky-600" onClick={() => handleClickAppReference(segment)}>
+                                <span key={index} className={`cursor-pointer text-sky-600`} onClick={() => handleClickAppReference(segment)}>
                                     {segment}
                                 </span>
                             );
@@ -209,7 +207,7 @@ const Pages = ({ translationApplication, quranData, translation, selectedPage, s
             } else if (part.match(verseRegex)) {
                 // If the part matches a verse reference, we can return a clickable element
                 return (
-                    <span key={index} className="cursor-pointer text-sky-600" onClick={() => clickReferenceController(part)}>
+                    <span key={index} className={`cursor-pointer text-sky-600`} onClick={() => clickReferenceController(part)}>
                         {part}
                     </span>
                 );
@@ -228,7 +226,7 @@ const Pages = ({ translationApplication, quranData, translation, selectedPage, s
                     // If this is not the last segment, add the intro match as a clickable span
                     if (index < segments.length - 1) {
                         elements.push(
-                            <span key={index} className="cursor-pointer text-sky-600" onClick={() => clickReferenceController("Introduction")}>
+                            <span key={index} className={`cursor-pointer text-sky-600`} onClick={() => clickReferenceController("Introduction")}>
                                 {translationApplication?.intro}
                             </span>
                         );
@@ -325,7 +323,7 @@ const Pages = ({ translationApplication, quranData, translation, selectedPage, s
     }, [showExplanation]);
 
 
-    if (!pageData) return <div className="text-neutral-900/80 flex flex-1 items-center justify-center w-full ">Loading...</div>;
+    if (!pageData) return <div className={`${colors[theme]["text"]} flex flex-1 items-center justify-center w-full `}>Loading...</div>;
 
     const openExplanation = (key) => {
         setShowExplanation(prev => ({ ...prev, [key]: true }));
@@ -340,11 +338,11 @@ const Pages = ({ translationApplication, quranData, translation, selectedPage, s
         }
 
         return (
-            <table className="table-auto border-collapse border-2 border-sky-600 text-right">
+            <table className={`table-auto border-collapse border-2 border-sky-600 text-right`}>
                 <thead>
                     <tr>
                         {tableData.title.map((header, index) => (
-                            <th key={index} className="border-2 border-sky-600 p-2 ">{header}</th>
+                            <th key={index} className={`border-2 border-sky-600 p-2 `}>{header}</th>
                         ))}
                     </tr>
                 </thead>
@@ -352,7 +350,7 @@ const Pages = ({ translationApplication, quranData, translation, selectedPage, s
                     {rows.map((row, rowIndex) => (
                         <tr key={rowIndex}>
                             {row.map((cell, cellIndex) => (
-                                <td key={cellIndex} className="border-2 border-sky-600 p-2">{cell}</td>
+                                <td key={cellIndex} className={`border-2 border-sky-600 p-2`}>{cell}</td>
                             ))}
                         </tr>
                     ))}
@@ -388,52 +386,39 @@ const Pages = ({ translationApplication, quranData, translation, selectedPage, s
     };
 
     return (
-        <div className="flex relative w-full flex-1 flex-col text-neutral-800 text-base overflow-auto">
-            <div ref={topRef} className="relative flex flex-col">
-                <div className="sticky top-0 py-2 px-3 bg-neutral-200 shadow-md flex">
+        <div className={`flex relative w-full flex-1 flex-col ${colors[theme]["app-text"]} text-base overflow-auto`}>
+            <div ref={topRef} className={`relative flex flex-col`}>
+                <div className={`sticky top-0 py-2 px-3 ${colors[theme]["app-background"]} shadow-md flex`}>
                     <div
                         onClick={() => handlePageTitleClicked()}
-                        className="flex w-full text-sm lg:text-lg flex-1 mx-2">
-                        <div className="flex flex-col font-bold space-y-2">
+                        className={`flex w-full text-sm lg:text-lg flex-1 mx-2`}>
+                        <div className={`flex flex-col font-bold space-y-2`}>
                             {pageTitle.map((title, index) => (
                                 <h1 key={index}>{title}</h1>
                             ))}
                         </div>
                     </div>
-
-
                 </div>
                 {sortedVerses.map(({ suraNumber, verseNumber, verseText, encryptedText, title }) => {
                     const hasAsterisk = verseText.includes('*') || (title && title.includes('*'));
-                    const verseClassName = `transition-colors duration-1000 ease-linear flex cursor-pointer rounded mx-2 my-1 p-2 shadow-md text-justify text-base md:text-lg xl:text-xl`;
-                    const titleClassName = `bg-neutral-100 italic font-semibold rounded shadow-md mx-2 mt-1.5 mb-0.5 p-3 text-base md:text-md lg:text-lg text-center break-words whitespace-pre-wrap ${hasAsterisk ? "ring-1 ring-neutral-800/80 mt-2" : ""}`;
+                    const verseClassName = "transition-colors duration-700 ease-linear flex cursor-pointer rounded mx-2 my-1 p-2 shadow-md text-justify text-base md:text-lg xl:text-xl ";
+                    const titleClassName = `italic font-semibold rounded shadow-md mx-2 mt-1.5 mb-0.5 p-3 text-base md:text-md lg:text-lg text-center break-words whitespace-pre-wrap ${colors[theme]["base-background"]}`;
                     const verseKey = `${suraNumber}:${verseNumber}`;
                     const noteReference = hasAsterisk ? verseKey : null;
-
-                    const countGODwords = (verse) => {
-                        const regex = /\b(GOD)\b/g;
-                        let count = 0;
-
-                        verse.split(regex).forEach((part, index) => {
-                            if (index % 2 !== 0) {
-                                ++count;
-                            }
-                        });
-
-                        return count;
-                    };
 
                     pageGWC[verseKey] = countGODwords(verseText)
 
                     return (
-                        <React.Fragment key={verseNumber + ":" + suraNumber}>
+                        <React.Fragment key={suraNumber + ":" + verseNumber}>
                             {title &&
-                                <div className={`${titleClassName} ${hasAsterisk ? "cursor-pointer" : ""}`}
+                                <div className={`${titleClassName} ${hasAsterisk ? " cursor-pointer ring-1 mt-2 " + colors[theme]["ring"] : ""}`}
                                     onClick={() => hasAsterisk && handleTitleClick(noteReference)}>
                                     {title}
                                 </div>
                             }
                             <Verse
+                                colors={colors}
+                                theme={theme}
                                 translationApplication={translationApplication}
                                 verseClassName={verseClassName}
                                 hasAsterisk={hasAsterisk}
@@ -453,21 +438,21 @@ const Pages = ({ translationApplication, quranData, translation, selectedPage, s
                     );
                 })}
 
-                <div className="sticky bottom-0 mt-3 py-2 px-3 bg-neutral-200 flex">
-                    <div className="flex text-sm justify-between flex-1">
-                        <p className="cursor-pointer" onClick={() => openExplanation('GODnamefrequency')}>
+                <div className={`sticky bottom-0 mt-3 py-2 px-3 ${colors[theme]["app-background"]} flex`}>
+                    <div className={`flex text-sm justify-between flex-1`}>
+                        <p className={`cursor-pointer`} onClick={() => openExplanation('GODnamefrequency')}>
                             {pageData.notes.cumulativefrequencyofthewordGOD}
                         </p>
                         {showExplanation.GODnamefrequency && (
-                            <div className="absolute w-36 left-1.5 -translate-y-24 text-start shadow-md p-3 bg-neutral-100 rounded break-word">
+                            <div className={`absolute w-36 left-1.5 -translate-y-24 text-start shadow-md p-3 ${colors[theme]["base-background"]} rounded break-word`}>
                                 {translationApplication?.wc1} = {formatHitCount(parseInt(pageData.notes.cumulativefrequencyofthewordGOD))}
                             </div>
                         )}
-                        <p className="cursor-pointer" onClick={() => openExplanation('GODnamesum')}>
+                        <p className={`cursor-pointer`} onClick={() => openExplanation('GODnamesum')}>
                             {pageData.notes.cumulativesumofverseswhereGODwordoccurs}
                         </p>
                         {showExplanation.GODnamesum && (
-                            <div className="absolute w-36 -translate-y-28 right-1.5 text-end shadow-md p-3 bg-neutral-100 rounded break-word">
+                            <div className={`absolute w-36 -translate-y-28 right-1.5 text-end shadow-md p-3 ${colors[theme]["base-background"]} rounded break-word`}>
                                 {translationApplication?.wc2} = {formatHitCount(parseInt(pageData.notes.cumulativesumofverseswhereGODwordoccurs))}
                             </div>
                         )}
@@ -477,17 +462,17 @@ const Pages = ({ translationApplication, quranData, translation, selectedPage, s
             </div>
             {
                 pageData.notes.data.length > 0 &&
-                <div className="bg-neutral-100 m-1.5 mt-3 rounded p-2 text-sm md:text-md lg:text-lg text-justify text-neutral-800 flex flex-col space-y-4 whitespace-pre-line">
+                <div className={`${colors[theme]["base-background"]} m-1.5 mt-3 rounded p-2 text-sm md:text-md lg:text-lg text-justify ${colors[theme]["app-text"]} flex flex-col space-y-4 whitespace-pre-line`}>
                     <h3>{translationApplication?.notes}:</h3>
                     {pageData.notes.data.map((note, index) =>
                         <p
-                            className="bg-neutral-200 rounded shadow-md px-2 py-3 text-neutral-800"
+                            className={`${colors[theme]["notes-background"]} rounded shadow-md px-2 py-3 ${colors[theme]["app-text"]}`}
                             ref={(el) => noteRefs.current[index] = el}
                             key={index}>
                             {parseReferences(note)}
                         </p>)}
                     {pageData.notes.tables && pageData.notes.tables.map((table, index) => (
-                        <div className="flex justify-center"
+                        <div className={`flex justify-center`}
                             key={index} >
                             {renderTable(table)}
                         </div>

@@ -3,7 +3,7 @@ import Pages from '../components/Pages';
 import Jump from '../components/Jump';
 import '../assets/css/Book.css';
 
-const Book = ({ translationApplication, introductionContent, quranData, appendicesContent, translation }) => {
+const Book = ({ onChangeTheme, colors, theme, translationApplication, introductionContent, quranData, appendicesContent, translation }) => {
     const [currentPage, setCurrentPage] = useState(parseInt(localStorage.getItem("qurantft-pn")) ? parseInt(localStorage.getItem("qurantft-pn")) : 5);
     const [pageHistory, setPageHistory] = useState([]);
     const [isModalOpen, setModalOpen] = useState(false);
@@ -215,7 +215,7 @@ const Book = ({ translationApplication, introductionContent, quranData, appendic
                     {parts.map((segment, index) => {
                         if (segment.match(/^\d+$/) && parseInt(segment) >= 1 && parseInt(segment) <= 39) {
                             return (
-                                <span key={index} className="cursor-pointer text-sky-600" onClick={() => handleClickAppReference(segment)}>
+                                <span key={index} className={`cursor-pointer text-sky-600`} onClick={() => handleClickAppReference(segment)}>
                                     {segment}
                                 </span>
                             );
@@ -261,7 +261,7 @@ const Book = ({ translationApplication, introductionContent, quranData, appendic
                     return part;
                 }
                 return (
-                    <span key={index} className="cursor-pointer text-sky-600" onClick={() => handleClickReference(part)}>
+                    <span key={index} className={`cursor-pointer text-sky-600`} onClick={() => handleClickReference(part)}>
                         {part}
                     </span>
                 );
@@ -280,8 +280,8 @@ const Book = ({ translationApplication, introductionContent, quranData, appendic
                     // If this is not the last segment, add the intro match as a clickable span
                     if (index < segments.length - 1) {
                         elements.push(
-                            <span key={index} className="cursor-pointer text-sky-600" onClick={() => handleClickReference("Introduction")}>
-                                 {translationApplication?.intro}
+                            <span key={index} className={`cursor-pointer text-sky-600`} onClick={() => handleClickReference("Introduction")}>
+                                {translationApplication?.intro}
                             </span>
                         );
                     }
@@ -310,15 +310,15 @@ const Book = ({ translationApplication, introductionContent, quranData, appendic
         }
 
         return (
-            <div className="w-full flex flex-col text-neutral-700">
-                <div className="bg-neutral-100 w-full rounded text-sm py-2 text-center ">
+            <div className={`w-full flex flex-col ${colors[theme]["table-title-text"]}`}>
+                <div className={`${colors[theme]["base-background"]} w-full rounded text-sm py-2 text-center `}>
                     {tableRef}
                 </div>
-                <table title={tableRef} className="table-auto bg-neutral-100 border-collapse border-2 border-neutral-900 text-center mb-3 w-full text-sm md:text-base">
+                <table title={tableRef} className={`table-auto ${colors[theme]["base-background"]} border-collapse border-2 ${colors[theme]["border"]} text-center mb-3 w-full text-sm md:text-base`}>
                     <thead>
                         <tr>
                             {tableData.title.map((header, index) => (
-                                <th key={index} className="border-2 border-neutral-900 p-2 ">{header}</th>
+                                <th key={index} className={`border-2 ${colors[theme]["border"]} p-2 `}>{header}</th>
                             ))}
                         </tr>
                     </thead>
@@ -326,7 +326,7 @@ const Book = ({ translationApplication, introductionContent, quranData, appendic
                         {rows.map((row, rowIndex) => (
                             <tr key={rowIndex}>
                                 {row.map((cell, cellIndex) => (
-                                    <td key={cellIndex} className="border-2 border-neutral-900 p-2">{cell}</td>
+                                    <td key={cellIndex} className={`border-2 ${colors[theme]["border"]} p-2`}>{cell}</td>
                                 ))}
                             </tr>
                         ))}
@@ -339,7 +339,7 @@ const Book = ({ translationApplication, introductionContent, quranData, appendic
     const renderBookContent = () => {
         // Render Pages component when current page is 23 to 394
         if (parseInt(currentPage) >= 23 && parseInt(currentPage) <= 394) {
-            return <Pages translationApplication={translationApplication} quranData={quranData} translation={translation} selectedPage={currentPage} selectedSura={selectedSura} selectedVerse={selectedVerse} handleClickReference={handleClickReference} handleClickAppReference={handleClickAppReference} />;
+            return <Pages colors={colors} theme={theme} translationApplication={translationApplication} quranData={quranData} translation={translation} selectedPage={currentPage} selectedSura={selectedSura} selectedVerse={selectedVerse} handleClickReference={handleClickReference} handleClickAppReference={handleClickAppReference} />;
         }
 
         if (parseInt(currentPage) === 22) {
@@ -347,7 +347,7 @@ const Book = ({ translationApplication, introductionContent, quranData, appendic
 
             if (!cpd || !cpd.evidence["2"] || !cpd.evidence["2"].lines) {
                 return (
-                    <div className="text-neutral-900/80 flex flex-1 items-center justify-center w-full ">
+                    <div className={`${colors[theme]["log-text"]} flex flex-1 items-center justify-center w-full `}>
                         {translationApplication?.contentNotAvailable}
                     </div>
                 )
@@ -373,30 +373,30 @@ const Book = ({ translationApplication, introductionContent, quranData, appendic
 
                 if (parseInt(key) === 0) {
                     return (
-                        <div className=" text-neutral-800 w-full flex justify-between" key={key}>
-                            <div className="p-3 w-1/6 flex justify-center text-center">{no}</div>
-                            <div className="p-3 w-full flex justify-center">{name}</div>
-                            <div className="p-3 w-1/6 flex justify-center text-center">{arabic}</div>
+                        <div className={`${colors[theme]["app-text"]} w-full flex justify-between`} key={key}>
+                            <div className={`p-3 w-1/6 flex justify-center text-center`}>{no}</div>
+                            <div className={`p-3 w-full flex justify-center`}>{name}</div>
+                            <div className={`p-3 w-1/6 flex justify-center text-center`}>{arabic}</div>
                         </div>
                     );
                 } else {
                     return (
                         <div
                             onClick={() => updatePage(parseInt(page) + 22)}
-                            className="flex w-full justify-between">
-                            <div className="font-semibold rounded m-1 bg-neutral-100 w-1/6 text-sm flex items-center justify-center">
-                                <p className="" key={key + no}>{no}</p>
+                            className={`flex w-full justify-between`}>
+                            <div className={`font-semibold rounded m-1 ${colors[theme]["base-background"]} w-1/6 text-sm flex items-center justify-center`}>
+                                <p className={``} key={key + no}>{no}</p>
                             </div>
-                            <div className="ring-1 ring-neutral-400 flex w-full rounded m-1 shadow-md">
-                                <div className="rounded-l px-2 py-1  bg-neutral-100 w-full text-base flex items-center justify-center">
-                                    <p className="text-center" key={key + name + no}>{name}</p>
+                            <div className={`ring-1 ${colors[theme]["ring"]} flex w-full rounded m-1 shadow-md`}>
+                                <div className={`rounded-l px-2 py-1 ${colors[theme]["base-background"]} w-full text-base flex items-center justify-center`}>
+                                    <p className={`text-center`} key={key + name + no}>{name}</p>
                                 </div>
-                                <div className="rounded-r p-1  bg-neutral-100 w-full text-base flex items-center justify-center">
-                                    <p className="" key={key + arabic}>{arabic}</p>
+                                <div className={`rounded-r p-1  ${colors[theme]["base-background"]} w-full text-base flex items-center justify-center`}>
+                                    <p className={``} key={key + arabic}>{arabic}</p>
                                 </div>
                             </div>
-                            <div className="rounded px-2 py-1 m-1 bg-neutral-100 w-1/6 text-base flex items-center justify-center">
-                                <p className="" key={key + versecount}>{versecount}</p>
+                            <div className={`rounded px-2 py-1 m-1 ${colors[theme]["base-background"]} w-1/6 text-base flex items-center justify-center`}>
+                                <p className={``} key={key + versecount}>{versecount}</p>
                             </div>
                         </div>
                     );
@@ -404,9 +404,9 @@ const Book = ({ translationApplication, introductionContent, quranData, appendic
             });
 
             return (
-                <div className="w-screen h-screen flex flex-col overflow-auto text-neutral-800">
-                    <div className="w-full p-3">
-                        <div className={`w-full flex items-center justify-center text-center bg-neutral-100 rounded p-2 font-semibold text-neutral-800  text-2xl shadow-md`}>
+                <div className={`w-screen h-screen flex flex-col overflow-auto ${colors[theme]["app-text"]}`}>
+                    <div className={`w-full p-3`}>
+                        <div className={`w-full flex items-center justify-center text-center ${colors[theme]["base-background"]} rounded p-2 font-semibold ${colors[theme]["app-text"]}  text-2xl shadow-md`}>
                             <h2 key={`title-1}`}>{cpd.titles["1"]}</h2>
                         </div>
                     </div>
@@ -419,11 +419,11 @@ const Book = ({ translationApplication, introductionContent, quranData, appendic
             return (
                 <div
                     onClick={nextPage}
-                    className="w-screen h-screen flex items-center justify-center  text-neutral-800">
-                    <div className="text-4xl mx-2">
+                    className={`w-screen h-screen flex items-center justify-center  ${colors[theme]["app-text"]}`}>
+                    <div className={`text-4xl mx-2`}>
                         {translationApplication?.appendices}
                     </div>
-                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-7 h-7">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className={`w-7 h-7`}>
                         <path strokeLinecap="round" strokeLinejoin="round" d="M15 15l6-6m0 0l-6-6m6 6H9a6 6 0 000 12h3" />
                     </svg>
                 </div>
@@ -435,7 +435,7 @@ const Book = ({ translationApplication, introductionContent, quranData, appendic
 
             if (!cpd || !cpd.evidence["2"] || !cpd.evidence["2"].lines) {
                 return (
-                    <div className="text-neutral-900/80 flex flex-1 items-center justify-center w-full ">
+                    <div className={`${colors[theme]["log-text"]} flex flex-1 items-center justify-center w-full `}>
                         {translationApplication?.contentNotAvailable}
                     </div>
                 )
@@ -447,20 +447,20 @@ const Book = ({ translationApplication, introductionContent, quranData, appendic
                 if (parseInt(key) === 1) {
                     const titles = elements[0].split(" ").filter(element => element);
                     return (
-                        <div className=" text-neutral-800 w-full flex justify-center" key={key}>
-                            <div className="p-3">{titles[0]}</div>
+                        <div className={` ${colors[theme]["app-text"]} w-full flex justify-center`} key={key}>
+                            <div className={`p-3`}>{titles[0]}</div>
                         </div>
                     );
                 } else {
                     return (
                         <div
                             onClick={() => updatePage(parseInt(elements[2]) + 22)}
-                            className="flex w-full justify-between">
-                            <div className=" font-semibold rounded p-3 m-1 bg-neutral-100 w-12 flex items-center justify-center">
-                                <p className="" key={key}>{elements[0]}</p>
+                            className={`flex w-full justify-between`}>
+                            <div className={` font-semibold rounded p-3 m-1 ${colors[theme]["base-background"]} w-12 flex items-center justify-center`}>
+                                <p className={``} key={key}>{elements[0]}</p>
                             </div>
-                            <div className="rounded p-3 mr-2 m-1 bg-neutral-100 w-full text-base flex items-center">
-                                <p className="" key={key}>{elements[1]}</p>
+                            <div className={`rounded p-3 mr-2 m-1 ${colors[theme]["base-background"]} w-full text-base flex items-center`}>
+                                <p className={``} key={key}>{elements[1]}</p>
                             </div>
                         </div>
                     );
@@ -468,7 +468,7 @@ const Book = ({ translationApplication, introductionContent, quranData, appendic
             });
 
             return (
-                <div className="w-screen h-screen flex flex-col overflow-auto text-neutral-800">
+                <div className={`w-screen h-screen flex flex-col overflow-auto ${colors[theme]["app-text"]}`}>
                     {renderedContent}
                 </div>);
         }
@@ -480,10 +480,10 @@ const Book = ({ translationApplication, introductionContent, quranData, appendic
 
 
         if (!currentPageData || !currentPageData.titles) {
-            return <div className="text-neutral-900/80 flex flex-1 items-center justify-center w-full ">
-                <svg className="animate-spin -ml-1 mr-3 h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
-                    <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
-                    <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+            return <div className={`${colors[theme]["log-text"]} flex flex-1 items-center justify-center w-full `}>
+                <svg className={`animate-spin -ml-1 mr-3 h-5 w-5 text-white`} xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                    <circle className={`opacity-25`} cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
+                    <path className={`opacity-75`} fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
                 </svg>
                 {translationApplication?.loading}
             </div>;
@@ -524,14 +524,14 @@ const Book = ({ translationApplication, introductionContent, quranData, appendic
         const renderContent = combinedContent.map((item, index) => {
             if (item.type === 'title') {
                 return (
-                    <div className={`w-full my-3 flex items-center justify-center text-center bg-neutral-100 rounded p-2 font-semibold text-neutral-800  whitespace-pre-line ${item.order === 0 ? "text-2xl font-bold" : " text-base"}`}>
+                    <div className={`w-full my-3 flex items-center justify-center text-center ${colors[theme]["base-background"]} rounded p-2 font-semibold ${colors[theme]["app-text"]}  whitespace-pre-line ${item.order === 0 ? "text-2xl font-bold" : " text-base"}`}>
                         <h2 key={`title-${index}`}>{item.content}</h2>
                     </div>
                 );
             } else if (item.type === 'text') {
                 return (
-                    <div className="rounded bg-neutral-300 text-neutral-800 p-2 shadow-md mb-3 flex w-fit justify-center">
-                        <p key={`text-${index}`} className="px-1">{parseReferences(item.content)}</p>
+                    <div className={`rounded ${colors[theme]["text-background"]} ${colors[theme]["app-text"]} p-2 shadow-md mb-3 flex w-fit justify-center`}>
+                        <p key={`text-${index}`} className={`px-1`}>{parseReferences(item.content)}</p>
                     </div>
                 );
             } else if (item.type === 'evidence') {
@@ -539,18 +539,17 @@ const Book = ({ translationApplication, introductionContent, quranData, appendic
                 if (item.content.special && item.content.special.key === 1) {
                     const data = item.content.special.data;
                     return (
-                        <div className="w-full flex flex-col flex-1 my-3">
+                        <div className={`w-full flex flex-col flex-1 my-3`}>
                             <div key={`evidence-${index}`}
-                                className="bg-neutral-100 text-neutral-700 rounded shadow-md text-sm md:text-base border border-neutral-700 flex justify-between w-full items-stretch">
+                                className={`bg-gray-100 text-gray-700 rounded shadow-md text-sm md:text-base border border-gray-700 flex justify-between w-full items-stretch`}>
 
-                                <div className="relative bg-neutral-700 w-[11%] flex flex-wrap ">
+                                <div className={`relative text-gray-100 bg-gray-700 w-[11%] flex flex-wrap `}>
                                     {/* Render SVGs for index 0 in this div */}
                                     {Object.entries(data).map(([key, value]) => {
                                         if (parseInt(key) === 0) {
                                             return Array.from({ length: value }, (_, i) => (
-                                                <div className="p-0.5">
-
-                                                    <svg key={i} xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="text-neutral-100 w-3 h-3 md:h-5 md:w-5 lg:h-6 lg:w-6">
+                                                <div className={`p-0.5`}>
+                                                    <svg key={i} xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className={`w-3 h-3 md:h-5 md:w-5 lg:h-6 lg:w-6`}>
                                                         <path strokeLinecap="round" strokeLinejoin="round" d="M15.75 6a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0zM4.501 20.118a7.5 7.5 0 0114.998 0A17.933 17.933 0 0112 21.75c-2.676 0-5.216-.584-7.499-1.632z" />
                                                     </svg>
                                                 </div>
@@ -561,13 +560,13 @@ const Book = ({ translationApplication, introductionContent, quranData, appendic
                                     })}
                                 </div>
 
-                                <div className="relative w-full bg-neutral-100 h-fit flex flex-wrap rounded-r">
+                                <div className={`relative w-full text-gray-900 bg-gray-100 h-fit flex flex-wrap rounded-r`}>
                                     {/* Render SVGs for index 1 in this div */}
                                     {Object.entries(data).map(([key, value]) => {
                                         if (parseInt(key) === 1) {
                                             return Array.from({ length: value }, (_, i) => (
-                                                <div className="p-0.5">
-                                                    <svg key={i} xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="text-neutral-900 w-3 h-3 md:h-5 md:w-5 lg:h-6 lg:w-6">
+                                                <div className={`p-0.5`}>
+                                                    <svg key={i} xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className={` w-3 h-3 md:h-5 md:w-5 lg:h-6 lg:w-6`}>
                                                         <path strokeLinecap="round" strokeLinejoin="round" d="M15.75 6a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0zM4.501 20.118a7.5 7.5 0 0114.998 0A17.933 17.933 0 0112 21.75c-2.676 0-5.216-.584-7.499-1.632z" />
                                                     </svg>
                                                 </div>
@@ -578,37 +577,37 @@ const Book = ({ translationApplication, introductionContent, quranData, appendic
                                 </div>
 
                             </div>
-                            <div className="w-full flex justify-between">
-                                <div className="relative h-6 w-[11%]">
-                                    <div className="absolute -left-2 text-xs">
+                            <div className={`w-full flex justify-between`}>
+                                <div className={`relative h-6 w-[11%]`}>
+                                    <div className={`absolute -left-2 text-xs`}>
                                         {translationApplication?.adam}
                                     </div>
                                 </div>
-                                <div className="relative h-6 w-[100%]">
-                                    <div className="absolute -left-1 text-xs">
+                                <div className={`relative h-6 w-[100%]`}>
+                                    <div className={`absolute -left-1 text-xs`}>
                                         1990
                                     </div>
                                 </div>
-                                <div className="relative h-6 w-[11%] text-xs">
-                                    <div className="absolute -right-2">
+                                <div className={`relative h-6 w-[11%] text-xs`}>
+                                    <div className={`absolute -right-2`}>
                                         2280
                                     </div>
                                 </div>
 
                             </div>
-                            <div className="w-full flex flex-col rounded border border-neutral-700 p-1">
-                                <div className="w-full flex items-center justify-between">
-                                    <div className="w-6 h-6 rounded bg-neutral-100 border border-neutral-300 shadow-md">
+                            <div className={`w-full flex flex-col rounded border border-gray-700 p-1`}>
+                                <div className={`w-full flex items-center justify-between`}>
+                                    <div className={`w-7 h-7 rounded bg-gray-100 border border-gray-300 shadow-md`}>
 
                                     </div>
-                                    <div className="flex ml-1 w-full text-sm">
+                                    <div className={`flex ml-1 w-full text-sm`}>
                                         {item.content.lines["1"]}
                                     </div>
                                 </div>
-                                <div className="w-full flex items-center justify-between mt-1">
-                                    <div className="w-6 h-6 rounded bg-neutral-700 shadow-md">
+                                <div className={`w-full flex items-center justify-between mt-1`}>
+                                    <div className={`w-7 h-7 rounded bg-gray-700 border border-gray-300 shadow-md`}>
                                     </div>
-                                    <div className="ml-1 w-full text-sm">
+                                    <div className={`ml-1 w-full text-sm`}>
                                         {item.content.lines["2"]}
                                     </div>
                                 </div>
@@ -622,26 +621,26 @@ const Book = ({ translationApplication, introductionContent, quranData, appendic
                 else if (item.content.special && item.content.special.key === 2) {
 
                     return (
-                        <div className="w-full flex flex-col flex-1 my-3">
+                        <div className={`w-full flex flex-col flex-1 my-3`}>
                             <div key={`evidence-${index}`}
-                                className=" text-gray-700 rounded shadow-md text-sm md:text-base border border-gray-950 flex justify-between w-full items-stretch">
-                                <div className="relative w-full bg-gray-100 flex flex-wrap justify-center p-2 text-gray-700 rounded-l">
+                                className={` text-gray-700 rounded shadow-md text-sm md:text-base border border-gray-950 flex justify-between w-full items-stretch`}>
+                                <div className={`relative w-full bg-gray-100 flex flex-wrap justify-center p-2 text-gray-700 rounded-l`}>
                                     {item.content.lines["1"]}
                                 </div>
-                                <div className="relative bg-gray-500 w-[3%] flex flex-wrap py-2">
+                                <div className={`relative bg-gray-500 w-[3%] flex flex-wrap py-2`}>
                                 </div>
                             </div>
-                            <div className="w-full flex justify-end py-0.5">
-                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6">
+                            <div className={`w-full flex justify-end py-0.5`}>
+                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className={`w-6 h-6`}>
                                     <path strokeLinecap="round" strokeLinejoin="round" d="M15.75 17.25L12 21m0 0l-3.75-3.75M12 21V3" />
                                 </svg>
                             </div>
                             <div key={`evidence-${index + 1}`}
-                                className=" text-gray-700 rounded shadow-md text-sm md:text-base border border-gray-950 flex justify-between w-full items-stretch">
-                                <div className="relative w-full bg-gray-500 flex flex-wrap justify-center p-2 text-gray-200 rounded-l">
+                                className={` text-gray-700 rounded shadow-md text-sm md:text-base border border-gray-950 flex justify-between w-full items-stretch`}>
+                                <div className={`relative w-full bg-gray-500 flex flex-wrap justify-center p-2 text-gray-200 rounded-l`}>
                                     {item.content.lines["2"]}
                                 </div>
-                                <div className="relative bg-gray-900 w-[3%] flex flex-wrap py-2">
+                                <div className={`relative bg-gray-900 w-[3%] flex flex-wrap py-2`}>
 
                                 </div>
                             </div>
@@ -649,9 +648,9 @@ const Book = ({ translationApplication, introductionContent, quranData, appendic
                     );
                 }
                 return (
-                    <div key={`evidence-${index}`} className={`bg-neutral-100 text-neutral-700 rounded shadow-md text-sm md:text-base p-3 border my-3 border-neutral-950`}>
+                    <div key={`evidence-${index}`} className={`${colors[theme]["base-background"]} ${colors[theme]["table-title-text"]} rounded shadow-md text-sm md:text-base p-3 border my-3 ${colors[theme]["border"]}`}>
                         {Object.entries(item.content.lines).map(([lineKey, lineValue]) => (
-                            <p className=" whitespace-pre-wrap my-1" key={lineKey}>{parseReferences(lineValue)}</p>
+                            <p className={` whitespace-pre-wrap my-1`} key={lineKey}>{parseReferences(lineValue)}</p>
                         ))}
                         {item.content.ref.length > 0 && (
                             <p>{parseReferences("[" + item.content.ref.join(', ') + "]")}</p>
@@ -661,18 +660,18 @@ const Book = ({ translationApplication, introductionContent, quranData, appendic
             } else if (item.type === 'picture') {
                 const imageUrl = images(`./${item.no}.jpg`);
                 return (
-                    <div className=" flex flex-col flex-1 items-center justify-center w-full px-1">
+                    <div className={` flex flex-col flex-1 items-center justify-center w-full px-1`}>
 
-                        <div className="rounded shadow-md flex justify-center">
+                        <div className={`rounded shadow-md flex justify-center`}>
 
                             <img
                                 src={imageUrl}
                                 alt={imageUrl}
-                                className=" object-center"
+                                className={`object-center`}
                             />
                         </div>
-                        {item.text && <div className="text-neutral-900/70 w-full text-base flex justify-center">
-                            <div className="p-2">
+                        {item.text && <div className={`${colors[theme]["log-text"]} w-full text-base flex justify-center`}>
+                            <div className={`p-2`}>
                                 {item.text}
                             </div>
                         </div>}
@@ -683,7 +682,7 @@ const Book = ({ translationApplication, introductionContent, quranData, appendic
 
             } else {
                 return (
-                    <div className="text-neutral-900/80 flex flex-1 items-center justify-center w-full">
+                    <div className={`${colors[theme]["log-text"]} flex flex-1 items-center justify-center w-full`}>
                         {translationApplication?.unrecognizedData}
                     </div>
                 );
@@ -691,31 +690,31 @@ const Book = ({ translationApplication, introductionContent, quranData, appendic
         });
 
         return (
-            <div className="text-neutral-900 overflow-auto flex-1 p-3 text-justify lg:text-start text-base md:text-xl">
+            <div className={`${colors[theme]["text"]} overflow-auto flex-1 p-3 text-justify lg:text-start text-base md:text-xl`}>
                 {renderContent}
             </div>
         );
     };
 
     return (
-        <div className="flex flex-col justify-start h-screen bg-neutral-200">
+        <div className={`flex flex-col justify-start h-screen ${colors[theme]["app-background"]}`}>
             {renderBookContent()}
-            <div className="w-full flex z-20">
-                <div className="flex w-full items-center justify-between p-2">
+            <div className={`w-full flex z-20`}>
+                <div className={`flex w-full items-center justify-between p-2`}>
                     <button onClick={prevPage}
-                        className="w-28 text-neutral-800 px-2 py-1 rounded mr-2 flex justify-center">
-                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-7 h-7">
+                        className={`w-28 ${colors[theme]["app-text"]} px-2 py-1 rounded mr-2 flex justify-center`}>
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className={`w-7 h-7`}>
                             <path strokeLinecap="round" strokeLinejoin="round" d="M9 15L3 9m0 0l6-6M3 9h12a6 6 0 010 12h-3" />
                         </svg>
                     </button>
                     <div
                         onClick={() => setModalOpen(!isModalOpen)}
-                        className="">
-                        <h2 className="text-sm font-bold text-neutral-900/50 p-2">{translationApplication?.page} {currentPage}</h2>
+                        className={``}>
+                        <h2 className={`text-sm font-bold ${colors[theme]["page-text"]} p-2`}>{translationApplication?.page} {currentPage}</h2>
                     </div>
                     <button onClick={nextPage}
-                        className="w-28 text-neutral-800 px-2 py-1 rounded ml-2 flex justify-center">
-                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-7 h-7">
+                        className={`w-28 ${colors[theme]["app-text"]} px-2 py-1 rounded ml-2 flex justify-center`}>
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className={`w-7 h-7`}>
                             <path strokeLinecap="round" strokeLinejoin="round" d="M15 15l6-6m0 0l-6-6m6 6H9a6 6 0 000 12h3" />
                         </svg>
                     </button>
@@ -723,6 +722,8 @@ const Book = ({ translationApplication, introductionContent, quranData, appendic
             </div>
             {isModalOpen &&
                 <Jump
+                    onChangeTheme={onChangeTheme}
+                    colors={colors} theme={theme}
                     translationApplication={translationApplication}
                     currentPage={currentPage}
                     quran={quranData}

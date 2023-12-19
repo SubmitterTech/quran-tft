@@ -1,7 +1,7 @@
 import React, { useCallback, useEffect, useState } from 'react';
 import relationalData from '../assets/map.json'; // Import relational data
 
-const Verse = ({ translationApplication, verseClassName, hasAsterisk, suraNumber, verseNumber, verseText, encryptedText, verseRefs, handleVerseClick, pulse, grapFocus, pageGWC, handleClickReference }) => {
+const Verse = ({ colors, theme, translationApplication, verseClassName, hasAsterisk, suraNumber, verseNumber, verseText, encryptedText, verseRefs, handleVerseClick, pulse, grapFocus, pageGWC, handleClickReference }) => {
     const [mode, setMode] = useState("idle");
     const [cn, setCn] = useState(verseClassName);
     const [text, setText] = useState(verseText);
@@ -73,7 +73,7 @@ const Verse = ({ translationApplication, verseClassName, hasAsterisk, suraNumber
             if (index % 2 === 0) {
                 return [...prev, current];
             } else {
-                return [...prev, <span key={index} className="font-bold text-sky-600">{gw}</span>];
+                return [...prev, <span key={index} className={`font-bold text-sky-600`}>{gw}</span>];
             }
         }, []);
     }, [translationApplication]);
@@ -89,7 +89,7 @@ const Verse = ({ translationApplication, verseClassName, hasAsterisk, suraNumber
             if (part.match(new RegExp(namesofGOD))) {
                 localCount++;
                 return (
-                    <span key={index} className="text-sky-600 " dir="rtl">
+                    <span key={index} className={`text-sky-600 `} dir="rtl">
                         {part}<sub> {pageGWC[currentVerseKey] - localCount + 1} </sub>
                     </span>
                 );
@@ -124,14 +124,14 @@ const Verse = ({ translationApplication, verseClassName, hasAsterisk, suraNumber
         setText(verseText);
         let highlighted = lightGODwords(verseText);
         if (mode === "reading") {
-            setCn(verseClassName + " flex-col bg-neutral-100 ring-1 ring-neutral-900/50");
+            setCn(verseClassName + " " + colors[theme]["verse-detail-background"] + " flex-col ring-1 " + colors[theme]["ring"]);
             setText(highlighted);
         } else if (mode === "light") {
-            setCn(verseClassName + " bg-neutral-300 border border-neutral-800/80");
+            setCn(verseClassName + " " + colors[theme]["text-background"] + " border " + colors[theme]["verse-border"]);
         } else if (mode === "idle") {
-            setCn(verseClassName + " bg-neutral-300");
+            setCn(verseClassName + " " + colors[theme]["text-background"]);
         }
-    }, [mode, verseClassName, verseText, lightGODwords]);
+    }, [mode, verseClassName, verseText, lightGODwords, colors, theme]);
 
 
 
@@ -158,23 +158,22 @@ const Verse = ({ translationApplication, verseClassName, hasAsterisk, suraNumber
             ref={(el) => verseRefs.current[currentVerseKey] = el}
             className={`${cn}`}
             onClick={() => handleClick()}>
-            <div className="px-1 w-full">
-                <span className="text-sky-600">{`${verseNumber}. `}</span>
-                <span className="text-neutral-800">
+            <div className={`px-1 w-full`}>
+                <span className={`text-sky-600`}>{`${verseNumber}. `}</span>
+                <span className={`${colors[theme]["app-text"]}`}>
                     {text}
                 </span>
             </div>
-
             {mode === "reading" &&
-                <div className="w-full flex flex-col mt-2">
-                    <p className=" w-full rounded bg-neutral-200 p-2 mb-2 text-start shadow-inner" dir="rtl" >
+                <div className={`w-full flex flex-col mt-2`}>
+                    <p className={` w-full rounded ${colors[theme]["encrypted-background"]} p-2 mb-2 text-start shadow-inner`} dir="rtl" >
                         {lightAllahwords(encryptedText)}
                     </p>
                     {relatedVerses.length > 0 &&
-                        <div className=" w-full rounded bg-neutral-200 p-2 ">
+                        <div className={` w-full rounded ${colors[theme]["relation-background"]} p-2 `}>
                             <div>
                                 {relatedVerses.map(verseKey => (
-                                    <button className="bg-neutral-100 p-2 rounded m-1 shadow-md text-sky-600" key={verseKey} onClick={() => onRelatedVerseClick(verseKey)}>
+                                    <button className={`${colors[theme]["base-background"]} p-2 rounded m-1 shadow-md text-sky-600`} key={verseKey} onClick={() => onRelatedVerseClick(verseKey)}>
                                         {verseKey}
                                     </button>
                                 ))}
