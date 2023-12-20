@@ -388,7 +388,7 @@ const Pages = ({ colors, theme, translationApplication, quranData, translation, 
     return (
         <div className={`flex relative w-full flex-1 flex-col ${colors[theme]["app-text"]} text-base overflow-auto`}>
             <div ref={topRef} className={`relative flex flex-col`}>
-                <div className={`sticky top-0 p-3 ${colors[theme]["app-background"]} shadow-md flex`}>
+                <div className={`sticky top-0 p-3 ${colors[theme]["app-background"]} shadow-md flex z-10`}>
                     <div
                         onClick={() => handlePageTitleClicked()}
                         className={`flex w-full text-sm lg:text-lg flex-1`}>
