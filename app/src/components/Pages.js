@@ -466,13 +466,13 @@ const Pages = ({ colors, theme, translationApplication, quranData, translation, 
                     );
                 })}
 
-                <div className={`sticky bottom-0 mt-3 py-1 px-3 ${colors[theme]["app-background"]} flex`}>
+                <div className={`sticky -bottom-1 mt-3 py-2 px-3 ${colors[theme]["app-background"]} flex`}>
                     <div className={`flex text-sm justify-between flex-1`}>
                         <p className={`cursor-pointer`} onClick={() => openExplanation('GODnamefrequency')}>
                             {pageData.notes.cumulativefrequencyofthewordGOD}
                         </p>
                         {showExplanation.GODnamefrequency && (
-                            <div className={`absolute w-36 left-1.5 -translate-y-24 text-start shadow-md p-3 ${colors[theme]["base-background"]} rounded break-word`}>
+                            <div className={`absolute w-36 left-1.5 -translate-y-28 text-start shadow-md p-3 ${colors[theme]["base-background"]} rounded break-word`}>
                                 {translationApplication?.wc1} = {formatHitCount(parseInt(pageData.notes.cumulativefrequencyofthewordGOD))}
                             </div>
                         )}

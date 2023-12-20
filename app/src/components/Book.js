@@ -702,7 +702,7 @@ const Book = ({ onChangeTheme, colors, theme, translationApplication, introducti
             <div className={`w-full flex z-20`}>
                 <div className={`flex w-full items-center justify-between`}>
                     <button onClick={prevPage}
-                        className={`w-28 ${colors[theme]["app-text"]} px-2 py-1 rounded mr-2 flex justify-center`}>
+                        className={`w-28 ${colors[theme]["app-text"]} px-2 mb-1 rounded mr-2 flex justify-center`}>
                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className={`w-7 h-7`}>
                             <path strokeLinecap="round" strokeLinejoin="round" d="M9 15L3 9m0 0l6-6M3 9h12a6 6 0 010 12h-3" />
                         </svg>
@@ -713,7 +713,7 @@ const Book = ({ onChangeTheme, colors, theme, translationApplication, introducti
                         <h2 className={`text-sm font-bold ${colors[theme]["page-text"]} p-2`}>{translationApplication?.page} {currentPage}</h2>
                     </div>
                     <button onClick={nextPage}
-                        className={`w-28 ${colors[theme]["app-text"]} px-2 py-1 rounded ml-2 flex justify-center`}>
+                        className={`w-28 ${colors[theme]["app-text"]} px-2 mb-1 rounded ml-2 flex justify-center`}>
                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className={`w-7 h-7`}>
                             <path strokeLinecap="round" strokeLinejoin="round" d="M15 15l6-6m0 0l-6-6m6 6H9a6 6 0 000 12h3" />
                         </svg>
