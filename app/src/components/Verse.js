@@ -80,23 +80,42 @@ const Verse = ({ colors, theme, translationApplication, verseClassName, hasAster
 
 
     const lightAllahwords = (text) => {
-        let parts = [];
-        const namesofGOD = "الله|لله"; // Regular expression to match "الله" or "لله"
-        let localCount = 0;
+        const namesofGOD = "(?<![\\u0600-\\u06FF])(الله|لله|والله|بالله)(?![\\u0600-\\u06FF])";
+        const regex = new RegExp(namesofGOD, 'g');
 
-        parts = text.split(new RegExp(`(${namesofGOD})`, 'g'));
-        return parts.map((part, index) => {
-            if (part.match(new RegExp(namesofGOD))) {
-                localCount++;
-                return (
-                    <span key={index} className={`text-sky-600 `} dir="rtl">
-                        {part}<sub> {pageGWC[currentVerseKey] - localCount + 1} </sub>
-                    </span>
-                );
-            } else {
-                return <span key={index} dir="rtl">{part}</span>;
-            }
+        let parts = [];
+        let localCount = 0;
+        const matches = [...text.matchAll(regex)];
+
+        let cursor = 0; // Keep track of the cursor position in the original text
+
+        matches.forEach((match, index) => {
+            // Add the text before the match
+            parts.push(
+                <span key={`${currentVerseKey}-text-${cursor}`} dir="rtl">
+                    {text.slice(cursor, match.index)}
+                </span>
+            );
+
+            // Add the matched part
+            localCount++;
+            parts.push(
+                <span key={`${currentVerseKey}-match-${index}`} className="text-sky-600" dir="rtl">
+                    {match[0]}<sub> {pageGWC[currentVerseKey] - localCount + 1} </sub>
+                </span>
+            );
+
+            cursor = match.index + match[0].length;
         });
+
+        // Add any remaining text after the last match
+        parts.push(
+            <span key={`${currentVerseKey}-remaining-${cursor}`} dir="rtl">
+                {text.slice(cursor)}
+            </span>
+        );
+
+        return parts;
     };
 
 
@@ -166,7 +185,7 @@ const Verse = ({ colors, theme, translationApplication, verseClassName, hasAster
             </div>
             {mode === "reading" &&
                 <div className={`w-full flex flex-col mt-2`}>
-                    <p className={` w-full rounded ${colors[theme]["encrypted-background"]} p-2 mb-2 text-start shadow-inner`} dir="rtl" >
+                    <p className={`select-text w-full rounded ${colors[theme]["encrypted-background"]} p-2 mb-2 text-start shadow-inner`} dir="rtl" >
                         {lightAllahwords(encryptedText)}
                     </p>
                     {relatedVerses.length > 0 &&
