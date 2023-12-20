@@ -384,18 +384,18 @@ const Book = ({ onChangeTheme, colors, theme, translationApplication, introducti
                         <div
                             onClick={() => updatePage(parseInt(page) + 22)}
                             className={`flex w-full justify-between`}>
-                            <div className={`font-semibold rounded m-1 ${colors[theme]["base-background"]} w-1/6 text-sm flex items-center justify-center`}>
+                            <div className={`font-semibold rounded m-0.5 ${colors[theme]["base-background"]} w-1/6 text-sm flex items-center justify-center`}>
                                 <p className={``} key={key + no}>{no}</p>
                             </div>
-                            <div className={`ring-1 ${colors[theme]["ring"]} flex w-full rounded m-1 shadow-md`}>
-                                <div className={`rounded-l px-2 py-1 ${colors[theme]["base-background"]} w-full text-base flex items-center justify-center`}>
-                                    <p className={`text-center`} key={key + name + no}>{name}</p>
+                            <div className={`m-0.5 ring-1 ${colors[theme]["ring"]} flex justify-between ${colors[theme]["base-background"]} w-full rounded shadow-md`}>
+                                <div className={`rounded-l px-1 py-2 text-left`}>
+                                    <p className={``} key={key + name + no}>{name}</p>
                                 </div>
-                                <div className={`rounded-r p-1  ${colors[theme]["base-background"]} w-full text-base flex items-center justify-center`}>
+                                <div className={`rounded-r px-1 py-2 text-right`}>
                                     <p className={``} key={key + arabic}>{arabic}</p>
                                 </div>
                             </div>
-                            <div className={`rounded px-2 py-1 m-1 ${colors[theme]["base-background"]} w-1/6 text-base flex items-center justify-center`}>
+                            <div className={`rounded px-2 py-1 m-0.5 ${colors[theme]["base-background"]} w-1/6 text-base flex items-center justify-center`}>
                                 <p className={``} key={key + versecount}>{versecount}</p>
                             </div>
                         </div>

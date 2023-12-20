@@ -388,20 +388,48 @@ const Pages = ({ colors, theme, translationApplication, quranData, translation, 
     return (
         <div className={`flex relative w-full flex-1 flex-col ${colors[theme]["app-text"]} text-base overflow-auto`}>
             <div ref={topRef} className={`relative flex flex-col`}>
-                <div className={`sticky top-0 py-2 px-3 ${colors[theme]["app-background"]} shadow-md flex`}>
+                <div className={`sticky top-0 p-3 ${colors[theme]["app-background"]} shadow-md flex`}>
                     <div
                         onClick={() => handlePageTitleClicked()}
-                        className={`flex w-full text-sm lg:text-lg flex-1 mx-2`}>
-                        <div className={`flex flex-col font-bold space-y-2`}>
-                            {pageTitle.map((title, index) => (
-                                <h1 key={index}>{title}</h1>
-                            ))}
+                        className={`flex w-full text-sm lg:text-lg flex-1`}>
+                        <div className={`flex flex-col space-y-2 w-full`}>
+                            {pageTitle.map((title, index) => {
+                                // Use a regex to match the three groups: name, Latin pronunciation, and page info
+                                const titleRegex = /^(.*?)\s+\((.*?)\)\s+(.*)$/;
+                                const match = title.match(titleRegex);
+
+                                // If the title matches the expected format, render the groups
+                                if (match) {
+                                    return (
+                                        <div key={index} className="flex justify-between w-full">
+                                            <div className="w-full flex justify-between mr-2">
+                                                <span className="text-left font-bold justify-self-center text-sky-600">{match[1]}</span>
+                                                <span className="text-right ">{`(${match[2]})`}</span>
+                                            </div>
+
+                                            <span className="w-1/3 text-right">{match[3]}</span>
+                                        </div>
+                                    );
+                                } else {
+                                    // If the title doesn't match the expected format, split and render
+                                    const lastSpaceIndex = title.lastIndexOf(" ");
+                                    const namePart = title.substring(0, lastSpaceIndex);
+                                    const pageInfoPart = title.substring(lastSpaceIndex + 1);
+
+                                    return (
+                                        <div key={index} className="flex justify-between w-full">
+                                            <span className="text-left flex-1">{namePart}</span>
+                                            <span className="text-right flex-1">{pageInfoPart}</span>
+                                        </div>
+                                    );
+                                }
+                            })}
                         </div>
                     </div>
                 </div>
                 {sortedVerses.map(({ suraNumber, verseNumber, verseText, encryptedText, title }) => {
                     const hasAsterisk = verseText.includes('*') || (title && title.includes('*'));
-                    const verseClassName = "transition-colors duration-700 ease-linear flex cursor-pointer rounded mx-2 my-1 p-2 shadow-md text-justify text-base md:text-lg xl:text-xl ";
+                    const verseClassName = "transition-colors duration-700 ease-linear flex cursor-pointer rounded mx-2 my-1 p-1.5 shadow-md text-base hyphens-auto text-justify md:text-lg xl:text-xl ";
                     const titleClassName = `italic font-semibold rounded shadow-md mx-2 mt-1.5 mb-0.5 p-3 text-base md:text-md lg:text-lg text-center break-words whitespace-pre-wrap ${colors[theme]["base-background"]}`;
                     const verseKey = `${suraNumber}:${verseNumber}`;
                     const noteReference = hasAsterisk ? verseKey : null;

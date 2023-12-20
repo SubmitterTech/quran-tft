@@ -173,9 +173,37 @@ const Jump = ({ onChangeTheme, colors, theme, translationApplication, currentPag
                             <div className={`flex w-full ${colors[theme]["app-text"]} mb-4 text-sm`}>
                                 {translationApplication?.page} {selectedPage}
                             </div>
-                            {pageTitles[selectedPage] && pageTitles[selectedPage].map((title, index) => (
-                                <h1 key={index}>{title}</h1>
-                            ))}
+                            {pageTitles[selectedPage] && pageTitles[selectedPage].map((title, index) => {
+                                // Use a regex to match the three groups: name, Latin pronunciation, and page info
+                                const titleRegex = /^(.*?)\s+\((.*?)\)\s+(.*)$/;
+                                const match = title.match(titleRegex);
+
+                                // If the title matches the expected format, render the groups
+                                if (match) {
+                                    return (
+                                        <div key={index} className="flex justify-between w-full">
+                                            <div className="w-full flex justify-between mr-2">
+                                                <span className="text-left font-bold justify-self-center text-sky-600">{match[1]}</span>
+                                                <span className="text-right ">{`(${match[2]})`}</span>
+                                            </div>
+
+                                            <span className="w-1/3 text-right">{match[3]}</span>
+                                        </div>
+                                    );
+                                } else {
+                                    // If the title doesn't match the expected format, split and render
+                                    const lastSpaceIndex = title.lastIndexOf(" ");
+                                    const namePart = title.substring(0, lastSpaceIndex);
+                                    const pageInfoPart = title.substring(lastSpaceIndex + 1);
+
+                                    return (
+                                        <div key={index} className="flex justify-between w-full">
+                                            <span className="text-left flex-1">{namePart}</span>
+                                            <span className="text-right flex-1">{pageInfoPart}</span>
+                                        </div>
+                                    );
+                                }
+                            })}
                         </div>
                     </div>
                     <div className={`flex w-full justify-between items-center ${colors[theme]["text"]} mt-7`}>
