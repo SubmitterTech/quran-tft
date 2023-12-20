@@ -181,12 +181,11 @@ const Jump = ({ onChangeTheme, colors, theme, translationApplication, currentPag
                                 // If the title matches the expected format, render the groups
                                 if (match) {
                                     return (
-                                        <div key={index} className="flex justify-between w-full">
-                                            <div className="w-full flex justify-between mr-2">
+                                        <div key={index} className="flex justify-between w-full mt-1">
+                                            <div className="w-full flex justify-between mr-0.5">
                                                 <span className="text-left font-bold justify-self-center text-sky-500">{match[1]}</span>
                                                 <span className="text-right ">{`(${match[2]})`}</span>
                                             </div>
-
                                             <span className="w-1/3 text-right">{match[3]}</span>
                                         </div>
                                     );
@@ -213,7 +212,7 @@ const Jump = ({ onChangeTheme, colors, theme, translationApplication, currentPag
                                     <path strokeLinecap="round" strokeLinejoin="round" d="M9 8.25H7.5a2.25 2.25 0 00-2.25 2.25v9a2.25 2.25 0 002.25 2.25h9a2.25 2.25 0 002.25-2.25v-9a2.25 2.25 0 00-2.25-2.25H15m0-3l-3-3m0 0l-3 3m3-3V15" />
                                 </svg>
                             </button>
-                            <div className={`flex ${colors[theme]["text"]}/50 text-sm items-center justify-center p-2`}>
+                            <div className={`flex ${colors[theme]["page-text"]} text-sm items-center justify-center p-2`}>
                                 {translationApplication?.open}
                             </div>
                         </div>
@@ -223,7 +222,7 @@ const Jump = ({ onChangeTheme, colors, theme, translationApplication, currentPag
                                     <path fillRule="evenodd" d="M7.5 3.75A1.5 1.5 0 006 5.25v13.5a1.5 1.5 0 001.5 1.5h6a1.5 1.5 0 001.5-1.5V15a.75.75 0 011.5 0v3.75a3 3 0 01-3 3h-6a3 3 0 01-3-3V5.25a3 3 0 013-3h6a3 3 0 013 3V9A.75.75 0 0115 9V5.25a1.5 1.5 0 00-1.5-1.5h-6zm5.03 4.72a.75.75 0 010 1.06l-1.72 1.72h10.94a.75.75 0 010 1.5H10.81l1.72 1.72a.75.75 0 11-1.06 1.06l-3-3a.75.75 0 010-1.06l3-3a.75.75 0 011.06 0z" clipRule="evenodd" />
                                 </svg>
                             </button>
-                            <div className={`flex ${colors[theme]["text"]}/50 text-sm items-center justify-center p-2`}>
+                            <div className={`flex ${colors[theme]["page-text"]} text-sm items-center justify-center p-2`}>
                                 {translationApplication?.intro}
                             </div>
                         </div>
@@ -234,7 +233,7 @@ const Jump = ({ onChangeTheme, colors, theme, translationApplication, currentPag
                                     <path fillRule="evenodd" d="M7.5 3.75A1.5 1.5 0 006 5.25v13.5a1.5 1.5 0 001.5 1.5h6a1.5 1.5 0 001.5-1.5V15a.75.75 0 011.5 0v3.75a3 3 0 01-3 3h-6a3 3 0 01-3-3V5.25a3 3 0 013-3h6a3 3 0 013 3V9A.75.75 0 0115 9V5.25a1.5 1.5 0 00-1.5-1.5h-6zm10.72 4.72a.75.75 0 011.06 0l3 3a.75.75 0 010 1.06l-3 3a.75.75 0 11-1.06-1.06l1.72-1.72H9a.75.75 0 010-1.5h10.94l-1.72-1.72a.75.75 0 010-1.06z" clipRule="evenodd" />
                                 </svg>
                             </button>
-                            <div className={`flex ${colors[theme]["text"]}/50 text-sm items-center justify-center p-2`}>
+                            <div className={`flex ${colors[theme]["page-text"]} text-sm items-center justify-center p-2`}>
                                 {translationApplication?.appendices}
                             </div>
                         </div>
@@ -245,7 +244,7 @@ const Jump = ({ onChangeTheme, colors, theme, translationApplication, currentPag
                                 </svg>
 
                             </button>
-                            <div className={`flex ${colors[theme]["text"]}/50 text-sm items-center justify-center p-2`}>
+                            <div className={`flex ${colors[theme]["page-text"]} text-sm items-center justify-center p-2`}>
                                 {translationApplication?.cancel}
                             </div>
                         </div>
