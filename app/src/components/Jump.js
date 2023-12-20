@@ -92,11 +92,11 @@ const Jump = ({ onChangeTheme, colors, theme, translationApplication, currentPag
         const themes = {
             light: "#e5e5e5",
             dark: "#171717",
-            sky: "#0284c7",
+            sky: "#0ea5e9",
         };
 
         return (
-            <div className="flex space-x-7 rounded bg-gray-300 p-3">
+            <div className="flex space-x-7 rounded bg-gray-300 p-3 border border-gray-400">
                 {Object.entries(themes).map(([theme, color]) => (
                     <label key={theme} className="cursor-pointer">
                         <input
@@ -147,7 +147,7 @@ const Jump = ({ onChangeTheme, colors, theme, translationApplication, currentPag
                                 name="sura"
                                 onChange={handleSuraChange}
                                 value={suraNumber}
-                                className={` w-18 rounded text-end px-4 py-2 shadow-md ${colors[theme]["text"]} ${colors[theme]["base-background"]} placeholder:text-sky-600 focus:ring-2 focus:ring-inset focus:ring-sky-600 `}>
+                                className={` w-18 rounded text-end px-4 py-2 shadow-md ${colors[theme]["text"]} ${colors[theme]["base-background"]} placeholder:text-sky-500 focus:ring-2 focus:ring-inset focus:ring-sky-500 `}>
                                 <option key="0" value="0" disabled></option>
                                 {Object.keys(versesInSuras).map(sura => (
                                     <option key={sura} value={sura}>{sura}</option>
@@ -161,7 +161,7 @@ const Jump = ({ onChangeTheme, colors, theme, translationApplication, currentPag
                                 name="verse"
                                 onChange={handleVerseChange}
                                 value={verseNumber}
-                                className={` w-20 rounded px-4 py-2 shadow-md ${colors[theme]["text"]} ${colors[theme]["base-background"]} placeholder:text-sky-600 focus:ring-2 focus:ring-inset focus:ring-sky-600 `}>
+                                className={` w-20 rounded px-4 py-2 shadow-md ${colors[theme]["text"]} ${colors[theme]["base-background"]} placeholder:text-sky-500 focus:ring-2 focus:ring-inset focus:ring-sky-500 `}>
                                 {suraNumber && versesInSuras[suraNumber] ? versesInSuras[suraNumber].map(verse => (
                                     <option key={verse} value={verse}>{verse}</option>
                                 )) : null}
@@ -183,7 +183,7 @@ const Jump = ({ onChangeTheme, colors, theme, translationApplication, currentPag
                                     return (
                                         <div key={index} className="flex justify-between w-full">
                                             <div className="w-full flex justify-between mr-2">
-                                                <span className="text-left font-bold justify-self-center text-sky-600">{match[1]}</span>
+                                                <span className="text-left font-bold justify-self-center text-sky-500">{match[1]}</span>
                                                 <span className="text-right ">{`(${match[2]})`}</span>
                                             </div>
 

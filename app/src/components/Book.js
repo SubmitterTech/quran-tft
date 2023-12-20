@@ -215,7 +215,7 @@ const Book = ({ onChangeTheme, colors, theme, translationApplication, introducti
                     {parts.map((segment, index) => {
                         if (segment.match(/^\d+$/) && parseInt(segment) >= 1 && parseInt(segment) <= 39) {
                             return (
-                                <span key={index} className={`cursor-pointer text-sky-600`} onClick={() => handleClickAppReference(segment)}>
+                                <span key={index} className={`cursor-pointer text-sky-500`} onClick={() => handleClickAppReference(segment)}>
                                     {segment}
                                 </span>
                             );
@@ -261,7 +261,7 @@ const Book = ({ onChangeTheme, colors, theme, translationApplication, introducti
                     return part;
                 }
                 return (
-                    <span key={index} className={`cursor-pointer text-sky-600`} onClick={() => handleClickReference(part)}>
+                    <span key={index} className={`cursor-pointer text-sky-500`} onClick={() => handleClickReference(part)}>
                         {part}
                     </span>
                 );
@@ -280,7 +280,7 @@ const Book = ({ onChangeTheme, colors, theme, translationApplication, introducti
                     // If this is not the last segment, add the intro match as a clickable span
                     if (index < segments.length - 1) {
                         elements.push(
-                            <span key={index} className={`cursor-pointer text-sky-600`} onClick={() => handleClickReference("Introduction")}>
+                            <span key={index} className={`cursor-pointer text-sky-500`} onClick={() => handleClickReference("Introduction")}>
                                 {translationApplication?.intro}
                             </span>
                         );

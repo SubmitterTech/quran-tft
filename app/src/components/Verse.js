@@ -73,7 +73,7 @@ const Verse = ({ colors, theme, translationApplication, verseClassName, hasAster
             if (index % 2 === 0) {
                 return [...prev, current];
             } else {
-                return [...prev, <span key={index} className={`font-bold text-sky-600`}>{gw}</span>];
+                return [...prev, <span key={index} className={`font-bold text-sky-500`}>{gw}</span>];
             }
         }, []);
     }, [translationApplication]);
@@ -100,7 +100,7 @@ const Verse = ({ colors, theme, translationApplication, verseClassName, hasAster
             // Add the matched part
             localCount++;
             parts.push(
-                <span key={`${currentVerseKey}-match-${index}`} className="text-sky-600" dir="rtl">
+                <span key={`${currentVerseKey}-match-${index}`} className="text-sky-500" dir="rtl">
                     {match[0]}<sub> {pageGWC[currentVerseKey] - localCount + 1} </sub>
                 </span>
             );
@@ -178,7 +178,7 @@ const Verse = ({ colors, theme, translationApplication, verseClassName, hasAster
             className={`${cn}`}
             onClick={() => handleClick()}>
             <div className={`px-1 w-full`}>
-                <span className={`text-sky-600`}>{`${verseNumber}. `}</span>
+                <span className={`text-sky-500`}>{`${verseNumber}. `}</span>
                 <span className={`${colors[theme]["app-text"]}`}>
                     {text}
                 </span>
@@ -192,7 +192,7 @@ const Verse = ({ colors, theme, translationApplication, verseClassName, hasAster
                         <div className={` w-full rounded ${colors[theme]["relation-background"]} p-2 `}>
                             <div>
                                 {relatedVerses.map(verseKey => (
-                                    <button className={`${colors[theme]["base-background"]} p-2 rounded m-1 shadow-md text-sky-600`} key={verseKey} onClick={() => onRelatedVerseClick(verseKey)}>
+                                    <button className={`${colors[theme]["base-background"]} p-2 rounded m-1 shadow-md text-sky-500`} key={verseKey} onClick={() => onRelatedVerseClick(verseKey)}>
                                         {verseKey}
                                     </button>
                                 ))}

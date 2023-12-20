@@ -163,7 +163,7 @@ const Pages = ({ colors, theme, translationApplication, quranData, translation, 
                     {parts.map((segment, index) => {
                         if (segment.match(/^\d+$/) && parseInt(segment) >= 1 && parseInt(segment) <= 39) {
                             return (
-                                <span key={index} className={`cursor-pointer text-sky-600`} onClick={() => handleClickAppReference(segment)}>
+                                <span key={index} className={`cursor-pointer text-sky-500`} onClick={() => handleClickAppReference(segment)}>
                                     {segment}
                                 </span>
                             );
@@ -207,7 +207,7 @@ const Pages = ({ colors, theme, translationApplication, quranData, translation, 
             } else if (part.match(verseRegex)) {
                 // If the part matches a verse reference, we can return a clickable element
                 return (
-                    <span key={index} className={`cursor-pointer text-sky-600`} onClick={() => clickReferenceController(part)}>
+                    <span key={index} className={`cursor-pointer text-sky-500`} onClick={() => clickReferenceController(part)}>
                         {part}
                     </span>
                 );
@@ -226,7 +226,7 @@ const Pages = ({ colors, theme, translationApplication, quranData, translation, 
                     // If this is not the last segment, add the intro match as a clickable span
                     if (index < segments.length - 1) {
                         elements.push(
-                            <span key={index} className={`cursor-pointer text-sky-600`} onClick={() => clickReferenceController("Introduction")}>
+                            <span key={index} className={`cursor-pointer text-sky-500`} onClick={() => clickReferenceController("Introduction")}>
                                 {translationApplication?.intro}
                             </span>
                         );
@@ -338,11 +338,11 @@ const Pages = ({ colors, theme, translationApplication, quranData, translation, 
         }
 
         return (
-            <table className={`table-auto border-collapse border-2 border-sky-600 text-right`}>
+            <table className={`table-auto border-collapse border-2 border-sky-500 text-right`}>
                 <thead>
                     <tr>
                         {tableData.title.map((header, index) => (
-                            <th key={index} className={`border-2 border-sky-600 p-2 `}>{header}</th>
+                            <th key={index} className={`border-2 border-sky-500 p-2 `}>{header}</th>
                         ))}
                     </tr>
                 </thead>
@@ -350,7 +350,7 @@ const Pages = ({ colors, theme, translationApplication, quranData, translation, 
                     {rows.map((row, rowIndex) => (
                         <tr key={rowIndex}>
                             {row.map((cell, cellIndex) => (
-                                <td key={cellIndex} className={`border-2 border-sky-600 p-2`}>{cell}</td>
+                                <td key={cellIndex} className={`border-2 border-sky-500 p-2`}>{cell}</td>
                             ))}
                         </tr>
                     ))}
@@ -403,7 +403,7 @@ const Pages = ({ colors, theme, translationApplication, quranData, translation, 
                                     return (
                                         <div key={index} className="flex justify-between w-full">
                                             <div className="w-full flex justify-between mr-2">
-                                                <span className="text-left font-bold justify-self-center text-sky-600">{match[1]}</span>
+                                                <span className="text-left font-bold justify-self-center text-sky-500">{match[1]}</span>
                                                 <span className="text-right ">{`(${match[2]})`}</span>
                                             </div>
 
