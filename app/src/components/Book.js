@@ -700,7 +700,7 @@ const Book = ({ onChangeTheme, colors, theme, translationApplication, introducti
         <div className={`flex flex-col justify-start h-screen ${colors[theme]["app-background"]}`}>
             {renderBookContent()}
             <div className={`w-full flex z-20`}>
-                <div className={`flex w-full items-center justify-between p-2`}>
+                <div className={`flex w-full items-center justify-between`}>
                     <button onClick={prevPage}
                         className={`w-28 ${colors[theme]["app-text"]} px-2 py-1 rounded mr-2 flex justify-center`}>
                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className={`w-7 h-7`}>

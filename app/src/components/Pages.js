@@ -466,7 +466,7 @@ const Pages = ({ colors, theme, translationApplication, quranData, translation, 
                     );
                 })}
 
-                <div className={`sticky bottom-0 mt-3 py-2 px-3 ${colors[theme]["app-background"]} flex`}>
+                <div className={`sticky bottom-0 mt-3 py-1 px-3 ${colors[theme]["app-background"]} flex`}>
                     <div className={`flex text-sm justify-between flex-1`}>
                         <p className={`cursor-pointer`} onClick={() => openExplanation('GODnamefrequency')}>
                             {pageData.notes.cumulativefrequencyofthewordGOD}
