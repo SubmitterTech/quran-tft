@@ -118,7 +118,7 @@ const Jump = ({ onChangeTheme, colors, theme, translationApplication, currentPag
 
 
     return (
-        <div className={`w-screen h-screen animated fadeIn faster fixed left-0 top-0 flex flex-col justify-center items-center inset-0 z-10 outline-none focus:outline-none backdrop-blur-lg`} id="jump-screen">
+        <div className={`w-screen h-screen animated fadeIn faster fixed left-0 top-0 flex flex-col items-center inset-0 z-10 outline-none focus:outline-none backdrop-blur-lg`} id="jump-screen">
             <div className={`flex flex-col items-center justify-center w-full mb-20 p-2`}>
                 <div className={`transition-colors duration-700 ease-linear flex flex-col items-center justify-center ${colors[theme]["text-background"]} ${colors[theme]["app-text"]} rounded shadow-md w-full p-3 mx-2`}>
                     <div className={`mb-2`}>
