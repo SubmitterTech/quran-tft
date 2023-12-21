@@ -80,7 +80,7 @@
         "titles": {
             "0": "Appendix   1",
             "1": "One of the Great Miracles   [74:35]",
-            "2": "Simple to Understand Impossible to Imitate"
+            "3": "Simple to Understand Impossible to Imitate"
         }
     },
     {
@@ -505,11 +505,12 @@
     {
         "page": 404,
         "text": {
-            "1": "The letters “A,” “L,” and “M” are the most frequently used letters in the Arabic language, and in the same order as we see in the Quranic Initials—“A,” then “L,” then “M.” These letters prefix six suras—2, 3, 29, 30, 31, and 32—and Table 3: Occurrence of the Letters “H” and “M” in the Seven H.M.-initialed Suras Sura Frequency of Occurrence No. “H” “M” “H + M” 40 64 380 444 41 48 276 324 42 53 300 353 43 44 324 368 44 16 150 166 45 31 200 231 46 36 225 261 292 1855 2147 (19x113) 382 the total occurrence of the three letters in each of the six suras is a multiple of 19 [9899 (19x521), 5662 (19x 298), 1672 (19x88), 1254 (19x66), 817 (19x43), and 570 (19x30), respectively]. Thus, the total occurrence of the three letters in the six suras is 19874 (19x 1046), and the alteration of one of these letters destroys this phenomenon.",
-            "3": "These initials are found in Suras 10, 11, 12, 14, and 15. The total occurrences of these letters in these suras are 2489 (19x131), 2489 (19x131), 2375 (19x 125), 1197 (19x63), and 912 (19x48), respectively (Table 5).",
-            "5": "Only one sura is prefixed with these initials, Sura 7, and the letter “A” occurs in this sura 2529 times, “L” occurs 1530 times, “M” occurs 1164 times, and “S” (Saad) occurs 97 times. Thus, the total occurrence of the four letters in this sura is 2529 + 1530 + 1164 + 97 = 5320 = 19x280.",
-            "7": "An important observation here is the interlocking relationship involving the letter “S” (Saad). This initial occurs also in Suras 19 and 38. While complementing its sister letters in Sura 7 to give a total that is divisible by 19, the frequency of this letter also complements its sister letters in Suras 19 and 38 to give a multiple of 19 (see Page 380).",
-            "8": "Additionally, the Quranic Initial “S” (Saad) interacts with the Quranic Initials “K.H.Y. ‘A.” (Kaaf Haa Ya ‘Ayn) in Sura 19 to give another total that is also a multiple of 19 (see Page 383). This interlocking relationship—which is not unique to the initial “S” (Saad)—contributes to the intricacy of the Quran’s numerical code."
+            "2": "The letters “A,” “L,” and “M” are the most frequently used letters in the Arabic language, and in the same order as we see in the Quranic Initials—“A,” then “L,” then “M.” These letters prefix six suras—2, 3, 29, 30, 31, and 32—and Table 3: Occurrence of the Letters “H” and “M” in the Seven H.M.-initialed Suras Sura Frequency of Occurrence No. “H” “M” “H + M” 40 64 380 444 41 48 276 324 42 53 300 353 43 44 324 368 44 16 150 166 45 31 200 231 46 36 225 261 292 1855 2147 (19x113) 382 the total occurrence of the three letters in each of the six suras is a multiple of 19 [9899 (19x521), 5662 (19x 298), 1672 (19x88), 1254 (19x66), 817 (19x43), and 570 (19x30), respectively]. Thus, the total occurrence of the three letters in the six suras is 19874 (19x 1046), and the alteration of one of these letters destroys this phenomenon.",
+            "4": "These initials are found in Suras 10, 11, 12, 14, and 15. The total occurrences of these letters in these suras are 2489 (19x131), 2489 (19x131), 2375 (19x 125), 1197 (19x63), and 912 (19x48), respectively (Table 5).",
+            "6": "These initials prefix one sura, No. 13, and the total frequency of occurrence of the four letters is 1482, or 19x78. The letter “A” occurs 605 times, “L” occurs 480 times, “M” occurs 260 times, and “R” occurs 137 times.",
+            "8": "Only one sura is prefixed with these initials, Sura 7, and the letter “A” occurs in this sura 2529 times, “L” occurs 1530 times, “M” occurs 1164 times, and “S” (Saad) occurs 97 times. Thus, the total occurrence of the four letters in this sura is 2529 + 1530 + 1164 + 97 = 5320 = 19x280.",
+            "9": "An important observation here is the interlocking relationship involving the letter “S” (Saad). This initial occurs also in Suras 19 and 38. While complementing its sister letters in Sura 7 to give a total that is divisible by 19, the frequency of this letter also complements its sister letters in Suras 19 and 38 to give a multiple of 19 (see Page 380).",
+            "10": "Additionally, the Quranic Initial “S” (Saad) interacts with the Quranic Initials “K.H.Y. ‘A.” (Kaaf Haa Ya ‘Ayn) in Sura 19 to give another total that is also a multiple of 19 (see Page 383). This interlocking relationship—which is not unique to the initial “S” (Saad)—contributes to the intricacy of the Quran’s numerical code."
         },
         "picture": {},
         "table": {
@@ -607,7 +608,8 @@
         "titles": {
             "1": "A.L.M. (Alef Laam Mim)",
             "3": "A.L.R. (Alef Laam Ra)",
-            "6": "A.L.M.S. (Alef Laam Mim Saad)"
+            "5": "A.L.M.R. (Alef Laam Mim Ra)",
+            "7": "A.L.M.S. (Alef Laam Mim Saad)"
         }
     },
     {
@@ -1420,10 +1422,7 @@
             }
         },
         "evidence": {
-            "1": {
-                "lines": {},
-                "ref": []
-            }
+            
         },
         "titles": {}
     },
@@ -1782,12 +1781,12 @@
             "1": "[7] The Quran’s dominant message is that there is only “One God.” The word “One,” in Arabic “Wahed” occurs in the Quran 25 times. Six of these occurrences refer to other than God (one kind of food, one door, etc.). The other 19 occurrences refer to God. These data are found in the classic reference INDEX TO THE WORDS OF QURAN.",
             "3": "As pointed out later in this Appendix, all God’s scriptures, not only the Quran, were mathematically coded with the number “19.” Even the universe at large bears this divine mark. The number 19 can be looked upon as the Almighty Creator’s signature on everything He created (see Appendix 38). The number “19” possesses unique mathematical properties beyond the scope of this Appendix. For example:",
             "4": "[1] It is a prime number.",
-            "5": "[2] It encompasses the first numeral proclaim God’s attribute in 57:3 as the “Alpha and the Omega.”",
+            "5": "[2] It encompasses the first numeral (1) and the last numeral (9), as if to proclaim God’s attribute in 57:3 as the “Alpha and the Omega.”",
             "6": "[3] It looks the same in all languages of the world. Both components, 1 and 9, are the only numerals that look the same in all languages.",
             "7": "[4] It possesses many peculiar mathematical properties. For example, 19 is the sum of the first powers of 9 and 10, and the difference between the second powers of 9 and 10.",
             "8": "We now understand that the universal coding of God’s creations with the number 19 rests in the fact that it is the gematrical value of the word “ONE” in all the scriptural languages— Aramaic, Hebrew, and Arabic.",
-            "9": "The number 19, therefore, proclaims the First Commandment in all the scriptures: that there is only ONE God.",
-            "10": "(1) and the last numeral (9), as if to"
+            "9": "The number 19, therefore, proclaims the First Commandment in all the scriptures: that there is only ONE God."
+           
         },
         "picture": {},
         "table": {
@@ -2108,7 +2107,7 @@
                     "2700",
                     "5312",
                     "308490",
-                    " 316502"
+                    " 316502 (19x16658)"
                 ]
             },
             "11": {
@@ -3394,7 +3393,15 @@
                 "text": "(Only the Messenger that He chooses)."
             }
         },
-        "evidence": {},
+        "evidence": {
+            "2": {
+                "lines": {
+                    "1": "Those who disbelieved among the people of the scripture (Jews, Christians, Muslims), and the idolators, will not believe, despite the profound sign given to them. [98:1]",
+                    "2":"A messenger from God, reciting Sacred Scriptures. [98:2]"
+                },
+                "ref": []
+            }
+        },
         "titles": {
             "4": "A Profound Messenger Has Come [44:13]",
             "7": "END OF THE WORLD"
@@ -5074,45 +5081,6 @@
                     "(19x6110)"
                 ]
             },
-            "8": {
-                "ref": "Table 6: The un-initialed suras & their verses from missing Basmalah (Sura 9) to the end of the Quran.",
-                "title": [
-                    "Sura No.",
-                    "No. of Verses",
-                    "Sum of Verse #'s",
-                    "Total"
-                ],
-                "values": [
-                    "9",
-                    "127",
-                    "8128",
-                    "8264",
-                    "16",
-                    "128",
-                    "8256",
-                    "8400",
-                    ".",
-                    ".",
-                    ".",
-                    ".",
-                    "113",
-                    "5",
-                    "15",
-                    "133",
-                    "114",
-                    "6",
-                    "21",
-                    "141",
-                    "",
-                    "",
-                    "",
-                    "116090",
-                    "",
-                    "",
-                    "",
-                    "(19x6110) "
-                ]
-            },
             "10": {
                 "ref": "Table 7: The suras and verses from the missing Basmalah to 74:30.",
                 "title": [
@@ -5591,27 +5559,22 @@
                     "975  ",
                     "906",
                     "        ",
-                    "      7771 ",
+                    "      7771 (19x409) ",
                     "      ",
                     "    ",
-                    " 975 + 906 = 1881",
-                    "   ",
-                    "(19x409)",
-                    " ",
-                    " ",
-                    "1881 = 19x99",
-                    " ",
-                    " "
+                    " 975 + 906 = 1881= 19x99",
+                    "   "
+                  
                 ]
             },
             "5": {
-                "ref": "Table 12: Sum of digits of all suras & verse numbers in the whole Quran.",
+                "ref": "Table 14: Same data as in Table 12, but only for the odd-numbered suras.",
                 "title": [
                     "Sura No.",
                     " No. of Verses",
                     "Sum of Digits of Suras",
                     "Sum of Digits of Verses",
-                    "Multiplication Product"
+                    "Total"
                 ],
                 "values": [
                     " 1 ",
@@ -6896,7 +6859,7 @@
     {
         "page": 484,
         "text": {
-            "2": "62] Brother Abdullah Arik has discovered what I consider to be the ultimate Quranic miracle. This miraculous phenomenon incontrovertibly authenticates every single verse in the Quran—the number of verses in every sura, and the numbers assigned to every single verse in the Quran—while exposing and rejecting the false injections, 9:128-129. To witness this great phenomenon, see Page 398. Putting the number of every verse in the Quran in sequence from the beginning to the end, with the number of verses in each sura ahead of the verse numbers of each sura, the final number consists of 12692 digits (19x668), and the number itself is also a multiple of 19. If the wrong number of verses for Sura 9 was used—129 instead of 127—neither the number of digits, nor the number itself would be divisible by 19.",
+            "2": "[62] Brother Abdullah Arik has discovered what I consider to be the ultimate Quranic miracle. This miraculous phenomenon incontrovertibly authenticates every single verse in the Quran—the number of verses in every sura, and the numbers assigned to every single verse in the Quran—while exposing and rejecting the false injections, 9:128-129. To witness this great phenomenon, see Page 398. Putting the number of every verse in the Quran in sequence from the beginning to the end, with the number of verses in each sura ahead of the verse numbers of each sura, the final number consists of 12692 digits (19x668), and the number itself is also a multiple of 19. If the wrong number of verses for Sura 9 was used—129 instead of 127—neither the number of digits, nor the number itself would be divisible by 19.",
             "3": "[63] Since the subject of this Appendix is Sura 9 and its number of true verses, it is noteworthy that if we write down the number of the sura, 9, followed by the correct number of verses, 127, followed by the numbers of all the verses from 1 to 127, the resulting long number is a multiple of 19. Needless to say, if the wrong number of verses is used, i.e., 129 instead of 127, this remarkable miracle would have disappeared:",
             "5": "[64] The number of verses in Sura 9, 127, is an odd number. The falsifiers added two fake verses, and this made the number of verses 129, which is also an odd number. Mr. Arik used the same computer program he devised for Item 62 above to check all odd-numbered verses in the Quran. Thus, the number of verses in every sura was written down, followed only by the last digit of each of the odd-numbered verses in that sura. Sura 1 was represented by the number 71357. Sura 2 was represented by the number 28613579....5, and so on through the last sura. The result is a long number, with 3371 digits, that is divisble by 19. Obviously, Sura 9 was represented by the number 12713579...... 7:",
             "7": "[65] Since Sura 9 is an un-initialed sura, Mr. Arik applied the same computer program to all 85 un-initialed suras. The number of every verse in each of the 85 suras was written down, without the number of verses in the sura. Thus, Sura 1 was represented by the number 1234567, not 71234567. This was done with all un-initialed suras. The final result is a number that consists of 6635 digits, and is a multiple of 19. These awesome phenomena would be destroyed if we used the wrong number of verses for Sura 9, i.e., 129 instead of 127."
@@ -7435,10 +7398,7 @@
             }
         },
         "evidence": {
-            "2": {
-                "lines": {},
-                "ref": []
-            }
+            
         },
         "titles": {}
     },
@@ -7452,7 +7412,7 @@
         "picture": {},
         "table": {
             "2": {
-                "ref": "",
+                "ref": "Table 3: The Suras & First Verse Where Abraham, Muhammad, & Rashada Occur.",
                 "title": [
                     "Sura No.",
                     "Abraham",
@@ -7604,10 +7564,7 @@
             }
         },
         "evidence": {
-            "2": {
-                "lines": {},
-                "ref": []
-            }
+            
         },
         "titles": {}
     },
@@ -7619,7 +7576,7 @@
         "picture": {},
         "table": {
             "1": {
-                "ref": "",
+                "ref": "Table 4: The Suras, Verses, and Occurrences of ‘Abraham,” “Muhammad,” and “Rashada.”",
                 "title": [
                     "Sura No.",
                     "Abraham",
@@ -7864,23 +7821,10 @@
         },
         "picture": {},
         "table": {
-            "2": {
-                "ref": "",
-                "title": [
-                    "Sura No.",
-                    " No. of Verses",
-                    "Total"
-                ],
-                "values": [
-                    ""
-                ]
-            }
+            
         },
         "evidence": {
-            "2": {
-                "lines": {},
-                "ref": []
-            }
+           
         },
         "titles": {
             "7": "Appendix 28",
@@ -8047,7 +7991,10 @@
                     "435",
                     "342",
                     "1951",
-                    "117673"
+                    "117673",
+                    "",
+                    "",
+                    "1951 + 117673 = 119624 = 19x6296"
                 ]
             },
             "6": {
@@ -8213,13 +8160,14 @@
             "4": "1. It must alleviate pain and suffering and not cause any pain or suffering.",
             "5": "2. If you have a young family, it is almost certain that polygamy is an abuse.",
             "6": "3. Polygamy to substitute a younger wife is an abuse of God’s law (4:19).",
-            "11": "Evolution is possible only within a given species. For example, the navel orange evolved from seeded oranges, not from apples. The laws of probablity preclude the possibility of haphazard evolution between species. A fish cannot evolve into a bird; a monkey can never evolve into a human.",
-            "13": "In this computer age, we have mathematical laws that tell us whether a certain event is probable or not. If we throw five numbered cubes up in the air and let them fall into a guided straight line, the probability laws tell us the number of possible combinations we can get: 1x2x3x4x5 = 120 combinations. Thus, the probability of obtaining any combination is 1 in 120, or 1/120, or 0.0086. This probability diminishes fast when we increase the number of cubes. If we increase them by one, the number of combinations becomes 1x2x3x4x5x6 = 720, and the probability of getting any combination diminishes to 1/720, 0.0014. Mathematicians, who are very exacting scientists, have agreed that the probability diminishes to “Zero” when we increase the number of cubes to 84. If we work with 84 cubes, the probability diminishes to 209xl0-50, or 0.000000000000000000 00000000000000000000000000000000209"
+            "9": "We learn from the Quran that evolution is a divinely designed fact:",
+            "12": "Evolution is possible only within a given species. For example, the navel orange evolved from seeded oranges, not from apples. The laws of probablity preclude the possibility of haphazard evolution between species. A fish cannot evolve into a bird; a monkey can never evolve into a human.",
+            "14": "In this computer age, we have mathematical laws that tell us whether a certain event is probable or not. If we throw five numbered cubes up in the air and let them fall into a guided straight line, the probability laws tell us the number of possible combinations we can get: 1x2x3x4x5 = 120 combinations. Thus, the probability of obtaining any combination is 1 in 120, or 1/120, or 0.0086. This probability diminishes fast when we increase the number of cubes. If we increase them by one, the number of combinations becomes 1x2x3x4x5x6 = 720, and the probability of getting any combination diminishes to 1/720, 0.0014. Mathematicians, who are very exacting scientists, have agreed that the probability diminishes to “Zero” when we increase the number of cubes to 84. If we work with 84 cubes, the probability diminishes to 209xl0-50, or 0.000000000000000000 00000000000000000000000000000000209"
         },
         "picture": {},
         "table": {},
         "evidence": {
-            "9": {
+            "10": {
                 "lines": {
                     "1": "Life began in water: “From water we initiated all living things.”"
                 },
@@ -8227,7 +8175,7 @@
                     "21:30, 24:45"
                 ]
             },
-            "10": {
+            "11": {
                 "lines": {
                     "1": "Humans not descendants of monkeys: “He started the creation of man from mud.” (32:7)",
                     "2": "Man created from “aged” mud: “I am creating the human being from ‘aged’ clay.” (15:28)"
@@ -8238,7 +8186,7 @@
         "titles": {
             "7": "Appendix 31",
             "8": "Evolution: Divinely Controlled",
-            "12": "Probability Laws Preclude Darwin’s Evolution"
+            "13": "Probability Laws Preclude Darwin’s Evolution"
         }
     },
     {
