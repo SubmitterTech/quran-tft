@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import Splash from '../components/Splash';
+import Cover from '../components/Cover';
 import Book from '../components/Book';
 import introductionContent from '../assets/introduction.json';
 import quranData from '../assets/qurantft.json';
@@ -8,13 +8,13 @@ import application from '../assets/application.json';
 
 
 function Root() {
-    const [showSplash, setShowSplash] = useState(localStorage.getItem("qurantft-pn") ? false : true);
+    const [showCover, setShowCover] = useState(localStorage.getItem("qurantft-pn") ? false : true);
     const [translation, setTranslation] = useState(null);
     const [translationApplication, setTranslationApplication] = useState(application);
 
 
 
-    const [theme, setTheme] = useState(localStorage.getItem("theme") ? localStorage.getItem("theme"): "light");
+    const [theme, setTheme] = useState(localStorage.getItem("theme") ? localStorage.getItem("theme"): "sky");
 
     const colors = {
         "light": {
@@ -108,14 +108,14 @@ function Root() {
         }
     };
 
-    const hideSplash = () => {
-        setShowSplash(false);
+    const hideCover = () => {
+        setShowCover(false);
     };
 
     return (
         <div className={`Root select-none flex flex-col h-screen`}>
-            {showSplash && <Splash onHideSplash={hideSplash} />}
-            {!showSplash && <Book
+            {showCover && <Cover onCoverSeen={hideCover} />}
+            {!showCover && <Book
                 onChangeTheme={onChangeTheme}
                 colors={colors} theme={theme}
                 translationApplication={translationApplication}

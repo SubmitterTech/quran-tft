@@ -1,10 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import Pages from '../components/Pages';
 import Jump from '../components/Jump';
+import Splash from '../components/Splash';
 import '../assets/css/Book.css';
 
 const Book = ({ onChangeTheme, colors, theme, translationApplication, introductionContent, quranData, appendicesContent, translation }) => {
-    const [currentPage, setCurrentPage] = useState(parseInt(localStorage.getItem("qurantft-pn")) ? parseInt(localStorage.getItem("qurantft-pn")) : 5);
+    const [currentPage, setCurrentPage] = useState(parseInt(localStorage.getItem("qurantft-pn")) ? parseInt(localStorage.getItem("qurantft-pn")) : 1);
     const [pageHistory, setPageHistory] = useState([]);
     const [isModalOpen, setModalOpen] = useState(false);
     const [selectedSura, setSelectedSura] = useState(null);
@@ -77,7 +78,7 @@ const Book = ({ onChangeTheme, colors, theme, translationApplication, introducti
         let newPage = parseInt(currentPage) >= 508 ? parseInt(currentPage) : parseInt(currentPage) + 1;
 
         // Skip specified pages
-        const skipPages = [8, 9, 10, 12];
+        const skipPages = [2, 3, 4, 8, 9, 10, 12];
         while (skipPages.includes(newPage)) {
             newPage++;
         }
@@ -93,8 +94,8 @@ const Book = ({ onChangeTheme, colors, theme, translationApplication, introducti
             setCurrentPage(lastPage);
         } else {
             // Skip specified pages when decrementing
-            const skipPages = [8, 9, 10, 12];
-            let newPage = parseInt(currentPage) > 5 ? parseInt(currentPage) - 1 : parseInt(currentPage);
+            const skipPages = [2, 3, 4, 8, 9, 10, 12];
+            let newPage = parseInt(currentPage) > 1 ? parseInt(currentPage) - 1 : parseInt(currentPage);
 
             while (skipPages.includes(newPage)) {
                 newPage--;
@@ -337,10 +338,10 @@ const Book = ({ onChangeTheme, colors, theme, translationApplication, introducti
     };
 
     const renderBookContent = () => {
-        // Render Pages component when current page is 23 to 394
-        if (parseInt(currentPage) >= 23 && parseInt(currentPage) <= 394) {
-            return <Pages colors={colors} theme={theme} translationApplication={translationApplication} quranData={quranData} translation={translation} selectedPage={currentPage} selectedSura={selectedSura} selectedVerse={selectedVerse} handleClickReference={handleClickReference} handleClickAppReference={handleClickAppReference} />;
-        }
+
+        if (parseInt(currentPage) === 1) {
+            return <Splash bookContent={bookContent} currentPage={currentPage} colors={colors} theme={theme} />;
+          }
 
         if (parseInt(currentPage) === 22) {
             const cpd = bookContent ? bookContent.find(iterator => iterator.page === currentPage) : null;
@@ -413,6 +414,10 @@ const Book = ({ onChangeTheme, colors, theme, translationApplication, introducti
                     {renderedContent}
                 </div>
             );
+        }
+
+        if (parseInt(currentPage) >= 23 && parseInt(currentPage) <= 394) {
+            return <Pages colors={colors} theme={theme} translationApplication={translationApplication} quranData={quranData} translation={translation} selectedPage={currentPage} selectedSura={selectedSura} selectedVerse={selectedVerse} handleClickReference={handleClickReference} handleClickAppReference={handleClickAppReference} />;
         }
 
         if (parseInt(currentPage) === 395) {

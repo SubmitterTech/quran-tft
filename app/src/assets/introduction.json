@@ -1,5 +1,9 @@
 [
     {
+        "page": 1,
+        "text": "Surely, those who believe, \nthose who are Jewish, \nthe Christians, \nthe converts; \nanyone who \n(1) believes in God, and \n(2) believes in the Hereafter, and \n(3) leads a righteous life, \nwill receive their recompense \nfrom their Lord; \nthey have nothing to fear, \nnor will they grieve. \n[ 2:62, 5:69 ] \n\n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n\f"
+    },
+    {
         "page": 5,
         "text": {
             "1": "All  religions  of  the  world—Judaism, Christianity,  Islam,  Hinduism,  Buddhism, and  others—have  been  severely  corrupted  through  innovations,  traditions,  and  the idolization of humans such as the prophets and the saints.",
@@ -86,8 +90,7 @@
                 ]
             }
         },
-        "titles": {
-        }
+        "titles": {}
     },
     {
         "page": 7,
@@ -98,8 +101,7 @@
             "4": "It was the Umayyad ruler Marwan Ibn Al-Hakam (died in 684 AD) who destroyed the original Quran that was written by Muhammad’s hand, “fearing the eruption of new disputes.”",
             "5": "God’s Messenger of the Covenant has presented overwhelming evidence that 9:128-129 do not belong in the Quran (Appendix 24). With the removal of these false verses, the Quran has finally been restored. Our generation is the first ever to receive the Quran in its purified and finalized form (see Appendices 1 and 28)."
         },
-        "evidence": {
-        },
+        "evidence": {},
         "titles": {
             "1": "PREFACE"
         }
@@ -122,21 +124,20 @@
                 "lines": {
                     "1": "You will surely die, just like they will die."
                 },
-                "ref" : [
+                "ref": [
                     "39:30"
-                ] 
+                ]
             },
             "9": {
                 "lines": {
                     "1": "God: there is no god except He; the Living, the Eternal."
                 },
-                "ref" : [
+                "ref": [
                     "3:2-3"
-                ] 
+                ]
             }
         },
-        "titles": {
-        }
+        "titles": {}
     },
     {
         "page": 13,
@@ -201,7 +202,10 @@
                 ],
                 "special": {
                     "key": 1,
-                    "data": [7,77]
+                    "data": [
+                        7,
+                        77
+                    ]
                 }
             }
         },
@@ -224,8 +228,7 @@
                     "1": "The white area represents the vast majority that did not agree with Satan.",
                     "2": "The grey area represents the vast majority that repented and submitted. "
                 },
-                "ref": [
-                ],
+                "ref": [],
                 "special": {
                     "key": 2,
                     "data": []
@@ -421,10 +424,8 @@
     },
     {
         "page": 22,
-        "text": {
-        },
-        "picture": {
-        },
+        "text": {},
+        "picture": {},
         "evidence": {
             "2": {
                 "lines": {
@@ -544,15 +545,11 @@
                     "113": "113  ......... Daybreak.................. Al-Falaq......... ........ 5......372 ",
                     "114": "114  ......... People ..................... Al-Naas......... ......... 6......372"
                 },
-                "ref": [
-                    
-                ]
+                "ref": []
             }
-          
         },
         "titles": {
             "1": "Contents"
-    
         }
     }
 ]
