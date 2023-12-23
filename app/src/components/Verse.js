@@ -12,49 +12,115 @@ const Verse = ({ colors, theme, translationApplication, verseClassName, hasAster
         handleClickReference(verseKey);
     };
 
+    // const findRelatedVerses = useCallback(() => {
+    //     const related = [];
+
+    //     // Function to add individual verse keys from a group relation
+    //     const addGroupRelation = (groupRelation) => {
+    //         const [sura, verses] = groupRelation.split(':');
+    //         verses.split(',').forEach(verse => {
+    //             const individualKey = `${sura}:${verse}`;
+    //             if (individualKey !== currentVerseKey) { // Exclude the current verse key
+    //                 related.push(individualKey);
+    //             }
+    //         });
+    //     };
+
+    //     // Check if current verse is a key in the map
+    //     if (relationalData[currentVerseKey]) {
+    //         relationalData[currentVerseKey].forEach(relation => {
+    //             if (relation.includes(',')) {
+    //                 addGroupRelation(relation);
+    //             } else if (relation !== currentVerseKey) { // Exclude the current verse key
+    //                 related.push(relation);
+    //             }
+    //         });
+    //     }
+
+    //     // Check if current verse is in the values of any key
+    //     Object.entries(relationalData).forEach(([key, verses]) => {
+    //         if (verses.includes(currentVerseKey)) {
+    //             if (key.includes(',')) {
+    //                 addGroupRelation(key);
+    //             } else {
+    //                 related.push(key);
+    //             }
+    //         }
+    //         verses.forEach(relation => {
+    //             if (relation.includes(',') && relation.includes(currentVerseKey)) {
+    //                 addGroupRelation(key);
+    //             }
+    //         });
+    //     });
+
+    //     return [...new Set(related)]; // Remove duplicates
+    // }, [currentVerseKey]);
+
     const findRelatedVerses = useCallback(() => {
         const related = [];
 
-        // Function to add individual verse keys from a group relation
-        const addGroupRelation = (groupRelation) => {
-            const [sura, verses] = groupRelation.split(':');
-            verses.split(',').forEach(verse => {
-                const individualKey = `${sura}:${verse}`;
-                if (individualKey !== currentVerseKey) { // Exclude the current verse key
-                    related.push(individualKey);
-                }
+
+        const addReferences = (referenceString) => {
+            referenceString.split(';').forEach(refGroup => {
+                const [sura, verses] = refGroup.trim().split(':');
+                if (verses && verses.includes(',')) {
+                    verses?.split(',').forEach(verseRange => {
+                        if (verseRange) {
+                            const individualKey = `${sura}:${verseRange}`;
+                            if (individualKey !== currentVerseKey) {
+                                related.push(individualKey);
+                            }
+                        }
+                    });
+                } 
+                
             });
         };
 
-        // Check if current verse is a key in the map
-        if (relationalData[currentVerseKey]) {
-            relationalData[currentVerseKey].forEach(relation => {
-                if (relation.includes(',')) {
-                    addGroupRelation(relation);
-                } else if (relation !== currentVerseKey) { // Exclude the current verse key
-                    related.push(relation);
-                }
-            });
-        }
 
-        // Check if current verse is in the values of any key
-        Object.entries(relationalData).forEach(([key, verses]) => {
-            if (verses.includes(currentVerseKey)) {
-                if (key.includes(',')) {
-                    addGroupRelation(key);
-                } else {
-                    related.push(key);
+        const processTheme = (theme) => {
+            if (theme !== '') {
+                if (typeof theme === 'string') {
+                    // Split the theme string by ';' to separate different references
+                    theme.split(';').forEach(refGroup => {
+                        const [sura, versesPart] = refGroup.trim().split(':');
+                        // Handle different formats within the verses part
+                        versesPart?.split(',').forEach(versePart => {
+                            if (versePart.includes('-')) {
+                                // Handle range of verses
+                                const [start, end] = versePart.split('-').map(Number);
+                                for (let verse = start; verse <= end; verse++) {
+                                    const individualKey = `${sura}:${verse}`;
+                                    if (individualKey === currentVerseKey) {
+                                        addReferences(theme);
+                                    }
+                                }
+                            } else {
+                                // Handle single verse
+                                const individualKey = `${sura}:${versePart}`;
+                                if (individualKey === currentVerseKey) {
+                                    addReferences(theme);
+                                }
+                            }
+                        });
+                    });
+                } else if (typeof theme === 'object' && theme !== null) {
+                    // If it's an object, recursively process each sub-theme
+                    Object.values(theme).forEach(subTheme => processTheme(subTheme));
                 }
             }
-            verses.forEach(relation => {
-                if (relation.includes(',') && relation.includes(currentVerseKey)) {
-                    addGroupRelation(key);
-                }
+        };
+
+        // Navigate through the JSON structure to find the current verse's references
+        Object.values(relationalData).forEach(content => {
+            Object.values(content).forEach(theme => {
+                if (theme) { processTheme(theme) }
             });
         });
 
         return [...new Set(related)]; // Remove duplicates
     }, [currentVerseKey]);
+
 
 
     useEffect(() => {
