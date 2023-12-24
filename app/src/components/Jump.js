@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 
-const Jump = ({ onChangeTheme, colors, theme, translationApplication, currentPage, quran, onClose, onConfirm }) => {
+const Jump = ({ onChangeTheme, colors, theme, translationApplication, currentPage, quran, onClose, onConfirm, onMagnify }) => {
     const [suraNumber, setSuraNumber] = useState("0");
     const [verseNumber, setVerseNumber] = useState("1");
     const [selectedPage, setSelectedPage] = useState(currentPage);
@@ -92,10 +92,6 @@ const Jump = ({ onChangeTheme, colors, theme, translationApplication, currentPag
 
     const toggleThemeView = () => {
         setShowThemes(!showThemes);
-    };
-
-    const onMagnify = () => {
-        console.log("Magnify");
     };
 
     const ThemePicker = ({ onChangeTheme }) => {

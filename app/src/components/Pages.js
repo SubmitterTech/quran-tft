@@ -3,6 +3,7 @@ import Verse from '../components/Verse';
 
 const Pages = ({ colors, theme, translationApplication, quranData, translation, selectedPage, selectedSura, selectedVerse, handleClickReference, handleClickAppReference }) => {
     const [pageData, setPageData] = useState(null);
+    const [notesData, setNotesData] = useState(null);
     const [showExplanation, setShowExplanation] = useState({ GODnamefrequency: false, GODnamesum: false });
     const [pageTitle, setPageTitle] = useState([]);
     const [pageGWC, setPageGWC] = useState({ "0:0": quranData[(parseInt(selectedPage) - 1) + ""]?.notes ? parseInt(quranData[(parseInt(selectedPage) - 1) + ""].notes.cumulativefrequencyofthewordGOD) : 0 });
@@ -23,6 +24,8 @@ const Pages = ({ colors, theme, translationApplication, quranData, translation, 
 
     useEffect(() => {
         setPageData(quranData[selectedPage]);
+        setNotesData(translation ? translation[selectedPage].notes : quranData[selectedPage].notes)
+        // setNotesData(translation ? translation[selectedPage])
         setPageGWC({ "0:0": quranData[(parseInt(selectedPage) - 1) + ""]?.notes ? parseInt(quranData[(parseInt(selectedPage) - 1) + ""].notes.cumulativefrequencyofthewordGOD) : 0 });
         if (quranData[selectedPage]) {
             const newPageTitles = [];
@@ -46,7 +49,7 @@ const Pages = ({ colors, theme, translationApplication, quranData, translation, 
             }, 200);
             forceScroll();
         }
-    }, [quranData, selectedPage, selectedSura, selectedVerse, forceScroll]);
+    }, [quranData, selectedPage, selectedSura, selectedVerse, translation, forceScroll]);
 
 
     const parsePageVerses = () => {
@@ -489,17 +492,19 @@ const Pages = ({ colors, theme, translationApplication, quranData, translation, 
 
             </div>
             {
-                pageData.notes.data.length > 0 &&
+                notesData.data.length > 0 &&
                 <div className={`${colors[theme]["base-background"]} m-1.5 mt-3 rounded p-2 text-sm md:text-md lg:text-lg text-justify ${colors[theme]["app-text"]} flex flex-col space-y-4 whitespace-pre-line`}>
                     <h3>{translationApplication?.notes}:</h3>
-                    {pageData.notes.data.map((note, index) =>
+
+                    { notesData.data.map((note, index) =>
                         <p
                             className={`${colors[theme]["notes-background"]} rounded shadow-md px-2 py-3 ${colors[theme]["app-text"]}`}
                             ref={(el) => noteRefs.current[index] = el}
                             key={index}>
                             {parseReferences(note)}
-                        </p>)}
-                    {pageData.notes.tables && pageData.notes.tables.map((table, index) => (
+                        </p>
+                        )}
+                    {notesData.tables && pageData.notes.tables.map((table, index) => (
                         <div className={`flex justify-center`}
                             key={index} >
                             {renderTable(table)}

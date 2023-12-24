@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import Pages from '../components/Pages';
 import Jump from '../components/Jump';
+import Magnify from '../components/Magnify';
 import Splash from '../components/Splash';
 import '../assets/css/Book.css';
 
@@ -11,6 +12,9 @@ const Book = ({ onChangeTheme, colors, theme, translationApplication, introducti
     const [selectedSura, setSelectedSura] = useState(null);
     const [selectedVerse, setSelectedVerse] = useState(null);
     const [bookContent, setBookContent] = useState(null);
+
+    const [isSearchOpen, setSearchOpen] = useState(false);
+
 
     const images = require.context('../assets/pictures/', false, /\.jpg$/);
 
@@ -53,6 +57,18 @@ const Book = ({ onChangeTheme, colors, theme, translationApplication, introducti
 
     const handleCloseModal = () => {
         setModalOpen(false);
+    };
+
+    const handleCloseSearch = () => {
+        setSearchOpen(false);
+        setModalOpen(false);
+    };
+
+    const handleTogglePage = () => {
+        setModalOpen(!isModalOpen);
+        if(isSearchOpen) {
+            setSearchOpen(false);
+        }
     };
 
     const updatePage = (newPage, sura, verse) => {
@@ -297,9 +313,9 @@ const Book = ({ onChangeTheme, colors, theme, translationApplication, introducti
         });
     };
 
-
-
-
+    const onMagnify = () => {
+        setSearchOpen(true);
+    };
 
     const renderTable = (tableData) => {
         const tableRef = tableData.ref;
@@ -713,7 +729,7 @@ const Book = ({ onChangeTheme, colors, theme, translationApplication, introducti
                         </svg>
                     </button>
                     <div
-                        onClick={() => setModalOpen(!isModalOpen)}
+                        onClick={() => handleTogglePage()}
                         className={``}>
                         <h2 className={`text-sm font-bold ${colors[theme]["page-text"]} p-2`}>{translationApplication?.page} {currentPage}</h2>
                     </div>
@@ -734,6 +750,18 @@ const Book = ({ onChangeTheme, colors, theme, translationApplication, introducti
                     quran={quranData}
                     onClose={handleCloseModal}
                     onConfirm={handleJump}
+                    onMagnify={onMagnify}
+                />
+            }
+            {isSearchOpen &&
+                <Magnify
+                    colors={colors} 
+                    theme={theme}
+                    translationApplication={translationApplication}
+                    currentPage={currentPage}
+                    quran={translation ? translation : quranData}
+                    onClose={handleCloseSearch}
+                    onConfirm={handleClickReference}
                 />
             }
         </div>

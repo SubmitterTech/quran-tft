@@ -32,7 +32,9 @@ function Root() {
             "page-text": "text-neutral-900/50",
             "log-text": "text-neutral-800/80",
             "verse-border": "border-neutral-800/80",
-            "ring": "ring-neutral-800/80"
+            "ring": "ring-neutral-800/80",
+            "focus-ring": "focus:ring-neutral-800/80",
+            "focus-text": "focus:text-neutral-800"
         },
         "dark": {
             "text-background": "bg-neutral-700",
@@ -49,8 +51,9 @@ function Root() {
             "page-text": "text-neutral-200/50",
             "log-text": "text-neutral-300/80",
             "verse-border": "border-neutral-300/80",
-            "ring": "ring-neutral-300/80"
-
+            "ring": "ring-neutral-300/80",
+            "focus-ring": "focus:ring-neutral-200/80",
+            "focus-text": "focus:text-neutral-200"
         },
         "sky": {
             "text-background": "bg-sky-800",
@@ -67,7 +70,9 @@ function Root() {
             "page-text": "text-sky-100/50",
             "log-text": "text-neutral-300/80",
             "verse-border": "border-sky-500/80",
-            "ring": "ring-sky-500/80"
+            "ring": "ring-sky-500/80",
+            "focus-ring": "focus:ring-neutral-200/80",
+            "focus-text": "focus:text-neutral-200"
         }
     }
 

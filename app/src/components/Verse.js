@@ -12,50 +12,6 @@ const Verse = ({ colors, theme, translationApplication, verseClassName, hasAster
         handleClickReference(verseKey);
     };
 
-    // const findRelatedVerses = useCallback(() => {
-    //     const related = [];
-
-    //     // Function to add individual verse keys from a group relation
-    //     const addGroupRelation = (groupRelation) => {
-    //         const [sura, verses] = groupRelation.split(':');
-    //         verses.split(',').forEach(verse => {
-    //             const individualKey = `${sura}:${verse}`;
-    //             if (individualKey !== currentVerseKey) { // Exclude the current verse key
-    //                 related.push(individualKey);
-    //             }
-    //         });
-    //     };
-
-    //     // Check if current verse is a key in the map
-    //     if (relationalData[currentVerseKey]) {
-    //         relationalData[currentVerseKey].forEach(relation => {
-    //             if (relation.includes(',')) {
-    //                 addGroupRelation(relation);
-    //             } else if (relation !== currentVerseKey) { // Exclude the current verse key
-    //                 related.push(relation);
-    //             }
-    //         });
-    //     }
-
-    //     // Check if current verse is in the values of any key
-    //     Object.entries(relationalData).forEach(([key, verses]) => {
-    //         if (verses.includes(currentVerseKey)) {
-    //             if (key.includes(',')) {
-    //                 addGroupRelation(key);
-    //             } else {
-    //                 related.push(key);
-    //             }
-    //         }
-    //         verses.forEach(relation => {
-    //             if (relation.includes(',') && relation.includes(currentVerseKey)) {
-    //                 addGroupRelation(key);
-    //             }
-    //         });
-    //     });
-
-    //     return [...new Set(related)]; // Remove duplicates
-    // }, [currentVerseKey]);
-
     const findRelatedVerses = useCallback(() => {
         const related = [];
 
