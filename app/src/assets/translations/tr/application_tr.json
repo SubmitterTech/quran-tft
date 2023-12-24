@@ -1,4 +1,5 @@
 {
+    "search": "Ara",
     "contentNotAvailable": "İçerik erişilebilir değil",
     "loading": "Yükleniyor...",
     "unrecognizedData": "Tanınmayan yapılandırılmış veriler veya veriler ayrıştırılamadı...",
@@ -9,6 +10,8 @@
     "intro": "Giriş",
     "sura": "Sure",
     "verse": "Ayet",
+    "verses": "Ayetler",
+    "titles": "Başlıklar",
     "open": "Aç",
     "cancel": "İptal",
     "notes": "Notlar",

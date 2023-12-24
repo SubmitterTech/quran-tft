@@ -111,7 +111,7 @@ const Magnify = ({ colors, theme, translationApplication, quran, onClose, onConf
                         type="text"
                         ref={inputRef}
                         id="searchBar"
-                        placeholder="Search ..."
+                        placeholder={translationApplication.search + "..."}
                         value={searchTerm}
                         onChange={(e) => setSearchTerm(e.target.value)}
                         className={`w-full p-2 rounded ${colors[theme]["app-background"]} ${colors[theme]["page-text"]} focus:outline-none focus:ring-2 ${colors[theme]["focus-ring"]} ${colors[theme]["focus-text"]}`}
@@ -123,7 +123,10 @@ const Magnify = ({ colors, theme, translationApplication, quran, onClose, onConf
                     </button>
                 </div>
             </div>
-            <div className={`text-sm md:text-base  w-full p-1 h-1/4 ${colors[theme]["text"]}`}>
+            <div className={`${loadedTitles.length > 0 ? "opacity-100" : "opacity-0" } text-sm ${colors[theme]["page-text"]}`}>
+                {translationApplication.titles}
+            </div>
+            <div className={`text-sm md:text-base  w-full p-1 h-1/6 ${colors[theme]["text"]}`}>
                 <div className={`${loadedTitles.length > 0 ? "opacity-100" : "opacity-0" }  transition-all duration-500 ease-linear w-full flex flex-col h-full shadow-md p-1 rounded overflow-auto border ${colors[theme]["border"]} `}>
                     {loadedTitles.map((result, index) => (
                         <div
@@ -135,6 +138,9 @@ const Magnify = ({ colors, theme, translationApplication, quran, onClose, onConf
                         </div>
                     ))}
                 </div>
+            </div>
+            <div className={`${loadedVerses.length > 0 ? "opacity-100" : "opacity-0" } text-sm ${colors[theme]["page-text"]}`}>
+                {translationApplication.verses}
             </div>
             <div className={`text-sm md:text-base text-justify hyphens-auto w-full p-1 h-1/2  ${colors[theme]["text"]}`}>
                 <div className={`${loadedVerses.length > 0 ? "opacity-100" : "opacity-0" } w-full h-full flex flex-col overflow-auto transition-all duration-1000 ease-linear shadow-md p-1 rounded border ${colors[theme]["border"]} `}>
