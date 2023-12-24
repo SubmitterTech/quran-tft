@@ -28,8 +28,7 @@ const Verse = ({ colors, theme, translationApplication, verseClassName, hasAster
                             }
                         }
                     });
-                } 
-                
+                }
             });
         };
 
@@ -197,9 +196,9 @@ const Verse = ({ colors, theme, translationApplication, verseClassName, hasAster
     return (
         <div
             ref={(el) => verseRefs.current[currentVerseKey] = el}
-            className={`${cn}`}
-            onClick={() => handleClick()}>
-            <div className={`px-1 w-full`}>
+            className={`${cn}`}>
+            <div onClick={() => handleClick()}
+                className={`px-1 w-full`}>
                 <span className={`text-sky-500`}>{`${verseNumber}. `}</span>
                 <span className={`${colors[theme]["app-text"]}`}>
                     {text}
