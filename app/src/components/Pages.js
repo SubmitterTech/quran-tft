@@ -123,14 +123,16 @@ const Pages = ({ colors, theme, translationApplication, quranData, translation, 
     };
 
     const parseReferences = (text) => {
+        const app = translation ? translationApplication.appendix  :  translationApplication.appendix + "?";
         // Define the regular expressions
         const verseRegex = /(\d+:\d+(?:-\d+)?)/g;
-        const appendixRegex = /Appendix?/g;
+        const appendixRegex = new RegExp(`${app}`, 'g');
         const introRegex = /introduction/gi;
 
 
         const replaceAppendixNumbers = (appendixPart) => {
             const startIndex = appendixPart.search(appendixRegex);
+            console.log(startIndex, appendixRegex)
             let endIndex = startIndex;
             let isNumberStarted = false;
 
@@ -504,7 +506,7 @@ const Pages = ({ colors, theme, translationApplication, quranData, translation, 
                             {parseReferences(note)}
                         </p>
                         )}
-                    {notesData.tables && pageData.notes.tables.map((table, index) => (
+                    {notesData.tables && notesData.tables.map((table, index) => (
                         <div className={`flex justify-center`}
                             key={index} >
                             {renderTable(table)}

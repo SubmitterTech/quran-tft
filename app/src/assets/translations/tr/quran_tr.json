@@ -7,7 +7,7 @@
         "sura": {
             "1": {
                 "verses": {
-                    "1": "En Lütufkâr, En Merhametli olan TANRI ’nın adıyla.",
+                    "1": "En Lütufkâr, En Merhametli olan TANRI ’nın adıyla.*",
                     "2": "Övgüler olsun kâinatın Rabbi olan TANRI ’ya.",
                     "3": "En Lütufkâr, En Merhametli.",
                     "4": "Yargı Günü’nün Sahibi.",
@@ -22,22 +22,22 @@
         },
         "notes": {
             "data": [
-                "*1:1 The first verse in the Quran represents the foundation upon which a superhuman 19-based mathematical miracle is built. This important statement consists of 19 Arabic letters, and every word in it occurs in the whole Quran in multiples of 19 (see Appendices 1 & 29 for the details).",
-                "*1:1-7 Sura 1 is God’s gift to us to establish contact with Him through the daily Contact Prayers. This fact is supported by an earth-shattering, simple-to-understand-but-impossible-to-imitate  mathematical  composition  that  challenges  the  greatest  mathematicians on earth, and stumps them; it is far beyond human capabilities:",
-                "(1) The sura number, followed by the numbers of verses, next to each other, give 1 1 2 3 4 5 6 7. This number is a multiple of 19.",
-                "(2) If we substitute the number of letters per verse in place of verse numbers, we get 1 19 17 12 11 19 18 43. This number is also a multiple of 19.",
-                "(3) If we insert the total gematrical value of every verse, we get 1 19 786 17 581 12 618 11 241 19 836 18 1072 43 6009. This number is a multiple of 19.",
-                "(4) The  number  shown  above  includes  all  parameters of Sura 1, and consists of 38 digits (19x2).",
-                "(5) It  is  noteworthy  that  this  38-digit  number  is  still divisible  by  19  when  we  write  its  components  backwards,  from  right  to  left,  as  practiced  by  the  Arabs.\n\nThus, 6009 43 1072 18 836 19 241 11 618 12 581 17 786 19 1 is also a multiple of 19.",
-                "(6) The mathematical representations mentioned above participate in numerous extraordinary mathematical phenomena to confirm all details of the five daily Contact Prayers (Appendix 15).",
-                "(7) Many more astounding phenomena are given in Appendix 1. Thus, the reader is handed, at the outset, tangible proof that this is God’s message to the world."
+                "*1:1 Kuran’daki ilk ayet, 19 sayısına dayalı insanüstü matematiksel mucizenin üzerine inşa edildiği temeli temsil etmektedir. Bu önemli cümle 19 Arap harfinden oluşmakta ve içindeki kelimelerin her biri tüm Kuran’da 19 sayısının katları şeklinde geçmektedir (Detaylar için Ek 1 & 29’a bakınız).",
+                "*1:1-7  Sure  1,  günlük  İletişim  Duaları  yoluyla  Tanrı  ile  iletişime  geçmemiz  için  Tanrı’nın  bizlere armağanıdır. Bu hakikat, fevkalade, anlaşılması-kolay-ancak-taklidi-imkânsız olan, dünyadaki en büyük  matematikçilere  meydan  okuyan  ve  onları  şaşkına  çeviren  matematiksel  kompozisyon  ile desteklenmektedir;  bu,  insan  kabiliyetlerinin  çok  ötesindedir:",
+                "(1) Sure numarası, ardından ayet numaraları yan yana yazıldığında 1 1 2 3 4 5 6 7 sayısı meydanagelir. Bu sayı 19’un katıdır.",
+                "(2) Eğer ayet numaralarının yerine her bir ayetteki harf sayısını yazarsak şu sayıyı elde ederiz: 1 19 17 12 11 19 18 43. Bu sayı da 19’un katıdır.",
+                "(3) Eğer  araya  her  bir  ayetin  sayısal  değerini  de  eklersek  şusayıyı elde ederiz: 1 19 786 17 581 12 618 11 241 19 836 18 1072 43 6009. Bu sayı 19’un katıdır.",
+                "(4) Üstteki sayı, Sure 1’ in tüm parametrelerini içermekte ve 38  basamaktan  oluşmaktadır  (19x2).",
+                "(5) Şurası dikkate değerdir ki bu 38 basamaklı sayı, bileşenlerini Arapların uyguladığı gibi sağdan sola, geriye doğru yazdığımızda  hâlâ  19’a  bölünebilmektedir.  Yani,  6009 43 1072 18 836 19 241 11 618 12 581 17 786 19 1  sayısı  da  19’unkatıdır.",
+                "(6) Yukarıda sözü edilen matematiksel simgeler, birçok olağanüstü matematiksel olguya iştirak ederek günlük beş vakit İletişim Duasının tüm detaylarını doğrulamaktadır (Ek 15).",
+                "(7) Daha birçok hayret verici olgu Ek Bir’de verilmiştir. Böylelikle okuyucu, daha girişte bunun Tanrı’nın dünyaya bir mesajı olduğuna dair somut kanıtı elinde bulundurur."
             ],
             "tables": [
                 {
                     "title": [
-                        "Verse #",
-                        "No of Letters",
-                        "Gematrical Value"
+                        "Ayet Numarası",
+                        "Harf Sayısı",
+                        "Sayısal Değer"
                     ],
                     "values": [
                         "1",
@@ -61,7 +61,7 @@
                         "7",
                         "43",
                         "6009",
-                        "Totals",
+                        "Toplamlar",
                         "139",
                         "10143"
                     ]
