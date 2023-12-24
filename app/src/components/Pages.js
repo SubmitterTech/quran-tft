@@ -29,7 +29,8 @@ const Pages = ({ colors, theme, translationApplication, quranData, translation, 
         setPageGWC({ "0:0": quranData[(parseInt(selectedPage) - 1) + ""]?.notes ? parseInt(quranData[(parseInt(selectedPage) - 1) + ""].notes.cumulativefrequencyofthewordGOD) : 0 });
         if (quranData[selectedPage]) {
             const newPageTitles = [];
-            quranData[selectedPage].page.forEach((pi) => {
+            const pageData = translation ? translation[selectedPage].page : quranData[selectedPage].page
+            pageData.forEach((pi) => {
                 if (/\d+:\d+/.test(pi)) {
                     if (pi.includes("&")) {
                         pi.split("&").forEach(part => newPageTitles.push(part.trim()));
@@ -132,7 +133,6 @@ const Pages = ({ colors, theme, translationApplication, quranData, translation, 
 
         const replaceAppendixNumbers = (appendixPart) => {
             const startIndex = appendixPart.search(appendixRegex);
-            console.log(startIndex, appendixRegex)
             let endIndex = startIndex;
             let isNumberStarted = false;
 

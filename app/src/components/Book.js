@@ -748,7 +748,7 @@ const Book = ({ onChangeTheme, colors, theme, translationApplication, introducti
                     colors={colors} theme={theme}
                     translationApplication={translationApplication}
                     currentPage={currentPage}
-                    quran={quranData}
+                    quran={translation ? translation : quranData}
                     onClose={handleCloseModal}
                     onConfirm={handleJump}
                     onMagnify={onMagnify}
