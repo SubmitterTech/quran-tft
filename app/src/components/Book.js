@@ -315,6 +315,7 @@ const Book = ({ onChangeTheme, colors, theme, translationApplication, introducti
 
     const onMagnify = () => {
         setSearchOpen(true);
+        setModalOpen(false);
     };
 
     const renderTable = (tableData) => {

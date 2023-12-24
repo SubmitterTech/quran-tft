@@ -104,7 +104,7 @@ const Magnify = ({ colors, theme, translationApplication, quran, onClose, onConf
     };
 
     return (
-        <div className={`w-screen h-screen animated faster fixed left-0 top-0 flex flex-col items-center justify-start inset-0 z-10 outline-none focus:outline-none backdrop-blur-lg`} id="jump-screen">
+        <div className={`w-screen h-screen animated faster fixed left-0 top-0 flex flex-col items-center justify-start inset-0 z-10 outline-none focus:outline-none backdrop-blur-2xl`} id="jump-screen">
             <div className={`w-full flex p-2`}>
                 <div className={`w-full flex rounded shadow-md space-x-2`}>
                     <input
