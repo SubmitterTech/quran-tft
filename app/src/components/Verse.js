@@ -277,7 +277,7 @@ const Verse = ({ colors, theme, translationApplication, verseClassName, hasAster
             {tooltip.visible && (
                 <div
                     ref={tooltipRef}
-                    className={`fixed px-4 py-2 shadow-md rounded bg-neutral-900 text-neutral`}
+                    className={`fixed px-4 py-2 shadow-md rounded ${colors[theme]["base-background"]}  ${colors[theme]["app-text"]}`}
                     style={{ left: tooltip.x - 30, top: tooltip.y - 30, transform: 'translate(-50%, -50%)' }}
                 >
                    {translationApplication.copied}
