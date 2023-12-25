@@ -12,6 +12,8 @@ const Pages = ({ colors, theme, translationApplication, quranData, translation, 
     const noteRefs = useRef({});
 
     const [notify, setNotify] = useState(false);
+    const [focusedNoteIndex, setFocusedNoteIndex] = useState(null);
+
 
     const forceScroll = useCallback(() => {
         const verseKey = `${parseInt(selectedSura)}:${parseInt(selectedVerse)}`;
@@ -108,7 +110,7 @@ const Pages = ({ colors, theme, translationApplication, quranData, translation, 
                 newPageGWC[key] = (newPageGWC[previousKey] || 0) + count;
             }
         });
-        
+
         return newPageGWC;
     };
 
@@ -125,8 +127,8 @@ const Pages = ({ colors, theme, translationApplication, quranData, translation, 
 
     const parseReferences = (text) => {
         const verseRegex = /(\d+:\d+(?:-\d+)?)/g;
-        
-        const app = translation ? translationApplication.appendix  :  translationApplication.appendix + "?";
+
+        const app = translation ? translationApplication.appendix : translationApplication.appendix + "?";
         const appendixRegex = new RegExp(`${app}`, 'g');
         const introRegex = /introduction/gi;
 
@@ -298,7 +300,9 @@ const Pages = ({ colors, theme, translationApplication, quranData, translation, 
         // If a matching note index is found, scroll to the note
         if (matchingNoteIndex !== undefined && noteRefs.current[matchingNoteIndex]) {
             noteRefs.current[matchingNoteIndex].scrollIntoView({ behavior: 'smooth', block: 'center' });
+            setFocusedNoteIndex(matchingNoteIndex);
         }
+
     }, [noteReferencesMap]);
 
     useEffect(() => {
@@ -308,6 +312,16 @@ const Pages = ({ colors, theme, translationApplication, quranData, translation, 
             }, 4000);
         }
     }, [notify]);
+
+    useEffect(() => {
+        if (focusedNoteIndex !== null) {
+            const timer = setTimeout(() => {
+                setFocusedNoteIndex(null);
+            }, 4000);
+
+            return () => clearTimeout(timer);
+        }
+    }, [focusedNoteIndex]);
 
     useEffect(() => {
         if (showExplanation['GODnamefrequency']) {
@@ -498,14 +512,14 @@ const Pages = ({ colors, theme, translationApplication, quranData, translation, 
                 <div className={`${colors[theme]["base-background"]} m-1.5 mt-3 rounded p-2 text-sm md:text-md lg:text-lg text-justify ${colors[theme]["app-text"]} flex flex-col space-y-4 whitespace-pre-line`}>
                     <h3>{translationApplication?.notes}:</h3>
 
-                    { notesData.data.map((note, index) =>
+                    {notesData.data.map((note, index) => (
                         <p
-                            className={`${colors[theme]["notes-background"]} rounded shadow-md px-2 py-3 ${colors[theme]["app-text"]}`}
+                            className={`${colors[theme]["notes-background"]} rounded shadow-md px-2 py-3 ${colors[theme]["app-text"]} ${index === focusedNoteIndex ? 'animate-pulse' : ''}`}
                             ref={(el) => noteRefs.current[index] = el}
                             key={index}>
                             {parseReferences(note)}
                         </p>
-                        )}
+                    ))}
                     {notesData.tables && notesData.tables.map((table, index) => (
                         <div className={`flex justify-center`}
                             key={index} >
