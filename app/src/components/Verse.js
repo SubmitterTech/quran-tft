@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useState, useRef } from 'react';
 import relationalData from '../assets/map.json'; // Import relational data
 
 const Verse = ({ colors, theme, translationApplication, verseClassName, hasAsterisk, suraNumber, verseNumber, verseText, encryptedText, verseRefs, handleVerseClick, pulse, grapFocus, pageGWC, handleClickReference }) => {
@@ -7,6 +7,50 @@ const Verse = ({ colors, theme, translationApplication, verseClassName, hasAster
     const [text, setText] = useState(verseText);
     const currentVerseKey = `${suraNumber}:${verseNumber}`;
     const [relatedVerses, setRelatedVerses] = useState([]);
+    const [tooltip, setTooltip] = useState({ visible: false, x: 0, y: 0 });
+    const tooltipRef = useRef();
+    const longPressTimerRef = useRef();
+    const hasMovedRef = useRef(false);
+
+
+    const handleTouchMove = () => {
+        hasMovedRef.current = true;
+        clearTimeout(longPressTimerRef.current); // Clear the timer as soon as the user moves
+    };
+    
+
+    const copyToClipboard = (textToCopy, x, y) => {
+        navigator.clipboard.writeText(textToCopy)
+            .then(() => {
+                setTooltip({ visible: true, x, y }); // Set the tooltip's position and make it visible
+                setTimeout(() => setTooltip({ ...tooltip, visible: false }), 2000); // Hide tooltip after 2 seconds
+            })
+            .catch(err => {
+                console.error('Failed to copy text: ', err);
+            });
+    };
+
+    const handleLongPressStart = (e, key, text) => {
+        if (e.cancelable) {
+            e.preventDefault();
+        }
+        const x = e.clientX || (e.touches ? e.touches[0].clientX : 0);
+        const y = e.clientY || (e.touches ? e.touches[0].clientY : 0);
+
+        const clip = "[" + key + "] " + text;
+        longPressTimerRef.current = setTimeout(() => {
+            // Check the ref to see if the user has moved
+            if (!hasMovedRef.current) {
+                copyToClipboard(clip, x, y);
+            }
+        }, 600);
+    };
+
+    // Function to handle the long press end
+    const handleLongPressEnd = () => {
+        clearTimeout(longPressTimerRef.current);
+        hasMovedRef.current = false; // Reset the flag on touch end
+    };
 
     const onRelatedVerseClick = (verseKey) => {
         handleClickReference(verseKey);
@@ -197,8 +241,16 @@ const Verse = ({ colors, theme, translationApplication, verseClassName, hasAster
         <div
             ref={(el) => verseRefs.current[currentVerseKey] = el}
             className={`${cn}`}>
-            <div onClick={() => handleClick()}
-                className={`px-1 w-full`}>
+            <div
+                onMouseDown={(e) => handleLongPressStart(e, currentVerseKey, text)}
+                onMouseUp={handleLongPressEnd}
+                onMouseLeave={handleLongPressEnd}
+                onTouchMove={handleTouchMove}
+                onTouchStart={(e) => handleLongPressStart(e, currentVerseKey, text)}
+                onTouchEnd={handleLongPressEnd}
+                onClick={() => handleClick()}
+                className={`px-1 w-full`}
+            >
                 <span className={`text-sky-500`}>{`${verseNumber}. `}</span>
                 <span className={`${colors[theme]["app-text"]}`}>
                     {text}
@@ -221,6 +273,16 @@ const Verse = ({ colors, theme, translationApplication, verseClassName, hasAster
                         </div>}
                 </div>
             }
+
+            {tooltip.visible && (
+                <div
+                    ref={tooltipRef}
+                    className={`fixed px-4 py-2 shadow-md rounded bg-neutral-900 text-neutral`}
+                    style={{ left: tooltip.x - 30, top: tooltip.y - 30, transform: 'translate(-50%, -50%)' }}
+                >
+                   {translationApplication.copied}
+                </div>
+            )}
         </div>
     );
 };
