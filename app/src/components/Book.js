@@ -189,9 +189,9 @@ const Book = ({ onChangeTheme, colors, theme, translationApplication, introducti
     };
 
     const parseReferences = (text) => {
-        // Define the regular expressions
         const verseRegex = /(\d+:\d+(?:-\d+)?)/g;
-        const appendixRegex = /Appendix?/g;
+        const app = translation ? translationApplication.appendix  :  translationApplication.appendix + "?";
+        const appendixRegex = new RegExp(`${app}`, 'g');
         const introRegex = /introduction/gi;
 
         const replaceAppendixNumbers = (appendixPart) => {

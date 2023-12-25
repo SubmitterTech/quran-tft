@@ -124,9 +124,9 @@ const Pages = ({ colors, theme, translationApplication, quranData, translation, 
     };
 
     const parseReferences = (text) => {
-        const app = translation ? translationApplication.appendix  :  translationApplication.appendix + "?";
-        // Define the regular expressions
         const verseRegex = /(\d+:\d+(?:-\d+)?)/g;
+        
+        const app = translation ? translationApplication.appendix  :  translationApplication.appendix + "?";
         const appendixRegex = new RegExp(`${app}`, 'g');
         const introRegex = /introduction/gi;
 
