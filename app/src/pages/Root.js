@@ -11,10 +11,12 @@ function Root() {
     const [showCover, setShowCover] = useState(localStorage.getItem("qurantft-pn") ? false : true);
     const [translation, setTranslation] = useState(null);
     const [translationApplication, setTranslationApplication] = useState(application);
+    const [translationIntro, setTranslationIntro] = useState(introductionContent);
+    const [translationAppx, setTranslationAppx] = useState(appendicesContent);
 
 
 
-    const [theme, setTheme] = useState(localStorage.getItem("theme") ? localStorage.getItem("theme"): "sky");
+    const [theme, setTheme] = useState(localStorage.getItem("theme") ? localStorage.getItem("theme") : "sky");
 
     const colors = {
         "light": {
@@ -92,11 +94,29 @@ function Root() {
             const translatedQuran = await import(`../assets/translations/${language}/quran_${language}.json`)
                 .catch(() => null);
 
+            const translatedIntro = await import(`../assets/translations/${language}/introduction_${language}.json`)
+                .catch(() => null);
+
+            const translatedAppendix = await import(`../assets/translations/${language}/appendices_${language}.json`)
+                .catch(() => null);
+
             if (translatedQuran) {
                 setTranslation(translatedQuran.default);
             } else {
-                console.error('Translation file not found for language:', language);
+                console.error('Quran Translation file not found for language:', language);
                 setTranslation(null);
+            }
+
+            if (translatedIntro) {
+                setTranslationIntro(translatedIntro.default);
+            } else {
+                console.error('Introduction Translation file not found for language:', language);
+            }
+
+            if (translatedAppendix) {
+                setTranslationAppx(translatedAppendix.default);
+            } else {
+                console.error('Appendices Translation file not found for language:', language);
             }
 
             const translatedApplication = await import(`../assets/translations/${language}/application_${language}.json`)
@@ -124,9 +144,9 @@ function Root() {
                 onChangeTheme={onChangeTheme}
                 colors={colors} theme={theme}
                 translationApplication={translationApplication}
-                introductionContent={introductionContent}
+                introductionContent={translationIntro}
                 quranData={quranData}
-                appendicesContent={appendicesContent}
+                appendicesContent={translationAppx}
                 translation={translation} />}
         </div>
     );
