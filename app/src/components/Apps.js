@@ -13,16 +13,14 @@ const Apps = ({ colors, theme, translationApplication, parseReferences, appendic
     const mapAppendicesData = useCallback((appendices) => {
         const appendixMap = {};
         let currentAppendixNum = 1; // Start with Appendix 1
-
+        let globalContentOrder = 1; // Global counter for overall content order across pages    
         appendices.forEach(page => {
             if (page.page < 397) {
                 return;
             }
-
             if (!appendixMap[currentAppendixNum]) {
                 appendixMap[currentAppendixNum] = { content: [] };
             }
-
             const checkAndUpdateAppendixNum = (title) => {
                 const match = title.match(/Appendix\s*(\d+)/);
                 if (match) {
@@ -32,36 +30,39 @@ const Apps = ({ colors, theme, translationApplication, parseReferences, appendic
                     }
                 }
             };
-
-            // Check titles for new appendix number and update if necessary
+            // Collect all content items with their keys from the page
+            let allContentItems = [];
             Object.entries(page.titles || {}).forEach(([key, title]) => {
                 checkAndUpdateAppendixNum(title);
-                appendixMap[currentAppendixNum].content.push({ type: 'title', content: title, order: parseInt(key) });
+                allContentItems.push({ type: 'title', content: title, key: parseInt(key) });
             });
-
-            // Collect content for the current appendix
             const collectContent = (type, data) => {
                 Object.entries(data || {}).forEach(([key, value]) => {
                     if (value) {
-                        appendixMap[currentAppendixNum].content.push({ type, content: value, order: parseInt(key) });
+                        allContentItems.push({ type, content: value, key: parseInt(key) });
                     }
                 });
             };
-
-
+            // Collect content items from each section
             collectContent('text', page.text);
             collectContent('evidence', page.evidence);
             collectContent('table', page.table);
             collectContent('picture', page.picture);
-            // Add similar lines for 'picture' and 'table' if needed
 
+            // Sort all content items by their keys to respect the order within the page
+            allContentItems.sort((a, b) => a.key - b.key);
+
+            // Add sorted content items to the appendix map with a global order
+            allContentItems.forEach(item => {
+                item.order = globalContentOrder++; // Assign global order and increment the counter
+                appendixMap[currentAppendixNum].content.push(item);
+            });
         });
 
-        // Sort the content of each appendix by order
+        // Sort the content of each appendix by the global order
         Object.values(appendixMap).forEach(appendix => {
             appendix.content.sort((a, b) => a.order - b.order);
         });
-
         return appendixMap;
     }, []);
 
@@ -206,7 +207,6 @@ const Apps = ({ colors, theme, translationApplication, parseReferences, appendic
             }
         };
 
-       
 
         return visibleAppendices.map(appendixNum => {
             const appendixContent = appendixMap[appendixNum]?.content || [];
