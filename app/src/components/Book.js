@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import Pages from '../components/Pages';
+import Apps from '../components/Apps';
 import Jump from '../components/Jump';
 import Magnify from '../components/Magnify';
 import Splash from '../components/Splash';
@@ -12,6 +13,7 @@ const Book = ({ onChangeTheme, colors, theme, translationApplication, introducti
     const [selectedSura, setSelectedSura] = useState(null);
     const [selectedVerse, setSelectedVerse] = useState(null);
     const [bookContent, setBookContent] = useState(null);
+    const [selectedApp, setSelectedApp] = useState(1);
 
     const [isSearchOpen, setSearchOpen] = useState(false);
 
@@ -66,7 +68,7 @@ const Book = ({ onChangeTheme, colors, theme, translationApplication, introducti
 
     const handleTogglePage = () => {
         setModalOpen(!isModalOpen);
-        if(isSearchOpen) {
+        if (isSearchOpen) {
             setSearchOpen(false);
         }
     };
@@ -190,7 +192,7 @@ const Book = ({ onChangeTheme, colors, theme, translationApplication, introducti
 
     const parseReferences = (text) => {
         const verseRegex = /(\d+:\d+(?:-\d+)?)/g;
-        const app = translation ? translationApplication.appendix  :  translationApplication.appendix + "?";
+        const app = translation ? translationApplication.appendix : translationApplication.appendix + "?";
         const appendixRegex = new RegExp(`${app}`, 'g');
         const introRegex = /introduction/gi;
 
@@ -358,7 +360,7 @@ const Book = ({ onChangeTheme, colors, theme, translationApplication, introducti
 
         if (parseInt(currentPage) === 1) {
             return <Splash bookContent={bookContent} currentPage={currentPage} colors={colors} theme={theme} />;
-          }
+        }
 
         if (parseInt(currentPage) === 22) {
             const cpd = bookContent ? bookContent.find(iterator => iterator.page === currentPage) : null;
@@ -463,6 +465,11 @@ const Book = ({ onChangeTheme, colors, theme, translationApplication, introducti
                 )
             }
 
+            const handleAppClick = (no) => {
+                setSelectedApp(no)
+                updatePage(397)
+            };
+
             const content = cpd.evidence["2"].lines;
             const renderedContent = Object.entries(content).map(([key, value]) => {
                 const elements = value.split(".").filter(element => element);
@@ -476,7 +483,7 @@ const Book = ({ onChangeTheme, colors, theme, translationApplication, introducti
                 } else {
                     return (
                         <div
-                            onClick={() => updatePage(parseInt(elements[2]) + 22)}
+                            onClick={() => handleAppClick(parseInt(elements[0]))}
                             className={`flex w-full justify-between`}>
                             <div className={` font-semibold rounded p-3 m-1 ${colors[theme]["base-background"]} w-12 flex items-center justify-center`}>
                                 <p className={``} key={key}>{elements[0]}</p>
@@ -493,6 +500,10 @@ const Book = ({ onChangeTheme, colors, theme, translationApplication, introducti
                 <div className={`w-screen h-screen flex flex-col overflow-auto ${colors[theme]["app-text"]}`}>
                     {renderedContent}
                 </div>);
+        }
+
+        if (parseInt(currentPage) > 396) {
+            return <Apps colors={colors} theme={theme} translationApplication={translationApplication} parseReferences={parseReferences} appendices={appendicesContent} selectedApp={selectedApp} prevPage={prevPage}/>;
         }
 
 
@@ -721,27 +732,28 @@ const Book = ({ onChangeTheme, colors, theme, translationApplication, introducti
     return (
         <div className={`flex flex-col justify-start h-screen ${colors[theme]["app-background"]}`}>
             {renderBookContent()}
-            <div className={`w-full flex z-20 p-0.5`}>
-                <div className={`flex w-full items-center justify-between`}>
-                    <button onClick={prevPage}
-                        className={`w-1/2 ${colors[theme]["app-text"]} px-2 mb-1 rounded mr-2 flex justify-center`}>
-                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className={`w-7 h-7`}>
-                            <path strokeLinecap="round" strokeLinejoin="round" d="M9 15L3 9m0 0l6-6M3 9h12a6 6 0 010 12h-3" />
-                        </svg>
-                    </button>
-                    <div
-                        onClick={() => handleTogglePage()}
-                        className={`w-full flex items-center justify-center`}>
-                        <h2 className={`text-sm font-bold ${colors[theme]["page-text"]} p-2`}>{translationApplication?.page} {currentPage}</h2>
+            { parseInt(currentPage) < 397 &&
+                <div className={`w-full flex z-20 p-0.5`}>
+                    <div className={`flex w-full items-center justify-between`}>
+                        <button onClick={prevPage}
+                            className={`w-1/2 ${colors[theme]["app-text"]} px-2 mb-1 rounded mr-2 flex justify-center`}>
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className={`w-7 h-7`}>
+                                <path strokeLinecap="round" strokeLinejoin="round" d="M9 15L3 9m0 0l6-6M3 9h12a6 6 0 010 12h-3" />
+                            </svg>
+                        </button>
+                        <div
+                            onClick={() => handleTogglePage()}
+                            className={`w-full flex items-center justify-center`}>
+                            <h2 className={`text-sm font-bold ${colors[theme]["page-text"]} p-2`}>{translationApplication?.page} {currentPage}</h2>
+                        </div>
+                        <button onClick={nextPage}
+                            className={`w-1/2 ${colors[theme]["app-text"]} px-2 mb-1 rounded ml-2 flex justify-center`}>
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className={`w-7 h-7`}>
+                                <path strokeLinecap="round" strokeLinejoin="round" d="M15 15l6-6m0 0l-6-6m6 6H9a6 6 0 000 12h3" />
+                            </svg>
+                        </button>
                     </div>
-                    <button onClick={nextPage}
-                        className={`w-1/2 ${colors[theme]["app-text"]} px-2 mb-1 rounded ml-2 flex justify-center`}>
-                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className={`w-7 h-7`}>
-                            <path strokeLinecap="round" strokeLinejoin="round" d="M15 15l6-6m0 0l-6-6m6 6H9a6 6 0 000 12h3" />
-                        </svg>
-                    </button>
-                </div>
-            </div>
+                </div>}
             {isModalOpen &&
                 <Jump
                     onChangeTheme={onChangeTheme}
@@ -756,7 +768,7 @@ const Book = ({ onChangeTheme, colors, theme, translationApplication, introducti
             }
             {isSearchOpen &&
                 <Magnify
-                    colors={colors} 
+                    colors={colors}
                     theme={theme}
                     translationApplication={translationApplication}
                     currentPage={currentPage}
