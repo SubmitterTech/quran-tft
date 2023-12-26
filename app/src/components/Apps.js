@@ -3,10 +3,12 @@ import React, { useState, useEffect, useRef, useCallback } from 'react';
 const Apps = ({ colors, theme, translationApplication, parseReferences, appendices, selectedApp, prevPage }) => {
 
     const containerRef = useRef(null);
-    const verseRefs = useRef({});
+    const appRefs = useRef({});
     const [visibleAppendices, setVisibleAppendices] = useState([]);
     const [appendixMap, setAppendixMap] = useState({});
     const images = require.context('../assets/pictures/', false, /\.jpg$/);
+    const [isRendered, setIsRendered] = useState(false);
+
 
     const mapAppendicesData = useCallback((appendices) => {
         const appendixMap = {};
@@ -83,10 +85,10 @@ const Apps = ({ colors, theme, translationApplication, parseReferences, appendic
 
 
     useEffect(() => {
-        if (selectedApp && verseRefs.current[`appendix-${selectedApp}`]) {
-            verseRefs.current[`appendix-${selectedApp}`].scrollIntoView({ behavior: 'smooth', block: 'center' });
+        if (selectedApp && isRendered && appRefs.current[`appendix-${selectedApp}`]) {
+            appRefs.current[`appendix-${selectedApp}`].scrollIntoView({ behavior: 'smooth' });
         }
-    }, [selectedApp]);
+    }, [selectedApp, isRendered]);
 
     useEffect(() => {
         const initialAppendixMap = mapAppendicesData(appendices);
@@ -143,13 +145,21 @@ const Apps = ({ colors, theme, translationApplication, parseReferences, appendic
         );
     }, [colors, theme]);
 
+    useEffect(() => {
+        setIsRendered(true);
+    }, [visibleAppendices]);
 
     const renderAppendices = useCallback(() => {
         const renderContentItem = (item, index) => {
             switch (item.type) {
                 case 'title':
+                    const isAppendixTitle = /Appendix\s*(\d+)/i.test(item.content);
                     return (
-                        <div key={`title-${index}`} className={`w-full my-3 flex items-center justify-center text-center ${colors[theme]["base-background"]} p-2 font-semibold ${colors[theme]["app-text"]}  whitespace-pre-line ${item.content.match(/Appendix?/gi) ? "text-2xl font-bold sticky top-0 z-10 shadow-md" : " rounded text-base"}`}>
+                        <div
+                            key={`title-${index}`}
+                            className={`w-full my-3 flex items-center justify-center text-center ${colors[theme]["base-background"]} p-2 font-semibold ${colors[theme]["app-text"]}  whitespace-pre-line ${isAppendixTitle ? "text-2xl font-bold sticky top-0 z-10 shadow-md" : " rounded text-base"}`}
+                            ref={isAppendixTitle ? el => appRefs.current[`appendix-${item.content.match(/\d+/)[0]}`] = el : null}
+                        >
                             <h2>{item.content}</h2>
                         </div>
                     );
@@ -196,10 +206,12 @@ const Apps = ({ colors, theme, translationApplication, parseReferences, appendic
             }
         };
 
+       
+
         return visibleAppendices.map(appendixNum => {
             const appendixContent = appendixMap[appendixNum]?.content || [];
             return (
-                <div className={`p-1`} key={appendixNum} ref={el => verseRefs.current[`appendix-${appendixNum}`] = el}>
+                <div className={`p-1`} key={appendixNum}>
                     {appendixContent.map((item, index) => renderContentItem(item, `${item.type}-${index}`))}
                 </div>
             );

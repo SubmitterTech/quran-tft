@@ -14,37 +14,8 @@ const Book = ({ onChangeTheme, colors, theme, translationApplication, introducti
     const [selectedVerse, setSelectedVerse] = useState(null);
     const [bookContent, setBookContent] = useState(null);
     const [selectedApp, setSelectedApp] = useState(1);
-
     const [isSearchOpen, setSearchOpen] = useState(false);
-
-
     const images = require.context('../assets/pictures/', false, /\.jpg$/);
-
-
-
-    const [appendicesMap, setAppendicesMap] = useState({});
-
-    useEffect(() => {
-        if (appendicesContent) {
-            const appList = appendicesContent.find(iterator => iterator.page === 396)?.evidence["2"]?.lines;
-
-            if (appList) {
-                const newMap = {};
-
-                Object.entries(appList).forEach(([key, value], index) => {
-                    if (index !== 0) {
-                        const details = value.split(".").filter(element => element);
-                        if (details.length >= 3) {
-                            newMap[parseInt(details[0])] = parseInt(details[2]) + 22;
-                        }
-                    }
-                });
-
-                setAppendicesMap(newMap);
-            }
-        }
-    }, [appendicesContent]);
-
 
     useEffect(() => {
         if (introductionContent && appendicesContent) {
@@ -186,15 +157,17 @@ const Book = ({ onChangeTheme, colors, theme, translationApplication, introducti
 
     const handleClickAppReference = (number) => {
         if (number > 0 && number < 40) {
-            updatePage(appendicesMap[parseInt(number)]);
+            updatePage(397);
+            setSelectedApp(number);
         }
     };
 
     const parseReferences = (text) => {
         const verseRegex = /(\d+:\d+(?:-\d+)?)/g;
         const app = translation ? translationApplication.appendix : translationApplication.appendix + "?";
+        const intro = translation ? translationApplication.intro : translationApplication.intro;
         const appendixRegex = new RegExp(`${app}`, 'g');
-        const introRegex = /introduction/gi;
+        const introRegex = new RegExp(`${intro}`, 'gi');
 
         const replaceAppendixNumbers = (appendixPart) => {
             const startIndex = appendixPart.search(appendixRegex);
@@ -285,6 +258,7 @@ const Book = ({ onChangeTheme, colors, theme, translationApplication, introducti
                     </span>
                 );
             } else if (introRegex.test(part)) {
+                
                 // Split the part into segments around introRegex matches
                 const segments = part.split(introRegex);
 
