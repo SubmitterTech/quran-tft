@@ -4,11 +4,15 @@ const Magnify = ({ colors, theme, translationApplication, quran, onClose, onConf
     const [searchTerm, setSearchTerm] = useState("");
     const [searchResultTitles, setSearchResultTitles] = useState([]);
     const [searchResultVerses, setSearchResultVerses] = useState([]);
+    const [searchResultNotes, setSearchResultNotes] = useState([]);
     const [loadedTitles, setLoadedTitles] = useState([]);
     const [loadedVerses, setLoadedVerses] = useState([]);
+    const [loadedNotes, setLoadedNotes] = useState([]);
+
     const batchSize = 19;
     const observerTitles = useRef();
     const observerVerses = useRef();
+    const observerNotes = useRef();
 
     const inputRef = useRef(null);
 
@@ -22,11 +26,13 @@ const Magnify = ({ colors, theme, translationApplication, quran, onClose, onConf
         if (!term || term.length < 2) {
             setSearchResultTitles([]);
             setSearchResultVerses([]);
+            setSearchResultNotes([]);
             return;
         }
 
         const titleResults = [];
         const verseResults = [];
+        const notesResults = [];
         for (const page in quran) {
             const suras = quran[page].sura;
             for (const suraNumber in suras) {
@@ -44,10 +50,24 @@ const Magnify = ({ colors, theme, translationApplication, quran, onClose, onConf
                         titleResults.push({ suraNumber, titleNumber, titleText });
                     }
                 }
+
+                const notes = quran[page].notes.data;
+                if (notes.length > 0) {
+                    Object.values(notes).forEach((note) => {
+                        if (note.toLowerCase().includes(term.toLowerCase())) {
+                            const match = note.match(/\*+\d+:\d+/g);
+                            if (match && match.length > 0) {
+                                const ref = match[0].split("*")[1].split(":");
+                                notesResults.push({ suraNumber: ref[0], verseNumber: ref[1], note });
+                            }
+                        }
+                    });
+                }
             }
         }
         setSearchResultTitles(titleResults);
         setSearchResultVerses(verseResults);
+        setSearchResultNotes(notesResults);
     }, [quran]);
 
     useEffect(() => {
@@ -91,21 +111,36 @@ const Magnify = ({ colors, theme, translationApplication, quran, onClose, onConf
         if (node) observerVerses.current.observe(node);
     }, [searchResultVerses, loadedVerses]);
 
+    const lastNoteElementRef = useCallback(node => {
+        if (observerNotes.current) observerNotes.current.disconnect();
+        observerNotes.current = new IntersectionObserver(entries => {
+            if (entries[0].isIntersecting && loadedNotes.length < searchResultNotes.length) {
+                setLoadedNotes(prevLoaded => [
+                    ...prevLoaded,
+                    ...searchResultNotes.slice(prevLoaded.length, prevLoaded.length + batchSize)
+                ]);
+            }
+        });
+        if (node) observerNotes.current.observe(node);
+    }, [searchResultNotes, loadedNotes]);
+
     useEffect(() => {
         setLoadedTitles(searchResultTitles.slice(0, batchSize));
         setLoadedVerses(searchResultVerses.slice(0, batchSize));
-    }, [searchResultTitles, searchResultVerses]);
+        setLoadedNotes(searchResultNotes.slice(0, batchSize));
+
+    }, [searchResultTitles, searchResultVerses, searchResultNotes]);
 
     const handleConfirm = (key) => {
-        if(onConfirm) {
+        if (onConfirm) {
             onConfirm(key);
             onClose();
         }
     };
 
     return (
-        <div className={`w-screen h-screen animated faster fixed left-0 top-0 flex flex-col items-center justify-start inset-0 z-10 outline-none focus:outline-none backdrop-blur-2xl`} id="jump-screen">
-            <div className={`w-full flex p-2`}>
+        <div className={`w-screen h-screen animated overflow-auto faster fixed left-0 top-0 flex flex-col items-center justify-start inset-0 z-10 outline-none focus:outline-none backdrop-blur-2xl`} id="jump-screen">
+            <div className={`w-full flex p-2 sticky top-0`}>
                 <div className={`w-full flex rounded shadow-md space-x-2`}>
                     <input
                         type="text"
@@ -123,11 +158,11 @@ const Magnify = ({ colors, theme, translationApplication, quran, onClose, onConf
                     </button>
                 </div>
             </div>
-            <div className={`${loadedTitles.length > 0 ? "opacity-100" : "opacity-0" } text-sm ${colors[theme]["page-text"]}`}>
+            <div className={`${loadedTitles.length > 0 ? "opacity-100" : "opacity-0"} text-sm ${colors[theme]["page-text"]}`}>
                 {translationApplication.titles}
             </div>
-            <div className={`text-sm md:text-base  w-full p-1 h-1/6 ${colors[theme]["text"]}`}>
-                <div className={`${loadedTitles.length > 0 ? "opacity-100" : "opacity-0" }  transition-all duration-500 ease-linear w-full flex flex-col h-full shadow-md p-1 rounded overflow-auto border ${colors[theme]["border"]} `}>
+            <div className={`text-sm md:text-base  w-full p-1 ${colors[theme]["text"]} transition-all duration-400 ease-linear  ${loadedTitles.length > 0 ? "h-1/6" : "h-1"}`}>
+                <div className={`${loadedTitles.length > 0 ? "opacity-100" : "opacity-0"}  transition-all duration-400 ease-linear w-full flex flex-col h-full shadow-md p-1 rounded overflow-auto border ${colors[theme]["border"]} `}>
                     {loadedTitles.map((result, index) => (
                         <div
                             ref={index === loadedTitles.length - 1 ? lastTitleElementRef : null}
@@ -139,18 +174,34 @@ const Magnify = ({ colors, theme, translationApplication, quran, onClose, onConf
                     ))}
                 </div>
             </div>
-            <div className={`${loadedVerses.length > 0 ? "opacity-100" : "opacity-0" } text-sm ${colors[theme]["page-text"]}`}>
+            <div className={`${loadedVerses.length > 0 ? "opacity-100" : "opacity-0"} text-sm ${colors[theme]["page-text"]}`}>
                 {translationApplication.verses}
             </div>
-            <div className={`text-sm md:text-base text-justify hyphens-auto w-full p-1 h-1/2  ${colors[theme]["text"]}`}>
-                <div className={`${loadedVerses.length > 0 ? "opacity-100" : "opacity-0" } w-full h-full flex flex-col overflow-auto transition-all duration-1000 ease-linear shadow-md p-1 rounded border ${colors[theme]["border"]} `}>
+            <div className={`text-sm md:text-base text-justify hyphens-auto w-full p-1  ${colors[theme]["text"]} transition-all duration-700 ease-linear ${loadedVerses.length > 0 ? "h-1/3" : "h-1"}`}>
+                <div className={`${loadedVerses.length > 0 ? "opacity-100" : "opacity-0"} w-full h-full flex flex-col overflow-auto transition-all duration-700 ease-linear shadow-md p-1.5 rounded border ${colors[theme]["border"]} ${colors[theme]["base-background"]}`}>
                     {loadedVerses.map((result, index) => (
                         <div
                             ref={index === loadedVerses.length - 1 ? lastVerseElementRef : null}
                             key={`${result.suraNumber}-${result.verseNumber}-${index}`}
-                            className={`mb-1 p-2 rounded shadow-md ${colors[theme]["text-background"]} cursor-pointer`}
+                            className={`mb-1.5 p-2 rounded shadow-md ${colors[theme]["text-background"]} cursor-pointer`}
                             onClick={() => handleConfirm(`${result.suraNumber}:${result.verseNumber}`)}>
                             <span className="text-sky-500">{result.suraNumber}:{result.verseNumber}</span> {lightWords(result.verseText, searchTerm)}
+                        </div>
+                    ))}
+                </div>
+            </div>
+            <div className={`${loadedNotes.length > 0 ? "opacity-100" : "opacity-0 "} text-sm ${colors[theme]["page-text"]}`}>
+                {translationApplication.notes}
+            </div>
+            <div className={`text-sm md:text-base text-justify hyphens-auto w-full p-1  ${colors[theme]["text"]} transition-all duration-700 ease-linear ${loadedNotes.length > 0 ? "h-1/4" : "h-1"}`}>
+                <div className={`${loadedNotes.length > 0 ? "opacity-100" : "opacity-0"} w-full h-full flex flex-col overflow-auto transition-all duration-700 ease-linear shadow-md p-1.5 rounded border ${colors[theme]["border"]} ${colors[theme]["base-background"]}`}>
+                    {loadedNotes.map((result, index) => (
+                        <div
+                            ref={index === loadedNotes.length - 1 ? lastNoteElementRef : null}
+                            key={`${result.suraNumber}-${result.verseNumber}-${index}`}
+                            className={`mb-1.5 p-2 rounded shadow-md ${colors[theme]["text-background"]} cursor-pointer`}
+                            onClick={() => handleConfirm(`${result.suraNumber}:${result.verseNumber}`)}>
+                            <span className="text-sky-500">{result.suraNumber}:{result.verseNumber}</span> {lightWords(result.note, searchTerm)}
                         </div>
                     ))}
                 </div>
