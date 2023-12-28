@@ -22,6 +22,10 @@ const Magnify = ({ colors, theme, translationApplication, quran, onClose, onConf
         }
     }, []);
 
+    const removeDiacritics = (text) => {
+        return text.normalize("NFD").replace(/[\u0300-\u036f]/g, "");
+    };
+    
     const performSearch = useCallback((term) => {
         if (!term || term.length < 2) {
             setSearchResultTitles([]);
@@ -33,20 +37,28 @@ const Magnify = ({ colors, theme, translationApplication, quran, onClose, onConf
         const titleResults = [];
         const verseResults = [];
         const notesResults = [];
+       
+
         for (const page in quran) {
             const suras = quran[page].sura;
+            const normalizedTerm = removeDiacritics(term).toLowerCase();
+
             for (const suraNumber in suras) {
                 const verses = suras[suraNumber].verses;
                 for (const verseNumber in verses) {
                     const verseText = verses[verseNumber];
-                    if (verseText.toLowerCase().includes(term.toLowerCase())) {
+                    const normalizedVerseText = removeDiacritics(verseText).toLowerCase();
+
+                    if (normalizedVerseText.includes(normalizedTerm)) {
                         verseResults.push({ suraNumber, verseNumber, verseText });
                     }
                 }
                 const titles = suras[suraNumber].titles;
                 for (const titleNumber in titles) {
                     const titleText = titles[titleNumber];
-                    if (titleText.toLowerCase().includes(term.toLowerCase())) {
+                    const normalizedTitleText = removeDiacritics(titleText).toLowerCase();
+
+                    if (normalizedTitleText.includes(normalizedTerm)) {
                         titleResults.push({ suraNumber, titleNumber, titleText });
                     }
                 }
@@ -54,7 +66,9 @@ const Magnify = ({ colors, theme, translationApplication, quran, onClose, onConf
                 const notes = quran[page].notes.data;
                 if (notes.length > 0) {
                     Object.values(notes).forEach((note) => {
-                        if (note.toLowerCase().includes(term.toLowerCase())) {
+                        const normalizedNote = removeDiacritics(note).toLowerCase();
+
+                        if (normalizedNote.includes(normalizedTerm)) {
                             const match = note.match(/\*+\d+:\d+/g);
                             if (match && match.length > 0) {
                                 const ref = match[0].split("*")[1].split(":");
@@ -75,15 +89,33 @@ const Magnify = ({ colors, theme, translationApplication, quran, onClose, onConf
     }, [searchTerm, performSearch]);
 
     const lightWords = (text, term) => {
-        const regex = new RegExp(`(${term})`, 'gi');
-        return text.split(regex).reduce((prev, current, index) => {
+        // Normalize the search term
+        const normalizedTerm = removeDiacritics(term);
+        const regex = new RegExp(`(${normalizedTerm})`, 'gi');
+        const regtext = removeDiacritics(text);
+    
+        let lastIndex = 0;
+        return regtext.split(regex).reduce((prev, current, index) => {
+            // Length of the current segment in the normalized text
+            const currentLength = current.length;
+    
+            // Corresponding segment in the original text
+            const originalSegment = text.substr(lastIndex, currentLength);
+    
             if (regex.test(current)) {
-                return [...prev, <span key={index} className={`font-bold text-rose-400`}>{current}</span>];
+                // Highlight this part in the original text
+                prev.push(<span key={index} className="font-bold text-rose-400">{originalSegment}</span>);
             } else {
-                return [...prev, current];
+                // Add this part of the original text without highlighting
+                prev.push(originalSegment);
             }
+    
+            // Update lastIndex for the next segment
+            lastIndex += currentLength;
+            return prev;
         }, []);
     };
+    
 
     const lastTitleElementRef = useCallback(node => {
         if (observerTitles.current) observerTitles.current.disconnect();
