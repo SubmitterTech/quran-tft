@@ -70,7 +70,7 @@ function Root() {
         }
     };
 
-    const [showCover, setShowCover] = useState(localStorage.getItem("lang") ? false : true);
+    const [showCover, setShowCover] = useState(localStorage.getItem("qurantft-pn") ? false : true);
     const [coverData, setCoverData] = useState(cover);
     const [lang, setLang] = useState(localStorage.getItem("lang") ? localStorage.getItem("lang") : "en");
 

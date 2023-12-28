@@ -25,7 +25,7 @@ const Cover = ({ onCoverSeen, coverData, lang, onChangeLanguage }) => {
                     <h2 className="text-lg font-bold whitespace-pre">{coverData.version}</h2>
                 </div>
             </div>
-            <div className=" w-full h-96 md:h-1/2 mb-12">
+            <div className=" w-full h-96 md:h-1/2 bg-orange-200">
 
                 <div className={`flex flex-col items-center ${show19 ? "opacity-100" : "opacity-0 h-0"} transition-all duration-1000 ease-linear `}
                     onClick={handleTap}>
@@ -33,7 +33,7 @@ const Cover = ({ onCoverSeen, coverData, lang, onChangeLanguage }) => {
                     {Array.from({ length: 19 }).map((_, index) => (
                         <div
                             key={index}
-                            className="splash-line bg-white h-1.5 my-2 md:h-2 md:my-2.5"
+                            className="splash-line bg-white h-1 my-1.5 md:h-2 md:my-2.5"
                             style={{
                                 animationDelay: `${0.5 * (18 - index)}s`, // Animation delay starts from the longest (bottom) line
                                 width: `${81 - 2 * (18 - index)}%` // Width decreases from bottom to top
@@ -86,7 +86,7 @@ const Cover = ({ onCoverSeen, coverData, lang, onChangeLanguage }) => {
 
                 </div>
             </div>
-            <div className="mb-5 w-full flex flex-col space-y-3 h-fit justify-center">
+            <div className="mb-3 w-full flex flex-col space-y-3 h-fit justify-center">
                 <div
                     className="text-sky-400 cursor-pointer"
                     onClick={openPdf}
