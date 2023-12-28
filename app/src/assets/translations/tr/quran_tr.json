@@ -675,7 +675,7 @@
                 "verses": {
                     "183": "Ey iman edenler! Oruç, sizden öncekiler için hükme bağlandığı gibi sizin için de hükme bağlandı ki kurtuluşa eresiniz.",
                     "184": "Belirli günler (oruç tutmak için tayin edilmiştir) ; eğer biri hastaysa veya seyahat ediyorsa eşit sayıda diğer günlerle ikame edilebilir. Orucu ancak büyük zorlukla tutabilenler, orucun bozulduğu her bir günü yoksul bir insanı doyurmakla ikame edebilirler. Kim gönül rızasıyla (daha doğru işler) yaparsa bu daha iyidir. Fakat oruç tutmak sizin için en iyisidir, keşke bilseydiniz.",
-                    "185": "Ramazan, insanlar için rehberlik sağlayan, apaçık öğretiler ve yasa kitabı olan Kuran’ın vahyedildiği aydır. Sizden bu aya tanık olanlar onda oruç tutsun. Hasta olanlar veya seyahat edenler eşit sayıda diğer günlerle ikame edebilirler. TANRI sizler için zorluk değil kolaylık diler ki, yükümlülüklerinizi yerine getiresiniz, size rehberlik ettiği için TANRI ’yı yüceltesiniz ve minnettarlığınızı ifade edesiniz. Tanrı,",
+                    "185": "Ramazan, insanlar için rehberlik sağlayan, apaçık öğretiler ve yasa kitabı olan Kuran’ın vahyedildiği aydır. Sizden bu aya tanık olanlar onda oruç tutsun. Hasta olanlar veya seyahat edenler eşit sayıda diğer günlerle ikame edebilirler. TANRI sizler için zorluk değil kolaylık diler ki, yükümlülüklerinizi yerine getiresiniz, size rehberlik ettiği için TANRI ’yı yüceltesiniz ve minnettarlığınızı ifade edesiniz.",
                     "186": "Kullarım sana Beni soracak olursa Ben her zaman yakınım. Onlar Bana dua ettikleri zaman Ben onların dualarını yanıtlarım. İnsanlar da rehberlik edilmek için Bana karşılık versinler ve Bana iman etsinler.",
                     "187": "Oruç gecelerinde eşlerinizle cinsel birleşmeye izin verilmiştir. Onlar sizin sırlarınızın koruyucularıdır, sizler de onların sırlarının koruyucularısınız. TANRI ruhlarınıza ihanet ettiğinizi bildi, sizi günahınızdan kurtardı ve sizi affetti. Bundan böyle, TANRI ’nın sizin için izin verdiğini arayarak onlarla ilişkiye girebilirsiniz. Şafak vaktinde aydınlığın beyaz ipliği gecenin karanlık ipliğinden ayırt edilebilir hale gelinceye kadar yiyip içebilirsiniz. Sonra, gün batımına kadar oruç tutun. (Ramazan’ın son on gününde) Mescide inzivaya çekilmeye karar verirseniz cinsel birleşme haramdır. Bunlar TANRI ’nın yasalarıdır; onları ihlal etmeyin. TANRI insanlar için vahiylerini bu şekilde açıklığa kavuşturur ki kurtuluşa ersinler. Rüşvet,",
                     "188": "Birbirinizin parasını gayrimeşru şekilde almayın, bile bile yetkililere rüşvet verip gayrimeşru şekilde başkalarını haklarından yoksun da bırakmayın.",
@@ -683,7 +683,7 @@
                 },
                 "titles": {
                     "183": "Oruç Vurgulandı ve Değiştirildi*",
-                    "186": "Kullarının Dualarını Yanıtlar",
+                    "186": "Tanrı, Kullarının Dualarını Yanıtlar",
                     "188": "Yolsuzluk Kınandı",
                     "189": "Lafı Dolandırmayın"
                 }
@@ -4371,14 +4371,14 @@
                     "123": "Ey iman edenler! Size saldıran inkârcılara karşı savaşın − sizi amansız bulsunlar − ve bilin ki TANRI doğrularla beraberdir.",
                     "127": "Bir sure vahyedildiğinde, onlardan bazıları şöyle der, Bu sure sizden herhangi birinin imanını güçlendirdi mi? Gerçekten o, iman etmiş olanların imanını güçlendirdi ve onlar herhangi bir vahiyde sevinirler.",
                     "124": "Kalplerinde şüpheler barındıranlara gelince, bu aslında onların iğrençliklerine iğrençlik kattı ve onlar inkârcılar olarak öldüler.",
-                    "125": "Her sene bir veya iki defa çetin imtihanlara maruz kaldıklarını görmüyorlar mı? Yine de tövbe etmekte ve dikkate almakta sürekli başarısız oluyorlar? Tarihi Bir Cürüm Ortaya Çıkarıldı: Tanrı’nın Sözü İle Oynamak.  Tanrı,",
+                    "125": "Her sene bir veya iki defa çetin imtihanlara maruz kaldıklarını görmüyorlar mı? Yine de tövbe etmekte ve dikkate almakta sürekli başarısız oluyorlar?",
                     "126": "Ne zaman bir sure vahyedilse, içlerinden bir kısmı Sizi gören biri var mı? dercesine birbirlerine bakarlardı. Ardından ayrılırlardı. Böylece TANRI onların kalplerini çevirdi, çünkü onlar kavrayamayan insanlardır."
                 },
                 "titles": {
                     "122": "Din Eğitiminin Önemi",
                     "123": "İnkârcılar",
                     "124": "İkiyüzlüler",
-                    "127": "Çürütülemez Deliller Sunuyor*"
+                    "127": "Tarihi Bir Cürüm Ortaya Çıkarıldı: Tanrı’nın Sözü İle Oynamak. Tanrı,Çürütülemez Deliller Sunuyor*"
                 }
             },
             "10": {
@@ -4431,8 +4431,7 @@
         },
         "notes": {
             "data": [
-                "122",
-                "Yunus (Yunus) 10:3-14"
+                
             ],
             "cumulativefrequencyofthewordGOD": "1280",
             "cumulativesumofverseswhereGODwordoccurs": "79225"
