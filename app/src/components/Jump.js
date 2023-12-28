@@ -126,7 +126,7 @@ const Jump = ({ onChangeTheme, colors, theme, translationApplication, currentPag
     return (
         <div className={`w-screen h-screen animated faster fixed left-0 top-0 flex flex-col items-center justify-center inset-0 z-10 outline-none focus:outline-none backdrop-blur-lg`} id="jump-screen">
 
-            <div className={`w-full p-2 flex flex-col transition-all duration-700 ease-linear`}>
+            <div className={`w-full p-2 flex flex-col transition-all duration-700 ease-linear mb-12`}>
 
                 <div className={`w-full flex justify-between ${colors[theme]["text"]} mb-2`}>
                     <div className={`w-full flex justify-start ml-2`}>
@@ -182,7 +182,7 @@ const Jump = ({ onChangeTheme, colors, theme, translationApplication, currentPag
                             </select>
                         </div>
                     </div>
-                    <div className={`w-full p-3 ${colors[theme]["app-text"]} flex-1 mt-7`}>
+                    <div className={`w-full p-3 ${colors[theme]["app-text"]} flex-1 mt-3`}>
                         <div className={`w-full ${colors[theme]["app-background"]} p-3 shadow-md rounded`}>
                             <div className={`flex w-full ${colors[theme]["app-text"]} mb-4 text-sm`}>
                                 {translationApplication?.page} {selectedPage}
@@ -219,7 +219,7 @@ const Jump = ({ onChangeTheme, colors, theme, translationApplication, currentPag
                             })}
                         </div>
                     </div>
-                    <div className={`flex w-full justify-between items-center ${colors[theme]["text"]} mt-7`}>
+                    <div className={`flex w-full justify-between items-center ${colors[theme]["text"]} mt-3`}>
                         <div className={`p-2 flex flex-col w-full items-center justify-between`}>
                             <button className={`flex justify-center`} onClick={handleSubmit}>
                                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className={`w-7 h-7`}>

@@ -707,7 +707,7 @@ const Book = ({ onChangeTheme, colors, theme, translationApplication, introducti
         <div className={`flex flex-col justify-start h-screen ${colors[theme]["app-background"]}`}>
             {renderBookContent()}
             { parseInt(currentPage) < 397 &&
-                <div className={`w-full flex z-20 p-0.5`}>
+                <div className={`w-full flex z-20 p-0.5 backdrop-blur-xl`}>
                     <div className={`flex w-full items-center justify-between`}>
                         <button onClick={prevPage}
                             className={`w-1/2 ${colors[theme]["app-text"]} px-2 mb-1 rounded mr-2 flex justify-center`}>

@@ -140,7 +140,7 @@ const Magnify = ({ colors, theme, translationApplication, quran, onClose, onConf
 
     return (
         <div className={`w-screen h-screen animated overflow-auto faster fixed left-0 top-0 flex flex-col items-center justify-start inset-0 z-10 outline-none focus:outline-none backdrop-blur-2xl`} id="jump-screen">
-            <div className={`w-full flex p-2 sticky top-0`}>
+            <div className={`w-full flex p-2 sticky top-0 backdrop-blur-2xl`}>
                 <div className={`w-full flex rounded shadow-md space-x-2`}>
                     <input
                         type="text"
@@ -161,13 +161,13 @@ const Magnify = ({ colors, theme, translationApplication, quran, onClose, onConf
             <div className={`${loadedTitles.length > 0 ? "opacity-100" : "opacity-0"} text-sm ${colors[theme]["page-text"]}`}>
                 {translationApplication.titles}
             </div>
-            <div className={`text-sm md:text-base  w-full p-1 ${colors[theme]["text"]} transition-all duration-400 ease-linear  ${loadedTitles.length > 0 ? "h-1/6" : "h-1"}`}>
-                <div className={`${loadedTitles.length > 0 ? "opacity-100" : "opacity-0"}  transition-all duration-400 ease-linear w-full flex flex-col h-full shadow-md p-1 rounded overflow-auto border ${colors[theme]["border"]} `}>
+            <div className={`text-sm md:text-base  w-full p-1 ${colors[theme]["text"]} transition-all duration-200 ease-linear ${loadedTitles.length > 0 ? "max-h-36 md:h-1/6 md:max-h-fit" : "h-0 "} `}>
+                <div className={`${loadedTitles.length > 0 ? "opacity-100" : "opacity-0 "} space-y-1.5  ${colors[theme]["text-background"]} transition-all duration-200 ease-linear w-full flex flex-col h-full shadow-md p-1 rounded overflow-auto border ${colors[theme]["border"]} `}>
                     {loadedTitles.map((result, index) => (
                         <div
                             ref={index === loadedTitles.length - 1 ? lastTitleElementRef : null}
                             key={`${result.suraNumber}-${result.titleNumber}-${index}`}
-                            className={`mb-1 p-2 rounded shadow-md ${colors[theme]["base-background"]} cursor-pointer`}
+                            className={` p-2 rounded shadow-md ${colors[theme]["base-background"]} cursor-pointer`}
                             onClick={() => handleConfirm(`${result.suraNumber}:${result.titleNumber}`)}>
                             <span className="text-sky-500">{result.suraNumber}:{result.titleNumber}</span> {lightWords(result.titleText, searchTerm)}
                         </div>
@@ -177,13 +177,13 @@ const Magnify = ({ colors, theme, translationApplication, quran, onClose, onConf
             <div className={`${loadedVerses.length > 0 ? "opacity-100" : "opacity-0"} text-sm ${colors[theme]["page-text"]}`}>
                 {translationApplication.verses}
             </div>
-            <div className={`text-sm md:text-base text-justify hyphens-auto w-full p-1  ${colors[theme]["text"]} transition-all duration-700 ease-linear ${loadedVerses.length > 0 ? "h-1/3" : "h-1"}`}>
-                <div className={`${loadedVerses.length > 0 ? "opacity-100" : "opacity-0"} w-full h-full flex flex-col overflow-auto transition-all duration-700 ease-linear shadow-md p-1.5 rounded border ${colors[theme]["border"]} ${colors[theme]["base-background"]}`}>
+            <div className={`text-sm md:text-base text-justify hyphens-auto w-full p-1  ${colors[theme]["text"]} transition-all duration-200 ease-linear ${loadedVerses.length > 0 ? "max-h-96 md:h-1/3 md:max-h-fit" : "h-0 "}`}>
+                <div className={`${loadedVerses.length > 0 ? "opacity-100" : "opacity-0"} w-full h-full space-y-1.5 flex flex-col overflow-auto transition-all duration-200 ease-linear shadow-md p-1.5 rounded border ${colors[theme]["border"]} ${colors[theme]["base-background"]}`}>
                     {loadedVerses.map((result, index) => (
                         <div
                             ref={index === loadedVerses.length - 1 ? lastVerseElementRef : null}
                             key={`${result.suraNumber}-${result.verseNumber}-${index}`}
-                            className={`mb-1.5 p-2 rounded shadow-md ${colors[theme]["text-background"]} cursor-pointer`}
+                            className={` p-2 rounded shadow-md ${colors[theme]["text-background"]} cursor-pointer`}
                             onClick={() => handleConfirm(`${result.suraNumber}:${result.verseNumber}`)}>
                             <span className="text-sky-500">{result.suraNumber}:{result.verseNumber}</span> {lightWords(result.verseText, searchTerm)}
                         </div>
@@ -193,15 +193,15 @@ const Magnify = ({ colors, theme, translationApplication, quran, onClose, onConf
             <div className={`${loadedNotes.length > 0 ? "opacity-100" : "opacity-0 "} text-sm ${colors[theme]["page-text"]}`}>
                 {translationApplication.notes}
             </div>
-            <div className={`text-sm md:text-base text-justify hyphens-auto w-full p-1  ${colors[theme]["text"]} transition-all duration-700 ease-linear ${loadedNotes.length > 0 ? "h-1/4" : "h-1"}`}>
-                <div className={`${loadedNotes.length > 0 ? "opacity-100" : "opacity-0"} w-full h-full flex flex-col overflow-auto transition-all duration-700 ease-linear shadow-md p-1.5 rounded border ${colors[theme]["border"]} ${colors[theme]["base-background"]}`}>
+            <div className={`text-sm md:text-base text-justify hyphens-auto w-full p-1  ${colors[theme]["text"]} transition-all duration-200 ease-linear ${loadedNotes.length > 0 ? "max-h-40 md:h-1/4 md:max-h-fit" : "h-0 "} mb-10`}>
+                <div className={`${loadedNotes.length > 0 ? "opacity-100" : "opacity-0"} w-full h-full space-y-1.5 flex flex-col overflow-auto transition-all duration-200 ease-linear shadow-md p-1.5 rounded border ${colors[theme]["border"]} ${colors[theme]["base-background"]}`}>
                     {loadedNotes.map((result, index) => (
                         <div
                             ref={index === loadedNotes.length - 1 ? lastNoteElementRef : null}
                             key={`${result.suraNumber}-${result.verseNumber}-${index}`}
-                            className={`mb-1.5 p-2 rounded shadow-md ${colors[theme]["text-background"]} cursor-pointer`}
+                            className={` p-2 rounded shadow-md ${colors[theme]["text-background"]} cursor-pointer`}
                             onClick={() => handleConfirm(`${result.suraNumber}:${result.verseNumber}`)}>
-                            <span className="text-sky-500">{result.suraNumber}:{result.verseNumber}</span> {lightWords(result.note, searchTerm)}
+                            {lightWords(result.note, searchTerm)}
                         </div>
                     ))}
                 </div>
