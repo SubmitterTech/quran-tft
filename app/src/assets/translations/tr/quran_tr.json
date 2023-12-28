@@ -8937,7 +8937,7 @@
     "252": {
         "page": [
             "230",
-            "Karınca (El-Neml) 27:79-93 & History (Al-Qasas) 28:1"
+            "Karınca (El-Neml) 27:79-93 & Tarih (El-Kasas) 28:1"
         ],
         "sura": {
             "27": {
@@ -8967,7 +8967,7 @@
             },
             "28": {
                 "verses": {
-                    "1": "T.S M."
+                    "1": "T.S M.*"
                 },
                 "titles": {
                     "1": "♦ ♦ ♦ ♦\nSure 28: Tarih\n(El-Kasas)\nEn Lütufkâr, En Merhametli olan Tanrı ’nın adıyla. "
@@ -8985,7 +8985,7 @@
     },
     "253": {
         "page": [
-            "History (Al-Qasas) 28:2-18",
+            "Tarih (El-Kasas) 28:2-18",
             "231"
         ],
         "sura": {
@@ -9027,7 +9027,7 @@
     "254": {
         "page": [
             "232",
-            "History (Al-Qasas) 28:19-33"
+            "Tarih (El-Kasas) 28:19-33"
         ],
         "sura": {
             "28": {
@@ -9065,7 +9065,7 @@
     },
     "255": {
         "page": [
-            "History (Al-Qasas) 28:34-45",
+            "Tarih (El-Kasas) 28:34-45",
             "233"
         ],
         "sura": {
@@ -9081,20 +9081,20 @@
                     "41": "Onları, halklarını Cehenneme sürükleyen imamlar yaptık. Dahası, Diriliş Günü’nde hiçbir yardım göremeyecekler.",
                     "42": "Bu dünyada kınanmaya uğradılar ve Diriliş Günü’nde aşağılanacaklar.",
                     "43": "Önceki nesilleri yok ettikten ve onlar yoluyla emsaller oluşturduktan sonra, insanlar için bir aydınlanma, rehberlik ve rahmet sağlamak için Musa’ya kutsal yazı verdik ki dikkate alsınlar.",
-                    "44": "Musa’ya emri verdiğimiz zaman, sen batıdaki dağın yamacında bulunmuyordun; bir şahit değildin.",
+                    "44": "Musa’ya emri verdiğimiz zaman, sen batıdaki dağın yamacında bulunmuyordun; bir şahit değildin.*",
                     "45": "Fakat biz nice nesiller inşa ettik ve zamanın uzunluğundan ötürü (saptılar) . Sen Midyan halkı arasında bulunup onlara vahiylerimizi okuyor da değildin. Ancak biz elçiler gönderdik."
                 },
                 "titles": {
                     "36": "Firavun’un Kibri",
-                    "43": "Musa’nın Kitabı",
+                    "43": "Musa’nın Kitabı*",
                     "44": "Tanrı’nın Antlaşma Elçisi’ne Hitaben"
                 }
             }
         },
         "notes": {
             "data": [
-                "*28:43 The Torah is the collection of all the scriptures revealed to all the prophets of Israel, including the book of Moses. The Quran consistently states that Moses was given a  book,  or  “the  Statute  Book.”  Nowhere  in  the  Quran  do  we  see  that  Moses  was given “the Torah.” Today’s Old Testament, therefore, is the Torah (see 3:50, 5:46).",
-                "*28:44  The  name  of  this  messenger  is  confirmed  mathematically:  by  placing  the gematrical  value  of  “Rashad  Khalifa”  (1230)  next  to  the  verse  number  (44),  we  get 123044 = 19x6476."
+                "*28:43 Tevrat, Musa’nın kitabı da dâhil olmak üzere İsrail peygamberlerinin tamamına vahyedilen tüm kutsal yazıların koleksiyonudur. Kuran, sürekli olarak Musa’ya bir kitap ya da “Yasa Kitabı” verildiğini belirtmektedir. Kuran’ın hiçbir yerinde, Musa’ya “Tevrat” verildiğini görmeyiz. Bugünkü Eski Ahit, bundan dolayı Tevrat’tır (3:50, 5:46’ya bakınız).",
+                "*28:44 Bu elçinin ismi matematiksel olarak doğrulanmaktadır: “Reşad Halife”nin sayısal değerini (1230), ayet numarası (44) ile yan yana yazarak 123044 = 19x6476 elde ederiz."
             ],
             "cumulativefrequencyofthewordGOD": "1839",
             "cumulativesumofverseswhereGODwordoccurs": "101820"
@@ -9103,7 +9103,7 @@
     "256": {
         "page": [
             "234",
-            "History (Al-Qasas) 28:46-59"
+            "Tarih (El-Kasas) 28:46-59"
         ],
         "sura": {
             "28": {
@@ -9142,7 +9142,7 @@
     },
     "257": {
         "page": [
-            "History (Al-Qasas) 28:60-75",
+            "Tarih (El-Kasas) 28:60-75",
             "235"
         ],
         "sura": {
@@ -9183,7 +9183,7 @@
     "258": {
         "page": [
             "236",
-            "History (Al-Qasas) 28:76-88"
+            "Tarih (El-Kasas) 28:76-88"
         ],
         "sura": {
             "28": {
@@ -9218,13 +9218,13 @@
     },
     "259": {
         "page": [
-            "The Spider (Al-‘Ankaboot) 29:1-14",
+            "Örümcek (El-Ankebut) 29:1-14",
             "237"
         ],
         "sura": {
             "29": {
                 "verses": {
-                    "1": "A.L.M.",
+                    "1": "A.L.M.*",
                     "2": "İnsanlar, test edilmeden, İman ediyoruz demeleriyle bırakılacaklarını mı zannediyorlar?",
                     "3": "Onlardan öncekileri de test ettik, çünkü TANRI doğru sözlüleri ayırt etmeli ve yalancıları ifşa etmelidir.",
                     "4": "Yoksa günah işleyenler bizi kandırabileceklerini mi sanıyorlar? Yargıları gerçekten de yanlış.",
@@ -9237,10 +9237,10 @@
                     "11": "TANRI iman edenleri mutlaka ayırt edecektir ve ikiyüzlüleri mutlaka ifşa edecektir.",
                     "12": "İnkâr etmiş olanlar iman etmiş olanlara dediler ki Eğer bizim yolumuzu takip ederseniz günahlarınızdan biz sorumlu olacağız. Doğru değil! Onların günahlarından hiçbirini yüklenemezler. Onlar yalancıdırlar.",
                     "13": "Aslında, onlar kendi günahlarına ek olarak, günahlarının sorumlusu oldukları diğer insanların günah yüklerini de taşırlar. Muhakkak ki Diriliş Günü’nde sahte iddialarından sorulacaklardır.",
-                    "14": "Nuh’u halkına gönderdik ve onlarla birlikte bin yıldan elli eksik kaldı. Ardından, haddi aşmalarından ötürü tufana yakalandılar."
+                    "14": "Nuh’u halkına gönderdik ve onlarla birlikte bin yıldan elli eksik kaldı.* Ardından, haddi aşmalarından ötürü tufana yakalandılar."
                 },
                 "titles": {
-                    "1": "♦ ♦ ♦ ♦\nSura 29: The Spider\n(Al-‘Ankaboot)\nEn Lütufkâr, En Merhametli olan Tanrı ’nın adıyla.",
+                    "1": "♦ ♦ ♦ ♦\nSure 29: Örümcek\n(El-Ankebut)\nEn Lütufkâr, En Merhametli olan Tanrı ’nın adıyla.",
                     "2": "Test Zorunludur",
                     "8": "Ana-Babanıza Hürmet Gösterin",
                     "10": "İyi Gün Dostları",
@@ -9250,8 +9250,8 @@
         },
         "notes": {
             "data": [
-                "*29:1 See Appendix 1 for details of the Quran’s mathematical composition, and the meaning of these previously mysterious Quranic Initials.",
-                "*29:14 Since the Quran’s miracle is mathematical, the numbers especially constitute an important part of the 19-based code. Thus, the numbers mentioned in the Quran add up to 162146, or 19x8534 (see Appendix 1 for the details)."
+                "*29:1 Kuran’ın matematiksel kompozisyonunun detayları ve önceden gizemli olan Kuran’ın bu başlangıç harflerinin anlamı için Ek 1’e bakınız.",
+                "*29:14 Kuran’ın mucizesi matematiksel olduğundan, sayılar özellikle 19-temelli kodun önemli birbölümünü oluşturmaktadır. Nitekim Kuran’da geçen sayıların toplamı 162146 veya 19x8534’tür(Detaylar için Ek 1’e bakınız)."
             ],
             "cumulativefrequencyofthewordGOD": "1871",
             "cumulativesumofverseswhereGODwordoccurs": "103075"
@@ -9260,7 +9260,7 @@
     "260": {
         "page": [
             "238",
-            "The Spider (Al-‘Ankaboot) 29:15-29"
+            "Örümcek (El-Ankebut) 29:15-29"
         ],
         "sura": {
             "29": {
@@ -9283,7 +9283,7 @@
                 },
                 "titles": {
                     "16": "İbrahim",
-                    "19": "Yaşamın Kökenini İnceleyin",
+                    "19": "Yaşamın Kökenini İnceleyin*",
                     "24": "İbrahim’in Hikâyesine Devam",
                     "25": "Sosyal Baskı: Esaslı Bir Felaket",
                     "28": "Lut"
@@ -9292,7 +9292,7 @@
         },
         "notes": {
             "data": [
-                "*29:19-20 We learn from the Quran that evolution is a divinely guided process. See Appendix 31 for the details."
+                "*29:19-20 Kuran’dan öğreniyoruz ki evrim ilahi olarak yönlendirilen bir süreçtir. Detaylar için Ek 31’e bakınız."
             ],
             "cumulativefrequencyofthewordGOD": "1884",
             "cumulativesumofverseswhereGODwordoccurs": "103270"
@@ -9300,7 +9300,7 @@
     },
     "261": {
         "page": [
-            "The Spider (Al-‘Ankaboot) 29:30-44",
+            "Örümcek (El-Ankebut) 29:30-44",
             "239"
         ],
         "sura": {
@@ -9317,7 +9317,7 @@
                     "38": "Aynı şekilde Âd ve Semûd da (yok edildi) . Bu, onların yıkıntıları aracılığıyla size açıkça gösterilmiştir. Şeytan onların işlerini gözlerinde süslemiş ve gözleri olduğu halde onları yoldan saptırmıştı.",
                     "39": "Ayrıca Karun, Firavun ve Haman; Musa onlara apaçık işaretlerle gitti. Fakat onlar yeryüzünde tiranlık yapmaya devam ettiler. Sonuç olarak, (azaptan) kurtulamadılar.",
                     "40": "Tüm bu inkârcılar günahlarının bir sonucu olarak kötü sona mahkûm oldular. Bir kısmını şiddetli rüzgârlarla yok ettik, bir kısmı sarsıntı ile yok edildi, bir kısmını yerin yutmasına yol açtık, bir kısmını ise boğduk. Onlara kötülük eden TANRI değildi; kendi ruhlarına kötülük edenler kendileriydi.",
-                    "41": "TANRI ’nın yanında başka efendiler kabul edenlerin alegorisi, örümcek ve onun evi gibidir; tüm evlerden en dayanıksız olanı örümceğin evidir, keşke bilselerdi.",
+                    "41": "TANRI ’nın yanında başka efendiler kabul edenlerin alegorisi, örümcek ve onun evi gibidir; tüm evlerden en dayanıksız olanı örümceğin evidir, keşke bilselerdi.*",
                     "42": "TANRI , onların O’nun yanında taptıklarının gerçekte bir hiç olduğunu çok iyi bilir. O Kudretlidir, En Bilge Olandır.",
                     "43": "Biz bu örnekleri insanlar için veriyoruz ve onları bilgili kimselerden başkası takdir etmez.",
                     "44": "TANRI gökleri ve yeri gerçek olarak yarattı. Bu, imanlılar için yeterli bir kanıt sağlar."
@@ -9332,7 +9332,7 @@
         },
         "notes": {
             "data": [
-                "*29:41-43 It takes a knowledgeable person to know that the Black Widow spider kills her mate. The use of the feminine reference to the spider in 29:41 is thus significant. This is in addition to the fact that the spider web is physically very flimsy."
+                "*29:41-43 Kara Dul örümceğinin eşini öldürdüğünü bilmek, bilgili bir kişi olmayı gerektirir. 29:41’de örümceğe dişi referansın kullanılması bu nedenle önemlidir. Bu, örümcek ağının fiziksel olarak çokdayanıksız olduğu gerçeğine ektir."
             ],
             "cumulativefrequencyofthewordGOD": "1889",
             "cumulativesumofverseswhereGODwordoccurs": "103473"
@@ -9341,12 +9341,12 @@
     "262": {
         "page": [
             "240",
-            "The Spider (Al-‘Ankaboot) 29:45-54"
+            "Örümcek (El-Ankebut) 29:45-54"
         ],
         "sura": {
             "29": {
                 "verses": {
-                    "45": "Kutsal yazıdan sana vahyedileni oku ve İletişim Dualarını (Namazı) yerine getir, çünkü İletişim Duaları kötülüğü ve ahlaksızlığı önler. Fakat (Namaz yoluyla) TANRI ’nın hatırlanması en önemli amaçtır. TANRI yaptığınız her şeyi bilir.",
+                    "45": "Kutsal yazıdan sana vahyedileni oku ve İletişim Dualarını (Namazı) yerine getir, çünkü İletişim Duaları kötülüğü ve ahlaksızlığı önler. Fakat (Namaz yoluyla) TANRI ’nın hatırlanması en önemli amaçtır.* TANRI yaptığınız her şeyi bilir.",
                     "46": "Kutsal yazı halkıyla (Yahudilerle, Hristiyanlarla ve Müslümanlarla) —onlar haddi aşmadıkça—mümkün olan en güzel şeklin dışında tartışmayın ve deyin ki Biz bize vahyedilmiş olana da, size vahyedilmiş olana da iman ediyoruz ve bizim tanrımız ve sizin tanrınız bir ve aynıdır; O’na teslim olanlarız biz.",
                     "47": "Bu kutsal yazıyı sana biz vahyettik ve önceki kutsal yazılarla nimetlendirdiğimiz kimseler ona da iman edeceklerdir. Ayrıca, senin halkından bazıları da ona iman edecektir. Doğrusu, vahiylerimizi göz ardı edenler gerçek inkârcılardır.",
                     "48": "Sen önceki kutsal yazıları okumadın, onları kendi ellerinle yazmadın da. Bu durumda, reddedenlerin şüphe barındırmak için bir sebebi olmuş olurdu.",
@@ -9354,22 +9354,22 @@
                     "50": "Dediler ki Keşke Rabbinden ona mucizeler  inebilseydi! De ki, Tüm mucizeler sadece TANRI ’dan gelir; ben apaçık bir uyarıcıdan fazlası değilim.",
                     "51": "Kendilerine okunmakta olan bu kitabı sana indirmiş olmamız bir mucize olarak yetmiyor mu? Bu gerçekten de iman eden insanlar için bir rahmet ve bir hatırlatıcıdır.",
                     "52": "De ki, Benimle sizin aranızda bir şahit olarak TANRI yeter. O, göklerde ve yerde olan her şeyi bilir. Şüphesiz, sahte olana iman edenler ve TANRI ’yı inkâr edenler gerçek kaybedenlerdir.",
-                    "53": "Azabı getirmen için sana meydan okuyorlar! Eğer önceden belirlenmiş bir randevu olmasaydı azap onlara hemen gelirdi. Kesinlikle o, kendilerine hiç beklemedikleri bir anda, ansızın gelecektir.",
+                    "53": "Azabı getirmen için sana meydan okuyorlar! Eğer önceden belirlenmiş bir randevu olmasaydı azap onlara hemen gelirdi.* Kesinlikle o, kendilerine hiç beklemedikleri bir anda, ansızın gelecektir.",
                     "54": "Azabı getirmen için sana meydan okuyorlar! Cehennem zaten inkârcıları kuşatmıştır."
                 },
                 "titles": {
                     "45": "İletişim Duaları (Namaz)",
                     "46": "Tek Tanrı/Tek Din",
-                    "48": "Kuran: Muhammed’in Mucizesi",
+                    "48": "Kuran: Muhammed’in Mucizesi*",
                     "53": "Onlar Şu An Cehennemdeler"
                 }
             }
         },
         "notes": {
             "data": [
-                "*29:45 Your god is whatever occupies your mind most of the time (see 20:14 & Appendix 27).",
-                "*29:48-51  It  was  the  will  of  the  Most  Wise  to  separate  the  Quran  from  its  awesome mathematical miracle by 1400 years. Seeing how the Muslims en masse have idolized Muhammad, it is obvious that if the Quran’s mathematical miracle were also revealed through Muhammad, many people would have worshiped him as God incarnate. As it is, God willed that the great miracle of the Quran (74:30-35) shall await the computer age, and to have it revealed through His Messenger of the Covenant (see Appendices 1, 2, & 26).",
-                "*29:53 Anyone who dies before the age of 40 goes to Heaven, and not everyone deserves this.  People  sometimes  lament  the  slowness  of  justice  when  a  vicious  criminal  is  not executed promptly. God knows who deserves Heaven (see 46:15 and Appendix 32)."
+                "*29:45 Zamanın çoğunda zihninizi meşgul eden her ne ise sizin tanrınız odur (20:14 ve Ek 27’yebakınız).",
+                "*29:48-51 Kuran’ı, müthiş matematiksel mucizesinden 1400 yıl boyunca ayırmak En Bilge Olan’ın iradesiydi. Müslümanların Muhammed’i topluca nasıl putlaştırdıkları göz önüne alınırsa, belli ki eğer Kuran’ın matematiksel mucizesi de Muhammed aracılığıyla vahyedilseydi, birçok insan ona Tanrı’nın ete kemiğe bürünmüş hali diye tapardı. Görüldüğü üzere Tanrı, Kuran’ın büyük mucizesinin (74:30-35) bilgisayar çağını beklemesini ve onun, Kendi Antlaşma Elçisi ile vahyedilmesini irade etti (Ek 1, 2 & 26’ya bakınız).",
+                "*29:53 40 yaşından önce ölen herkes Cennete gider ve herkes bunu hak etmez. İnsanlar bazen, kötü bir suçlu derhal idam edilmediği zaman adaletin yavaşlığından yakınırlar. Tanrı kimin Cenneti hak ettiğini bilir (46:15 ve Ek 32’ye bakınız)."
             ],
             "cumulativefrequencyofthewordGOD": "1894",
             "cumulativesumofverseswhereGODwordoccurs": "103620"
@@ -9377,7 +9377,7 @@
     },
     "263": {
         "page": [
-            "The Spider (Al-‘Ankaboot) 29:55-69 & Romans (Al-Room) 30:1-3",
+            "Örümcek (El-Ankebut) 29:55-69 & Romalılar (El-Rum) 30:1-3",
             "241"
         ],
         "sura": {
@@ -9407,18 +9407,18 @@
             },
             "30": {
                 "verses": {
-                    "1": "A.L.M.",
+                    "1": "A.L.M.*",
                     "2": "Şüphesiz, Romalılar yenilecektir.",
                     "3": "En yakın topraklarda. Yenilgilerinden sonra tekrar yükselip kazanacaklar."
                 },
                 "titles": {
-                    "1": "♦ ♦ ♦ ♦\nSura 30: Romans\n(Al-Room) \nEn Lütufkâr, En Merhametli olan Tanrı ’nın adıyla. "
+                    "1": "♦ ♦ ♦ ♦\nSure 30: Romalılar\n(El-Rum) \nEn Lütufkâr, En Merhametli olan Tanrı ’nın adıyla. "
                 }
             }
         },
         "notes": {
             "data": [
-                "*30:1 See Appendix 1 for the detailed explanation of these previously mysterious initials."
+                "*30:1 Önceden gizemli olan bu başlangıç harflerinin açıklaması için Ek 1’e bakınız."
             ],
             "cumulativefrequencyofthewordGOD": "1904",
             "cumulativesumofverseswhereGODwordoccurs": "104135"
@@ -9427,7 +9427,7 @@
     "264": {
         "page": [
             "242",
-            "Romans (Al-Room) 30:4-21"
+            "Romalılar (El-Rum) 30:4-21"
         ],
         "sura": {
             "30": {
@@ -9468,7 +9468,7 @@
     },
     "265": {
         "page": [
-            "Romans (Al-Room) 30:22-34",
+            "Romalılar (El-Rum) 30:22-34",
             "243"
         ],
         "sura": {
@@ -9485,13 +9485,13 @@
                     "30": "Bu nedenle, kendini koyu tek tanrıcılığın dinine ada. İşte böyledir TANRI ’nın insanların içine yerleştirdiği doğal içgüdü. TANRI ’nın bu tür yaratışı asla değişmeyecektir. Mükemmel din budur, fakat insanların çoğu bilmez.",
                     "31": "O’na teslim olun, O’na derin saygı duyun, İletişim Dualarını (Namazı) yerine getirin ve—ne yaparsanız yapın—asla putperestliğe düşmeyin.",
                     "32": "Dinlerini mezheplere bölenler gibi (putperestliğe düşmeyin) ; her fırka sahip olduklarıyla seviniyor.",
-                    "33": "İnsanlara bir sıkıntı dokunduğunda, kendilerini tamamen O’na adayarak Rablerine dönerler. Fakat sonra O onlara rahmetini yağdırır yağdırmaz bazıları putperestliğe geri döner.",
+                    "33": "İnsanlara bir sıkıntı dokunduğunda, kendilerini tamamen O’na adayarak Rablerine dönerler. Fakat sonra O onlara rahmetini yağdırır yağdırmaz bazıları putperestliğe geri döner.*",
                     "34": "Bırakın kendilerine verdiklerimize karşı nankör olsunlar. Geçici olarak tadını çıkarın; ileride kesinlikle öğreneceksiniz."
                 },
                 "titles": {
                     "22": "Daha Fazla Kanıt",
                     "28": "Puta Tapmanın Saçmalığı",
-                    "30": "Tek Tanrıcılık: Doğal İçgüdü",
+                    "30": "Tek Tanrıcılık: Doğal İçgüdü*",
                     "32": "Mezhepçilik Kınandı",
                     "33": "Kötü Gün Dostları"
                 }
@@ -9499,8 +9499,8 @@
         },
         "notes": {
             "data": [
-                "*30:30 Recognizing God ALONE as our Lord and Master is a natural instinct. We are born into this world with such an instinct. See 7:172-173 and Appendix 7.",
-                "*30:33 A common example is the classified advertisements we note in the newspapers, placed  by  people  thanking  St.  Jude  for  healing  them.  Before  undergoing  surgery,  they sincerely implore God to heal them. But as soon as the surgery succeeds, they thank St.Jude!!!"
+                "*30:30 Sahibimiz ve Efendimiz olarak YALNIZCA Tanrı’yı kabul edişimiz doğal bir içgüdüdür. Bu dünyaya böyle bir içgüdü ile doğarız. 7:172-173 ve Ek 7’ye bakınız.",
+                "*30:33 Yaygın bir örnek, kendilerini iyileştirdiği için Aziz Yahuda’ya teşekkür eden insanlar tarafından yapılan, gazetelerde gördüğümüz küçük ilanlardır. Ameliyata girmeden önce kendilerini iyileştirmesi için içtenlikle Tanrı’ya yalvarırlar. Fakat ameliyat başarılı geçince vakit kaybetmeden Aziz Yahuda’ya teşekkür ederler!!!"
             ],
             "cumulativefrequencyofthewordGOD": "1916",
             "cumulativesumofverseswhereGODwordoccurs": "104264"
@@ -9509,7 +9509,7 @@
     "266": {
         "page": [
             "244",
-            "Romans (Al-Room) 30:35-49"
+            "Romalılar (El-Rum) 30:35-49"
         ],
         "sura": {
             "30": {
@@ -9545,7 +9545,7 @@
     },
     "267": {
         "page": [
-            "Romans (Al-Room) 30:50-60 & Luqmãn (Luqmãn) 31:1-7",
+            "Romalılar (El-Rum) 30:50-60 & Lokman (Lokman) 31:1-7",
             "245"
         ],
         "sura": {
@@ -9564,14 +9564,14 @@
                     "60": "Bu nedenle, kararlılıkla sebat et—çünkü TANRI ’nın vaadi gerçektir—ve kesinliğe erişmemiş kişiler seni yıldırmasın."
                 },
                 "titles": {
-                    "51": "He is Omnipotent. ",
+                    "51": "He is Omnipotent.",
                     "54": "Bu Hayat Çok Kısa",
                     "59": "İlahi Müdahale"
                 }
             },
             "31": {
                 "verses": {
-                    "1": "A.L.M.",
+                    "1": "A.L.M.*",
                     "2": "Bu (harfler) , bu bilgelik kitabının kanıtlarını oluşturur.",
                     "3": "Doğrular için bir yol gösterici ve bir rahmet.",
                     "4": "Ki onlar İletişim Dualarını (Namazı) yerine getirenlerdir, zorunlu bağışı (Zekâtı) verenlerdir ve Ahiret konusunda tümüyle kesinliğe erişmişlerdir.",
@@ -9580,13 +9580,13 @@
                     "7": "Onlardan birine vahiylerimiz okunduğu zaman, sanki onları hiç işitmemiş gibi, sanki kulakları sağırmış gibi kibirli bir şekilde yüz çevirir. Ona, acı veren bir azabın sözünü ver."
                 },
                 "titles": {
-                    "1": "♦ ♦ ♦ ♦\nSura 31: Luqmãn\n(Luqmãn)\nEn Lütufkâr, En Merhametli olan Tanrı ’nın adıyla. "
+                    "1": "♦ ♦ ♦ ♦\nSure 31: Lokman\n(Lokman)\nEn Lütufkâr, En Merhametli olan Tanrı ’nın adıyla. "
                 }
             }
         },
         "notes": {
             "data": [
-                "*31:1 See Appendix 1 for the important role of these initials."
+                "*31:1 Bu başlangıçların önemli rolü için Ek 1’e bakınız."
             ],
             "cumulativefrequencyofthewordGOD": "1929",
             "cumulativesumofverseswhereGODwordoccurs": "104794"
@@ -9595,7 +9595,7 @@
     "268": {
         "page": [
             "246",
-            "Luqmãn (Luqmãn) 31:8-21"
+            "Lokman (Lokman) 31:8-21"
         ],
         "sura": {
             "31": {
@@ -9605,7 +9605,7 @@
                     "10": "Gökleri, görebileceğiniz direkler olmaksızın yarattı. Sizinle birlikte altüst olmasın diye yeryüzünde sabitleyiciler (dağlar) inşa etti ve onun üzerinde her türlü yaratığı yaydı. Biz her türlü güzel bitkiyi yetiştirmek için gökyüzünden su indiririz.",
                     "11": "Böyledir TANRI ’nın yaratışı; gösterin bakalım bana, O’nun yanına yerleştirdiğiniz putların neler yarattığını. Gerçekten de haddi aşanlar uzak bir sapıklık içindedirler.",
                     "12": "Biz Lokman’a bilgelik bahşettik:  TANRI ’ya minnettar ol. Kim minnettar ise kendi iyiliği için minnettardır. Nankör olanlara gelince, TANRI ’nın hiçbir şeye ihtiyacı yoktur, Övgüye Layık Olandır.",
-                    "13": "Hani Lokman oğlunu aydınlatırken ona demişti ki Ey oğlum! TANRI ’nın yanına hiçbir put yerleştirme; putperestlik büyük bir haksızlıktır.",
+                    "13": "Hani Lokman oğlunu aydınlatırken ona demişti ki Ey oğlum! TANRI ’nın yanına hiçbir put yerleştirme; putperestlik büyük bir haksızlıktır.*",
                     "14": "Biz insana ana-babasına hürmet göstermesini tembih ettik. Annesi onu taşır ve yük ağırlaştıkça ağırlaşır. Sütten kesilinceye kadar (yoğun bir şekilde bakımı) iki yıl sürer. Bana ve ana-babana minnettar ol. Nihai varışınız Banadır.",
                     "15": "Eğer onlar Benim yanıma herhangi bir put yerleştirmen için seni zorlarlarsa onlara itaat etme. Fakat onlara bu dünyada iyi davranmaya devam et. Sadece Bana teslim olanların yolunu takip et. Sonunda hepinizin dönüşü Banadır, sonra yapmış olduğunuz her şeyi size bildireceğim.",
                     "16": "Ey oğlum! Bil ki hardal tanesi kadar ufacık bir şey bile olsa, ister bir kayanın en içinde bulunsun isterse göklerde veya yerde olsun TANRI onu getirecektir. TANRI Uludur, Haberdardır.",
@@ -9625,7 +9625,7 @@
         },
         "notes": {
             "data": [
-                "*31:13 How will you feel if you take care of a child, give him the best education, and prepare him for life, only to see him thank someone else? Thus is idolatry; injustice."
+                "*31:13 Eğer bir çocukla ilgilenir, ona en iyi eğitimi verir ve onu hayata hazırlarsanız, onun yalnızca başkalarına teşekkür ettiğini görmek size ne hissettirir? Putperestlik böyle bir şeydir; haksızlıktır."
             ],
             "cumulativefrequencyofthewordGOD": "1940",
             "cumulativesumofverseswhereGODwordoccurs": "104914"
@@ -9633,7 +9633,7 @@
     },
     "269": {
         "page": [
-            "Luqmãn (Luqmãn) 31:22-34",
+            "Lokman (Lokman) 31:22-34",
             "247"
         ],
         "sura": {
@@ -9651,20 +9651,20 @@
                     "31": "Size bazı kanıtlarını göstermek için gemilerin TANRI ’nın rızıklarını taşıyarak denizde dolaştıklarını görmez misin? Doğrusu bunlar, kararlı olan, minnettar olan herkes için yeterli kanıtlar olmalıdır.",
                     "32": "Onları şiddetli dalgalar sardığında, dualarını samimiyetle yalnızca TANRI ’ya adayarak O’na yalvarırlar. Fakat O onları karaya çıkarıp kurtarır kurtarmaz bazıları eski durumlarına geri dönerler. Nankör hainlerden başka hiç kimse vahiylerimizi göz ardı etmez.",
                     "33": "Ey insanlar! Rabbinize derin saygı duyun, bir babanın evladına ve bir evladın da babasına yardım edemediği bir günden korkun. Kesinlikle, TANRI ’nın vaadi gerçektir; bu nedenle, bu hayat tarafından başka tarafa çevrilmeyin; önemsiz illüzyonlar tarafından TANRI ’dan başka tarafa çevrilmeyin.",
-                    "34": "TANRI ’nın yanındadır Saat (dünyanın sonu) ile alakalı bilgi. O’dur yağmuru yağdıran ve rahimlerde olanı O bilir. Hiçbir ruh kendisine yarın ne olacağını bilmez ve hiç kimse hangi yerde öleceğini bilmez. TANRI Her Şeyi Bilendir, Haberdardır."
+                    "34": "TANRI’nın yanındadır Saat (dünyanın sonu) ile alakalı bilgi. O’dur yağmuru yağdıran ve rahimlerde olanı O bilir. Hiçbir ruh kendisine yarın ne olacağını bilmez ve hiç kimse hangi yerde öleceğini bilmez. TANRI Her Şeyi Bilendir, Haberdardır."
                 },
                 "titles": {
                     "22": "En Güçlü Bağ",
                     "25": "Onlar Tanrı’ya İnanıyorlar",
                     "27": "Bunlar İhtiyacımız Olan Tüm Sözlerdir",
                     "29": "YALNIZCA Tanrı Tapılmaya Layıktır",
-                    "34": "Bilebileceğimiz ve Bilemeyeceğimiz Şeyler"
+                    "34": "Bilebileceğimiz ve Bilemeyeceğimiz Şeyler*"
                 }
             }
         },
         "notes": {
             "data": [
-                "*31:34 God reveals His knowledge whenever He wills. We learn from this verse that we may be able to predict the rain, and the gender of the fetus. But we can never know the time or place of death. In accordance with 72:27, God has revealed the end of the world through  His  Messenger  of  the  Covenant.  See  15:87,  20:15,  and  Appendix  25  for  the details."
+                "*31:34 Tanrı, bilgisini irade ettiği zamanda vahyeder. Bu ayetten öğreniyoruz ki, yağmuru ve fetüsün cinsiyetini tahmin etmeyi başarabiliriz. Fakat asla ölüm vaktini ve yerini bilemeyiz. 72:27 ayetine göre Tanrı, dünyanın sonunu Kendi Antlaşma Elçisi’ne vahyetti. Detaylar için 15:87, 20:15 ve Ek 25’e bakınız."
             ],
             "cumulativefrequencyofthewordGOD": "1960",
             "cumulativesumofverseswhereGODwordoccurs": "105254"
@@ -9673,12 +9673,12 @@
     "270": {
         "page": [
             "248",
-            "Prostration (Al-Sajdah) 32:1-14"
+            "Secde (El-Secde) 32:1-14"
         ],
         "sura": {
             "32": {
                 "verses": {
-                    "1": "A.L.M.",
+                    "1": "A.L.M.*",
                     "2": "Bu kitap, kuşkusuz, kâinatın Rabbinden bir vahiydir.",
                     "3": "Onu o uydurdu dediler. Doğrusu bu, rehberlik edilirler diye, senden önce kendilerine hiçbir zaman bir uyarıcı ulaşmamış insanları uyarmak için Rabbinden gelen gerçektir.",
                     "4": "TANRI ’dır gökleri ve yeri ve de aralarındaki her şeyi altı günde yaratan, ardından tüm otoriteyi üstlenen. Sizin O’nun yanında bir Rabbiniz yoktur, bir şefaatçiniz de yoktur. Dikkate almaz mısınız?",
@@ -9689,12 +9689,12 @@
                     "9": "Ona biçim verdi ve ruhundan üfledi. Ve size işitme, görme yeteneği ve beyinler verdi; nadiren müteşekkir oluyorsunuz.",
                     "10": "Onlar hayret ederler, Biz toprağa karışıp kaybolduktan sonra yeniden mi yaratılacağız? Nitekim onlar Rableriyle karşılaşma konusunda inkârcıdırlar.",
                     "11": "De ki, Üzerinize görevlendirilen melek tarafından vefat ettirileceksiniz, ardından Rabbinize döndürüleceksiniz.",
-                    "12": "Suçluları, Rableri huzurunda başlarını öne eğmiş durumda iken bir görebilseydin: Rabbimiz! Artık gördük ve işittik. Bizi geri gönder, biz doğru kimseler olacağız. Biz artık kesinliğe eriştik.",
-                    "13": "İrade etmiş olsaydık her bir ruha hidayetini verirdik, fakat Cehennemi topluca cinler ve insanlarla dolduracak olmam zaten önceden karar verilmiştir.",
+                    "12": "Suçluları, Rableri huzurunda başlarını öne eğmiş durumda iken bir görebilseydin: Rabbimiz! Artık gördük ve işittik. Bizi geri gönder, biz doğru kimseler olacağız. Biz artık kesinliğe eriştik.*",
+                    "13": "İrade etmiş olsaydık her bir ruha hidayetini verirdik, fakat Cehennemi topluca cinler ve insanlarla dolduracak olmam zaten önceden karar verilmiştir.*",
                     "14": "Bugünü unutmanızın sonuçlarını tadın; şimdi de biz sizi unutuyoruz. Kendi yaptıklarınızın karşılığı olarak ebedi azabı üzerinize çektiniz."
                 },
                 "titles": {
-                    "1": "♦ ♦ ♦ ♦\nSura 32: Prostration\n(Al-Sajdah)\nEn Lütufkâr, En Merhametli olan Tanrı ’nın adıyla. ",
+                    "1": "♦ ♦ ♦ ♦\nSure 32: Secde\n(El-Secde)\nEn Lütufkâr, En Merhametli olan Tanrı ’nın adıyla. ",
                     "4": "Tanrı ile Aranızda Hiçbir Aracı Yok",
                     "7": "İnsanın Kökeni",
                     "12": "Çok Geç"
@@ -9703,9 +9703,9 @@
         },
         "notes": {
             "data": [
-                "*32:1 The meaning of these letters is given in the next verse: “This book is, without a doubt, a revelation from the Lord of the universe.” See Appendix 1 for the details.",
-                "*32:12 If sent back, they would commit the same transgressions. See Footnote 6:28.",
-                "*32:13 The majority of humans “insist” upon going to Hell, by choosing to ignore God’s invitations to redeem them. God will not put a single person in Hell. Those who fail to redeem themselves by denouncing idolatry and devoting themselves to God ALONE, and fail to develop their souls through the practices prescribed by our Creator, will have to run to Hell on their own volition. They will be too weak to stand the physical presence of God’s energy."
+                "*32:1 Bu harflerin anlamı bir sonraki ayette verilmektedir: “Bu kitap, kuşkusuz, kâinatın Rabbinden bir vahiydir.” Detaylar için Ek 1’e bakınız.",
+                "*32:12 Geri gönderilselerdi aynı suçları işlerlerdi. Dipnot 6:28’e bakınız.",
+                "*32:13 İnsanların çoğu, Tanrı’nın onları günahın bedelinden kurtarma davetini göz ardı etmeyi seçerek Cehenneme gitmekte “ısrar ediyorlar.” Tanrı tek bir insanı bile Cehenneme koymayacaktır. Putperestliklerini kınayıp, YALNIZCA Tanrı’ya adanarak kendilerini günahın bedelinden kurtarmayı başaramayanlar ve Yaratıcımızın emrettiği uygulamalarla ruhlarını geliştiremeyenler, kendi iradeleriyle Cehenneme koşacaklardır. Tanrı’nın enerjisinin fiziksel varlığına dayanamayacak kadar zayıf olacaklardır."
             ],
             "cumulativefrequencyofthewordGOD": "1961",
             "cumulativesumofverseswhereGODwordoccurs": "105258"
@@ -9713,7 +9713,7 @@
     },
     "271": {
         "page": [
-            "Prostration (Al-Sajdah) 32:15-30 & The Parties (Al-Ahzãb) 33:1-3",
+            "Secde (El-Secde) 32:15-30 & Taraflar (El-Ahzâb) 33:1-3",
             "249"
         ],
         "sura": {
@@ -9748,7 +9748,7 @@
                     "3": "Ve TANRI ’ya güvenip dayan. Bir savunucu olarak TANRI yeter."
                 },
                 "titles": {
-                    "1": "♦ ♦ ♦ ♦\nSura 33: The Parties\n(Al-Ahzãb)\nEn Lütufkâr, En Merhametli olan Tanrı ’nın adıyla. "
+                    "1": "♦ ♦ ♦ ♦\nSure 33: Taraflar\n(El-Ahzâb)\nEn Lütufkâr, En Merhametli olan Tanrı ’nın adıyla. "
                 }
             }
         },
@@ -9761,15 +9761,15 @@
     "272": {
         "page": [
             "250",
-            "The Parties (Al-Ahzãb) 33:4-12"
+            "Taraflar (El-Ahzâb) 33:4-12"
         ],
         "sura": {
             "33": {
                 "verses": {
-                    "4": "TANRI hiçbir adama göğsünde iki kalp vermedi. (Geleneğinize göre) kendinize yabancılaştırdığınız eşlerinizi annelerinize de dönüştürmedi. Evlat edindiğiniz çocukları genetik evlatlarınıza da dönüştürmedi. Tüm bunlar, icat edip uydurduğunuz sözlerden ibarettir. TANRI gerçek olanı konuşur ve O, (doğru) yolda rehberlik eder.",
+                    "4": "TANRI hiçbir adama göğsünde iki kalp vermedi. (Geleneğinize göre) kendinize yabancılaştırdığınız eşlerinizi annelerinize de dönüştürmedi.* Evlat edindiğiniz çocukları genetik evlatlarınıza da dönüştürmedi. Tüm bunlar, icat edip uydurduğunuz sözlerden ibarettir. TANRI gerçek olanı konuşur ve O, (doğru) yolda rehberlik eder.",
                     "5": "Evlatlıklarınıza, onların genetik ebeveynleriyle ilişkilerini koruyan isimler verin. Bu, TANRI katında daha adildir. Eğer onların ebeveynlerini bilmiyorsanız, o zaman onlara din kardeşleriniz olarak ailenizin fertleri gibi davranın. Bu hususta bir hata yaparsanız bir günah işlemiş olmazsınız; sizler kasıtlı olan niyetlerinizden sorumlusunuz. TANRI Bağışlayıcıdır, En Merhametli Olandır.",
                     "6": "Peygamber imanlılara, onların birbirlerine olduklarından daha yakındır ve onun eşleri onların anneleri gibidir. Akrabalar, TANRI ’nın kutsal yazısına göre birbirleriyle ilgilenmelidirler. Bu nedenle, imanlılar, ilk önce kendi aileleriyle ilgilenmeleri şartıyla kendilerine göç eden akrabalarıyla ilgilensinler. Bunlar, bu kutsal yazının buyruklarıdır. Muhammed,",
-                    "7": "Hani peygamberlerle antlaşma yapmıştık, (Ey Muhammed) sen dâhil, Nuh, İbrahim, Musa ve Meryemoğlu İsa ile. Onlardan ciddi bir söz aldık.",
+                    "7": "Hani peygamberlerle antlaşma yapmıştık, (Ey Muhammed) sen dâhil, Nuh, İbrahim, Musa ve Meryemoğlu İsa ile. Onlardan ciddi bir söz aldık.*",
                     "8": "Akabinde, O, doğru sözlüleri doğru sözlülükleri konusunda sorgulayacaktır ve inkâr edenler için (bu Kuranî gerçekte) acı veren bir azap hazırlamıştır.",
                     "9": "Ey iman edenler! TANRI ’nın üzerinizdeki nimetini hatırlayın; askerler size saldırdığında, onların üzerine şiddetli rüzgâr ve görünmeyen askerler gönderdik. TANRI yaptığınız her şeyi Görendir.",
                     "10": "Onlar üstünüzden ve altınızdan geldikleri vakit gözleriniz dehşete kapılmış, kalplerinizin tahammülü kalmamıştı ve TANRI hakkında uygun olmayan düşüncelere kapılmıştınız.",
@@ -9779,16 +9779,15 @@
                 "titles": {
                     "4": "Tanrı’ya Olan Adanmışlık Bölünemez",
                     "5": "İsimlerinizi Değiştirmeyin",
-                    "7": "Tanrı’nın Antlaşma Elçisi’ne Destek Sözü Verdi",
-                    "8": "We  took  from  them  a  solemn pledge.* ",
+                    "7": "Tanrı’nın Antlaşma Elçisi’ne Destek Sözü Verdi*",
                     "9": "Tarafların Muharebesi"
                 }
             }
         },
         "notes": {
             "data": [
-                "*33:4 It was a custom in Arabia to estrange the wife by declaring that she was like the husband’s mother. Such an unfair practice is abrogated herein.",
-                "*33:7 The covenant is detailed in 3:81. God took a covenant from the prophets that they shall  support  His  Messenger  of  the  Covenant  who  would  come  after  Muhammad  to purify and unify their messages. The Covenant was made before the earth’s creation, and was fulfilled in Mecca Zul-Hijja 3, 1391 (Dec. 21, 1971). The sum of the Islamic month (12),  plus  the  day  (3),  plus  the  year  (1391)  gives  1406,  19x74  Overwhelming  proof identifying God’s Messenger of the Covenant as Rashad Khalifa is provided throughout the Quran (Appendices 2 & 26)."
+                "*33:4 Arabistan’da, eşin, kocanın annesi gibi olduğu ilan edilerek yabancılaştırılması bir gelenekti. Burada, böylesi adil olmayan bir uygulama iptal edilmiştir.",
+                "*33:7 Bu antlaşma 3:81’de detaylandırılmıştır. Tanrı, Muhammed’den sonra gelen ve onların mesajlarını arındırıp birleştirecek olan Kendi Antlaşma Elçisi’ni destekleyeceklerine dair peygamberlerle bir antlaşma yaptı. Bu antlaşma, dünya yaratılmadan önce yapıldı ve Mekke’de, 3 Zilhicce 1391’de (21 Aralık 1971’de) yerine getirildi. İslami ay (12) artı gün (3) artı yıl (1391) toplandığında 1406, 19x74 eder. Tanrı’nın Antlaşma Elçisi’nin Reşad Halife olduğunu ortaya koyan karşı konulmaz kanıt Kuran boyunca verilmektedir (Ek 2 & 26)."
             ],
             "cumulativefrequencyofthewordGOD": "1975",
             "cumulativesumofverseswhereGODwordoccurs": "105310"
@@ -9796,7 +9795,7 @@
     },
     "273": {
         "page": [
-            "The Parties (Al-Ahzãb) 33:13-25",
+            "Taraflar (El-Ahzâb) 33:13-25",
             "251"
         ],
         "sura": {
@@ -9817,14 +9816,14 @@
                     "25": "TANRI inkâr edenleri öfkeleriyle birlikte geri püskürttü ve onlar avuçlarını yaladılar. TANRI bu sayede imanlıları herhangi bir savaştan korudu. TANRI Güçlüdür, Kudretlidir."
                 },
                 "titles": {
-                    "21": "Peygamberin Cesareti",
+                    "21": "Peygamberin Cesareti*",
                     "25": "Muhammed’in Dönemi Boyunca"
                 }
             }
         },
         "notes": {
             "data": [
-                "*33:21 Satan took this verse out of context, and relied on the people’s idolization of the prophet  Muhammad  to  innovate  a  whole  set  of  unauthorized  and  unreasonable regulations called “Sunna of the Prophet.” This created a totally different religion (see 42:21 and Appendix 18)."
+                "*33:21 Şeytan bu ayeti bağlamından kopardı ve insanların Muhammed peygamberi putlaştırmalarına yaslanıp, “Peygamberin Sünneti” diye adlandırılan bir dizi yetkisiz ve mantıksız düzenlemeler üretti. Bu da tamamen farklı bir din yarattı (42:21 ve Ek 18’e bakınız)."
             ],
             "cumulativefrequencyofthewordGOD": "1993",
             "cumulativesumofverseswhereGODwordoccurs": "105494"
@@ -9833,7 +9832,7 @@
     "274": {
         "page": [
             "252",
-            "The Parties (Al-Ahzãb) 33:26-36"
+            "Taraflar (El-Ahzâb) 33:26-36"
         ],
         "sura": {
             "33": {
@@ -9867,7 +9866,7 @@
     },
     "275": {
         "page": [
-            "The Parties (Al-Ahzãb) 33:37-49",
+            "Taraflar (El-Ahzâb) 33:37-49",
             "253"
         ],
         "sura": {
@@ -9877,7 +9876,7 @@
                     "38": "Peygamber, TANRI ’nın helal kılmış olduğu bir şeyi yaparak bir hata işlemiş olmuyor. Böyledir eski nesillerden bu yana TANRI ’nın sistemi. TANRI ’nın emri kutsal bir görevdir.",
                     "39": "TANRI ’nın mesajlarını iletenler ve yalnızca O’na derin saygı duyanlar, TANRI hariç hiç kimseden hiçbir zaman korkmamalılar. TANRI en etkili hesap görendir.",
                     "40": "Muhammed aranızdan herhangi bir erkeğin babası değildi. O, TANRI ’nın bir elçisi ve son peygamberdi. TANRI her şeyin tamamen farkındadır.",
-                    "41": "Ey iman edenler! TANRI ’yı sık sık hatırlayın.",
+                    "41": "Ey iman edenler! TANRI ’yı sık sık hatırlayın.*",
                     "42": "O’nu gece gündüz yüceltin.",
                     "43": "O’dur sizi karanlıklardan aydınlığa çıkarmak için melekleriyle birlikte size yardım eden. O, imanlılara karşı En Merhametli Olandır.",
                     "44": "O’nunla buluştukları gün, onların selamlamaları Esenliklerdir ve O, onlar için cömert bir ödül hazırlamıştır.",
@@ -9888,16 +9887,15 @@
                     "49": "Ey iman edenler! Eğer imanlı kadınlarla evlendiyseniz, ardından cinsel birleşmeye girmeden onları boşadıysanız, (başka bir adamla evlenmeden önce) onların size bir bekleme süresi borcu yoktur. Onları adil bir şekilde tazmin edin ve güzel bir şekilde gitmelerine izin verin."
                 },
                 "titles": {
-                    "40": "Son Elçi Değil",
+                    "40": "Son Elçi Değil*",
                     "49": "Evlilik Yasaları"
                 }
             }
         },
         "notes": {
             "data": [
-                "*33:40 Despite this clear definition of Muhammad, most Muslims insist that he was the last prophet and also the last messenger. This is a tragic human trait as we see in 40:34.",
-                "Those who readily believe God realize that God sends His purifying and consolidating Messenger of the Covenant after the final prophet Muhammad (3:81, 33:7).",
-                "*33:41-42  Your  god  is  whatever  occupies  your  thoughts  most  of  the  time.  Hence  the commandment to commemorate God and glorify Him day and night. See Appendix 27."
+                "*33:40 Muhammed’in açık tarifine rağmen, çoğu Müslüman onun son peygamber ve aynı zamanda son elçi olduğu konusunda ısrar ederler. Bu, 40:34’te gördüğümüz gibi trajik bir insan özelliğidir.Tanrı’ya tereddütsüz iman eden kimseler, Tanrı’nın son peygamber Muhammed’den sonra, Kendiarındırıcı ve birleştirici Antlaşma Elçisi’ni göndereceğini fark ederler (3:81, 33:7).",
+                "*33:41-42 Zamanın çoğunda düşüncelerinizi her ne meşgul ediyorsa sizin tanrınız odur. Tanrı’yıanmak ve O’nu gece gündüz yüceltmek buyruğu bu nedenledir. Ek 27’ye bakınız."
             ],
             "cumulativefrequencyofthewordGOD": "2024",
             "cumulativesumofverseswhereGODwordoccurs": "106085"
@@ -9906,7 +9904,7 @@
     "276": {
         "page": [
             "254",
-            "The Parties (Al-Ahzãb) 33:50-55"
+            "Taraflar (El-Ahzâb) 33:50-55"
         ],
         "sura": {
             "33": {
@@ -9914,7 +9912,7 @@
                     "50": "Ey peygamber! Mehrini vermiş olduğun eşlerini veya TANRI tarafından sana bahşedildiği üzere hâlihazırda sahip olduklarını senin için helal kıldık. Ayrıca seninle birlikte göç etmiş olan amcalarının kızları, halalarının kızları, dayılarının kızları, teyzelerinin kızları da evlilikte senin için helaldir. Ayrıca, eğer imanlı bir kadın—mehirden vazgeçerek—kendini peygambere vermişse, peygamber de eğer öyle arzu ediyorsa, onunla bir mehir olmadan evlenebilir. Bununla birlikte, onun mehirden vazgeçmesi sadece peygambere mahsustur, diğer imanlılara değil. Biz onların eşleri veya hâlihazırda sahip oldukları ile alakalı haklarını zaten hükme bağladık. Bu seni herhangi bir sıkıntıdan korumak içindir. TANRI Bağışlayıcıdır, En Merhametli Olandır.",
                     "51": "Kırıcı olmadan onlardan herhangi birinden uzak durabilirsin ve onlardan herhangi birini kendine daha yakın tutabilirsin. Uzaklaşmış olduğun herhangi biriyle de yeniden uzlaşırsan hiçbir hata işlemiş olmazsın. Bu sayede onlar hoşnut olacaklar, üzülmeyecekler ve hepsine eşit bir şekilde verdiğinle razı olacaklardır. TANRI kalplerinizde olanı bilir. TANRI Her Şeyi Bilendir, Hoşgörülüdür.",
                     "52": "Sana tarif edilen kategorilerin ötesinde, güzellikleri ne kadar hoşuna giderse gitsin başka kadınlarla evlenmekten menedildin, (yasaklanan kategorilerden) yeni bir eş ile de değiştiremezsin. Sana hâlihazırda helal kılınmış olanlarla yetin. TANRI her şey üzerinde gözetleyicidir.",
-                    "53": "Ey iman edenler! Yemek yemeniz için müsaade edilmedikçe peygamberin evlerine girmeyin, herhangi bir şekilde böyle bir davete de zorlamayın. Eğer davet edilirseniz girebilirsiniz. Yemeği bitirdiğinizde ayrılın; uzun muhabbetlerle onu meşgul etmeyin. Bu, peygamberi incitmekteydi, ancak size söyleyemeyecek kadar çekiniyordu. Fakat TANRI hakikatten çekinmez. Eğer eşlerine bir şey sormak zorunda kalırsanız onlara bir bariyer arkasından sorun. Bu hem sizin kalpleriniz, hem de onların kalpleri için daha nezihtir. TANRI ’nın elçisini incitemezsiniz. Kendisinden sonra eşleri ile evlenmeyin, çünkü bu TANRI katında büyük bir suç olur.",
+                    "53": "Ey iman edenler! Yemek yemeniz için müsaade edilmedikçe peygamberin evlerine girmeyin, herhangi bir şekilde böyle bir davete de zorlamayın. Eğer davet edilirseniz girebilirsiniz. Yemeği bitirdiğinizde ayrılın; uzun muhabbetlerle onu meşgul etmeyin. Bu, peygamberi incitmekteydi, ancak size söyleyemeyecek kadar çekiniyordu. Fakat TANRI hakikatten çekinmez. Eğer eşlerine bir şey sormak zorunda kalırsanız onlara bir bariyer arkasından sorun. Bu hem sizin kalpleriniz, hem de onların kalpleri için daha nezihtir. TANRI ’nın elçisini incitemezsiniz. Kendisinden sonra eşleri ile evlenmeyin, çünkü bu TANRI katında büyük bir suç olur.*",
                     "54": "Herhangi bir şeyi ister açığa vurun ister onu gizleyin, TANRI her şeyin tamamen farkındadır.",
                     "55": "Kadınlar (kendi giyinme kurallarını) babalarının, oğullarının, erkek kardeşlerinin, erkek kardeşlerinin oğullarının, kız kardeşlerinin oğullarının, başka kadınların ve kendi (kadın) hizmetçilerinin yanında esnetebilirler. TANRI ’ya derin saygı duysunlar. TANRI her şeye şahittir."
                 },
@@ -9925,8 +9923,7 @@
         },
         "notes": {
             "data": [
-                "*33:53 We are enjoined in 4:22 from marrying women who were previously married to our  fathers.  Nor  can  the  father  marry  the  divorced wife  of  his  son  (4:23).  This  divine commandment  preserves  our  respect  for  our  fathers  and  their  most  private  affairs.",
-                "Similarly, the prophet was a father figure to the believers of his time. For the good of those believers, God enjoined them from marrying women who were previously married to the  prophet.  Marriage  is  a  sacred  and  very  private  relationship,  and  the  prophet’s private life was better kept private."
+                "*33:53 Babalarımızla önceden evlenmiş kadınlarla evlenmekten 4:22’de menedilmekteyiz. Baba da kendi oğlunun boşanmış hanımı ile evlenemez (4:23). Bu ilahi buyruk, babalarımız ve onların en mahrem işlerine olan saygımızı muhafaza etmektedir. Benzer şekilde, peygamber de zamanındaki imanlılar için bir baba figürüydü. Bu imanlıların iyiliği için, Tanrı onları peygamberle önceden evli olan kadınlarla evlenmekten menetti. Evlilik kutsal ve çok özel bir ilişkidir ve peygamberin özel hayatının mahrem tutulması gerekiyordu."
             ],
             "cumulativefrequencyofthewordGOD": "2035",
             "cumulativesumofverseswhereGODwordoccurs": "106400"
@@ -9934,7 +9931,7 @@
     },
     "277": {
         "page": [
-            "The Parties (Al-Ahzãb) 33:56-70",
+            "Taraflar (El-Ahzâb) 33:56-70",
             "255"
         ],
         "sura": {
@@ -9957,18 +9954,18 @@
                     "70": "Ey iman edenler! TANRI ’ya derin saygı duyun ve sadece doğru söz söyleyin."
                 },
                 "titles": {
-                    "56": "Peygamber Yaşadığı Sürece",
+                    "56": "Peygamber Yaşadığı Sürece*",
                     "59": "Kadınlar İçin Giyinme Kuralı",
-                    "63": "Dünyanın Sonu Vahyedildi",
+                    "63": "Dünyanın Sonu Vahyedildi*",
                     "64": "Takipçiler Önderlerine Düşman Kesilirler"
                 }
             }
         },
         "notes": {
             "data": [
-                "*33:56 The word “prophet” (Nabi) consistently refers to Muhammad only when he was alive.  Satan  used  this  verse  to  entice  the  Muslims  into  commemorating  Muhammad, constantly, instead of commemorating God as enjoined in 33:41-42.",
-                "*33:63 Less than a century ago, only God possessed knowledge about television and space  satellites,  for  example.  He  revealed  this  knowledge  at  the  predetermined  time.",
-                "Similarly, God has revealed the time appointed for the end of this world (Appendix 25)."
+                "*33:56 “Peygamber” (Nebi) kelimesi tutarlı bir şekilde Muhammed’i ancak hayatta olduğu zaman ifade eder. Şeytan, Müslümanları 33:41-42 ayetlerinde emredildiği üzere Tanrı’yı anmak yerine sürekli Muhammed’i anmaya teşvik etmek için bu ayeti kullandı.",
+                "*33:63 Örneğin bir asırdan daha az bir süre önce, televizyon ve uzay uyduları hakkında sadece Tanrı bilgi sahibiydi. Bu bilgiyi, önceden belirlenmiş bir zamanda vahyetti. Benzer şekilde, Tanrı, bu dünyanın sonu için tayin edilen vakti de vahyetti (Ek 25)."
+                
             ],
             "cumulativefrequencyofthewordGOD": "2047",
             "cumulativesumofverseswhereGODwordoccurs": "106966"
@@ -9977,13 +9974,13 @@
     "278": {
         "page": [
             "256",
-            "The Parties (Al-Ahzãb) 33:71-73 & Sheba (Saba’) 34:1-9"
+            "Taraflar (El-Ahzâb) 33:71-73 & Saba (Saba’) 34:1-9"
         ],
         "sura": {
             "33": {
                 "verses": {
                     "71": "O zaman işlerinizi düzeltecek ve günahlarınızı bağışlayacaktır. TANRI ’ya ve elçisine itaat edenler büyük bir zaferle muzaffer olmuşlardır.",
-                    "72": "Biz sorumluluğu (seçim özgürlüğünü) göklere ve yere ve de dağlara sunduk, fakat onlar onu yüklenmekten kaçındılar ve ondan korktular. Ama insanoğlu onu kabul etti; o, haddi aşandı, cahildi.",
+                    "72": "Biz sorumluluğu (seçim özgürlüğünü) göklere ve yere ve de dağlara sunduk, fakat onlar onu yüklenmekten kaçındılar ve ondan korktular. Ama insanoğlu onu kabul etti; o, haddi aşandı, cahildi.*",
                     "73": "Çünkü TANRI ikiyüzlü erkekleri ve ikiyüzlü kadınları, puta tapan erkekleri ve puta tapan kadınları kaçınılmaz şekilde cezalandıracaktır. TANRI , iman eden erkekleri ve iman eden kadınları günahın bedelinden kurtarır. TANRI Bağışlayıcıdır, En Merhametli Olandır."
                 },
                 "titles": {
@@ -10003,13 +10000,13 @@
                     "9": "Gökte ve yerde, önlerindeki ve arkalarındakileri her şeyi görmediler mi? Eğer irade etseydik yerin onları yutmasına yol açardık veya üzerlerine gökten kütleler düşürürdük. Bu, her itaatkâr kul için yeterli bir kanıt olmalıdır."
                 },
                 "titles": {
-                    "1": "♦ ♦ ♦ ♦\nSura 34: Sheba\n(Saba’)\nEn Lütufkâr, En Merhametli olan Tanrı ’nın adıyla. "
+                    "1": "♦ ♦ ♦ ♦\nSure 34: Saba\n(Saba’)\nEn Lütufkâr, En Merhametli olan Tanrı ’nın adıyla. "
                 }
             }
         },
         "notes": {
             "data": [
-                "*33:72 The animals, trees, stars, etc. took advantage of this most gracious offer. See Appendix 7."
+                "*33:72 Bu en lütufkâr tekliften hayvanlar, ağaçlar, yıldızlar vb. yararlandılar. Ek 7’ye bakınız."
             ],
             "cumulativefrequencyofthewordGOD": "2053",
             "cumulativesumofverseswhereGODwordoccurs": "107119"
@@ -10017,7 +10014,7 @@
     },
     "279": {
         "page": [
-            "Sheba (Saba’) 34:10-21",
+            "Saba (Saba’) 34:10-21",
             "257"
         ],
         "sura": {
@@ -10041,13 +10038,13 @@
                     "12": "İlk Petrol Sahası",
                     "14": "Cinlerin Bilgisi Sınırlıdır",
                     "20": "Şeytan Çoğunluğu Ele Geçirir",
-                    "21": "The Objective: \nDo We Believe \nin the Hereafter?*"
+                    "21": "Amaç: Ahirete İman Ediyor Muyuz?*"
                 }
             }
         },
         "notes": {
             "data": [
-                "*34:21 The criteria that inform us whether we believe in the Hereafter or not are in 6:113, 17:45, & 39:45. These three criteria bring out our true convictions, regardless of our oral statements."
+                "*34:21 Ahirete iman edip etmediğimizi bildiren kıstaslar 6:113, 17:45 & 39:45 ayetlerinde yer almaktadır. Bu üç kıstas, sözlü ifadelerimiz ne olursa olsun gerçek inançlarımızı ortaya çıkarmaktadır."
             ],
             "cumulativefrequencyofthewordGOD": "2053",
             "cumulativesumofverseswhereGODwordoccurs": "107119"
@@ -10056,7 +10053,7 @@
     "280": {
         "page": [
             "258",
-            "Sheba (Saba’) 34:22-34"
+            "Saba (Saba’) 34:22-34"
         ],
         "sura": {
             "34": {
@@ -10067,7 +10064,7 @@
                     "25": "De ki, Siz bizim suçlarımızdan sorumlu değilsiniz, biz de sizin yaptıklarınızdan sorumlu değiliz.",
                     "26": "De ki, Rabbimiz hepimizi huzurunda bir araya toplayacaktır, sonra aramızda adil bir şekilde yargılama yapacaktır. O, Yargıçtır, Her Şeyi Bilendir.",
                     "27": "De ki, Gösterin bakalım bana, O’nun yanına ortaklar olarak yerleştirdiğiniz o putları! De ki, Hayır; O, Kudretli, En Bilge olan o tek TANRI ’dır.",
-                    "28": "Biz seni (Ey Reşad) bütün insanlara bir müjdeci ve aynı zamanda bir uyarıcı olarak gönderdik, fakat insanların çoğu bilmez.",
+                    "28": "Biz seni (Ey Reşad)* bütün insanlara bir müjdeci ve aynı zamanda bir uyarıcı olarak gönderdik, fakat insanların çoğu bilmez.",
                     "29": "Eğer doğru sözlü iseniz bu vaat ne zaman gerçekleşecek? diye meydan okurlar.",
                     "30": "De ki, Belirli bir günde belirli bir vaktiniz var ki, onu bir saat de olsa erteleyemezsiniz, geri de alamazsınız.",
                     "31": "İnkâr edenler dediler ki Biz bu Kuran’a iman etmeyeceğiz, önceki kutsal yazılara da. Bu haddi aşanları Rablerinin huzurunda dururken bir görebilseydin! Birbirleriyle ileri geri tartışacaklar. Takipçiler önderlerine diyecekler ki Eğer siz olmasaydınız biz imanlılar olurduk.",
@@ -10085,7 +10082,7 @@
         },
         "notes": {
             "data": [
-                "*34:28 As detailed in Appendix 2, the name of this messenger is mathematically coded into  the  Quran  as  “Rashad  Khalifa.”  By  adding  the  numerical  value  of  the  name “Rashad” (505), plus the numerical value of the name “Khalifa” (725), plus the number of the sura (34), plus the number of the verse (28), we obtain a total that conforms with the  Quran’s  19-based  mathematical  miracle,  which  was  unveiled  through  Rashad Khalifa. (505 + 725 + 34 + 28= 1292 = 19x68). More information is given in 5:19 and its footnote."
+                "*34:28 Ek 2’de detaylandırıldığı gibi, bu elçinin ismi Kuran’ın içine matematiksel olarak “Reşad Halife” şeklinde kodlanmıştır. “Reşad” isminin sayısal değeri (505) artı “Halife” isminin sayısal değeri (725) artı sure numarası (34) artı ayet numarası (28) toplandığında, Reşad Halife aracılığıyla ortaya çıkarılan Kuran’ın 19-temelli matematiksel mucizesi ile uyumlu bir toplam elde ederiz. (505 + 725 + 34 + 28 = 1292 = 19x68). Daha fazla bilgi 5:19 ayetinde ve onun dipnotunda verilmiştir."
             ],
             "cumulativefrequencyofthewordGOD": "2057",
             "cumulativesumofverseswhereGODwordoccurs": "107225"
@@ -10093,7 +10090,7 @@
     },
     "281": {
         "page": [
-            "Sheba (Saba’) 34:35-46",
+            "Saba (Saba’) 34:35-46",
             "259"
         ],
         "sura": {
@@ -10109,20 +10106,20 @@
                     "42": "O gün, sizin birbirinize yardım edecek yahut zarar verecek hiçbir gücünüz yoktur ve biz haddi aşanlara, Yalanlayıp durduğunuz Cehennemin azabını tadın diyeceğiz.",
                     "43": "Kanıtlarımız kendilerine tamamen apaçık bir şekilde okunduğunda, Bu sadece sizi atalarımızın tapınma şeklinden çevirmek isteyen bir adam dediler. Ayrıca dediler ki Bunlar uydurulmuş yalanlardır. İnkâr etmiş olanlar, kendilerine gelmiş olan gerçek hakkında ayrıca şunu da söylediler, Bu besbelli ki sihir.",
                     "44": "Biz onlara incelemeleri için başka kitaplar vermedik, onlara senden önce başka bir uyarıcı da göndermedik.",
-                    "45": "Kendilerinden öncekiler de inkâr etmişlerdi ve hatta onlar bu nesle verdiğimiz (mucizenin) onda birini dahi görmemişlerdi, onlar benim elçilerimi inkâr ettikleri zaman Benim azabım ne kadar da şiddetliydi!",
+                    "45": "Kendilerinden öncekiler de inkâr etmişlerdi ve hatta onlar bu nesle verdiğimiz (mucizenin) onda birini* dahi görmemişlerdi, onlar benim elçilerimi inkâr ettikleri zaman Benim azabım ne kadar da şiddetliydi!",
                     "46": "De ki, Sizden tek bir şey yapmanızı istiyorum: Kendinizi TANRI ’ya adayın, çiftler halinde ya da bireyler olarak, ardından derinlemesine düşünün. Arkadaşınız (Reşad) bir deli değildir. O, korkunç bir azabın gelişinden hemen önce size gelen apaçık bir uyarıcıdır."
                 },
                 "titles": {
-                    "43": "Kuran’ın Matematiksel Mucizesi",
-                    "46": "Tanrı’nın Antlaşma Elçisi"
+                    "43": "Kuran’ın Matematiksel Mucizesi*",
+                    "46": "Tanrı’nın Antlaşma Elçisi*"
                 }
             }
         },
         "notes": {
             "data": [
-                "*34:43 By adding the gematrical value of “Rashad” (505), plus the value of “Khalifa” (725), plus this verse number (43), we get 505 + 725 + 43= 1273 = 19x67. See Appendices 1 & 2.",
-                "*34:45 The great miracles given to Moses and Jesus were limited in time and place; they were witnessed by a few people who happened to exist in that place at that time. But the mathematical miracle of the Quran is perpetual (see 74:30-35 & Appendix 1).",
-                "*34:46 By placing the gematrical value of “Rashad” (505) next to the value of “Khalifa” (725),  then  the  sura  number  (34),  and  the  verse  number  (46),  we  get  5057253446= 19x266171234."
+                "*34:43 “Reşad”ın sayısal değeri (505) artı “Halife”nin sayısal değeri (725) artı ayet numarası (43) toplandığında 505 + 725 + 43 = 1273 = 19x67 elde ederiz. Ek 1 & 2’ye bakınız.",
+                "*34:45 Musa’ya ve İsa’ya verilen büyük mucizeler zaman ve mekânla sınırlıydı; onlara o zamanda, o yerde var olan birkaç insan tanık oldu. Fakat Kuran’ın matematiksel mucizesi daimidir (74:30-35 ve Ek 1’e bakınız).",
+                "*34:46 “Reşad”ın sayısal değeri (505), “Halife”nin sayısal değeri (725), ardından sure numarası (34) ve ayet numarası (46) yan yana yazıldığında, 5057253446= 19x266171234 elde ederiz."
             ],
             "cumulativefrequencyofthewordGOD": "2058",
             "cumulativesumofverseswhereGODwordoccurs": "107271"
@@ -10131,7 +10128,7 @@
     "282": {
         "page": [
             "260",
-            "Sheba (Saba’) 34:47-54 & Initiator (Fãter) 35:1-8"
+            "Saba (Saba’) 34:47-54 & Başlatan (Fãtır) 35:1-8"
         ],
         "sura": {
             "34": {
@@ -10142,7 +10139,7 @@
                     "50": "De ki, Eğer saparsam kendi kusurlarım yüzünden saparım. Ve eğer rehberlik edilirsem, bu, Rabbimin vahyi sayesindedir. O İşitendir, Yakındır.",
                     "51": "O büyük dehşet onları bulduğunda, keşke onları bir görebilseydin; onlar o zaman kaçamazlar ve zorla götürülürler.",
                     "52": "Onlar o zaman Biz ona artık iman ediyoruz diyecekler, fakat çok geç olacak.",
-                    "53": "Onu geçmişte reddettiler; yerine zan ve tahmine sarılmaya karar verdiler.",
+                    "53": "Onu geçmişte reddettiler; yerine zan ve tahmine sarılmaya karar verdiler.*",
                     "54": "Sonuç olarak, arzuladıkları her şeyden mahrum edildiler. Bu, geçmiş nesillerdeki emsalleri ile aynı akıbettir. Onlar birçok şüpheler barındırdılar."
                 },
                 "titles": {}
@@ -10159,13 +10156,13 @@
                     "8": "Kötü işi, onun doğru olduğunu zannedinceye dek gözlerinde süslenen kişiye dikkat et. TANRI (sapmayı) irade edeni böyle saptırır ve (rehberlik edilmeyi) irade edene de rehberlik eder. Bu nedenle, onlar için üzülme. TANRI onların yaptığı her şeyin tamamen farkındadır."
                 },
                 "titles": {
-                    "1": "♦ ♦ ♦ ♦\nSura 35: Initiator\n(Fãter)\nEn Lütufkâr, En Merhametli olan Tanrı ’nın adıyla. "
+                    "1": "♦ ♦ ♦ ♦\nSure 35: Başlatan\n(Fãtır)\nEn Lütufkâr, En Merhametli olan Tanrı ’nın adıyla. "
                 }
             }
         },
         "notes": {
             "data": [
-                "*34:53 People of all religions tend to forsake the word of God and uphold the words of men. The Jews and the Muslims uphold the Mishnah (Hadith) and Gemarrah (Sunna), while the Christians uphold a trinity invented by the Nicene Conference, 325 years after Jesus."
+                "*34:53 Tüm dinlerin insanları, Tanrı’nın kelamını terk edip insanların kelamına sarılmaya meyillidirler. Yahudiler ve Müslümanlar Mişna (Hadis) ve Gemara’ya (Sünnet) sarılırken, Hristiyanlar ise İsa’dan 325 yıl sonra İznik Konferansı tarafından uydurulan bir üçlü birliğe sarılmaktadırlar."
             ],
             "cumulativefrequencyofthewordGOD": "2069",
             "cumulativesumofverseswhereGODwordoccurs": "107341"
@@ -10173,7 +10170,7 @@
     },
     "283": {
         "page": [
-            "Initiator (Fãter) 35:9-18",
+            "Başlatan (Fãtır) 35:9-18",
             "261"
         ],
         "sura": {
@@ -10193,15 +10190,15 @@
                 "titles": {
                     "10": "Tüm İtibar Tanrı'nın Yanındadır",
                     "11": "Tanrı Tam Kontrol Durumundadır",
-                    "12": "Tanrı’nın Büyüklüğünü Takdir Etmek",
-                    "14": "Putlar Tamamen Güçsüzdürler"
+                    "12": "Tanrı’nın Büyüklüğünü Takdir Etmek*",
+                    "14": "Putlar Tamamen Güçsüzdürler*"
                 }
             }
         },
         "notes": {
             "data": [
-                "*35:12-13 When we send our astronauts into space, we provide them with their minimum  needs  of  food,  water,  and  oxygen.  When  we  sided  with  Satan’s  blasphemy billions of years ago (Appendix 7), God launched us into space aboard the spaceship Earth. But God has supplied our spaceship with awesome renewable systems that provide a great variety of fresh foods, water, oxygen, and even the reproduction of us astronauts.",
-                "*35:14 People idolize Jesus, Mary, Muhammad, Ali, and/or the saints; such idols are dead, unaware, and utterly powerless. Even when they were alive, they were powerless."
+                "*35:12-13 Kendi astronotlarımızı uzaya gönderdiğimizde, onların minimum gıda, su ve oksijen ihtiyaçlarını sağlarız. Milyarlarca yıl önce Şeytan’ın küfrüne taraf olduğumuzda (Ek 7), Tanrı bizi Dünya uzay gemisinde uzaya fırlattı. Fakat Tanrı, uzay gemimizi çok çeşitli taze yiyecekler, su, oksijen ve hatta biz astronotların çoğalmasını sağlayan müthiş yenilenebilir sistemlerle donattı.",
+                "*35:14 İnsanlar İsa’yı, Meryem’i, Muhammed’i, Ali’yi ve/veya azizleri putlaştırırlar; bu tür putlar ölüdürler, habersizdirler ve tamamen güçsüzdürler. Hatta onlar hayatta iken bile güçsüzdüler."
             ],
             "cumulativefrequencyofthewordGOD": "2078",
             "cumulativesumofverseswhereGODwordoccurs": "107434"
@@ -10210,7 +10207,7 @@
     "284": {
         "page": [
             "262",
-            "Initiator (Fãter) 35:19-35"
+            "Başlatan (Fãtır) 35:19-35"
         ],
         "sura": {
             "35": {
@@ -10220,7 +10217,7 @@
                     "21": "Gölgenin serinliği ile Güneş’in sıcaklığı da.",
                     "22": "Yaşayan ve ölü de; TANRI irade ettiği kişiye işittirir. Sen kabirdekileri işiten kimseler yapamazsın.",
                     "23": "Sen bir uyarıcıdan fazlası değilsin.",
-                    "24": "Biz seni  bir müjdeci, aynı zamanda bir uyarıcı olarak gerçekle gönderdik. Her topluluk bir uyarıcı almalıdır.",
+                    "24": "Biz seni*  bir müjdeci, aynı zamanda bir uyarıcı olarak gerçekle gönderdik. Her topluluk bir uyarıcı almalıdır.",
                     "25": "Eğer seni inkâr ederlerse, onlardan öncekiler de inkâr etmişlerdi. Elçileri kendilerine apaçık kanıtlarla, Mezmurlarla ve aydınlatıcı kutsal yazılarla gitmişlerdi.",
                     "26": "Ardından, inkâr edenleri cezalandırdım; Benim azabım nasıl da korkunçtu!",
                     "27": "TANRI ’nın gökten su indirdiğini, bu sayede çeşitli renklerde meyveler yetiştirdiğimizi fark etmiyor musun? Dağlar bile farklı renklere sahiptir; tepeler beyaz veya kırmızı yahut başka bir renktedirler. Ve kuzgunlar da siyahtır.",
@@ -10243,7 +10240,7 @@
         },
         "notes": {
             "data": [
-                "*35:24 The gematrical value of “Rashad Khalifa” (1230), plus the verse number (24) give us a total that is a multiple of 19 (1230 + 24 = 1254 = 19x66)."
+                "*35:24 “Reşad Halife”nin sayısal değeri (1230) artı ayet numarası (24) toplamı bize 19’un katı olan bir toplam verir (1230 + 24 = 1254 = 19x66)."
             ],
             "cumulativefrequencyofthewordGOD": "2086",
             "cumulativesumofverseswhereGODwordoccurs": "107637"
@@ -10251,7 +10248,7 @@
     },
     "285": {
         "page": [
-            "Initiator (Fãter) 35:36-45 & Y. S. (Yã Sîn) 36:1-2",
+            "Başlatan (Fãtır) 35:36-45 & Y. S. (Ya Sîn) 36:1-2",
             "263"
         ],
         "sura": {
@@ -10276,17 +10273,17 @@
             },
             "36": {
                 "verses": {
-                    "1": "Y.S.",
+                    "1": "Y.S.*",
                     "2": "Ve bilgelik dolu Kuran."
                 },
                 "titles": {
-                    "1": "♦ ♦ ♦ ♦\nSura 36: Y. S.\n(Yã Sîn)\nEn Lütufkâr, En Merhametli olan Tanrı ’nın adıyla. "
+                    "1": "♦ ♦ ♦ ♦\nSure 36: Y. S.\n(Ya Sîn)\nEn Lütufkâr, En Merhametli olan Tanrı ’nın adıyla. "
                 }
             }
         },
         "notes": {
             "data": [
-                "*36:1 See Appendix 1 for the detailed explanation of these initials."
+                "*36:1 Bu başlangıçların detaylı açıklaması için Ek 1’e bakınız."
             ],
             "cumulativefrequencyofthewordGOD": "2095",
             "cumulativesumofverseswhereGODwordoccurs": "107930"
@@ -10295,19 +10292,19 @@
     "286": {
         "page": [
             "264",
-            "Y. S. (Yã Sîn) 36:3-24"
+            "Y. S. (Ya Sîn) 36:3-24"
         ],
         "sura": {
             "36": {
                 "verses": {
-                    "3": "Muhakkak ki sen (Reşad) elçilerden birisin.",
+                    "3": "Muhakkak ki sen (Reşad) elçilerden birisin.*",
                     "4": "Dosdoğru bir yol üzerinde.",
                     "5": "Bu vahiy, Kudretli ve En Merhametli Olan’dandır.",
                     "6": "Ataları asla uyarılmamış olan insanları uyarmak içindir ve bu nedenle, onlar habersizdirler.",
                     "7": "Birçoğunun iman etmemesi önceden belirlenmiştir.",
                     "8": "Çünkü biz onların boyunlarının etrafına, çenelerine kadar prangalar takarız. Sonuç olarak, inkârlarında kilitli hale gelirler.",
                     "9": "Ve onların önlerine bir engel ve arkalarına da bir engel yerleştiririz ve böylelikle onları perdeleriz; göremezler.",
-                    "10": "Onları uyarsan da uyarmasan da fark etmez, onlar iman edemezler.",
+                    "10": "Onları uyarsan da uyarmasan da fark etmez, onlar iman edemezler.*",
                     "11": "Sen sadece bu mesaja sarılanlar ve En Lütufkâr Olan’a—kendi başlarına yalnız olduklarında dahi—derin saygı duyanlar tarafından dikkate alınacaksın. Onlara bağışlanmanın ve cömert bir mükâfatın müjdesini ver.",
                     "12": "Biz ölüleri kesinlikle dirilteceğiz ve biz bu hayatta yapmış oldukları her şeyi ve aynı zamanda ölümlerinden sonra devam eden sonuçları da kaydettik. Her şeyi esaslı bir kayıtta saydık.",
                     "13": "Onlara, elçiler alan bir topluluktaki insanları örnek göster.",
@@ -10324,15 +10321,15 @@
                     "24": "Bu durumda tamamen sapmış olurum."
                 },
                 "titles": {
-                    "13": "Elçileri Reddetmek: Trajik Bir İnsan Özelliği"
+                    "13": "Elçileri Reddetmek: Trajik Bir İnsan Özelliği*"
                 }
             }
         },
         "notes": {
             "data": [
-                "*36:3 See Appendices 2 & 26 for the irrefutable physical evidence.",
-                "*36:10 Everyone is already stamped as a believer or a disbeliever. See Appendix 14.",
-                "*36:13-27 God’s messengers have proof, advocate God alone, and do not ask for money."
+                "*36:3 Çürütülemez fiziksel deliller için Ek 2 & 26’ya bakınız.",
+                "*36:10 Herkes hâlihazırda imanlı veya inkârcı olarak damgalıdır. Ek 14’e bakınız.",
+                "*36:13-27 Tanrı’nın elçileri kanıta sahiptirler, yalnızca Tanrı’yı savunurlar ve para istemezler."
             ],
             "cumulativefrequencyofthewordGOD": "2095",
             "cumulativesumofverseswhereGODwordoccurs": "107930"
@@ -10340,7 +10337,7 @@
     },
     "287": {
         "page": [
-            "Y. S. (Yã Sîn) 36:25-45",
+            "Y. S. (Ya Sîn) 36:25-45",
             "265"
         ],
         "sura": {
@@ -10369,8 +10366,8 @@
                     "45": "Ancak kendilerine Geçmişinizden ders alın, geleceğiniz için doğruluğa çalışın ki rahmete erişesiniz denildiğinde,"
                 },
                 "titles": {
-                    "26": "Doğrular Direkt Cennete Giderler",
-                    "30": "Elçilerle Alay Etmek: Trajik Bir İnsan Özelliği",
+                    "26": "Doğrular Direkt Cennete Giderler*",
+                    "30": "Elçilerle Alay Etmek: Trajik Bir İnsan Özelliği*",
                     "33": "Tanrı’nın İşaretleri",
                     "41": "İlk Geminin İcadı"
                 }
@@ -10378,8 +10375,8 @@
         },
         "notes": {
             "data": [
-                "*36:26 The righteous do not really die; they simply move on to the same Paradise where Adam & Eve lived. They join the prophets, saints and martyrs in an active and utopian life (see Appendix 17).",
-                "*36:30 If the messenger presents solid proof of messengership, advocates the worship of God alone, and does not ask us for money, why should we not believe?  (See Appendix 2.)"
+                "*36:26 Doğrular gerçekte ölmezler; onlar sadece Âdem & Havva’nın yaşadığı aynı Cennete geçerler.Aktif ve ideal bir yaşamdaki peygamberlere, azizlere ve şehitlere katılırlar (Ek 17’ye bakınız).",
+                "*36:30 Eğer elçi, elçiliğin somut kanıtını sunar, yalnızca Tanrı’ya tapmayı savunur ve bizden paraistemezse neden inanmayalım ki? (Ek 2’ye bakınız)."
             ],
             "cumulativefrequencyofthewordGOD": "2095",
             "cumulativesumofverseswhereGODwordoccurs": "107930"
@@ -10388,7 +10385,7 @@
     "288": {
         "page": [
             "266",
-            "Y. S. (Yã Sîn) 36:46-69"
+            "Y. S. (Ya Sîn) 36:46-69"
         ],
         "sura": {
             "36": {
@@ -10416,7 +10413,7 @@
                     "66": "Eğer irade edersek gözlerini perdeleyebiliriz ve sonuç olarak, aradıkları zaman yolu göremeyeceklerdir.",
                     "67": "Eğer irade edersek onları oldukları yerde dondurabiliriz; böylelikle ne ileri gidebilirler ne de geri dönebilirler.",
                     "68": "Kime uzun yaşaması için izin verirsek onu zayıflığa geri döndürürüz. Anlamıyor musunuz?",
-                    "69": "Ona (elçiye) öğrettiğimiz bir şiir değildi, o (bir şair) de değildi. Bu ancak müthiş bir kanıt ve esaslı bir Kuran’dır."
+                    "69": "Ona (elçiye) öğrettiğimiz bir şiir değildi, o (bir şair) de değildi. Bu ancak müthiş bir kanıt* ve esaslı bir Kuran’dır."
                 },
                 "titles": {
                     "60": "Şeytan Diğer Alternatiftir"
@@ -10425,7 +10422,7 @@
         },
         "notes": {
             "data": [
-                "*36:69 The word “Zikr” refers frequently to the Quran’s great mathematical code, which is certainly not literary, nor poetry. Please check out 38:1,8; 15:6,9; 16:44; 21:2,24; 26:5; & 36:11."
+                "*36:69 “Zikr” kelimesi çoğunlukla Kuran’ın büyük matematiksel mucizesine atıfta bulunur, ki bu kuşkusuz edebi olması değildir, şiir olması da değildir. Lütfen 38:1,8; 15:6,9; 16:44; 21:2,24; 26:5 & 36:11'i inceleyin."
             ],
             "cumulativefrequencyofthewordGOD": "2097",
             "cumulativesumofverseswhereGODwordoccurs": "107977"
@@ -10433,7 +10430,7 @@
     },
     "289": {
         "page": [
-            "Y. S.(Yã Sîn) 36:70-83 & The Arrangers (Al-Sãffãt) 37:1-8",
+            "Y. S.(Yã Sîn) 36:70-83 & Düzenleyenler (El-Saffat) 37:1-8",
             "267"
         ],
         "sura": {
@@ -10452,7 +10449,7 @@
                     "80": "O’dur yeşil ağaçlardan sizin için ışık saçsın diye yaktığınız yakıtı yaratan.",
                     "81": "Gökleri ve yeri yaratmış Olan, onların benzerini tekrar yaratmaya güç yetiremez mi? Kesinlikle evet; O Yaratandır, Her Şeyi Bilendir.",
                     "82": "Herhangi bir emri yerine getirmek için yapması gereken tek şey ona Ol demektir ve o da oluverir.",
-                    "83": "Bu nedenle, her şeyin egemenliğini elinde bulundurana yücelik olsun ve siz O’na döndürüleceksiniz."
+                    "83": "Bu nedenle, her şeyin egemenliğini elinde bulundurana yücelik olsun ve siz O’na döndürüleceksiniz.*"
                 },
                 "titles": {
                     "80": "Powerless Idols",
@@ -10465,21 +10462,21 @@
                     "2": "Suçlanacak olanları suçlayanlar.",
                     "3": "Mesajları okuyanlar.",
                     "4": "Sizin tanrınız bir tektir.",
-                    "5": "Göklerin ve yerin ve de ikisi arasındaki her şeyin Rabbi ve doğuların Rabbi.",
-                    "6": "Biz en alt göğü, süsleyici gezegenlerle donattık.",
+                    "5": "Göklerin ve yerin ve de ikisi arasındaki her şeyin Rabbi ve doğuların Rabbi.*",
+                    "6": "Biz en alt göğü, süsleyici gezegenlerle donattık.*",
                     "7": "Biz onu her habis şeytandan koruduk.",
                     "8": "Onlar Yüce Toplum’u gizlice dinleyemezler; her taraftan bombardımana tutulurlar."
                 },
                 "titles": {
-                    "1": "♦ ♦ ♦ ♦\nSura 37: The Arrangers\n(Al-Sãffãt)\nEn Lütufkâr, En Merhametli olan Tanrı ’nın adıyla."
+                    "1": "♦ ♦ ♦ ♦\nSure 37: Düzenleyenler\n(El-Saffat)\nEn Lütufkâr, En Merhametli olan Tanrı ’nın adıyla."
                 }
             }
         },
         "notes": {
             "data": [
-                "*36:83 It is noteworthy that the gematrical value of “Rashad” (505), plus the gematrical value of “Khalifa” (725), plus the sura number (36), plus the number of verses (83), produces a total that is a multiple of 19 (505 + 725 + 36 + 83 = 1349=19x71). Also, Sura 36 is number 19 among the 29 initialed suras.",
-                "*37:5 Every heavenly body rises on the planet earth, and sets. Every rise is called “east.”",
-                "*37:6 We live in the innermost and smallest universe. The jinns are confined to this universe."
+                "*36:83 Şurası dikkate değerdir ki “Reşad”ın sayısal değeri (505) artı “Halife”nin sayısal değeri (725) artı sure numarası (36) artı ayet sayısı (83) toplamı 19’un tam katı eden bir toplam verir (505 + 725 + 36 + 83 = 1349=19x71). Ayrıca Sure 36, 29 başlangıç harfli sure arasında 19. sıradadır.",
+                "*37:5 Her gök cismi Dünya gezegeni üzerinde doğar ve batar. Her doğuş, “doğu” olarak adlandırılır.",
+                "*37:6 Biz en içteki ve en küçük evrende yaşıyoruz. Cinler bu evrene hapsedilmiştir."
             ],
             "cumulativefrequencyofthewordGOD": "2098",
             "cumulativesumofverseswhereGODwordoccurs": "108051"
@@ -10488,7 +10485,7 @@
     "290": {
         "page": [
             "268",
-            "The Arrangers (Al-Sãffãt) 37:9-45"
+            "Düzenleyenler (El-Saffat) 37:9-45"
         ],
         "sura": {
             "37": {
@@ -10546,7 +10543,7 @@
     },
     "291": {
         "page": [
-            "The Arrangers (Al-Sãffãt) 37:46-79",
+            "Düzenleyenler (El-Saffat) 37:46-79",
             "269"
         ],
         "sura": {
@@ -10561,7 +10558,7 @@
                     "52": "Alay ederdi: ‘Sen bütün bunlara inanıyor musun?",
                     "53": "‘Öldükten, toza toprağa ve kemiklere dönüştükten sonra hesaba mı çekileceğiz?’",
                     "54": "Diyecek ki Sadece bir göz at!",
-                    "55": "Baktığında arkadaşını Cehennemin ortasında görecek.",
+                    "55": "Baktığında arkadaşını Cehennemin ortasında görecek.*",
                     "56": "(Ona gidip) şöyle diyecek,  TANRI ’ya ant olsun ki neredeyse beni de mahvedecektin.",
                     "57": "Eğer Rabbimin nimeti olmasaydı, ben de şimdi seninle birlikte olacaktım.",
                     "58": "(Sen hala inanıyor musun) bizim öldüğümüze,",
@@ -10597,7 +10594,7 @@
         },
         "notes": {
             "data": [
-                "*37:55 People who make it to Heaven will be able to visit their relatives and friends in Hell, without adverse consequences. In the Hereafter, anyone can move downward, but not upward beyond a certain limit. The limit is decided by one’s degree of growth and development (Appendix 5)."
+                "*37:55 Cennete giren insanlar, olumsuz neticeler olmaksızın Cehennemdeki akrabalarını ve arkadaşlarını ziyaret edebilecekler. Ahirette herkes aşağı doğru hareket edebilecektir fakat belli bir sınırın ötesinde yukarıya doğru hareket edemeyecektir. Bu sınır, kişinin büyüme ve gelişme derecesi ile belirlenir (Ek 5)."
             ],
             "cumulativefrequencyofthewordGOD": "2103",
             "cumulativesumofverseswhereGODwordoccurs": "108279"
@@ -10606,7 +10603,7 @@
     "292": {
         "page": [
             "270",
-            "The Arrangers (Al-Sãffãt) 37:80-113"
+            "Düzenleyenler (El-Saffat) 37:80-113"
         ],
         "sura": {
             "37": {
@@ -10648,7 +10645,7 @@
                 },
                 "titles": {
                     "83": "İbrahim",
-                    "102": "Şeytani Rüya",
+                    "102": "Şeytani Rüya*",
                     "105": "God Intervenes\nto Save\nAbraham and Ismail ",
                     "112": "İshak’ın Doğumu",
                     "104": "Tanrı İbrahim’i ve İsmail’i Kurtarmak İçin Müdahale Ediyor"
@@ -10657,7 +10654,7 @@
         },
         "notes": {
             "data": [
-                "*37:102 The Most Merciful never advocates evil (7:28). As with Job, Satan claimed that Abraham loved his son too much, and was permitted to put Abraham to that severe test."
+                "*37:102 En Merhametli Olan asla kötülüğü savunmaz (7:28). Eyüp’te olduğu gibi Şeytan, İbrahim’in, oğlunu çok sevdiğini iddia etti ve İbrahim’i bu ciddi teste sokması için ona izin verildi."
             ],
             "cumulativefrequencyofthewordGOD": "2106",
             "cumulativesumofverseswhereGODwordoccurs": "108563"
@@ -10665,7 +10662,7 @@
     },
     "293": {
         "page": [
-            "The Arrangers (Al-Sãffãt) 37:114-150",
+            "Düzenleyenler (El-Saffat) 37:114-150",
             "271"
         ],
         "sura": {
@@ -10704,7 +10701,7 @@
                     "129": "Diriliş Günü’ne kadar onun karnında kalacaktı.",
                     "130": "Onu bitkin bir halde çöle attık.",
                     "131": "Onun için yenilebilir bir meyve ağacı yetiştirmiştik.",
-                    "147": "Onu yüz bin veya daha fazlasına gönderdik.",
+                    "147": "Onu yüz bin* veya daha fazlasına gönderdik.",
                     "148": "Onlar iman ettiler ve biz de bu hayatın tadını çıkarmalarına müsaade ettik.",
                     "149": "Sor onlara, oğullar kendilerininken kızlar Rabbinin mi?",
                     "150": "Melekleri dişi olarak mı yarattık? Buna şahit miydiler?"
@@ -10719,7 +10716,7 @@
         },
         "notes": {
             "data": [
-                "*37:147 The Quran mentions 30 numbers: 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 19, 20, 30, 40, 50, 60, 70, 80, 99, 100, 200, 300, 1000, 2000, 3000, 5000, 50000, and 100000. The sum of these numbers is 162146, or 19x8534 (see Appendix 1)."
+                "*37:147 Kuran, 30 tane sayıdan söz eder: 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 19, 20, 30, 40, 50, 60, 70, 80, 99, 100, 200, 300, 1000, 2000, 3000, 5000, 50000 ve 100000. Bu sayıların toplamı 162146 veya 19x8534’tür (Ek 1’e bakınız)."
             ],
             "cumulativefrequencyofthewordGOD": "2108",
             "cumulativesumofverseswhereGODwordoccurs": "108817"
@@ -10728,7 +10725,7 @@
     "294": {
         "page": [
             "272",
-            "The Arrangers (Al-Sãffãt) 37:151-182 & S. (Saad) 38:1-3"
+            "Düzenleyenler (El-Saffat) 37:151-182 & S. (Saad) 38:1-3"
         ],
         "sura": {
             "37": {
@@ -10775,19 +10772,19 @@
             },
             "38": {
                 "verses": {
-                    "1": "S. (Saad) ve kanıtı içeren Kuran.",
+                    "1": "S. (Saad)* ve kanıtı içeren Kuran.**",
                     "2": "İnkâr edenler, kibre ve muhalefete gömüldüler.",
                     "3": "Onlardan önceki nice nesli yok ettik. Yardım için boşuna çağrıda bulundular."
                 },
                 "titles": {
-                    "1": "♦ ♦ ♦ ♦\nSura 38: S (Saad)\nEn Lütufkâr, En Merhametli olan Tanrı ’nın adıyla. "
+                    "1": "♦ ♦ ♦ ♦\nSure 38: S (Saad)\nEn Lütufkâr, En Merhametli olan Tanrı ’nın adıyla. "
                 }
             }
         },
         "notes": {
             "data": [
-                "*38:1 This Initial (Saad) occurs in suras 7, 19, & 38 a total of 152 times, 19x8 (Appendix 1).",
-                "**38:1 The word “Zikr” is made distinct from the Quran and clearly points at the Quran’s miraculous mathematical code. See 15:6, 9; 16:44; 21:2, 24; 26:5; & 36:11, 69."
+                "*38:1 Bu başlangıç harfi (Saad) 7, 19 & 38 numaralı surelerde toplam 152, 19x8 kez geçmektedir (Ek 1).",
+                "**38:1 “Zikr” kelimesi Kuran’dan ayrı tutulur ve açıkça Kuran’ın mucizevi matematiksel koduna işaret eder. Bkz. 15:6, 9; 16:44; 21:2, 24; 26:5; & 36:11, 69."
             ],
             "cumulativefrequencyofthewordGOD": "2113",
             "cumulativesumofverseswhereGODwordoccurs": "109639"
@@ -10820,14 +10817,14 @@
                     "20": "Onun saltanatını güçlendirdik, ona bilgelik ve sağlam bir mantık bahşettik.",
                     "21": "Gizlice onun mabedine giren ihtilaflı adamların haberini aldın mı?",
                     "22": "Odasına girdiklerinde irkildi. Dediler ki Korkma. Biz birbirimizle anlaşmazlık içindeyiz ve senin adil hükmünü talep ediyoruz. Bize haksızlık etme ve bize doğru yolda rehberlik et.",
-                    "23": "Benim bu kardeşim doksan dokuz koyuna sahip, benim ise tek koyunum var. O, benim koyunumu da kendisininkine katmak istiyor ve bana baskı yapmaya devam ediyor."
+                    "23": "Benim bu kardeşim doksan dokuz* koyuna sahip, benim ise tek koyunum var. O, benim koyunumu da kendisininkine katmak istiyor ve bana baskı yapmaya devam ediyor."
                 },
                 "titles": {}
             }
         },
         "notes": {
             "data": [
-                "*38:23 This is the only place where the number 99 occurs. Thirty different numbers are mentioned in the Quran, and their total comes to 162146, 19x8534. See Appendix 1."
+                "*38:23 Burası, 99 sayısının geçtiği tek yerdir. Kuran’da otuz farklı sayı geçmektedir ve toplamları 162146, 19x8534’tür. Ek 1’e bakınız."
             ],
             "cumulativefrequencyofthewordGOD": "2113",
             "cumulativesumofverseswhereGODwordoccurs": "109639"
@@ -10841,7 +10838,7 @@
         "sura": {
             "38": {
                 "verses": {
-                    "24": "Dedi ki Senin koyununu kendisininkine katmak istemekle sana haksızlık ediyor. Mallarını birleştiren insanların çoğu birbirlerine haksızca davranır, fakat iman edip doğruluğa çalışanlar hariç, bunlar da pek azdır. Devamında, Davut doğru kararı verip vermediğini merak etti. Bizim onu test ettiğimizi düşündü. Sonra Rabbine bağışlanma için yalvardı, rükû etti ve tövbe etti.",
+                    "24": "Dedi ki Senin koyununu kendisininkine katmak istemekle sana haksızlık ediyor. Mallarını birleştiren insanların çoğu birbirlerine haksızca davranır, fakat iman edip doğruluğa çalışanlar hariç, bunlar da pek azdır. Devamında, Davut doğru kararı verip vermediğini merak etti. Bizim onu test ettiğimizi düşündü. Sonra Rabbine bağışlanma için yalvardı, rükû etti ve tövbe etti.*",
                     "25": "Onu bu konuda bağışladık. Kendisine katımızda şeref makamı ve güzel bir mesken bahşettik.",
                     "26": "Ey Davut! Biz seni yeryüzünde bir yönetici yaptık. Bu nedenle, insanlar arasında adil bir şekilde hüküm ver ve kendi kişisel fikrini takip etme, yoksa o seni TANRI ’nın yolundan saptırır. Şüphesiz, TANRI ’nın yolundan sapanlar, Hesap Günü’nü unuttukları için şiddetli azabı üzerlerine çekerler.",
                     "27": "Biz göğü ve yeri ve de aralarındaki her şeyi, boşu boşuna yaratmadık. Böyledir inkâr edenlerin düşüncesi. Bu yüzden, inkâr edenlere yazıklar olsun; onlar Cehennemde acı çekecekler.",
@@ -10849,9 +10846,9 @@
                     "29": "Bu, sana indirdiğimiz kutsal bir metindir—belki onun ayetleri üzerinde derinlemesine düşünürler. Akıl sahipleri dikkate alacaklardır.",
                     "30": "Davut’a Süleyman’ı bahşettik; iyi ve itaatkâr bir kul.",
                     "31": "Bir gün, gece çökünceye dek kafası sürekli güzel atları ile meşgul oldu.",
-                    "32": "Ardından dedi ki Ben, Güneş kayboluncaya dek, Rabbime tapınmaktan daha çok maddi şeylerden keyif aldım.",
+                    "32": "Ardından dedi ki Ben, Güneş kayboluncaya dek, Rabbime tapınmaktan daha çok maddi şeylerden keyif aldım.*",
                     "33": "Onları geri getirin. (Vedalaşmak için) bacaklarını ve boyunlarını okşadı.",
-                    "34": "Süleyman’ı bu şekilde test ettik; onu geniş maddi zenginlikle nimetlendirdik, fakat o kararlılıkla teslim oldu.",
+                    "34": "Süleyman’ı bu şekilde test ettik; onu geniş maddi zenginlikle nimetlendirdik, fakat o kararlılıkla teslim oldu.*",
                     "35": "Dedi ki Rabbim! Beni bağışla ve bana başka hiç kimsenin hiçbir zaman ulaşamadığı bir saltanat bahşet. Sen Bahşedicisin.",
                     "36": "Biz (onun duasını yanıtladık ve) rüzgârı onun emrine verdik, istediği her yere yağmur yağdırırdı.",
                     "37": "Ve inşa eden, dalış yapan şeytanları da.",
@@ -10866,9 +10863,9 @@
         },
         "notes": {
             "data": [
-                "*38:24 In this clear example, 99 on one side vs. 1 on the other side, David’s extreme care to render the correct judgment caused him to ask forgiveness. Are we this careful?",
-                "*38:32 Solomon missed his afternoon prayer because of his horses. To nullify Satan’s possible claim that Solomon loved his horses more than loving God, he got rid of his horses.",
-                "*38:34 & 41 Solomon and Job represent both ends of the testing spectrum. We are put to the test through wealth, health, or lack of them, to see if we worship God alone under all circumstances."
+                "*38:24 Bu açık örnekte, bir tarafta 99’a karşılık diğer tarafta 1, Davut’un doğru kararı verme konusundaki aşırı titizliği onun bağışlanma dilemesine neden oldu. Biz bu kadar dikkatli miyiz?",
+                "*38:32 Süleyman atlarından dolayı ikindi namazını kaçırdı. Şeytan’ın, Süleyman, atlarına Tanrı’ya olan sevgisinden daha fazla sevgi besledi şeklindeki olası iddiasını boşa çıkarmak için atlarından vazgeçti.",
+                "*38:34 & 38:41 Süleyman ve Eyüp, test spektrumunun her iki ucunu temsil etmektedir. Her koşulda yalnızca Tanrı’ya tapıp tapmadığımızı görmek için servet, sağlık veya onların yokluğu yoluyla teste tabi tutuluruz."
             ],
             "cumulativefrequencyofthewordGOD": "2115",
             "cumulativesumofverseswhereGODwordoccurs": "109665"
@@ -10910,17 +10907,17 @@
                     "65": "De ki, Sizi uyarıyorum; Tek ve Mutlak Hâkim olan TANRI ’nın yanında başka bir tanrı yoktur."
                 },
                 "titles": {
-                    "41": "Şeytan Eyüp’e Musallat Oldu",
+                    "41": "Şeytan Eyüp’e Musallat Oldu*",
                     "43": "Tanrı İmanlılar İçin Telafi Eder",
                     "49": "Doğrular",
                     "55": "İnkârcılar: Birbirleriyle Kavga Ederler",
-                    "62": "Surprise!"
+                    "62": "Sürpriz!"
                 }
             }
         },
         "notes": {
             "data": [
-                "*38:41 See footnote for 38:38 & 41."
+                "*38:41 38:38 & 38:41’in dipnotuna bakınız."
             ],
             "cumulativefrequencyofthewordGOD": "2116",
             "cumulativesumofverseswhereGODwordoccurs": "109730"
@@ -10935,28 +10932,30 @@
             "38": {
                 "verses": {
                     "66": "Göklerin ve yerin ve de ikisi arasındaki her şeyin Rabbi; Kudretli, Bağışlayan.",
-                    "83": "De ki, İşte muazzam bir haber.",
-                    "84": "Ki siz ona tamamen ilgisizsiniz.",
-                    "67": "Daha önce, Yüce Toplum’daki kavga hakkında hiçbir bilgim yoktu.",
-                    "68": "Bana vahyediliyor ki, tek görevim size uyarıları iletmektir.",
-                    "69": "Rabbin meleklere dedi ki Ben balçıktan bir insan yaratıyorum.",
-                    "70": "Onu tasarladığımda ve ona ruhumdan üflediğimde, onun önünde secdeye kapanın.",
-                    "71": "Melekler secdeye kapandılar, hepsi,",
-                    "72": "Şeytan hariç; o reddetti ve aşırı kibirliydi, nankördü.",
-                    "73": "Dedi ki Ey Şeytan! Ellerimle yarattığıma secde etmekten seni ne alıkoydu? Çok mu kibirlisin? İsyan mı ettin?",
-                    "74": "Dedi ki Ben ondan daha iyiyim; beni ateşten yarattın, onu balçıktan yarattın.",
-                    "75": "Dedi ki O halde sürgün edilmek zorundasın, sen kovulacaksın.",
-                    "76": "Diriliş Günü’ne kadar Benim lanetimi üzerine çektin.",
-                    "77": "Dedi ki Rabbim!",
-                    "78": "Dedi ki Sana mühlet verildi.",
-                    "79": "Belirlenmiş güne kadar.",
-                    "80": "Dedi ki Senin haşmetine yemin ederim ki onların hepsini saptıracağım.",
-                    "81": "Sana tapanlar arasından mutlak bir şekilde yalnızca Sana adanmış olanlar hariç.",
-                    "82": "Dedi ki Gerçek budur ve söylediğim her şey gerçektir.",
-                    "85": "Ben Cehennemi seninle ve sana uyanların tümüyle dolduracağım.",
-                    "86": "De ki, Ben sizden herhangi bir ücret istemiyorum ve ben bir sahtekâr değilim.",
-                    "87": "Bu, dünya için bir hatırlatıcıdır.",
-                    "88": "Siz bir süre sonra kesinlikle göreceksiniz."
+                    "67": "De ki, “İşte muazzam bir haber.",
+                    "68": "“Ki siz ona tamamen ilgisizsiniz.",
+                    "69": "“Daha önce, Yüce Toplum’daki kavga hakkında hiçbir bilgim yoktu.*",
+                    "70": "“Bana vahyediliyor ki, tek görevim size uyarıları iletmektir.”",
+                    "71": "Rabbin meleklere dedi ki “Ben balçıktan bir insan yaratıyorum.",
+                    "72": "“Onu tasarladığımda ve ona ruhumdan üflediğimde, onun önünde secdeye kapanın.”",
+                    "73": "Melekler secdeye kapandılar, hepsi,",
+                    "74": "Şeytan hariç; o reddetti ve aşırı kibirliydi, nankördü.",
+                    "75": "Dedi ki “Ey Şeytan! Ellerimle yarattığıma secde etmekten seni ne alıkoydu? Çok mu kibirlisin? İsyan mı ettin?”",
+                    "76": "Dedi ki “Ben ondan daha iyiyim; beni ateşten yarattın, onu balçıktan yarattın.”",
+                    "77": "Dedi ki “O halde sürgün edilmek zorundasın, sen kovulacaksın.",
+                    "78": "“Diriliş Günü’ne kadar Benim lanetimi üzerine çektin.”",
+                    "79": "Dedi ki “Rabbim! Diriliş Günü’ne kadar bana mühlet ver”",
+                    "80": "Dedi ki “Sana mühlet verildi.",
+                    "81": "“Belirlenmiş güne kadar.”",
+                    "82": "Dedi ki “Senin haşmetine yemin ederim ki onların hepsini saptıracağım.",
+                    "83": "“Sana tapanlar arasından mutlak bir şekilde yalnızca Sana adanmış olanlar hariç.”",
+                    "84": "Dedi ki “Gerçek budur ve söylediğim her şey gerçektir.",
+                    "85": "“Ben Cehennemi seninle ve sana uyanların tümüyle dolduracağım.”",
+                    "86": "De ki, “Ben sizden herhangi bir ücret istemiyorum ve ben bir sahtekâr değilim.”",
+                    "87": "“Bu, dünya için bir hatırlatıcıdır.",
+                    "88": "“Siz bir süre sonra kesinlikle göreceksiniz.”"
+
+
                 },
                 "titles": {
                     "67": "Büyük Kavga",
@@ -10978,8 +10977,7 @@
         },
         "notes": {
             "data": [
-                "*38:69 The feud in the High Society was triggered by Satan’s challenge to God’s absolute authority. This is definitely the most important event in the history of the human race.",
-                "We failed to make a firm stand regarding God’s absolute authority. This life represents the third and final chance to redeem ourselves (See the Introduction and Appendix 7)."
+                "*38:69 Yüce Toplum’daki kavga, Şeytan’ın Tanrı’nın mutlak otoritesine meydan okumasıyla tetiklendi. Bu, kesinlikle insan ırkının tarihindeki en önemli olaydır. Bizler Tanrı’nın mutlak otoritesi ile alakalı sağlam bir duruş sergileyemedik. Bu hayat, kendimizi günahın bedelinden kurtarmamız için üçüncü ve son şansımızdır (Giriş’e ve Ek 7’ye bakınız)."
             ],
             "cumulativefrequencyofthewordGOD": "2124",
             "cumulativesumofverseswhereGODwordoccurs": "109740"
