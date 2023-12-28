@@ -1,4 +1,9 @@
 {
     "page": 3,
-    "text": "QURAN \n\nTHE \nFINAL \nTESTAMENT \n[ Authorized English Version ] \n\nTranslated from the Original \nby  \nRashad Khalifa, Ph.D. \n\n(Revised Edition) \n\n \n\f"
+    "quran": "QURAN",
+    "title": "THE \nFINAL \nTESTAMENT",
+    "version": "[ Authorized English Version ]",
+    "translated":"Translated from the Original \n by  ",
+    "author":"Rashad Khalifa, Ph.D.", 
+    "edition":"(Revised Edition)"
 }
