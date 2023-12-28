@@ -16,7 +16,7 @@ const Cover = ({ onCoverSeen, coverData, lang, onChangeLanguage }) => {
     };
 
     return (
-        <div className="splash-screen relative h-screen flex flex-col w-full p-1 justify-start  text-center bg-sky-800 text-neutral-300">
+        <div className="splash-screen relative h-screen flex flex-col w-full p-1 justify-between  text-center bg-sky-800 text-neutral-300">
 
             <div className="w-full h-96 md:h-1/3 flex items-center">
                 <div className="flex flex-col w-full space-y-2 md:space-y-3 mt-4 ">
@@ -25,9 +25,9 @@ const Cover = ({ onCoverSeen, coverData, lang, onChangeLanguage }) => {
                     <h2 className="text-lg font-bold whitespace-pre">{coverData.version}</h2>
                 </div>
             </div>
-            <div className=" w-full h-96 md:h-1/2 bg-orange-200">
+            <div className=" w-full h-96 md:h-1/2 ">
 
-                <div className={`flex flex-col items-center ${show19 ? "opacity-100" : "opacity-0 h-0"} transition-all duration-1000 ease-linear `}
+                {show19 && <div className={`flex flex-col items-center`}
                     onClick={handleTap}>
                     {/* 19 lines for animated splash, starting from the bottom */}
                     {Array.from({ length: 19 }).map((_, index) => (
@@ -42,9 +42,9 @@ const Cover = ({ onCoverSeen, coverData, lang, onChangeLanguage }) => {
 
                         </div>
                     ))}
-                </div>
+                </div>}
                 <div className="flex w-full justify-center">
-                    <div className={`overflow-y-auto flex flex-col p-4 h-80 space-y-4 items-end m-4 ${show19 ? "opacity-0 h-0 w-0 pointer-events-none" : "opacity-100"} transition-opacity duration-1000 ease-linear `}>
+                    <div className={`overflow-y-auto flex flex-col p-4 space-y-4 items-end m-4 ${show19 ? "opacity-0 h-0 w-0 pointer-events-none" : "opacity-100 h-80"} transition-opacity duration-1000 ease-linear `}>
                         {Object.keys(languages).map((key) => {
                             if (key) {
                                 const isSelectedLanguage = lang === key;
