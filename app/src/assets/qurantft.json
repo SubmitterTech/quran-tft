@@ -6625,7 +6625,7 @@
         },
         "notes": {
             "data": [
-                "*11:40 & 44 This is God’s proven truth: Noah’s ark was made of logs, tied together with primitive ropes (54:13). Contrary to common belief the flood was limited to the area around today’s Dead Sea, and the animals were only Noah’s livestock, not every animal that lived on earth."
+                "*11:40 & 11:44 This is God’s proven truth: Noah’s ark was made of logs, tied together with primitive ropes (54:13). Contrary to common belief the flood was limited to the area around today’s Dead Sea, and the animals were only Noah’s livestock, not every animal that lived on earth."
             ],
             "cumulativefrequencyofthewordGOD": "1353",
             "cumulativesumofverseswhereGODwordoccurs": "81931"
@@ -6656,7 +6656,7 @@
                 "titles": {
                     "44": "Where Did the Ark Land ",
                     "46": "The Myth of Intercession* ",
-                    "51": "Hûd:\nOne and the Same Message"
+                    "50": "Hûd:\nOne and the Same Message"
                 },
                 "encrypted": {
                     "43": "قال ساوي الى جبل يعصمني من الماء قال لا عاصم اليوم من امر الله الا من رحم وحال بينهما الموج فكان من المغرقين",
@@ -10040,7 +10040,7 @@
                     "120": "But  the  devil  whispered  to  him, saying,  “O  Adam,  let  me  show  you the  tree  of  eternity  and  unending kingship.”"
                 },
                 "titles": {
-                    "106": "On the Day of Resurrection ",
+                    "105": "On the Day of Resurrection ",
                     "115": "Humans Fail to Make\na Firm Stand* "
                 },
                 "encrypted": {
@@ -15598,7 +15598,9 @@
                     "87": "“This is a reminder for the world. ",
                     "88": "“And you will certainly find out in awhile.”"
                 },
-                "titles": {},
+                "titles": {
+                    "67": "The Great Feud"
+                },
                 "encrypted": {
                     "66": "رب السماوات والارض وما بينهما العزيز الغفار",
                     "83": "قل هو نبا عظيم",
