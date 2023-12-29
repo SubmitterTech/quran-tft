@@ -6,8 +6,7 @@ import quranData from '../assets/qurantft.json';
 import appendicesContent from '../assets/appendices.json';
 import application from '../assets/application.json';
 import cover from '../assets/cover.json';
-
-
+import map from '../assets/map.json';
 
 function Root() {
     const colors = {
@@ -78,6 +77,7 @@ function Root() {
     const [translationApplication, setTranslationApplication] = useState(application);
     const [translationIntro, setTranslationIntro] = useState(introductionContent);
     const [translationAppx, setTranslationAppx] = useState(appendicesContent);
+    const [translationMap, setTranslationMap] = useState(map);
 
 
 
@@ -112,6 +112,9 @@ function Root() {
             const translatedAppendix = await import(`../assets/translations/${language}/appendices_${language}.json`)
                 .catch(() => null);
 
+            const translationMap = await import(`../assets/translations/${language}/map_${language}.json`)
+                .catch(() => null);
+
             if (translatedQuran) {
                 setTranslation(translatedQuran.default);
             } else {
@@ -135,6 +138,12 @@ function Root() {
                 setTranslationAppx(translatedAppendix.default);
             } else {
                 console.error('Appendices Translation file not found for language:', language);
+            }
+
+            if (translationMap) {
+                setTranslationMap(translationMap.default);
+            } else {
+                console.error('Map Translation file not found for language:', language);
             }
 
             const translatedApplication = await import(`../assets/translations/${language}/application_${language}.json`)
@@ -164,6 +173,7 @@ function Root() {
                 translationApplication={translationApplication}
                 introductionContent={translationIntro}
                 quranData={quranData}
+                map={translationMap}
                 appendicesContent={translationAppx}
                 translation={translation} />}
         </div>

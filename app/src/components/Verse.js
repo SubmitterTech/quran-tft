@@ -1,7 +1,6 @@
 import React, { useCallback, useEffect, useState, useRef } from 'react';
-import relationalData from '../assets/map.json'; // Import relational data
 
-const Verse = ({ colors, theme, translationApplication, verseClassName, hasAsterisk, suraNumber, verseNumber, verseText, encryptedText, verseRefs, handleVerseClick, pulse, grapFocus, pageGWC, handleClickReference, accumulatedCopiesRef, copyTimerRef }) => {
+const Verse = ({ colors, theme, translationApplication, relationalData, verseClassName, hasAsterisk, suraNumber, verseNumber, verseText, encryptedText, verseRefs, handleVerseClick, pulse, grapFocus, pageGWC, handleClickReference, accumulatedCopiesRef, copyTimerRef }) => {
     const [mode, setMode] = useState("idle");
     const [cn, setCn] = useState(verseClassName);
     const [text, setText] = useState(verseText);
@@ -126,7 +125,7 @@ const Verse = ({ colors, theme, translationApplication, verseClassName, hasAster
         };
 
         // Navigate through the JSON structure to find the current verse's references
-        Object.entries(relationalData).forEach(([letter, word]) => {
+        Object.entries(relationalData).forEach(([_, word]) => {
             Object.entries(word).forEach(([theme, themeorref]) => {
                 if (themeorref) {
                     if (typeof themeorref === 'object') {

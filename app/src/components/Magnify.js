@@ -1,20 +1,30 @@
 import React, { useState, useEffect, useCallback, useRef } from 'react';
 
-const Magnify = ({ colors, theme, translationApplication, quran, onClose, onConfirm }) => {
+const Magnify = ({ colors, theme, translationApplication, quran, map, onClose, onConfirm }) => {
     const [searchTerm, setSearchTerm] = useState("");
     const [searchResultTitles, setSearchResultTitles] = useState([]);
     const [searchResultVerses, setSearchResultVerses] = useState([]);
     const [searchResultNotes, setSearchResultNotes] = useState([]);
+    const [searchResultMap, setSearchResultMap] = useState([]);
+
     const [loadedTitles, setLoadedTitles] = useState([]);
     const [loadedVerses, setLoadedVerses] = useState([]);
     const [loadedNotes, setLoadedNotes] = useState([]);
+    const [loadedMap, setLoadedMap] = useState([]);
 
     const batchSize = 19;
     const observerTitles = useRef();
     const observerVerses = useRef();
     const observerNotes = useRef();
+    const observerMap = useRef();
 
     const inputRef = useRef(null);
+
+    const [openTheme, setOpenTheme] = useState(null);
+
+    const handleThemeClick = (theme) => {
+        setOpenTheme(openTheme === theme ? null : theme);
+    };
 
     useEffect(() => {
         if (inputRef.current) {
@@ -25,9 +35,20 @@ const Magnify = ({ colors, theme, translationApplication, quran, onClose, onConf
     const removeDiacritics = (text) => {
         return text.normalize("NFD").replace(/[\u0300-\u036f]/g, "");
     };
-    
+
+    const performSearchSingleLetter = useCallback((term) => {
+        const normalizedTerm = removeDiacritics(term).toUpperCase();
+        if (normalizedTerm.length === 1 && map[normalizedTerm]) {
+            setLoadedMap(map[normalizedTerm]);
+        }
+    }, [map]);
+
+
     const performSearch = useCallback((term) => {
-        if (!term || term.length < 2) {
+        if (!term) {
+            return;
+        }
+        if (term.length < 2) {
             setSearchResultTitles([]);
             setSearchResultVerses([]);
             setSearchResultNotes([]);
@@ -37,7 +58,6 @@ const Magnify = ({ colors, theme, translationApplication, quran, onClose, onConf
         const titleResults = [];
         const verseResults = [];
         const notesResults = [];
-       
 
         for (const page in quran) {
             const suras = quran[page].sura;
@@ -62,7 +82,6 @@ const Magnify = ({ colors, theme, translationApplication, quran, onClose, onConf
                         titleResults.push({ suraNumber, titleNumber, titleText });
                     }
                 }
-
                 const notes = quran[page].notes.data;
                 if (notes.length > 0) {
                     Object.values(notes).forEach((note) => {
@@ -85,37 +104,36 @@ const Magnify = ({ colors, theme, translationApplication, quran, onClose, onConf
     }, [quran]);
 
     useEffect(() => {
-        performSearch(searchTerm);
+        if (searchTerm) {
+            if (searchTerm.length > 1) {
+                performSearch(searchTerm);
+            } else if (searchTerm.length === 1) {
+                performSearchSingleLetter(searchTerm);
+            }
+        }
     }, [searchTerm, performSearch]);
 
     const lightWords = (text, term) => {
-        // Normalize the search term
         const normalizedTerm = removeDiacritics(term);
         const regex = new RegExp(`(${normalizedTerm})`, 'gi');
         const regtext = removeDiacritics(text);
-    
+
         let lastIndex = 0;
         return regtext.split(regex).reduce((prev, current, index) => {
-            // Length of the current segment in the normalized text
             const currentLength = current.length;
-    
-            // Corresponding segment in the original text
             const originalSegment = text.substr(lastIndex, currentLength);
-    
+
             if (regex.test(current)) {
-                // Highlight this part in the original text
                 prev.push(<span key={index} className="font-bold text-rose-400">{originalSegment}</span>);
             } else {
-                // Add this part of the original text without highlighting
                 prev.push(originalSegment);
             }
-    
-            // Update lastIndex for the next segment
+
             lastIndex += currentLength;
             return prev;
         }, []);
     };
-    
+
 
     const lastTitleElementRef = useCallback(node => {
         if (observerTitles.current) observerTitles.current.disconnect();
@@ -156,6 +174,20 @@ const Magnify = ({ colors, theme, translationApplication, quran, onClose, onConf
         if (node) observerNotes.current.observe(node);
     }, [searchResultNotes, loadedNotes]);
 
+
+    const lastMapElementRef = useCallback(node => {
+        if (observerMap.current) observerMap.current.disconnect();
+        observerMap.current = new IntersectionObserver(entries => {
+            if (entries[0].isIntersecting && loadedMap.length < searchResultMap.length) {
+                setLoadedMap(prevLoaded => [
+                    ...prevLoaded,
+                    ...searchResultMap.slice(prevLoaded.length, prevLoaded.length + batchSize)
+                ]);
+            }
+        });
+        if (node) observerMap.current.observe(node);
+    }, [searchResultMap, loadedMap]);
+
     useEffect(() => {
         setLoadedTitles(searchResultTitles.slice(0, batchSize));
         setLoadedVerses(searchResultVerses.slice(0, batchSize));
@@ -168,6 +200,14 @@ const Magnify = ({ colors, theme, translationApplication, quran, onClose, onConf
             onConfirm(key);
             onClose();
         }
+    };
+
+    const renderref = (ref) => {
+        return ref.split(";").map((value, index) => (
+            <div key={index} className={`rounded p-2  ${colors[theme]["text-background"]}`}>
+                {value.trim()}
+            </div>
+        ));
     };
 
     return (
@@ -190,54 +230,90 @@ const Magnify = ({ colors, theme, translationApplication, quran, onClose, onConf
                     </button>
                 </div>
             </div>
-            <div className={`${loadedTitles.length > 0 ? "opacity-100" : "opacity-0"} text-sm ${colors[theme]["page-text"]}`}>
-                {translationApplication.titles}
-            </div>
-            <div className={`text-sm md:text-base  w-full p-1 ${colors[theme]["text"]} transition-all duration-200 ease-linear ${loadedTitles.length > 0 ? "max-h-36 md:h-1/6 md:max-h-fit" : "h-0 "} `}>
-                <div className={`${loadedTitles.length > 0 ? "opacity-100" : "opacity-0 "} space-y-1.5  ${colors[theme]["text-background"]} transition-all duration-200 ease-linear w-full flex flex-col h-full shadow-md p-1 rounded overflow-auto border ${colors[theme]["border"]} `}>
-                    {loadedTitles.map((result, index) => (
-                        <div
-                            ref={index === loadedTitles.length - 1 ? lastTitleElementRef : null}
-                            key={`${result.suraNumber}-${result.titleNumber}-${index}`}
-                            className={` p-2 rounded shadow-md ${colors[theme]["base-background"]} cursor-pointer`}
-                            onClick={() => handleConfirm(`${result.suraNumber}:${result.titleNumber}`)}>
-                            <span className="text-sky-500">{result.suraNumber}:{result.titleNumber}</span> {lightWords(result.titleText, searchTerm)}
+            {searchTerm.length > 1 &&
+                <>
+                    <div className={`${loadedTitles.length > 0 ? "opacity-100" : "opacity-0"} text-sm ${colors[theme]["page-text"]}`}>
+                        {translationApplication.titles}
+                    </div>
+                    <div className={`text-sm md:text-base  w-full p-1 ${colors[theme]["text"]} transition-all duration-200 ease-linear ${loadedTitles.length > 0 ? "max-h-36 md:h-1/6 md:max-h-fit" : "h-0 "} `}>
+                        <div className={`${loadedTitles.length > 0 ? "opacity-100" : "opacity-0 "} space-y-1.5  ${colors[theme]["text-background"]} transition-all duration-200 ease-linear w-full flex flex-col h-full shadow-md p-1 rounded overflow-auto border ${colors[theme]["border"]} `}>
+                            {loadedTitles.map((result, index) => (
+                                <div
+                                    ref={index === loadedTitles.length - 1 ? lastTitleElementRef : null}
+                                    key={`${result.suraNumber}-${result.titleNumber}-${index}`}
+                                    className={` p-2 rounded shadow-md ${colors[theme]["base-background"]} cursor-pointer`}
+                                    onClick={() => handleConfirm(`${result.suraNumber}:${result.titleNumber}`)}>
+                                    <span className="text-sky-500">{result.suraNumber}:{result.titleNumber}</span> {lightWords(result.titleText, searchTerm)}
+                                </div>
+                            ))}
                         </div>
-                    ))}
-                </div>
-            </div>
-            <div className={`${loadedVerses.length > 0 ? "opacity-100" : "opacity-0"} text-sm ${colors[theme]["page-text"]}`}>
-                {translationApplication.verses}
-            </div>
-            <div className={`text-sm md:text-base text-justify hyphens-auto w-full p-1  ${colors[theme]["text"]} transition-all duration-200 ease-linear ${loadedVerses.length > 0 ? "max-h-96 md:h-1/3 md:max-h-fit" : "h-0 "}`}>
-                <div className={`${loadedVerses.length > 0 ? "opacity-100" : "opacity-0"} w-full h-full space-y-1.5 flex flex-col overflow-auto transition-all duration-200 ease-linear shadow-md p-1.5 rounded border ${colors[theme]["border"]} ${colors[theme]["base-background"]}`}>
-                    {loadedVerses.map((result, index) => (
-                        <div
-                            ref={index === loadedVerses.length - 1 ? lastVerseElementRef : null}
-                            key={`${result.suraNumber}-${result.verseNumber}-${index}`}
-                            className={` p-2 rounded shadow-md ${colors[theme]["text-background"]} cursor-pointer`}
-                            onClick={() => handleConfirm(`${result.suraNumber}:${result.verseNumber}`)}>
-                            <span className="text-sky-500">{result.suraNumber}:{result.verseNumber}</span> {lightWords(result.verseText, searchTerm)}
+                    </div>
+                    <div className={`${loadedVerses.length > 0 ? "opacity-100" : "opacity-0"} text-sm ${colors[theme]["page-text"]}`}>
+                        {translationApplication.verses}
+                    </div>
+                    <div className={`text-sm md:text-base text-justify hyphens-auto w-full p-1  ${colors[theme]["text"]} transition-all duration-200 ease-linear ${loadedVerses.length > 0 ? "max-h-96 md:h-1/3 md:max-h-fit" : "h-0 "}`}>
+                        <div className={`${loadedVerses.length > 0 ? "opacity-100" : "opacity-0"} w-full h-full space-y-1.5 flex flex-col overflow-auto transition-all duration-200 ease-linear shadow-md p-1.5 rounded border ${colors[theme]["border"]} ${colors[theme]["base-background"]}`}>
+                            {loadedVerses.map((result, index) => (
+                                <div
+                                    ref={index === loadedVerses.length - 1 ? lastVerseElementRef : null}
+                                    key={`${result.suraNumber}-${result.verseNumber}-${index}`}
+                                    className={` p-2 rounded shadow-md ${colors[theme]["text-background"]} cursor-pointer`}
+                                    onClick={() => handleConfirm(`${result.suraNumber}:${result.verseNumber}`)}>
+                                    <span className="text-sky-500">{result.suraNumber}:{result.verseNumber}</span> {lightWords(result.verseText, searchTerm)}
+                                </div>
+                            ))}
                         </div>
-                    ))}
-                </div>
-            </div>
-            <div className={`${loadedNotes.length > 0 ? "opacity-100" : "opacity-0 "} text-sm ${colors[theme]["page-text"]}`}>
-                {translationApplication.notes}
-            </div>
-            <div className={`text-sm md:text-base text-justify hyphens-auto w-full p-1  ${colors[theme]["text"]} transition-all duration-200 ease-linear ${loadedNotes.length > 0 ? "max-h-40 md:h-1/4 md:max-h-fit" : "h-0 "} mb-10`}>
-                <div className={`${loadedNotes.length > 0 ? "opacity-100" : "opacity-0"} w-full h-full space-y-1.5 flex flex-col overflow-auto transition-all duration-200 ease-linear shadow-md p-1.5 rounded border ${colors[theme]["border"]} ${colors[theme]["base-background"]}`}>
-                    {loadedNotes.map((result, index) => (
-                        <div
-                            ref={index === loadedNotes.length - 1 ? lastNoteElementRef : null}
-                            key={`${result.suraNumber}-${result.verseNumber}-${index}`}
-                            className={` p-2 rounded shadow-md ${colors[theme]["text-background"]} cursor-pointer`}
-                            onClick={() => handleConfirm(`${result.suraNumber}:${result.verseNumber}`)}>
-                            {lightWords(result.note, searchTerm)}
+                    </div>
+                    <div className={`${loadedNotes.length > 0 ? "opacity-100" : "opacity-0 "} text-sm ${colors[theme]["page-text"]}`}>
+                        {translationApplication.notes}
+                    </div>
+                    <div className={`text-sm md:text-base text-justify hyphens-auto w-full p-1  ${colors[theme]["text"]} transition-all duration-200 ease-linear ${loadedNotes.length > 0 ? "max-h-40 md:h-1/4 md:max-h-fit" : "h-0 "} mb-10`}>
+                        <div className={`${loadedNotes.length > 0 ? "opacity-100" : "opacity-0"} w-full h-full space-y-1.5 flex flex-col overflow-auto transition-all duration-200 ease-linear shadow-md p-1.5 rounded border ${colors[theme]["border"]} ${colors[theme]["base-background"]}`}>
+                            {loadedNotes.map((result, index) => (
+                                <div
+                                    ref={index === loadedNotes.length - 1 ? lastNoteElementRef : null}
+                                    key={`${result.suraNumber}-${result.verseNumber}-${index}`}
+                                    className={` p-2 rounded shadow-md ${colors[theme]["text-background"]} cursor-pointer`}
+                                    onClick={() => handleConfirm(`${result.suraNumber}:${result.verseNumber}`)}>
+                                    {lightWords(result.note, searchTerm)}
+                                </div>
+                            ))}
                         </div>
-                    ))}
+                    </div>
+                </>
+            }
+            {searchTerm.length === 1 &&
+                <div className={`w-full px-2 mb-10`}>
+                    <div className={`text-sm md:text-base w-full p-1 ${colors[theme]["text"]} transition-all duration-200 ease-linear overflow-auto`}>
+                        <div className={` w-full flex flex-col space-y-1.5 transition-all duration-200 ease-linear `}>
+                            {Object.entries(loadedMap).map(([exp, themeorref]) => (
+                                <div
+                                    key={exp}
+                                    onClick={() => handleThemeClick(exp)}
+                                    className={`rounded shadow-md p-2 ${colors[theme]["base-background"]}`}>
+
+                                    {exp}
+
+                                    {openTheme === exp && (
+                                        <div className={`flex flex-col space-y-1.5 mt-3`}>
+                                            {typeof themeorref === 'object' ?
+                                                Object.entries(themeorref).map(([innerTheme, ref]) => (
+                                                    <div key={innerTheme} className={`p-2 ${colors[theme]["text-background"]} rounded shadow-md `}>
+                                                        <div className={`p-1`}>{innerTheme}</div>
+                                                        <div className={`p-2 rounded ${colors[theme]["base-background"]} flex flex-col space-y-1.5`}>{renderref(ref)}</div>
+                                                    </div>
+                                                ))
+                                                :
+                                                <div className={`p-2 rounded ${colors[theme]["base-background"]} flex flex-col space-y-1.5`}>{renderref(themeorref)}</div>
+                                            }
+                                        </div>
+                                    )}
+                                </div>
+                            ))}
+                        </div>
+                    </div>
                 </div>
-            </div>
+            }
         </div>
     );
 }

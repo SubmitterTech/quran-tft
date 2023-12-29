@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef, useCallback, useMemo } from 'react';
 import Verse from '../components/Verse';
 
-const Pages = ({ colors, theme, translationApplication, quranData, translation, selectedPage, selectedSura, selectedVerse, handleClickReference, handleClickAppReference }) => {
+const Pages = ({ colors, theme, translationApplication, map, quranData, translation, selectedPage, selectedSura, selectedVerse, handleClickReference, handleClickAppReference }) => {
     const [pageData, setPageData] = useState(null);
     const [notesData, setNotesData] = useState(null);
     const [showExplanation, setShowExplanation] = useState({ GODnamefrequency: false, GODnamesum: false });
@@ -470,6 +470,7 @@ const Pages = ({ colors, theme, translationApplication, quranData, translation, 
                                 colors={colors}
                                 theme={theme}
                                 translationApplication={translationApplication}
+                                relationalData={map}
                                 verseClassName={verseClassName}
                                 hasAsterisk={hasAsterisk}
                                 suraNumber={suraNumber}

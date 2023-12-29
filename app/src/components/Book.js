@@ -6,7 +6,7 @@ import Magnify from '../components/Magnify';
 import Splash from '../components/Splash';
 import '../assets/css/Book.css';
 
-const Book = ({ onChangeTheme, colors, theme, translationApplication, introductionContent, quranData, appendicesContent, translation }) => {
+const Book = ({ onChangeTheme, colors, theme, translationApplication, introductionContent, quranData, map, appendicesContent, translation }) => {
     const [currentPage, setCurrentPage] = useState(parseInt(localStorage.getItem("qurantft-pn")) ? parseInt(localStorage.getItem("qurantft-pn")) : 1);
     const [pageHistory, setPageHistory] = useState([]);
     const [isModalOpen, setModalOpen] = useState(false);
@@ -410,7 +410,7 @@ const Book = ({ onChangeTheme, colors, theme, translationApplication, introducti
         }
 
         if (parseInt(currentPage) >= 23 && parseInt(currentPage) <= 394) {
-            return <Pages colors={colors} theme={theme} translationApplication={translationApplication} quranData={quranData} translation={translation} selectedPage={currentPage} selectedSura={selectedSura} selectedVerse={selectedVerse} handleClickReference={handleClickReference} handleClickAppReference={handleClickAppReference} />;
+            return <Pages colors={colors} theme={theme} translationApplication={translationApplication} map={map} quranData={quranData} translation={translation} selectedPage={currentPage} selectedSura={selectedSura} selectedVerse={selectedVerse} handleClickReference={handleClickReference} handleClickAppReference={handleClickAppReference} />;
         }
 
         if (parseInt(currentPage) === 395) {
@@ -747,6 +747,7 @@ const Book = ({ onChangeTheme, colors, theme, translationApplication, introducti
                     translationApplication={translationApplication}
                     currentPage={currentPage}
                     quran={translation ? translation : quranData}
+                    map = {map}
                     onClose={handleCloseSearch}
                     onConfirm={handleClickReference}
                 />
