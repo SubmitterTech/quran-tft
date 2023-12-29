@@ -11,6 +11,9 @@ const Pages = ({ colors, theme, translationApplication, quranData, translation, 
     const topRef = useRef(null);
     const noteRefs = useRef({});
 
+    const accumulatedCopiesRef = useRef({});
+    const copyTimerRef = useRef();
+
     const [notify, setNotify] = useState(false);
     const [focusedNoteIndex, setFocusedNoteIndex] = useState(null);
 
@@ -480,6 +483,8 @@ const Pages = ({ colors, theme, translationApplication, quranData, translation, 
                                 grapFocus={grapFocus}
                                 pageGWC={updatedPageGWC}
                                 handleClickReference={handleClickReference}
+                                accumulatedCopiesRef={accumulatedCopiesRef}
+                                copyTimerRef={copyTimerRef}
                             />
                         </React.Fragment>
                     );

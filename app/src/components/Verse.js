@@ -1,29 +1,39 @@
 import React, { useCallback, useEffect, useState, useRef } from 'react';
 import relationalData from '../assets/map.json'; // Import relational data
 
-const Verse = ({ colors, theme, translationApplication, verseClassName, hasAsterisk, suraNumber, verseNumber, verseText, encryptedText, verseRefs, handleVerseClick, pulse, grapFocus, pageGWC, handleClickReference }) => {
+const Verse = ({ colors, theme, translationApplication, verseClassName, hasAsterisk, suraNumber, verseNumber, verseText, encryptedText, verseRefs, handleVerseClick, pulse, grapFocus, pageGWC, handleClickReference, accumulatedCopiesRef, copyTimerRef}) => {
     const [mode, setMode] = useState("idle");
     const [cn, setCn] = useState(verseClassName);
     const [text, setText] = useState(verseText);
     const currentVerseKey = `${suraNumber}:${verseNumber}`;
     const [relatedVerses, setRelatedVerses] = useState([]);
-    const [tooltip, setTooltip] = useState({ visible: false, x: 0, y: 0 });
+    const [tooltip, setTooltip] = useState({ visible: false, x: 0, y: 0, keys: [] });
     const tooltipRef = useRef();
     const longPressTimerRef = useRef();
     const hasMovedRef = useRef(false);
-
+    const hasLongPressedRef = useRef(false);
 
     const handleTouchMove = () => {
         hasMovedRef.current = true;
         clearTimeout(longPressTimerRef.current); // Clear the timer as soon as the user moves
     };
-    
 
-    const copyToClipboard = (textToCopy, x, y) => {
+
+    const copyToClipboard = (key, text, x, y) => {
+        accumulatedCopiesRef.current = {
+            ...accumulatedCopiesRef.current,
+            [key]: text
+        };
+        let textToCopy = "";
+        Object.entries(accumulatedCopiesRef.current).forEach(([ref, txt]) => {
+            textToCopy += ref + " " + txt + "\n\n";
+        });
+
         navigator.clipboard.writeText(textToCopy)
             .then(() => {
-                setTooltip({ visible: true, x, y }); // Set the tooltip's position and make it visible
-                setTimeout(() => setTooltip({ ...tooltip, visible: false }), 2000); // Hide tooltip after 2 seconds
+                let keys = Object.keys(accumulatedCopiesRef.current).join(", ");
+                setTooltip({ visible: true, x, y, keys: keys });
+                setTimeout(() => setTooltip({ ...tooltip, visible: false }), 2000);
             })
             .catch(err => {
                 console.error('Failed to copy text: ', err);
@@ -34,16 +44,29 @@ const Verse = ({ colors, theme, translationApplication, verseClassName, hasAster
         if (e.cancelable) {
             e.preventDefault();
         }
+        hasLongPressedRef.current = false;
         const x = e.clientX || (e.touches ? e.touches[0].clientX : 0);
         const y = e.clientY || (e.touches ? e.touches[0].clientY : 0);
 
-        const clip = "[" + key + "] " + text;
+        const clip = "[" + key + "]";
         longPressTimerRef.current = setTimeout(() => {
             // Check the ref to see if the user has moved
             if (!hasMovedRef.current) {
-                copyToClipboard(clip, x, y);
+                copyToClipboard(clip, text, x, y);
+                hasLongPressedRef.current = true;
+                // Start a 60-second timer
+                if (copyTimerRef.current) {
+
+                    clearTimeout(copyTimerRef.current);
+                }
+                copyTimerRef.current = setTimeout(() => {
+                    // Clear accumulatedCopies after 60 seconds
+                    accumulatedCopiesRef.current = ({});
+                    console.log("timer finished: ", accumulatedCopiesRef.current)
+
+                }, 60000); // 60 seconds
             }
-        }, 600);
+        }, 500);
     };
 
     // Function to handle the long press end
@@ -220,6 +243,10 @@ const Verse = ({ colors, theme, translationApplication, verseClassName, hasAster
 
 
     const handleClick = () => {
+        if (hasLongPressedRef.current) {
+            hasLongPressedRef.current = false;
+            return;
+        }
         if (mode === "light") {
             handleVerseClick(hasAsterisk, currentVerseKey)
             setMode("idle");
@@ -277,10 +304,10 @@ const Verse = ({ colors, theme, translationApplication, verseClassName, hasAster
             {tooltip.visible && (
                 <div
                     ref={tooltipRef}
-                    className={`fixed px-4 py-2 shadow-md rounded ${colors[theme]["base-background"]}  ${colors[theme]["app-text"]}`}
+                    className={`fixed px-4 py-2 shadow-md rounded ${colors[theme]["base-background"]} ${colors[theme]["app-text"]}`}
                     style={{ left: tooltip.x - 30, top: tooltip.y - 30, transform: 'translate(-50%, -50%)' }}
                 >
-                   {translationApplication.copied}
+                    {tooltip.keys}{` `}{translationApplication.copied}
                 </div>
             )}
         </div>
