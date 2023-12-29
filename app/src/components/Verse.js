@@ -62,9 +62,8 @@ const Verse = ({ colors, theme, translationApplication, verseClassName, hasAster
                 copyTimerRef.current = setTimeout(() => {
                     // Clear accumulatedCopies after 60 seconds
                     accumulatedCopiesRef.current = ({});
-                    console.log("timer finished: ", accumulatedCopiesRef.current)
 
-                }, 60000); // 60 seconds
+                }, 19000); // 19 seconds
             }
         }, 500);
     };
