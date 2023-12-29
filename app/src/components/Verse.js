@@ -1,7 +1,7 @@
 import React, { useCallback, useEffect, useState, useRef } from 'react';
 import relationalData from '../assets/map.json'; // Import relational data
 
-const Verse = ({ colors, theme, translationApplication, verseClassName, hasAsterisk, suraNumber, verseNumber, verseText, encryptedText, verseRefs, handleVerseClick, pulse, grapFocus, pageGWC, handleClickReference, accumulatedCopiesRef, copyTimerRef}) => {
+const Verse = ({ colors, theme, translationApplication, verseClassName, hasAsterisk, suraNumber, verseNumber, verseText, encryptedText, verseRefs, handleVerseClick, pulse, grapFocus, pageGWC, handleClickReference, accumulatedCopiesRef, copyTimerRef }) => {
     const [mode, setMode] = useState("idle");
     const [cn, setCn] = useState(verseClassName);
     const [text, setText] = useState(verseText);
@@ -68,10 +68,9 @@ const Verse = ({ colors, theme, translationApplication, verseClassName, hasAster
         }, 500);
     };
 
-    // Function to handle the long press end
     const handleLongPressEnd = () => {
         clearTimeout(longPressTimerRef.current);
-        hasMovedRef.current = false; // Reset the flag on touch end
+        hasMovedRef.current = false;
     };
 
     const onRelatedVerseClick = (verseKey) => {
@@ -79,10 +78,9 @@ const Verse = ({ colors, theme, translationApplication, verseClassName, hasAster
     };
 
     const findRelatedVerses = useCallback(() => {
-        const related = [];
+        const related = new Map();
 
-
-        const addReferences = (referenceString) => {
+        const addReferences = (theme, referenceString) => {
             referenceString.split(';').forEach(refGroup => {
                 const [sura, verses] = refGroup.trim().split(':');
                 if (verses && verses.includes(',')) {
@@ -90,7 +88,9 @@ const Verse = ({ colors, theme, translationApplication, verseClassName, hasAster
                         if (verseRange) {
                             const individualKey = `${sura}:${verseRange}`;
                             if (individualKey !== currentVerseKey) {
-                                related.push(individualKey);
+                                const themeRelated = related.get(theme) || [];
+                                themeRelated.push(individualKey);
+                                related.set(theme, themeRelated);
                             }
                         }
                     });
@@ -99,47 +99,50 @@ const Verse = ({ colors, theme, translationApplication, verseClassName, hasAster
         };
 
 
-        const processTheme = (theme) => {
-            if (theme !== '') {
-                if (typeof theme === 'string') {
-                    // Split the theme string by ';' to separate different references
-                    theme.split(';').forEach(refGroup => {
-                        const [sura, versesPart] = refGroup.trim().split(':');
-                        // Handle different formats within the verses part
-                        versesPart?.split(',').forEach(versePart => {
-                            if (versePart.includes('-')) {
-                                // Handle range of verses
-                                const [start, end] = versePart.split('-').map(Number);
-                                for (let verse = start; verse <= end; verse++) {
-                                    const individualKey = `${sura}:${verse}`;
-                                    if (individualKey === currentVerseKey) {
-                                        addReferences(theme);
-                                    }
-                                }
-                            } else {
-                                // Handle single verse
-                                const individualKey = `${sura}:${versePart}`;
-                                if (individualKey === currentVerseKey) {
-                                    addReferences(theme);
-                                }
+        const processTheme = (theme, references) => {
+            // Split the references string by ';' to separate different references
+            references.split(';').forEach(refGroup => {
+                const [sura, versesPart] = refGroup.trim().split(':');
+                // Handle different formats within the verses part
+                versesPart?.split(',').forEach(versePart => {
+                    if (versePart.includes('-')) {
+                        // Handle range of verses
+                        const [start, end] = versePart.split('-').map(Number);
+                        for (let verse = start; verse <= end; verse++) {
+                            const individualKey = `${sura}:${verse}`;
+                            if (individualKey === currentVerseKey) {
+                                addReferences(theme, references);
                             }
-                        });
-                    });
-                } else if (typeof theme === 'object' && theme !== null) {
-                    // If it's an object, recursively process each sub-theme
-                    Object.values(theme).forEach(subTheme => processTheme(subTheme));
-                }
-            }
+                        }
+                    } else {
+                        // Handle single verse
+                        const individualKey = `${sura}:${versePart}`;
+                        if (individualKey === currentVerseKey) {
+                            addReferences(theme, references);
+                        }
+                    }
+                });
+            });
         };
 
         // Navigate through the JSON structure to find the current verse's references
-        Object.values(relationalData).forEach(content => {
-            Object.values(content).forEach(theme => {
-                if (theme) { processTheme(theme) }
+        Object.entries(relationalData).forEach(([letter, word]) => {
+            Object.entries(word).forEach(([theme, themeorref]) => {
+                if (themeorref) {
+                    if (typeof themeorref === 'object') {
+                        Object.entries(themeorref).forEach(([t, ref]) => {
+                            processTheme(theme + " : " + t + " " + theme, ref)
+                        });
+                    } else {
+                        processTheme(theme, themeorref)
+                    }
+
+
+                }
             });
         });
 
-        return [...new Set(related)]; // Remove duplicates
+        return related;
     }, [currentVerseKey]);
 
 
@@ -287,16 +290,26 @@ const Verse = ({ colors, theme, translationApplication, verseClassName, hasAster
                     <p className={`select-text w-full rounded ${colors[theme]["encrypted-background"]} p-2 mb-2 text-start shadow-inner`} dir="rtl" >
                         {lightAllahwords(encryptedText)}
                     </p>
-                    {relatedVerses.length > 0 &&
-                        <div className={` w-full rounded ${colors[theme]["relation-background"]} p-2 `}>
-                            <div>
-                                {relatedVerses.map(verseKey => (
-                                    <button className={`${colors[theme]["base-background"]} p-2 rounded m-1 shadow-md text-sky-500`} key={verseKey} onClick={() => onRelatedVerseClick(verseKey)}>
-                                        {verseKey}
-                                    </button>
-                                ))}
-                            </div>
-                        </div>}
+                    {relatedVerses.size > 0 &&
+                        <div className={`w-full rounded ${colors[theme]["relation-background"]} p-2`}>
+                            {Array.from(relatedVerses.entries()).map(([themeKey, verseKeys]) => (
+                                <div key={themeKey}>
+                                    <h3 className="text-base text-left">{themeKey}</h3>
+                                    <div>
+                                        {verseKeys.map(verseKey => (
+                                            <button
+                                                className={`${colors[theme]["base-background"]} p-2 rounded m-1 shadow-md text-sky-500`}
+                                                key={verseKey}
+                                                onClick={() => onRelatedVerseClick(verseKey)}
+                                            >
+                                                {verseKey}
+                                            </button>
+                                        ))}
+                                    </div>
+                                </div>
+                            ))}
+                        </div>
+                    }
                 </div>
             }
 
