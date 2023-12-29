@@ -142,7 +142,7 @@ const Verse = ({ colors, theme, translationApplication, relationalData, verseCla
         });
 
         return related;
-    }, [currentVerseKey]);
+    }, [currentVerseKey, relationalData]);
 
 
 

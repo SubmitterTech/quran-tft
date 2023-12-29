@@ -5,7 +5,6 @@ const Magnify = ({ colors, theme, translationApplication, quran, map, onClose, o
     const [searchResultTitles, setSearchResultTitles] = useState([]);
     const [searchResultVerses, setSearchResultVerses] = useState([]);
     const [searchResultNotes, setSearchResultNotes] = useState([]);
-    const [searchResultMap, setSearchResultMap] = useState([]);
 
     const [loadedTitles, setLoadedTitles] = useState([]);
     const [loadedVerses, setLoadedVerses] = useState([]);
@@ -16,11 +15,30 @@ const Magnify = ({ colors, theme, translationApplication, quran, map, onClose, o
     const observerTitles = useRef();
     const observerVerses = useRef();
     const observerNotes = useRef();
-    const observerMap = useRef();
 
     const inputRef = useRef(null);
 
     const [openTheme, setOpenTheme] = useState(null);
+
+    const [quranmap, setQuranmap] = useState({});
+
+    useEffect(() => {
+        let qm = {};
+        Object.values(quran).forEach((value) => {
+            Object.entries(value.sura).forEach(([sura, content]) => {
+                // Initialize qm[sura] as an object if it doesn't exist
+                if (!qm[sura]) {
+                    qm[sura] = {};
+                }
+
+                Object.entries(content.verses).forEach(([verse, text]) => {
+                    qm[sura][verse] = text;
+                });
+            });
+        });
+        setQuranmap(qm);
+    }, [quran]);
+
 
     const handleThemeClick = (theme) => {
         setOpenTheme(openTheme === theme ? null : theme);
@@ -111,7 +129,7 @@ const Magnify = ({ colors, theme, translationApplication, quran, map, onClose, o
                 performSearchSingleLetter(searchTerm);
             }
         }
-    }, [searchTerm, performSearch]);
+    }, [searchTerm, performSearch, performSearchSingleLetter]);
 
     const lightWords = (text, term) => {
         const normalizedTerm = removeDiacritics(term);
@@ -175,19 +193,6 @@ const Magnify = ({ colors, theme, translationApplication, quran, map, onClose, o
     }, [searchResultNotes, loadedNotes]);
 
 
-    const lastMapElementRef = useCallback(node => {
-        if (observerMap.current) observerMap.current.disconnect();
-        observerMap.current = new IntersectionObserver(entries => {
-            if (entries[0].isIntersecting && loadedMap.length < searchResultMap.length) {
-                setLoadedMap(prevLoaded => [
-                    ...prevLoaded,
-                    ...searchResultMap.slice(prevLoaded.length, prevLoaded.length + batchSize)
-                ]);
-            }
-        });
-        if (node) observerMap.current.observe(node);
-    }, [searchResultMap, loadedMap]);
-
     useEffect(() => {
         setLoadedTitles(searchResultTitles.slice(0, batchSize));
         setLoadedVerses(searchResultVerses.slice(0, batchSize));
@@ -203,11 +208,42 @@ const Magnify = ({ colors, theme, translationApplication, quran, map, onClose, o
     };
 
     const renderref = (ref) => {
-        return ref.split(";").map((value, index) => (
-            <div key={index} className={`rounded p-2  ${colors[theme]["text-background"]}`}>
-                {value.trim()}
-            </div>
-        ));
+        if (ref) {
+            const verseResults = [];
+            ref.split(";").forEach(refPart => {
+                const [sura, verses] = refPart.split(":");
+                if (verses) {
+                    verses.split(",").forEach(verse => {
+                        if (verse.includes("-")) {
+                            // Range of verses
+                            const [start, end] = verse.split("-").map(Number);
+                            for (let i = start; i <= end; i++) {
+                                const verseText = quranmap[sura]?.[i.toString()];
+                                if (verseText) {
+                                    verseResults.push({ suraNumber: sura, verseNumber: i.toString(), text: verseText });
+                                }
+                            }
+                        } else {
+                            // Single verse
+                            const verseText = quranmap[sura]?.[verse];
+                            if (verseText) {
+                                verseResults.push({ suraNumber: sura, verseNumber: verse, text: verseText });
+                            }
+                        }
+                    });
+                }
+            });
+
+            return verseResults.map(({ suraNumber, verseNumber, text }, index) => (
+                <div
+                    key={index}
+                    className={`rounded p-2  ${colors[theme]["text-background"]}`}
+                    onClick={() => handleConfirm(`${suraNumber}:${verseNumber}`)}>
+                    <span className="text-sky-500">{suraNumber}:{verseNumber}</span> {text}
+                </div>
+            ));
+        }
+        return null;
     };
 
     return (
@@ -289,16 +325,18 @@ const Magnify = ({ colors, theme, translationApplication, quran, map, onClose, o
                             {Object.entries(loadedMap).map(([exp, themeorref]) => (
                                 <div
                                     key={exp}
-                                    onClick={() => handleThemeClick(exp)}
-                                    className={`rounded shadow-md p-2 ${colors[theme]["base-background"]}`}>
 
-                                    {exp}
-
+                                    className={`rounded shadow-md ${colors[theme]["base-background"]} ${themeorref.length === 0 ? "brightness-75" : ""}`}>
+                                    <div
+                                        onClick={() => handleThemeClick(exp)}
+                                        className={`rounded p-2`}>
+                                        {exp}
+                                    </div>
                                     {openTheme === exp && (
-                                        <div className={`flex flex-col space-y-1.5 mt-3`}>
+                                        <div className={`flex flex-col space-y-1.5 mt-3 p-2`}>
                                             {typeof themeorref === 'object' ?
                                                 Object.entries(themeorref).map(([innerTheme, ref]) => (
-                                                    <div key={innerTheme} className={`p-2 ${colors[theme]["text-background"]} rounded shadow-md `}>
+                                                    <div key={innerTheme} className={`p-2 ${colors[theme]["app-background"]} rounded shadow-md `}>
                                                         <div className={`p-1`}>{innerTheme}</div>
                                                         <div className={`p-2 rounded ${colors[theme]["base-background"]} flex flex-col space-y-1.5`}>{renderref(ref)}</div>
                                                     </div>
