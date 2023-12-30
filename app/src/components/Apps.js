@@ -70,10 +70,11 @@ const Apps = ({ colors, theme, translationApplication, parseReferences, appendic
     const loadMoreAppendices = useCallback(() => {
         if (containerRef.current) {
             const { scrollTop, scrollHeight, clientHeight } = containerRef.current;
+            const currentMinAppendix = Math.min(...visibleAppendices);
+            const currentMaxAppendix = Math.max(...visibleAppendices);
+
             // Check if the user is 20px from the bottom
             if (scrollTop + clientHeight >= scrollHeight - 20) {
-                // Load next set of appendices
-                const currentMaxAppendix = Math.max(...visibleAppendices);
                 const nextAppendices = Object.keys(appendixMap)
                     .map(Number)
                     .filter(num => num > currentMaxAppendix)
@@ -81,8 +82,19 @@ const Apps = ({ colors, theme, translationApplication, parseReferences, appendic
 
                 setVisibleAppendices(prevAppendices => [...prevAppendices, ...nextAppendices]);
             }
+
+            // Check if the user is 20px from the top and the first appendix is not 1
+            if (scrollTop <= 20 && currentMinAppendix > 1) {
+                const previousAppendices = Object.keys(appendixMap)
+                    .map(Number)
+                    .filter(num => num < currentMinAppendix)
+                    .slice(-1); // Load the previous appendix
+
+                setVisibleAppendices(prevAppendices => [...previousAppendices, ...prevAppendices]);
+            }
         }
     }, [visibleAppendices, appendixMap]);
+
 
 
     useEffect(() => {
@@ -92,17 +104,24 @@ const Apps = ({ colors, theme, translationApplication, parseReferences, appendic
     }, [selectedApp, isRendered]);
 
     useEffect(() => {
+        if (selectedApp && appRefs.current[`appendix-${selectedApp}`]) {
+            setTimeout(() => {
+                appRefs.current[`appendix-${selectedApp}`].scrollIntoView({ behavior: 'smooth' });
+            }, 0);
+        }
+    }, [selectedApp, visibleAppendices]);
+
+    useEffect(() => {
         const initialAppendixMap = mapAppendicesData(appendices);
         setAppendixMap(initialAppendixMap);
 
         if (selectedApp) {
             setVisibleAppendices([selectedApp]);
         } else {
-            const initialAppendices = Object.keys(initialAppendixMap).slice(0, 5).map(Number);
+            const initialAppendices = Object.keys(initialAppendixMap).slice(0, 3).map(Number);
             setVisibleAppendices(initialAppendices);
         }
     }, [appendices, selectedApp, mapAppendicesData]);
-
 
     const renderTable = useCallback((tableData, key) => {
 
