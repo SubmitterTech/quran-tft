@@ -13581,7 +13581,7 @@
     "358": {
         "page": [
             "336",
-            "Sütun (El-Saff) 61:2-14 & Friday (Al-Jumu‘ah) 62:1"
+            "Sütun (El-Saff) 61:2-14 & Cuma (El-Cum’a) 62:1"
         ],
         "sura": {
             "61": {
@@ -13625,7 +13625,7 @@
     },
     "359": {
         "page": [
-            "Friday (Al-Jumu‘ah) 62:2-11 & The Hypocrites (Al-Munaafeqoon) 63:1-2",
+            "Cuma (El-Cum’a) 62:2-11 & İkiyüzlüler (El-Münafikun) 63:1-2",
             "337"
         ],
         "sura": {
@@ -13643,23 +13643,22 @@
                     "11": "Onlardan bazıları ticari bir anlaşmaya veya bir eğlenceye denk geldiklerinde seni ayakta bırakıp oraya akın ederler! De ki,  TANRI ’nın sahip oldukları, eğlence ya da ticaretten çok daha iyidir. TANRI en iyi Rızık Sağlayıcıdır."
                 },
                 "titles": {
-                    "5": "GOD is Possessor of Infinite Grace. ",
                     "9": "Tüm İmanlılara Önemli Buyruklar"
                 }
             },
             "63": {
                 "verses": {
-                    "1": "İkiyüzlüler sana geldiklerinde, Şahitlik ederiz ki, sen TANRI ’nın elçisisin derler. TANRI , senin Kendi elçisi olduğunu bilir ve TANRI şahitlik eder ki, ikiyüzlüler yalancıdır.",
+                    "1": "İkiyüzlüler sana geldiklerinde, “Şahitlik ederiz ki, sen TANRI’nın elçisisin”* derler. TANRI, senin Kendi elçisi olduğunu bilir ve TANRI şahitlik eder ki, ikiyüzlüler yalancıdır.",
                     "2": "Görünürdeki imanlarının kisvesi altında insanları TANRI ’nın yolundan alıkoyarlar. Gerçekten de berbattır yaptıkları."
                 },
                 "titles": {
-                    "1": "♦ ♦ ♦ ♦\nSura 63: The Hypocrites\n(Al-Munaafeqoon)\nEn Lütufkâr, En Merhametli olan Tanrı ’nın adıyla. "
+                    "1": "♦ ♦ ♦ ♦\nSure 63:  İkiyüzlüler\n(El-Münafikun)\nEn Lütufkâr, En Merhametli olan Tanrı ’nın adıyla. "
                 }
             }
         },
         "notes": {
             "data": [
-                "*63:1 The “first pillar of Islam,” as stated in 3:18 is to bear witness that God is the only god. But the corrupted “Muslim” scholars add “Muhammad is God’s messenger,” and this violates a number of commandments (see 2:285). Verse 63:1 is the only place in the Quran where such a statement is made. Only the hypocrites make such a statement."
+                "*63:1 “İslam’ın ilk direği,” 3:18 ayetinde belirtildiği gibi Tanrı’nın tek tanrı olduğuna şahitlik etmek-tir. Fakat bozulmuş “Müslüman” âlimler, “Muhammed Tanrı’nın elçisidir” ifadesini eklediler ve bu, birtakım buyrukları ihlal etmektedir (bkz. 2:285). 63:1 ayeti, Kuran’da böyle bir ifadenin yazıldığı tek yerdir. Sadece ikiyüzlüler böyle bir açıklamayı yaparlar."
             ],
             "cumulativefrequencyofthewordGOD": "2572",
             "cumulativesumofverseswhereGODwordoccurs": "117144"
@@ -13668,7 +13667,7 @@
     "360": {
         "page": [
             "338",
-            "The Hypocrites (Al-Munaafeqoon) 63:3-11 & Mutual Blaming (Al-Taghaabun) 64:1-4"
+            "İkiyüzlüler (El-Münafikun) 63:3-11 &  Karşılıklı Suçlama (El-Teğabun) 64:1-4"
         ],
         "sura": {
             "63": {
@@ -13685,26 +13684,25 @@
                 },
                 "titles": {
                     "4": "Öfkeleri Burunlarında",
-                    "5": "GOD  condemns  them;  they  have ",
-                    "6": "Şefaat Efsanesi Paramparça Oldu"
+                    "6": "Şefaat Efsanesi Paramparça Oldu*"
                 }
             },
             "64": {
                 "verses": {
                     "1": "TANRI ’yı yüceltmektedir göklerdeki her şey ve yerdeki her şey. O’na aittir tüm saltanat ve O’na aittir tüm övgüler ve O, Her Şeye Gücü Yetendir.",
                     "2": "O’dur sizi yaratmış Olan, sonra aranızda inkârcı da vardır, imanlı da. TANRI yaptığınız her şeyi tamamen Görendir.",
-                    "3": "O, gökleri ve yeri belirli bir amaç için yarattı, sizi tasarladı ve tasarımınızı mükemmel hale getirdi, ardından O’nadır son varışınız.",
+                    "3": "O, gökleri ve yeri belirli bir amaç* için yarattı, sizi tasarladı ve tasarımınızı mükemmel hale getirdi, ardından O’nadır son varışınız.",
                     "4": "O, göklerdeki ve yerdeki her şeyi bilir ve O, gizlediğiniz ve açığa vurduğunuz her şeyi bilir. TANRI en içteki düşüncelerinizin tamamen farkındadır."
                 },
                 "titles": {
-                    "1": "♦ ♦ ♦ ♦\nSura 64: Mutual Blaming\n(Al-Taghaabun)\nEn Lütufkâr, En Merhametli olan Tanrı ’nın adıyla. "
+                    "1": "♦ ♦ ♦ ♦\nSure 64:  Karşılıklı Suçlama\n(El-Teğabun)\nEn Lütufkâr, En Merhametli olan Tanrı ’nın adıyla. "
                 }
             }
         },
         "notes": {
             "data": [
-                "*63:6 Millions of people idolize their prophets because of this myth (Appendix 8).",
-                "*64:3 We are in this world due to God’s immense mercy. The Most Gracious has given us a chance to redeem ourselves. See the Introduction and Appendix 7."
+                "*63:6 Milyonlarca insan bu efsaneden dolayı peygamberlerini putlaştırırlar (Ek 8).",
+                "*64:3 Biz Tanrı’nın engin rahmetinden ötürü bu dünyadayız. En Lütufkâr Olan, kendimizi günahın bedelinden kurtarmamız için bize bir şans vermiştir. Giriş’e ve Ek 7’ye bakınız."
             ],
             "cumulativefrequencyofthewordGOD": "2585",
             "cumulativesumofverseswhereGODwordoccurs": "117201"
@@ -13712,7 +13710,7 @@
     },
     "361": {
         "page": [
-            "Mutual Blaming (Al-Taghaabun) 64:5-18",
+            " Karşılıklı Suçlama (El-Teğabun) 64:5-18",
             "339"
         ],
         "sura": {
