@@ -1,6 +1,8 @@
 import React, { useState, useEffect, useCallback, useRef } from 'react';
 
 const Magnify = ({ colors, theme, translationApplication, quran, map, onClose, onConfirm }) => {
+    const lang = localStorage.getItem("lang")
+
     const [searchTerm, setSearchTerm] = useState("");
     const [searchResultTitles, setSearchResultTitles] = useState([]);
     const [searchResultVerses, setSearchResultVerses] = useState([]);
@@ -287,7 +289,9 @@ const Magnify = ({ colors, theme, translationApplication, quran, map, onClose, o
                     <div className={`${loadedVerses.length > 0 ? "opacity-100" : "opacity-0"} text-sm ${colors[theme]["page-text"]}`}>
                         {translationApplication.verses}
                     </div>
-                    <div className={`text-sm md:text-base text-justify hyphens-auto w-full p-1  ${colors[theme]["text"]} transition-all duration-200 ease-linear ${loadedVerses.length > 0 ? "max-h-96 md:h-1/3 md:max-h-fit" : "h-0 "}`}>
+                    <div
+                        lang={lang}
+                        className={`text-sm md:text-base text-justify hyphens-auto w-full p-1  ${colors[theme]["text"]} transition-all duration-200 ease-linear ${loadedVerses.length > 0 ? "max-h-96 md:h-1/3 md:max-h-fit" : "h-0 "}`}>
                         <div className={`${loadedVerses.length > 0 ? "opacity-100" : "opacity-0"} w-full h-full space-y-1.5 flex flex-col overflow-auto transition-all duration-200 ease-linear shadow-md p-1.5 rounded border ${colors[theme]["border"]} ${colors[theme]["base-background"]}`}>
                             {loadedVerses.map((result, index) => (
                                 <div

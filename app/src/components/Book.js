@@ -258,7 +258,7 @@ const Book = ({ onChangeTheme, colors, theme, translationApplication, introducti
                     </span>
                 );
             } else if (introRegex.test(part)) {
-                
+
                 // Split the part into segments around introRegex matches
                 const segments = part.split(introRegex);
 
@@ -410,7 +410,19 @@ const Book = ({ onChangeTheme, colors, theme, translationApplication, introducti
         }
 
         if (parseInt(currentPage) >= 23 && parseInt(currentPage) <= 394) {
-            return <Pages colors={colors} theme={theme} translationApplication={translationApplication} map={map} quranData={quranData} translation={translation} selectedPage={currentPage} selectedSura={selectedSura} selectedVerse={selectedVerse} handleClickReference={handleClickReference} handleClickAppReference={handleClickAppReference} />;
+            return <Pages
+                colors={colors}
+                theme={theme}
+                translationApplication={translationApplication}
+                map={map}
+                quranData={quranData}
+                translation={translation}
+                selectedPage={currentPage}
+                selectedSura={selectedSura}
+                selectedVerse={selectedVerse}
+                handleClickReference={handleClickReference}
+                handleClickAppReference={handleClickAppReference}
+                handleTogglePage={handleTogglePage} />;
         }
 
         if (parseInt(currentPage) === 395) {
@@ -477,7 +489,7 @@ const Book = ({ onChangeTheme, colors, theme, translationApplication, introducti
         }
 
         if (parseInt(currentPage) > 396) {
-            return <Apps colors={colors} theme={theme} translationApplication={translationApplication} parseReferences={parseReferences} appendices={appendicesContent} selectedApp={selectedApp} prevPage={prevPage}/>;
+            return <Apps colors={colors} theme={theme} translationApplication={translationApplication} parseReferences={parseReferences} appendices={appendicesContent} selectedApp={selectedApp} prevPage={prevPage} />;
         }
 
 
@@ -706,7 +718,7 @@ const Book = ({ onChangeTheme, colors, theme, translationApplication, introducti
     return (
         <div className={`flex flex-col justify-start h-screen ${colors[theme]["app-background"]}`}>
             {renderBookContent()}
-            { parseInt(currentPage) < 397 &&
+            {parseInt(currentPage) < 397 &&
                 <div className={`w-full flex z-20 p-0.5 backdrop-blur-xl`}>
                     <div className={`flex w-full items-center justify-between`}>
                         <button onClick={prevPage}
@@ -747,7 +759,7 @@ const Book = ({ onChangeTheme, colors, theme, translationApplication, introducti
                     translationApplication={translationApplication}
                     currentPage={currentPage}
                     quran={translation ? translation : quranData}
-                    map = {map}
+                    map={map}
                     onClose={handleCloseSearch}
                     onConfirm={handleClickReference}
                 />

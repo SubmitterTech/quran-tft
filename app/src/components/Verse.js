@@ -12,6 +12,8 @@ const Verse = ({ colors, theme, translationApplication, relationalData, verseCla
     const hasMovedRef = useRef(false);
     const hasLongPressedRef = useRef(false);
 
+    const lang = localStorage.getItem("lang")
+
     const handleTouchMove = () => {
         hasMovedRef.current = true;
         clearTimeout(longPressTimerRef.current); // Clear the timer as soon as the user moves
@@ -235,7 +237,7 @@ const Verse = ({ colors, theme, translationApplication, relationalData, verseCla
             setCn(verseClassName + " " + colors[theme]["verse-detail-background"] + " flex-col ring-1 " + colors[theme]["ring"]);
             setText(highlighted);
         } else if (mode === "light") {
-            setCn(verseClassName + " " + colors[theme]["text-background"] + " border " + colors[theme]["verse-border"]);
+            setCn(verseClassName + " " + colors[theme]["text-background"] + " ring ring-1 " + colors[theme]["verse-ring"]);
         } else if (mode === "idle") {
             setCn(verseClassName + " " + colors[theme]["text-background"]);
         }
@@ -268,6 +270,7 @@ const Verse = ({ colors, theme, translationApplication, relationalData, verseCla
     return (
         <div
             ref={(el) => verseRefs.current[currentVerseKey] = el}
+            lang={lang}
             className={`${cn}`}>
             <div
                 onMouseDown={(e) => handleLongPressStart(e, currentVerseKey, text)}
@@ -285,7 +288,7 @@ const Verse = ({ colors, theme, translationApplication, relationalData, verseCla
                 </span>
             </div>
             {mode === "reading" &&
-                <div className={`w-full flex flex-col mt-2`}>
+                <div className={`w-full flex flex-col mt-2 p-0.5`}>
                     <p className={`select-text w-full rounded ${colors[theme]["encrypted-background"]} p-2 mb-2 text-start shadow-inner`} dir="rtl" >
                         {lightAllahwords(encryptedText)}
                     </p>

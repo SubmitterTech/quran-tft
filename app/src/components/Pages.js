@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef, useCallback, useMemo } from 'react';
 import Verse from '../components/Verse';
 
-const Pages = ({ colors, theme, translationApplication, map, quranData, translation, selectedPage, selectedSura, selectedVerse, handleClickReference, handleClickAppReference }) => {
+const Pages = ({ colors, theme, translationApplication, map, quranData, translation, selectedPage, selectedSura, selectedVerse, handleClickReference, handleClickAppReference, handleTogglePage }) => {
     const [pageData, setPageData] = useState(null);
     const [notesData, setNotesData] = useState(null);
     const [showExplanation, setShowExplanation] = useState({ GODnamefrequency: false, GODnamesum: false });
@@ -382,7 +382,7 @@ const Pages = ({ colors, theme, translationApplication, map, quranData, translat
     };
 
     const handlePageTitleClicked = () => {
-        console.log(pageTitle)
+        handleTogglePage();
     };
 
     const formatHitCount = (count) => {
@@ -451,7 +451,7 @@ const Pages = ({ colors, theme, translationApplication, map, quranData, translat
                 </div>
                 {sortedVerses.map(({ suraNumber, verseNumber, verseText, encryptedText, title }) => {
                     const hasAsterisk = verseText.includes('*') || (title && title.includes('*'));
-                    const verseClassName = "transition-colors duration-700 ease-linear flex cursor-pointer rounded mx-2 my-1 p-1.5 shadow-md text-base hyphens-auto text-justify md:text-lg xl:text-xl ";
+                    const verseClassName = "transition-colors duration-700 ease-linear flex cursor-pointer rounded mx-2 my-1 p-1 md:p-1.5 shadow-md text-base hyphens-auto text-justify md:text-lg xl:text-xl ";
                     const titleClassName = `italic font-semibold rounded shadow-md mx-2 mt-1.5 mb-0.5 p-3 text-base md:text-md lg:text-lg text-center break-words whitespace-pre-wrap ${colors[theme]["base-background"]}`;
                     const verseKey = `${suraNumber}:${verseNumber}`;
                     const noteReference = hasAsterisk ? verseKey : null;
@@ -461,7 +461,7 @@ const Pages = ({ colors, theme, translationApplication, map, quranData, translat
                     return (
                         <React.Fragment key={suraNumber + ":" + verseNumber}>
                             {title &&
-                                <div className={`${titleClassName} ${hasAsterisk ? " cursor-pointer ring-1 mt-2 " + colors[theme]["ring"] : ""}`}
+                                <div className={`${titleClassName} ${hasAsterisk ? " cursor-pointer ring-1 mt-2 " + colors[theme]["verse-ring"] : ""}`}
                                     onClick={() => hasAsterisk && handleTitleClick(noteReference)}>
                                     {title}
                                 </div>
