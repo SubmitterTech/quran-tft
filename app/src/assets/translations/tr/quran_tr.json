@@ -5637,7 +5637,7 @@
                     "13": "Nitekim ona iman edemezler. Geçmiş nesillerden bu yana sistem bu olmuştur."
                 },
                 "titles": {
-                    "1": "♦ ♦ ♦ ♦\nSura 15: Hicr Vadisi\n(El-Hicr)\nEn Lütufkâr, En Merhametli olan Tanrı ’nın adıyla. ",
+                    "1": "♦ ♦ ♦ ♦\nSure 15: Hicr Vadisi\n(El-Hicr)\nEn Lütufkâr, En Merhametli olan Tanrı ’nın adıyla. ",
                     "9": "Tanrı’nın Antlaşma Elçisi"
                 }
             }
@@ -8516,8 +8516,8 @@
                     "89": "Sadece tüm kalpleri ile TANRI ’ya gelenler (kurtarılacaktır) .",
                     "90": "Cennet doğrulara sunulacaktır.",
                     "91": "Cehennem, doğru yoldan sapanlar için kurulacaktır.",
-                    "92": "Onlara sorulacak,",
-                    "93": "TANRI ’nın yanı sıra? Şimdi size yardım edebilirler mi? Peki kendi kendilerine yardım edebilirler mi?",
+                    "92": "Onlara sorulacak, “Nerede tapmış olduğunuz o putlar",
+                    "93": "“TANRI’nın yanı sıra? Şimdi size yardım edebilirler mi? Peki kendi kendilerine yardım edebilirler mi?”",
                     "94": "Onlar, yoldan sapanlarla birlikte oraya atılacaklardır.",
                     "95": "Ve Şeytan’ın tüm askerleri.",
                     "96": "Orada çekişirlerken diyecekler ki,",
@@ -8536,8 +8536,7 @@
                 "titles": {
                     "69": "İbrahim",
                     "92": "Onlar Putlarını Sahiplenmeyecekler",
-                    "105": "Nuh",
-                    "93": "Nerede tapmış olduğunuz o putlar"
+                    "105": "Nuh"
                 }
             }
         },
@@ -13745,12 +13744,12 @@
     "362": {
         "page": [
             "340",
-            "Divorce (Al-Talaaq) 65:1-10"
+            "Boşanma (El-Talak) 65:1-10"
         ],
         "sura": {
             "65": {
                 "verses": {
-                    "1": "Ey peygamber! Siz insanlar kadınları boşadığınız zaman bir boşanmalık geçiş döneminin tamamlandığından emin olun. Bu geçiş dönemini kusursuz bir şekilde hesaplayın. Rabbiniz TANRI ’ya derin saygı duyun. İspatlanmış bir zina suçu işlemedikleri sürece onları evlerinden çıkarmayın, kendi başlarına ayrılmaya zorlamak için hayatı onlara zehir etmeyin. Bunlar TANRI ’nın yasalarıdır. Kim TANRI ’nın yasalarını çiğnerse kendi aleyhine bir adaletsizlik işlemiş olur. Asla bilemezsin; belki de TANRI bundan iyi bir şey çıkmasını irade eder.",
+                    "1": "Ey peygamber! Siz insanlar kadınları boşadığınız zaman bir boşanmalık geçiş döneminin tamamlandığından emin olun. Bu geçiş dönemini kusursuz bir şekilde hesaplayın.* Rabbiniz TANRI ’ya derin saygı duyun. İspatlanmış bir zina suçu işlemedikleri sürece onları evlerinden çıkarmayın, kendi başlarına ayrılmaya zorlamak için hayatı onlara zehir etmeyin. Bunlar TANRI ’nın yasalarıdır. Kim TANRI ’nın yasalarını çiğnerse kendi aleyhine bir adaletsizlik işlemiş olur. Asla bilemezsin; belki de TANRI bundan iyi bir şey çıkmasını irade eder.",
                     "2": "Geçiş dönemi tamamlandığında, onlarla adil bir şekilde yeniden uzlaşabilir veya onlarla adil bir şekilde ayrılığı tamamlayabilirsiniz. TANRI ’nın huzurunda boşanmaya şahitlik edecek iki adil şahidiniz olsun. Bu, TANRI ’ya ve Son Gün’e iman edenleri aydınlatmak içindir. Kim TANRI ’ya derin saygı duyarsa, onun için bir çıkış yolu yaratacaktır.",
                     "3": "Ve ona hiç beklemediği yerden rızık sağlayacaktır. Kim TANRI ’ya güvenirse, O ona yeter. TANRI ’nın buyrukları yapılır. TANRI her şeyin akıbetini karara bağlamıştır.",
                     "4": "Menopoza girmiş olan kadınlara gelince, eğer herhangi bir şüpheniz varsa onların geçiş dönemleri üç ay olsun. Regl olmayıp hamile olduklarını keşfeden kimselere gelince, onların geçiş dönemleri doğum yapınca sona erer. Kim TANRI ’ya derin saygı duyarsa, O onun için her şeyi kolaylaştırır.",
@@ -13759,17 +13758,17 @@
                     "7": "Varlıklı koca, kendi imkânlarına göre destek sağlasın, dar gelirli kişi ise TANRI ’nın kendisine ihsan ettiği imkânlara göre versin. TANRI hiçbir ruha Kendi vermiş olduğundan daha fazlasını yüklemez. TANRI zorluktan sonra kolaylık sağlar.",
                     "8": "Nice topluluk Rablerinin buyruklarına ve O’nun elçilerine karşı isyan ettiler. Sonuç olarak, onları çetin bir hesaba çektik ve onlara korkunç bir karşılıkla karşılık verdik.",
                     "9": "Onlar kararlarının sonuçlarını tattılar; esaslı bir ziyan.",
-                    "10": "TANRI onlara şiddetli bir azap hazırlamıştır. Bu nedenle, ey akıl sahibi ve iman etmiş olanlar! TANRI ’ya derin saygı duyun. TANRI size bir mesaj indirdi ─"
+                    "10": "TANRI onlara şiddetli bir azap hazırlamıştır. Bu nedenle, ey akıl sahibi ve iman etmiş olanlar! TANRI ’ya derin saygı duyun. TANRI size bir mesaj indirdi ─*"
                 },
                 "titles": {
-                    "1": "♦ ♦ ♦ ♦\nSura 65: Divorce\n(Al-Talaaq)\nEn Lütufkâr, En Merhametli olan Tanrı ’nın adıyla. "
+                    "1": "♦ ♦ ♦ ♦\nSure 65: Boşanma\n(El-Talak)\nEn Lütufkâr, En Merhametli olan Tanrı ’nın adıyla. "
                 }
             }
         },
         "notes": {
             "data": [
-                "*65:1 The divorcee’s interim, before becoming eligible for remarriage, is a waiting period of three menstruations. This ensures that the divorcee was not pregnant (2:228).",
-                "*65:10-11 The “Messenger” here is clearly the Quran. Verse 10 talks about “sending down a message,” and this points to the Quran as the messenger in 65:11 (Appendix 20)."
+                "*65:1 Boşanmış kimsenin geçiş dönemi, tekrar evliliğe uygun olmadan önce üç regl dönemi beklemektir. Bu, boşanmış kimsenin hamile olmadığını garanti eder (2:228).",
+                "*65:10-11 Buradaki “Elçi” açık bir şekilde Kuran’dır. 10. Ayet “bir mesaj indirmekten” bahsediyor ve bu da 65:11’deki elçinin Kuran olduğuna işaret eder."
             ],
             "cumulativefrequencyofthewordGOD": "2621",
             "cumulativesumofverseswhereGODwordoccurs": "117361"
@@ -13777,22 +13776,22 @@
     },
     "363": {
         "page": [
-            "Divorce (Al-Talaaq) 65:11-12 & Prohibition (Al-Tahreem) 66:1-8",
+            "Boşanma (El-Talak) 65:11-12 & Haram Kılmak (El-Tahrim) 66:1-8",
             "341"
         ],
         "sura": {
             "65": {
                 "verses": {
-                    "11": "bir elçi ki, iman edip doğruluğa çalışanları karanlıklardan aydınlığa iletmek için TANRI ’nın vahiylerini açık bir şekilde size okur. Kim TANRI ’ya iman edip doğru bir hayat sürerse, O onu akan nehirleri olan bahçelere kabul eder; onlar orada sonsuza dek kalırlar. TANRI onları cömertçe mükâfatlandıracaktır.",
+                    "11": "bir elçi ki,* iman edip doğruluğa çalışanları karanlıklardan aydınlığa iletmek için TANRI ’nın vahiylerini açık bir şekilde size okur. Kim TANRI ’ya iman edip doğru bir hayat sürerse, O onu akan nehirleri olan bahçelere kabul eder; onlar orada sonsuza dek kalırlar. TANRI onları cömertçe mükâfatlandıracaktır.",
                     "12": "TANRI yedi evren ve aynı sayıda yeryüzü yarattı. Emirler onlar arasında akıp durur. Bu, TANRI ’nın Her Şeye Gücü Yeten olduğunu ve TANRI ’nın her şeyden tamamen haberdar olduğunu bilmeniz içindir."
                 },
                 "titles": {
-                    "12": "Yedi Evren ve Yedi Yeryüzü"
+                    "12": "Yedi Evren ve Yedi Yeryüzü*"
                 }
             },
             "66": {
                 "verses": {
-                    "1": "Ey peygamber! Sırf eşlerini memnun etmek için TANRI ’nın sana helal kılmış olduğu şeyi niçin haram kılıyorsun? TANRI Bağışlayıcıdır, En Merhametli Olandır.",
+                    "1": "Ey peygamber! Sırf eşlerini memnun etmek için TANRI ’nın sana helal kılmış olduğu şeyi niçin haram kılıyorsun? TANRI Bağışlayıcıdır, En Merhametli Olandır.*",
                     "2": "TANRI , yeminlerinizle ilgili yasaları sizin için hükme bağlamıştır. TANRI sizin Rabbinizdir ve O, Her Şeyi Bilendir, En Bilge Olandır.",
                     "3": "Peygamber, eşlerinden bazılarına belli bir laf ile ilgili güvenmişti, ardından onlardan birisi onu yaydı ve TANRI bununla ilgili kendisini haberdar etti. Sonra o da hanımına meselenin bir kısmını bildirdi ve bir kısmına da değinmedi. Eşi ona, Bunu sana kim haber verdi? diye sordu. O da dedi ki Ben, Her Şeyi Bilen ve En Haberdar Olan tarafından bilgilendirildim.",
                     "4": "Eğer siz ikiniz TANRI ’ya tövbe ederseniz, o durumda kalpleriniz dinlemiş demektir. Fakat eğer ona karşı birleşirseniz, bu durumda onun müttefiki TANRI ’dır ve Cebrail ile doğru imanlılar da öyledir. Ayrıca, melekler de onun yardımcılarıdır.",
@@ -13802,16 +13801,16 @@
                     "8": "Ey iman edenler! TANRI ’ya kararlı bir tövbe ile tövbe edin. Rabbiniz o zaman günahlarınızı örtecek ve sizi akan nehirleri olan bahçelere kabul edecektir. O gün TANRI , peygamberi ve onunla birlikte iman etmiş olanları hayal kırıklığına uğratmayacaktır. Işıkları önlerinden ve sağ taraflarından yayılacaktır. Diyecekler ki Rabbimiz! Işığımızı tamamla ve bizi bağışla; Sen Her Şeye Gücü Yetensin."
                 },
                 "titles": {
-                    "1": "♦ ♦ ♦ ♦\nSura 66: Prohibition\n(Al-Tahreem)\nEn Lütufkâr, En Merhametli olan Tanrı ’nın adıyla. ",
+                    "1": "♦ ♦ ♦ ♦\nSure 66: Haram Kılmak\n(El-Tahrim)\nEn Lütufkâr, En Merhametli olan Tanrı ’nın adıyla. ",
                     "8": "İmanlılar Tövbe Ederler"
                 }
             }
         },
         "notes": {
             "data": [
-                "*65:11 See footnote for 65:10-11.",
-                "*65:12 Although God created six other planets that are identical to our Earth, there is life only on our planet. Thus, the evolutionists will be shown on the Day of Judgment that life did not just “evolve” on the planet because of its particular circumstances.",
-                "*66:1 Mohammedans around the world believe that Muhammad was infallible. This verse teaches us that he was indeed a fallible human being (18:110, 33:37, 40:66, 80:1)."
+                "*65:11 65:10-11’in dipnotuna bakınız.",
+                "*65:12 Tanrı, Dünyamız ile aynı olan altı başka gezegen yaratmasına rağmen sadece bizim gezegenimizde hayat vardır. Böylelikle, Yargı Günü’nde evrimcilere gezegende hayatın sırf belirli koşullardan dolayı “evrimleşmediği” gösterilecektir.",
+                "*66:1 Dünyanın dört bir yanındaki Muhammedîler, Muhammed’in hatasız olduğuna inanırlar. Bu ayet bize, onun gerçekten de hata yapabilen bir insan olduğunu öğretir (18:110, 33:37, 40:66, 80:1)."
             ],
             "cumulativefrequencyofthewordGOD": "2637",
             "cumulativesumofverseswhereGODwordoccurs": "117408"
@@ -13820,7 +13819,7 @@
     "364": {
         "page": [
             "342",
-            "Prohibition (Al-Tahreem) 66:9-12 & Kingship (Al-Mulk) 67:1-12"
+            "Haram Kılmak (El-Tahrim) 66:9-12 & Saltanat (El-Mülk) 67:1-12"
         ],
         "sura": {
             "66": {
@@ -13852,14 +13851,14 @@
                     "12": "Kendi başlarına yalnız olduklarında Rablerine derin saygı duyanlara gelince, onlar bağışlanmayı ve büyük bir ödülü elde etmişlerdir."
                 },
                 "titles": {
-                    "1": "♦ ♦ ♦ ♦\nSura 67: Kingship (Al-Mulk)\nEn Lütufkâr, En Merhametli olan Tanrı ’nın adıyla. ",
-                    "2": "Hayatımızın Amacı"
+                    "1": "♦ ♦ ♦ ♦\nSure 67: Saltanat (El-Mülk)\nEn Lütufkâr, En Merhametli olan Tanrı ’nın adıyla. ",
+                    "2": "Hayatımızın Amacı*"
                 }
             }
         },
         "notes": {
             "data": [
-                "*67:2 See the Introduction and Appendix 7 for details of the purpose behind this world."
+                "*67:2 Bu dünyanın ardındaki amacın detayları için Giriş’e ve Ek 7’ye bakınız."
             ],
             "cumulativefrequencyofthewordGOD": "2641",
             "cumulativesumofverseswhereGODwordoccurs": "117438"
@@ -13867,7 +13866,7 @@
     },
     "365": {
         "page": [
-            "Kingship (Al-Mulk) 67:13-30 & The Pen (Al-Qalam) 68:1-2",
+            "Saltanat (El-Mülk) 67:13-30 & Kalem (El-Kalem) 68:1-2",
             "343"
         ],
         "sura": {
@@ -13896,17 +13895,17 @@
             },
             "68": {
                 "verses": {
-                    "1": "NuN, kalem ve onların (insanların) yazdıkları.",
+                    "1": "NuN,* kalem ve onların (insanların) yazdıkları.",
                     "2": "Sen Rabbinden büyük bir nimete eriştin; sen deli değilsin."
                 },
                 "titles": {
-                    "1": "♦ ♦ ♦ ♦\nSura 68: The Pen\n(Al-Qalam)\nEn Lütufkâr, En Merhametli olan Tanrı ’nın adıyla. "
+                    "1": "♦ ♦ ♦ ♦\nSure 68: Kalem\n(El-Kalem)\nEn Lütufkâr, En Merhametli olan Tanrı ’nın adıyla. "
                 }
             }
         },
         "notes": {
             "data": [
-                "*68:1 “NuN” is unique among the Quran’s miraculous initials. See Appendix 1."
+                "*68:1 “NuN,” Kuran’ın mucizevi başlangıçları arasında benzersizdir. Ek 1’e bakınız."
             ],
             "cumulativefrequencyofthewordGOD": "2643",
             "cumulativesumofverseswhereGODwordoccurs": "117492"
@@ -13915,7 +13914,7 @@
     "366": {
         "page": [
             "344",
-            "The Pen (Al-Qalam) 68:3-41"
+            "Kalem (El-Kalem) 68:3-41"
         ],
         "sura": {
             "68": {
@@ -13961,7 +13960,7 @@
                     "41": "Onların putları mı var? Haydi putları kendilerine yardım etsin, eğer doğru sözlü iseler."
                 },
                 "titles": {
-                    "28": "Onların Tanrı İrade Ediyorsa Demeleri Gerekirdi"
+                    "28": "Onların “Tanrı İrade Ediyorsa” Demeleri Gerekirdi"
                 }
             }
         },
@@ -13973,7 +13972,7 @@
     },
     "367": {
         "page": [
-            "The Pen (Al-Qalam) 68:42-52 & Incontestable (Al-Haaqqah) 69:1-17",
+            "Kalem (El-Kalem) 68:42-52 & Tartışmasız (El-Hakka) 69:1-17",
             "345"
         ],
         "sura": {
@@ -14011,16 +14010,16 @@
                     "14": "Yeryüzü ve dağlar alıp götürülecek ve parçalanacaktır; tamamen parçalanmış olacak.",
                     "15": "İşte bu, kaçınılmaz olayın gerçekleşeceği gündür.",
                     "16": "Gök yarılıp parçalara ayrılacaktır.",
-                    "17": "Dört bir yanda melekler olacak ve Rabbinin hâkimiyeti o zaman sekiz (evreni) kapsayacaktır."
+                    "17": "Dört bir yanda melekler olacak ve Rabbinin hâkimiyeti o zaman sekiz (evreni) kapsayacaktır.*"
                 },
                 "titles": {
-                    "1": "♦ ♦ ♦ ♦\nSura 69: Incontestable\n(Al-Haaqqah)\nEn Lütufkâr, En Merhametli olan Tanrı ’nın adıyla. "
+                    "1": "♦ ♦ ♦ ♦\nSure 69: Tartışmasız\n(El-Hakka)\nEn Lütufkâr, En Merhametli olan Tanrı ’nın adıyla. "
                 }
             }
         },
         "notes": {
             "data": [
-                "*69:17 This earth is full of misery because of its physical distance from God, since it is in the seventh universe (7:143). In the Hereafter, an eighth universe will be created that will be even farther than our seventh universe; it will be called “Hell” (89:23)."
+                "*69:17 Bu Dünya, Tanrı’dan fiziksel uzaklığı nedeniyle sefaletle doludur çünkü yedinci evrendedir (7:143). Ahirette, bizim yedinci evrenimizden daha da uzak olacak olan sekizinci evren yaratılacaktır; “Cehennem” olarak adlandırılacaktır (89:23)."
             ],
             "cumulativefrequencyofthewordGOD": "2643",
             "cumulativesumofverseswhereGODwordoccurs": "117492"
@@ -14029,7 +14028,7 @@
     "368": {
         "page": [
             "346",
-            "Incontestable (Al-Haaqqah) 69:18-52 & The Heights (Al-Ma‘aarej) 70:1-3"
+            "Tartışmasız (El-Hakka) 69:18-52 & Zirveler (El-Mearic) 70:1-3"
         ],
         "sura": {
             "69": {
@@ -14083,7 +14082,7 @@
                     "3": "TANRI ’dandır; en yüksek Zirvenin Sahibi’nden."
                 },
                 "titles": {
-                    "1": "♦ ♦ ♦ ♦\nSura 70: The Heights\n(Al-Ma‘aarej)\nEn Lütufkâr, En Merhametli olan Tanrı ’nın adıyla. "
+                    "1": "♦ ♦ ♦ ♦\nSure 70: Zirveler\n(El-Mearic)\nEn Lütufkâr, En Merhametli olan Tanrı ’nın adıyla. "
                 }
             }
         },
@@ -14095,7 +14094,7 @@
     },
     "369": {
         "page": [
-            "The Heights (Al-Ma‘aarej) 70:4-44",
+            "Zirveler (El-Mearic) 70:4-44",
             "347"
         ],
         "sura": {
@@ -14155,7 +14154,7 @@
     "370": {
         "page": [
             "348",
-            "Noah 71:1-28"
+            "Nuh 71:1-28"
         ],
         "sura": {
             "71": {
@@ -14190,7 +14189,7 @@
                     "28": "Rabbim! Beni, ana-babamı, evime bir imanlı olarak giren herkesi ve tüm imanlı erkek ve kadınları bağışla. Fakat inkârcılara yok oluştan başka bir şey verme."
                 },
                 "titles": {
-                    "1": "♦ ♦ ♦ ♦\nSura 71: Noah\nEn Lütufkâr, En Merhametli olan Tanrı ’nın adıyla."
+                    "1": "♦ ♦ ♦ ♦\nSure 71: Nuh\nEn Lütufkâr, En Merhametli olan Tanrı ’nın adıyla."
                 }
             }
         },
@@ -14202,13 +14201,13 @@
     },
     "371": {
         "page": [
-            "Jinns (Al-Jinn) 72:1-21",
+            "Cinler (El-Cin) 72:1-21",
             "349"
         ],
         "sura": {
             "72": {
                 "verses": {
-                    "1": "De ki, Bana, cinlerden bir grubun dinlediği, sonra da şöyle söyledikleri vahyedildi, ‘Biz müthiş bir Kuran işittik.",
+                    "1": "De ki, Bana, cinlerden bir grubun dinlediği, sonra da şöyle söyledikleri vahyedildi, ‘Biz müthiş bir Kuran işittik.*",
                     "2": "‘Doğruluğa yönlendiriyor ve biz ona iman ettik; biz asla Rabbimizin yanına herhangi bir put yerleştirmeyeceğiz.",
                     "3": "‘Yüceler Yücesi bizim tek Rabbimizdir. O’nun asla ne bir eşi olmuştu, ne de bir oğlu.",
                     "4": "‘ TANRI hakkında böyle saçmalıkları söyleyip duran aramızdaki o akılsızdır.",
@@ -14231,14 +14230,14 @@
                     "21": "De ki, Ben size bir zarar verme yahut size rehberlik etme gücüne sahip değilim."
                 },
                 "titles": {
-                    "1": "♦ ♦ ♦ ♦\nSura 72: Jinns\n(Al-Jinn)\nEn Lütufkâr, En Merhametli olan Tanrı ’nın adıyla.",
+                    "1": "♦ ♦ ♦ ♦\nSure 72: Cinler\n(El-Cin)\nEn Lütufkâr, En Merhametli olan Tanrı ’nın adıyla.",
                     "19": "Tanrı’nın Antlaşma Elçisi"
                 }
             }
         },
         "notes": {
             "data": [
-                "*72:1-28  The  messenger  here  is  named,  mathematically,  as  “Rashad  Khalifa,”  to  whom God  revealed  the  end  of  the  world  (Appendix  25).  The  number  of  verses  from  1:1  to 72:27, where the messenger is mentioned, is 5472, 19x72x4. The word “Rashada” occurs 4 times in Sura 72. The value of “Rashada” is 504, and 504 + 28 (verses of Sura 72) is 532, 19x28. The value of “Rashad Khalifa” (1230) + 72 + 28 = 1330 = 19x70. The digits of Sura 72 and its number of verses (28) add up to 7 + 2 + 2 + 8 = 19. Also, the crucial expression, “only to a messenger that He chooses” has a value of 1919, 19x101."
+                "*72:1-28 Tanrı’nın kendisine dünyanın sonunu vahyettiği (Ek 25) buradaki elçi, matematiksel olarak “Reşad Halife” şeklinde isimlendirilmektedir. 1:1 ayetinden, elçinin söz edildiği 72:27 ayetine kadarki ayet sayısı 5472, 19x72x4’tür. “Reşede” kelimesi Sure 72’de 4 defa geçmektedir. “Reşede”nin değeri 504’tür ve 504 + 28 (Sure 72’nin ayetleri) 532, 19x28’dir. “Reşad Halife”nin değeri (1230) + 72 + 28 = 1330 = 19x70. Sure 72’nin ve onun ayet sayısının (28) rakamları toplandığında, 7 + 2 + 2 + 8 = 19 eder. Ayrıca, “sadece seçtiği bir elçiye” şeklindeki kritik ifadenin değeri 1919, 19x101’dir."
             ],
             "cumulativefrequencyofthewordGOD": "2659",
             "cumulativesumofverseswhereGODwordoccurs": "117689"
@@ -14246,7 +14245,7 @@
     },
     "372": {
         "page": [
-            "Jinns (Al-Jinn) 72:22-28 & Cloaked (Al-Muzzammil) 73:1-18",
+            "Cinler (El-Cin) 72:22-28 & Örtülmüş (El-Müzzemmil) 73:1-18",
             "350"
         ],
         "sura": {
@@ -14257,7 +14256,7 @@
                     "24": "Kendilerini bekleyen şeyi gördüklerinde, gerçekten kimin güç olarak daha zayıf olduğunu ve sayı olarak daha az olduğunu öğrenecekler.",
                     "25": "De ki, Size söz verilen yakında mı olacak, yoksa Rabbim onu bir süreliğine erteleyecek mi bilmiyorum.",
                     "26": "O, geleceği Bilendir; O, geleceği kimseye vahyetmez.",
-                    "27": "Sadece seçtiği bir elçiye, geçmişten ve gelecekten özel haberler vahyeder.",
+                    "27": "Sadece seçtiği bir elçiye,* geçmişten ve gelecekten özel haberler vahyeder.",
                     "28": "Bu, onların Rablerinin mesajlarını iletmiş olduklarını ortaya çıkarmak içindir. O, sahip oldukları şeylerin tamamen farkındadır. O, her şeyin sayısını saymıştır."
                 },
                 "titles": {}
@@ -14284,13 +14283,13 @@
                     "18": "Gök ondan dolayı paramparça olacak. O’nun vaadi gerçektir."
                 },
                 "titles": {
-                    "1": "♦ ♦ ♦ ♦\nSura 73: Cloaked\n(Al-Muzzammil)\nEn Lütufkâr, En Merhametli olan Tanrı ’nın adıyla. "
+                    "1": "♦ ♦ ♦ ♦\nSure 73: Örtülmüş\n(El-Müzzemmil)\nEn Lütufkâr, En Merhametli olan Tanrı ’nın adıyla. "
                 }
             }
         },
         "notes": {
             "data": [
-                "* 72:27 See footnote for 72:1-28."
+                "*72:27 Dipnot 72:1-28’e bakınız."
             ],
             "cumulativefrequencyofthewordGOD": "2662",
             "cumulativesumofverseswhereGODwordoccurs": "117734"
@@ -14298,7 +14297,7 @@
     },
     "373": {
         "page": [
-            "Cloaked (Al-Muzzammil) 73:19-20 & The Hidden Secret (Al-Muddath-thir) 74:1-29",
+            "Örtülmüş (El-Müzzemmil) 73:19-20 & Gizlenmiş Sır (El-Müddessir) 74:1-29",
             "351"
         ],
         "sura": {
@@ -14311,10 +14310,10 @@
             },
             "74": {
                 "verses": {
-                    "1": "Ey gizlenmiş sır!",
+                    "1": "Ey gizlenmiş sır!*",
                     "2": "Ortaya çık ve uyar.",
                     "3": "Rabbini çokça öv.",
-                    "4": "Giysini arındır.",
+                    "4": "Giysini arındır.*",
                     "5": "Yanlış olanı terk et.",
                     "6": "Nasibin ile tatmin ol.",
                     "7": "Kararlılıkla Rabbini an.",
@@ -14342,14 +14341,14 @@
                     "29": "Tüm insanlar için gün gibi ortada."
                 },
                 "titles": {
-                    "1": "♦ ♦ ♦ ♦\nSura 74: The Hidden Secret\n(Al-Muddath-thir)\nEn Lütufkâr, En Merhametli olan Tanrı ’nın adıyla. "
+                    "1": "♦ ♦ ♦ ♦\nSure 74: Gizlenmiş Sır\n(El-Müddessir)\nEn Lütufkâr, En Merhametli olan Tanrı ’nın adıyla. "
                 }
             }
         },
         "notes": {
             "data": [
-                "*74:1 God’s infinite wisdom willed to reveal the Quran through Muhammad, while the Quran’s awesome 19-based mathematical miracle was revealed through God’s Messenger of the Covenant 1406 lunar years after revelation of the Quran (1406 = 19x74 & 1974 AD was the Solar Year of discovery). In retrospect, we realize that the whole sura refers to the Quran’s 19-based miracle (Appendices 1 & 2).",
-                "*74:4 Quran is the garment containing the secret code. This refers to removing 9:128-129."
+                "*74:1 Tanrı’nın sonsuz bilgeliği Kuran’ı Muhammed aracılığıyla vahyetmeyi irade etmişken, Kuran’ın müthiş 19-temelli matematiksel mucizesi, Kuran’ın vahyedilişinden 1406 ay yılı sonra Tanrı’nın Antlaşma Elçisi aracılığıyla vahyedildi (1406=19x74 & MS 1974 keşfin Güneş Yılı idi). Geriye dönüp bakıldığında, tüm surenin Kuran’ın 19-temelli mucizesini kastettiğini fark ediyoruz (Ek 1 & 2).",
+                "*74:4 Kuran, gizli kodu içeren giysidir. Bu, 9:128-129’un çıkarılmasını ifade ediyor."
             ],
             "cumulativefrequencyofthewordGOD": "2669",
             "cumulativesumofverseswhereGODwordoccurs": "117754"
@@ -14358,7 +14357,7 @@
     "374": {
         "page": [
             "352",
-            "The Hidden Secret (Al-Muddath-thir) 74:30-56 & Resurrection (Al-Qeyaamah) 75:1-4"
+            "Gizlenmiş Sır (El-Müddessir) 74:30-56 & Diriliş (El-Kıyame) 75:1-4"
         ],
         "sura": {
             "74": {
@@ -14368,7 +14367,7 @@
                     "32": "Kesinlikle, (yemin ederim) Ay’a.",
                     "33": "Ve geçtiği vakit geceye.",
                     "34": "Ve ağardığı vakit sabaha.",
-                    "35": "Bu, büyük mucizelerden biridir.",
+                    "35": "Bu, büyük mucizelerden biridir.*",
                     "36": "İnsan türüne bir uyarıdır.",
                     "37": "Aranızdan ilerlemek yahut geride kalmak isteyenleriniz için.",
                     "38": "Her ruh, günahları tarafından tutsak edilmiştir.",
@@ -14404,13 +14403,13 @@
                     "4": "Doğrusu; onun parmak uçlarını da yeniden inşa etmeye gücümüz yeter."
                 },
                 "titles": {
-                    "1": "♦ ♦ ♦ ♦\nSura 75: Resurrection\n(Al-Qeyaamah)\nEn Lütufkâr, En Merhametli olan Tanrı ’nın adıyla. "
+                    "1": "♦ ♦ ♦ ♦\nSure 75: Diriliş\n(El-Kıyame)\nEn Lütufkâr, En Merhametli olan Tanrı ’nın adıyla. "
                 }
             }
         },
         "notes": {
             "data": [
-                "*74:30-35 This “One of the great miracles” provides the first physical evidence that the Quran is God’s message to the world. This 19-based miracle is detailed in Appendix 1."
+                "*74:30-35 Bu “Büyük mucizelerden biri,” Kuran’ın Tanrı’nın dünyaya mesajı olduğunun ilk fiziksel delilini sunmaktadır. Bu 19-temelli mucize, Ek 1’de ayrıntılı bir şekilde anlatılmıştır."
             ],
             "cumulativefrequencyofthewordGOD": "2672",
             "cumulativesumofverseswhereGODwordoccurs": "117841"
@@ -14418,7 +14417,7 @@
     },
     "375": {
         "page": [
-            "Resurrection (Al-Qeyaamah) 75:5-40 & The Human (Al-Insaan) 76:1",
+            "Diriliş (El-Kıyame) 75:5-40 & İnsan (El-İnsan) 76:1",
             "353"
         ],
         "sura": {
@@ -14470,7 +14469,7 @@
                     "1": "İnsanoğlunun sözü edilecek bir şey olmadığı bir zaman diliminin olduğu bir gerçek değil midir?"
                 },
                 "titles": {
-                    "1": "♦ ♦ ♦ ♦\nSura 76: The Human\n(Al-Insaan)\nEn Lütufkâr, En Merhametli olan Tanrı ’nın adıyla."
+                    "1": "♦ ♦ ♦ ♦\nSure 76: İnsan\n(El-İnsan)\nEn Lütufkâr, En Merhametli olan Tanrı ’nın adıyla."
                 }
             }
         },
@@ -14483,7 +14482,7 @@
     "376": {
         "page": [
             "354",
-            "The Human (Al-Insaan) 76:2-29"
+            "İnsan (El-İnsan) 76:2-29"
         ],
         "sura": {
             "76": {
@@ -14528,7 +14527,7 @@
     },
     "377": {
         "page": [
-            "The Human (Al-Insaan) 76:30-31 & Dispatched (Al-Mursalaat) 77:1-38",
+            "İnsan (El-İnsan) 76:30-31 & Sevk Edilen (El-Murselat) 77:1-38",
             "355"
         ],
         "sura": {
@@ -14560,10 +14559,10 @@
                     "17": "Sonra da diğerlerini onların izinden yürütmedik mi?",
                     "18": "İşte suçlulara yaptığımız şey budur.",
                     "19": "O gün, reddedicilerin vay haline.",
-                    "20": "Sizi bayağı bir sıvıdan yaratmadık mı?",
+                    "20": "Sizi bayağı bir sıvıdan yaratmadık mı?*",
                     "21": "Sonra onu iyi korunmuş bir depoya yerleştirdik.",
                     "22": "Belirli bir süre için.",
-                    "23": "Onu tam olarak ölçtük.  Biz en iyi tasarımcılarız.",
+                    "23": "Onu tam olarak ölçtük.*  Biz en iyi tasarımcılarız.",
                     "24": "O gün, reddedicilerin vay haline.",
                     "26": "Biz yeryüzünü bir ikametgâh yapmadık mı?",
                     "27": "Diriler için de, ölüler için de?",
@@ -14581,13 +14580,13 @@
                     "38": "Bu, Karar Günü’dür. Sizi de önceki nesilleri de topladık."
                 },
                 "titles": {
-                    "1": "♦ ♦ ♦ ♦\nSura 77: Dispatched\n(Al-Mursalaat)\nEn Lütufkâr, En Merhametli olan Tanrı ’nın adıyla. "
+                    "1": "♦ ♦ ♦ ♦\nSure 77: Sevk Edilen\n(El-Murselat)\nEn Lütufkâr, En Merhametli olan Tanrı ’nın adıyla. "
                 }
             }
         },
         "notes": {
             "data": [
-                "*77:20-23 According to Langman’s  Medical Embryology, by T. W. Sadler  (Fifth Edition, Page 88): “In general the length of pregnancy for a full term fetus is 266 days or 38 weeks after fertilization.” Both 266 and 38 are multiples of 19 (Appendix 1)."
+                "*77:20-23 Langman Medikal Embriyoloji’ye göre, yazarı T.W. Sadler (Beşinci baskı, sayfa 88): “Genel olarak, tam süreli bir fetüs için gebelik süresi, döllenmeden sonra 266 gün veya 38 haftadır.” 266 ve 38’in her ikisi de 19’un katıdır (Ek 1)."
             ],
             "cumulativefrequencyofthewordGOD": "2677",
             "cumulativesumofverseswhereGODwordoccurs": "117897"
@@ -14596,7 +14595,7 @@
     "378": {
         "page": [
             "356",
-            "Dispatched (Al-Mursalaat) 77:39-50 & The Event (Al-Naba’) 78:1-31"
+            "Sevk Edilen (El-Murselat) 77:39-50 & Olay (El-Nebe) 78:1-31"
         ],
         "sura": {
             "77": {
@@ -14651,7 +14650,7 @@
                     "31": "Doğrular, bir mükâfatı hak ettiler."
                 },
                 "titles": {
-                    "1": "♦ ♦ ♦ ♦\nSura 78: The Event\n(Al-Naba’)\nEn Lütufkâr, En Merhametli olan Tanrı ’nın adıyla. "
+                    "1": "♦ ♦ ♦ ♦\nSure 78: Olay\n(El-Nebe)\nEn Lütufkâr, En Merhametli olan Tanrı ’nın adıyla. "
                 }
             }
         },
@@ -14663,7 +14662,7 @@
     },
     "379": {
         "page": [
-            "The Event (Al-Naba’) 78:32-40 & The Snatchers (Al-Naaze‘aat) 79:1-28",
+            "Olay (El-Nebe) 78:32-40 & Koparanlar (El-Naziat) 79:1-28",
             "357"
         ],
         "sura": {
@@ -14713,7 +14712,7 @@
                     "28": "Onun kütlelerini yükseltti ve onu mükemmel hale getirdi."
                 },
                 "titles": {
-                    "1": "♦ ♦ ♦ ♦\nSura 79: The Snatchers\n(Al-Naaze‘aat)\nEn Lütufkâr, En Merhametli olan Tanrı ’nın adıyla. "
+                    "1": "♦ ♦ ♦ ♦\nSure 79: Koparanlar\n(El-Naziat)\nEn Lütufkâr, En Merhametli olan Tanrı ’nın adıyla. "
                 }
             }
         },
@@ -14726,13 +14725,13 @@
     "380": {
         "page": [
             "358",
-            "The Snatchers (Al-Naaze‘aat) 79:29-46 & He Frowned (‘Abasa) 80:1-24"
+            "Koparanlar (El-Naziat) 79:29-46 & Surat Astı (Abese) 80:1-24"
         ],
         "sura": {
             "79": {
                 "verses": {
                     "29": "Gecesini karanlık yaptı ve sabahını aydınlattı.",
-                    "30": "Yeryüzünü ise yumurta biçimli yaptı.",
+                    "30": "Yeryüzünü ise yumurta biçimli yaptı.*",
                     "31": "Ondan da kendi suyunu ve otlağını çıkardı.",
                     "32": "Dağları yerleştirdi.",
                     "33": "Tüm bunlar size ve hayvanlarınıza yaşam desteği sağlamak içindir.",
@@ -14780,13 +14779,13 @@
                     "24": "İnsan, yiyeceği üzerine bir düşünsün!"
                 },
                 "titles": {
-                    "1": "♦ ♦ ♦ ♦\nSura 80: He Frowned\n(‘Abasa)\nEn Lütufkâr, En Merhametli olan Tanrı ’nın adıyla. "
+                    "1": "♦ ♦ ♦ ♦\nSure 80: Surat Astı\n(Abese)\nEn Lütufkâr, En Merhametli olan Tanrı ’nın adıyla. "
                 }
             }
         },
         "notes": {
             "data": [
-                "*79:30 The Arabic word “dahhaahaa” is derived from “Dahhyah” which means “egg.”"
+                "*79:30 Arapça “dehaha” kelimesi, anlamı yumurta olan “Dehya” kelimesinden türetilmiştir.”"
             ],
             "cumulativefrequencyofthewordGOD": "2678",
             "cumulativesumofverseswhereGODwordoccurs": "117922"
@@ -14794,7 +14793,7 @@
     },
     "381": {
         "page": [
-            "He Frowned (‘Abasa) 80:25-42 & The Rolling (Al-Takweer) 81:1-27",
+            "Surat Astı (Abese) 80:25-42 & Yuvarlanma (El-Tekvir) 81:1-27",
             "359"
         ],
         "sura": {
@@ -14810,14 +14809,14 @@
                     "32": "Size ve hayvanlarınıza yaşam desteği sağlamak için.",
                     "33": "Sonra, o darbe meydana geldiğinde.",
                     "34": "Bu, kişinin kendi kardeşinden kaçtığı gündür.",
-                    "35": "80:35  Annesinden ve babasından.",
-                    "36": "80: 36  Eşinden ve evlatlarından.",
-                    "37": "80: 37  Her biri o gün kendi kaderinden endişelidir.",
-                    "38": "80: 38  O gün bazı yüzler mutlu olacaktır.",
-                    "39": "80: 39  Gülerek ve neşe içinde.",
-                    "40": "80: 40  O gün diğer yüzler bedbahtlıkla kaplı olacaktır.",
-                    "41": "80: 41  Pişmanlık ile dolup taşmış.",
-                    "42": "  Bunlar kötü inkârcılardır."
+                    "35": "Annesinden ve babasından.",
+                    "36": " Eşinden ve evlatlarından.",
+                    "37": "Her biri o gün kendi kaderinden endişelidir.",
+                    "38": "O gün bazı yüzler mutlu olacaktır.",
+                    "39": "Gülerek ve neşe içinde.",
+                    "40": "O gün diğer yüzler bedbahtlıkla kaplı olacaktır.",
+                    "41": "Pişmanlık ile dolup taşmış.",
+                    "42": "Bunlar kötü inkârcılardır."
                 },
                 "titles": {}
             },
@@ -14841,27 +14840,27 @@
                     "16": "Tam olarak yörüngelerinde akıp giden.",
                     "17": "Çökerken geceye.",
                     "18": "Nefes aldığı sırada sabaha.",
-                    "19": "Bu, şerefli bir elçinin sözüdür.",
+                    "19": "Bu, şerefli bir elçinin sözüdür.*",
                     "20": "Tahtın Sahibi tarafından yetkilendirilmiş, tamamen desteklenmiş.",
                     "21": "Ona itaat edilsin ve güvenilsin.",
                     "22": "Arkadaşınız (Reşad) deli değildir.",
-                    "23": "Onu yüksek ufukta gördü.",
+                    "23": "Onu yüksek ufukta gördü.*",
                     "24": "O, hiçbir haberi kendinde tutmuyor.",
                     "25": "O, kovulmuş bir şeytanın ettiği lakırdı değildir.",
                     "26": "Öyleyse nereye gideceksiniz?",
                     "27": "Bu, tüm insanlara bir mesajdır."
                 },
                 "titles": {
-                    "1": "♦ ♦ ♦ ♦\nSura 81: The Rolling\n(Al-Takweer)\nEn Lütufkâr, En Merhametli olan Tanrı ’nın adıyla. ",
-                    "15": "Tanrı’nın Antlaşma Elçisi",
-                    "9": "Diri diri gömülen kız çocuğuna sorulduğunda:"
+                    "1": "♦ ♦ ♦ ♦\nSure 81: Yuvarlanma\n(El-Tekvir)\nEn Lütufkâr, En Merhametli olan Tanrı ’nın adıyla. ",
+                    "15": "Tanrı’nın Antlaşma Elçisi"
+                    
                 }
             }
         },
         "notes": {
             "data": [
-                "*81:19 By adding the sura number, plus the verse number, plus the gematrical value of the name “Rashad” (505), plus the value of “Khalifa” (725), we get 1330, 19x70. This provides Quranic mathematical proof that this messenger is Rashad Khalifa.",
-                "*81:23 Rashad Khalifa was summoned to the high horizon as detailed in Appendix 2."
+                "*81:19 Sure numarası artı ayet numarası artı “Reşad” isminin sayısal değeri (505) artı “Halife”nin değeri (725) toplandığında 1330, 19x70 elde ederiz. Bu, bu elçinin Reşad Halife olduğuna dair Kuranî matematiksel kanıt sunar.",
+                "*81:23 Reşad Halife, Ek 2’de detaylıca anlatıldığı gibi yüksek ufka çağırıldı."
             ],
             "cumulativefrequencyofthewordGOD": "2678",
             "cumulativesumofverseswhereGODwordoccurs": "117922"
@@ -14870,7 +14869,7 @@
     "382": {
         "page": [
             "360",
-            "The Rolling (Al-Takweer) 81:28-29 & The Shattering (Al-Infitaar) & The Cheaters (Al-Mutaffifeen) 83:1-15"
+            "Yuvarlanma (El-Tekvir) 81:28-29 & Parçalara Ayrılma (El-İnfitar) & Hile Yapanlar (El-Mutaffifin) 83:1-15"
         ],
         "sura": {
             "81": {
@@ -14903,7 +14902,7 @@
                     "19": "Bu, hiçbir ruhun bir başka ruha yardım edemediği gündür ve o gün tüm kararlar TANRI ’ya ait olacaktır."
                 },
                 "titles": {
-                    "1": "♦ ♦ ♦ ♦\nSura 82: The Shattering\n(Al-Infitaar)\nEn Lütufkâr, En Merhametli olan Tanrı ’nın adıyla. ",
+                    "1": "♦ ♦ ♦ ♦\nSure 82: Parçalara Ayrılma\n(El-İnfitar)\nEn Lütufkâr, En Merhametli olan Tanrı ’nın adıyla. ",
                     "6": "Tanrı’nın Yarattığı Şeyler Üzerinde Derinlemesine Düşünün"
                 }
             },
@@ -14926,7 +14925,7 @@
                     "15": "Doğrusu, onlar o gün Rablerinden tecrit edileceklerdir."
                 },
                 "titles": {
-                    "1": "♦ ♦ ♦ ♦\nSura 83: The Cheaters\n(Al-Mutaffifeen)\nEn Lütufkâr, En Merhametli olan Tanrı ’nın adıyla. ",
+                    "1": "♦ ♦ ♦ ♦\nSure 83: Hile Yapanlar\n(El-Mutaffifin)\nEn Lütufkâr, En Merhametli olan Tanrı ’nın adıyla. ",
                     "7": "Sayısal Olarak Yapılandırılmış Kitaplar"
                 }
             }
@@ -14939,7 +14938,7 @@
     },
     "383": {
         "page": [
-            "The Cheaters (Al-Mutaffifeen) 83:16-36 & The Rupture (Al-Inshiqaaq) 84:1-19",
+            "Hile Yapanlar (El-Mutaffifin) 83:16-36 & Yarılma (El-İnşikak) 84:1-19",
             "361"
         ],
         "sura": {
@@ -14992,7 +14991,7 @@
                     "19": "Siz aşamadan aşamaya geçeceksiniz."
                 },
                 "titles": {
-                    "1": "♦ ♦ ♦ ♦\nSura 84: The Rupture\n(Al-Inshiqaaq)\nEn Lütufkâr, En Merhametli olan Tanrı ’nın adıyla. "
+                    "1": "♦ ♦ ♦ ♦\nSure 84:Yarılma\n(El-İnşikak)\nEn Lütufkâr, En Merhametli olan Tanrı ’nın adıyla. "
                 }
             }
         },
@@ -15005,7 +15004,7 @@
     "384": {
         "page": [
             "362",
-            "The Rupture 84:20-25 & The Galaxies 85:1-22 & The Bright Star 86:1-7"
+            "Yarılma (El-İnşikak) 84:20-25 & Galaksiler (El-Buruc) 85:1-22 & Parlak Yıldız (El-Tarık) 86:1-7"
         ],
         "sura": {
             "84": {
@@ -15045,7 +15044,7 @@
                     "22": "Korunmuş bir ana levhadadır."
                 },
                 "titles": {
-                    "1": "♦ ♦ ♦ ♦\nSura 85: The Galaxies\n(Al-Burooj)\nEn Lütufkâr, En Merhametli olan Tanrı ’nın adıyla."
+                    "1": "♦ ♦ ♦ ♦\nSure 85: Galaksiler\n(El-Buruc)\nEn Lütufkâr, En Merhametli olan Tanrı ’nın adıyla."
                 }
             },
             "86": {
@@ -15059,7 +15058,7 @@
                     "7": "Omurga ile iç organlar arasından çıkan."
                 },
                 "titles": {
-                    "1": "♦ ♦ ♦ ♦\nSura 86: The Bright Star\n(Al-Taareq)\nEn Lütufkâr, En Merhametli olan Tanrı ’nın adıyla."
+                    "1": "♦ ♦ ♦ ♦\nSure 86: Parlak Yıldız\n(El-Tarık)\nEn Lütufkâr, En Merhametli olan Tanrı ’nın adıyla."
                 }
             }
         },
@@ -15071,7 +15070,7 @@
     },
     "385": {
         "page": [
-            "The Bright Star 86:8-17 & The Most High 87:1-19 & Overwhelming 88:1-10",
+            "Parlak Yıldız (El-Tarık) 86:8-17 & Yüceler Yücesi (El-A’la) 87:1-19 & Bunaltıcı (El-Ğaşiye) 88:1-10",
             "363"
         ],
         "sura": {
@@ -15113,7 +15112,7 @@
                     "19": "İbrahim’in ve Musa’nın öğretilerinde."
                 },
                 "titles": {
-                    "1": "♦ ♦ ♦ ♦\nSura 87: The Most High\n(Al-A‘alaa)\nEn Lütufkâr, En Merhametli olan Tanrı ’nın adıyla."
+                    "1": "♦ ♦ ♦ ♦\nSure 87: Yüceler Yücesi\n(El-A’la)\nEn Lütufkâr, En Merhametli olan Tanrı ’nın adıyla."
                 }
             },
             "88": {
@@ -15130,7 +15129,7 @@
                     "10": "Yüksek bir Cennette."
                 },
                 "titles": {
-                    "1": "♦ ♦ ♦ ♦\nSura 88: Overwhelming\n(Al-Ghaasheyah)\nEn Lütufkâr, En Merhametli olan Tanrı ’nın adıyla."
+                    "1": "♦ ♦ ♦ ♦\nSure 88: Bunaltıcı\n(El-Ğaşiye)\nEn Lütufkâr, En Merhametli olan Tanrı ’nın adıyla."
                 }
             }
         },
@@ -15143,7 +15142,7 @@
     "386": {
         "page": [
             "364",
-            "Overwhelming (Al-Ghaasheyah) 88:11-26 & Dawn (Al-Fajr) 89:1-21"
+            "Bunaltıcı (El-Ğaşiye) 88:11-26 & Şafak (El-Fecr) 89:1-21"
         ],
         "sura": {
             "88": {
@@ -15170,8 +15169,8 @@
             "89": {
                 "verses": {
                     "1": "Ant olsun şafağa.",
-                    "2": "Ve on geceye.",
-                    "3": "Ant olsun çifte ve teke.",
+                    "2": "Ve on geceye.*",
+                    "3": "Ant olsun çifte ve teke.*",
                     "4": "Ant olsun geçip giderken geceye.",
                     "5": "Akıl sahibi olan için esaslı bir yemin.",
                     "6": "Dikkat ettin mi Rabbinin Âd’a ne yaptığına?",
@@ -15192,14 +15191,14 @@
                     "21": "Doğrusu, yer parçalandığında, tamamen parçalandığında."
                 },
                 "titles": {
-                    "1": "♦ ♦ ♦ ♦\nSura 89: Dawn\n(Al-Fajr)\nEn Lütufkâr, En Merhametli olan Tanrı ’nın adıyla. "
+                    "1": "♦ ♦ ♦ ♦\nSure 89: Şafak\n(El-Fecr)\nEn Lütufkâr, En Merhametli olan Tanrı ’nın adıyla. "
                 }
             }
         },
         "notes": {
             "data": [
-                "*89:2 The last ten nights of Ramadan, wherein many believers retreat to the masjids (2:187).",
-                "*89:3 See Appendix 1 for the role of the even numbers and the odd numbers."
+                "*89:2 Birçok imanlının mescitlere çekildiği Ramazan’ın son on gecesi (2:187).",
+                "*89:3 Çift ve tek sayıların rolü için Ek 1’e bakınız."
             ],
             "cumulativefrequencyofthewordGOD": "2686",
             "cumulativesumofverseswhereGODwordoccurs": "118061"
@@ -15207,7 +15206,7 @@
     },
     "387": {
         "page": [
-            "Dawn (Al-Fajr) 89:22-30 & The Town (Al-Balad) 90:1-20 & The Sun (Al-Shams) 91:1-8",
+            "Şafak (El-Fecr) 89:22-30 & Kent (El-Beled) 90:1-20 & Güneş (El-Şems) 91:1-8",
             "365"
         ],
         "sura": {
@@ -15230,7 +15229,7 @@
                     "1": "Ciddiyetle yemin ederim bu kente.",
                     "2": "Yaşadığın kente.",
                     "3": "Bir evlada baba olana ve bir babaya evlat olana.",
-                    "4": "Biz insanoğlunu, (kendini günahın bedelinden kurtarması için) sıkı çalışsın diye yarattık.",
+                    "4": "Biz insanoğlunu, (kendini günahın bedelinden kurtarması için) sıkı çalışsın diye yarattık.*",
                     "5": "Hiç kimsenin ondan hesap sormayacağını mı sanıyor?",
                     "6": "Böbürleniyor, Ben bunca para harcadım!",
                     "7": "Kimsenin kendisini görmediğini mi sanıyor?",
@@ -15249,7 +15248,7 @@
                     "20": "Onlar Cehennem Ateşinde hapsedilecekler."
                 },
                 "titles": {
-                    "1": "♦ ♦ ♦ ♦\nSura 90: The Town\n(Al-Balad)\nEn Lütufkâr, En Merhametli olan Tanrı ’nın adıyla."
+                    "1": "♦ ♦ ♦ ♦\nSure 90: Kent\n(El-Beled)\nEn Lütufkâr, En Merhametli olan Tanrı ’nın adıyla."
                 }
             },
             "91": {
@@ -15264,13 +15263,13 @@
                     "8": "Sonra da ona neyin kötü neyin iyi olduğunu göstermiş olana."
                 },
                 "titles": {
-                    "8": "♦ ♦ ♦ ♦\nSura 91: The Sun \n(Al-Shams)\nEn Lütufkâr, En Merhametli olan Tanrı ’nın adıyla."
+                    "1": "♦ ♦ ♦ ♦\nSure 91: Güneş \n(El-Şems)\nEn Lütufkâr, En Merhametli olan Tanrı ’nın adıyla."
                 }
             }
         },
         "notes": {
             "data": [
-                "*90:4 See the Introduction and Appendix 7 for the purpose behind our creation."
+                "*90:4 Yaratılışımızın ardındaki amaç için Giriş’e ve Ek 7’ye bakınız."
             ],
             "cumulativefrequencyofthewordGOD": "2686",
             "cumulativesumofverseswhereGODwordoccurs": "118061"
@@ -15279,7 +15278,7 @@
     "388": {
         "page": [
             "366",
-            "The Sun (Al-Shams) 91:9-15 & The Night (Al-Layl) 92:1-21 & The Forenoon (Al-Duhaa) 93:1-8"
+            "Güneş (El-Şems) 91:9-15 & Gece (El-Leyl) 92:1-21 & Kuşluk Vakti (El-Duha) 93:1-8"
         ],
         "sura": {
             "91": {
@@ -15319,7 +15318,7 @@
                     "21": "O kesinlikle kurtuluşa erecektir."
                 },
                 "titles": {
-                    "1": "♦ ♦ ♦ ♦\nSura 92: The Night\n(Al-Layl)\nEn Lütufkâr, En Merhametli olan Tanrı ’nın adıyla."
+                    "1": "♦ ♦ ♦ ♦\nSure 92: Gece\n(El-Leyl)\nEn Lütufkâr, En Merhametli olan Tanrı ’nın adıyla."
                 }
             },
             "93": {
@@ -15334,7 +15333,7 @@
                     "8": "Seni fakir buldu da zengin etti."
                 },
                 "titles": {
-                    "1": "♦ ♦ ♦ ♦\nSura 93: The Forenoon\n(Al-Duhaa)\nEn Lütufkâr, En Merhametli olan Tanrı ’nın adıyla."
+                    "1": "♦ ♦ ♦ ♦\nSure 93: Kuşluk Vakti\n(El-Duha)\nEn Lütufkâr, En Merhametli olan Tanrı ’nın adıyla."
                 }
             }
         },
@@ -15346,7 +15345,7 @@
     },
     "389": {
         "page": [
-            "The Forenoon (Al-Duhaa) 93:9-11 & The Fig (Al-Teen) 95:1-8 & Cooling the Temper (Al-Sharrhh) 94:1-8 & The Embryo (Al-‘Alaq) 96:1-11",
+            "Kuşluk Vakti (El-Duha) 93:9-11 & Öfkeyi Yatıştırmak (El-Şarh) 94:1-8 & İncir (El-Tin) 95:1-8  & Embriyo (El-Alak) 96:1-11",
             "367"
         ],
         "sura": {
@@ -15370,14 +15369,14 @@
                     "8": "Sadece Rabbini arayarak."
                 },
                 "titles": {
-                    "1": "♦ ♦ ♦ ♦\nSura 94: Cooling the Temper\n(Al-Sharrhh)\nEn Lütufkâr, En Merhametli olan Tanrı ’nın adıyla. "
+                    "1": "♦ ♦ ♦ ♦\nSure 94: Öfkeyi Yatıştırmak\n(El-Şarh)\nEn Lütufkâr, En Merhametli olan Tanrı ’nın adıyla. "
                 }
             },
             "95": {
                 "verses": {
                     "1": "Ant olsun incire ve zeytine.",
                     "2": "Sina Dağı’na.",
-                    "3": "Ve bu şerefli kente (Mekke’ye) .",
+                    "3": "Ve bu şerefli kente (Mekke’ye).*",
                     "4": "Biz insanı en güzel biçimde yarattık.",
                     "5": "Sonra onu aşağıların en aşağısına çevirdik.",
                     "6": "İman edip doğru bir hayat sürenler hariç; onlar tamamen hak edilmiş olan bir ödül alırlar.",
@@ -15385,12 +15384,12 @@
                     "8": "TANRI , tüm bilgelerin En Bilge olanı değil midir?"
                 },
                 "titles": {
-                    "1": "♦ ♦ ♦ ♦\nSura 95: The Fig\n(Al-Teen)\nEn Lütufkâr, En Merhametli olan Tanrı ’nın adıyla. "
+                    "1": "♦ ♦ ♦ ♦\nSure 95: İncir\n(El-Tin)\nEn Lütufkâr, En Merhametli olan Tanrı ’nın adıyla. "
                 }
             },
             "96": {
                 "verses": {
-                    "1": "Oku! Yaratmış olan Rabbinin adıyla.",
+                    "1": "Oku! Yaratmış olan Rabbinin adıyla.*",
                     "2": "O, insanı bir embriyodan yarattı.",
                     "3": "Oku! Ve En Yüce olan Rabbin.",
                     "4": "Kalem yoluyla öğretir.",
@@ -15403,14 +15402,14 @@
                     "11": "Rehberliği takip etmesi onun için daha iyi değil midir?"
                 },
                 "titles": {
-                    "1": "♦ ♦ ♦ ♦\nSura 96: The Embryo\n(Al-‘Alaq)\nEn Lütufkâr, En Merhametli olan Tanrı ’nın adıyla. "
+                    "1": "♦ ♦ ♦ ♦\nSure 96: Embriyo\n(El-Alak)\nEn Lütufkâr, En Merhametli olan Tanrı ’nın adıyla. "
                 }
             }
         },
         "notes": {
             "data": [
-                "*95:1-3 The fig,  olive, Sinai, and Mecca possibly  symbolize Adam, Jesus,  Moses, Abraham and Muhammad, respectively. Thus, all major religions are represented.",
-                "*96:1-19 From 96 to 114 is 19 suras. The first revelation (96:1-5) is 19 Arabic words, 76 letters (19x4). The sura consists of 19 verses and 304 Arabic letters (Appendices 1 & 23)."
+                "*95:1-3 İncir, zeytin, Sina ve Mekke muhtemelen sırayla Âdem, İsa, Musa, İbrahim ve Muhammed’i sembolize eder. Böylece tüm büyük dinler temsil edilmektedir.",
+                "*96:1-19 96’dan 114’e kadar 19 sure vardır. İlk vahiy (96: 1-5) 19 Arapça kelime, 76 (19x4) harftir. Bu sure, 19 ayet ve 304 Arapça harften oluşmaktadır (Ek 1 & 23)."
             ],
             "cumulativefrequencyofthewordGOD": "2689",
             "cumulativesumofverseswhereGODwordoccurs": "118082"
@@ -15419,7 +15418,7 @@
     "390": {
         "page": [
             "368",
-            "The Embryo (Al-‘Alaq) 96:12-19 & Destiny (Al-Qadr) 97:1-5 & Proof (Al-Bayyinah) 98:1-8"
+            "Embriyo (El-Alak) 96:12-19 & Kader (El-Kadr) 97:1-5 & Kanıt (El-Beyyine) 98:1-8"
         ],
         "sura": {
             "96": {
@@ -15441,16 +15440,16 @@
                     "2": "Kader Gecesi ne kadar da muhteşemdir!",
                     "3": "Kader Gecesi bin aydan daha hayırlıdır.",
                     "4": "Melekler ve Ruh, Rablerinin izniyle her emri yerine getirmek için onda aşağı inerler.",
-                    "5": ".  Şafağın doğuşuna kadar esenliktir o."
+                    "5": "Şafağın doğuşuna kadar esenliktir o."
                 },
                 "titles": {
-                    "1": "♦ ♦ ♦ ♦\nSura 97: Destiny\n(Al-Qadr)\nEn Lütufkâr, En Merhametli olan Tanrı ’nın adıyla."
+                    "1": "♦ ♦ ♦ ♦\nSure 97: Kader\n(El-Kadr)\nEn Lütufkâr, En Merhametli olan Tanrı ’nın adıyla."
                 }
             },
             "98": {
                 "verses": {
-                    "1": "Hem kutsal yazı halkı arasından inkâr etmiş olanlar, hem de puta tapanlar, kendilerine verilen kanıta rağmen yollarında ısrar ederler.",
-                    "2": "TANRI ’dan bir elçi, onlara kutsal talimatlar okuyor.",
+                    "1": "Hem kutsal yazı halkı arasından inkâr etmiş olanlar, hem de puta tapanlar, kendilerine verilen kanıta rağmen yollarında ısrar ederler.*",
+                    "2": "TANRI ’dan bir elçi, onlara kutsal talimatlar okuyor.*",
                     "3": "Onlarda değerli öğretiler vardır.",
                     "4": "Doğrusu, kutsal yazı almış olanlar, kendilerine kanıt verilinceye dek anlaşmazlığa düşmemişlerdi.",
                     "5": "Onlardan tek istenen, dini mutlak bir şekilde yalnızca O’na adayarak TANRI ’ya tapmaları, iletişim dualarını (Namazı) yerine getirmeleri ve zorunlu bağışı (Zekâtı) vermeleriydi. İşte böyledir mükemmel din.",
@@ -15459,14 +15458,14 @@
                     "8": "Onların Rableri katındaki ödülleri, içinde ebedi kalacakları, akan nehirleri olan Aden bahçeleridir. TANRI onlardan hoşnuttur ve onlar da O’ndan hoşnuttur. İşte böyledir Rablerine derin saygı duyanların ödülü."
                 },
                 "titles": {
-                    "1": "♦ ♦ ♦ ♦\nSura 98: Proof\n(Al-Bayyinah)\nEn Lütufkâr, En Merhametli olan Tanrı ’nın adıyla."
+                    "1": "♦ ♦ ♦ ♦\nSure 98: Kanıt\n(El-Beyyine)\nEn Lütufkâr, En Merhametli olan Tanrı ’nın adıyla."
                 }
             }
         },
         "notes": {
             "data": [
-                "*97:1 The Quran was placed into Muhammad’s soul on the 27th night of Ramadan, 13 B.H. (Before Hijrah). See also 17:1, 44:3, 53:1-18, and Appendix 28.",
-                "*98:1-2 The proof is the Quran’s mathematical code (Appendix 1) and the messenger is  Rashad  Khalifa.  The  number  of  the  sura  (98),  plus  the  verse  number  (2),  plus  the numerical value of “Rashad Khalifa” (1230) add up to 1330 (19x70), the same total as in 81:19 (Appendix 2)."
+                "*97:1 Kuran, Muhammed’in ruhuna Ramazan’ın 27. gecesinde, H.Ö. (Hicretten Önce) 13’te yerleştirildi. Ayrıca 17:1, 44:3, 53:1-18 ve Ek 28’e bakınız.",
+                "*98:1-2 Kanıt, Kuran’ın matematiksel kodudur (Ek 1) ve elçi de Reşad Halife’dir. Sure numarası (98) artı ayet numarası (2) artı “Reşad Halife”nin sayısal değeri (1230) 1330 (19x70) eder, 81:19’daki ile aynı toplamdır (Ek 2)."
             ],
             "cumulativefrequencyofthewordGOD": "2693",
             "cumulativesumofverseswhereGODwordoccurs": "118111"
@@ -15474,7 +15473,7 @@
     },
     "391": {
         "page": [
-            "The Quake (Al-Zalzalah) 99:1-8 & The Gallopers (Al-‘Aadeyaat) 100:1-11 & The Shocker (Al-Qaare‘ah) 101:1-11 & Hoarding (Al-Takaathur) 102:1-4",
+            "Sarsıntı (El-Zilzal) 99:1-8 & Dört Nala Koşanlar (El-Adiyat) 100:1-11 & Şok Edici (El-Karia) 101:1-11 & İstiflemek (El-Tekasür) 102:1-4",
             "369"
         ],
         "sura": {
@@ -15490,7 +15489,7 @@
                     "8": "Ve kim bir atom ağırlığı kadar kötülük yaparsa onu görecektir."
                 },
                 "titles": {
-                    "1": "♦ ♦ ♦ ♦\nSura 99: The Quake\n(Al-Zalzalah)\nEn Lütufkâr, En Merhametli olan Tanrı ’nın adıyla. "
+                    "1": "♦ ♦ ♦ ♦\nSure 99: Sarsıntı\n(El-Zilzal)\nEn Lütufkâr, En Merhametli olan Tanrı ’nın adıyla. "
                 }
             },
             "100": {
@@ -15508,7 +15507,7 @@
                     "11": "Onlar o gün, Rablerinin kendilerinden tamamen Haberdar olduğunu öğrenecekler."
                 },
                 "titles": {
-                    "1": "♦ ♦ ♦ ♦\nSura 100: The Gallopers\n(Al-‘Aadeyaat)\nEn Lütufkâr, En Merhametli olan Tanrı ’nın adıyla. "
+                    "1": "♦ ♦ ♦ ♦\nSure 100: Dört Nala Koşanlar\n(El-Adiyat)\nEn Lütufkâr, En Merhametli olan Tanrı ’nın adıyla. "
                 }
             },
             "101": {
@@ -15526,7 +15525,7 @@
                     "11": "Kızgın Cehennem Ateşi’dir."
                 },
                 "titles": {
-                    "1": "♦ ♦ ♦ ♦\nSura 101: The Shocker\n(Al-‘Aadeyaat)\nEn Lütufkâr, En Merhametli olan Tanrı ’nın adıyla. "
+                    "1": "♦ ♦ ♦ ♦\nSure 101: Şok Edici\n(El-Karia)\nEn Lütufkâr, En Merhametli olan Tanrı ’nın adıyla. "
                 }
             },
             "102": {
@@ -15537,7 +15536,7 @@
                     "4": "Muhakkak ki öğreneceksiniz."
                 },
                 "titles": {
-                    "1": "♦ ♦ ♦ ♦\nSura 102: Hoarding\n(Al-Takaathur)\nEn Lütufkâr, En Merhametli olan Tanrı ’nın adıyla. "
+                    "1": "♦ ♦ ♦ ♦\nSure 102: İstiflemek\n(El-Tekasür)\nEn Lütufkâr, En Merhametli olan Tanrı ’nın adıyla. "
                 }
             }
         },
@@ -15550,7 +15549,7 @@
     "392": {
         "page": [
             "370",
-            "Hoarding (Al-Takaathur) 102:5-8 & The Afternoon (Al-‘Asr) 103:1-3 & The Backbiter (Al-Humazah) 104:1-9 & The Elephant (Al-Feel) 105:1-5 &  Quraish (The Quraish Tribe) 106:1-4 & Charity (Al-Maa‘oon) 107:1"
+            "İstiflemek (El-Tekasür) 102:5-8 & İkindi (El-Asr) 103:1-3 & Dedikoducu (El-Hümeze) 104:1-9 & Fil (El-Fil) 105:1-5 &  Kureyş Kabilesi (Kureyş) 106:1-4 & Hayır İşi (El-Maun) 107:1"
         ],
         "sura": {
             "102": {
@@ -15569,7 +15568,7 @@
                     "3": "İman edip doğru bir hayat sürenler, birbirlerini gerçeğe sarılmaya teşvik edenler ve birbirlerini kararlı olmaya teşvik edenler hariç."
                 },
                 "titles": {
-                    "1": "♦ ♦ ♦ ♦\nSura 103: The Afternoon\n(Al-‘Asr)\nEn Lütufkâr, En Merhametli olan Tanrı ’nın adıyla."
+                    "1": "♦ ♦ ♦ ♦\nSure 103: İkindi\n(El-Asr)\nEn Lütufkâr, En Merhametli olan Tanrı ’nın adıyla."
                 }
             },
             "104": {
@@ -15585,7 +15584,7 @@
                     "9": "Uzatılmış sütunlar içinde."
                 },
                 "titles": {
-                    "1": "♦ ♦ ♦ ♦\nSura 104: The Backbiter\n(Al-‘Asr)\nEn Lütufkâr, En Merhametli olan Tanrı ’nın adıyla."
+                    "1": "♦ ♦ ♦ ♦\nSure 104: Dedikoducu\n(El-Hümeze)\nEn Lütufkâr, En Merhametli olan Tanrı ’nın adıyla."
                 }
             },
             "105": {
@@ -15597,7 +15596,7 @@
                     "5": "O onları çiğnenmiş kuru ot gibi yaptı."
                 },
                 "titles": {
-                    "1": "♦ ♦ ♦ ♦\nSura 105: The Elephant\n(Al-Humazah)\nEn Lütufkâr, En Merhametli olan Tanrı ’nın adıyla."
+                    "1": "♦ ♦ ♦ ♦\nSure 105: Fil\n(El-Fil)\nEn Lütufkâr, En Merhametli olan Tanrı ’nın adıyla."
                 }
             },
             "106": {
@@ -15608,7 +15607,7 @@
                     "4": "Çünkü O, açlıktan sonra onları doyuran ve korkudan sonra onları güvene kavuşturandır."
                 },
                 "titles": {
-                    "1": "♦ ♦ ♦ ♦\nSura 106: Quraish\n(The Quraish Tribe)\nEn Lütufkâr, En Merhametli olan Tanrı ’nın adıyla."
+                    "1": "♦ ♦ ♦ ♦\nSure 106: Kureyş Kabilesi\n(Kureyş)\nEn Lütufkâr, En Merhametli olan Tanrı ’nın adıyla."
                 }
             },
             "107": {
@@ -15616,7 +15615,7 @@
                     "1": "İnancı gerçekten kimin reddettiğini bilir misin?"
                 },
                 "titles": {
-                    "1": "♦ ♦ ♦ ♦\nSura 107: Charity\n(Al-Maa‘oon)\nEn Lütufkâr, En Merhametli olan Tanrı ’nın adıyla."
+                    "1": "♦ ♦ ♦ ♦\nSure 107:Hayır İşi\n(El-Maun)\nEn Lütufkâr, En Merhametli olan Tanrı ’nın adıyla."
                 }
             }
         },
@@ -15628,7 +15627,7 @@
     },
     "393": {
         "page": [
-            "Charity (Al-Maa‘oon) 107:2-7 & Bounty (Al-Kawthar) 108:1-3 & The Disbelievers (Al-Kaaferoon) 109:1-6 & Triumph (Al-Nassr) 110:1-3 & Thorns (Al-Masad) 111:1-3",
+            "Hayır İşi (El-Maun) 107:2-7 & Cömertçe Verilmiş Nimet (El-Kevser) 108:1-3 & İnkârcılar (El-Kafirun) 109:1-6 & Zafer (El-Nasr) 110:1-3 & Dikenler (El-Mesed) 111:1-3",
             "371"
         ],
         "sura": {
@@ -15650,7 +15649,7 @@
                     "3": "Senin hasmın kaybeden olacaktır."
                 },
                 "titles": {
-                    "1": "♦ ♦ ♦ ♦\nSura 108: Bounty\n(Al-Kawthar)\nEn Lütufkâr, En Merhametli olan Tanrı ’nın adıyla."
+                    "1": "♦ ♦ ♦ ♦\nSure 108: Cömertçe Verilmiş Nimet\n(El-Kevser)\nEn Lütufkâr, En Merhametli olan Tanrı ’nın adıyla."
                 }
             },
             "109": {
@@ -15663,7 +15662,7 @@
                     "6": "Sizin dininiz size, benim dinim bana."
                 },
                 "titles": {
-                    "1": "♦ ♦ ♦ ♦\nSura 109: The Disbelievers\n(Al-Kaaferoon)\nEn Lütufkâr, En Merhametli olan Tanrı ’nın adıyla."
+                    "1": "♦ ♦ ♦ ♦\nSure 109: İnkârcılar\n(El-Kafirun)\nEn Lütufkâr, En Merhametli olan Tanrı ’nın adıyla."
                 }
             },
             "110": {
@@ -15673,24 +15672,24 @@
                     "3": "Rabbini yücelt ve O’na övgüler sun ve bağışlanma için O’na yalvar. O, Günahın Bedelinden Kurtarandır."
                 },
                 "titles": {
-                    "1": "♦ ♦ ♦ ♦\nSura 110: Triumph\n(Al-Nassr)\n[Last Sura Revealed]*\nEn Lütufkâr, En Merhametli olan Tanrı ’nın adıyla."
+                    "1": "♦ ♦ ♦ ♦\nSure 110:Zafer\n(El-Nasr)\n[Son Vahyedilen Sure]*\nEn Lütufkâr, En Merhametli olan Tanrı ’nın adıyla."
                 }
             },
             "111": {
                 "verses": {
-                    "1": "Kınanmıştır Ebu Leheb’in işleri ve kendisi de kınanmıştır.",
+                    "1": "Kınanmıştır Ebu Leheb’in işleri ve kendisi de kınanmıştır.*",
                     "2": "Parası ve muvaffak olduğu her ne varsa kendisine asla yardım edemeyecektir.",
                     "3": "O, alevli Cehennemi üzerine çekmiştir."
                 },
                 "titles": {
-                    "1": "♦ ♦ ♦ ♦\nSura 111: Thorns\n(Al-Masad)\nEn Lütufkâr, En Merhametli olan Tanrı ’nın adıyla."
+                    "1": "♦ ♦ ♦ ♦\nSure 111:Dikenler\n(El-Mesed)\nEn Lütufkâr, En Merhametli olan Tanrı ’nın adıyla."
                 }
             }
         },
         "notes": {
             "data": [
-                "*110:1-3 This last sura, chronologically, consists of 19 Arabic words (see 96:1), and the first verse consists of 19 letters. This indicates that this generation of believers shall attain the promised victory. Submission (true Islam) will prevail throughout the world (48:28).",
-                "*111:1 Abee Lahab was Muhammad’s uncle and the leader of the opposition. His wife carried out a campaign of persecution against Muhammad and the believers. Like all descriptions of Heaven and Hell, the rope of thorns is an allegory."
+                "*110:1-3 Kronolojik olarak sonuncu olan bu sure 19 Arapça kelimeden oluşmaktadır (bkz. 96:1) ve ilk ayet 19 harften oluşmaktadır. Bu, imanlıların bu neslinin vaat edilen galibiyete ulaşacağını gösterir. Teslimiyet (gerçek İslam) tüm dünyada üstün gelecektir (48:28).",
+                "*111:1 Ebu Leheb, Muhammed’in amcası ve muhalefetin lideriydi. Karısı, Muhammed ve imanlılara karşı bir zulüm kampanyası yürütüyordu. Cennet ve Cehennemin tüm tasvirleri gibi, dikenlerden oluşan ip de bir alegoridir."
             ],
             "cumulativefrequencyofthewordGOD": "2696",
             "cumulativesumofverseswhereGODwordoccurs": "118120"
@@ -15699,7 +15698,7 @@
     "394": {
         "page": [
             "372",
-            "Thorns (Al-Masad) 111:4-5 & Absoluteness (Al-Ikhlaas) 112:1-4 & Daybreak (Al-Falaq) 113:1-5 & People (Al-Naas) 114:1-6"
+            "Dikenler (El-Mesed) 111:4-5 & Mutlaklık (El-İhlas) 112:1-4 & Tan Vakti (El-Felak) 113:1-5 & İnsanlar (El-Nas) 114:1-6"
         ],
         "sura": {
             "111": {
@@ -15717,7 +15716,7 @@
                     "4": "Hiç kimse O’na denk değildir."
                 },
                 "titles": {
-                    "1": "♦ ♦ ♦ ♦\nSura 112: Absoluteness\n(Al-Ikhlaas)\nEn Lütufkâr, En Merhametli olan Tanrı ’nın adıyla."
+                    "1": "♦ ♦ ♦ ♦\nSure 112:Mutlaklık\n(El-İhlas)\nEn Lütufkâr, En Merhametli olan Tanrı ’nın adıyla."
                 }
             },
             "113": {
@@ -15729,7 +15728,7 @@
                     "5": "Haset ettiği zaman hasetçilerin kötülüklerinden."
                 },
                 "titles": {
-                    "1": "♦ ♦ ♦ ♦\nSura 113: Daybreak\n(Al-Falaq)\nEn Lütufkâr, En Merhametli olan Tanrı ’nın adıyla."
+                    "1": "♦ ♦ ♦ ♦\nSure 113: Tan Vakti\n(El-Felak)\nEn Lütufkâr, En Merhametli olan Tanrı ’nın adıyla."
                 }
             },
             "114": {
@@ -15742,14 +15741,14 @@
                     "6": "Gerek cinlerden olsun gerek insanlardan."
                 },
                 "titles": {
-                    "1": "♦ ♦ ♦ ♦\nSura 114: People\n(Al-Falaq)\nEn Lütufkâr, En Merhametli olan Tanrı ’nın adıyla."
+                    "1": "♦ ♦ ♦ ♦\nSure 114: İnsanlar\n(El-Nas)\nEn Lütufkâr, En Merhametli olan Tanrı ’nın adıyla."
                 }
             }
         },
         "notes": {
             "data": [
                 "2698*  118123*",
-                "*Thus, the total occurrence of the crucial word “God” (Allah) throughout the Quran is 2698,19x142. The reader can ascertain the accuracy of this total by randomly checking the numbers of the word “God” at the bottom of any page in this book. Additionally, if one adds the verse numbers wherever the word “God” occurs, the total comes to 118123, also a multiple of 19 (118123 = 19x6217). Details of  the Quran’s unique mathematical composition are given in Appendices 1, 2, 24, 25, 26, and 29."
+                "*Böylelikle, tüm Kuran boyunca kritik kelime olan “Tanrı”nın (Allah’ın) toplam geçişi 2698, 19x142’dir. Okuyucu, bu kitabın herhangi bir sayfasının altındaki “Tanrı” kelimesinin sayılarını rastgele kontrol ederek bu toplamın doğruluğunu saptayabilir. Ayrıca, eğer birisi “Tanrı” kelimesinin geçtiği ayetlerin numaralarını toplarsa, toplam 118123 eder, bu da 19’un katıdır (118123 = 19x6217). Kuran’ın benzersiz matematiksel yapısının ayrıntıları Ek 1, 2, 24, 25, 26 ve 29’da verilmiştir."
             ],
             "cumulativefrequencyofthewordGOD": "2698",
             "cumulativesumofverseswhereGODwordoccurs": "118123"
