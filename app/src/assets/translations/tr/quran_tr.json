@@ -7213,7 +7213,7 @@
                     "129": "Eğer Rabbinin önceden belirlenmiş planı olmasaydı, derhal yargılanırlardı.",
                     "130": "Bu nedenle, onların sözlerine karşı sabırlı ol, gün doğumundan önce ve gün batımından önce Rabbine övgüler sun ve O’nu yücelt. Ve hem geceleyin, hem de gündüzün her iki ucunda O’nu yücelt ki mutlu olasın.",
                     "131": "Ve başka insanlara ihsan ettiğimiz şeylere imrenme. Bu gibi şeyler bu hayatın geçici süsleridir, bunlar vasıtasıyla onları test ederiz. Rabbinin sana sağladıkları çok daha hayırlıdır ve kalıcıdır.",
-                    "132": "Ailene iletişim dualarını (Namazı) yerine getirmelerini tembih et ve bunu yapmakta kararlılıkla sebat et. Biz senden herhangi bir rızık istemiyoruz; biziz senin rızkını sağlayan. Nihai zafer doğru kimselere aittir. Neden Elçiler?",
+                    "132": "Ailene iletişim dualarını (Namazı) yerine getirmelerini tembih et ve bunu yapmakta kararlılıkla sebat et. Biz senden herhangi bir rızık istemiyoruz; biziz senin rızkını sağlayan. Nihai zafer doğru kimselere aittir.",
                     "133": "Dediler ki Keşke Rabbinden bize bir mucize gösterseydi! Daha önceki mesajlar ile birlikte yeterince mucize almadılar mı?",
                     "134": "Onları bundan önce yok etmiş olsaydık şöyle derlerdi, Rabbimiz! Bize bir elçi göndermiş olsaydın biz Senin vahiylerine uyardık ve bu utanç ve aşağılanmayı savuştururduk.",
                     "135": "De ki, Hepimiz bekliyoruz, öyleyse bekleyin; kimlerin doğru yolda olduğunu ve kimlere gerçekten rehberlik edildiğini mutlaka öğreneceksiniz."
@@ -8344,19 +8344,18 @@
                     "66": "O, en kötü meskendir; en kötü kaderdir.",
                     "67": "Verdikleri zaman ne savurgandırlar ne de cimridirler; makul ölçüler içinde verirler.",
                     "68": "TANRI ’nın yanında başka herhangi bir tanrıya asla yalvarmazlar, adaletin olağan seyri hariç kimseyi de öldürmezler—çünkü TANRI yaşamı kutsal kıldı. Zina da etmezler. Bu suçları işleyenler bedelini ödemek zorunda kalacaktır.",
-                    "72": "Diriliş Günü’nde onlar için azap ikiye katlanır ve orada aşağılanmış olarak kalırlar.",
-                    "73": "Tövbe eden, iman eden ve doğru bir hayat sürenler bundan muaf tutulmuştur. TANRI onların günahlarını kredilere dönüştürür. TANRI Bağışlayıcıdır, En Merhametli Olandır.",
-                    "74": "Kim tövbe edip doğru bir hayat sürerse, TANRI onları tam bir kurtarışla günahın bedelinden kurtarır.",
-                    "75": "Onlar yalan yere tanıklık etmezler. Boş sözle karşılaştıklarında, onu görmezden gelirler.",
-                    "76": "Rablerinin vahiyleri hatırlatıldığında, onlara asla sanki sağır ve körmüş gibi tepki vermezler.",
-                    "77": "Ve derler ki Rabbimiz! Eşlerimizi ve evlatlarımızı bizim için neşe kaynağı yap ve bizi doğruların ön safında tut.",
-                    "69": "Bunlar, kararlı olmalarının karşılığında Cennete erişmiş kimselerdir; onlar orada sevinçli bir karşılama ve esenlik ile karşılanırlar.",
-                    "70": "Ebedi olarak orada kalırlar; ne güzel bir kader; ne güzel bir kalma yeri.",
-                    "71": "De ki, Rabbimin katında ancak tapınmanızla değer kazanırsınız. Fakat eğer inkâr ederseniz, kaçınılmaz sonuçları da üzerinize çekersiniz."
+                    "69": "Diriliş Günü’nde onlar için azap ikiye katlanır ve orada aşağılanmış olarak kalırlar.",
+                    "70": "Tövbe eden, iman eden ve doğru bir hayat sürenler bundan muaf tutulmuştur. TANRI onların günahlarını kredilere dönüştürür. TANRI Bağışlayıcıdır, En Merhametli Olandır.",
+                    "71": "Kim tövbe edip doğru bir hayat sürerse, TANRI onları tam bir kurtarışla günahın bedelinden kurtarır.",
+                    "72": "Onlar yalan yere tanıklık etmezler. Boş sözle karşılaştıklarında, onu görmezden gelirler.",
+                    "73": "Rablerinin vahiyleri hatırlatıldığında, onlara asla sanki sağır ve körmüş gibi tepki vermezler.",
+                    "74": "Ve derler ki “Rabbimiz! Eşlerimizi ve evlatlarımızı bizim için neşe kaynağı yap ve bizi doğruların ön safında tut.”",
+                    "75": "Bunlar, kararlı olmalarının karşılığında Cennete erişmiş kimselerdir; onlar orada sevinçli bir karşılama ve esenlik ile karşılanırlar.",
+                    "76": "Ebedi olarak orada kalırlar; ne güzel bir kader; ne güzel bir kalma yeri.",
+                    "77": "De ki, “Rabbimin katında ancak tapınmanızla değer kazanırsınız. Fakat eğer inkâr ederseniz, kaçınılmaz sonuçları da üzerinize çekersiniz.”"
                 },
                 "titles": {
                     "63": "Doğruların Özellikleri",
-                    "73": "Additional Traits of the Righteous ",
                     "72": "Doğruların İlave Özellikleri"
                 }
             },
@@ -9443,7 +9442,7 @@
                     "13": "Putlarının onlar adına şefaat etme gücü olmayacak; buna karşılık onlar da putlarını sahiplenmeyecekler.",
                     "14": "Saat’in gerçekleştiği gün onlar birbirlerinden ayrılacaklar.",
                     "15": "İman edip doğru bir hayat sürenlere gelince, onlar Cennette sevinç içinde olacaklar.",
-                    "16": "İnkâr edenler ile vahiylerimizi ve Ahiretteki buluşmayı reddedenlere gelince, onlar da sonsuza dek azap içinde kalacaklar. Tanrı’yı Hatırlayın,",
+                    "16": "İnkâr edenler ile vahiylerimizi ve Ahiretteki buluşmayı reddedenlere gelince, onlar da sonsuza dek azap içinde kalacaklar.",
                     "17": "Bu nedenle, geceleyin bir köşeye çekildiğinizde ve sabahleyin kalktığınızda TANRI ’yı yüceltin.",
                     "18": "Göklerde ve yerde, akşam boyunca ve aynı zamanda gününüzün tam ortasında tüm övgüler O’nun hakkıdır.",
                     "19": "O, ölüden diriyi çıkarır ve diriden de ölüyü çıkarır ve ölmüş olduktan sonra yeryüzünü yeniden O diriltir; siz de aynı şekilde diriltilirsiniz.",
@@ -9453,7 +9452,7 @@
                 "titles": {
                     "6": "Zihnin Sürekli Yanlış Hayatla Meşgul Olması",
                     "11": "Puta Tapanlar Putlarını Sahiplenmezler",
-                    "17": "Her Fırsatta",
+                    "17": "Tanrı’yı Hatırlayın, Her Fırsatta",
                     "20": "Evlilik: İlahi Bir Kurum",
                     "5": "O gün imanlılar sevineceklerdir"
                 }
@@ -9563,7 +9562,6 @@
                     "60": "Bu nedenle, kararlılıkla sebat et—çünkü TANRI ’nın vaadi gerçektir—ve kesinliğe erişmemiş kişiler seni yıldırmasın."
                 },
                 "titles": {
-                    "51": "He is Omnipotent.",
                     "54": "Bu Hayat Çok Kısa",
                     "59": "İlahi Müdahale"
                 }
