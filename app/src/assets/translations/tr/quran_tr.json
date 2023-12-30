@@ -13297,7 +13297,7 @@
                     "7": "TANRI ’ya ve elçisine iman edin ve O’nun size ihsan ettiği şeylerden verin. Aranızdan iman edip (bağış) yapanlar büyük bir ödülü hak ettiler.",
                     "8": "Elçi sizi Rabbinize iman etmeye davet ettiğinde neden TANRI ’ya iman etmeyesiniz ki? O sizden bir söz almıştı, eğer imanlılar iseniz.",
                     "9": "O’dur sizleri karanlıklardan aydınlığa çıkarmak için kuluna apaçık vahiyler indiren. TANRI sizlere karşı Şefkatlidir, En Merhametli Olandır.",
-                    "10": "TANRI göklerdeki ve yerdeki tüm zenginliklere sahip olduğu halde, neden TANRI uğrunda harcamıyorsunuz? Özel Onur Aranızdan galibiyetten önce harcayanlar ile çaba sarf edenleri, geri kalanlardan ayırmıştır. Onlar, galibiyetten sonra harcayıp çaba sarf edenlerden daha büyük bir derece elde ederler. Her biri için TANRI kurtuluşu söz vermektedir. TANRI yaptığınız her şeyden Haberdardır.",
+                    "10": "TANRI göklerdeki ve yerdeki tüm zenginliklere sahip olduğu halde, neden TANRI uğrunda harcamıyorsunuz? Aranızdan galibiyetten önce harcayanlar ile çaba sarf edenleri, geri kalanlardan ayırmıştır. Onlar, galibiyetten sonra harcayıp çaba sarf edenlerden daha büyük bir derece elde ederler. Her biri için TANRI kurtuluşu söz vermektedir. TANRI yaptığınız her şeyden Haberdardır.",
                     "11": "Kim karşılığında kendisi için kat kat artırarak almak ve sonunda cömert bir karşılık kazanmak için TANRI ’ya bir doğruluk borcu vermek ister?",
                     "12": "Gün gelecek, imanlı erkek ve kadınları, önlerinden ve sağ yanlarından ışıkları yayılırken göreceksin. Size müjdeler olsun ki, o gün, akan nehirleri olan bahçeleriniz olacak. Orada sonsuza dek kalacaksınız. İşte büyük zafer budur.",
                     "13": "O gün ikiyüzlü erkek ve kadınlar, iman etmiş olanlara diyecekler ki Lütfen ışığınızın bir kısmını almamıza izin verin. Onlara, Arkanıza geri dönün ve ışık arayın denilecek. Aralarına, iç taraftaki rahmeti dış taraftaki azaptan ayıracak kapısı olan bir bariyer yerleştirilecektir.",
@@ -13305,7 +13305,7 @@
                     "15": "Bu nedenle, ne sizden ne de inkâr etmiş olanlardan hiçbir fidye alınamaz. Meskeniniz ateştir; odur sizin rabbiniz ve sefil meskeniniz."
                 },
                 "titles": {
-                    "10": "Special Honor ",
+                    "10": "Özel Onur",
                     "12": "Büyük Zafer",
                     "13": "En Kötü Kaybedenler"
                 }
@@ -13342,14 +13342,14 @@
                     "16": "Dinin Bozulması",
                     "20": "Zihnin Sürekli Bu Hayatla Meşgul Olması Kınandı",
                     "21": "Akıllı Seçenek",
-                    "22": "Derin Gerçek",
+                    "22": "Derin Gerçek*",
                     "25": "Demir: En Faydalı Metal"
                 }
             }
         },
         "notes": {
             "data": [
-                "*57:22 We are absolutely free to side with God, or with Satan. God happens to know precisely what kind of decision each of us will make. The video tape of your life, from birth to death, is already recorded. See Appendix 14."
+                "*57:22 Bizler Tanrı’nın veya Şeytan’ın tarafında olmakta tamamen özgürüz. Tanrı her birimizin ne tür bir karar alacağını kesin olarak bilmektedir. Doğumdan ölüme kadar hayatınızın video kaydı zaten kaydedilmiştir. Ek 14’e bakınız"
             ],
             "cumulativefrequencyofthewordGOD": "2443",
             "cumulativesumofverseswhereGODwordoccurs": "116392"
@@ -13358,7 +13358,7 @@
     "352": {
         "page": [
             "330",
-            "Iron  (Al-Hadeed) 57:26-29 & The Debate (Al-Mujaadalah) 58:1-6"
+            "Demir (El-Hadid) 57:26-29 & Tartışma (El-Mücadele) 58:1-6"
         ],
         "sura": {
             "57": {
@@ -13376,20 +13376,20 @@
             "58": {
                 "verses": {
                     "1": "TANRI , seninle kocası hakkında tartışan ve TANRI ’ya şikâyette bulunan kadını işitti. TANRI ikinizin konuştuğu her şeyi işitti. TANRI İşitendir, Görendir.",
-                    "2": "Aranızdan, eşlerini (cinsel ilişkide haram olduklarını beyan ederek) sanki anneleriymiş gibi kendilerine yabancılaştıranlar iyi bilirler ki, onlar kendilerinin anneleri değildirler. Anneleri kendilerini doğuranlardır. Doğrusu, onlar bir küfür ve yalancılık işliyorlar. TANRI Affedicidir, Bağışlayıcıdır.",
+                    "2": "Aranızdan, eşlerini (cinsel ilişkide haram olduklarını beyan ederek) sanki anneleriymiş gibi kendilerine yabancılaştıranlar iyi bilirler ki, onlar kendilerinin anneleri değildirler.* Anneleri kendilerini doğuranlardır. Doğrusu, onlar bir küfür ve yalancılık işliyorlar. TANRI Affedicidir, Bağışlayıcıdır.",
                     "3": "Hanımlarını bu şekilde yabancılaştıranlar, ardından daha sonra uzlaşanlar, cinsel münasebetlerine devam etmeden önce bir köleyi azat ederek kefaret etsinler. Bu sizi aydınlatmak içindir. TANRI yaptığınız her şeyden Haberdardır.",
                     "4": "Eğer azat edecek bir köle bulamazsanız, cinsel münasebete devam etmeden önce iki ay peş peşe oruç tutun. Eğer oruç da tutamazsanız, o zaman altmış yoksul insanı doyurun. TANRI ’ya ve elçisine iman edin. Bunlar TANRI ’nın yasalarıdır. İnkârcılar acı veren bir azabı üzerlerine çektiler.",
                     "5": "Şüphesiz, TANRI ve elçisi ile savaşanlar yenilgiye mahkûmdurlar, tıpkı önceki emsallerinin yenilgiye mahkûm olmaları gibi. Biz apaçık kanıtlar indirdik ve reddediciler utanç verici bir azabı üzerlerine çektiler.",
                     "6": "Gün gelecek, TANRI hepsini diriltecek, sonra da yapmış oldukları her şeyi kendilerine bildirecektir. Onlar onu unuttukları halde TANRI her şeyi kaydetti. TANRI her şeye şahittir."
                 },
                 "titles": {
-                    "1": "♦ ♦ ♦ ♦\nSura 58: The Debate\n(Al-Mujaadalah)\nEn Lütufkâr, En Merhametli olan Tanrı ’nın adıyla. "
+                    "1": "♦ ♦ ♦ ♦\nSure 58: Tartışma\n(El-Mücadele)\nEn Lütufkâr, En Merhametli olan Tanrı ’nın adıyla. "
                 }
             }
         },
         "notes": {
             "data": [
-                "*58:2 Estranging a wife by declaring that she is like one’s mother was an ancient tradition in Arabia. This is the only sura where the word “Allah” occurs in every verse."
+                "*58:2 Bir eşi, annesi gibi olduğunu beyan ederek haram kılmak Arabistan’da kadim bir gelenekti. Bu, her ayette “Allah” kelimesinin geçtiği tek suredir."
             ],
             "cumulativefrequencyofthewordGOD": "2461",
             "cumulativesumofverseswhereGODwordoccurs": "116497"
@@ -13397,7 +13397,7 @@
     },
     "353": {
         "page": [
-            "The Debate (Al-Mujaadalah) 58:7-18",
+            "Tartışma (El-Mücadele) 58:7-18",
             "331"
         ],
         "sura": {
@@ -13432,7 +13432,7 @@
     "354": {
         "page": [
             "332",
-            "The Debate (Al-Mujaadalah) 58:19-22 & Exodus (Al-Hashr) 59:1-7"
+            "Tartışma (El-Mücadele) 58:19-22 & Çıkış (El-Haşr) 59:1-7"
         ],
         "sura": {
             "58": {
@@ -13457,7 +13457,7 @@
                     "7": "TANRI ’nın, (mağlup edilen) topluluklardan elçisine iade ettiği her şey, TANRI ’ya ve elçisine (bir bağış şeklinde) gitsin. Onu akrabalara, yetimlere, yoksullara ve yolculuk halindeki yabancılara verin. Böylelikle o, aranızdaki güçlü olanların tekelinde kalmayacaktır. Elçinin size verdiği ganimetleri tutabilirsiniz, fakat onun sizi almaktan menettiği şeyleri almayın. TANRI ’ya derin saygı duyun. TANRI azap uygulamada şiddetlidir."
                 },
                 "titles": {
-                    "1": "♦ ♦ ♦ ♦\nSura 59: Exodus\n(Al-Hashr)\nEn Lütufkâr, En Merhametli olan Tanrı ’nın adıyla. ",
+                    "1": "♦ ♦ ♦ ♦\nSure 59:Çıkış\n(El-Haşr)\nEn Lütufkâr, En Merhametli olan Tanrı ’nın adıyla. ",
                     "2": "Tanrı İmanlıları Müdafaa Eder",
                     "7": "Savaş Ganimetleri"
                 }
@@ -13471,7 +13471,7 @@
     },
     "355": {
         "page": [
-            "Exodus (Al-Hashr) 59:8-20",
+            "Çıkış (El-Haşr) 59:8-20",
             "333"
         ],
         "sura": {
@@ -13503,7 +13503,7 @@
     "356": {
         "page": [
             "334",
-            "Exodus (Al-Hashr) 59:21-24 & The Test (Al-Mumtahanah) 60:1-4"
+            "Çıkış (El-Haşr) 59:21-24 & Test (El-Mumtahine) 60:1-4"
         ],
         "sura": {
             "59": {
@@ -13523,18 +13523,18 @@
                     "1": "Ey iman edenler! Benim düşmanlarımı ve sizin düşmanlarınızı, size gelmiş olan gerçeği inkâr ettikleri halde onlara sevgi ve dostluk sunarak dost edinmeyin. Onlar, sırf Rabbiniz olan TANRI ’ya iman ettiğiniz için elçiye de size de zulmederler. Nimetlerimi arayarak Benim yolumda mücadele etmek için harekete geçiyorsanız, onları nasıl gizlice sevebilirsiniz? Ben gizlediğiniz her şeyin ve açığa vurduğunuz her şeyin tamamen farkındayım. Aranızdan bunu yapanlar gerçekten de doğru yoldan sapmışlardır.",
                     "2": "Ne zaman sizinle karşılaşsalar size düşman gibi davranırlar ve sizi elleriyle ve dilleriyle incitirler. Sizin inkâr etmenizi isterler.",
                     "3": "Akrabalarınız ve paranız size asla yardım edemez. Diriliş Günü’nde, O sizin aranızda yargılama yapacaktır. TANRI yaptığınız her şeyi Görendir.",
-                    "4": "İbrahim ve beraberindekilerden, size iyi bir örnek oluşturuldu. Onlar halklarına dediler ki Biz sizi ve TANRI ’nın yanında taptığınız putları reddediyoruz. Sizi kınıyoruz ve siz YALNIZCA TANRI ’ya iman edinceye kadar bizden düşmanlık ve nefret dışında başka bir şey görmeyeceksiniz. Ancak, babasına Ben senin bağışlanman için dua edeceğim, fakat seni TANRI ’dan koruyacak hiçbir gücüm yok dediğinde, İbrahim tarafından bir hata işlenmiş oldu. Rabbimiz! Sana güveniyoruz ve Sana teslim oluyoruz; Sanadır son varış."
+                    "4": "İbrahim ve beraberindekilerden, size iyi bir örnek oluşturuldu. Onlar halklarına dediler ki Biz sizi ve TANRI ’nın yanında taptığınız putları reddediyoruz. Sizi kınıyoruz ve siz YALNIZCA TANRI ’ya iman edinceye kadar bizden düşmanlık ve nefret dışında başka bir şey görmeyeceksiniz.* Ancak, babasına Ben senin bağışlanman için dua edeceğim,** fakat seni TANRI ’dan koruyacak hiçbir gücüm yok dediğinde, İbrahim tarafından bir hata işlenmiş oldu. Rabbimiz! Sana güveniyoruz ve Sana teslim oluyoruz; Sanadır son varış."
                 },
                 "titles": {
-                    "1": "♦ ♦ ♦ ♦\nSura 60: The Test\n(Al-Mumtahanah)\nEn Lütufkâr, En Merhametli olan Tanrı ’nın adıyla. ",
+                    "1": "♦ ♦ ♦ ♦\nSure 60: Test\n(El-Mumtahine)\nEn Lütufkâr, En Merhametli olan Tanrı ’nın adıyla. ",
                     "4": "İbrahim: Bir Örnek"
                 }
             }
         },
         "notes": {
             "data": [
-                "*60:4 The Arabic word for “ALONE” (WAHDAHU) occurs only six times in the Quran, one  of  them  refers  to  upholding  the  Quran  ALONE  (17:46).  The  reference  to  God ALONE  occurs  in  7:70,  39:45,  40:12  &  84,  and  60:4.  The  sum  of  these  numbers (7+70+39+45+40+12+84+60+4)  equals  361,  or  19x19.  This  emphasizes  that the main theme of the Quran is “Worship God ALONE.” See Appendix 1.",
-                "**60:4 We can pray for guidance for the idolaters, not forgiveness, since God’s law is that idolatry is the only unforgivable offense (4:48 & 116)."
+                "*60:4 “YALNIZCA” için kullanılan Arapça kelime (VAHDEHU) Kuran’da sadece altı defa geçmektedir, bunlardan bir tanesi YALNIZCA Kuran’a sarılmaya işaret eder (17:46). YALNIZCA Tanrı’ya olan referans 7:70, 39:45, 40:12 & 84 ve 60:4 ayetlerinde geçmektedir. Bu numaraların toplamı (7+70+39+45+40+12+84+60+4) 361 veya 19x19’a eşittir. Bu da Kuran’ın ana temasının “YALNIZCA Tanrı’ya tapmak” olduğunu vurgulamaktadır. Ek 1’e bakınız.",
+                "**60:4 Biz putperestlerin hidayeti için dua edebiliriz., bağışlanmaları için değil çünkü putperestliğin bağışlanamaz tek suç olma-sı Tanrı'nın yasasıdır. (4:48 & 116)"
             ],
             "cumulativefrequencyofthewordGOD": "2523",
             "cumulativesumofverseswhereGODwordoccurs": "116940"
@@ -13542,7 +13542,7 @@
     },
     "357": {
         "page": [
-            "The Test (Al-Mumtahanah) 60:5-13 & The Column (Al-Suff) 61:1",
+            "Test (El-Mumtahine) 60:5-13 & Sütun (El-Saff) 61:1",
             "335"
         ],
         "sura": {
@@ -13568,7 +13568,7 @@
                     "1": "TANRI ’yı yüceltmektedir göklerdeki her şey ve yerdeki her şey. O Kudretlidir, En Bilge Olandır."
                 },
                 "titles": {
-                    "1": "♦ ♦ ♦ ♦\nSura 61: The Column\n(Al-Suff)\nEn Lütufkâr, En Merhametli olan Tanrı ’nın adıyla. "
+                    "1": "♦ ♦ ♦ ♦\nSure 61: Sütun\n(El-Saff)\nEn Lütufkâr, En Merhametli olan Tanrı ’nın adıyla. "
                 }
             }
         },
@@ -13581,7 +13581,7 @@
     "358": {
         "page": [
             "336",
-            "The Column (Al-Suff) 61:2-14 & Friday (Al-Jumu‘ah) 62:1"
+            "Sütun (El-Saff) 61:2-14 & Friday (Al-Jumu‘ah) 62:1"
         ],
         "sura": {
             "61": {
@@ -13593,7 +13593,7 @@
                     "6": "Hani Meryemoğlu İsa demişti ki Ey İsrailoğulları! Ben size TANRI ’nın elçisiyim, Tevrat’ı doğruluyorum ve benden sonra gelecek, adının daha da fazla övüleceği (Ahmed) bir elçinin müjdesini getiriyorum. Sonra onlara apaçık kanıtlar gösterince, Bu esaslı bir sihir dediler.",
                     "7": "Teslimiyet’e davet edildiği halde TANRI hakkında yalanlar uydurandan daha fena kim vardır? TANRI kötü insanlara rehberlik etmez.",
                     "8": "Ağızlarıyla TANRI ’nın ışığını söndürmeyi arzularlar. Fakat TANRI , inkârcılara rağmen ışığını tamamlama konusunda kararlıdır.",
-                    "9": "O, elçisini rehberlikle ve gerçek dinle göndermiştir ve puta tapanlara rağmen onu tüm dinlere üstün kılacaktır.",
+                    "9": "O, elçisini* rehberlikle ve gerçek dinle göndermiştir ve puta tapanlara rağmen onu tüm dinlere üstün kılacaktır.",
                     "10": "Ey iman edenler! Sizi acı veren azaptan kurtaracak bir ticareti size haber vereyim mi?",
                     "11": "TANRI ’ya ve elçisine iman edin ve TANRI uğrunda paranızla ve hayatlarınızla çaba sarf edin. Bu sizin için en iyi alışveriştir, bir bilseydiniz.",
                     "12": "Bunun karşılığında O da sizin günahlarınızı bağışlar ve sizi akan nehirleri olan bahçelere, Aden bahçelerindeki güzel köşklere kabul eder. İşte bu en büyük zaferdir.",
@@ -13611,13 +13611,13 @@
                     "1": "TANRI ’yı yüceltmektedir göklerdeki her şey ve yerdeki her şey; Kral, En Kutsal Olan, Kudretli, En Bilge Olan."
                 },
                 "titles": {
-                    "1": "♦ ♦ ♦ ♦\nSura 62: Friday\n(AI- Jumu‘ah)\nEn Lütufkâr, En Merhametli olan Tanrı ’nın adıyla. "
+                    "1": "♦ ♦ ♦ ♦\nSure 62: Cuma\n(El-Cum’a)\nEn Lütufkâr, En Merhametli olan Tanrı ’nın adıyla. "
                 }
             }
         },
         "notes": {
             "data": [
-                "*61:9 The specific name of this messenger is spelled out mathematically (Appendix 2)."
+                "*61:9 Bu elçinin özel ismi matematiksel olarak dile getirilmiştir (Ek 2)."
             ],
             "cumulativefrequencyofthewordGOD": "2557",
             "cumulativesumofverseswhereGODwordoccurs": "117089"
