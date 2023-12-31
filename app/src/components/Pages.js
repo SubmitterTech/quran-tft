@@ -463,7 +463,7 @@ const Pages = ({ colors, theme, translationApplication, map, quranData, translat
                             {title &&
                                 <div 
                                 key={`${"title:" + suraNumber + ":" + verseNumber}`}
-                                className={`${titleClassName} ${hasAsterisk ? " cursor-pointer ring-1 mt-2 " + colors[theme]["verse-ring"] : ""}`}
+                                className={`${titleClassName} ${hasAsterisk ? " cursor-pointer text-sky-500 mt-2 " : ""}`}
                                     onClick={() => hasAsterisk && handleTitleClick(noteReference)}>
                                     {title}
                                 </div>

@@ -237,7 +237,7 @@ const Verse = ({ colors, theme, translationApplication, relationalData, verseCla
             setCn(verseClassName + " " + colors[theme]["verse-detail-background"] + " flex-col ring-1 " + colors[theme]["ring"]);
             setText(highlighted);
         } else if (mode === "light") {
-            setCn(verseClassName + " " + colors[theme]["text-background"] + " ring ring-1 " + colors[theme]["verse-ring"]);
+            setCn(verseClassName + " " + colors[theme]["text-background"]);
         } else if (mode === "idle") {
             setCn(verseClassName + " " + colors[theme]["text-background"]);
         }
@@ -282,7 +282,7 @@ const Verse = ({ colors, theme, translationApplication, relationalData, verseCla
                 onClick={() => handleClick()}
                 className={`px-1 w-full`}
             >
-                <span className={`text-sky-500`}>{`${verseNumber}. `}</span>
+                <span className={ mode === "light" ? `${colors[theme]["matching-text"]} font-semibold` : `text-sky-500 `}>{`${verseNumber}. `}</span>
                 <span className={`${colors[theme]["app-text"]}`}>
                     {text}
                 </span>

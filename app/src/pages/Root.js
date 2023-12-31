@@ -26,9 +26,11 @@ function Root() {
             "log-text": "text-neutral-800/80",
             "verse-border": "border-neutral-800/80",
             "verse-ring": "ring-neutral-700/50",
+            "title-ring": "ring-neutral-300/50",
             "ring": "ring-neutral-800/80",
             "focus-ring": "focus:ring-neutral-800/80",
-            "focus-text": "focus:text-neutral-800"
+            "focus-text": "focus:text-neutral-800",
+            "matching-text": "text-pink-500"
         },
         "dark": {
             "text-background": "bg-neutral-700",
@@ -46,9 +48,11 @@ function Root() {
             "log-text": "text-neutral-300/80",
             "verse-border": "border-neutral-300/80",
             "verse-ring": "ring-neutral-300/50",
+            "title-ring": "ring-neutral-300/50",
             "ring": "ring-neutral-300/80",
             "focus-ring": "focus:ring-neutral-200/80",
-            "focus-text": "focus:text-neutral-200"
+            "focus-text": "focus:text-neutral-200",
+            "matching-text": "text-fuchsia-400"
         },
         "sky": {
             "text-background": "bg-sky-800",
@@ -65,10 +69,13 @@ function Root() {
             "page-text": "text-sky-100/50",
             "log-text": "text-neutral-300/80",
             "verse-border": "border-sky-500/80",
-            "verse-ring": "ring-sky-500/80",
+            "verse-ring": "ring-amber-400/70",
+            "title-ring": "ring-neutral-200/70",
             "ring": "ring-sky-500/80",
             "focus-ring": "focus:ring-neutral-200/80",
-            "focus-text": "focus:text-neutral-200"
+            "focus-text": "focus:text-neutral-200",
+            "matching-text": "text-amber-400"
+
         }
     };
 
