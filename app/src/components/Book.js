@@ -553,7 +553,7 @@ const Book = ({ onChangeTheme, colors, theme, translationApplication, introducti
                 return (
                     <div 
                     lang={lang}
-                    className={`rounded ${colors[theme]["text-background"]} ${colors[theme]["app-text"]} p-1.5 shadow-md mb-3 flex w-fit hyphens-auto`}>
+                    className={`rounded ${colors[theme]["text-background"]} ${colors[theme]["app-text"]} p-1.5 shadow-md mb-3 flex w-full justify-center hyphens-auto `}>
                         <p key={`text-${index}`} className={`px-1`}>{parseReferences(item.content)}</p>
                     </div>
                 );
