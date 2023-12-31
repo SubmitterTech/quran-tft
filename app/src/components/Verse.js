@@ -95,7 +95,7 @@ const Verse = ({ colors, theme, translationApplication, relationalData, verseCla
                             }
                         }
                     });
-                } else if (verses.includes('-')) {
+                } else if (verses && verses.includes('-')) {
                     const [start, end] = verses.split('-');
                     for (let verse = start; verse <= end; verse++) {
                         const individualKey = `${sura}:${verse}`;
@@ -121,7 +121,6 @@ const Verse = ({ colors, theme, translationApplication, relationalData, verseCla
                     if (vp.includes('-')) {
                         // Handle range of verses
                         const [start, end] = vp.split('-').map(Number);
-                        if (refGroup.trim() === "86:1-2") console.log(start, end)
 
                         for (let verse = start; verse <= end; verse++) {
                             const individualKey = `${sura}:${verse}`;
