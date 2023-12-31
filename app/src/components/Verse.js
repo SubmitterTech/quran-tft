@@ -95,6 +95,16 @@ const Verse = ({ colors, theme, translationApplication, relationalData, verseCla
                             }
                         }
                     });
+                } else if (verses.includes('-')) {
+                    const [start, end] = verses.split('-');
+                    for (let verse = start; verse <= end; verse++) {
+                        const individualKey = `${sura}:${verse}`;
+                        if (individualKey !== currentVerseKey) {
+                            const themeRelated = related.get(theme) || [];
+                            themeRelated.push(individualKey);
+                            related.set(theme, themeRelated);
+                        }
+                    }
                 }
             });
         };
@@ -104,11 +114,15 @@ const Verse = ({ colors, theme, translationApplication, relationalData, verseCla
             // Split the references string by ';' to separate different references
             references.split(';').forEach(refGroup => {
                 const [sura, versesPart] = refGroup.trim().split(':');
+
                 // Handle different formats within the verses part
-                versesPart?.split(',').forEach(versePart => {
-                    if (versePart.includes('-')) {
+                versesPart?.split(',').forEach(vp => {
+
+                    if (vp.includes('-')) {
                         // Handle range of verses
-                        const [start, end] = versePart.split('-').map(Number);
+                        const [start, end] = vp.split('-').map(Number);
+                        if (refGroup.trim() === "86:1-2") console.log(start, end)
+
                         for (let verse = start; verse <= end; verse++) {
                             const individualKey = `${sura}:${verse}`;
                             if (individualKey === currentVerseKey) {
@@ -117,7 +131,7 @@ const Verse = ({ colors, theme, translationApplication, relationalData, verseCla
                         }
                     } else {
                         // Handle single verse
-                        const individualKey = `${sura}:${versePart}`;
+                        const individualKey = `${sura}:${vp}`;
                         if (individualKey === currentVerseKey) {
                             addReferences(theme, references);
                         }
@@ -132,7 +146,8 @@ const Verse = ({ colors, theme, translationApplication, relationalData, verseCla
                 if (themeorref) {
                     if (typeof themeorref === 'object') {
                         Object.entries(themeorref).forEach(([t, ref]) => {
-                            processTheme(theme + " : " + t + " " + theme, ref)
+
+                            processTheme(t + " " + theme, ref)
                         });
                     } else {
                         processTheme(theme, themeorref)
