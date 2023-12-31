@@ -461,7 +461,9 @@ const Pages = ({ colors, theme, translationApplication, map, quranData, translat
                     return (
                         <React.Fragment key={suraNumber + ":" + verseNumber}>
                             {title &&
-                                <div className={`${titleClassName} ${hasAsterisk ? " cursor-pointer ring-1 mt-2 " + colors[theme]["verse-ring"] : ""}`}
+                                <div 
+                                key={`${"title:" + suraNumber + ":" + verseNumber}`}
+                                className={`${titleClassName} ${hasAsterisk ? " cursor-pointer ring-1 mt-2 " + colors[theme]["verse-ring"] : ""}`}
                                     onClick={() => hasAsterisk && handleTitleClick(noteReference)}>
                                     {title}
                                 </div>
