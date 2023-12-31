@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef, useCallback } from 'react';
 
 const Apps = ({ colors, theme, translationApplication, parseReferences, appendices, selectedApp, prevPage }) => {
-
+    const lang = localStorage.getItem("lang");
     const containerRef = useRef(null);
     const appRefs = useRef({});
     const [visibleAppendices, setVisibleAppendices] = useState([]);
@@ -185,7 +185,7 @@ const Apps = ({ colors, theme, translationApplication, parseReferences, appendic
                     );
                 case 'text':
                     return (
-                        <div key={`text-${index}`} className={`rounded ${colors[theme]["text-background"]} ${colors[theme]["app-text"]} p-2 shadow-md mb-3 flex w-full justify-center text-justify hyphens-auto`}>
+                        <div lang={lang} key={`text-${index}`} className={`rounded ${colors[theme]["text-background"]} ${colors[theme]["app-text"]} p-2 shadow-md mb-3 flex w-full justify-center text-justify hyphens-auto`}>
                             <p className={`px-1`}>{parseReferences(item.content)}</p>
                         </div>
                     );

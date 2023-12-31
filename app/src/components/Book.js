@@ -7,6 +7,8 @@ import Splash from '../components/Splash';
 import '../assets/css/Book.css';
 
 const Book = ({ onChangeTheme, colors, theme, translationApplication, introductionContent, quranData, map, appendicesContent, translation }) => {
+    const lang = localStorage.getItem("lang")
+
     const [currentPage, setCurrentPage] = useState(parseInt(localStorage.getItem("qurantft-pn")) ? parseInt(localStorage.getItem("qurantft-pn")) : 1);
     const [pageHistory, setPageHistory] = useState([]);
     const [isModalOpen, setModalOpen] = useState(false);
@@ -549,7 +551,9 @@ const Book = ({ onChangeTheme, colors, theme, translationApplication, introducti
                 );
             } else if (item.type === 'text') {
                 return (
-                    <div className={`rounded ${colors[theme]["text-background"]} ${colors[theme]["app-text"]} p-2 shadow-md mb-3 flex w-fit justify-center`}>
+                    <div 
+                    lang={lang}
+                    className={`rounded ${colors[theme]["text-background"]} ${colors[theme]["app-text"]} p-1.5 shadow-md mb-3 flex w-fit hyphens-auto`}>
                         <p key={`text-${index}`} className={`px-1`}>{parseReferences(item.content)}</p>
                     </div>
                 );
