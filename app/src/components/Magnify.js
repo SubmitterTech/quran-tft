@@ -144,7 +144,7 @@ const Magnify = ({ colors, theme, translationApplication, quran, map, onClose, o
             const originalSegment = text.substr(lastIndex, currentLength);
 
             if (regex.test(current)) {
-                prev.push(<span key={index} className="font-bold text-rose-400">{originalSegment}</span>);
+                prev.push(<span key={index} className="font-bold text-violet-400">{originalSegment}</span>);
             } else {
                 prev.push(originalSegment);
             }
