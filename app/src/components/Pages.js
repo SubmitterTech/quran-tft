@@ -2,6 +2,7 @@ import React, { useState, useEffect, useRef, useCallback, useMemo } from 'react'
 import Verse from '../components/Verse';
 
 const Pages = ({ colors, theme, translationApplication, map, quranData, translation, selectedPage, selectedSura, selectedVerse, handleClickReference, handleClickAppReference, handleTogglePage }) => {
+    const lang = localStorage.getItem("lang")
     const [pageData, setPageData] = useState(null);
     const [notesData, setNotesData] = useState(null);
     const [showExplanation, setShowExplanation] = useState({ GODnamefrequency: false, GODnamesum: false });
@@ -459,7 +460,7 @@ const Pages = ({ colors, theme, translationApplication, map, quranData, translat
                     pageGWC[verseKey] = countGODwords(verseText)
 
                     return (
-                        <React.Fragment key={suraNumber + ":" + verseNumber}>
+                        <React.Fragment key={verseKey}>
                             {title &&
                                 <div 
                                 key={`${"title:" + suraNumber + ":" + verseNumber}`}
@@ -495,7 +496,9 @@ const Pages = ({ colors, theme, translationApplication, map, quranData, translat
 
                 <div className={`sticky -bottom-1 mt-3 py-2 px-3 ${colors[theme]["app-background"]} flex`}>
                     <div className={`flex text-sm justify-between flex-1`}>
-                        <p className={`cursor-pointer`} onClick={() => openExplanation('GODnamefrequency')}>
+                        <p 
+                        key={`cfotwG`}
+                        className={`cursor-pointer`} onClick={() => openExplanation('GODnamefrequency')}>
                             {pageData.notes.cumulativefrequencyofthewordGOD}
                         </p>
                         {showExplanation.GODnamefrequency && (
@@ -503,7 +506,9 @@ const Pages = ({ colors, theme, translationApplication, map, quranData, translat
                                 {translationApplication?.wc1} = {formatHitCount(parseInt(pageData.notes.cumulativefrequencyofthewordGOD))}
                             </div>
                         )}
-                        <p className={`cursor-pointer`} onClick={() => openExplanation('GODnamesum')}>
+                        <p 
+                        key={`csovwGwo`}
+                        className={`cursor-pointer`} onClick={() => openExplanation('GODnamesum')}>
                             {pageData.notes.cumulativesumofverseswhereGODwordoccurs}
                         </p>
                         {showExplanation.GODnamesum && (
@@ -522,15 +527,17 @@ const Pages = ({ colors, theme, translationApplication, map, quranData, translat
 
                     {notesData.data.map((note, index) => (
                         <p
-                            className={`${colors[theme]["notes-background"]} rounded shadow-md px-2 py-3 ${colors[theme]["app-text"]} ${index === focusedNoteIndex ? 'animate-pulse' : ''}`}
+                            className={`${colors[theme]["notes-background"]} hyphens-auto rounded shadow-md px-2 py-3 ${colors[theme]["app-text"]} ${index === focusedNoteIndex ? 'animate-pulse' : ''}`}
                             ref={(el) => noteRefs.current[index] = el}
-                            key={index}>
+                            key={"notes:"+index}
+                            lang={lang}
+                            >
                             {parseReferences(note)}
                         </p>
                     ))}
                     {notesData.tables && notesData.tables.map((table, index) => (
                         <div className={`flex justify-center`}
-                            key={index} >
+                            key={index + ":" + table.title[0]} >
                             {renderTable(table)}
                         </div>
                     ))}

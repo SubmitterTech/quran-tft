@@ -271,6 +271,7 @@ const Verse = ({ colors, theme, translationApplication, relationalData, verseCla
         <div
             ref={(el) => verseRefs.current[currentVerseKey] = el}
             lang={lang}
+            key={"verse:" + currentVerseKey}
             className={`${cn}`}>
             <div
                 onMouseDown={(e) => handleLongPressStart(e, currentVerseKey, text)}
@@ -282,7 +283,7 @@ const Verse = ({ colors, theme, translationApplication, relationalData, verseCla
                 onClick={() => handleClick()}
                 className={`px-1 w-full`}
             >
-                <span className={ mode === "light" ? `${colors[theme]["matching-text"]} font-semibold` : `text-sky-500 `}>{`${verseNumber}. `}</span>
+                <span className={mode === "light" ? `${colors[theme]["matching-text"]} font-semibold` : `text-sky-500 `}>{`${verseNumber}. `}</span>
                 <span className={`${colors[theme]["app-text"]}`}>
                     {text}
                 </span>
