@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import Pages from '../components/Pages';
 import Apps from '../components/Apps';
 import Jump from '../components/Jump';
@@ -8,6 +8,7 @@ import '../assets/css/Book.css';
 
 const Book = ({ onChangeTheme, colors, theme, translationApplication, introductionContent, quranData, map, appendicesContent, translation }) => {
     const lang = localStorage.getItem("lang")
+    const images = require.context('../assets/pictures/', false, /\.jpg$/);
 
     const [currentPage, setCurrentPage] = useState(parseInt(localStorage.getItem("qurantft-pn")) ? parseInt(localStorage.getItem("qurantft-pn")) : 1);
     const [pageHistory, setPageHistory] = useState([]);
@@ -17,7 +18,8 @@ const Book = ({ onChangeTheme, colors, theme, translationApplication, introducti
     const [bookContent, setBookContent] = useState(null);
     const [selectedApp, setSelectedApp] = useState(1);
     const [isSearchOpen, setSearchOpen] = useState(false);
-    const images = require.context('../assets/pictures/', false, /\.jpg$/);
+
+    const contentRef = useRef(null);
 
     useEffect(() => {
         if (introductionContent && appendicesContent) {
@@ -60,6 +62,13 @@ const Book = ({ onChangeTheme, colors, theme, translationApplication, introducti
     useEffect(() => {
         if (currentPage) {
             localStorage.setItem("qurantft-pn", currentPage)
+            if (contentRef.current) {
+                contentRef.current.scrollTo({
+                    top: 0,
+                    left: 0,
+                    behavior: 'smooth'
+                });
+            }
         }
     }, [currentPage]);
 
@@ -551,9 +560,9 @@ const Book = ({ onChangeTheme, colors, theme, translationApplication, introducti
                 );
             } else if (item.type === 'text') {
                 return (
-                    <div 
-                    lang={lang}
-                    className={`rounded ${colors[theme]["text-background"]} ${colors[theme]["app-text"]} p-1.5 shadow-md mb-3 flex w-full justify-center hyphens-auto `}>
+                    <div
+                        lang={lang}
+                        className={`rounded ${colors[theme]["text-background"]} ${colors[theme]["app-text"]} p-1.5 shadow-md mb-3 flex w-full justify-center hyphens-auto `}>
                         <p key={`text-${index}`} className={`px-1`}>{parseReferences(item.content)}</p>
                     </div>
                 );
@@ -713,7 +722,7 @@ const Book = ({ onChangeTheme, colors, theme, translationApplication, introducti
         });
 
         return (
-            <div className={`${colors[theme]["text"]} overflow-auto flex-1 p-3 text-justify lg:text-start text-base md:text-xl`}>
+            <div ref={contentRef} className={`${colors[theme]["text"]} overflow-auto flex-1 p-3 text-justify lg:text-start text-base md:text-xl`}>
                 {renderContent}
             </div>
         );
