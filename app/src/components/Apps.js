@@ -235,7 +235,7 @@ const Apps = ({ colors, theme, translationApplication, parseReferences, appendic
                 </div>
             );
         });
-    }, [visibleAppendices, appendixMap, parseReferences, colors, theme, translationApplication, images, renderTable]);
+    }, [visibleAppendices, appendixMap, parseReferences, colors, theme, translationApplication, images, renderTable, lang]);
 
 
     return (
