@@ -265,7 +265,6 @@ const Pages = ({ colors, theme, translationApplication, map, quranData, translat
                 ref = note.split(" ")[1]
             }
             const match = ref.match(referencePattern);
-            console.log(match)
             if (match) {
                 if (emptyMatch) {
                     noteRefsMap[match] = index - 1;
