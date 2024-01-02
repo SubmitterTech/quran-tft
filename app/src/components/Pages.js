@@ -256,6 +256,7 @@ const Pages = ({ colors, theme, translationApplication, map, quranData, translat
 
     const parseNoteReferences = (notes) => {
         const noteRefsMap = {};
+        let emptyMatch = false;
         notes.forEach((note, index) => {
             // Extract references like "2:1", "2:1-5", or "2:1,3"
             const referencePattern = /\d+:\d+(-\d+)?(,\d+)?/g;
@@ -264,11 +265,17 @@ const Pages = ({ colors, theme, translationApplication, map, quranData, translat
                 ref = note.split(" ")[1]
             }
             const match = ref.match(referencePattern);
-
+            console.log(match)
             if (match) {
-                noteRefsMap[match] = index;
+                if (emptyMatch) {
+                    noteRefsMap[match] = index - 1;
+                } else {
+                    noteRefsMap[match] = index;
+                }
+                emptyMatch = false;
+            } else {
+                emptyMatch = true;
             }
-
         });
         return noteRefsMap;
 
@@ -303,6 +310,7 @@ const Pages = ({ colors, theme, translationApplication, map, quranData, translat
 
         // If a matching note index is found, scroll to the note
         if (matchingNoteIndex !== undefined && noteRefs.current[matchingNoteIndex]) {
+
             noteRefs.current[matchingNoteIndex].scrollIntoView({ behavior: 'smooth', block: 'center' });
             setFocusedNoteIndex(matchingNoteIndex);
         }
@@ -462,9 +470,9 @@ const Pages = ({ colors, theme, translationApplication, map, quranData, translat
                     return (
                         <React.Fragment key={verseKey}>
                             {title &&
-                                <div 
-                                key={`${"title:" + suraNumber + ":" + verseNumber}`}
-                                className={`${titleClassName} ${hasAsterisk ? " cursor-pointer text-sky-500 mt-2 " : ""}`}
+                                <div
+                                    key={`${"title:" + suraNumber + ":" + verseNumber}`}
+                                    className={`${titleClassName} ${hasAsterisk ? " cursor-pointer text-sky-500 mt-2 " : ""}`}
                                     onClick={() => hasAsterisk && handleTitleClick(noteReference)}>
                                     {title}
                                 </div>
@@ -496,9 +504,9 @@ const Pages = ({ colors, theme, translationApplication, map, quranData, translat
 
                 <div className={`sticky -bottom-1 mt-3 py-2 px-3 ${colors[theme]["app-background"]} flex`}>
                     <div className={`flex text-sm justify-between flex-1`}>
-                        <p 
-                        key={`cfotwG`}
-                        className={`cursor-pointer`} onClick={() => openExplanation('GODnamefrequency')}>
+                        <p
+                            key={`cfotwG`}
+                            className={`cursor-pointer`} onClick={() => openExplanation('GODnamefrequency')}>
                             {pageData.notes.cumulativefrequencyofthewordGOD}
                         </p>
                         {showExplanation.GODnamefrequency && (
@@ -506,9 +514,9 @@ const Pages = ({ colors, theme, translationApplication, map, quranData, translat
                                 {translationApplication?.wc1} = {formatHitCount(parseInt(pageData.notes.cumulativefrequencyofthewordGOD))}
                             </div>
                         )}
-                        <p 
-                        key={`csovwGwo`}
-                        className={`cursor-pointer`} onClick={() => openExplanation('GODnamesum')}>
+                        <p
+                            key={`csovwGwo`}
+                            className={`cursor-pointer`} onClick={() => openExplanation('GODnamesum')}>
                             {pageData.notes.cumulativesumofverseswhereGODwordoccurs}
                         </p>
                         {showExplanation.GODnamesum && (
@@ -529,9 +537,9 @@ const Pages = ({ colors, theme, translationApplication, map, quranData, translat
                         <p
                             className={`${colors[theme]["notes-background"]} hyphens-auto rounded shadow-md px-2 py-3 ${colors[theme]["app-text"]} ${index === focusedNoteIndex ? 'animate-pulse' : ''}`}
                             ref={(el) => noteRefs.current[index] = el}
-                            key={"notes:"+index}
+                            key={"notes:" + index}
                             lang={lang}
-                            >
+                        >
                             {parseReferences(note)}
                         </p>
                     ))}
