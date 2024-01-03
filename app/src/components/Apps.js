@@ -36,6 +36,7 @@ const Apps = ({ colors, theme, translationApplication, parseReferences, appendic
                 checkAndUpdateAppendixNum(title);
                 allContentItems.push({ type: 'title', content: title, key: parseInt(key) });
             });
+
             const collectContent = (type, data) => {
                 Object.entries(data || {}).forEach(([key, value]) => {
                     if (value) {
@@ -201,14 +202,14 @@ const Apps = ({ colors, theme, translationApplication, parseReferences, appendic
                         </div>
                     );
                 case 'picture':
-                    if (!item.no) return;
-                    const imageUrl = images(`./${parseInt(item.no)}.jpg`);
+                    if (!item.content.no) return;
+                    const imageUrl = images(`./${parseInt(item.content.no)}.jpg`);
                     return (
                         <div key={`picture-${index}`} className={`flex flex-col flex-1 items-center justify-center w-full px-1`}>
                             <div className={`rounded shadow-md flex justify-center`}>
                                 <img src={imageUrl} alt={imageUrl} className={`object-center`} />
                             </div>
-                            {item.text && (
+                            {item.content.text && (
                                 <div className={`${colors[theme]["log-text"]} w-full text-base flex justify-center`}>
                                     <div className={`p-2`}>{item.text}</div>
                                 </div>
