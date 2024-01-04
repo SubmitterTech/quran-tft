@@ -145,8 +145,11 @@ const Verse = ({ colors, theme, translationApplication, relationalData, verseCla
                 if (themeorref) {
                     if (typeof themeorref === 'object') {
                         Object.entries(themeorref).forEach(([t, ref]) => {
-
-                            processTheme(t + " " + theme, ref)
+                            if(lang === "en") {
+                                processTheme(t + " " + theme, ref)
+                            } else {
+                                processTheme(theme + " " + t, ref)
+                            }
                         });
                     } else {
                         processTheme(theme, themeorref)
