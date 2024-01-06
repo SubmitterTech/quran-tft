@@ -19,6 +19,42 @@ const Pages = ({ colors, theme, translationApplication, map, quranData, translat
     const [focusedNoteIndex, setFocusedNoteIndex] = useState(null);
 
 
+    const [quranMap, setQuranMap] = useState({});
+
+    useEffect(() => {
+        let qmap = {};
+        Object.values(quranData).forEach((page) => {
+            Object.entries(page.sura).forEach(([sno, content]) => {
+                if (!qmap[sno]) { qmap[sno] = {}; }
+                Object.entries(content.encrypted).forEach(([vno, verse]) => {
+                    qmap[sno][vno] = verse;
+                });
+            });
+        });
+        setQuranMap(qmap);
+    }, [quranData]);
+
+    const countLetterInSura = async (sura, l) => {
+        let cnt = 0;
+
+        // Convert the task to asynchronous using Promise
+        await new Promise(resolve => {
+            Object.values(quranMap[sura]).forEach((verse) => {
+                // Count the occurrences of the letter in each verse
+                for (const char of verse) {
+                    if (char === l) {
+                        cnt++;
+                    }
+                }
+                // console.log(verse, l, cnt)
+
+            });
+            resolve();
+        });
+
+        return cnt;
+    };
+
     const forceScroll = useCallback(() => {
         const verseKey = `${parseInt(selectedSura)}:${parseInt(selectedVerse)}`;
 
@@ -496,6 +532,7 @@ const Pages = ({ colors, theme, translationApplication, map, quranData, translat
                                 handleClickReference={handleClickReference}
                                 accumulatedCopiesRef={accumulatedCopiesRef}
                                 copyTimerRef={copyTimerRef}
+                                countLetterInSura={countLetterInSura}
                             />
                         </React.Fragment>
                     );

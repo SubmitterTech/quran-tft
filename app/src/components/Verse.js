@@ -1,6 +1,6 @@
 import React, { useCallback, useEffect, useState, useRef } from 'react';
 
-const Verse = ({ colors, theme, translationApplication, relationalData, verseClassName, hasAsterisk, suraNumber, verseNumber, verseText, encryptedText, verseRefs, handleVerseClick, pulse, grapFocus, pageGWC, handleClickReference, accumulatedCopiesRef, copyTimerRef }) => {
+const Verse = ({ colors, theme, translationApplication, relationalData, verseClassName, hasAsterisk, suraNumber, verseNumber, verseText, encryptedText, verseRefs, handleVerseClick, pulse, grapFocus, pageGWC, handleClickReference, accumulatedCopiesRef, copyTimerRef, countLetterInSura }) => {
     const [mode, setMode] = useState("idle");
     const [cn, setCn] = useState(verseClassName);
     const [text, setText] = useState(verseText);
@@ -13,6 +13,17 @@ const Verse = ({ colors, theme, translationApplication, relationalData, verseCla
     const hasLongPressedRef = useRef(false);
 
     const lang = localStorage.getItem("lang")
+
+    const [letterCounts, setLetterCounts] = useState({});
+
+    useEffect(() => {
+        Array.from(encryptedText).forEach(async (letter, index) => {
+            if (letter !== " ") {
+                const count = await countLetterInSura(suraNumber, letter);
+                setLetterCounts(prevCounts => ({ ...prevCounts, [index + letter]: count }));
+            }
+        });
+    }, [encryptedText, suraNumber, countLetterInSura]);
 
     const handleTouchMove = () => {
         hasMovedRef.current = true;
@@ -145,7 +156,7 @@ const Verse = ({ colors, theme, translationApplication, relationalData, verseCla
                 if (themeorref) {
                     if (typeof themeorref === 'object') {
                         Object.entries(themeorref).forEach(([t, ref]) => {
-                            if(lang === "en") {
+                            if (lang === "en") {
                                 processTheme(t + " " + theme, ref)
                             } else {
                                 processTheme(theme + " " + t, ref)
@@ -161,7 +172,7 @@ const Verse = ({ colors, theme, translationApplication, relationalData, verseCla
         });
 
         return related;
-    }, [currentVerseKey, relationalData]);
+    }, [currentVerseKey, relationalData, lang]);
 
 
 
@@ -284,6 +295,32 @@ const Verse = ({ colors, theme, translationApplication, relationalData, verseCla
         }
     };
 
+    const colorClasses = [
+        'text-red-500', 'text-green-500', 'text-blue-500', 'text-yellow-500', 'text-purple-500',
+        'text-fuchsia-500', 'text-indigo-500', 'text-pink-500', 'text-orange-500', 'text-teal-500',
+        'text-cyan-500', 'text-lime-500', 'text-amber-500', 'text-emerald-500', 'text-sky-500',
+        'text-violet-500', 'text-rose-500', 'text-lime-600', 'text-red-600', 'text-green-600',
+        'text-blue-600', 'text-yellow-600', 'text-purple-600', 'text-fuchsia-600', 'text-indigo-600',
+        'text-pink-600', 'text-orange-600', 'text-teal-600', 'text-cyan-600'
+    ];
+
+    const assignColorsToLetters = (text) => {
+        const uniqueLetters = Array.from(new Set(text));
+        const primaryColorMap = {};
+        uniqueLetters.forEach((letter, index) => {
+            primaryColorMap[letter] = colorClasses[index % colorClasses.length];
+        });
+
+        const letterColors = Array.from(text).map(letter => {
+            return primaryColorMap[letter];
+        });
+
+        return letterColors;
+    };
+
+    const letterColors = assignColorsToLetters(encryptedText);
+
+
     return (
         <div
             ref={(el) => verseRefs.current[currentVerseKey] = el}
@@ -307,9 +344,34 @@ const Verse = ({ colors, theme, translationApplication, relationalData, verseCla
             </div>
             {mode === "reading" &&
                 <div className={`w-full flex flex-col mt-2 p-0.5`}>
-                    <p className={`select-text w-full rounded ${colors[theme]["encrypted-background"]} p-2 mb-2 text-start shadow-inner`} dir="rtl" >
-                        {lightAllahwords(encryptedText)}
-                    </p>
+                    <div className={`flex flex-col select-text w-full mb-2 space-y-2`} dir="rtl">
+                        <div className={`${colors[theme]["encrypted-background"]} rounded p-2`}>
+                            <p className={`text-start`}>
+                                {lightAllahwords(encryptedText)}
+                            </p>
+                        </div>
+                        <div className={`w-full flex overflow-y-auto items-center pb-2 ${colors[theme]["encrypted-background"]} rounded p-1.5`}>
+                            {encryptedText.split(" ").map((word, index) => (
+                                <p key={index + word} className={`${colors[theme]["base-background"]} p-2 shadow-md rounded text-start ml-1`}>
+                                    {word}
+                                </p>
+                            ))}
+                        </div>
+
+                        <div className={`w-full flex overflow-y-auto items-center pb-2 ${colors[theme]["encrypted-background"]} rounded p-1.5`}>
+                            {Array.from(encryptedText).map((letter, index) => (
+                                <div className={`flex flex-col space-y-1`}>
+                                    <p key={index + letter} className={`${letter === " " ? "" : `${colors[theme]["base-background"]} shadow-md`} ${letterColors[index]} p-2 rounded text-center ml-1`}>
+                                        {letter}
+                                    </p>
+                                    {letter !== " " &&
+                                        <p className={`${colors[theme]["base-background"]} shadow-md ${letterColors[index]} p-2 rounded text-start ml-1`}>
+                                            {letterCounts[index + letter]}
+                                        </p>}
+                                </div>
+                            ))}
+                        </div>
+                    </div>
                     {relatedVerses.size > 0 &&
                         <div className={`w-full rounded ${colors[theme]["relation-background"]} p-2`}>
                             {Array.from(relatedVerses.entries()).map(([themeKey, verseKeys]) => (
