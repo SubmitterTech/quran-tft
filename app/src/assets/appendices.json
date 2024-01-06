@@ -2020,7 +2020,8 @@
         "picture": {
             "7": {
                 "no": 10,
-                "text": "(BURAYI DÜZELT) Name God Most Gracious Most Merciful One Possessor of Infinite Grace Glorious Gatherer The four words of Basmalah are shown on the left side, and the only four divine names whose gematrical values are divisible by 19 are on the right side. The numbers in the middle are the frequencies of occurrence of the words of Basmalah, and, at the same time, the gematrical values of the four divine names."
+                "text": "The four words of Basmalah are shown on the left side, and the only four divine names whose gematrical values are divisible by 19 are on the right side. The numbers in the middle are the frequencies of occurrence of the words of Basmalah, and, at the same time, the gematrical values of the four divine names.",
+                "data": ["Name", "God", "Most Gracious", "Most Merciful", "One", "Possessor of\nInfinite Grace", "Glorious", "Gatherer "]
             }
         },
         "evidence": {
@@ -2036,10 +2037,10 @@
             "3": {
                 "lines": {
                     "1": "Divine Name Gematrical Value",
-                    "2": "1. “Waahed” (One) ……………………………………………………….19",
-                    "3": "2. “Zul Fadl Al-‘Azim” (Possessor of Infinite Grace).................................... 2698",
-                    "4": "3. “Majid” (Glorious).................................................................................... 57",
-                    "5": "4. “Jaami‘ ”(Summoner) ............................................................................... 114"
+                    "2": "1. “Waahed” (One) ... 19",
+                    "3": "2. “Zul Fadl Al-‘Azim” (Possessor of Infinite Grace) ... 2698",
+                    "4": "3. “Majid” (Glorious) ... 57",
+                    "5": "4. “Jaami‘ ”(Summoner) ... 114"
                 },
                 "ref": []
             }

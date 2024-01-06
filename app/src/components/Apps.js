@@ -204,6 +204,31 @@ const Apps = ({ colors, theme, translationApplication, parseReferences, appendic
                 case 'picture':
                     if (!item.content.no) return;
                     const imageUrl = images(`./${parseInt(item.content.no)}.jpg`);
+                    // SPECIAL RENDER FOR PICTURE 10
+                    if (parseInt(item.content.no) === 10) {
+                        return (
+                            <div key={`picture-${index}`} className={`flex flex-col flex-1 items-center justify-center w-full px-1`}>
+                                <div className={`shadow-md flex p-1 overflow-y-auto`}>
+                                    <div className={` flex flex-col justify-between `}>
+                                        {item.content.data.slice(0,4).map((word) => (
+                                            <div className={`p-1.5 whitespace-nowrap text-right`}>{word}</div>
+                                        ))}
+                                    </div>
+                                    <img src={imageUrl} alt={imageUrl} className={`object-contain `} />
+                                    <div className={` flex flex-col justify-between`}>
+                                        {item.content.data.slice(4,8).map((word) => (
+                                            <div className={`p-1.5 flex-1 whitespace-pre text-left`}>{word}</div>
+                                        ))}
+                                    </div>
+                                </div>
+                                {item.content.text && (
+                                    <div className={`${colors[theme]["log-text"]} w-full text-base flex justify-center`}>
+                                        <div className={`p-2`}>{item.content.text}</div>
+                                    </div>
+                                )}
+                            </div>
+                        );
+                    }
                     return (
                         <div key={`picture-${index}`} className={`flex flex-col flex-1 items-center justify-center w-full px-1`}>
                             <div className={`rounded shadow-md flex justify-center`}>
