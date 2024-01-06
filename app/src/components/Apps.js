@@ -211,7 +211,7 @@ const Apps = ({ colors, theme, translationApplication, parseReferences, appendic
                             </div>
                             {item.content.text && (
                                 <div className={`${colors[theme]["log-text"]} w-full text-base flex justify-center`}>
-                                    <div className={`p-2`}>{item.text}</div>
+                                    <div className={`p-2`}>{item.content.text}</div>
                                 </div>
                             )}
                         </div>
