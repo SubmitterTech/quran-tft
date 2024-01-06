@@ -22,7 +22,8 @@ const Apps = ({ colors, theme, translationApplication, parseReferences, appendic
                 appendixMap[currentAppendixNum] = { content: [] };
             }
             const checkAndUpdateAppendixNum = (title) => {
-                const match = title.match(/Appendix\s*(\d+)/);
+                const appx = translationApplication ? translationApplication.appendix : "Appendix";
+                const match = title.match(new RegExp(`${appx}\\s*(\\d+)`));
                 if (match) {
                     currentAppendixNum = parseInt(match[1]);
                     if (!appendixMap[currentAppendixNum]) {
