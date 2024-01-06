@@ -4211,6 +4211,14 @@
             },
             "11": {
                 "lines": {
+                    "1": "Jesus said: “My doctrine is not my own; it comes from him who sent me.”"
+                },
+                "ref": [
+                    "John 7:1"
+                ]
+            },
+            "12": {
+                "lines": {
                     "1": "Men of Israel, listen to me! Jesus the Nazorean was a man whom God sent to you with miracles, wonders, and signs as his credentials. These God worked through him in your midst, as you well know.”"
                 },
                 "ref": [
@@ -4393,7 +4401,7 @@
         "picture": {},
         "table": {
             "6": {
-                "ref": "Table 2: The Frequency of Occurrence of the Letter “S” in the Saad-initialed Suras",
+                "ref": "",
                 "title": [
                     "Order",
                     "Sura"
@@ -4808,10 +4816,10 @@
                 ]
             },
             "8": {
-                "ref": "Table 1: Occurrence of the word “God” outside the initialed section.",
+                "ref": "Table 2: The word “God” from the missing Basmalah to the extra Basmalah.",
                 "title": [
+                    "No",
                     "Sura No",
-                    "No. of “God”",
                     "No. of Verses with “God”"
                 ],
                 "values": [
@@ -5362,7 +5370,6 @@
         "text": {
             "1": "[23] Following the same process explained in Items 22 and 23 for the digit “1,” let us count all the 2’s, 8’s and 9’s in all the verse numbers of the whole Quran. As shown in Table 11, the total count of all the 2’s, 8’s, and 9’s is 3382, or 19x178. This makes the grand total of all the l’s, 2’s, 8’s, and 9’s 2546 + 3382 = 5928, 19x312.",
             "3": "In  this  remarkable  phenomenon,  we  considered  every  single  verse  in  the Quran,  and  examined  the  individual  digits  that  make  up  Verses  128  and  129. Since 128 and 129 contain 6 digits, the inclusion of these human injections causes the total count of these digits in the whole Quran to be 5928 + 6 = 5934, not a multiple of 19.",
-            "4": "The  inclusion  of  Sura  9  with  the  wrong number  of  verses,  129,  would  have  altered both  the  sum  of  verse  numbers  and  the cumulative  total—the  sum  of  verse  numbers would have become 627 + 129 = 756, and the cumulative  total  would  not  be  23655—and the  Quran’s  code  would  have  been  violated (Table 9).",
             "5": "[24] The total count of all the digits (1 through 9) in all the verse numbers of the 85 un-initialed suras, including Sura 9 with 127 verses, is 27075, or 19x19x75.",
             "7": "[25] Adding up the digits of the Quran’s suras and verses produces a multiple of 19, provided the correct number of verses for Sura 9, 127, is taken. To do this,  you  make  a  list  of  the  Quran’s  114 suras  and  the  number  of  verses  in  each sura. Add the digits of every sura number. The sum of digits of 10 = 1, 11 = 2, 12 = 3, 99  =  18,  and  so  on.  The  total  for  all  the suras is 975. The same thing is done for the numbers  of  verses  in  every  sura.  For  example,  Sura  2  consists  of  286  verses.  The digits of 286 add up to 2 + 8 + 6 = 16. For Sura  9,  the  digits  of  its  number  of  verses add up to 1 + 2 + 7 = 10. The total for all 114 suras is 906. Thus, the grand total for the sum of digits of all the suras and verses is  975  +  906  =  1881  =  19x99.  Naturally, this observation would not be possible if Sura 9 consisted of 129 verses. Table 12 is abbreviated to illustrate the calculations."
         },
@@ -6869,15 +6876,19 @@
         "evidence": {
             "4": {
                 "lines": {
-                    "1": "9 127 1 2 3 4 5 ..... 122 123 124 125 126 127. The total number of verses in Sura 9 is followed by the numbers of every verse in the sura from 1 to 127. The resulting long number is a multiple of 19."
+                    "1": "9 127 1 2 3 4 5 ..... 122 123 124 125 126 127. "
                 },
-                "ref": []
+                "ref": [
+                    "The total number of verses in Sura 9 is followed by the numbers of every verse in the sura from 1 to 127. The resulting long number is a multiple of 19."
+                ]
             },
             "6": {
                 "lines": {
-                    "1": "7 1 3 5 7 286 1 3 5 ... 3 5 ...... 5 1 3 5 6 1 3 5. The number of verses in every sura is followed by the last digit of each oddnumbered verse. The resulting long number, 3371 digits, is a multiple of 19."
+                    "1": "7 1 3 5 7 286 1 3 5 ... 3 5 ...... 5 1 3 5 6 1 3 5. "
                 },
-                "ref": []
+                "ref": [
+                    "The number of verses in every sura is followed by the last digit of each oddnumbered verse. The resulting long number, 3371 digits, is a multiple of 19."
+                ]
             }
         },
         "titles": {
