@@ -480,13 +480,14 @@ const Book = ({ onChangeTheme, colors, theme, translationApplication, introducti
                 } else {
                     return (
                         <div
+                            key={key}
                             onClick={() => handleAppClick(parseInt(elements[0]))}
                             className={`flex w-full justify-between`}>
                             <div className={` font-semibold rounded p-3 m-1 ${colors[theme]["base-background"]} w-12 flex items-center justify-center`}>
-                                <p className={``} key={key}>{elements[0]}</p>
+                                <p className={``} >{elements[0]}</p>
                             </div>
-                            <div className={`rounded p-3 mr-2 m-1 ${colors[theme]["base-background"]} w-full text-base flex items-center`}>
-                                <p className={``} key={key}>{elements[1]}</p>
+                            <div key={key} className={`rounded p-3 mr-2 m-1 ${colors[theme]["base-background"]} w-full text-base flex items-center`}>
+                                <p className={``} >{elements[1]}</p>
                             </div>
                         </div>
                     );

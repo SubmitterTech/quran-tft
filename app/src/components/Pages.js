@@ -31,7 +31,6 @@ const Pages = ({ colors, theme, translationApplication, map, quranData, translat
     useEffect(() => {
         setPageData(quranData[selectedPage]);
         setNotesData(translation ? translation[selectedPage].notes : quranData[selectedPage].notes)
-        // setNotesData(translation ? translation[selectedPage])
         setPageGWC({ "0:0": quranData[(parseInt(selectedPage) - 1) + ""]?.notes ? parseInt(quranData[(parseInt(selectedPage) - 1) + ""].notes.cumulativefrequencyofthewordGOD) : 0 });
         if (quranData[selectedPage]) {
             const newPageTitles = [];
