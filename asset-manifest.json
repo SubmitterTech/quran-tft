@@ -1,13 +1,13 @@
 {
   "files": {
-    "main.css": "/quran-tft/static/css/main.e7f3600e.css",
-    "main.js": "/quran-tft/static/js/main.443f72a8.js",
-    "static/js/13.a8b8071a.chunk.js": "/quran-tft/static/js/13.a8b8071a.chunk.js",
+    "main.css": "/quran-tft/static/css/main.c0482e05.css",
+    "main.js": "/quran-tft/static/js/main.5f04d75e.js",
+    "static/js/13.58e7fe79.chunk.js": "/quran-tft/static/js/13.58e7fe79.chunk.js",
     "static/js/145.da9a5ad9.chunk.js": "/quran-tft/static/js/145.da9a5ad9.chunk.js",
     "static/js/367.a12b208b.chunk.js": "/quran-tft/static/js/367.a12b208b.chunk.js",
     "static/js/104.9e075b82.chunk.js": "/quran-tft/static/js/104.9e075b82.chunk.js",
-    "static/js/407.25c10ff7.chunk.js": "/quran-tft/static/js/407.25c10ff7.chunk.js",
-    "static/js/969.192a9554.chunk.js": "/quran-tft/static/js/969.192a9554.chunk.js",
+    "static/js/407.a1c16ecd.chunk.js": "/quran-tft/static/js/407.a1c16ecd.chunk.js",
+    "static/js/969.3e3dca13.chunk.js": "/quran-tft/static/js/969.3e3dca13.chunk.js",
     "static/js/787.0f8d78ff.chunk.js": "/quran-tft/static/js/787.0f8d78ff.chunk.js",
     "static/media/22.jpg": "/quran-tft/static/media/22.9c37b3b115d50da24f3c.jpg",
     "static/media/26.jpg": "/quran-tft/static/media/26.75789abd12f9eec547b5.jpg",
@@ -32,12 +32,12 @@
     "static/media/15.jpg": "/quran-tft/static/media/15.572476d0590280592147.jpg",
     "static/media/14.jpg": "/quran-tft/static/media/14.c9a40204a2e2dffc1bd8.jpg",
     "index.html": "/quran-tft/index.html",
-    "main.e7f3600e.css.map": "/quran-tft/static/css/main.e7f3600e.css.map",
-    "main.443f72a8.js.map": "/quran-tft/static/js/main.443f72a8.js.map",
+    "main.c0482e05.css.map": "/quran-tft/static/css/main.c0482e05.css.map",
+    "main.5f04d75e.js.map": "/quran-tft/static/js/main.5f04d75e.js.map",
     "787.0f8d78ff.chunk.js.map": "/quran-tft/static/js/787.0f8d78ff.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.e7f3600e.css",
-    "static/js/main.443f72a8.js"
+    "static/css/main.c0482e05.css",
+    "static/js/main.5f04d75e.js"
   ]
 }
