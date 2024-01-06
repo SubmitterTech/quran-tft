@@ -2018,7 +2018,8 @@
         "picture": {
             "7": {
                 "no": 10,
-                "text": "Besmele’nin dört kelimesi sol tarafta gösterilmektedir ve sayısal değerleri 19’a bölünebilen sadece dört ilahi isim vardır ve onlar da sağ taraftadır. Ortadaki sayılar, Besmele kelimelerinin geçiş sayılarıdır ve aynı zamanda dört ilahi ismin sayısal değerleridir."
+                "text": "Besmele’nin dört kelimesi sol tarafta gösterilmektedir ve sayısal değerleri 19’a bölünebilen sadece dört ilahi isim vardır ve onlar da sağ taraftadır. Ortadaki sayılar, Besmele kelimelerinin geçiş sayılarıdır ve aynı zamanda dört ilahi ismin sayısal değerleridir.",
+                "data": ["Name", "God", "Most Gracious", "Most Merciful", "One", "Possessor of\nInfinite Grace", "Glorious", "Gatherer "]
             }
         },
         "evidence": {
@@ -2034,10 +2035,10 @@
             "3": {
                 "lines": {
                     "1": "Divine Name Gematrical Value",
-                    "2": "1. “Vahid” (Bir) ……………………………………………………….19",
-                    "3": "2. “Zul Fadl El-‘Azim” (Sonsuz Lütuf Sahibi).................................... 2698",
-                    "4": "3. “Mecid” (Şanlı).................................................................................... 57",
-                    "5": "4. “Cami” (Toplayan) ............................................................................... 114"
+                    "2": "1. “Vahid” (Bir) ... 19",
+                    "3": "2. “Zul Fadl El-‘Azim” (Sonsuz Lütuf Sahibi) ... 2698",
+                    "4": "3. “Mecid” (Şanlı) ... 57",
+                    "5": "4. “Cami” (Toplayan) ... 114"
                 },
                 "ref": []
             }
