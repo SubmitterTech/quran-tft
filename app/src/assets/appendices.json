@@ -7140,9 +7140,11 @@
         "evidence": {
             "3": {
                 "lines": {
-                    "1": "We have given you the seven pairs, and the great Quran. [ 15:87 ]"
+                    "1": "We have given you the seven pairs, and the great Quran."
                 },
-                "ref": []
+                "ref": [
+                    "15:87"
+                ]
             }
         },
         "titles": {
@@ -7393,19 +7395,19 @@
                     "991",
                     "69 ",
                     "4 ",
-                    " 9",
-                    "",
-                    "",
-                    " ",
+                    "19",
                     "991 + 69 + 4 + 19 = 1083 = 19x19x3",
                     "",
-                    "",
                     " ",
+                    "",
                     "* “Rashada” occurs 19 times",
                     "",
+                    " ",
+                    "",
+                    "*Total is 19x19x3, the 3 messengers",
                     "",
                     " ",
-                    "*Total is 19x19x3, the 3 messengers"
+                    ""
                 ]
             }
         },
@@ -7809,9 +7811,11 @@
             },
             "11": {
                 "lines": {
-                    "1": "O you who believe, you shall remember God frequently; glorify Him day and night. [33:41]"
+                    "1": "O you who believe, you shall remember God frequently; glorify Him day and night."
                 },
-                "ref": []
+                "ref": [
+                    "33:41"
+                ]
             }
         },
         "titles": {
@@ -8341,16 +8345,16 @@
                     "9:37.",
                     "Neglecting the Zakat charity through distortion",
                     "6:141, Appendix 15.",
-                    "Oppressing women and forcing them to wear head-covers and unreasonable clothes; and depriving them of all rights in marriage, divorce, inheritance, etc.",
+                    "Oppressing women and forcing them to wear head-covers and unreasonable clothes; and depriving them of all rights in marriage, divorce, inheritance, etc. Insulting women by instituting that “if a monkey, dog or a woman passes in front of a praying person, his prayer is nullified” (Hadith)",
                     "2:228; 3:195; 4:19, 4:32; 9:71.",
-                    "Insulting women by instituting that “if a monkey, dog or a woman passes in front of a praying person, his prayer is nullified” (Hadith) Inventing numerous rules from ablution, to prayer, to sleeping to cutting one’s nails",
+                    "Inventing numerous rules from ablution, to prayer, to sleeping to cutting one’s nails",
                     "2:67-71; 5:101;42:21.",
                     "Prohibiting gold and silk for men",
                     "5:48-49; 7:31-32.",
                     "Prohibiting music and the arts",
                     "7:32; 34:13; 42:21.",
-                    "Ridiculing Islam by stating that the earth is built on top of a giant whale!! (79:30; Ibn Kathir, 1200 AD & Ben Baz, 1975 AD)",
-                    ""
+                    "Ridiculing Islam by stating that the earth is built on top of a giant whale!! ",
+                    "(79:30; Ibn Kathir, 1200 AD & Ben Baz, 1975 AD)"
                 ]
             }
         },
