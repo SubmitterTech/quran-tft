@@ -66,7 +66,7 @@ const Apps = ({ colors, theme, translationApplication, parseReferences, appendic
             appendix.content.sort((a, b) => a.order - b.order);
         });
         return appendixMap;
-    }, []);
+    }, [translationApplication]);
 
 
     const loadMoreAppendices = useCallback(() => {
@@ -175,7 +175,9 @@ const Apps = ({ colors, theme, translationApplication, parseReferences, appendic
         const renderContentItem = (item, index) => {
             switch (item.type) {
                 case 'title':
-                    const isAppendixTitle = /Appendix\s*(\d+)/i.test(item.content);
+                    const appx = translationApplication ? translationApplication.appendix : "Appendix";
+
+                    const isAppendixTitle = new RegExp(appx + "\\s*(\\d+)", "i").test(item.content);
                     return (
                         <div
                             key={`title-${index}`}
@@ -211,13 +213,13 @@ const Apps = ({ colors, theme, translationApplication, parseReferences, appendic
                             <div key={`picture-${index}`} className={`flex flex-col flex-1 items-center justify-center w-full px-1`}>
                                 <div className={`shadow-md flex p-1 overflow-y-auto`}>
                                     <div className={` flex flex-col justify-between `}>
-                                        {item.content.data.slice(0,4).map((word) => (
+                                        {item.content.data.slice(0, 4).map((word) => (
                                             <div className={`p-1.5 whitespace-nowrap text-right`}>{word}</div>
                                         ))}
                                     </div>
                                     <img src={imageUrl} alt={imageUrl} className={`object-contain `} />
                                     <div className={` flex flex-col justify-between`}>
-                                        {item.content.data.slice(4,8).map((word) => (
+                                        {item.content.data.slice(4, 8).map((word) => (
                                             <div className={`p-1.5 flex-1 whitespace-pre text-left`}>{word}</div>
                                         ))}
                                     </div>

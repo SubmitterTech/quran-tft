@@ -161,7 +161,7 @@ const Verse = ({ colors, theme, translationApplication, relationalData, verseCla
         });
 
         return related;
-    }, [currentVerseKey, relationalData]);
+    }, [currentVerseKey, relationalData, lang]);
 
 
 
