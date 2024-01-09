@@ -180,7 +180,7 @@ const Jump = ({ suraNames, onChangeTheme, colors, theme, translationApplication,
                                 name="sura"
                                 onChange={handleSuraChange}
                                 value={suraNumber}
-                                className={`w-20 whitespace-pre-line text-right rounded px-4 py-2 shadow-md ${colors[theme]["text"]} ${colors[theme]["base-background"]} placeholder:text-sky-500 focus:ring-2 focus:ring-inset focus:ring-sky-500 `}>
+                                className={`w-20 whitespace-pre-line text-justify rounded px-4 py-2 shadow-md ${colors[theme]["text"]} ${colors[theme]["base-background"]} placeholder:text-sky-500 focus:ring-2 focus:ring-inset focus:ring-sky-500 `}>
                                 <option key="0" value="0" disabled></option>
                                 {Object.entries(suraNameMap).map(([sura, sname]) => (
                                     <option key={sura} value={sura}>{sura}{`\t`}{sname}</option>
