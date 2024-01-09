@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 
-const Jump = ({ onChangeTheme, colors, theme, translationApplication, currentPage, quran, onClose, onConfirm, onMagnify }) => {
+const Jump = ({ suraNames, onChangeTheme, colors, theme, translationApplication, currentPage, quran, onClose, onConfirm, onMagnify }) => {
     const [suraNumber, setSuraNumber] = useState("0");
     const [verseNumber, setVerseNumber] = useState("1");
     const [selectedPage, setSelectedPage] = useState(currentPage);
@@ -8,6 +8,25 @@ const Jump = ({ onChangeTheme, colors, theme, translationApplication, currentPag
     const [versesInSuras, setVersesInSuras] = useState({});
     const [pageForSuraVerse, setPageForSuraVerse] = useState({});
     const [showThemes, setShowThemes] = useState(false);
+
+    const [suraNameMap, setSuraNameMap] = useState({});
+
+    useEffect(() => {
+        let themap = {}
+        if (suraNames) {
+            Object.entries(suraNames).forEach(([key, value]) => {
+                if (key > 0) {
+                    const vals = value.split(".").filter(e => e.trim())
+                    if (vals.length > 5) {
+                        themap[key] = vals[1].trim() + "." + vals[2] + ". (" + vals[3].trim() + ")"
+                    } else {
+                        themap[key] = vals[1].trim() + " (" + vals[2].trim() + ")"
+                    }
+                }
+            });
+        }
+        setSuraNameMap(themap);
+    }, [suraNames]);
 
 
     useEffect(() => {
@@ -155,19 +174,20 @@ const Jump = ({ onChangeTheme, colors, theme, translationApplication, currentPag
                         </div>
                     </div>
                     <div className={` w-full flex space-x-3 `}>
-                        <div className={`w-full flex justify-end`}>
+                        <div className={`relative w-full flex justify-end`}>
                             <select
                                 id="sura"
                                 name="sura"
                                 onChange={handleSuraChange}
                                 value={suraNumber}
-                                className={` w-18 rounded text-end px-4 py-2 shadow-md ${colors[theme]["text"]} ${colors[theme]["base-background"]} placeholder:text-sky-500 focus:ring-2 focus:ring-inset focus:ring-sky-500 `}>
+                                className={`w-20 whitespace-pre-line text-right rounded px-4 py-2 shadow-md ${colors[theme]["text"]} ${colors[theme]["base-background"]} placeholder:text-sky-500 focus:ring-2 focus:ring-inset focus:ring-sky-500 `}>
                                 <option key="0" value="0" disabled></option>
-                                {Object.keys(versesInSuras).map(sura => (
-                                    <option key={sura} value={sura}>{sura}</option>
+                                {Object.entries(suraNameMap).map(([sura, sname]) => (
+                                    <option key={sura} value={sura}>{sura}{`\t`}{sname}</option>
                                 ))}
 
                             </select>
+                            
                         </div>
                         <div className={`w-full flex justify-start`}>
                             <select

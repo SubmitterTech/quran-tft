@@ -756,6 +756,7 @@ const Book = ({ onChangeTheme, colors, theme, translationApplication, introducti
                 </div>}
             {isModalOpen &&
                 <Jump
+                    suraNames={introductionContent[introductionContent.length - 1].evidence["2"].lines}
                     onChangeTheme={onChangeTheme}
                     colors={colors} theme={theme}
                     translationApplication={translationApplication}
