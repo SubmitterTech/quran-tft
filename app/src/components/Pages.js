@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef, useCallback, useMemo } from 'react';
+import React, { useState, useEffect, useRef, useCallback, useMemo, useLayoutEffect } from 'react';
 import Verse from '../components/Verse';
 
 const Pages = ({ colors, theme, translationApplication, map, quranData, translation, selectedPage, selectedSura, selectedVerse, handleClickReference, handleClickAppReference, handleTogglePage }) => {
@@ -17,6 +17,28 @@ const Pages = ({ colors, theme, translationApplication, map, quranData, translat
 
     const [notify, setNotify] = useState(false);
     const [focusedNoteIndex, setFocusedNoteIndex] = useState(null);
+
+    const stickyRef = useRef(null);
+    const [stickyHeight, setStickyHeight] = useState(0);
+
+
+
+    useLayoutEffect(() => {
+        if (stickyRef.current) {
+            const updateHeight = () => {
+                setStickyHeight(stickyRef.current.offsetHeight);
+            };
+
+            updateHeight();
+
+            const resizeObserver = new ResizeObserver(updateHeight);
+            resizeObserver.observe(stickyRef.current);
+
+            return () => resizeObserver.disconnect();
+        }
+    }, [selectedPage]);
+
+
 
 
     const forceScroll = useCallback(() => {
@@ -410,52 +432,56 @@ const Pages = ({ colors, theme, translationApplication, map, quranData, translat
     const grapFocus = (sura, verse) => {
         const verseKey = `${parseInt(sura)}:${parseInt(verse)}`;
         if (verseRefs.current[verseKey]) {
-            verseRefs.current[verseKey].scrollIntoView({ behavior: 'smooth', block: 'center' });
+            verseRefs.current[verseKey].scrollIntoView({ behavior: 'smooth', block: 'start' });
         }
     };
 
     return (
-        <div className={`flex relative w-full flex-1 flex-col ${colors[theme]["app-text"]} text-base overflow-auto`}>
-            <div ref={topRef} className={`relative flex flex-col`}>
-                <div className={`sticky top-0 p-3 ${colors[theme]["app-background"]} shadow-md flex z-10`}>
-                    <div
-                        onClick={() => handlePageTitleClicked()}
-                        className={`flex w-full text-sm lg:text-lg flex-1`}>
-                        <div className={`flex flex-col space-y-2 w-full`}>
-                            {pageTitle.map((title, index) => {
-                                // Use a regex to match the three groups: name, Latin pronunciation, and page info
-                                const titleRegex = /^(.*?)\s+\((.*?)\)\s+(.*)$/;
-                                const match = title.match(titleRegex);
+        <div
+            className={`flex relative w-full flex-1 flex-col ${colors[theme]["app-text"]} text-base overflow-auto `}
+            style={{ scrollPaddingTop: stickyHeight + 3 }}>
+            <div
+                ref={stickyRef}
+                className={`sticky top-0 p-3 ${colors[theme]["app-background"]} shadow-md flex z-10`}>
+                <div
+                    onClick={() => handlePageTitleClicked()}
+                    className={`flex w-full text-sm lg:text-lg flex-1`}>
+                    <div className={`flex flex-col space-y-2 w-full`}>
+                        {pageTitle.map((title, index) => {
+                            // Use a regex to match the three groups: name, Latin pronunciation, and page info
+                            const titleRegex = /^(.*?)\s+\((.*?)\)\s+(.*)$/;
+                            const match = title.match(titleRegex);
 
-                                // If the title matches the expected format, render the groups
-                                if (match) {
-                                    return (
-                                        <div key={index} className="flex justify-between w-full">
-                                            <div className="w-full flex justify-between mr-2">
-                                                <span className="text-left font-bold justify-self-center text-sky-500">{match[1]}</span>
-                                                <span className="text-right ">{`(${match[2]})`}</span>
-                                            </div>
-
-                                            <span className="w-1/3 text-right">{match[3]}</span>
+                            // If the title matches the expected format, render the groups
+                            if (match) {
+                                return (
+                                    <div key={index} className="flex justify-between w-full">
+                                        <div className="w-full flex justify-between mr-2">
+                                            <span className="text-left font-bold justify-self-center text-sky-500">{match[1]}</span>
+                                            <span className="text-right ">{`(${match[2]})`}</span>
                                         </div>
-                                    );
-                                } else {
-                                    // If the title doesn't match the expected format, split and render
-                                    const lastSpaceIndex = title.lastIndexOf(" ");
-                                    const namePart = title.substring(0, lastSpaceIndex);
-                                    const pageInfoPart = title.substring(lastSpaceIndex + 1);
 
-                                    return (
-                                        <div key={index} className="flex justify-between w-full">
-                                            <span className="text-left flex-1">{namePart}</span>
-                                            <span className="text-right flex-1">{pageInfoPart}</span>
-                                        </div>
-                                    );
-                                }
-                            })}
-                        </div>
+                                        <span className="w-1/3 text-right">{match[3]}</span>
+                                    </div>
+                                );
+                            } else {
+                                // If the title doesn't match the expected format, split and render
+                                const lastSpaceIndex = title.lastIndexOf(" ");
+                                const namePart = title.substring(0, lastSpaceIndex);
+                                const pageInfoPart = title.substring(lastSpaceIndex + 1);
+
+                                return (
+                                    <div key={index} className="flex justify-between w-full">
+                                        <span className="text-left flex-1">{namePart}</span>
+                                        <span className="text-right flex-1">{pageInfoPart}</span>
+                                    </div>
+                                );
+                            }
+                        })}
                     </div>
                 </div>
+            </div>
+            <div ref={topRef} className={` flex flex-col `}>
                 {sortedVerses.map(({ suraNumber, verseNumber, verseText, encryptedText, title }) => {
                     const hasAsterisk = verseText.includes('*') || (title && title.includes('*'));
                     const verseClassName = "transition-colors duration-700 ease-linear flex cursor-pointer rounded mx-2 my-1 p-1 md:p-1.5 shadow-md text-base hyphens-auto text-justify md:text-lg xl:text-xl ";
