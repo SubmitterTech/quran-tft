@@ -360,7 +360,6 @@
                     "87": "İsrail Peygamberleri",
                     "88": "Trajik İfade: Ben Sabit Fikirliyim",
                     "89": "Kuran Tüm Kutsal Yazıları Tamamına Erdirir",
-                    "91": "Learning From\nIsrael’s History ",
                     "92": "İsrail Tarihinden Öğrenmek"
                 }
             }
@@ -1783,8 +1782,7 @@
                 "titles": {
                     "24": "Karşılıklı Cazibe ve Mehir Gereklidir",
                     "27": "Tanrı’nın Merhameti",
-                    "29": "İntihar ve Gayrimeşru Kazançlar Haram Kılınmıştır",
-                    "31": "This is easy for GOD to do. ",
+                    "29": "Cinayet, İntihar ve Gayrimeşru Kazançlar Haram Kılınmıştır",
                     "32": "Erkeklere de Kadınlara da Eşsiz Nitelikler Verilmiştir",
                     "33": "Tanrı Tarafından Getirilen Miras Kanunlarına İtiraz Etmeyin"
                 }
@@ -6073,7 +6071,7 @@
                 "titles": {
                     "97": "Şimdi ve Sonsuza Dek Garanti Edilmiş Mutluluk",
                     "98": "Önemli Bir Buyruk *",
-                    "103": "Kitab-ı Mukaddes’ten Kopyalanmamıştır",
+                    "103": "Kuran, Kitab-ı Mukaddes’ten Kopyalanmamıştır",
                     "106": "Lafta Bağlılık Hesaba Katılmaz",
                     "107": "Zihnin Sürekli Bu Hayatla Meşgul Olması Tanrı’dan Sürülmeye Yol Açar"
                 }
@@ -6366,7 +6364,6 @@
                     "79": "Tefekkür Halinde Bulunma",
                     "82": "Şifa ve Rahmet",
                     "85": "İlahi Vahiy: Tüm Bilginin Kaynağı",
-                    "86": "Divine Revelation:\nThe Source of All Knowledge ",
                     "88": "Kuran’ın Matematiksel Yapısı"
                 }
             }
@@ -6436,7 +6433,7 @@
                 },
                 "titles": {
                     "105": "Ezberlemeyi Kolaylaştırmak için Kuran Yavaş Yavaş Bırakıldı",
-                    "110": "Tone of the Contact Prayers (Salat) "
+                    "110": "İletişim Dualarının (Namazın) Ses Tonu"
                 }
             },
             "18": {
@@ -8911,7 +8908,7 @@
                 },
                 "titles": {
                     "60": "YALNIZCA Tanrı Tapılmaya Layıktır",
-                    "61": "Asla İştirak Etmediler",
+                    "61": "İsa, Meryem, Muhammed, Azizler vs. Asla İştirak Etmediler",
                     "66": "Ahirete İman Etmek: İnsanların Çoğu İçin Büyük Engel"
                 }
             }
@@ -8985,7 +8982,7 @@
                     "5": "Biz yeryüzünde ezilmiş olanları tazmin etmeyi, onları önderlere dönüştürmeyi ve onları vârisler yapmayı irade ettik.",
                     "6": "Ve onları yeryüzünde yerleştirmeyi ve Firavun’a, Haman’a ve askerlerine ise anladıkları dille karşılık vermeyi.",
                     "7": "Musa’nın annesine vahyettik: “Onu emzir ve onun hayatından endişe ettiğinde, hiçbir korku veya üzüntü duymaksızın onu nehre bırak. Biz onu sana geri döndüreceğiz ve onu elçilerden biri yapacağız.”",
-                    "8": "Firavun’un ailesi, onu sadece muhalefete önderlik etmesi ve onlar için bir keder kaynağı olması için aldı. Bunun nedeni Firavun, Haman ve askerlerinin haddi aşan kimseler olmasıydı.",
+                    "8": "Firavun’un ailesi, onu sadece muhalefete liderlik etmesi ve onlar için bir üzüntü kaynağı olması için aldı. Bunun nedeni Firavun, Haman ve onların askerlerinin haddi aşan kimseler olmasıydı.",
                     "9": "Firavun’un karısı dedi ki “Bu benim için de, senin için de sevindirici bir keşif olabilir. Onu öldürme, çünkü bize bir faydası dokunabilir veya onu evlat edinebiliriz.” Hiçbir şeyden haberleri yoktu.",
                     "10": "Musa’nın annesinin zihni o kadar endişeliydi ki, neredeyse kimliğini açığa vuracaktı. Fakat onu bir imanlı yapmak için kalbini sağlamlaştırdık.",
                     "11": "Kız kardeşine dedi ki “Onun izini sür.” O da onlar farkında olmadan onu uzaktan izledi.",
@@ -9067,7 +9064,7 @@
                     "39": "Böylelikle, o ve askerleri yeryüzünde haksız yere büyüklenmeye devam ettiler ve bize döndürülmeyeceklerini sandılar.",
                     "40": "Sonuç olarak, biz onu ve askerlerini denize atarak cezalandırdık. Haddi aşanlar için sonuçlara dikkat et.",
                     "41": "Onları, halklarını Cehenneme sürükleyen imamlar yaptık. Dahası, Diriliş Günü’nde hiçbir yardım göremeyecekler.",
-                    "42": "Bu dünyada kınanmaya uğradılar ve Diriliş Günü’nde aşağılanacaklar.",
+                    "42": "Bu dünyada kınanmayı üzerlerine çektiler ve Diriliş Günü’nde aşağılanacaklar.",
                     "43": "Önceki nesilleri yok ettikten ve onlar yoluyla emsaller oluşturduktan sonra, insanlar için bir aydınlanma, rehberlik ve rahmet sağlamak için Musa’ya kutsal yazı verdik ki dikkate alsınlar.",
                     "44": "Musa’ya emri verdiğimiz zaman, sen batıdaki dağın yamacında bulunmuyordun; bir şahit değildin. *",
                     "45": "Fakat biz nice nesiller inşa ettik ve zamanın uzunluğundan ötürü (saptılar). Sen Midyan halkı arasında bulunup onlara vahiylerimizi okuyor da değildin. Ancak biz elçiler gönderdik."
@@ -9114,7 +9111,7 @@
                 "titles": {
                     "47": "Bahane Yok",
                     "48": "Tevrat ve Kuran",
-                    "50": "Öğretilerini Elçileri Vasıtasıyla Bize Gönderir",
+                    "50": "Tanrı, Öğretilerini Elçileri Vasıtasıyla Bize Gönderir",
                     "51": "Gerçek İmanlıların Tamamı Kuran’ı Kabul Ederler",
                     "54": "Gerçeği Tanıyan Hristiyan & Yahudiler İçin İki Misli Ödül",
                     "56": "Sadece Tanrı Rehberlik Eder"
@@ -9135,7 +9132,7 @@
         "sura": {
             "28": {
                 "verses": {
-                    "60": "Size verilen her şey sırf bu hayatın menfaati ve gösterişidir. TANRI ’nın yanında olan ise çok daha iyi ve süreklidir. Anlamıyor musunuz?",
+                    "60": "Size verilen her şey, sadece bu hayatınmaddiyatı ve gösterişidir. TANRI’nın yanında olan, çok daha iyi ve kalıcıdır. Anlamıyor musunuz?",
                     "61": "Kendisine mutlaka gerçekleşecek olan güzel bir vaatte bulunduğumuz kişi, kendisine bu hayatın geçici maddiyatını sağladığımız, ardından Diriliş Günü’nde ebedi kötü sona uğrayan kişi ile eşit midir?",
                     "62": "Gün gelecek, “Benim yanıma yerleştirdiğiniz şu putlar nerede?” diyerek onlara sesleneceğiz.",
                     "63": "Hüküm giyenler diyecekler ki “Rabbimiz! Bunlar bizim saptırdıklarımızdır; biz onları ancak kendimiz de sapmış olduğumuz için saptırdık. Şimdi kendimizi tamamen Sana adadık. Onlar aslında bize tapmıyorlardı.”",
