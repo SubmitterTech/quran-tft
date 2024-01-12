@@ -23,7 +23,7 @@ const Verse = ({ colors, theme, translationApplication, relationalData, verseCla
     const copyToClipboard = (key, text, x, y) => {
         accumulatedCopiesRef.current = {
             ...accumulatedCopiesRef.current,
-            [key]: text
+            [key]: verseText
         };
         let textToCopy = "";
         Object.entries(accumulatedCopiesRef.current).forEach(([ref, txt]) => {
