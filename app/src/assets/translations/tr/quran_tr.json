@@ -1807,7 +1807,7 @@
                 "verses": {
                     "34": "Erkekler kadınlardan sorumlu tutulmaktadır,** TANRI onları belirli niteliklerle donatmış ve onları eve ekmek getiren kimseler yapmıştır. Doğru kadınlar, TANRI ’nın buyruğu olduğu için bu düzenlemeyi canı gönülden kabul edecek ve kocalarına yokluklarında da hürmet edeceklerdir. Eğer kadınlardan asilik görürseniz önce onlarla konuşun, sonra onları yatakta terk etmek (gibi negatif teşviklere başvurabilirsiniz), sonra (son bir çare olarak) onlara vurabilirsiniz. Eğer size itaat ederlerse onlara karşı sınırı aşmanıza izin verilmemiştir. TANRI Yüceler Yücesidir, En Büyüktür.",
                     "35": "Bir çift ayrılıktan korkarsa, erkeğin ailesinden bir hakem ve kadının ailesinden bir hakem tayin edin; eğer uzlaşmaya karar verirlerse TANRI onların bir araya gelmelerine yardımcı olacaktır. TANRI Her Şeyi Bilendir, Haberdardır.",
-                    "36": "Yalnızca TANRI ’ya tapın—O’na hiçbir şeyi ortak koşmayın. Ana-babayı, akrabaları, yetimleri, yoksulları, ilişkili olduğunuz komşuyu, ilişkili olmadığınız komşuyu, yakın arkadaşı, seyahat eden yabancıyı ve hizmetkârlarınızı sayıp gözetin. TANRI kibirli gösterişçileri sevmez.",
+                    "36": "Yalnızca TANRI’ya tapın—O’na hiçbir şeyi ortak koşmayın. Ana-babayı, akrabaları, yetimleri, yoksulları, ilişkili olduğunuz komşuyu, ilişkili olmadığınız komşuyu, yakın arkadaşı, seyahat eden yabancıyı ve hizmetkârlarınızı sayıp gözetin. TANRI kibirli gösterişçileri sevmez.",
                     "37": "Ki onlar cimrilik edenlerdir, insanları cimri olmaya teşvik edenlerdir ve TANRI ’nın cömertçe verdiği nimetlerinden kendilerine ihsan ettiği şeyleri gizleyenlerdir. İnkârcılara utanç verici bir azap hazırladık.",
                     "38": "Onlar, TANRI ’yı ve Son Gün’ü inkâr ettikleri halde bağış yaptıkları parayı sırf gösteriş amacıyla verirler. Eğer birinin yoldaşı şeytansa, bu en kötü yoldaştır.",
                     "39": "Onlar neden TANRI ’ya ve Son Gün’e iman etmiyorlar ve neden TANRI ’nın kendilerine sağladığı rızıklardan vermiyorlar? TANRI onların tamamen farkındadır.",
@@ -1926,7 +1926,6 @@
                 "titles": {
                     "66": "Tanrı’nın Testleri Asla Mantıksız Değildir",
                     "69": "İmanlıların Eşitliği",
-                    "71": "GOD is the best Knower. ",
                     "75": "İmanlılar Korkusuzdur"
                 }
             }
@@ -5454,7 +5453,7 @@
             "14": {
                 "verses": {
                     "1": "A. L. R.* Bir kutsal yazı ki, insanları—Rabbinin iradesine uygun olarak—karanlıklardan aydınlığa, Kudretli Olan’ın, Övgüye Layık Olan’ın yoluna çıkarsın diye sana vahyettik.",
-                    "2": "TANRI ’nın (yolu); göklerdeki her şeye ve yerdeki her şeye sahip Olan. İnkârcıların vay haline; onlar korkunç bir azabı üzerlerine çektiler.",
+                    "2": "TANRI’nın (yolu); göklerdeki her şeye ve yerdeki her şeye sahip Olan. İnkârcıların vay haline; onlar korkunç bir azabı üzerlerine çektiler.",
                     "3": "Onlar Ahiretten daha çok bu hayata öncelik verenlerdir, TANRI ’nın yolundan alıkoyanlardır ve onu çarpık hale getirmeye çalışanlardır; onlar uzak bir sapıklık içindedirler.",
                     "4": "Biz, onlar için bir şeyleri açıklığa kavuştursun diye, kendi halkının dilinde (vaaz etmesi) dışında hiçbir elçi göndermedik. TANRI sonra irade ettiği kişiyi saptırır ve irade ettiği kişiye rehberlik eder. O Kudretlidir, En Bilge Olandır.",
                     "5": "Nitekim biz, “Halkını karanlıklardan aydınlığa çıkar ve onlara TANRI ’nın günlerini hatırlat” diyerek Musa’yı mucizelerimizle gönderdik. Bunlar kararlı olan, minnettar olan her kişi için derslerdir."
@@ -9513,7 +9512,7 @@
                     "49": "Üzerlerine yağmadan önce onlar umutsuzluğa kapılmışlardı."
                 },
                 "titles": {
-                    "41": "Kim Tapılmaya Layıktır?",
+                    "40": "Kim Tapılmaya Layıktır?",
                     "42": "Tarihten Ders Almak",
                     "47": "İmanlılar İçin Garanti Edilmiş Galibiyet"
                 }
@@ -9835,7 +9834,7 @@
                     "30": "Özel Sorumluluk",
                     "32": "Örnek Teşkil Etmek",
                     "35": "Erkek ve Kadının Eşitliği",
-                    "36": "Elçi Muhammed’e İtaatsizlik Ediyor"
+                    "36": "Muhammed Tarafından İşlenen Büyük Hata \n İnsan Muhammed, Elçi Muhammed’e İtaatsizlik Ediyor"
                 }
             }
         },
@@ -9875,8 +9874,8 @@
         },
         "notes": {
             "data": [
-                "*33:40 Muhammed’in açık tarifine rağmen, çoğu Müslüman onun son peygamber ve aynı zamanda son elçi olduğu konusunda ısrar ederler. Bu, 40:34’te gördüğümüz gibi trajik bir insan özelliğidir.Tanrı’ya tereddütsüz iman eden kimseler, Tanrı’nın son peygamber Muhammed’den sonra, Kendiarındırıcı ve birleştirici Antlaşma Elçisi’ni göndereceğini fark ederler (3:81, 33:7).",
-                "*33:41-42 Zamanın çoğunda düşüncelerinizi her ne meşgul ediyorsa sizin tanrınız odur. Tanrı’yıanmak ve O’nu gece gündüz yüceltmek buyruğu bu nedenledir. Ek 27’ye bakınız."
+                "*33:40 Muhammed’in açık tarifine rağmen, çoğu Müslüman onun son peygamber ve aynı zamanda son elçi olduğu konusunda ısrar ederler. Bu, 40:34’te gördüğümüz gibi trajik bir insan özelliğidir.Tanrı’ya tereddütsüz iman eden kimseler, Tanrı’nın son peygamber Muhammed’den sonra, Kendi arındırıcı ve birleştirici Antlaşma Elçisi’ni göndereceğini fark ederler (3:81, 33:7).",
+                "*33:41-42 Zamanın çoğunda düşüncelerinizi her ne meşgul ediyorsa sizin tanrınız odur. Tanrı’yı anmak ve O’nu gece gündüz yüceltmek buyruğu bu nedenledir. Ek 27’ye bakınız."
             ],
             "cumulativefrequencyofthewordGOD": "2024",
             "cumulativesumofverseswhereGODwordoccurs": "106085"
@@ -10056,7 +10055,7 @@
                     "23": "Şefaat Yoktur",
                     "28": "Tanrı’nın Antlaşma Elçisi",
                     "32": "Diriliş Günü’nde",
-                    "34": "Every Time!"
+                    "34": "Her Zaman!"
                 }
             }
         },
