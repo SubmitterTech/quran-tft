@@ -306,11 +306,13 @@ const Verse = ({ colors, theme, translationApplication, relationalData, verseCla
                 </span>
             </div>
 
-            <div className={`w-full flex flex-col flex-1 p-0.5 transition-all duration-300 ease-linear ${mode === "reading" ? "mt-2" : "h-0"} `}>
-                <p className={`${mode === "reading" ? "mb-2 p-2 select-text ease-in duration-300 w-full" : "h-0 ease-linear duration-100"}  transition-all  rounded ${colors[theme]["encrypted-background"]} text-start shadow-md`} dir="rtl" >
-                    {mode === "reading" && lightAllahwords(encryptedText)}
-                </p>
-                <div className={`${mode === "reading" ? "h-96 overflow-auto p-2 duration-300 ease-in-out delay-300" : "duration-200 ease-linear h-0"}  transition-all w-full rounded ${colors[theme]["relation-background"]}`}>
+            <div className={`w-full flex flex-col flex-1 p-0.5  ${mode === "reading" ? "mt-2" : "h-0"} `}>
+                <div className={`${mode === "reading" ? " select-text ease-in mb-2 duration-200" : "h-0 ease-linear duration-75"} w-full transition-all  rounded ${colors[theme]["encrypted-background"]} shadow-md`} >
+                    <p className={` p-2 text-start `} dir="rtl" >
+                        {mode === "reading" && lightAllahwords(encryptedText)}
+                    </p>
+                </div>
+                <div className={`${mode === "reading" ? "h-96 overflow-auto p-2 delay-500 duration-150 ease-in-out " : "duration-75 ease-linear h-0"}  transition-all w-full rounded ${colors[theme]["relation-background"]}`}>
                     {(mode === "reading" && relatedVerses.size > 0) && Array.from(relatedVerses.entries()).map(([themeKey, verseKeys]) => (
                         <div key={themeKey}>
                             <h3 className={`text-base text-left ${colors[theme]["matching-text"]}`}>{themeKey}</h3>
