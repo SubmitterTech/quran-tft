@@ -97,7 +97,7 @@ const Verse = ({ colors, theme, translationApplication, relationalData, verseCla
                     });
                 } else if (verses && verses.includes('-')) {
                     const [start, end] = verses.split('-');
-                    for (let verse = start; verse <= end; verse++) {
+                    for (let verse = parseInt(start.trim()); verse <= parseInt(end.trim()); verse++) {
                         const individualKey = `${sura}:${verse}`;
                         if (individualKey !== currentVerseKey) {
                             const themeRelated = related.get(theme) || [];
@@ -120,7 +120,7 @@ const Verse = ({ colors, theme, translationApplication, relationalData, verseCla
 
                     if (vp.includes('-')) {
                         // Handle range of verses
-                        const [start, end] = vp.split('-').map(Number);
+                        const [start, end] = vp.split('-').filter(e => e.trim()).map(Number);
 
                         for (let verse = start; verse <= end; verse++) {
                             const individualKey = `${sura}:${verse}`;
@@ -145,7 +145,7 @@ const Verse = ({ colors, theme, translationApplication, relationalData, verseCla
                 if (themeorref) {
                     if (typeof themeorref === 'object') {
                         Object.entries(themeorref).forEach(([t, ref]) => {
-                            if(lang === "en") {
+                            if (lang === "en") {
                                 processTheme(t + " " + theme, ref)
                             } else {
                                 processTheme(theme + " " + t, ref)
@@ -305,33 +305,31 @@ const Verse = ({ colors, theme, translationApplication, relationalData, verseCla
                     {text}
                 </span>
             </div>
-            {mode === "reading" &&
-                <div className={`w-full flex flex-col mt-2 p-0.5`}>
-                    <p className={`select-text w-full rounded ${colors[theme]["encrypted-background"]} p-2 mb-2 text-start shadow-inner`} dir="rtl" >
-                        {lightAllahwords(encryptedText)}
-                    </p>
-                    {relatedVerses.size > 0 &&
-                        <div className={`w-full rounded ${colors[theme]["relation-background"]} p-2`}>
-                            {Array.from(relatedVerses.entries()).map(([themeKey, verseKeys]) => (
-                                <div key={themeKey}>
-                                    <h3 className="text-base text-left">{themeKey}</h3>
-                                    <div>
-                                        {verseKeys.map(verseKey => (
-                                            <button
-                                                className={`${colors[theme]["base-background"]} p-2 rounded m-1 shadow-md text-sky-500`}
-                                                key={verseKey}
-                                                onClick={() => onRelatedVerseClick(verseKey)}
-                                            >
-                                                {verseKey}
-                                            </button>
-                                        ))}
-                                    </div>
-                                </div>
-                            ))}
+
+            <div className={`w-full flex flex-col flex-1 p-0.5 transition-all duration-300 ease-linear ${mode === "reading" ? "mt-2" : "h-0"} `}>
+                <p className={`${mode === "reading" ? "mb-2 p-2 select-text ease-in duration-300 w-full" : "h-0 ease-linear duration-100"}  transition-all  rounded ${colors[theme]["encrypted-background"]} text-start shadow-md`} dir="rtl" >
+                    {mode === "reading" && lightAllahwords(encryptedText)}
+                </p>
+                <div className={`${mode === "reading" ? "h-96 overflow-auto p-2 duration-300 ease-in-out delay-300" : "duration-200 ease-linear h-0"}  transition-all w-full rounded ${colors[theme]["relation-background"]}`}>
+                    {(mode === "reading" && relatedVerses.size > 0) && Array.from(relatedVerses.entries()).map(([themeKey, verseKeys]) => (
+                        <div key={themeKey}>
+                            <h3 className={`text-base text-left ${colors[theme]["matching-text"]}`}>{themeKey}</h3>
+                            <div>
+                                {verseKeys.map(verseKey => (
+                                    <button
+                                        className={`${colors[theme]["base-background"]} p-2 rounded m-1 shadow-md text-sky-500`}
+                                        key={verseKey}
+                                        onClick={() => onRelatedVerseClick(verseKey)}
+                                    >
+                                        {verseKey}
+                                    </button>
+                                ))}
+                            </div>
                         </div>
-                    }
+                    ))}
                 </div>
-            }
+            </div>
+
 
             {tooltip.visible && (
                 <div

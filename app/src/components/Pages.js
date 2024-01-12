@@ -38,9 +38,6 @@ const Pages = ({ colors, theme, translationApplication, map, quranData, translat
         }
     }, [selectedPage]);
 
-
-
-
     const forceScroll = useCallback(() => {
         const verseKey = `${parseInt(selectedSura)}:${parseInt(selectedVerse)}`;
 
@@ -472,7 +469,7 @@ const Pages = ({ colors, theme, translationApplication, map, quranData, translat
 
                                 return (
                                     <div key={index} className="flex justify-between w-full">
-                                        <span className="text-left flex-1">{namePart}</span>
+                                        <span className="text-left flex-1 text-sky-500">{namePart}</span>
                                         <span className="text-right flex-1">{pageInfoPart}</span>
                                     </div>
                                 );
@@ -481,10 +478,10 @@ const Pages = ({ colors, theme, translationApplication, map, quranData, translat
                     </div>
                 </div>
             </div>
-            <div ref={topRef} className={` flex flex-col `}>
+            <div ref={topRef} className={`flex flex-col `}>
                 {sortedVerses.map(({ suraNumber, verseNumber, verseText, encryptedText, title }) => {
                     const hasAsterisk = verseText.includes('*') || (title && title.includes('*'));
-                    const verseClassName = "transition-colors duration-700 ease-linear flex cursor-pointer rounded mx-2 my-1 p-1 md:p-1.5 shadow-md text-base hyphens-auto text-justify md:text-lg xl:text-xl ";
+                    const verseClassName = "transition-colors duration-700 ease-linear flex flex-col cursor-pointer rounded mx-2 my-1 p-1 md:p-1.5 shadow-md text-base hyphens-auto text-justify md:text-lg xl:text-xl ";
                     const titleClassName = `italic font-semibold rounded shadow-md mx-2 mt-1.5 mb-0.5 p-3 text-base md:text-md lg:text-lg text-center break-words whitespace-pre-wrap ${colors[theme]["base-background"]}`;
                     const verseKey = `${suraNumber}:${verseNumber}`;
                     const noteReference = hasAsterisk ? verseKey : null;
