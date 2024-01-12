@@ -1926,7 +1926,6 @@
                 "titles": {
                     "66": "Tanrı’nın Testleri Asla Mantıksız Değildir",
                     "69": "İmanlıların Eşitliği",
-                    "71": "GOD is the best Knower. ",
                     "75": "İmanlılar Korkusuzdur"
                 }
             }
@@ -9513,7 +9512,7 @@
                     "49": "Üzerlerine yağmadan önce onlar umutsuzluğa kapılmışlardı."
                 },
                 "titles": {
-                    "41": "Kim Tapılmaya Layıktır?",
+                    "40": "Kim Tapılmaya Layıktır?",
                     "42": "Tarihten Ders Almak",
                     "47": "İmanlılar İçin Garanti Edilmiş Galibiyet"
                 }
@@ -9835,7 +9834,7 @@
                     "30": "Özel Sorumluluk",
                     "32": "Örnek Teşkil Etmek",
                     "35": "Erkek ve Kadının Eşitliği",
-                    "36": "Elçi Muhammed’e İtaatsizlik Ediyor"
+                    "36": "Muhammed Tarafından İşlenen Büyük Hata \n İnsan Muhammed, Elçi Muhammed’e İtaatsizlik Ediyor"
                 }
             }
         },
@@ -9875,8 +9874,8 @@
         },
         "notes": {
             "data": [
-                "*33:40 Muhammed’in açık tarifine rağmen, çoğu Müslüman onun son peygamber ve aynı zamanda son elçi olduğu konusunda ısrar ederler. Bu, 40:34’te gördüğümüz gibi trajik bir insan özelliğidir.Tanrı’ya tereddütsüz iman eden kimseler, Tanrı’nın son peygamber Muhammed’den sonra, Kendiarındırıcı ve birleştirici Antlaşma Elçisi’ni göndereceğini fark ederler (3:81, 33:7).",
-                "*33:41-42 Zamanın çoğunda düşüncelerinizi her ne meşgul ediyorsa sizin tanrınız odur. Tanrı’yıanmak ve O’nu gece gündüz yüceltmek buyruğu bu nedenledir. Ek 27’ye bakınız."
+                "*33:40 Muhammed’in açık tarifine rağmen, çoğu Müslüman onun son peygamber ve aynı zamanda son elçi olduğu konusunda ısrar ederler. Bu, 40:34’te gördüğümüz gibi trajik bir insan özelliğidir.Tanrı’ya tereddütsüz iman eden kimseler, Tanrı’nın son peygamber Muhammed’den sonra, Kendi arındırıcı ve birleştirici Antlaşma Elçisi’ni göndereceğini fark ederler (3:81, 33:7).",
+                "*33:41-42 Zamanın çoğunda düşüncelerinizi her ne meşgul ediyorsa sizin tanrınız odur. Tanrı’yı anmak ve O’nu gece gündüz yüceltmek buyruğu bu nedenledir. Ek 27’ye bakınız."
             ],
             "cumulativefrequencyofthewordGOD": "2024",
             "cumulativesumofverseswhereGODwordoccurs": "106085"
@@ -10056,7 +10055,7 @@
                     "23": "Şefaat Yoktur",
                     "28": "Tanrı’nın Antlaşma Elçisi",
                     "32": "Diriliş Günü’nde",
-                    "34": "Every Time!"
+                    "34": "Her Zaman!"
                 }
             }
         },
