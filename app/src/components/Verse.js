@@ -284,6 +284,9 @@ const Verse = ({ colors, theme, translationApplication, relationalData, verseCla
         }
     };
 
+    const totalVerseKeysCount = relatedVerses.size > 0 ? Array.from(relatedVerses.values()).reduce((total, verseKeys) => total + verseKeys.length, 0) : 0;
+    const heightClass = totalVerseKeysCount <= 19 ? "h-52" : "h-96";
+
     return (
         <div
             ref={(el) => verseRefs.current[currentVerseKey] = el}
@@ -306,13 +309,13 @@ const Verse = ({ colors, theme, translationApplication, relationalData, verseCla
                 </span>
             </div>
 
-            <div className={`w-full flex flex-col flex-1 p-0.5  ${mode === "reading" ? "mt-2" : "h-0"} `}>
+            <div className={`w-full flex flex-col flex-1  ${mode === "reading" ? "p-0.5 mt-2" : "h-0"} `}>
                 <div className={`${mode === "reading" ? " select-text ease-in mb-2 duration-200" : "h-0 ease-linear duration-75"} w-full transition-all  rounded ${colors[theme]["encrypted-background"]} shadow-md`} >
                     <p className={` p-2 text-start `} dir="rtl" >
                         {mode === "reading" && lightAllahwords(encryptedText)}
                     </p>
                 </div>
-                <div className={`${mode === "reading" ? "h-96 overflow-auto p-2 delay-500 duration-150 ease-in-out " : "duration-75 ease-linear h-0"}  transition-all w-full rounded ${colors[theme]["relation-background"]}`}>
+                <div className={`${(mode === "reading" && relatedVerses.size > 0) ? "overflow-auto p-2 delay-500 duration-200 ease-in-out " + heightClass : "duration-75 ease-linear h-0"}  transition-all w-full rounded ${colors[theme]["relation-background"]}`}>
                     {(mode === "reading" && relatedVerses.size > 0) && Array.from(relatedVerses.entries()).map(([themeKey, verseKeys]) => (
                         <div key={themeKey}>
                             <h3 className={`text-base text-left ${colors[theme]["matching-text"]}`}>{themeKey}</h3>
