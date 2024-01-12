@@ -111,7 +111,7 @@ const Book = ({ onChangeTheme, colors, theme, translationApplication, introducti
         Object.entries(quranData).forEach(([pageNumber, value]) => {
             // Ensure that pageValues is an array
             const pageValues = Array.isArray(value.page) ? value.page : [value.page];
-            const suraVersePattern = /\d+:\d+-\d+/g;
+            const suraVersePattern = /\d+:\d+-?(\d+)?/g;
             let matches = [];
 
             pageValues.forEach(pageValue => {
