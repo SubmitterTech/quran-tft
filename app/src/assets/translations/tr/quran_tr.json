@@ -2505,7 +2505,7 @@
                     "62": "Birçoğunu canı gönülden kötülük işlerken, haddi aşarken ve haram kazançtan yerken görürsün. Gerçekten de berbattır yaptıkları şey.",
                     "63": "Keşke hahamlar ve papazlar onları günahkâr söylemlerinden ve haram kazançlarından menetseydiler! Gerçekten de berbattır yaptıkları şey.",
                     "64": "Hatta Yahudiler “TANRI ’nın eli bağlıdır!” dediler. Elleri bağlı olan kendileridir. Böyle bir küfrü dillendirdikleri için kınandılar. Aksine, O’nun elleri sonuna kadar açıktır, irade ettiği gibi harcar. Şüphesiz, Rabbinin sana vahyettikleri, birçoğunun azgınlık ve inkâra dalmasına neden olacaktır. Sonuç olarak, onları Diriliş Günü’ne kadar kendi aralarında husumete ve nefrete mahkûm ettik. Onlar ne zaman savaşın alevini tutuştursalar TANRI onu söndürür. Onlar yeryüzünde günahkârca dolaşırlar ve TANRI kötülük edenleri sevmez.",
-                    "65": "Keşke kutsal yazı halkı iman edip doğru bir hayat sürseydi, biz o zaman onların günahlarını sörter, onları saadet bahçelerine kabul ederdik.",
+                    "65": "Keşke kutsal yazı halkı iman edip doğru bir hayat sürseydi, biz o zaman onların günahlarını örter, onları saadet bahçelerine kabul ederdik.",
                     "66": "Keşke onlar Tevrat’a, İncil’e ve Rableri tarafından burada kendilerine indirilene sarılsalardı, o zaman üzerlerinden ve ayaklarının altından kendilerine nimetler yağdırılırdı. Onlardan bazıları doğru kimselerdir, fakat birçoğu kötülük yapan kimselerdir.",
                     "67": "Ey elçi! Rabbinden sana vahyedileni ilet—bunu yapıncaya dek O’nun mesajını iletmiş olmazsın—ve TANRI seni insanlardan koruyacaktır. TANRI inkâr eden insanlara rehberlik etmez.",
                     "68": "De ki, “Ey Kutsal yazı halkı! Tevrat’a, İncil’e ve Rabbinizden burada size indirilene sarılıncaya dek hiçbir dayanağınız yoktur.” Şüphesiz, Rabbinden olan bu vahiyler onlardan çoğunun azgınlığa ve inkâra daha da dalmasına yol açacaktır. Bundan dolayı, inkâr eden insanlar için üzülme.",
@@ -13102,7 +13102,7 @@
                     "10": "Bir de elitlerin elitleri vardır.",
                     "11": "Bunlar (Tanrı’ya) en yakın olacak kimselerdir.",
                     "12": "Saadet bahçelerinde.",
-                    "13": "Birçoğu ilk nesillerden.",
+                    "13": "Birçoğu ilk nesillerden.*",
                     "14": "Birazı da sonraki nesillerden.",
                     "15": "Lüks mobilyalar üzerinde.",
                     "16": "Her şeyin tadını çıkararak, onlar komşu olacaklardır.",
@@ -13186,8 +13186,8 @@
                 "titles": {
                     "27": "Alt Cennet",
                     "41": "Cehennem",
-                    "57": "Tefekkür",
-                    "66": "O zaman feryat figan edersiniz:"
+                    "57": "Tefekkür"
+                    
                 }
             }
         },
