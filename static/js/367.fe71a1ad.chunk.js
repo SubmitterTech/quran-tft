@@ -1,0 +1,1 @@
+"use strict";(self.webpackChunkapp=self.webpackChunkapp||[]).push([[367],{3367:e=>{e.exports=JSON.parse('{"page":3,"quran":"KURAN","title":"SON \\nAH\u0130T","version":"Yetkilendirilmi\u015f \u0130ngilizce Versiyon \\n [T\xfcrk\xe7e Terc\xfcmesi]","translated":"Orjinalinden \xc7eviren","author":"Re\u015fad Halife, Ph.D.","edition":"(Revize Edilmi\u015f Bask\u0131)"}')}}]);
