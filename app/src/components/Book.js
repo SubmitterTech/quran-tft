@@ -260,7 +260,7 @@ const Book = ({ onChangeTheme, colors, theme, translationApplication, introducti
                 // Return the array of JSX elements and strings
                 return elements;
             } else if (part.match(verseRegex)) {
-                if (text.includes("["|"(") && text.match(/[a-zA-Z]/)) {
+                if (text.includes("[") && text.match(/[a-zA-Z]/)) {
                     return part;
                 }
                 return (
@@ -555,7 +555,7 @@ const Book = ({ onChangeTheme, colors, theme, translationApplication, introducti
         const renderContent = combinedContent.map((item, index) => {
             if (item.type === 'title') {
                 return (
-                    <div className={`w-full my-3 flex items-center justify-center text-center ${colors[theme]["base-background"]} rounded p-2 font-semibold ${colors[theme]["app-text"]}  whitespace-pre-line ${item.order === 0 ? "text-2xl font-bold" : " text-base"}`}>
+                    <div className={`select-text w-full my-3 flex items-center justify-center text-center ${colors[theme]["base-background"]} rounded p-2 font-semibold ${colors[theme]["app-text"]}  whitespace-pre-line ${item.order === 0 ? "text-2xl font-bold" : " text-base"}`}>
                         <h2 key={`title-${index}`}>{item.content}</h2>
                     </div>
                 );
@@ -563,7 +563,7 @@ const Book = ({ onChangeTheme, colors, theme, translationApplication, introducti
                 return (
                     <div
                         lang={lang}
-                        className={`rounded ${colors[theme]["text-background"]} ${colors[theme]["app-text"]} p-1.5 shadow-md mb-3 flex w-full justify-center hyphens-auto `}>
+                        className={`select-text rounded ${colors[theme]["text-background"]} ${colors[theme]["app-text"]} p-1.5 shadow-md mb-3 flex w-full justify-center hyphens-auto `}>
                         <p key={`text-${index}`} className={`px-1`}>{parseReferences(item.content)}</p>
                     </div>
                 );
