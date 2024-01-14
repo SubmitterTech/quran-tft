@@ -118,9 +118,13 @@ const Apps = ({ colors, theme, translationApplication, parseReferences, appendic
         setAppendixMap(initialAppendixMap);
 
         if (selectedApp) {
-            setVisibleAppendices([selectedApp]);
+            if (selectedApp === 38) {
+                setVisibleAppendices([selectedApp - 1, selectedApp]);
+            } else {
+                setVisibleAppendices([selectedApp, selectedApp + 1]);
+            }
         } else {
-            const initialAppendices = Object.keys(initialAppendixMap).slice(0, 3).map(Number);
+            const initialAppendices = Object.keys(initialAppendixMap).slice(0, 2).map(Number);
             setVisibleAppendices(initialAppendices);
         }
     }, [appendices, selectedApp, mapAppendicesData]);
@@ -189,7 +193,7 @@ const Apps = ({ colors, theme, translationApplication, parseReferences, appendic
                     );
                 case 'text':
                     return (
-                        <div lang={lang} key={`text-${index}`} className={`rounded ${colors[theme]["text-background"]} ${colors[theme]["app-text"]} p-2 shadow-md mb-3 flex w-full justify-center text-justify hyphens-auto`}>
+                        <div lang={lang} key={`text-${index}`} className={`rounded ${colors[theme]["text-background"]} ${colors[theme]["app-text"]} p-2 shadow-md mb-3 flex w-full text-justify hyphens-auto`}>
                             <p className={`px-1`}>{parseReferences(item.content)}</p>
                         </div>
                     );
