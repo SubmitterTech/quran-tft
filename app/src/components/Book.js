@@ -260,7 +260,7 @@ const Book = ({ onChangeTheme, colors, theme, translationApplication, introducti
                 // Return the array of JSX elements and strings
                 return elements;
             } else if (part.match(verseRegex)) {
-                if (text.includes("[") && text.match(/[a-zA-Z]/)) {
+                if (text.includes("["|"(") && text.match(/[a-zA-Z]/)) {
                     return part;
                 }
                 return (
@@ -501,7 +501,7 @@ const Book = ({ onChangeTheme, colors, theme, translationApplication, introducti
         }
 
         if (parseInt(currentPage) > 396) {
-            return <Apps colors={colors} theme={theme} translationApplication={translationApplication} parseReferences={parseReferences} appendices={appendicesContent} selectedApp={selectedApp} prevPage={prevPage} />;
+            return <Apps colors={colors} theme={theme} translationApplication={translationApplication} parseReferences={parseReferences} appendices={appendicesContent} selectedApp={selectedApp} setSelectedApp={setSelectedApp} prevPage={prevPage} />;
         }
 
 

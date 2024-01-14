@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef, useCallback } from 'react';
 
-const Apps = ({ colors, theme, translationApplication, parseReferences, appendices, selectedApp, prevPage }) => {
+const Apps = ({ colors, theme, translationApplication, parseReferences, appendices, selectedApp, setSelectedApp, prevPage }) => {
     const lang = localStorage.getItem("lang");
     const containerRef = useRef(null);
     const appRefs = useRef({});
@@ -120,8 +120,10 @@ const Apps = ({ colors, theme, translationApplication, parseReferences, appendic
         if (selectedApp) {
             if (selectedApp === 38) {
                 setVisibleAppendices([selectedApp - 1, selectedApp]);
+            } else if (selectedApp === 1) {
+                setVisibleAppendices([selectedApp]);
             } else {
-                setVisibleAppendices([selectedApp, selectedApp + 1]);
+                setVisibleAppendices([selectedApp - 1, selectedApp, selectedApp + 1]);
             }
         } else {
             const initialAppendices = Object.keys(initialAppendixMap).slice(0, 2).map(Number);
@@ -160,7 +162,7 @@ const Apps = ({ colors, theme, translationApplication, parseReferences, appendic
                             {rows.map((row, rowIndex) => (
                                 <tr key={`row-${rowIndex}`}>
                                     {row.map((cell, cellIndex) => (
-                                        <td key={`cell-${rowIndex}-${cellIndex}`} className={`border-2 ${colors[theme]["border"]} p-2 text-center break-words`}>{cell}</td>
+                                        <td key={`cell-${rowIndex}-${cellIndex}`} className={`border-2 ${colors[theme]["border"]} p-2 text-center break-words`}>{parseReferences(cell)}</td>
                                     ))}
                                 </tr>
                             ))}
@@ -180,8 +182,8 @@ const Apps = ({ colors, theme, translationApplication, parseReferences, appendic
             switch (item.type) {
                 case 'title':
                     const appx = translationApplication ? translationApplication.appendix : "Appendix";
-
                     const isAppendixTitle = new RegExp(appx + "\\s*(\\d+)", "i").test(item.content);
+
                     return (
                         <div
                             key={`title-${index}`}
@@ -194,7 +196,7 @@ const Apps = ({ colors, theme, translationApplication, parseReferences, appendic
                 case 'text':
                     return (
                         <div lang={lang} key={`text-${index}`} className={`rounded ${colors[theme]["text-background"]} ${colors[theme]["app-text"]} p-2 shadow-md mb-3 flex w-full text-justify hyphens-auto`}>
-                            <p className={`px-1`}>{parseReferences(item.content)}</p>
+                            <p className={`px-1 break-words`}>{parseReferences(item.content)}</p>
                         </div>
                     );
                 case 'evidence':
