@@ -1421,9 +1421,7 @@
                 ]
             }
         },
-        "evidence": {
-            
-        },
+        "evidence": {},
         "titles": {}
     },
     {
@@ -1786,7 +1784,6 @@
             "7": "[4] It possesses many peculiar mathematical properties. For example, 19 is the sum of the first powers of 9 and 10, and the difference between the second powers of 9 and 10.",
             "8": "We now understand that the universal coding of God’s creations with the number 19 rests in the fact that it is the gematrical value of the word “ONE” in all the scriptural languages— Aramaic, Hebrew, and Arabic.",
             "9": "The number 19, therefore, proclaims the First Commandment in all the scriptures: that there is only ONE God."
-           
         },
         "picture": {},
         "table": {
@@ -2021,7 +2018,16 @@
             "7": {
                 "no": 10,
                 "text": "The four words of Basmalah are shown on the left side, and the only four divine names whose gematrical values are divisible by 19 are on the right side. The numbers in the middle are the frequencies of occurrence of the words of Basmalah, and, at the same time, the gematrical values of the four divine names.",
-                "data": ["Name", "God", "Most Gracious", "Most Merciful", "One", "Possessor of\nInfinite Grace", "Glorious", "Gatherer "]
+                "data": [
+                    "Name",
+                    "God",
+                    "Most Gracious",
+                    "Most Merciful",
+                    "One",
+                    "Possessor of\nInfinite Grace",
+                    "Glorious",
+                    "Gatherer "
+                ]
             }
         },
         "evidence": {
@@ -4110,7 +4116,7 @@
     {
         "page": 458,
         "text": {
-            "4": "As stated in 3:81 and 46:9, God’s Messenger of the Covenant does not bring anything new; everything I receive and pass on to you is already in the Quran. However, the Quran is full of information that is kept by Almighty God for revelation at a specific time. Now is the time to look at the verses shown above and learn the great news: THE RIGHTEOUS DO NOT DIE; when their lives on this earth come to the predetermined end, the angel of death simply invites them to leave their earthly bodies and move on to Heaven, the same Paradise where Adam and Eve once lived. Heaven has been in existence since Adam and Eve. We learn from 89:27- 30 that God invites the believers’ souls: “Enter My Paradise.”",
+            "4": "As stated in 3:81 and 46:9, God’s Messenger of the Covenant does not bring anything new; everything I receive and pass on to you is already in the Quran. However, the Quran is full of information that is kept by Almighty God for revelation at a specific time. Now is the time to look at the verses shown above and learn the great news: THE RIGHTEOUS DO NOT DIE; when their lives on this earth come to the predetermined end, the angel of death simply invites them to leave their earthly bodies and move on to Heaven, the same Paradise where Adam and Eve once lived. Heaven has been in existence since Adam and Eve. We learn from 89:27-30 that God invites the believers’ souls: “Enter My Paradise.”",
             "6": "When God’s covenant with the prophets was fulfilled in accordance with 3:81, I was taken to Heaven where the righteous live NOW (4:69). While my body was down here on earth, I was in the same Paradise of Adam & Eve.",
             "8": "As for the disbelievers, they know at the moment of death that they are destined for Hell. The angels beat them up on the faces and rear ends (8:50 & 47:27), order them to evict their souls (6:93), then “snatch their souls” (79:1). The Quran teaches that the disbelievers go through 2 deaths (2:28 & 40:11). They will be put to death — a state of nothingness during which they see Hell day and night in a continuous nightmare that lasts until the Day of Judgment (40:46). Hell is not yet in existence (40:46, 89:23).",
             "10": "As far as people on earth are concerned, the righteous “die.” People do not realize that the righteous simply leave their bodies, and move on to Paradise. The verses shown above are self explanatory. They tell us that the righteous die only once — the one death we have already experienced as a consequence of the great feud (38:69). In 36:26-27, we see the best evidence that the righteous go to Paradise, while their friends and relatives are still living on earth. Like going to Hawaii and waiting for us there. See also 16:32 & 6:60-62."
@@ -4118,7 +4124,15 @@
         "picture": {
             "2": {
                 "no": "22",
-                "text": "Give good news to those who believe and work righteousness that they will have gardens with flowing streams. When provided with provisions of fruits therein, they will say, “This is what was given to us in the past.” They will be given similar provisions, and they will have pure spouses therein. They abide therein forever. (2:25) Do not think that those who are killed in the cause of God are dead; they are alive at their Lord, being provided for. (3:169) Do NOT say about those who are killed in the cause of God, “They ar dead.” For they are alive, but you do not perceive. (2:154) O you who believe, you shall respond to God and the messenger when he invites to what keeps you alive. (8:24) Those who emigrate in the cause of God, then get killed or die, God will surely provide for them a good provision. (22:58) They do not taste death, beyond the first death, and God spares them the retribution of Hell. (44:56) He was told, “Enter Paradise.” He said, “I wish my people (on earth) know; that my Lord has forgiven me and honored me.” (36:26-27)"
+                "text": {
+                    "22-1": "Give good news to those who believe and work righteousness that they will have gardens with flowing streams. When provided with provisions of fruits therein, they will say, “This is what was given to us in the past.” They will be given similar provisions, and they will have pure spouses therein. They abide therein forever. (2:25)",
+                    "22-2": "Do not think that those who are killed in the cause of God are dead; they are alive at their Lord, being provided for. (3:169)",
+                    "22-3": "Do NOT say about those who are killed in the cause of God, “They ar dead.” For they are alive, but you do not perceive. (2:154)",
+                    "22-4": "O you who believe, you shall respond to God and the messenger when he invites to what keeps you alive. (8:24)",
+                    "22-5": "Those who emigrate in the cause of God, then get killed or die, God will surely provide for them a good provision. (22:58)",
+                    "22-6": "They do not taste death, beyond the first death, and God spares them the retribution of Hell. (44:56)",
+                    "22-7": "He was told, “Enter Paradise.” He said, “I wish my people (on earth) know; that my Lord has forgiven me and honored me.” (36:26-27)"
+                }
             },
             "3": {
                 "no": "21",
@@ -5572,7 +5586,6 @@
                     "    ",
                     " 975 + 906 = 1881= 19x99",
                     "   "
-                  
                 ]
             },
             "5": {
@@ -7411,9 +7424,7 @@
                 ]
             }
         },
-        "evidence": {
-            
-        },
+        "evidence": {},
         "titles": {}
     },
     {
@@ -7577,9 +7588,7 @@
                 ]
             }
         },
-        "evidence": {
-            
-        },
+        "evidence": {},
         "titles": {}
     },
     {
@@ -7836,12 +7845,8 @@
             "10": "Ignorant Muslim scholars of the first two centuries after the Quran could not understand the Quran’s challenge to produce anything like it. They had no idea about the Quran’s mathematical composition, and they knew that many literary giants could have composed works comparable to the Quran. In fact, many such literary giants did claim the ability to produce a literary work as excellent as the Quran. The latest claim came from Taha Hussein, the renowned Egyptian writer."
         },
         "picture": {},
-        "table": {
-            
-        },
-        "evidence": {
-           
-        },
+        "table": {},
+        "evidence": {},
         "titles": {
             "7": "Appendix 28",
             "8": "Muhammad Wrote God’s Revelations With His Own Hand"
@@ -8358,9 +8363,7 @@
                 ]
             }
         },
-        "evidence": {
-            
-        },
+        "evidence": {},
         "titles": {}
     },
     {

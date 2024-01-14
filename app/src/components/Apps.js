@@ -171,7 +171,7 @@ const Apps = ({ colors, theme, translationApplication, parseReferences, appendic
                 </div>
             </div>
         );
-    }, [colors, theme]);
+    }, [colors, theme, parseReferences]);
 
     useEffect(() => {
         setIsRendered(true);
@@ -238,8 +238,25 @@ const Apps = ({ colors, theme, translationApplication, parseReferences, appendic
                             </div>
                         );
                     }
+                    // SPECIAL RENDER FOR PICTURE 22
+                    if (parseInt(item.content.no) === 22) {
+
+                        return (
+                            <div key={`picture-${index}`} className={`flex flex-col space-y-1.5 flex-1 items-center justify-center w-full px-1 mb-2`}>
+
+                                {item.content.text && Object.entries(item.content.text).map(([pickey, text]) => (
+                                    <div className={`rounded shadow-md flex flex-wrap md:flex-nowrap justify-between`}>
+                                        <img src={images(`./${pickey}.jpg`)} alt={imageUrl} className={`object-contain`} />
+                                        <div lang={lang} className={`p-2 text-justify hyphens-auto break-words`}>{parseReferences(text)}</div>
+                                    </div>
+
+                                ))}
+                            </div>
+                        );
+
+                    }
                     return (
-                        <div key={`picture-${index}`} className={`flex flex-col flex-1 items-center justify-center w-full px-1`}>
+                        <div key={`picture-${index}`} className={`flex flex-col flex-1 items-center justify-center w-full px-1 mb-2`}>
                             <div className={`rounded shadow-md flex justify-center`}>
                                 <img src={imageUrl} alt={imageUrl} className={`object-center`} />
                             </div>
@@ -275,7 +292,7 @@ const Apps = ({ colors, theme, translationApplication, parseReferences, appendic
 
     return (
         <div
-            className={`h-screen w-screen ${colors[theme]["app-text"]} text-base`}>
+            className={`h-screen w-screen ${colors[theme]["app-text"]} text-base select-text`}>
             <button onClick={prevPage}
                 className={`fixed top-0.5 left-0.5 z-30 rounded shadow-md p-2 ${colors[theme]["base-background"]}`}>
                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-7 h-7">
