@@ -488,6 +488,14 @@ const Pages = ({ colors, theme, translationApplication, map, quranData, translat
 
                     pageGWC[verseKey] = countGODwords(verseText)
 
+                    let notes = null;
+
+                    Object.values(noteReferencesMap).forEach((refkey) => {
+                        if (notesData.data[refkey].includes(verseKey)) {
+                            notes = notesData.data[refkey];
+                        }
+                    });
+
                     return (
                         <React.Fragment key={verseKey}>
                             {title &&
@@ -518,6 +526,8 @@ const Pages = ({ colors, theme, translationApplication, map, quranData, translat
                                 handleClickReference={handleClickReference}
                                 accumulatedCopiesRef={accumulatedCopiesRef}
                                 copyTimerRef={copyTimerRef}
+                                hasTitle={title}
+                                hasNotes={notes}
                             />
                         </React.Fragment>
                     );

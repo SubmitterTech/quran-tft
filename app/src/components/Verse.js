@@ -1,6 +1,6 @@
 import React, { useCallback, useEffect, useState, useRef } from 'react';
 
-const Verse = ({ colors, theme, translationApplication, relationalData, verseClassName, hasAsterisk, suraNumber, verseNumber, verseText, encryptedText, verseRefs, handleVerseClick, pulse, grapFocus, pageGWC, handleClickReference, accumulatedCopiesRef, copyTimerRef }) => {
+const Verse = ({ colors, theme, translationApplication, relationalData, verseClassName, hasAsterisk, suraNumber, verseNumber, verseText, encryptedText, verseRefs, handleVerseClick, pulse, grapFocus, pageGWC, handleClickReference, accumulatedCopiesRef, copyTimerRef, hasTitle, hasNotes }) => {
     const [mode, setMode] = useState("idle");
     const [cn, setCn] = useState(verseClassName);
     const [text, setText] = useState(verseText);
@@ -20,14 +20,27 @@ const Verse = ({ colors, theme, translationApplication, relationalData, verseCla
     };
 
 
-    const copyToClipboard = (key, text, x, y) => {
+    const copyToClipboard = (key, x, y) => {
+
+        const verseKey = `${key} ${verseText}`;
+        let accumulatedText = verseKey;
+
+        if (hasTitle && parseInt(key.split(":")[1]) !== 1) {
+            accumulatedText = `${hasTitle}\n${accumulatedText}`;
+        }
+
+        if (hasNotes) {
+            accumulatedText += `\n\n[${hasNotes}]`;
+        }
+
         accumulatedCopiesRef.current = {
             ...accumulatedCopiesRef.current,
-            [key]: verseText
+            [key]: accumulatedText
         };
+
         let textToCopy = "";
-        Object.entries(accumulatedCopiesRef.current).forEach(([ref, txt]) => {
-            textToCopy += ref + " " + txt + "\n\n";
+        Object.values(accumulatedCopiesRef.current).forEach((txt) => {
+            textToCopy += txt + "\n\n";
         });
 
         navigator.clipboard.writeText(textToCopy)
@@ -41,7 +54,7 @@ const Verse = ({ colors, theme, translationApplication, relationalData, verseCla
             });
     };
 
-    const handleLongPressStart = (e, key, text) => {
+    const handleLongPressStart = (e, key) => {
         if (e.cancelable) {
             e.preventDefault();
         }
@@ -53,7 +66,7 @@ const Verse = ({ colors, theme, translationApplication, relationalData, verseCla
         longPressTimerRef.current = setTimeout(() => {
             // Check the ref to see if the user has moved
             if (!hasMovedRef.current) {
-                copyToClipboard(clip, text, x, y);
+                copyToClipboard(clip, x, y);
                 hasLongPressedRef.current = true;
                 // Start a 60-second timer
                 if (copyTimerRef.current) {
@@ -294,11 +307,11 @@ const Verse = ({ colors, theme, translationApplication, relationalData, verseCla
             key={"verse:" + currentVerseKey}
             className={`${cn}`}>
             <div
-                onMouseDown={(e) => handleLongPressStart(e, currentVerseKey, text)}
+                onMouseDown={(e) => handleLongPressStart(e, currentVerseKey)}
                 onMouseUp={handleLongPressEnd}
                 onMouseLeave={handleLongPressEnd}
                 onTouchMove={handleTouchMove}
-                onTouchStart={(e) => handleLongPressStart(e, currentVerseKey, text)}
+                onTouchStart={(e) => handleLongPressStart(e, currentVerseKey)}
                 onTouchEnd={handleLongPressEnd}
                 onClick={() => handleClick()}
                 className={`px-1 w-full`}
