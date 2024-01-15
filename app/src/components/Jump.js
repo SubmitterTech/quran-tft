@@ -117,6 +117,8 @@ const Jump = ({ suraNames, onChangeTheme, colors, theme, translationApplication,
         const themes = {
             light: "#e5e5e5",
             dark: "#171717",
+            violet: "#8b5cf6",
+            green: "#14b8a6",
             sky: "#0ea5e9",
         };
 

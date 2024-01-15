@@ -76,6 +76,50 @@ function Root() {
             "focus-text": "focus:text-neutral-200",
             "matching-text": "text-amber-400"
 
+        },
+        "green": {
+            "text-background": "bg-teal-800",
+            "app-background": "bg-teal-950",
+            "notes-background": "bg-neutral-700",
+            "base-background": "bg-neutral-800/80",
+            "verse-detail-background": "bg-neutral-800",
+            "encrypted-background": "bg-neutral-700/70",
+            "relation-background": "bg-neutral-700/70",
+            "table-title-text": "text-neutral-300",
+            "border": "border-teal-100",
+            "text": "text-neutral-200",
+            "app-text": "text-neutral-300",
+            "page-text": "text-teal-100/50",
+            "log-text": "text-neutral-300/80",
+            "verse-border": "border-teal-500/80",
+            "verse-ring": "ring-orange-400/70",
+            "title-ring": "ring-neutral-200/70",
+            "ring": "ring-teal-500/80",
+            "focus-ring": "focus:ring-neutral-200/80",
+            "focus-text": "focus:text-neutral-100",
+            "matching-text": "text-orange-400"
+        },
+        "violet": {
+            "text-background": "bg-violet-800/90",
+            "app-background": "bg-violet-950",
+            "notes-background": "bg-neutral-700",
+            "base-background": "bg-neutral-800/80",
+            "verse-detail-background": "bg-neutral-800",
+            "encrypted-background": "bg-violet-600/30",
+            "relation-background": "bg-violet-600/30",
+            "table-title-text": "text-neutral-300",
+            "border": "border-violet-100",
+            "text": "text-neutral-100",
+            "app-text": "text-neutral-300",
+            "page-text": "text-violet-100/50",
+            "log-text": "text-neutral-300/80",
+            "verse-border": "border-violet-500/80",
+            "verse-ring": "ring-lime-400/70",
+            "title-ring": "ring-neutral-200/70",
+            "ring": "ring-violet-500/80",
+            "focus-ring": "focus:ring-neutral-200/80",
+            "focus-text": "focus:text-neutral-200",
+            "matching-text": "text-lime-400"
         }
     };
 
