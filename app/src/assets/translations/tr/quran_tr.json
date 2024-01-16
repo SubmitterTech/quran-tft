@@ -213,7 +213,7 @@
                 },
                 "titles": {
                     "37": "Özel Kelimeler *",
-                    "40": "Tüm Yahudilere İlahi Buyruklar: Bu Kuran’a İman Etmelisiniz"
+                    "40": "Tüm Yahudilere İlahi Buyruklar: Bu Kuran’a İman Edeceksiniz"
                 }
             }
         },
@@ -353,7 +353,7 @@
                     "88": "Bazıları derdi ki, “Biz sabit fikirliyiz!” Aksine bu, inkârlarının bir sonucu olarak birkaçı hariç onları iman etmekten alıkoyan TANRI ’dan bir lanettir.",
                     "89": "TANRI katından kendilerine bu kutsal yazı geldiğinde, yanlarındaki ile uyumlu olduğu ve onu doğruladığı halde ve inkârcılarla konuştuklarında onun geleceğini haber verip durdukları halde, kendi haber verdikleri gerçekleşince onu inkâr ettiler. TANRI ’nın laneti, inkârcılara işte böyle dokunur.",
                     "90": "Karşılığında ruhlarını sattıkları şey gerçekten de berbat—TANRI ’nın, lütfunu kulları arasından seçtiği kişiye ihsan etmesini çekememekten ötürü TANRI ’nın bu vahiylerini reddetmek. Sonuç olarak, gazap üstüne gazabı üzerlerine çektiler. İnkârcılar aşağılayıcı bir azabı üzerlerine çektiler.",
-                    "91": "Kendilerine “TANRI ’nın bu vahiylerine iman edin” denildiğinde, “Biz sadece bize indirilene iman ederiz” derler. Böylelikle sonraki vahiyleri inkâr ederler, o, Rablerinden gelen bir gerçek olduğu halde, yanlarında olanı doğruladığı halde! De ki, “Eğer imanlılar idiyseniz o halde neden TANRI ’nın peygamberlerini öldürdünüz?” İsrail Tarihinden Öğrenmek",
+                    "91": "Kendilerine “TANRI ’nın bu vahiylerine iman edin” denildiğinde, “Biz sadece bize indirilene iman ederiz” derler. Böylelikle sonraki vahiyleri inkâr ederler, o, Rablerinden gelen bir gerçek olduğu halde, yanlarında olanı doğruladığı halde! De ki, “Eğer imanlılar idiyseniz o halde neden TANRI ’nın peygamberlerini öldürdünüz?”",
                     "92": "Musa size esaslı mucizelerle gitmişti, buna rağmen onun yokluğunda buzağıya taptınız ve kötülere dönüştünüz."
                 },
                 "titles": {
@@ -392,7 +392,7 @@
                 },
                 "titles": {
                     "97": "Cebrail Vahiyde Aracılık Eder",
-                    "101": "Tanrı’nın Kutsal Yazılarını Umursamamak",
+                    "101": "Tanrı’nın Kutsal Yazılarını Göz Ardı Etmek",
                     "102": "Büyücülük Kınandı"
                 }
             }
@@ -565,7 +565,7 @@
                     "153": "Ey iman edenler! Kararlılıkla ve İletişim Dualarıyla (Namazla) yardım talep edin. TANRI , kararlılıkla sebat edenlerin yanındadır.",
                     "154": "TANRI uğrunda öldürülenler için “Onlar ölüdürler” demeyin. Onlar Rablerinin katında diridirler, fakat siz algılamazsınız. *",
                     "155": "Biz sizi mutlaka biraz korkuyla, açlıkla ve para, can ve ürün kaybıyla test edeceğiz. Kararlı olanlara müjde ver. *",
-                    "156": "Onlar başlarına bir musibet geldiğinde şunu derler, “Biz TANRI ’ya aitiz ve O’na dönüyoruz.”",
+                    "156": "Onlar başlarına bir musibet geldiğinde şöyle derler, “Biz TANRI ’ya aitiz ve O’na dönüyoruz.”",
                     "157": "Bunlar Rablerinden nimetler ve rahmet hak ettiler. Bunlar rehberlik edilmiş olanlardır.",
                     "158": "Safa ve Merve tepeleri TANRI ’nın hükme bağladığı ritüeller arasındadır. Her kim Hac veya ‘Umre’yi yerine getirirse, onlar arasındaki mesafeyi gidip gelmekle bir hata işlemiş olmaz. Eğer biri gönüllü olarak daha fazla doğru iş yaparsa, o zaman TANRI Takdir Edendir, Her Şeyi Bilendir.",
                     "159": "Vahiylerimizi ve rehberliğimizi, onları insanlar için kutsal yazıda ilan ettikten sonra gizleyen kimseler, TANRI tarafından lanetlenmişlerdir; onlar tüm lanet edenler tarafından da lanetlenmişlerdir.",
@@ -576,7 +576,7 @@
                     "149": "Kıble Mekke’ye Geri Çevrildi",
                     "154": "Buradan Nereye Gidiyoruz?",
                     "158": "Kutsal Hac Yolculuğu",
-                    "159": "Büyük Cürüm"
+                    "159": "Büyük Suç"
                 }
             }
         },
@@ -682,8 +682,8 @@
                 },
                 "titles": {
                     "183": "Oruç Vurgulandı ve Değiştirildi *",
-                    "186": "Tanrı, Kullarının Dualarını Yanıtlar",
-                    "188": "Yolsuzluk Kınandı",
+                    "186": "Tanrı, “Kullarının” Dualarını Yanıtlar",
+                    "188": "Rüşvet, Yolsuzluk Kınandı",
                     "189": "Lafı Dolandırmayın"
                 }
             }
@@ -717,7 +717,7 @@
                 "titles": {
                     "190": "Savaş Kuralları *",
                     "196": "Kutsal Hac ve ‘Umre Yolculuğu *",
-                    "197": "Safer & Rebiülevvel)"
+                    "197": "Dört Hac Ayı (Zilhicce, Muharrem, Safer & Rebiülevvel)"
                 }
             }
         },
@@ -1167,8 +1167,8 @@
                 },
                 "titles": {
                     "26": "Tanrı’nın Özellikleri",
-                    "28": "Dostlarınızı Dikkatlice Seçin",
-                    "31": "GOD is Compassionate towards the "
+                    "28": "Dostlarınızı Dikkatlice Seçin"
+                    
                 }
             }
         },
@@ -5626,7 +5626,7 @@
                 },
                 "titles": {
                     "1": "♦ ♦ ♦ ♦\nSure 15: Hicr Vadisi\n(El-Hicr)\nEn Lütufkâr, En Merhametli olan Tanrı ’nın adıyla. ",
-                    "9": "Tanrı’nın Antlaşma Elçisi"
+                    "9": "Tanrı’nın Antlaşma Elçisi*"
                 }
             }
         },
@@ -6191,7 +6191,7 @@
                 "titles": {
                     "9": "Kuran: Kurtuluş Aracımız",
                     "13": "Videokaset *",
-                    "18": "Bu Hayatta Önceliklerini Dikkatle Seç",
+                    "18": "Bu Hayatta Önceliklerini Dikkatlice Seç",
                     "19": "Ahiret",
                     "22": "Başlıca Buyruklar"
                 }
@@ -6759,7 +6759,7 @@
                 },
                 "titles": {
                     "1": "♦ ♦ ♦ ♦\nSure 19: Meryem\n(Meryem)\nEn Lütufkâr, En Merhametli olan Tanrı ’nın adıyla.",
-                    "2": "(Kãf Hã Yã ‘Ayn Sãd) Zekeriya",
+                    "2": "Zekeriya",
                     "7": "Yahya",
                     "16": "Meryem"
                 }
@@ -9620,7 +9620,7 @@
                     "23": "İnkâr edenlere gelince, inkârlarından dolayı üzülme. Onların nihai dönüşleri bizedir, sonra yapmış oldukları her şeyi kendilerine bildireceğiz. TANRI en içteki düşüncelerin tamamen farkındadır.",
                     "24": "Onların geçici olarak yararlanmalarına izin veririz, sonra onları şiddetli bir azaba çarptırırız.",
                     "25": "Eğer onlara “Gökleri ve yeri kim yarattı” diye sorsan “TANRI ” diyeceklerdir. De ki, “TANRI ’ya övgüler olsun.” Ne var ki çokları bilmez.",
-                    "26": "Göklerdeki ve yerdeki her şey TANRI ’ya aittir. TANRI En Zengin Olandır, Övgüye En Layık Olandır.",
+                    "26": "TANRI ’ya aittir göklerdeki ve yerdeki her şey. TANRI En Zengin Olandır, Övgüye En Layık Olandır.",
                     "27": "Eğer yeryüzündeki tüm ağaçlar kalem yapılsaydı ve okyanus da yedi okyanus daha eklenerek mürekkep sağlasaydı, TANRI ’nın kelimeleri tükenmezdi. TANRI Kudretlidir, En Bilge Olandır.",
                     "28": "Hepinizin yaratılması ve yeniden diriltilmesi tek kişininki gibidir. TANRI İşitendir, Görendir.",
                     "29": "TANRI ’nın geceyi gündüze kattığını, gündüzü de geceye kattığını, Güneş’i ve Ay’ı sizin hizmetinize verdiğini, her birinin kendi yörüngesinde belirli bir süre için akıp gittiğini ve TANRI ’nın yaptığınız her şeyden tamamen Haberdar olduğunu görmez misin?",
@@ -12722,7 +12722,7 @@
                 },
                 "titles": {
                     "29": "Elçi",
-                    "34": "Muhammedîler Tanrı’ya Meydan Okuyup Hadis Üretiyorlar"
+                    "34": "“Muhammedîler” Tanrı’ya Meydan Okuyup Hadis Üretiyorlar"
                 }
             }
         },
@@ -12779,7 +12779,7 @@
                 },
                 "titles": {
                     "1": "♦ ♦ ♦ ♦\nSure 53: Yıldızlar\n(El-Necm)\nEn Lütufkâr, En Merhametli olan Tanrı ’nın adıyla.",
-                    "19": "Uydurma Olduğu Belli Olan Putlar"
+                    "19": "Uydurmasyon Putlar"
                 }
             }
         },
@@ -14207,7 +14207,7 @@
                 },
                 "titles": {
                     "1": "♦ ♦ ♦ ♦\nSure 72: Cinler\n(El-Cin)\nEn Lütufkâr, En Merhametli olan Tanrı ’nın adıyla.",
-                    "19": "Tanrı’nın Antlaşma Elçisi"
+                    "19": "Tanrı’nın Antlaşma Elçisi*"
                 }
             }
         },
