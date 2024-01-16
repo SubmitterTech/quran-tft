@@ -311,7 +311,7 @@ const Jump = ({ onChangeLanguage, suraNames, onChangeTheme, colors, theme, trans
                     id="languagepicker"
                     name="langpick"
                     onChange={(e) => onChangeLanguage(e.target.value)}
-                    value={null}
+                    value={localStorage.getItem("lang")}
                     className={`w-full m-2 text-center rounded px-4 py-2 brightness-75 bg-neutral-500/10 ${colors[theme]["page-text"]}`}>
                     {Object.keys(languages).map((key) => {
                         if (key) {
