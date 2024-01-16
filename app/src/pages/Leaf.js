@@ -55,14 +55,14 @@ function Leaf() {
             <div className={`w-full flex flex-col overflow-auto pr-2`}>
                 {Object.entries(verseList).map(([key, text]) => (
                     <div className={` text-neutral-100 text-justify hyphens-auto p-1.5`}>
-                        <div className={`text-center hyphens-auto p-1.5 text-neutral-900`}>
+                        <div key={key} className={`text-center hyphens-auto p-1.5 text-neutral-900`}>
                             {key}
                         </div>
                         {titleList[key] &&
-                            <div className={`rounded shadow-md bg-sky-800/90 text-justify hyphens-auto py-1.5 px-2 mb-2`}>
+                            <div key={key + "title"} className={`rounded shadow-md bg-sky-800/90 text-justify hyphens-auto py-1.5 px-2 mb-2`}>
                                 {titleList[key]}
                             </div>}
-                        <div className={`rounded shadow-md bg-neutral-900/90 text-justify hyphens-auto py-1.5 px-2`}>
+                        <div key={key + "verse"} className={`rounded shadow-md bg-neutral-900/90 text-justify hyphens-auto py-1.5 px-2`}>
                             {text}
                         </div>
                     </div>
