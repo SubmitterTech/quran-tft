@@ -20,6 +20,8 @@ const Book = ({ onChangeTheme, colors, theme, translationApplication, introducti
     const [isSearchOpen, setSearchOpen] = useState(false);
 
     const contentRef = useRef(null);
+    const restoreAppText = useRef(null);
+    const refToRestore = useRef(null);
 
     useEffect(() => {
         if (introductionContent && appendicesContent) {
@@ -91,6 +93,11 @@ const Book = ({ onChangeTheme, colors, theme, translationApplication, introducti
             // Get the last page from history and remove it from the history array
             const lastPage = pageHistory[pageHistory.length - 1];
             setPageHistory(prevHistory => prevHistory.slice(0, -1));
+            if(lastPage === 397) {
+                restoreAppText.current = true
+            } else {
+                restoreAppText.current = false
+            }
             setCurrentPage(lastPage);
         } else {
             // Skip specified pages when decrementing
@@ -501,7 +508,17 @@ const Book = ({ onChangeTheme, colors, theme, translationApplication, introducti
         }
 
         if (parseInt(currentPage) > 396) {
-            return <Apps colors={colors} theme={theme} translationApplication={translationApplication} parseReferences={parseReferences} appendices={appendicesContent} selectedApp={selectedApp} setSelectedApp={setSelectedApp} prevPage={prevPage} />;
+            return <Apps
+                colors={colors}
+                theme={theme}
+                translationApplication={translationApplication}
+                parseReferences={parseReferences}
+                appendices={appendicesContent}
+                selectedApp={selectedApp}
+                setSelectedApp={setSelectedApp}
+                restoreAppText={restoreAppText}
+                refToRestore={refToRestore}
+                prevPage={prevPage} />;
         }
 
 

@@ -1,14 +1,19 @@
 import React, { useState, useEffect, useRef, useCallback } from 'react';
 
-const Apps = ({ colors, theme, translationApplication, parseReferences, appendices, selectedApp, setSelectedApp, prevPage }) => {
+const Apps = ({ colors, theme, translationApplication, parseReferences, appendices, selectedApp, setSelectedApp, restoreAppText, refToRestore, prevPage }) => {
     const lang = localStorage.getItem("lang");
     const containerRef = useRef(null);
     const appRefs = useRef({});
     const [visibleAppendices, setVisibleAppendices] = useState([]);
     const [appendixMap, setAppendixMap] = useState({});
     const images = require.context('../assets/pictures/', false, /\.jpg$/);
-    const [isRendered, setIsRendered] = useState(false);
 
+    const textRef = useRef({});
+
+    const [isRefsReady, setIsRefsReady] = useState(false);
+    const handleRefsReady = () => {
+        setIsRefsReady(true);
+    };
 
     const mapAppendicesData = useCallback((appendices) => {
         const appendixMap = {};
@@ -97,21 +102,17 @@ const Apps = ({ colors, theme, translationApplication, parseReferences, appendic
         }
     }, [visibleAppendices, appendixMap]);
 
-
-
     useEffect(() => {
-        if (selectedApp && isRendered && appRefs.current[`appendix-${selectedApp}`]) {
-            appRefs.current[`appendix-${selectedApp}`].scrollIntoView({ behavior: 'smooth' });
-        }
-    }, [selectedApp, isRendered]);
+        console.log(restoreAppText.current)
+        if (selectedApp && isRefsReady && visibleAppendices && appRefs.current[`appendix-${selectedApp}`]) {
 
-    useEffect(() => {
-        if (selectedApp && appRefs.current[`appendix-${selectedApp}`]) {
-            setTimeout(() => {
+            if(restoreAppText.current ) {
+                textRef.current[refToRestore.current].scrollIntoView({ behavior: 'smooth', block: 'center' });
+            } else {
                 appRefs.current[`appendix-${selectedApp}`].scrollIntoView({ behavior: 'smooth' });
-            }, 0);
+            }
         }
-    }, [selectedApp, visibleAppendices]);
+    }, [selectedApp, restoreAppText, refToRestore, visibleAppendices, isRefsReady]);
 
     useEffect(() => {
         const initialAppendixMap = mapAppendicesData(appendices);
@@ -173,12 +174,13 @@ const Apps = ({ colors, theme, translationApplication, parseReferences, appendic
         );
     }, [colors, theme, parseReferences]);
 
-    useEffect(() => {
-        setIsRendered(true);
-    }, [visibleAppendices]);
+    const handleClick = (_e, n, i) => {
+        setSelectedApp(n);
+        refToRestore.current = n + "-" +i;
+    };
 
-    const renderAppendices = useCallback(() => {
-        const renderContentItem = (item, index) => {
+    const renderAppendices = () => {
+        const renderContentItem = (appno, item, index) => {
             switch (item.type) {
                 case 'title':
                     const appx = translationApplication ? translationApplication.appendix : "Appendix";
@@ -195,7 +197,12 @@ const Apps = ({ colors, theme, translationApplication, parseReferences, appendic
                     );
                 case 'text':
                     return (
-                        <div lang={lang} key={`text-${index}`} className={`rounded ${colors[theme]["text-background"]} ${colors[theme]["app-text"]} p-2 shadow-md mb-3 flex w-full text-justify hyphens-auto`}>
+                        <div
+                            lang={lang}
+                            key={`text-${index}`}
+                            ref={(el) => textRef.current[appno+"-"+index] = el}
+                            onClick={(e) => handleClick(e, appno, index)}
+                            className={`rounded ${colors[theme]["text-background"]} ${colors[theme]["app-text"]} p-2 shadow-md mb-3 flex w-full text-justify hyphens-auto`}>
                             <p className={`px-1 break-words`}>{parseReferences(item.content)}</p>
                         </div>
                     );
@@ -282,12 +289,12 @@ const Apps = ({ colors, theme, translationApplication, parseReferences, appendic
         return visibleAppendices.map(appendixNum => {
             const appendixContent = appendixMap[appendixNum]?.content || [];
             return (
-                <div className={`p-1`} key={appendixNum}>
-                    {appendixContent.map((item, index) => renderContentItem(item, `${item.type}-${index}`))}
+                <div className={`p-1`} key={appendixNum}  ref={() => handleRefsReady()}>
+                    {appendixContent.map((item, index) => renderContentItem(appendixNum,item, `${item.type}-${index}`))}
                 </div>
             );
         });
-    }, [visibleAppendices, appendixMap, parseReferences, colors, theme, translationApplication, images, renderTable, lang]);
+    };
 
 
     return (
