@@ -6,7 +6,7 @@ import Magnify from '../components/Magnify';
 import Splash from '../components/Splash';
 import '../assets/css/Book.css';
 
-const Book = ({ onChangeTheme, colors, theme, translationApplication, introductionContent, quranData, map, appendicesContent, translation }) => {
+const Book = ({ onChangeTheme, colors, theme, translationApplication, introductionContent, quranData, map, appendicesContent, translation, onChangeLanguage }) => {
     const lang = localStorage.getItem("lang")
     const images = require.context('../assets/pictures/', false, /\.jpg$/);
 
@@ -93,7 +93,7 @@ const Book = ({ onChangeTheme, colors, theme, translationApplication, introducti
             // Get the last page from history and remove it from the history array
             const lastPage = pageHistory[pageHistory.length - 1];
             setPageHistory(prevHistory => prevHistory.slice(0, -1));
-            if(lastPage === 397) {
+            if (lastPage === 397) {
                 restoreAppText.current = true
             } else {
                 restoreAppText.current = false
@@ -773,6 +773,7 @@ const Book = ({ onChangeTheme, colors, theme, translationApplication, introducti
                 </div>}
             {isModalOpen &&
                 <Jump
+                    onChangeLanguage={onChangeLanguage}
                     suraNames={introductionContent[introductionContent.length - 1].evidence["2"].lines}
                     onChangeTheme={onChangeTheme}
                     colors={colors} theme={theme}

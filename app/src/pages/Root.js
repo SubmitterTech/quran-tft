@@ -145,11 +145,16 @@ function Root() {
     useEffect(() => {
         if (!lang.toLowerCase().includes("en")) {
             loadTranslation(lang);
-            localStorage.setItem("lang", lang)
+            
         } else {
             setTranslation(null);
+            setTranslationApplication(application);
+            setTranslationIntro(introductionContent);
+            setTranslationAppx(appendicesContent);
+            setTranslationMap(map);
             setCoverData(cover);
         }
+        localStorage.setItem("lang", lang)
     }, [lang]);
 
     const loadTranslation = async (language) => {
@@ -229,7 +234,9 @@ function Root() {
                 quranData={quranData}
                 map={translationMap}
                 appendicesContent={translationAppx}
-                translation={translation} />}
+                translation={translation} 
+                onChangeLanguage={setLang}
+                />}
         </div>
     );
 }
