@@ -524,13 +524,14 @@ const Pages = ({ colors, theme, translationApplication, map, quranData, translat
                                                 );
                                             })()}
                                             {(() => {
+                                                // THE FIRST SENTENCE OF FIRST SURA : BISMILLAHIRRAHMANIRRAHIM
                                                 const hasGODinit = title.split('\n').pop();
                                                 const gw = translationApplication.gw.toLocaleLowerCase(lang);
                                                 if (hasGODinit.toLowerCase().search(gw) !== -1) {
                                                     return (
                                                         <div
                                                             key={`last-title-${suraNumber}-${verseNumber}`}
-                                                            className={` py-1.5 px-2.5 text-neutral-800 font-semibold rounded shadow-md mx-2 bg-gradient-to-r from-cyan-300 to-sky-500 besmele`}>
+                                                            className={` py-1.5 px-2.5 text-neutral-800 rounded shadow-md mx-2 bg-gradient-to-r from-cyan-300 to-sky-500 besmele`}>
                                                             {hasGODinit}
                                                         </div>
                                                     );
