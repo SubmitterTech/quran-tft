@@ -1,6 +1,6 @@
 import React, { useCallback, useEffect, useState, useRef } from 'react';
 
-const Verse = ({ colors, theme, translationApplication, relationalData, verseClassName, hasAsterisk, suraNumber, verseNumber, verseText, encryptedText, verseRefs, handleVerseClick, pulse, grapFocus, pageGWC, handleClickReference, accumulatedCopiesRef, copyTimerRef, hasTitle, hasNotes }) => {
+const Verse = ({ besmele, colors, theme, translationApplication, relationalData, verseClassName, hasAsterisk, suraNumber, verseNumber, verseText, encryptedText, verseRefs, handleVerseClick, pulse, grapFocus, pageGWC, handleClickReference, accumulatedCopiesRef, copyTimerRef, hasTitle, hasNotes }) => {
     const [mode, setMode] = useState("idle");
     const [cn, setCn] = useState(verseClassName);
     const [text, setText] = useState(verseText);
@@ -267,11 +267,19 @@ const Verse = ({ colors, theme, translationApplication, relationalData, verseCla
             setCn(verseClassName + " " + colors[theme]["verse-detail-background"] + " flex-col ring-1 " + colors[theme]["ring"]);
             setText(highlighted);
         } else if (mode === "light") {
-            setCn(verseClassName + " " + colors[theme]["text-background"]);
+            let bcn = colors[theme]["text-background"];
+            if (encryptedText.includes(besmele)) {
+                bcn = "bg-gradient-to-r from-cyan-300 to-sky-500 text-neutral-800"
+            }
+            setCn(verseClassName + " " + bcn);
         } else if (mode === "idle") {
-            setCn(verseClassName + " " + colors[theme]["text-background"]);
+            let bcn = colors[theme]["text-background"];
+            if (encryptedText.includes(besmele)) {
+                bcn = "bg-gradient-to-r from-cyan-300 to-sky-500 text-neutral-800"
+            }
+            setCn(verseClassName + " " + bcn);
         }
-    }, [mode, verseClassName, verseText, lightGODwords, colors, theme]);
+    }, [mode, verseClassName, verseText, lightGODwords, colors, theme, encryptedText, besmele]);
 
 
 
@@ -316,8 +324,8 @@ const Verse = ({ colors, theme, translationApplication, relationalData, verseCla
                 onClick={() => handleClick()}
                 className={`px-1 w-full`}
             >
-                <span className={mode === "light" ? `${colors[theme]["matching-text"]} font-semibold` : `text-sky-500 `}>{`${verseNumber}. `}</span>
-                <span className={`${colors[theme]["app-text"]}`}>
+                <span className={mode === "light" ? encryptedText.includes(besmele) ? `text-rose-500 font-semibold` : `${colors[theme]["matching-text"]} font-semibold` : `text-sky-500 `}>{`${verseNumber}. `}</span>
+                <span className={``}>
                     {text}
                 </span>
             </div>

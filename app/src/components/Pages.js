@@ -21,7 +21,7 @@ const Pages = ({ colors, theme, translationApplication, map, quranData, translat
     const stickyRef = useRef(null);
     const [stickyHeight, setStickyHeight] = useState(0);
 
-
+    const besmele = quranData["23"]["sura"]["1"]["encrypted"]["1"];
 
     useLayoutEffect(() => {
         if (stickyRef.current) {
@@ -469,7 +469,7 @@ const Pages = ({ colors, theme, translationApplication, map, quranData, translat
 
                                 return (
                                     <div key={index} className="flex justify-between w-full">
-                                        <span className="text-left flex-1 text-sky-500">{namePart}</span>
+                                        <span className="text-left flex-1 font-bold text-sky-500">{namePart}</span>
                                         <span className="text-right flex-1">{pageInfoPart}</span>
                                     </div>
                                 );
@@ -482,7 +482,7 @@ const Pages = ({ colors, theme, translationApplication, map, quranData, translat
                 {sortedVerses.map(({ suraNumber, verseNumber, verseText, encryptedText, title }) => {
                     const hasAsterisk = verseText.includes('*') || (title && title.includes('*'));
                     const verseClassName = "transition-colors duration-700 ease-linear flex flex-col cursor-pointer rounded mx-2 my-1 p-1 md:p-1.5 shadow-md text-base hyphens-auto text-justify md:text-lg xl:text-xl ";
-                    const titleClassName = `italic font-semibold rounded shadow-md mx-2 mt-1.5 mb-0.5 p-3 text-base md:text-md lg:text-lg text-center break-words whitespace-pre-wrap ${colors[theme]["base-background"]}`;
+                    const titleClassName = `italic font-semibold rounded shadow-md mx-2 mt-1.5 mb-0.5 p-2.5 text-base md:text-md lg:text-lg text-center whitespace-pre-wrap ${colors[theme]["base-background"]}`;
                     const verseKey = `${suraNumber}:${verseNumber}`;
                     const noteReference = hasAsterisk ? verseKey : null;
 
@@ -491,22 +491,65 @@ const Pages = ({ colors, theme, translationApplication, map, quranData, translat
                     let notes = null;
 
                     Object.values(noteReferencesMap).forEach((refkey) => {
-                        if (notesData && notesData.data &&  notesData.data[refkey] && notesData.data[refkey].includes(verseKey)) {
+                        if (notesData && notesData.data && notesData.data[refkey] && notesData.data[refkey].includes(verseKey)) {
                             notes = notesData.data[refkey];
                         }
                     });
 
                     return (
+
                         <React.Fragment key={verseKey}>
-                            {title &&
-                                <div
-                                    key={`${"title:" + suraNumber + ":" + verseNumber}`}
-                                    className={`${titleClassName} ${hasAsterisk ? " cursor-pointer text-sky-500 mt-2 " : ""}`}
-                                    onClick={() => hasAsterisk && handleTitleClick(noteReference)}>
-                                    {title}
-                                </div>
-                            }
+                            {title && (
+                                title.includes('♦')
+                                    ? (
+                                        <div className={`w-full flex flex-col space-y-1 mb-1`}>
+                                            {(() => {
+                                                const gw = translationApplication.gw.toLocaleLowerCase(lang);
+                                                let parts = title.split('\n').slice(1, -1);
+                                                if (title.toLowerCase().search(gw) === -1) {
+                                                    parts = title.split('\n').slice(1)
+                                                }
+
+                                                const concatenated = parts.join(' ');
+                                                const finalParts = concatenated.split(':');
+                                                const surano = finalParts[0].trim();
+                                                const suranames = finalParts[1].trim();
+                                                return (
+                                                    <div className={`${titleClassName} flex flex-col space-y-1.5`}>
+                                                        <div className={`w-full flex justify-center not-italic text-sky-500`}>{surano}</div>
+                                                        <div className={`w-full flex justify-center`}>
+                                                            {suranames}
+                                                        </div>
+                                                    </div>
+                                                );
+                                            })()}
+                                            {(() => {
+                                                const hasGODinit = title.split('\n').pop();
+                                                const gw = translationApplication.gw.toLocaleLowerCase(lang);
+                                                if (hasGODinit.toLowerCase().search(gw) !== -1) {
+                                                    return (
+                                                        <div
+                                                            key={`last-title-${suraNumber}-${verseNumber}`}
+                                                            className={` py-1.5 px-2.5 text-neutral-800 font-semibold rounded shadow-md mx-2 bg-gradient-to-r from-cyan-300 to-sky-500 besmele`}>
+                                                            {hasGODinit}
+                                                        </div>
+                                                    );
+                                                }
+                                                return null;
+                                            })()}
+                                        </div>
+                                    )
+                                    : (
+                                        <div
+                                            key={`${"title:" + suraNumber + ":" + verseNumber}`}
+                                            className={`${titleClassName} ${hasAsterisk ? " cursor-pointer text-sky-500 mt-2 " : ""}`}
+                                            onClick={() => hasAsterisk && handleTitleClick(noteReference)}>
+                                            {title}
+                                        </div>
+                                    )
+                            )}
                             <Verse
+                                besmele={besmele}
                                 colors={colors}
                                 theme={theme}
                                 translationApplication={translationApplication}

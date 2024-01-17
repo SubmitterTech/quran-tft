@@ -234,7 +234,7 @@ const Jump = ({ onChangeLanguage, suraNames, onChangeTheme, colors, theme, trans
 
                                     return (
                                         <div key={index} className="flex justify-between w-full">
-                                            <span className="text-left flex-1">{namePart}</span>
+                                            <span className="text-left flex-1 font-bold text-sky-500">{namePart}</span>
                                             <span className="text-right flex-1">{pageInfoPart}</span>
                                         </div>
                                     );
