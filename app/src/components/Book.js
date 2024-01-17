@@ -571,8 +571,10 @@ const Book = ({ onChangeTheme, colors, theme, translationApplication, introducti
         // Render combined content
         const renderContent = combinedContent.map((item, index) => {
             if (item.type === 'title') {
+                const gw = translationApplication.gw.toLocaleLowerCase(lang);
+                const hasGODinit = item.content.toLocaleLowerCase(lang).search(gw) !== -1;
                 return (
-                    <div className={`select-text w-full my-3 flex items-center justify-center text-center ${colors[theme]["base-background"]} rounded p-2 font-semibold ${colors[theme]["app-text"]}  whitespace-pre-line ${item.order === 0 ? "text-2xl font-bold" : " text-base"}`}>
+                    <div className={ hasGODinit ? `select-none  w-full my-3 py-1.5 px-2.5 text-neutral-800 rounded shadow-md bg-gradient-to-r from-cyan-300 to-sky-500 besmele` : `select-text w-full my-3 flex items-center justify-center text-center ${colors[theme]["base-background"]} rounded p-2 font-semibold ${colors[theme]["app-text"]}  whitespace-pre-line ${item.order === 0 ? "text-2xl font-bold" : " text-base"}`}>
                         <h2 key={`title-${index}`}>{item.content}</h2>
                     </div>
                 );
