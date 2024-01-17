@@ -103,9 +103,7 @@ const Apps = ({ colors, theme, translationApplication, parseReferences, appendic
     }, [visibleAppendices, appendixMap]);
 
     useEffect(() => {
-        console.log(restoreAppText.current)
         if (selectedApp && isRefsReady && visibleAppendices && appRefs.current[`appendix-${selectedApp}`]) {
-
             if(restoreAppText.current ) {
                 textRef.current[refToRestore.current].scrollIntoView({ behavior: 'smooth', block: 'center' });
             } else {
