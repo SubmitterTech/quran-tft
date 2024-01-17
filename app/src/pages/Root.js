@@ -123,9 +123,9 @@ function Root() {
         }
     };
 
-    const [showCover, setShowCover] = useState(localStorage.getItem("qurantft-pn") ? false : true);
+    const [showCover, setShowCover] = useState(localStorage.getItem("qurantft-pn") ? false : (process.env.REACT_APP_DEFAULT_LANG ? false : true));
     const [coverData, setCoverData] = useState(cover);
-    const [lang, setLang] = useState(localStorage.getItem("lang") ? localStorage.getItem("lang") : "en");
+    const [lang, setLang] = useState(localStorage.getItem("lang") ? localStorage.getItem("lang") : process.env.REACT_APP_DEFAULT_LANG || "en");
 
     const [translation, setTranslation] = useState(null);
     const [translationApplication, setTranslationApplication] = useState(application);
