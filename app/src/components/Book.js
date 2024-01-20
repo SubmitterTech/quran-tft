@@ -23,9 +23,22 @@ const Book = ({ onChangeTheme, colors, theme, translationApplication, introducti
     const restoreAppText = useRef(null);
     const refToRestore = useRef(null);
 
+    const [pages, setPages] = useState([]);
+
     useEffect(() => {
         if (introductionContent && appendicesContent) {
-            setBookContent(introductionContent.concat(appendicesContent))
+            const content = introductionContent.concat(appendicesContent)
+            setBookContent(content);
+            let pgs = [];
+            Object.values(introductionContent).forEach((item) => {
+                pgs.push(item.page)
+                if (item.page === 22) {
+                    for (let i = 23; i <= 397; i++) {
+                        pgs.push(i);
+                    }
+                }
+            });
+            setPages(pgs);
         }
     }, [appendicesContent, introductionContent]);
 
@@ -77,7 +90,7 @@ const Book = ({ onChangeTheme, colors, theme, translationApplication, introducti
 
     const nextPage = () => {
 
-        let newPage = parseInt(currentPage) >= 508 ? parseInt(currentPage) : parseInt(currentPage) + 1;
+        let newPage = parseInt(currentPage) >= 398 ? parseInt(currentPage) : parseInt(currentPage) + 1;
 
         // Skip specified pages
         const skipPages = [2, 3, 4, 8, 9, 10, 12];
@@ -570,12 +583,12 @@ const Book = ({ onChangeTheme, colors, theme, translationApplication, introducti
 
         // Render combined content
         const renderContent = combinedContent.map((item, index) => {
-            if (item.type === 'title') {                
+            if (item.type === 'title') {
                 const bsml = translationApplication.bsml.toLocaleLowerCase(lang);
                 const hasBesmele = item.content.toLocaleLowerCase(lang).search(bsml) !== -1;
 
                 return (
-                    <div className={ hasBesmele ? `select-none  w-full my-3 py-1.5 px-2.5 text-neutral-800 rounded shadow-md bg-gradient-to-r from-cyan-300 to-sky-500 besmele` : `select-text w-full my-3 flex items-center justify-center text-center ${colors[theme]["base-background"]} rounded p-2 font-semibold ${colors[theme]["app-text"]}  whitespace-pre-line ${item.order === 0 ? "text-2xl font-bold" : " text-base"}`}>
+                    <div className={hasBesmele ? `select-none  w-full my-3 py-1.5 px-2.5 text-neutral-800 rounded shadow-md bg-gradient-to-r from-cyan-300 to-sky-500 besmele` : `select-text w-full my-3 flex items-center justify-center text-center ${colors[theme]["base-background"]} rounded p-2 font-semibold ${colors[theme]["app-text"]}  whitespace-pre-line ${item.order === 0 ? "text-2xl font-bold" : " text-base"}`}>
                         <h2 key={`title-${index}`}>{item.content}</h2>
                     </div>
                 );
@@ -756,19 +769,47 @@ const Book = ({ onChangeTheme, colors, theme, translationApplication, introducti
                 <div className={`w-full flex z-20 p-0.5 backdrop-blur-xl`}>
                     <div className={`flex w-full items-center justify-between`}>
                         <button onClick={prevPage}
-                            className={`w-1/2 ${colors[theme]["app-text"]} px-2 mb-1 rounded mr-2 flex justify-center`}>
-                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className={`w-7 h-7`}>
+                            disabled={isModalOpen}
+                            className={`w-1/2 ${colors[theme]["app-text"]} px-2 mb-1 rounded mr-2 flex justify-center transition-all duration-700 ease-linear ${isModalOpen ? "opacity-0" : "opacity-100"}`}>
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className={`w-7 h-7 lg:w-12 lg:h-12`}>
                                 <path strokeLinecap="round" strokeLinejoin="round" d="M9 15L3 9m0 0l6-6M3 9h12a6 6 0 010 12h-3" />
                             </svg>
                         </button>
                         <div
-                            onClick={() => handleTogglePage()}
-                            className={`w-full flex items-center justify-center`}>
-                            <h2 className={`text-sm font-bold ${colors[theme]["page-text"]} p-2`}>{translationApplication?.page} {currentPage}</h2>
+
+                            className={`w-full flex items-center ${colors[theme]["page-text"]} justify-center `}>
+                            {
+                                isModalOpen ?
+
+                                    (<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" className={`w-9 h-9 lg:w-12 lg:h-12 transition-all duration-1000 ease-linear ${colors[theme]["text"]}`} onClick={() => handleTogglePage()}>
+                                        <path fillRule="evenodd" d="M3 6a3 3 0 0 1 3-3h2.25a3 3 0 0 1 3 3v2.25a3 3 0 0 1-3 3H6a3 3 0 0 1-3-3V6Zm9.75 0a3 3 0 0 1 3-3H18a3 3 0 0 1 3 3v2.25a3 3 0 0 1-3 3h-2.25a3 3 0 0 1-3-3V6ZM3 15.75a3 3 0 0 1 3-3h2.25a3 3 0 0 1 3 3V18a3 3 0 0 1-3 3H6a3 3 0 0 1-3-3v-2.25Zm9.75 0a3 3 0 0 1 3-3H18a3 3 0 0 1 3 3V18a3 3 0 0 1-3 3h-2.25a3 3 0 0 1-3-3v-2.25Z" clipRule="evenodd" />
+                                    </svg>) :
+                                    (<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className={`w-9 h-9 lg:w-12 lg:h-12 transition-all duration-1000 ease-linear `} onClick={() => handleTogglePage()}>
+                                        <path strokeLinecap="round" strokeLinejoin="round" d="M3.75 6A2.25 2.25 0 0 1 6 3.75h2.25A2.25 2.25 0 0 1 10.5 6v2.25a2.25 2.25 0 0 1-2.25 2.25H6a2.25 2.25 0 0 1-2.25-2.25V6ZM3.75 15.75A2.25 2.25 0 0 1 6 13.5h2.25a2.25 2.25 0 0 1 2.25 2.25V18a2.25 2.25 0 0 1-2.25 2.25H6A2.25 2.25 0 0 1 3.75 18v-2.25ZM13.5 6a2.25 2.25 0 0 1 2.25-2.25H18A2.25 2.25 0 0 1 20.25 6v2.25A2.25 2.25 0 0 1 18 10.5h-2.25a2.25 2.25 0 0 1-2.25-2.25V6ZM13.5 15.75a2.25 2.25 0 0 1 2.25-2.25H18a2.25 2.25 0 0 1 2.25 2.25V18A2.25 2.25 0 0 1 18 20.25h-2.25A2.25 2.25 0 0 1 13.5 18v-2.25Z" />
+                                    </svg>)
+                            }
+
+                            <div className={`text-sm lg:text-lg flex transition-all duration-300 ease-linear ${isModalOpen ? "opacity-0 w-0" : "opacity-100 ml-3 p-1 "}`}>
+                                <div className={`font-bold text-center flex items-center justify-center ${colors[theme]["page-text"]}`}>
+                                    {translationApplication?.page}
+                                </div>
+                                <select
+                                    value={currentPage}
+                                    onChange={(e) => setCurrentPage(parseInt(e.target.value))}
+                                    className={`flex rounded ${colors[theme]["app-background"]} ${colors[theme]["page-text"]} py-2 pr-0.5 text-right`}
+                                >
+                                    {pages.map((page, index) => (
+                                        <option key={index} value={page}>
+                                            {page}
+                                        </option>
+                                    ))}
+                                </select>
+                            </div>
                         </div>
                         <button onClick={nextPage}
-                            className={`w-1/2 ${colors[theme]["app-text"]} px-2 mb-1 rounded ml-2 flex justify-center`}>
-                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className={`w-7 h-7`}>
+                            disabled={isModalOpen}
+                            className={`w-1/2 ${colors[theme]["app-text"]} px-2 mb-1 rounded ml-2 flex justify-center transition-all duration-700 ease-linear ${isModalOpen ? "opacity-0" : "opacity-100"}`}>
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className={`w-7 h-7 lg:w-12 lg:h-12`}>
                                 <path strokeLinecap="round" strokeLinejoin="round" d="M15 15l6-6m0 0l-6-6m6 6H9a6 6 0 000 12h3" />
                             </svg>
                         </button>

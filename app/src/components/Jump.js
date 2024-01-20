@@ -11,6 +11,8 @@ const Jump = ({ onChangeLanguage, suraNames, onChangeTheme, colors, theme, trans
     const [showThemes, setShowThemes] = useState(false);
 
     const [suraNameMap, setSuraNameMap] = useState({});
+    const [lightOpen, setLightOpen] = useState(false);
+
 
     useEffect(() => {
         let themap = {}
@@ -87,6 +89,7 @@ const Jump = ({ onChangeLanguage, suraNames, onChangeTheme, colors, theme, trans
     };
 
     const handleVerseChange = (e) => {
+        setLightOpen(true)
         const newVerseNumber = e.target.value;
         setVerseNumber(newVerseNumber);
 
@@ -124,7 +127,7 @@ const Jump = ({ onChangeLanguage, suraNames, onChangeTheme, colors, theme, trans
         };
 
         return (
-            <div className="flex space-x-7 ">
+            <div className={`flex space-x-7 ${showThemes ? "" : "h-0"}`}>
                 {Object.entries(themes).map(([theme, color]) => (
                     <label key={theme} className="cursor-pointer">
                         <input
@@ -135,7 +138,7 @@ const Jump = ({ onChangeLanguage, suraNames, onChangeTheme, colors, theme, trans
                             className="hidden"
                         />
                         <span
-                            className={`h-10 w-10 block rounded border border-gray-500`}
+                            className={` block rounded border border-gray-500 ${showThemes ? "h-10 w-10" : "hidden h-0 w-0"}`}
                             style={{ backgroundColor: color }}
                         ></span>
                     </label>
@@ -160,7 +163,7 @@ const Jump = ({ onChangeLanguage, suraNames, onChangeTheme, colors, theme, trans
                     </div>
                     <div className={`w-full flex justify-end place-self-end`}>
                         <button className={`flex justify-center`} onClick={onClose}>
-                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className={`w-7 h-7`}>
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className={`w-11 h-11`}>
                                 <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
                             </svg>
 
@@ -205,7 +208,7 @@ const Jump = ({ onChangeLanguage, suraNames, onChangeTheme, colors, theme, trans
                             </select>
                         </div>
                     </div>
-                    <div className={`w-full p-3 ${colors[theme]["app-text"]} flex-1 mt-3`}>
+                    <div className={`w-full p-2 ${colors[theme]["app-text"]} flex-1 mt-3`}>
                         <div className={`w-full ${colors[theme]["app-background"]} p-3 shadow-md rounded`}>
                             <div className={`flex w-full ${colors[theme]["app-text"]} mb-4 text-sm`}>
                                 {translationApplication?.page} {selectedPage}
@@ -242,66 +245,67 @@ const Jump = ({ onChangeLanguage, suraNames, onChangeTheme, colors, theme, trans
                             })}
                         </div>
                     </div>
-                    <div className={`flex w-full justify-between items-center ${colors[theme]["text"]} mt-3`}>
-                        <div className={`p-2 flex flex-col w-full items-center justify-between`}>
+                    <div className={`flex w-full justify-between items-center ${colors[theme]["text"]} space-x-2 px-2 pb-2`}>
+                        <div className={`flex flex-col w-full items-center justify-between pt-2 rounded shadow-md transition-all delay-150 duration-700 ease-in-out ${lightOpen ? "bg-sky-600" : colors[theme]["app-background"] }`}>
                             <button className={`flex justify-center`} onClick={handleSubmit}>
-                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className={`w-7 h-7`}>
+                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className={`w-11 h-11`}>
                                     <path strokeLinecap="round" strokeLinejoin="round" d="M9 8.25H7.5a2.25 2.25 0 00-2.25 2.25v9a2.25 2.25 0 002.25 2.25h9a2.25 2.25 0 002.25-2.25v-9a2.25 2.25 0 00-2.25-2.25H15m0-3l-3-3m0 0l-3 3m3-3V15" />
                                 </svg>
                             </button>
-                            <div className={`flex ${colors[theme]["page-text"]} text-sm items-center justify-center p-2`}>
+                            <div className={` flex text-sm items-center justify-center pb-2 ${lightOpen ? colors[theme]["text"] : colors[theme]["page-text"] }`}>
                                 {translationApplication?.open}
                             </div>
                         </div>
-                        <div className={`p-2 flex flex-col w-full items-center justify-between`}>
+                        <div className={`flex flex-col w-full items-center justify-between pt-2 rounded shadow-md ${colors[theme]["app-background"]}`}>
                             <button className={`flex justify-center`} onClick={goIntro}>
-                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" className={`w-7 h-7`}>
+                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" className={`w-11 h-11`}>
                                     <path fillRule="evenodd" d="M7.5 3.75A1.5 1.5 0 006 5.25v13.5a1.5 1.5 0 001.5 1.5h6a1.5 1.5 0 001.5-1.5V15a.75.75 0 011.5 0v3.75a3 3 0 01-3 3h-6a3 3 0 01-3-3V5.25a3 3 0 013-3h6a3 3 0 013 3V9A.75.75 0 0115 9V5.25a1.5 1.5 0 00-1.5-1.5h-6zm5.03 4.72a.75.75 0 010 1.06l-1.72 1.72h10.94a.75.75 0 010 1.5H10.81l1.72 1.72a.75.75 0 11-1.06 1.06l-3-3a.75.75 0 010-1.06l3-3a.75.75 0 011.06 0z" clipRule="evenodd" />
                                 </svg>
                             </button>
-                            <div className={`flex ${colors[theme]["page-text"]} text-sm items-center justify-center p-2`}>
+                            <div className={`flex ${colors[theme]["page-text"]} text-sm items-center justify-center pb-2`}>
                                 {translationApplication?.intro}
                             </div>
                         </div>
-                        <div className={`p-2 flex flex-col w-full items-center justify-between`}>
+                        <div className={`flex flex-col w-full items-center justify-between pt-2 rounded shadow-md ${colors[theme]["app-background"]}`}>
 
                             <button className={`flex justify-center`} onClick={goApps}>
-                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" className={`w-7 h-7`}>
+                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" className={`w-11 h-11`}>
                                     <path fillRule="evenodd" d="M7.5 3.75A1.5 1.5 0 006 5.25v13.5a1.5 1.5 0 001.5 1.5h6a1.5 1.5 0 001.5-1.5V15a.75.75 0 011.5 0v3.75a3 3 0 01-3 3h-6a3 3 0 01-3-3V5.25a3 3 0 013-3h6a3 3 0 013 3V9A.75.75 0 0115 9V5.25a1.5 1.5 0 00-1.5-1.5h-6zm10.72 4.72a.75.75 0 011.06 0l3 3a.75.75 0 010 1.06l-3 3a.75.75 0 11-1.06-1.06l1.72-1.72H9a.75.75 0 010-1.5h10.94l-1.72-1.72a.75.75 0 010-1.06z" clipRule="evenodd" />
                                 </svg>
                             </button>
-                            <div className={`flex ${colors[theme]["page-text"]} text-sm items-center justify-center p-2`}>
+                            <div className={`flex ${colors[theme]["page-text"]} text-sm items-center justify-center pb-2`}>
                                 {translationApplication?.appendices}
                             </div>
                         </div>
-                        <div className={`p-2 flex flex-col w-full items-center justify-between`}>
+                        <div className={`flex flex-col w-full items-center justify-between pt-2 rounded shadow-md ${colors[theme]["app-background"]}`}>
                             <button className={`flex justify-center`} onClick={toggleThemeView}>
                                 {showThemes ?
-                                    (<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" className="w-6 h-6">
+                                    (<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" className={`w-11 h-11`}>
                                         <path fillRule="evenodd" d="M2.25 4.125c0-1.036.84-1.875 1.875-1.875h5.25c1.036 0 1.875.84 1.875 1.875V17.25a4.5 4.5 0 1 1-9 0V4.125Zm4.5 14.25a1.125 1.125 0 1 0 0-2.25 1.125 1.125 0 0 0 0 2.25Z" clipRule="evenodd" />
                                         <path d="M10.719 21.75h9.156c1.036 0 1.875-.84 1.875-1.875v-5.25c0-1.036-.84-1.875-1.875-1.875h-.14l-8.742 8.743c-.09.089-.18.175-.274.257ZM12.738 17.625l6.474-6.474a1.875 1.875 0 0 0 0-2.651L15.5 4.787a1.875 1.875 0 0 0-2.651 0l-.1.099V17.25c0 .126-.003.251-.01.375Z" />
                                     </svg>
                                     ) :
-                                    (<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6">
+                                    (<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className={`w-11 h-11`}>
                                         <path strokeLinecap="round" strokeLinejoin="round" d="M4.098 19.902a3.75 3.75 0 0 0 5.304 0l6.401-6.402M6.75 21A3.75 3.75 0 0 1 3 17.25V4.125C3 3.504 3.504 3 4.125 3h5.25c.621 0 1.125.504 1.125 1.125v4.072M6.75 21a3.75 3.75 0 0 0 3.75-3.75V8.197M6.75 21h13.125c.621 0 1.125-.504 1.125-1.125v-5.25c0-.621-.504-1.125-1.125-1.125h-4.072M10.5 8.197l2.88-2.88c.438-.439 1.15-.439 1.59 0l3.712 3.713c.44.44.44 1.152 0 1.59l-2.879 2.88M6.75 17.25h.008v.008H6.75v-.008Z" />
                                     </svg>
 
                                     )}
 
                             </button>
-                            <div className={`flex ${colors[theme]["page-text"]} text-sm items-center justify-center p-2`}>
+                            <div className={`flex ${colors[theme]["page-text"]} text-sm items-center justify-center pb-2`}>
                                 {translationApplication?.color}
                             </div>
                         </div>
                     </div>
-                    {showThemes &&
-                        <div className={`flex flex-col items-center justify-center w-full p-2`}>
-                            <div className={`transition-colors duration-700 ease-linear flex flex-col items-center justify-center ${colors[theme]["app-background"]} rounded shadow-md w-full p-3 mx-2`}>
+                    {
+                        <div className={`flex flex-col items-center justify-center w-full transition-all duration-200 ease-linear ${showThemes ? "p-2" : "h-0"}`}>
+                            <div className={`transition-colors duration-700 ease-linear flex flex-col items-center justify-center ${colors[theme]["app-background"]} rounded shadow-md w-full ${showThemes ? "p-3" : "h-0"} mx-2`}>
                                 <div>
                                     <ThemePicker onChangeTheme={onChangeTheme} />
                                 </div>
                             </div>
-                        </div>}
+                        </div>
+                    }
                 </div>
 
             </div>
