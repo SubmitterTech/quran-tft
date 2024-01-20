@@ -104,7 +104,7 @@ const Apps = ({ colors, theme, translationApplication, parseReferences, appendic
 
     useEffect(() => {
         if (selectedApp && isRefsReady && visibleAppendices && appRefs.current[`appendix-${selectedApp}`]) {
-            if(restoreAppText.current ) {
+            if (restoreAppText.current && refToRestore.cure) {
                 textRef.current[refToRestore.current].scrollIntoView({ behavior: 'smooth', block: 'center' });
             } else {
                 appRefs.current[`appendix-${selectedApp}`].scrollIntoView({ behavior: 'smooth' });
@@ -174,7 +174,7 @@ const Apps = ({ colors, theme, translationApplication, parseReferences, appendic
 
     const handleClick = (_e, n, i) => {
         setSelectedApp(n);
-        refToRestore.current = n + "-" +i;
+        refToRestore.current = n + "-" + i;
     };
 
     const renderAppendices = () => {
@@ -198,7 +198,7 @@ const Apps = ({ colors, theme, translationApplication, parseReferences, appendic
                         <div
                             lang={lang}
                             key={`text-${index}`}
-                            ref={(el) => textRef.current[appno+"-"+index] = el}
+                            ref={(el) => textRef.current[appno + "-" + index] = el}
                             onClick={(e) => handleClick(e, appno, index)}
                             className={`rounded ${colors[theme]["text-background"]} ${colors[theme]["app-text"]} p-2 shadow-md mb-3 flex w-full text-justify hyphens-auto`}>
                             <p className={`px-1 break-words`}>{parseReferences(item.content)}</p>
@@ -287,8 +287,8 @@ const Apps = ({ colors, theme, translationApplication, parseReferences, appendic
         return visibleAppendices.map(appendixNum => {
             const appendixContent = appendixMap[appendixNum]?.content || [];
             return (
-                <div className={`p-1`} key={appendixNum}  ref={() => handleRefsReady()}>
-                    {appendixContent.map((item, index) => renderContentItem(appendixNum,item, `${item.type}-${index}`))}
+                <div className={`p-1`} key={appendixNum} ref={() => handleRefsReady()}>
+                    {appendixContent.map((item, index) => renderContentItem(appendixNum, item, `${item.type}-${index}`))}
                 </div>
             );
         });
