@@ -151,7 +151,7 @@ const Jump = ({ onChangeLanguage, suraNames, onChangeTheme, colors, theme, trans
     return (
         <div className={`w-screen h-screen animated faster fixed left-0 top-0 flex flex-col items-center justify-center inset-0 z-10 outline-none focus:outline-none backdrop-blur-lg`} id="jump-screen">
 
-            <div className={`w-full p-2 flex flex-col transition-all duration-700 ease-linear mb-12`}>
+            <div className={`w-full lg:w-1/2 p-2 flex flex-col transition-all duration-700 ease-linear mb-12`}>
 
                 <div className={`w-full flex justify-between ${colors[theme]["text"]} mb-2`}>
                     <div className={`w-full flex justify-start ml-2`}>
@@ -310,7 +310,7 @@ const Jump = ({ onChangeLanguage, suraNames, onChangeTheme, colors, theme, trans
 
             </div>
 
-            <div className={`w-full fixed top-0 flex justify-center`}>
+            <div className={`w-full lg:w-1/2 sticky top-0 flex justify-center`}>
                 <select
                     id="languagepicker"
                     name="langpick"
