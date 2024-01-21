@@ -765,56 +765,60 @@ const Book = ({ onChangeTheme, colors, theme, translationApplication, introducti
     return (
         <div className={`flex flex-col justify-start h-screen ${colors[theme]["app-background"]}`}>
             {renderBookContent()}
-            {parseInt(currentPage) < 397 &&
-                <div className={`w-full flex z-20 p-0.5 backdrop-blur-xl`}>
-                    <div className={`flex w-full items-center justify-between`}>
-                        <button onClick={prevPage}
-                            disabled={isModalOpen}
-                            className={`w-1/2 ${colors[theme]["app-text"]} px-2 mb-1 rounded mr-2 flex justify-center transition-all duration-700 ease-linear ${isModalOpen ? "opacity-0" : "opacity-100"}`}>
-                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className={`w-7 h-7 lg:w-12 lg:h-12`}>
-                                <path strokeLinecap="round" strokeLinejoin="round" d="M9 15L3 9m0 0l6-6M3 9h12a6 6 0 010 12h-3" />
-                            </svg>
-                        </button>
-                        <div
+            {(parseInt(currentPage) < 397 && !isSearchOpen) &&
+                <div>
+                    <div className="h-12"></div>
+                    <div className={`w-full flex z-20 p-0.5 ${colors[theme]["app-background"]} fixed bottom-0`}>
+                        <div className={`flex w-full items-center justify-between`}>
+                            <button onClick={prevPage}
+                                disabled={isModalOpen}
+                                className={`w-1/2 ${colors[theme]["app-text"]} px-2 mb-1 rounded mr-2 flex justify-center transition-all duration-700 ease-linear ${isModalOpen ? "opacity-0" : "opacity-100"}`}>
+                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className={`w-7 h-7 lg:w-12 lg:h-12`}>
+                                    <path strokeLinecap="round" strokeLinejoin="round" d="M9 15L3 9m0 0l6-6M3 9h12a6 6 0 010 12h-3" />
+                                </svg>
+                            </button>
+                            <div
 
-                            className={`w-full flex items-center ${colors[theme]["page-text"]} justify-center `}>
-                            {
-                                isModalOpen ?
+                                className={`w-full flex items-center ${colors[theme]["page-text"]} justify-center `}>
+                                {
+                                    isModalOpen ?
 
-                                    (<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" className={`w-9 h-9 lg:w-12 lg:h-12 transition-all duration-1000 ease-linear ${colors[theme]["text"]}`} onClick={() => handleTogglePage()}>
-                                        <path fillRule="evenodd" d="M3 6a3 3 0 0 1 3-3h2.25a3 3 0 0 1 3 3v2.25a3 3 0 0 1-3 3H6a3 3 0 0 1-3-3V6Zm9.75 0a3 3 0 0 1 3-3H18a3 3 0 0 1 3 3v2.25a3 3 0 0 1-3 3h-2.25a3 3 0 0 1-3-3V6ZM3 15.75a3 3 0 0 1 3-3h2.25a3 3 0 0 1 3 3V18a3 3 0 0 1-3 3H6a3 3 0 0 1-3-3v-2.25Zm9.75 0a3 3 0 0 1 3-3H18a3 3 0 0 1 3 3V18a3 3 0 0 1-3 3h-2.25a3 3 0 0 1-3-3v-2.25Z" clipRule="evenodd" />
-                                    </svg>) :
-                                    (<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className={`w-9 h-9 lg:w-12 lg:h-12 transition-all duration-1000 ease-linear `} onClick={() => handleTogglePage()}>
-                                        <path strokeLinecap="round" strokeLinejoin="round" d="M3.75 6A2.25 2.25 0 0 1 6 3.75h2.25A2.25 2.25 0 0 1 10.5 6v2.25a2.25 2.25 0 0 1-2.25 2.25H6a2.25 2.25 0 0 1-2.25-2.25V6ZM3.75 15.75A2.25 2.25 0 0 1 6 13.5h2.25a2.25 2.25 0 0 1 2.25 2.25V18a2.25 2.25 0 0 1-2.25 2.25H6A2.25 2.25 0 0 1 3.75 18v-2.25ZM13.5 6a2.25 2.25 0 0 1 2.25-2.25H18A2.25 2.25 0 0 1 20.25 6v2.25A2.25 2.25 0 0 1 18 10.5h-2.25a2.25 2.25 0 0 1-2.25-2.25V6ZM13.5 15.75a2.25 2.25 0 0 1 2.25-2.25H18a2.25 2.25 0 0 1 2.25 2.25V18A2.25 2.25 0 0 1 18 20.25h-2.25A2.25 2.25 0 0 1 13.5 18v-2.25Z" />
-                                    </svg>)
-                            }
+                                        (<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" className={`w-9 h-9 lg:w-12 lg:h-12 transition-all duration-1000 ease-linear ${colors[theme]["text"]}`} onClick={() => handleTogglePage()}>
+                                            <path fillRule="evenodd" d="M3 6a3 3 0 0 1 3-3h2.25a3 3 0 0 1 3 3v2.25a3 3 0 0 1-3 3H6a3 3 0 0 1-3-3V6Zm9.75 0a3 3 0 0 1 3-3H18a3 3 0 0 1 3 3v2.25a3 3 0 0 1-3 3h-2.25a3 3 0 0 1-3-3V6ZM3 15.75a3 3 0 0 1 3-3h2.25a3 3 0 0 1 3 3V18a3 3 0 0 1-3 3H6a3 3 0 0 1-3-3v-2.25Zm9.75 0a3 3 0 0 1 3-3H18a3 3 0 0 1 3 3V18a3 3 0 0 1-3 3h-2.25a3 3 0 0 1-3-3v-2.25Z" clipRule="evenodd" />
+                                        </svg>) :
+                                        (<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className={`w-9 h-9 lg:w-12 lg:h-12 transition-all duration-1000 ease-linear `} onClick={() => handleTogglePage()}>
+                                            <path strokeLinecap="round" strokeLinejoin="round" d="M3.75 6A2.25 2.25 0 0 1 6 3.75h2.25A2.25 2.25 0 0 1 10.5 6v2.25a2.25 2.25 0 0 1-2.25 2.25H6a2.25 2.25 0 0 1-2.25-2.25V6ZM3.75 15.75A2.25 2.25 0 0 1 6 13.5h2.25a2.25 2.25 0 0 1 2.25 2.25V18a2.25 2.25 0 0 1-2.25 2.25H6A2.25 2.25 0 0 1 3.75 18v-2.25ZM13.5 6a2.25 2.25 0 0 1 2.25-2.25H18A2.25 2.25 0 0 1 20.25 6v2.25A2.25 2.25 0 0 1 18 10.5h-2.25a2.25 2.25 0 0 1-2.25-2.25V6ZM13.5 15.75a2.25 2.25 0 0 1 2.25-2.25H18a2.25 2.25 0 0 1 2.25 2.25V18A2.25 2.25 0 0 1 18 20.25h-2.25A2.25 2.25 0 0 1 13.5 18v-2.25Z" />
+                                        </svg>)
+                                }
 
-                            <div className={`text-sm lg:text-lg flex transition-all duration-300 ease-linear ${isModalOpen ? "opacity-0 w-0" : "opacity-100 ml-3 p-1 "}`}>
-                                <div className={`font-bold text-center flex items-center justify-center ${colors[theme]["page-text"]}`}>
-                                    {translationApplication?.page}
+                                <div className={`text-sm lg:text-lg flex transition-all duration-300 ease-linear ${isModalOpen ? "opacity-0 w-0" : "opacity-100 ml-3 p-1 "}`}>
+                                    <div className={`font-bold text-center flex items-center justify-center ${colors[theme]["page-text"]}`}>
+                                        {translationApplication?.page}
+                                    </div>
+                                    <select
+                                        value={currentPage}
+                                        onChange={(e) => setCurrentPage(parseInt(e.target.value))}
+                                        className={`flex rounded ${colors[theme]["app-background"]} ${colors[theme]["page-text"]} py-2 pr-0.5 text-right`}
+                                    >
+                                        {pages.map((page, index) => (
+                                            <option key={index} value={page}>
+                                                {page}
+                                            </option>
+                                        ))}
+                                    </select>
                                 </div>
-                                <select
-                                    value={currentPage}
-                                    onChange={(e) => setCurrentPage(parseInt(e.target.value))}
-                                    className={`flex rounded ${colors[theme]["app-background"]} ${colors[theme]["page-text"]} py-2 pr-0.5 text-right`}
-                                >
-                                    {pages.map((page, index) => (
-                                        <option key={index} value={page}>
-                                            {page}
-                                        </option>
-                                    ))}
-                                </select>
                             </div>
+                            <button onClick={nextPage}
+                                disabled={isModalOpen}
+                                className={`w-1/2 ${colors[theme]["app-text"]} px-2 mb-1 rounded ml-2 flex justify-center transition-all duration-700 ease-linear ${isModalOpen ? "opacity-0" : "opacity-100"}`}>
+                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className={`w-7 h-7 lg:w-12 lg:h-12`}>
+                                    <path strokeLinecap="round" strokeLinejoin="round" d="M15 15l6-6m0 0l-6-6m6 6H9a6 6 0 000 12h3" />
+                                </svg>
+                            </button>
                         </div>
-                        <button onClick={nextPage}
-                            disabled={isModalOpen}
-                            className={`w-1/2 ${colors[theme]["app-text"]} px-2 mb-1 rounded ml-2 flex justify-center transition-all duration-700 ease-linear ${isModalOpen ? "opacity-0" : "opacity-100"}`}>
-                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className={`w-7 h-7 lg:w-12 lg:h-12`}>
-                                <path strokeLinecap="round" strokeLinejoin="round" d="M15 15l6-6m0 0l-6-6m6 6H9a6 6 0 000 12h3" />
-                            </svg>
-                        </button>
                     </div>
-                </div>}
+                </div>
+            }
             {isModalOpen &&
                 <Jump
                     onChangeLanguage={onChangeLanguage}
