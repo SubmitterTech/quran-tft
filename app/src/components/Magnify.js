@@ -274,9 +274,9 @@ const Magnify = ({ colors, theme, translationApplication, quran, map, onClose, o
                 </div>
             </div>
             {searchTerm.length > 1 &&
-                <div className={`flex flex-col flex-1 space-y-1 w-full overflow-auto mb-10 `}>
+                <div className={`flex flex-col flex-1 space-y-1 w-full overflow-auto mb-10`}>
 
-                    <div className={`${loadedTitles.length > 0 ? "basis-2/12 p-1 mx-1 border" : "h-0 "}  overflow-auto rounded ${colors[theme]["verse-border"]} ${colors[theme]["text-background"]}`}>
+                    <div className={`${loadedTitles.length > 0 ? (loadedVerses.length > 0 && loadedNotes.length > 0) ? "basis-2/12  p-1 mx-1.5 border" : "flex-1 p-1 mx-1.5 border" : "h-0 "} transition-all duration-200 ease-linear  overflow-auto rounded ${colors[theme]["verse-border"]} ${colors[theme]["text-background"]}`}>
                         <div className={`${loadedTitles.length > 0 ? "opacity-100" : "opacity-0 h-0"} sticky -top-1 text-sm md:text-base text-center rounded backdrop-blur-xl ${colors[theme]["page-text"]}`}>
                             {translationApplication.titles}
                         </div>
@@ -295,13 +295,13 @@ const Magnify = ({ colors, theme, translationApplication, quran, map, onClose, o
                         </div>
                     </div>
 
-                    <div className={`${loadedVerses.length > 0 ? "basis-7/12 p-1 mx-1 border" : "h-0 "}  overflow-auto rounded ${colors[theme]["verse-border"]} ${colors[theme]["base-background"]}`}>
+                    <div className={`${loadedVerses.length > 0 ? (loadedNotes.length > 0 && loadedTitles.length > 0) ? "basis-7/12  p-1 mx-1.5 border" : "flex-1 p-1 mx-1.5 border" : "h-0 "} transition-all duration-200 ease-linear overflow-auto rounded ${colors[theme]["verse-border"]} ${colors[theme]["base-background"]}`}>
                         <div className={`${loadedVerses.length > 0 ? "opacity-100" : "opacity-0 h-0"} sticky -top-1 text-sm md:text-base text-center rounded backdrop-blur-xl ${colors[theme]["page-text"]}`}>
                             {translationApplication.verses}
                         </div>
                         <div
                             lang={lang}
-                            className={`text-sm md:text-base text-justify hyphens-auto w-full ${colors[theme]["text"]} transition-all duration-200 ease-linear ${loadedVerses.length > 0 ? "max-h-full" : "h-0 "}`}>
+                            className={`text-sm md:text-base text-justify hyphens-auto w-full ${colors[theme]["text"]} ${loadedVerses.length > 0 ? "max-h-full" : "h-0 "}`}>
                             <div className={`w-full flex flex-col space-y-1.5`}>
                                 {loadedVerses.map((result, index) => (
                                     <div
@@ -316,7 +316,7 @@ const Magnify = ({ colors, theme, translationApplication, quran, map, onClose, o
                         </div>
                     </div>
 
-                    <div className={`${loadedNotes.length > 0 ? "basis-3/12 p-1 mx-1 border" : "h-0 "} overflow-auto rounded ${colors[theme]["verse-border"]} ${colors[theme]["base-background"]}`}>
+                    <div className={`${loadedNotes.length > 0 ? (loadedVerses.length > 0 && loadedTitles.length > 0) ? "basis-3/12  p-1 mx-1.5 border" : "flex-1 p-1 mx-1.5 border" : "h-0 "} transition-all duration-200 ease-linear  overflow-auto rounded ${colors[theme]["verse-border"]} ${colors[theme]["base-background"]}`}>
                         <div className={`${loadedNotes.length > 0 ? "opacity-100" : "opacity-0 "} sticky -top-1 text-sm md:text-base text-center rounded backdrop-blur-xl  ${colors[theme]["page-text"]}`}>
                             {translationApplication.notes}
                         </div>
