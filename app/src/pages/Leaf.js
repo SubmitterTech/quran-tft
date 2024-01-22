@@ -1,69 +1,118 @@
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
+import defaultQuran from '../assets/qurantft.json'; // Import the default Quran data
 
-import quran from '../assets/qurantft.json';
-
-function Leaf() {
-    const { params } = useParams();
+const Leaf = () => {
+    const { lang = process.env.REACT_APP_DEFAULT_LANG || 'en', params } = useParams();
     const [quranmap, setQuranmap] = useState({});
-
     const [verseList, setVerseList] = useState({});
     const [titleList, setTitleList] = useState({});
 
     useEffect(() => {
-        let qm = {};
-        Object.values(quran).forEach((value) => {
-            Object.entries(value.sura).forEach(([sura, content]) => {
-                // Initialize qm[sura] as an object if it doesn't exist
-                if (!qm[sura]) {
-                    qm[sura] = {};
-                }
+        // Function to process and set Quran data
+        const processQuranData = (quranData) => {
+            let qm = {};
+            Object.values(quranData).forEach((value) => {
+                Object.entries(value.sura).forEach(([sura, content]) => {
+                    if (!qm[sura]) {
+                        qm[sura] = {};
+                    }
 
-                Object.entries(content.verses).forEach(([verse, text]) => {
-                    qm[sura][verse] = text;
-                });
+                    Object.entries(content.verses).forEach(([verse, text]) => {
+                        qm[sura][verse] = text;
+                    });
 
-                Object.entries(content.titles).forEach(([title, text]) => {
-                    qm[sura]["t" + title] = text;
+                    Object.entries(content.titles).forEach(([title, text]) => {
+                        qm[sura]["t" + title] = text;
+                    });
                 });
             });
-        });
-        setQuranmap(qm);
-    }, []);
+            setQuranmap(qm);
+        };
+
+        if (lang && lang !== 'en') {
+            // Dynamically load the translated Quran for the specified language
+            import(`../assets/translations/${lang}/quran_${lang}.json`)
+                .then(translatedQuran => {
+                    processQuranData(translatedQuran.default);
+                })
+                .catch(error => {
+                    console.error("Error loading the translated Quran: ", error);
+                    // Fallback to default Quran in case of error
+                    processQuranData(defaultQuran);
+                });
+        } else {
+            // Use the default Quran data
+            processQuranData(defaultQuran);
+        }
+    }, [lang]);
 
     useEffect(() => {
-
         let vl = {};
         let tl = {};
-        params.split(";").forEach((key) => {
-            const [s, v] = key.trim().split(":")
-            if (quranmap && quranmap[s]) {
-                vl[key] = quranmap[s][v]
-                if (quranmap[s]["t" + v]) {
-                    tl[key] = quranmap[s]["t" + v]
-                }
+    
+        params.split(";").forEach((param) => {
+            const trimmedParam = param.trim();
+            if (!trimmedParam) {
+                return;
             }
+    
+            const [surah, versesString] = trimmedParam.split(":");
+            if (!versesString) {
+                return;
+            }
+    
+            const verseParts = versesString.split(",").filter(versePart => versePart.trim() !== "");
+    
+            verseParts.forEach((versePart) => {
+                if (versePart.includes("-")) {
+                    // Handling range of verses
+                    const [start, end] = versePart.split("-").map(Number);
+                    if (!isNaN(start) && !isNaN(end)) {
+                        for (let verse = start; verse <= end; verse++) {
+                            const key = `${surah}:${verse}`;
+                            addVerseToCollection(key, surah, verse);
+                        }
+                    }
+                } else {
+                    // Handling a single verse
+                    const verse = Number(versePart);
+                    if (!isNaN(verse)) {
+                        const key = `${surah}:${verse}`;
+                        addVerseToCollection(key, surah, verse);
+                    }
+                }
+            });
         });
-
+    
         setVerseList(vl);
         setTitleList(tl);
-
+    
+        function addVerseToCollection(key, surah, verse) {
+            if (quranmap && quranmap[surah]) {
+                vl[key] = quranmap[surah][verse];
+                if (quranmap[surah]["t" + verse]) {
+                    tl[key] = quranmap[surah]["t" + verse];
+                }
+            }
+        }
+    
     }, [params, quranmap]);
-
+    
     return (
-        <div className={`select-text w-screen h-screen bg-gradient-to-r from-sky-400 to-cyan-400 pl-2 py-2 flex flex-col justify-center`}>
-            <div className={`w-full flex flex-col overflow-auto pr-2`}>
+        <div className={`select-text w-screen h-screen bg-gradient-to-r from-sky-400 to-cyan-400 pl-2 py-2 flex flex-col justify-center items-center`}>
+            <div className={`w-full lg:w-1/2 flex flex-col overflow-auto pr-2`}>
                 {Object.entries(verseList).map(([key, text]) => (
-                    <div className={` text-neutral-100 text-justify hyphens-auto p-1.5`}>
-                        <div key={key} className={`text-center hyphens-auto p-1.5 text-neutral-900`}>
+                    <div key={key} className={` text-neutral-100 text-justify hyphens-auto p-1.5`}>
+                        {/* <div className={`text-center hyphens-auto p-1.5 text-neutral-900`}>
                             {key}
-                        </div>
+                        </div> */}
                         {titleList[key] &&
-                            <div key={key + "title"} className={`rounded shadow-md bg-sky-800/90 text-justify hyphens-auto py-1.5 px-2 mb-2`}>
+                            <div key={key + "title"} className={`rounded shadow-lg bg-sky-900/90 text-justify hyphens-auto py-2 px-2.5 mb-1.5`}>
                                 {titleList[key]}
                             </div>}
-                        <div key={key + "verse"} className={`rounded shadow-md bg-neutral-900/90 text-justify hyphens-auto py-1.5 px-2`}>
-                            {text}
+                        <div key={key + "verse"} className={`rounded shadow-lg bg-neutral-900/90 text-justify hyphens-auto py-1.5 px-2 mb-2`}>
+                            <span className={`text-sky-500`}>{key}</span> {text}
                         </div>
                     </div>
                 ))}
