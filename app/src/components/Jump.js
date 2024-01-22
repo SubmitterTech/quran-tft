@@ -109,7 +109,7 @@ const Jump = ({ onChangeLanguage, suraNames, onChangeTheme, colors, theme, trans
     };
 
     const goApps = () => {
-        onConfirm("395");
+        onConfirm("396");
         onClose();
     };
 
