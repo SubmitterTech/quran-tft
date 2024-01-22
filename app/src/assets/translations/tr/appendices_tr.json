@@ -70,7 +70,7 @@
         "evidence": {
             "2": {
                 "lines": {
-                    "1": "Kuran, herhangi insan yazması bir kitapta hiçbir zaman bulunamamış ben-zersiz bir olguyla karakterizedir. Kuran’ın her bir bileşeni matematiksel olarak oluşturulmuştur—sureler, ayetler, kelimeler, belirli harflerin sayısı, aynı kökten gelen kelimelerin sayısı, ilahi isimlerin sayısı ve çeşitliliği, belirli kelimelerin benzersiz yazımı, belirli kelimelerin içindeki belirli harflerin yokluğu veya kasıtlı olarak değiştirilmesi ve Kuran’ın, içeriğinin yanı sıra diğer birçok unsuru. Kuran’ın matematiksel sisteminin iki önemli yönü vardır: (1) Matematiksel edebi yapı ve (2) Sure ve ayetlerin sayılarını içeren matematiksel yapı. Bu kapsamlı matematiksel kodlama nedeniyle, Kuran’ın metninin veya fiziksel düzenlemesinin en ufak bozuluşu hemen ifşa olur."
+                    "1": "Kuran, herhangi insan yazması bir kitapta hiçbir zaman bulunamamış benzersiz bir olguyla karakterizedir. Kuran’ın her bir bileşeni matematiksel olarak oluşturulmuştur—sureler, ayetler, kelimeler, belirli harflerin sayısı, aynı kökten gelen kelimelerin sayısı, ilahi isimlerin sayısı ve çeşitliliği, belirli kelimelerin benzersiz yazımı, belirli kelimelerin içindeki belirli harflerin yokluğu veya kasıtlı olarak değiştirilmesi ve Kuran’ın, içeriğinin yanı sıra diğer birçok unsuru. Kuran’ın matematiksel sisteminin iki önemli yönü vardır: (1) Matematiksel edebi yapı ve (2) Sure ve ayetlerin sayılarını içeren matematiksel yapı. Bu kapsamlı matematiksel kodlama nedeniyle, Kuran’ın metninin veya fiziksel düzenlemesinin en ufak bozuluşu hemen ifşa olur."
                 },
                 "ref": [
                     "74:35"
@@ -371,7 +371,7 @@
             "5": "Sure 42, 53 ayet içerir ve 42 + 53 = 95 = 19x5",
             "6": "Sure 50, 45 ayet içerir ve 50 + 45 = 95 = 19x5, Sure 42 ile aynı toplam.",
             "7": "Kuran boyunca her “19. ayetteki” “Q” harfi sayıldığında toplam sayı 76 oluyor, 19x4. İşte Q ile ilgili verilerin bir özeti:",
-            "9": "Kuran’ın matematiksel yapısının belirtileri ortaya çıkmaya başlamıştı. Örneğin, Lut’u inkâr eden insanlardan 50:13’te bahsedildiği ve Kuran’da 13 kez geçtiği—7:80; 11:70, 74, 89; 21:74; 22:43; 26:160; 27:54, 56; 29:28; 38:13; 50:13 ve 54:33—gözlemlendi. Tutarlı bir şekilde onlardan “Qavm” olarak bahsedilir, “İhvan” olarak söz edildikleri Q-başlangıçlı Sure 50’deki tek istisna hariç. Belli ki eğer her zamanki Q-içeren kelime olan “Qavm” kullanılsaydı, Sure 50’deki “Q” sayısı 58 olacaktı ve tüm bu olgu ortadan kalkacaktı. Matematiğin geçerliliği kabul edilmiş mutlak kesinliği nedeniyle, tek bir harfin değişikliği sistemi yok eder."
+            "9": "Kuran’ın matematiksel yapısının belirtileri ortaya çıkmaya başlamıştı. Örneğin, Lut’u inkâr eden insanlardan 50:13’te bahsedildiği ve Kuran’da 13 kez geçtiği—7:80; 11:70, 11:74, 11:89; 21:74; 22:43; 26:160; 27:54, 27:56; 29:28; 38:13; 50:13 ve 54:33—gözlemlendi. Tutarlı bir şekilde onlardan “Qavm” olarak bahsedilir, “İhvan” olarak söz edildikleri Q-başlangıçlı Sure 50’deki tek istisna hariç. Belli ki eğer her zamanki Q-içeren kelime olan “Qavm” kullanılsaydı, Sure 50’deki “Q” sayısı 58 olacaktı ve tüm bu olgu ortadan kalkacaktı. Matematiğin geçerliliği kabul edilmiş mutlak kesinliği nedeniyle, tek bir harfin değişikliği sistemi yok eder."
         },
         "picture": {},
         "evidence": {
@@ -517,7 +517,7 @@
             "2": {
                 "ref": "Tablo 4: A.L.M.-başlangıçlı Surelerde “A,” “L” ve “M” Harflerinin Geçişi",
                 "title": [
-                    "Sura No.",
+                    "Sure No.",
                     "Geçiş Sıklığı “A”",
                     "Geçiş Sıklığı “L”",
                     "Geçiş Sıklığı “M”",
@@ -564,7 +564,7 @@
             "4": {
                 "ref": "Tablo 5: A.L.R.-başlangıçlı Surelerde “A,” “L” ve “R” Harflerinin Geçişi",
                 "title": [
-                    "Sura No.",
+                    "Sure No.",
                     "Geçiş Sıklığı “A”",
                     "Geçiş Sıklığı “L”",
                     "Geçiş Sıklığı “R”",
@@ -630,7 +630,7 @@
             "5": {
                 "ref": "Tablo 6: Kuranî Başlangıçlar “H.,” “T.H.,” “T.S.” ve “T.S.M.” Kendi Surelerindeki Geçişleri",
                 "title": [
-                    "Sura No.",
+                    "Sure No.",
                     "Geçiş Sıklığı “H”",
                     "Geçiş Sıklığı “T”",
                     "Geçiş Sıklığı “S”",
@@ -1847,7 +1847,7 @@
             "1": "Tablo 7’de gösterildiği gibi, Arami, İbrani ve Arap alfabeleri, evrensel olarak kurulmuş bir sisteme göre sayılar olarak işlev görürlerdi. “BİR” için İbranice kelime “VAHD”dir (V-EHED şeklinde telaffuz edilir). Arapçada, “BİR” için olan kelime “WAHD”dır (VAHİD olarak telaffuz edilir). Tablo 20’ye bakınız.",
             "2": "Kuran’da “Kuran” kelimesi, “başka Kuran’a” atıfta bulunan 10:15’teki bir tane ile birlikte 58 kez geçmektedir. Bu özel geçiş, bu nedenle hariç tutulmalıdır. Böylelikle, “bu Kuran’ın” geçiş sıklığı Kuran’da 57 veya 19x3’tür.",
             "3": "“Kuran” kelimesinin diğer iki gramer formu 12 ayette geçmektedir. Bunlar arasında “Kuranun” kelimesi ile “Kuranehu” kelimesi bulunmaktadır. Bu geçişlerden bir tanesi, 13:31’de, dağların parçalanmasına neden olan “başka bir Kuran’a” atıfta bulunur. 41:44’teki başka bir geçiş ise “Arapça olmayan bir Kuran’a” atıfta bulunur. Bu iki geçiş bu nedenle hâriç tutulmalıdır. Tablo 21, “Kuran” kelimesinin bütün gramer formlarında geçtiği sure ve ayetlerin bir listesini göstermektedir.",
-            "4": "Kuran’ın ilk ayeti, Besmele olarak bilinen “En Lütufkâr, En Merhametli olan Tanrı’nın adıyla” ifadesi 19 Arapça harften oluşmaktadır. Onu oluşturan kelimeler, Kuran’da tutarlı bir şekilde 19’un katları şeklinde geçer.” known as Basmalah, consists of 19 Arabic letters. Its constituent words occur in the Quran consistently in multiples of 19."
+            "4": "Kuran’ın ilk ayeti, Besmele olarak bilinen “En Lütufkâr, En Merhametli olan Tanrı’nın adıyla” ifadesi 19 Arapça harften oluşmaktadır. Onu oluşturan kelimeler, Kuran’da tutarlı bir şekilde 19’un katları şeklinde geçer."
         },
         "picture": {},
         "table": {
@@ -2017,14 +2017,29 @@
                 "no": 10,
                 "text": "Besmele’nin dört kelimesi sol tarafta gösterilmektedir ve sayısal değerleri 19’a bölünebilen sadece dört ilahi isim vardır ve onlar da sağ taraftadır. Ortadaki sayılar, Besmele kelimelerinin geçiş sayılarıdır ve aynı zamanda dört ilahi ismin sayısal değerleridir.",
                 "data": [
-                    "Name",
-                    "God",
-                    "Most Gracious",
-                    "Most Merciful",
-                    "One",
-                    "Possessor of\nInfinite Grace",
-                    "Glorious",
-                    "Gatherer "
+                    "İsim",
+                    "Tanrı",
+                    "En Lütufkâr",
+                    "En Merhametli",
+                    "Bir",
+                    "Sonsuz Lütuf\nSahibi",
+                    "Şanlı",
+                    "Toplayan"
+                ]
+            }
+        },
+        "table": {
+            "3": {
+                "ref": "",
+                "title": [
+                    "İlahi İsim",
+                    "Sayısal Değer"
+                ],
+                "values" : [
+                    "“Vahid” (Bir)", "19",
+                    "“Zul Fadl El-‘Azim” (Sonsuz Lütuf Sahibi)", "2698",
+                    "“Mecid” (Şanlı)","57",
+                    "“Cami” (Toplayan)","114"
                 ]
             }
         },
@@ -2035,16 +2050,6 @@
                     "2": "İkinci kelime ........ “Allah” (Tanrı) ................................ 2698 kez (19x142).",
                     "3": "Üçüncü kelime............ “Er-Rahman” (En Lütufkar).................... 57 kez, 19x3.",
                     "4": "Dördüncü kelime.......... “Er-Rahim” (En Merhametli)................... 114 kez, 19x6."
-                },
-                "ref": []
-            },
-            "3": {
-                "lines": {
-                    "1": "Divine Name Gematrical Value",
-                    "2": "1. “Vahid” (Bir) ... 19",
-                    "3": "2. “Zul Fadl El-‘Azim” (Sonsuz Lütuf Sahibi) ... 2698",
-                    "4": "3. “Mecid” (Şanlı) ... 57",
-                    "5": "4. “Cami” (Toplayan) ... 114"
                 },
                 "ref": []
             }
@@ -2226,7 +2231,7 @@
             "1": "“Salat” kelimesi Kuran’da 67 kez geçmektedir ve bu 67 geçişin sure ve ayet numaralarını topladığımızda, toplamı 4674 veya 19x246 eder (INDEX OF THE QURAN’a [KURAN FİHRİSTİNE] bakınız).",
             "2": "Oruç buyruğundan 2:183, 2:184, 2:185, 2:187, 2:196; 4:92; 5:89, 5:95; 33:35, 33:35; & 58:4 ayetlerinde bahsedilmektedir. Bu sayıların toplamı 1387 veya 19x73’tür. Şu dikkate değerdir ki 33:35 oruçtan iki defa bahsetmektedir, birisi imanlı erkekler için, diğeri ise imanlı kadınlar için.",
             "4": "İlk üç “İslam Direği” tüm Müslüman erkek ve kadınlara zorunlu iken, Zekât ve Hac sadece gücü yetenler için hükme bağlanmıştır. Bu, Zekât ve Hac arasındaki ilginç matematiksel olguyu da açıklamaktadır.",
-            "5": "Zekât bağışından, 2:43, 2:83, 2:110, 2:177, 2:277; 4:77, 4:162; 5:12, 5:55, 7:156; 9:5, 9:11, 9:18, 9:71; 18:81; 19:13, 19:31, 19:55; 21:73; 22:41, 78; 23:4; 24:37, 56; 27:3; 30:39; 31:4; 33:33; 41:7; 58:13; 73:20 ve 98:5 ayetlerinde bahsedilmektedir. Bu sayıların toplamı 2395 eder. Bu toplam, bunu tam olarak 19’un katı yapmaz, 1 fazladır.",
+            "5": "Zekât bağışından, 2:43, 2:83, 2:110, 2:177, 2:277; 4:77, 4:162; 5:12, 5:55, 7:156; 9:5, 9:11, 9:18, 9:71; 18:81; 19:13, 19:31, 19:55; 21:73; 22:41, 22:78; 23:4; 24:37, 24:56; 27:3; 30:39; 31:4; 33:33; 41:7; 58:13; 73:20 ve 98:5 ayetlerinde bahsedilmektedir. Bu sayıların toplamı 2395 eder. Bu toplam, bunu tam olarak 19’un katı yapmaz, 1 fazladır.",
             "6": "Kutsal Hac Yolculuğu ise 2:189, 2:196, 2:197; 9:3 ve 22:27 ayetlerinde geçer. Bu sayıların toplamı 645 eder ve bu toplam, bunu tam olarak 19’un katı yapmaz; 1 eksiktir.",
             "7": "Böylelikle, Zekât ve Hac, birlikte 2395 + 645 = 3040 = 19x160 toplamını verir.",
             "8": "Kuran’ın sureleri, ayetleri, kelimeleri ve harfleri sadece matematiksel olarak oluşturulmamıştır, aynı zamanda tamamen matematiksel olan insanüstü bir yapı halinde de düzenlenmiştir, diğer bir deyişle edebi içeriğin böyle bir düzenleme ile bir ilgisi yoktur.",
@@ -2236,7 +2241,7 @@
         "picture": {},
         "evidence": {},
         "titles": {
-            "1": "2. İletişim Duaları “Salat”:s",
+            "1": "2. İletişim Duaları “Salat”:",
             "2": "3. Oruç (Siyam):",
             "3": "4. Zorunlu Bağış (Zekât): &",
             "4": "5. Mekke’ye Kutsal Hac Yolculuğu:",
