@@ -95,6 +95,8 @@ const Magnify = ({ colors, theme, translationApplication, quran, map, onClose, o
 
                     if (normalizedVerseText.includes(normalizedTerm)) {
                         verseResults.push({ suraNumber, verseNumber, verseText });
+                    } else if (verseNumber.includes(normalizedTerm) || suraNumber.includes(normalizedTerm) || (suraNumber + ":" + verseNumber).includes(normalizedTerm) ) {
+                        verseResults.push({ suraNumber, verseNumber, verseText });
                     }
                 }
                 const titles = suras[suraNumber].titles;
