@@ -1,19 +1,21 @@
-import React, { useState, useEffect, useRef, useCallback } from 'react';
+import React, { useState, useEffect, useRef, useCallback, useImperativeHandle, forwardRef } from 'react';
 
-const Apps = ({ colors, theme, translationApplication, parseReferences, appendices, selectedApp, setSelectedApp, restoreAppText, refToRestore, prevPage }) => {
+const Apps = forwardRef(({ colors, theme, translationApplication, parseReferences, appendices, selected, restoreAppText, refToRestore, prevPage }, ref) => {
+
     const lang = localStorage.getItem("lang");
     const containerRef = useRef(null);
-    const appRefs = useRef({});
+    const appendixRef = useRef({});
     const [visibleAppendices, setVisibleAppendices] = useState([]);
     const [appendixMap, setAppendixMap] = useState({});
     const images = require.context('../assets/pictures/', false, /\.jpg$/);
 
+
+
     const textRef = useRef({});
 
+    const currentRef = useRef(null);
+
     const [isRefsReady, setIsRefsReady] = useState(false);
-    const handleRefsReady = () => {
-        setIsRefsReady(true);
-    };
 
     const mapAppendicesData = useCallback((appendices) => {
         const appendixMap = {};
@@ -73,6 +75,36 @@ const Apps = ({ colors, theme, translationApplication, parseReferences, appendic
         return appendixMap;
     }, [translationApplication]);
 
+    useImperativeHandle(ref, () => ({
+
+        scrollToSelectedApp: (number) => {
+            selected.current = number;
+            currentRef.current = number;
+
+            if (selected.current) {
+                if (selected.current === 38) {
+                    setVisibleAppendices([selected.current - 1, selected.current]);
+                } else if (selected.current === 1) {
+                    setVisibleAppendices([selected.current, selected.current + 1]);
+                } else {
+                    setVisibleAppendices([selected.current - 1, selected.current, selected.current + 1]);
+                }
+            }
+
+            setTimeout(() => {
+                if (appendixRef.current[`appendix-${number}`]) {
+                    appendixRef.current[`appendix-${number}`].scrollIntoView({ behavior: 'smooth' });
+                }
+            }, 1000);
+        }
+    }));
+
+    const handleRefsReady = () => {
+        setIsRefsReady(true);
+    };
+
+
+
 
     const loadMoreAppendices = useCallback(() => {
         if (containerRef.current) {
@@ -103,32 +135,32 @@ const Apps = ({ colors, theme, translationApplication, parseReferences, appendic
     }, [visibleAppendices, appendixMap]);
 
     useEffect(() => {
-        if (selectedApp && isRefsReady && visibleAppendices && appRefs.current[`appendix-${selectedApp}`]) {
-            if (restoreAppText.current && refToRestore.cure) {
+        if (selected.current && isRefsReady && visibleAppendices && appendixRef.current[`appendix-${selected.current}`]) {
+            if (restoreAppText.current && refToRestore.current && textRef.current[refToRestore.current]) {
                 textRef.current[refToRestore.current].scrollIntoView({ behavior: 'smooth', block: 'center' });
             } else {
-                appRefs.current[`appendix-${selectedApp}`].scrollIntoView({ behavior: 'smooth' });
+                appendixRef.current[`appendix-${selected.current}`].scrollIntoView({ behavior: 'smooth' });
             }
         }
-    }, [selectedApp, restoreAppText, refToRestore, visibleAppendices, isRefsReady]);
+    }, [selected, restoreAppText, refToRestore, visibleAppendices, isRefsReady, textRef]);
 
     useEffect(() => {
         const initialAppendixMap = mapAppendicesData(appendices);
         setAppendixMap(initialAppendixMap);
 
-        if (selectedApp) {
-            if (selectedApp === 38) {
-                setVisibleAppendices([selectedApp - 1, selectedApp]);
-            } else if (selectedApp === 1) {
-                setVisibleAppendices([selectedApp]);
+        if (selected.current) {
+            if (selected.current === 38) {
+                setVisibleAppendices([selected.current - 1, selected.current]);
+            } else if (selected.current === 1) {
+                setVisibleAppendices([selected.current, selected.current + 1]);
             } else {
-                setVisibleAppendices([selectedApp - 1, selectedApp, selectedApp + 1]);
+                setVisibleAppendices([selected.current - 1, selected.current, selected.current + 1]);
             }
         } else {
             const initialAppendices = Object.keys(initialAppendixMap).slice(0, 2).map(Number);
             setVisibleAppendices(initialAppendices);
         }
-    }, [appendices, selectedApp, mapAppendicesData]);
+    }, [appendices, selected, mapAppendicesData]);
 
     const renderTable = useCallback((tableData, key) => {
 
@@ -173,7 +205,7 @@ const Apps = ({ colors, theme, translationApplication, parseReferences, appendic
     }, [colors, theme, parseReferences]);
 
     const handleClick = (_e, n, i) => {
-        setSelectedApp(n);
+        //selected.current = n;
         refToRestore.current = n + "-" + i;
     };
 
@@ -188,8 +220,7 @@ const Apps = ({ colors, theme, translationApplication, parseReferences, appendic
                         <div
                             key={`title-${index}`}
                             className={`w-full my-3 flex items-center justify-center text-center ${colors[theme]["base-background"]} p-2 font-semibold ${colors[theme]["app-text"]}  whitespace-pre-line ${isAppendixTitle ? "text-2xl font-bold sticky top-0 z-10 shadow-md" : " rounded text-base"}`}
-                            ref={isAppendixTitle ? el => appRefs.current[`appendix-${item.content.match(/\d+/)[0]}`] = el : null}
-                        >
+                            ref={isAppendixTitle ? el => appendixRef.current[`appendix-${item.content.match(/\d+/)[0]}`] = el : null}>
                             <h2>{item.content}</h2>
                         </div>
                     );
@@ -208,7 +239,7 @@ const Apps = ({ colors, theme, translationApplication, parseReferences, appendic
                     return (
                         <div key={`evidence-${index}`} className={`${colors[theme]["base-background"]} ${colors[theme]["table-title-text"]} rounded shadow-md text-sm md:text-base p-3 border my-3 ${colors[theme]["border"]}`}>
                             {Object.entries(item.content.lines).map(([lineKey, lineValue]) => (
-                                <p key={lineKey} className={`whitespace-pre-wrap my-1`}>{parseReferences(lineValue)}</p>
+                                <p key={`${lineKey}`} className={`whitespace-pre-wrap my-1`}>{parseReferences(lineValue)}</p>
                             ))}
                             {item.content.ref.length > 0 && (
                                 <p>{parseReferences("[" + item.content.ref.join(', ') + "]")}</p>
@@ -297,7 +328,11 @@ const Apps = ({ colors, theme, translationApplication, parseReferences, appendic
 
     return (
         <div
-            className={`h-screen w-screen ${colors[theme]["app-text"]} text-base select-text`}>
+            className={`relative h-screen w-screen ${colors[theme]["app-text"]} text-base select-text`}>
+
+            <div className={`fixed top-0 left-0 w-full ${colors[theme]["base-background"]} h-12`}>
+
+            </div>
             <button onClick={prevPage}
                 className={`fixed top-0.5 left-0.5 z-30 rounded shadow-md p-2 ${colors[theme]["base-background"]}`}>
                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-7 h-7">
@@ -309,11 +344,22 @@ const Apps = ({ colors, theme, translationApplication, parseReferences, appendic
             <div
                 ref={containerRef}
                 onScroll={loadMoreAppendices}
-                className={`relative flex-1 h-screen overflow-y-auto`}>
+                className={`relative h-screen overflow-y-auto`}>
                 {renderAppendices()}
+
+                {!isRefsReady &&
+                    <div className={`absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 flex ${colors[theme]["page-text"]} select-none`}>
+                        <svg className={`animate-spin -ml-1 mr-3 h-5 w-5 text-white`} xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                            <circle className={`opacity-25`} cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
+                            <path className={`opacity-75`} fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                        </svg>
+                        {translationApplication?.loading}
+                    </div>
+                }
+
             </div>
         </div>
     );
-};
+});
 
 export default Apps;

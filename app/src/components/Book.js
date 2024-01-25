@@ -6,7 +6,7 @@ import Magnify from '../components/Magnify';
 import Splash from '../components/Splash';
 import '../assets/css/Book.css';
 
-const Book = ({ onChangeTheme, colors, theme, translationApplication, introductionContent, quranData, map, appendicesContent, translation, onChangeLanguage }) => {
+const Book = ({ onChangeTheme, colors, theme, translationApplication, introductionContent, quranData, coverData, map, appendicesContent, translation, onChangeLanguage }) => {
     const lang = localStorage.getItem("lang")
     const images = require.context('../assets/pictures/', false, /\.jpg$/);
 
@@ -16,14 +16,16 @@ const Book = ({ onChangeTheme, colors, theme, translationApplication, introducti
     const [selectedSura, setSelectedSura] = useState(null);
     const [selectedVerse, setSelectedVerse] = useState(null);
     const [bookContent, setBookContent] = useState(null);
-    const [selectedApp, setSelectedApp] = useState(1);
     const [isSearchOpen, setSearchOpen] = useState(false);
 
     const contentRef = useRef(null);
     const restoreAppText = useRef(null);
     const refToRestore = useRef(null);
-
     const [pages, setPages] = useState([]);
+
+    const selectedApp = useRef(null);
+    const appsRef = useRef();
+
 
     useEffect(() => {
         if (introductionContent && appendicesContent) {
@@ -186,122 +188,120 @@ const Book = ({ onChangeTheme, colors, theme, translationApplication, introducti
         }
     };
 
-    const handleClickAppReference = (number) => {
-        if (number > 0 && number < 40) {
+    const handleClickAppReference = (inp) => {
+        const number = parseInt(inp)
+        if (number > 0 && number < 39) {
             updatePage(397);
-            setSelectedApp(number);
+            selectedApp.current = number;
+            if (appsRef && appsRef.current) {
+                appsRef.current.scrollToSelectedApp(number);
+            }
         }
     };
+
+    useEffect(() => {
+        if (selectedApp.current && appsRef.current) {
+            appsRef.current.scrollToSelectedApp();
+        }
+    }, [selectedApp, appsRef]);
 
     const parseReferences = (text) => {
         const verseRegex = /(\d+:\d+(?:-\d+)?)/g;
         const app = translation ? translationApplication.appendix : translationApplication.appendix + "?";
-        const intro = translation ? translationApplication.intro : translationApplication.intro;
+        const intro = translationApplication.intro;
         const appendixRegex = new RegExp(`${app}`, 'g');
         const introRegex = new RegExp(`${intro}`, 'gi');
 
-        const replaceAppendixNumbers = (appendixPart) => {
-            const startIndex = appendixPart.search(appendixRegex);
-            let endIndex = startIndex;
-            let isNumberStarted = false;
+        const replaceAppendixNumbers = (part) => {
+            return part.split(/(\d+)/).map((segment, index) => {
+                if (/\d+/.test(segment)) {
+                    return (
+                        <span key={index} className="cursor-pointer text-sky-500" onClick={() => handleClickAppReference(segment)}>
+                            {segment}
+                        </span>
+                    );
+                } else {
+                    return segment;
+                }
+            });
+        };
 
-            for (let i = startIndex; i < appendixPart.length; i++) {
-                const char = appendixPart[i];
+        const splitted = text.split(/(\S+\s*)/).filter(part => part.length > 0)
 
-                // Check if the next characters form the word "and"
-                const isAndAhead = appendixPart.substring(i, i + 3).toLowerCase() === 'and';
+        let processingAppendix = false;
 
-                if (/\d/.test(char)) {
-                    isNumberStarted = true;
-                    endIndex = i;
-                } else if (isNumberStarted && !(/[,&\s]/.test(char))) {
-                    if (char === '&' || isAndAhead) {
-                        // If an '&' or "and" is found, skip the "and" sequence by advancing 'i'
-                        if (isAndAhead) {
-                            i += 2; // Skip the next two characters of "and"
-                        }
-                        continue;
-                    } else if (!/\s/.test(char)) {
-                        // If the character is not a whitespace and not part of "and", stop detecting
-                        break;
+        const result = splitted.map((part, i) => {
+            if (part.match(appendixRegex)) {
+                processingAppendix = true;
+                return part;
+            }
+
+            if (processingAppendix) {
+                if (part.match(/\d+/)) {
+                    if (part.includes('.')) {
+                        processingAppendix = false;
                     }
+                    return replaceAppendixNumbers(part);
+                } else if (['&', translationApplication.and].includes(part.trim())) {
+                    return part;
+                } else {
+                    processingAppendix = false;
                 }
             }
 
+            if (part.match(verseRegex)) {
+                
 
-            const appendixReference = appendixPart.substring(startIndex, endIndex + 1);
-            const parts = appendixReference.split(/(\d+|\s+|,|&|and)/gi);
+                const matches = [...part.matchAll(verseRegex)];
+                let lastIndex = 0;
+                const elements = [];
 
-            return (
-                <>
-                    {appendixPart.substring(0, startIndex)}
-                    {parts.map((segment, index) => {
-                        if (segment.match(/^\d+$/) && parseInt(segment) >= 1 && parseInt(segment) <= 39) {
-                            return (
-                                <span key={index} className={`cursor-pointer text-sky-500`} onClick={() => handleClickAppReference(segment)}>
-                                    {segment}
-                                </span>
-                            );
-                        } else {
-                            return segment;
+                matches.forEach((match, index) => {
+                    elements.push(part.slice(lastIndex, match.index));
+                    const reference = (splitted[i - 2] ? splitted[i - 2] : " ") + "" + splitted[i - 1]
+                    let scriptures = false
+                    //TODO: give outer references for old scriptures
+                    if (reference && !reference.match(/\d+/)) {
+                        if (reference.includes(translationApplication.acts) ||
+                            reference.includes(translationApplication.isaiah) ||
+                            reference.includes(translationApplication.john) ||
+                            reference.includes(translationApplication.mark) ||
+                            reference.includes(translationApplication.luke) ||
+                            reference.includes(translationApplication.matthew) ||
+                            reference.includes(translationApplication.romans) ||
+                            reference.includes(translationApplication.malachi) ||
+                            reference.includes(translationApplication.deuteronomy)) {
+
+                            scriptures = true;
+                        } else if (reference.toLowerCase().includes(coverData.quran.toLocaleLowerCase(lang))) {
+                            scriptures = false;
                         }
-                    })}
-                    {appendixPart.substring(endIndex + 1)}
-                </>
-            );
-        };
+                    }
 
-
-        // Split the text into parts and process each part
-        return text.split(verseRegex).map((part, index) => {
-            if (part.match(appendixRegex)) {
-                // Split the part into pieces with "."
-                const pieces = part.split('.');
-
-                // Create an array to hold JSX elements and strings
-                const elements = [];
-
-                // Re-iterate over the pieces to find which piece is matching
-                for (let i = 0; i < pieces.length; i++) {
-                    if (appendixRegex.test(pieces[i])) {
-                        // Process the matching piece and add it to the elements array
-                        elements.push(replaceAppendixNumbers(pieces[i]));
+                    if (scriptures) {
+                        elements.push(match[0]);
                     } else {
-                        // If the piece does not match, add it as a string
-                        elements.push(pieces[i]);
+                        elements.push(
+                            <span key={index} className="cursor-pointer text-sky-500" onClick={() => handleClickReference(match[0])}>
+                                {match[0]}
+                            </span>
+                        );
                     }
 
-                    // Add the period back as a string, except for the last piece
-                    if (i < pieces.length - 1) {
-                        elements.push('.');
-                    }
-                }
 
-                // Return the array of JSX elements and strings
+                    lastIndex = match.index + match[0].length;
+                });
+
+                elements.push(part.slice(lastIndex));
                 return elements;
-            } else if (part.match(verseRegex)) {
-                if (text.includes("[") && text.match(/[a-zA-Z]/)) {
-                    return part;
-                }
-                return (
-                    <span key={index} className={`cursor-pointer text-sky-500`} onClick={() => handleClickReference(part)}>
-                        {part}
-                    </span>
-                );
-            } else if (introRegex.test(part)) {
+            }
 
-                // Split the part into segments around introRegex matches
+            if (introRegex.test(part)) {
                 const segments = part.split(introRegex);
-
-                // Create an array to hold JSX elements and strings
                 const elements = [];
-
-                // Iterate over the segments
                 segments.forEach((segment, index) => {
-                    // Push the regular segment as plain text
                     elements.push(segment);
 
-                    // If this is not the last segment, add the intro match as a clickable span
                     if (index < segments.length - 1) {
                         elements.push(
                             <span key={index} className={`cursor-pointer text-sky-500`} onClick={() => handleClickReference("Introduction")}>
@@ -311,13 +311,13 @@ const Book = ({ onChangeTheme, colors, theme, translationApplication, introducti
                     }
                 });
 
-                // Return the array of JSX elements and strings
                 return elements;
             } else {
-                // If it doesn't match anything, return the part as plain text
                 return part;
             }
         });
+
+        return result;
     };
 
     const onMagnify = () => {
@@ -483,7 +483,7 @@ const Book = ({ onChangeTheme, colors, theme, translationApplication, introducti
             }
 
             const handleAppClick = (no) => {
-                setSelectedApp(no)
+                selectedApp.current = no
                 updatePage(397)
             };
 
@@ -522,13 +522,13 @@ const Book = ({ onChangeTheme, colors, theme, translationApplication, introducti
 
         if (parseInt(currentPage) > 396) {
             return <Apps
+                ref={appsRef}
                 colors={colors}
                 theme={theme}
                 translationApplication={translationApplication}
                 parseReferences={parseReferences}
                 appendices={appendicesContent}
-                selectedApp={selectedApp}
-                setSelectedApp={setSelectedApp}
+                selected={selectedApp}
                 restoreAppText={restoreAppText}
                 refToRestore={refToRestore}
                 prevPage={prevPage} />;
@@ -756,7 +756,7 @@ const Book = ({ onChangeTheme, colors, theme, translationApplication, introducti
         });
 
         return (
-            <div ref={contentRef} className={`${colors[theme]["text"]} overflow-auto flex-1 p-3 text-justify lg:text-start text-base md:text-xl`}>
+            <div key={`content-${currentPage}`} ref={contentRef} className={`${colors[theme]["text"]} overflow-auto flex-1 p-3 text-justify lg:text-start text-base md:text-xl`}>
                 {renderContent}
             </div>
         );

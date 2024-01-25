@@ -232,6 +232,7 @@ function Root() {
                 translationApplication={translationApplication}
                 introductionContent={translationIntro}
                 quranData={quranData}
+                coverData={coverData}
                 map={translationMap}
                 appendicesContent={translationAppx}
                 translation={translation} 

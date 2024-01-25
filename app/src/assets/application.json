@@ -20,5 +20,14 @@
     "copied": "Copied!",
     "gw": "GOD",
     "wc1": "Cumulative frequency of the word GOD",
-    "wc2": "Cumulative sum of verses where GOD word occurs"
+    "wc2": "Cumulative sum of verses where GOD word occurs",
+    "acts": "Acts",
+    "isaiah":"Isaiah",
+    "john": "John",
+    "mark": "Mark",
+    "luke": "Luke",
+    "matthew": "Matthew",
+    "romans": "Romans",
+    "malachi": "Malachi",
+    "deuteronomy": "Deuteronomy"
 }
