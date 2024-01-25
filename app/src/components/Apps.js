@@ -85,12 +85,12 @@ const Apps = forwardRef(({ colors, theme, translationApplication, parseReference
                 if (selected.current === 38) {
                     setVisibleAppendices([selected.current - 1, selected.current]);
                 } else if (selected.current === 1) {
-                    setVisibleAppendices([selected.current, selected.current + 1]);
+                    setVisibleAppendices([selected.current]);
                 } else {
-                    setVisibleAppendices([selected.current - 1, selected.current, selected.current + 1]);
+                    setVisibleAppendices([selected.current, selected.current + 1]);
                 }
             }
-
+            
             setTimeout(() => {
                 if (appendixRef.current[`appendix-${number}`]) {
                     appendixRef.current[`appendix-${number}`].scrollIntoView({ behavior: 'smooth' });
@@ -102,9 +102,6 @@ const Apps = forwardRef(({ colors, theme, translationApplication, parseReference
     const handleRefsReady = () => {
         setIsRefsReady(true);
     };
-
-
-
 
     const loadMoreAppendices = useCallback(() => {
         if (containerRef.current) {
@@ -152,9 +149,9 @@ const Apps = forwardRef(({ colors, theme, translationApplication, parseReference
             if (selected.current === 38) {
                 setVisibleAppendices([selected.current - 1, selected.current]);
             } else if (selected.current === 1) {
-                setVisibleAppendices([selected.current, selected.current + 1]);
+                setVisibleAppendices([selected.current]);
             } else {
-                setVisibleAppendices([selected.current - 1, selected.current, selected.current + 1]);
+                setVisibleAppendices([selected.current, selected.current + 1]);
             }
         } else {
             const initialAppendices = Object.keys(initialAppendixMap).slice(0, 2).map(Number);
