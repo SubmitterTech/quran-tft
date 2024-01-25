@@ -154,13 +154,6 @@ const Jump = ({ onChangeLanguage, suraNames, onChangeTheme, colors, theme, trans
             <div className={`w-full lg:w-1/2 p-2 flex flex-col transition-all duration-700 ease-linear mb-12`}>
 
                 <div className={`w-full flex justify-between ${colors[theme]["text"]} mb-2`}>
-                    <div className={`w-full flex justify-start ml-2`}>
-                        <button className={`flex justify-center`} onClick={onMagnify}>
-                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className={`w-11 h-11`}>
-                                <path strokeLinecap="round" strokeLinejoin="round" d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607z" />
-                            </svg>
-                        </button>
-                    </div>
                     <div className={`w-full flex justify-end place-self-end`}>
                         <button className={`flex justify-center`} onClick={onClose}>
                             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className={`w-11 h-11`}>
@@ -171,7 +164,21 @@ const Jump = ({ onChangeLanguage, suraNames, onChangeTheme, colors, theme, trans
                     </div>
                 </div>
                 <div className={`transition-colors duration-700 ease-linear flex flex-col items-center justify-center ${colors[theme]["text-background"]} rounded shadow-md w-full `}>
-                    <div className={` w-full flex space-x-3 ${colors[theme]["app-text"]} mt-3`}>
+                    <div className={`w-full p-2`}>
+                        <div
+                            onClick={onMagnify}
+                            className={`w-full flex justify-center ${colors[theme]["text"]} rounded p-2 ${colors[theme]["app-background"]} cursor-pointer`}>
+                            <button className={`flex justify-center`} >
+                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className={`w-11 h-11`}>
+                                    <path strokeLinecap="round" strokeLinejoin="round" d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607z" />
+                                </svg>
+                            </button>
+                            <div className={`flex text-left items-center ml-3 ${colors[theme]["matching-text"]} text-xl`}>
+                                {translationApplication.search }<span className={`${colors[theme]["text"]}`}>{"..."}</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div className={` w-full flex space-x-3 ${colors[theme]["app-text"]}`}>
                         <div className={`w-full px-4 py-2 flex justify-end `}>
                             {translationApplication?.sura} :
                         </div>
