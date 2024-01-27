@@ -90,7 +90,7 @@ const Apps = forwardRef(({ colors, theme, translationApplication, parseReference
                     setVisibleAppendices([selected.current, selected.current + 1]);
                 }
             }
-            
+
             setTimeout(() => {
                 if (appendixRef.current[`appendix-${number}`]) {
                     appendixRef.current[`appendix-${number}`].scrollIntoView({ behavior: 'smooth' });
@@ -223,13 +223,16 @@ const Apps = forwardRef(({ colors, theme, translationApplication, parseReference
                     );
                 case 'text':
                     return (
+
                         <div
                             lang={lang}
                             key={`text-${index}`}
                             ref={(el) => textRef.current[appno + "-" + index] = el}
                             onClick={(e) => handleClick(e, appno, index)}
                             className={`rounded ${colors[theme]["text-background"]} ${colors[theme]["app-text"]} p-2 shadow-md mb-3 flex w-full text-justify hyphens-auto`}>
-                            <p className={`px-1 break-words`}>{parseReferences(item.content)}</p>
+                            <div className={`overflow-x-scroll`}>
+                                <p className={`px-1 break-words`}>{parseReferences(item.content)}</p>
+                            </div>
                         </div>
                     );
                 case 'evidence':
