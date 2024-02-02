@@ -1,4 +1,6 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect, useRef, useCallback } from 'react';
+import { App } from '@capacitor/app';
+import { Toast } from '@capacitor/toast';
 import Pages from '../components/Pages';
 import Apps from '../components/Apps';
 import Jump from '../components/Jump';
@@ -26,6 +28,7 @@ const Book = ({ onChangeTheme, colors, theme, translationApplication, introducti
     const selectedApp = useRef(null);
     const appsRef = useRef();
 
+    const [backButtonPressedOnce, setBackButtonPressedOnce] = useState(false);
 
     useEffect(() => {
         if (introductionContent && appendicesContent) {
@@ -65,12 +68,12 @@ const Book = ({ onChangeTheme, colors, theme, translationApplication, introducti
         }
     };
 
-    const updatePage = (newPage, sura = null, verse = null, actionType = 'navigate', appReference = null) => {
+    const updatePage = useCallback((newPage, sura = null, verse = null, actionType = 'navigate', appReference = null) => {
         setPageHistory(prevHistory => [...prevHistory, { page: currentPage, sura: selectedSura, verse: selectedVerse, actionType, appReference }]);
         setSelectedSura(sura);
         setSelectedVerse(verse);
         setCurrentPage(newPage);
-    };
+    }, [currentPage, selectedSura, selectedVerse]);
 
 
     useEffect(() => {
@@ -89,26 +92,26 @@ const Book = ({ onChangeTheme, colors, theme, translationApplication, introducti
 
     const nextPage = () => {
         let newPage = parseInt(currentPage) >= 398 ? parseInt(currentPage) : parseInt(currentPage) + 1;
-    
+
         // Skip specified pages
         const skipPages = [2, 3, 4, 8, 9, 10, 12];
         while (skipPages.includes(newPage)) {
             newPage++;
         }
-    
-        updatePage(newPage, null, null, 'nextPage'); 
+
+        updatePage(newPage, null, null, 'nextPage');
     };
-    
-    const prevPage = () => {
+
+    const prevPage = useCallback(() => {
         if (pageHistory.length > 0) {
             const lastHistoryItem = pageHistory.pop();
             setPageHistory([...pageHistory]);
-    
+
             // Restore the page, sura, and verse from the history
             setCurrentPage(lastHistoryItem.page);
             setSelectedSura(lastHistoryItem.sura);
             setSelectedVerse(lastHistoryItem.verse);
-    
+
             restoreAppText.current = lastHistoryItem.actionType === 'openAppendix';
 
         } else {
@@ -116,9 +119,9 @@ const Book = ({ onChangeTheme, colors, theme, translationApplication, introducti
             let newPage = parseInt(currentPage) > 1 ? parseInt(currentPage) - 1 : parseInt(currentPage);
             updatePage(newPage, null, null, 'prevPage');
         }
-    };
-    
-    
+    }, [currentPage, pageHistory, updatePage]);
+
+
     const createReferenceMap = () => {
         const referenceMap = {};
 
@@ -175,7 +178,9 @@ const Book = ({ onChangeTheme, colors, theme, translationApplication, introducti
         if (foundPageNumber) {
             updatePage(foundPageNumber, sura, verseStart, currentPage === 397 ? 'openAppendix' : 'relationClick');
         } else {
-            console.log("Reference not found in the book.");
+            Toast.show({
+                text: translationApplication.refNotFound,
+            });
         }
     };
 
@@ -241,7 +246,6 @@ const Book = ({ onChangeTheme, colors, theme, translationApplication, introducti
             }
 
             if (part.match(verseRegex)) {
-
 
                 const matches = [...part.matchAll(verseRegex)];
                 let lastIndex = 0;
@@ -310,6 +314,49 @@ const Book = ({ onChangeTheme, colors, theme, translationApplication, introducti
 
         return result;
     };
+
+    useEffect(() => {
+        // Define the back button event listener
+        const backListener = App.addListener('backButton', () => {
+            if (!backButtonPressedOnce) {
+                // If the button wasn't pressed before, set it as pressed and show a toast
+                setBackButtonPressedOnce(true);
+                prevPage();
+                Toast.show({
+                    text: translationApplication.exitToast,
+                });
+                // Set a timeout to reset the state after 2 seconds
+                setTimeout(() => setBackButtonPressedOnce(false), 2000);
+            } else {
+                // If the button was already pressed once, exit the app
+                App.exitApp();
+            }
+        });
+
+        return () => {
+            backListener.remove(); // Clean up the listener when the component unmounts
+        };
+    }, [backButtonPressedOnce, translationApplication, prevPage]);
+
+    useEffect(() => {
+        const backButtonHandler = async () => {
+            // Trigger the double back to exit logic
+            if (!backButtonPressedOnce) {
+                setBackButtonPressedOnce(true);
+                prevPage();
+                setTimeout(() => setBackButtonPressedOnce(false), 2000);
+            } else {
+                // Exit the app if back button is pressed twice within 2 seconds
+                App.exitApp();
+            }
+
+        };
+
+        // Register the back button event listener
+        const backListener = App.addListener('backButton', backButtonHandler);
+
+        return () => backListener.remove(); // Clean up the listener
+    }, [backButtonPressedOnce, prevPage]);
 
     const onMagnify = () => {
         setSearchOpen(true);

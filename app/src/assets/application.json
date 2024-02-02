@@ -4,6 +4,8 @@
     "contentNotAvailable": "Content not available",
     "loading": "Loading...",
     "unrecognizedData": "Unrecognized structured data or could not parse the data...",
+    "refNotFound": "Reference not found in the book",
+    "exitToast": "Press back again to exit",
     "appendices": "Appendices",
     "appendix": "Appendix",
     "page": "Page",

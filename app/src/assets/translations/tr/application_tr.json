@@ -4,6 +4,8 @@
     "contentNotAvailable": "İçerik erişilebilir değil",
     "loading": "Yükleniyor...",
     "unrecognizedData": "Tanınmayan yapılandırılmış veriler veya veriler ayrıştırılamadı...",
+    "refNotFound": "Referans kitapta bulunamadı",
+    "exitToast": "Çıkmak için tekrar geri tuşuna basın",
     "appendices": "Ekler",
     "appendix": "Ek",
     "page": "Sayfa",
