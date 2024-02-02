@@ -316,47 +316,40 @@ const Book = ({ onChangeTheme, colors, theme, translationApplication, introducti
     };
 
     useEffect(() => {
-        // Define the back button event listener
-        const backListener = App.addListener('backButton', () => {
-            if (!backButtonPressedOnce) {
-                // If the button wasn't pressed before, set it as pressed and show a toast
-                setBackButtonPressedOnce(true);
-                prevPage();
-                Toast.show({
-                    text: translationApplication.exitToast,
-                });
-                // Set a timeout to reset the state after 2 seconds
-                setTimeout(() => setBackButtonPressedOnce(false), 2000);
-            } else {
-                // If the button was already pressed once, exit the app
-                App.exitApp();
-            }
+        // Async function to add the back button listener
+        const addBackButtonListener = async () => {
+            const listener = await App.addListener('backButton', async () => {
+                if (!backButtonPressedOnce) {
+                    setBackButtonPressedOnce(true);
+                    prevPage(); // Call your function to handle the back action here
+                    await Toast.show({
+                        text: translationApplication.exitToast,
+                    });
+                    setTimeout(() => setBackButtonPressedOnce(false), 2000);
+                } else {
+                    App.exitApp();
+                }
+            });
+
+            // Return a cleanup function
+            return () => {
+                listener.remove();
+            };
+        };
+
+        // Call the async function to add the listener
+        let removeListener;
+        addBackButtonListener().then(remove => {
+            removeListener = remove;
         });
 
+        // Cleanup the listener when the component unmounts
         return () => {
-            backListener.remove(); // Clean up the listener when the component unmounts
+            if (removeListener) {
+                removeListener();
+            }
         };
     }, [backButtonPressedOnce, translationApplication, prevPage]);
-
-    useEffect(() => {
-        const backButtonHandler = async () => {
-            // Trigger the double back to exit logic
-            if (!backButtonPressedOnce) {
-                setBackButtonPressedOnce(true);
-                prevPage();
-                setTimeout(() => setBackButtonPressedOnce(false), 2000);
-            } else {
-                // Exit the app if back button is pressed twice within 2 seconds
-                App.exitApp();
-            }
-
-        };
-
-        // Register the back button event listener
-        const backListener = App.addListener('backButton', backButtonHandler);
-
-        return () => backListener.remove(); // Clean up the listener
-    }, [backButtonPressedOnce, prevPage]);
 
     const onMagnify = () => {
         setSearchOpen(true);
