@@ -250,7 +250,7 @@ const Book = ({ onChangeTheme, colors, theme, translationApplication, introducti
             }
 
             if (part.match(verseRegex)) {
-                
+
 
                 const matches = [...part.matchAll(verseRegex)];
                 let lastIndex = 0;
@@ -259,8 +259,8 @@ const Book = ({ onChangeTheme, colors, theme, translationApplication, introducti
                 matches.forEach((match, index) => {
                     elements.push(part.slice(lastIndex, match.index));
                     const reference = (splitted[i - 2] ? splitted[i - 2] : " ") + "" + splitted[i - 1]
-                    let scriptures = false
-                    //TODO: give outer references for old scriptures
+                    let oldscripture = false
+                    //TODO: give outer references for old oldscripture
                     if (reference && !reference.match(/\d+/)) {
                         if (reference.includes(translationApplication.acts) ||
                             reference.includes(translationApplication.isaiah) ||
@@ -272,13 +272,13 @@ const Book = ({ onChangeTheme, colors, theme, translationApplication, introducti
                             reference.includes(translationApplication.malachi) ||
                             reference.includes(translationApplication.deuteronomy)) {
 
-                            scriptures = true;
-                        } else if (reference.toLowerCase().includes(coverData.quran.toLocaleLowerCase(lang))) {
-                            scriptures = false;
+                            oldscripture = true;
+                        } else if (reference.toLowerCase().includes(translationApplication.quran.toLocaleLowerCase(lang))) {
+                            oldscripture = false;
                         }
                     }
 
-                    if (scriptures) {
+                    if (oldscripture) {
                         elements.push(match[0]);
                     } else {
                         elements.push(
