@@ -65,11 +65,8 @@ const Book = ({ onChangeTheme, colors, theme, translationApplication, introducti
         }
     };
 
-    const updatePage = (newPage, sura, verse) => {
-        // Add currentPage to history only if it's different from the newPage
-        if (currentPage !== newPage) {
-            setPageHistory(prevHistory => [...prevHistory, currentPage]);
-        }
+    const updatePage = (newPage, sura = null, verse = null, actionType = 'navigate', appReference = null) => {
+        setPageHistory(prevHistory => [...prevHistory, { page: currentPage, sura: selectedSura, verse: selectedVerse, actionType, appReference }]);
         setSelectedSura(sura);
         setSelectedVerse(verse);
         setCurrentPage(newPage);
@@ -91,42 +88,37 @@ const Book = ({ onChangeTheme, colors, theme, translationApplication, introducti
 
 
     const nextPage = () => {
-
         let newPage = parseInt(currentPage) >= 398 ? parseInt(currentPage) : parseInt(currentPage) + 1;
-
+    
         // Skip specified pages
         const skipPages = [2, 3, 4, 8, 9, 10, 12];
         while (skipPages.includes(newPage)) {
             newPage++;
         }
-
-        updatePage(newPage);
+    
+        updatePage(newPage, null, null, 'nextPage'); 
     };
-
+    
     const prevPage = () => {
         if (pageHistory.length > 0) {
-            // Get the last page from history and remove it from the history array
-            const lastPage = pageHistory[pageHistory.length - 1];
-            setPageHistory(prevHistory => prevHistory.slice(0, -1));
-            if (lastPage === 397) {
-                restoreAppText.current = true
-            } else {
-                restoreAppText.current = false
-            }
-            setCurrentPage(lastPage);
+            const lastHistoryItem = pageHistory.pop();
+            setPageHistory([...pageHistory]);
+    
+            // Restore the page, sura, and verse from the history
+            setCurrentPage(lastHistoryItem.page);
+            setSelectedSura(lastHistoryItem.sura);
+            setSelectedVerse(lastHistoryItem.verse);
+    
+            restoreAppText.current = lastHistoryItem.actionType === 'openAppendix';
+
         } else {
-            // Skip specified pages when decrementing
-            const skipPages = [2, 3, 4, 8, 9, 10, 12];
+            // Default back navigation without history
             let newPage = parseInt(currentPage) > 1 ? parseInt(currentPage) - 1 : parseInt(currentPage);
-
-            while (skipPages.includes(newPage)) {
-                newPage--;
-            }
-
-            setCurrentPage(newPage);
+            updatePage(newPage, null, null, 'prevPage');
         }
     };
-
+    
+    
     const createReferenceMap = () => {
         const referenceMap = {};
 
@@ -152,9 +144,8 @@ const Book = ({ onChangeTheme, colors, theme, translationApplication, introducti
     const referenceMap = createReferenceMap();
 
     const handleClickReference = (reference) => {
-
         if (reference.toLowerCase().includes("introduction") || reference.toLowerCase().includes("intro")) {
-            updatePage(13);
+            updatePage(13, null, null, currentPage === 397 ? 'openAppendix' : 'relationClick');
             return;
         }
         // Parse the reference to extract sura and verse information
@@ -182,16 +173,16 @@ const Book = ({ onChangeTheme, colors, theme, translationApplication, introducti
         });
 
         if (foundPageNumber) {
-            updatePage(foundPageNumber, sura, verseStart);
+            updatePage(foundPageNumber, sura, verseStart, currentPage === 397 ? 'openAppendix' : 'relationClick');
         } else {
             console.log("Reference not found in the book.");
         }
     };
 
     const handleClickAppReference = (inp) => {
-        const number = parseInt(inp)
+        const number = parseInt(inp);
         if (number > 0 && number < 39) {
-            updatePage(397);
+            updatePage(397, null, null, 'openAppendix', number);
             selectedApp.current = number;
             if (appsRef && appsRef.current) {
                 appsRef.current.scrollToSelectedApp(number);

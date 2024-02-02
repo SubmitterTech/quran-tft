@@ -250,11 +250,11 @@ const Verse = ({ besmele, colors, theme, translationApplication, relationalData,
 
     useEffect(() => {
         if (pulse) {
-            if (!cn.includes("animate-pulse")) {
-                setCn(cn + " animate-pulse");
+            if (!cn.includes("animate-bounce")) {
+                setCn(cn + " animate-bounce");
             }
         } else {
-            const updatedCn = cn.replace(/animate-pulse/g, '').trim();
+            const updatedCn = cn.replace(/animate-bounce/g, '').trim();
             setCn(updatedCn);
         };
     }, [pulse, cn]);

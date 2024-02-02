@@ -326,7 +326,7 @@ const Pages = ({ colors, theme, translationApplication, map, quranData, translat
         if (notify) {
             setTimeout(() => {
                 setNotify(false);
-            }, 4000);
+            }, 4450);
         }
     }, [notify]);
 
