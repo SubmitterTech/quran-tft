@@ -36,7 +36,7 @@ const Pages = ({ colors, theme, translationApplication, map, quranData, translat
 
             return () => resizeObserver.disconnect();
         }
-    }, [selectedPage]);
+    }, [stickyRef, selectedPage]);
 
     const forceScroll = useCallback(() => {
         const verseKey = `${parseInt(selectedSura)}:${parseInt(selectedVerse)}`;
@@ -424,7 +424,7 @@ const Pages = ({ colors, theme, translationApplication, map, quranData, translat
     return (
         <div
             className={`flex relative w-full flex-1 flex-col ${colors[theme]["app-text"]} text-base overflow-auto `}
-            style={{ scrollPaddingTop: stickyHeight + 3 }}>
+            style={{ scrollPaddingTop: stickyHeight === 0 ? 79 : stickyHeight + 3 }}>
             <div
                 ref={stickyRef}
                 className={`sticky top-0 p-3 ${colors[theme]["app-background"]} shadow-md flex z-10`}>
