@@ -201,42 +201,44 @@ const Verse = ({ besmele, colors, theme, translationApplication, relationalData,
 
 
     const lightAllahwords = (text) => {
-        const namesofGOD = "(?<![\\u0600-\\u06FF])(الله|لله|والله|بالله)(?![\\u0600-\\u06FF])";
-        const regex = new RegExp(namesofGOD, 'g');
+        if (pageGWC[currentVerseKey]) {
+            const namesofGOD = "(?<![\\u0600-\\u06FF])(الله|لله|والله|بالله)(?![\\u0600-\\u06FF])";
+            const regex = new RegExp(namesofGOD, 'g');
 
-        let parts = [];
-        let localCount = 0;
-        const matches = [...text.matchAll(regex)];
+            let parts = [];
+            let localCount = 0;
+            const matches = [...text.matchAll(regex)];
 
-        let cursor = 0; // Keep track of the cursor position in the original text
+            let cursor = 0; // Keep track of the cursor position in the original text
+            matches.forEach((match, index) => {
+                // Add the text before the match
+                parts.push(
+                    <span key={`${currentVerseKey}-text-${cursor}`} dir="rtl">
+                        {text.slice(cursor, match.index)}
+                    </span>
+                );
 
-        matches.forEach((match, index) => {
-            // Add the text before the match
+                localCount++;
+                parts.push(
+                    <span key={`${currentVerseKey}-match-${index}`} className="text-sky-500" dir="rtl">
+                        {match[0]}<sub> {pageGWC[currentVerseKey] - localCount + 1} </sub>
+                    </span>
+                );
+
+                cursor = match.index + match[0].length;
+            });
+
+            // Add any remaining text after the last match
             parts.push(
-                <span key={`${currentVerseKey}-text-${cursor}`} dir="rtl">
-                    {text.slice(cursor, match.index)}
+                <span key={`${currentVerseKey}-remaining-${cursor}`} dir="rtl">
+                    {text.slice(cursor)}
                 </span>
             );
 
-            // Add the matched part
-            localCount++;
-            parts.push(
-                <span key={`${currentVerseKey}-match-${index}`} className="text-sky-500" dir="rtl">
-                    {match[0]}<sub> {pageGWC[currentVerseKey] - localCount + 1} </sub>
-                </span>
-            );
-
-            cursor = match.index + match[0].length;
-        });
-
-        // Add any remaining text after the last match
-        parts.push(
-            <span key={`${currentVerseKey}-remaining-${cursor}`} dir="rtl">
-                {text.slice(cursor)}
-            </span>
-        );
-
-        return parts;
+            return parts;
+        } else {
+            return text;
+        }
     };
 
 
