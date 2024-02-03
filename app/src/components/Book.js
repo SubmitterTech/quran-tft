@@ -47,6 +47,18 @@ const Book = ({ onChangeTheme, colors, theme, translationApplication, introducti
         }
     }, [appendicesContent, introductionContent]);
 
+    useEffect(() => {
+        if (currentPage) {
+            localStorage.setItem("qurantft-pn", currentPage)
+            if (contentRef.current) {
+                contentRef.current.scrollTo({
+                    top: 0,
+                    left: 0,
+                    behavior: 'smooth'
+                });
+            }
+        }
+    }, [currentPage]);
 
     const handleJump = async (page, suraNumber, verseNumber) => {
         updatePage(parseInt(page), suraNumber, verseNumber);
@@ -69,26 +81,13 @@ const Book = ({ onChangeTheme, colors, theme, translationApplication, introducti
     };
 
     const updatePage = useCallback((newPage, sura = null, verse = null, actionType = 'navigate', appReference = null) => {
-        setPageHistory(prevHistory => [...prevHistory, { page: currentPage, sura: selectedSura, verse: selectedVerse, actionType, appReference }]);
+        if (actionType !== 'previous') {
+            setPageHistory(prevHistory => [...prevHistory, { page: currentPage, sura: selectedSura, verse: selectedVerse, actionType, appReference }]);
+        }
         setSelectedSura(sura);
         setSelectedVerse(verse);
         setCurrentPage(newPage);
     }, [currentPage, selectedSura, selectedVerse]);
-
-
-    useEffect(() => {
-        if (currentPage) {
-            localStorage.setItem("qurantft-pn", currentPage)
-            if (contentRef.current) {
-                contentRef.current.scrollTo({
-                    top: 0,
-                    left: 0,
-                    behavior: 'smooth'
-                });
-            }
-        }
-    }, [currentPage]);
-
 
     const nextPage = () => {
         let newPage = parseInt(currentPage) >= 398 ? parseInt(currentPage) : parseInt(currentPage) + 1;
@@ -99,7 +98,7 @@ const Book = ({ onChangeTheme, colors, theme, translationApplication, introducti
             newPage++;
         }
 
-        updatePage(newPage, null, null, 'nextPage');
+        updatePage(newPage, null, null, 'next');
     };
 
     const prevPage = useCallback(() => {
@@ -117,7 +116,7 @@ const Book = ({ onChangeTheme, colors, theme, translationApplication, introducti
         } else {
             // Default back navigation without history
             let newPage = parseInt(currentPage) > 1 ? parseInt(currentPage) - 1 : parseInt(currentPage);
-            updatePage(newPage, null, null, 'prevPage');
+            updatePage(newPage, null, null, 'previous');
         }
     }, [currentPage, pageHistory, updatePage]);
 
