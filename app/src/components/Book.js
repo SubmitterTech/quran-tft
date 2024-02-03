@@ -320,7 +320,8 @@ const Book = ({ onChangeTheme, colors, theme, translationApplication, introducti
             const listener = await App.addListener('backButton', async () => {
                 if (!backButtonPressedOnce) {
                     setBackButtonPressedOnce(true);
-                    prevPage(); // Call your function to handle the back action here
+                    prevPage();
+                    setSearchOpen(false);
                     await Toast.show({
                         text: translationApplication.exitToast,
                     });
@@ -461,7 +462,7 @@ const Book = ({ onChangeTheme, colors, theme, translationApplication, introducti
             return (
                 <div className={`w-screen h-screen flex flex-col overflow-auto ${colors[theme]["app-text"]}`}>
                     <div className={`w-full p-3`}>
-                        <div className={`w-full flex items-center justify-center text-center ${colors[theme]["base-background"]} rounded p-2 font-semibold ${colors[theme]["app-text"]}  text-2xl shadow-md`}>
+                        <div className={`w-full flex items-center justify-center text-center ${colors[theme]["base-background"]} rounded p-2 font-semibold ${colors[theme]["app-text"]} text-2xl shadow-md`}>
                             <h2 key={`title-1}`}>{cpd.titles["1"]}</h2>
                         </div>
                     </div>
