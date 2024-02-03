@@ -75,6 +75,11 @@ const Apps = forwardRef(({ colors, theme, translationApplication, parseReference
         return appendixMap;
     }, [translationApplication]);
 
+    useEffect(() => {
+        const initialAppendixMap = mapAppendicesData(appendices);
+        setAppendixMap(initialAppendixMap);
+    }, [appendices, mapAppendicesData]);
+
     useImperativeHandle(ref, () => ({
 
         scrollToSelectedApp: (number) => {
@@ -142,22 +147,21 @@ const Apps = forwardRef(({ colors, theme, translationApplication, parseReference
     }, [selected, restoreAppText, refToRestore, visibleAppendices, isRefsReady, textRef]);
 
     useEffect(() => {
-        const initialAppendixMap = mapAppendicesData(appendices);
-        setAppendixMap(initialAppendixMap);
-
         if (selected.current) {
             if (selected.current === 38) {
                 setVisibleAppendices([selected.current - 1, selected.current]);
             } else if (selected.current === 1) {
                 setVisibleAppendices([selected.current]);
             } else {
-                setVisibleAppendices([selected.current, selected.current + 1]);
+                setVisibleAppendices([selected.current - 1, selected.current, selected.current + 1]);
             }
         } else {
-            const initialAppendices = Object.keys(initialAppendixMap).slice(0, 2).map(Number);
-            setVisibleAppendices(initialAppendices);
+            if (appendixMap) {
+                const initialAppendices = Object.keys(appendixMap).slice(0, 2).map(Number);
+                setVisibleAppendices(initialAppendices);
+            }
         }
-    }, [appendices, selected, mapAppendicesData]);
+    }, [appendixMap, selected]);
 
     const renderTable = useCallback((tableData, key) => {
 
