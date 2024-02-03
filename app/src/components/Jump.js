@@ -153,10 +153,10 @@ const Jump = ({ onChangeLanguage, suraNames, onChangeTheme, colors, theme, trans
 
             <div className={`w-full lg:w-1/2 p-2 flex flex-col transition-all duration-700 ease-linear mb-12`}>
 
-                <div className={`w-full flex justify-between ${colors[theme]["text"]} mb-2`}>
+                <div className={`w-full flex justify-between ${colors[theme]["app-text"]} mb-1`}>
                     <div className={`w-full flex justify-end place-self-end`}>
                         <button className={`flex justify-center`} onClick={onClose}>
-                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className={`w-11 h-11`}>
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className={`w-12 h-12`}>
                                 <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
                             </svg>
 
@@ -178,11 +178,11 @@ const Jump = ({ onChangeLanguage, suraNames, onChangeTheme, colors, theme, trans
                             </div>
                         </div>
                     </div>
-                    <div className={` w-full flex space-x-3 ${colors[theme]["app-text"]}`}>
-                        <div className={`w-full px-4 py-2 flex justify-end `}>
+                    <div className={` w-full flex space-x-1 ${colors[theme]["app-text"]}`}>
+                        <div className={`w-full px-4 flex justify-end `}>
                             {translationApplication?.sura} :
                         </div>
-                        <div className={`w-full py-2 flex items-center justify-start`}>
+                        <div className={`w-full flex items-center justify-start`}>
                             {translationApplication?.verse}
                         </div>
                     </div>
@@ -193,12 +193,11 @@ const Jump = ({ onChangeLanguage, suraNames, onChangeTheme, colors, theme, trans
                                 name="sura"
                                 onChange={handleSuraChange}
                                 value={suraNumber}
-                                className={`w-20 whitespace-pre-line text-justify rounded px-4 py-2 shadow-md ${colors[theme]["text"]} ${colors[theme]["base-background"]} placeholder:text-sky-500 focus:ring-2 focus:ring-inset focus:ring-sky-500 `}>
+                                className={`text-3xl w-28 whitespace-pre-line text-justify rounded p-4 shadow-md ${colors[theme]["text"]} ${colors[theme]["base-background"]} placeholder:text-sky-500 focus:ring-2 focus:ring-inset focus:ring-sky-500 `}>
                                 <option key="0" value="0" disabled></option>
                                 {Object.entries(suraNameMap).map(([sura, sname]) => (
                                     <option key={sura} value={sura}>{sura}{`\t`}{sname}</option>
                                 ))}
-
                             </select>
 
                         </div>
@@ -208,14 +207,14 @@ const Jump = ({ onChangeLanguage, suraNames, onChangeTheme, colors, theme, trans
                                 name="verse"
                                 onChange={handleVerseChange}
                                 value={verseNumber}
-                                className={` w-20 rounded px-4 py-2 shadow-md ${colors[theme]["text"]} ${colors[theme]["base-background"]} placeholder:text-sky-500 focus:ring-2 focus:ring-inset focus:ring-sky-500 `}>
+                                className={`text-3xl w-28 rounded p-4 shadow-md ${colors[theme]["text"]} ${colors[theme]["base-background"]} placeholder:text-sky-500 focus:ring-2 focus:ring-inset focus:ring-sky-500 `}>
                                 {suraNumber && versesInSuras[suraNumber] ? versesInSuras[suraNumber].map(verse => (
                                     <option key={verse} value={verse}>{verse}</option>
                                 )) : null}
                             </select>
                         </div>
                     </div>
-                    <div className={`w-full p-2 ${colors[theme]["app-text"]} flex-1 mt-3`}>
+                    <div className={`w-full p-2 ${colors[theme]["app-text"]} flex-1 mt-1`}>
                         <div className={`w-full ${colors[theme]["app-background"]} p-3 shadow-md rounded`}>
                             <div className={`flex w-full ${colors[theme]["app-text"]} mb-4 text-sm`}>
                                 {translationApplication?.page} {selectedPage}
