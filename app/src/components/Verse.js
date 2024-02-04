@@ -100,7 +100,7 @@ const Verse = ({ besmele, colors, theme, translationApplication, relationalData,
                 if (verses && verses.includes(',')) {
                     verses?.split(',').forEach(verseRange => {
                         if (verseRange) {
-                            const individualKey = `${sura}:${verseRange}`;
+                            const individualKey = `${sura}:${verseRange.trim()}`;
                             if (individualKey !== currentVerseKey) {
                                 const themeRelated = related.get(theme) || [];
                                 themeRelated.push(individualKey);
