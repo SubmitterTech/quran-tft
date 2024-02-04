@@ -803,7 +803,7 @@ const Book = ({ onChangeTheme, colors, theme, translationApplication, introducti
                         <div className={`flex w-full items-center justify-between`}>
                             <button onClick={prevPage}
                                 disabled={isModalOpen}
-                                className={`w-1/2 ${colors[theme]["app-text"]} px-2 mb-1 rounded mr-2 flex justify-center transition-all duration-700 ease-linear ${isModalOpen ? "opacity-0" : "opacity-100"}`}>
+                                className={`w-1/2 ${colors[theme]["app-text"]} p-2 rounded mr-2 flex justify-center transition-all duration-700 ease-linear ${isModalOpen ? "opacity-0" : "opacity-100"}`}>
                                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className={`w-7 h-7 lg:w-12 lg:h-12`}>
                                     <path strokeLinecap="round" strokeLinejoin="round" d="M9 15L3 9m0 0l6-6M3 9h12a6 6 0 010 12h-3" />
                                 </svg>
@@ -841,7 +841,7 @@ const Book = ({ onChangeTheme, colors, theme, translationApplication, introducti
                             </div>
                             <button onClick={nextPage}
                                 disabled={isModalOpen}
-                                className={`w-1/2 ${colors[theme]["app-text"]} px-2 mb-1 rounded ml-2 flex justify-center transition-all duration-700 ease-linear ${isModalOpen ? "opacity-0" : "opacity-100"}`}>
+                                className={`w-1/2 ${colors[theme]["app-text"]} p-2 rounded ml-2 flex justify-center transition-all duration-700 ease-linear ${isModalOpen ? "opacity-0" : "opacity-100"}`}>
                                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className={`w-7 h-7 lg:w-12 lg:h-12`}>
                                     <path strokeLinecap="round" strokeLinejoin="round" d="M15 15l6-6m0 0l-6-6m6 6H9a6 6 0 000 12h3" />
                                 </svg>
