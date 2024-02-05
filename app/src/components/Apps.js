@@ -182,7 +182,7 @@ const Apps = forwardRef(({ colors, theme, translationApplication, parseReference
                     <div className={`${colors[theme]["base-background"]} w-full rounded text-sm py-2 text-center `}>
                         {tableRef}
                     </div>
-                    <table className={`table-auto w-full text-sm md:text-base ${colors[theme]["base-background"]} border-collapse border-2 ${colors[theme]["border"]}`}>
+                    <table className={`table-auto w-full text-base md:text-lg ${colors[theme]["base-background"]} border-collapse border-2 ${colors[theme]["border"]}`}>
                         <thead>
                             <tr>
                                 {columnHeaders.map((header, index) => (
@@ -220,7 +220,7 @@ const Apps = forwardRef(({ colors, theme, translationApplication, parseReference
                     return (
                         <div
                             key={`title-${index}`}
-                            className={`w-full my-3 flex items-center justify-center text-center ${colors[theme]["base-background"]} p-2 font-semibold ${colors[theme]["app-text"]}  whitespace-pre-line ${isAppendixTitle ? "text-2xl font-bold sticky top-0 z-10 shadow-md" : " rounded text-base"}`}
+                            className={`w-full my-3 flex items-center justify-center text-center ${colors[theme]["base-background"]} p-2 font-semibold ${colors[theme]["app-text"]}  whitespace-pre-line ${isAppendixTitle ? "text-2xl font-bold sticky top-0 z-10 shadow-md" : " rounded text-lg"}`}
                             ref={isAppendixTitle ? el => appendixRef.current[`appendix-${item.content.match(/\d+/)[0]}`] = el : null}>
                             <h2>{item.content}</h2>
                         </div>
@@ -233,7 +233,7 @@ const Apps = forwardRef(({ colors, theme, translationApplication, parseReference
                             key={`text-${index}`}
                             ref={(el) => textRef.current[appno + "-" + index] = el}
                             onClick={(e) => handleClick(e, appno, index)}
-                            className={`rounded ${colors[theme]["text-background"]} ${colors[theme]["app-text"]} p-2 shadow-md mb-3 flex w-full text-justify hyphens-auto`}>
+                            className={`rounded ${colors[theme]["text-background"]} ${colors[theme]["app-text"]} p-1 shadow-md mb-3 flex w-full text-justify hyphens-auto`}>
                             <div className={`overflow-x-scroll`}>
                                 <p className={`px-1 break-words`}>{parseReferences(item.content)}</p>
                             </div>
@@ -241,7 +241,7 @@ const Apps = forwardRef(({ colors, theme, translationApplication, parseReference
                     );
                 case 'evidence':
                     return (
-                        <div key={`evidence-${index}`} className={`${colors[theme]["base-background"]} ${colors[theme]["table-title-text"]} rounded shadow-md text-sm md:text-base p-3 border my-3 ${colors[theme]["border"]}`}>
+                        <div key={`evidence-${index}`} className={`${colors[theme]["base-background"]} ${colors[theme]["table-title-text"]} rounded shadow-md text-base md:text-lg p-3 border my-3 ${colors[theme]["border"]}`}>
                             {Object.entries(item.content.lines).map(([lineKey, lineValue]) => (
                                 <p key={`${lineKey}`} className={`whitespace-pre-wrap my-1`}>{parseReferences(lineValue)}</p>
                             ))}
@@ -332,7 +332,7 @@ const Apps = forwardRef(({ colors, theme, translationApplication, parseReference
 
     return (
         <div
-            className={`relative h-screen w-screen ${colors[theme]["app-text"]} text-base select-text`}>
+            className={`relative h-screen w-screen ${colors[theme]["app-text"]} text-lg select-text`}>
 
             <div className={`fixed top-0 left-0 w-full ${colors[theme]["base-background"]} h-12`}>
 

@@ -252,7 +252,7 @@ const Book = ({ onChangeTheme, colors, theme, translationApplication, introducti
 
                 matches.forEach((match, index) => {
                     elements.push(part.slice(lastIndex, match.index));
-                    const reference = (splitted[i - 2] ? splitted[i - 2] : " ") + "" + splitted[i - 1]
+                    const reference = (splitted[i - 2] && !splitted[i - 2].match(/\d+/) ? splitted[i - 2] : " ") + "" + splitted[i - 1]
                     let oldscripture = false
                     //TODO: give outer references for old oldscripture
                     if (reference && !reference.match(/\d+/)) {
@@ -439,15 +439,15 @@ const Book = ({ onChangeTheme, colors, theme, translationApplication, introducti
                     return (
                         <div
                             onClick={() => updatePage(parseInt(page) + 22)}
-                            className={`flex w-full justify-between`}>
-                            <div className={`font-semibold rounded m-0.5 ${colors[theme]["base-background"]} w-1/6 text-sm flex items-center justify-center`}>
+                            className={`flex w-full justify-between mb-2`}>
+                            <div className={`font-semibold rounded m-0.5 ${colors[theme]["base-background"]} w-1/6 text-lg flex items-center justify-center`}>
                                 <p className={``} key={key + no}>{no}</p>
                             </div>
-                            <div className={`m-0.5 ring-1 ${colors[theme]["ring"]} flex justify-between ${colors[theme]["base-background"]} w-full rounded shadow-md`}>
-                                <div className={`rounded-l px-1 py-2 text-left`}>
+                            <div className={`m-0.5 ring-1 ${colors[theme]["ring"]} text-lg flex justify-between ${colors[theme]["base-background"]} w-full rounded shadow-md`}>
+                                <div className={`rounded-l px-1 py-1.5 text-left`}>
                                     <p className={``} key={key + name + no}>{name}</p>
                                 </div>
-                                <div className={`rounded-r px-1 py-2 text-right`}>
+                                <div className={`rounded-r px-1 py-1.5 text-right`}>
                                     <p className={``} key={key + arabic}>{arabic}</p>
                                 </div>
                             </div>
@@ -524,7 +524,7 @@ const Book = ({ onChangeTheme, colors, theme, translationApplication, introducti
                 if (parseInt(key) === 1) {
                     const titles = elements[0].split(" ").filter(element => element);
                     return (
-                        <div className={` ${colors[theme]["app-text"]} w-full flex justify-center`} key={key}>
+                        <div className={` ${colors[theme]["app-text"]} text-3xl w-full flex justify-center`} key={key}>
                             <div className={`p-3`}>{titles[0]}</div>
                         </div>
                     );
@@ -533,11 +533,11 @@ const Book = ({ onChangeTheme, colors, theme, translationApplication, introducti
                         <div
                             key={key}
                             onClick={() => handleAppClick(parseInt(elements[0]))}
-                            className={`flex w-full justify-between`}>
+                            className={`flex w-full justify-between text-lg`}>
                             <div className={` font-semibold rounded p-3 m-1 ${colors[theme]["base-background"]} w-12 flex items-center justify-center`}>
                                 <p className={``} >{elements[0]}</p>
                             </div>
-                            <div key={key} className={`rounded p-3 mr-2 m-1 ${colors[theme]["base-background"]} w-full text-base flex items-center`}>
+                            <div key={key} className={`rounded p-3 mr-2 m-1 ${colors[theme]["base-background"]} w-full flex items-center`}>
                                 <p className={``} >{elements[1]}</p>
                             </div>
                         </div>
@@ -572,7 +572,7 @@ const Book = ({ onChangeTheme, colors, theme, translationApplication, introducti
 
 
         if (!currentPageData || !currentPageData.titles) {
-            return <div className={`${colors[theme]["log-text"]} flex flex-1 items-center justify-center w-full `}>
+            return <div className={`${colors[theme]["log-text"]} flex flex-1 items-center justify-center w-full text-xl`}>
                 <svg className={`animate-spin -ml-1 mr-3 h-5 w-5 text-white`} xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
                     <circle className={`opacity-25`} cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
                     <path className={`opacity-75`} fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
@@ -619,7 +619,7 @@ const Book = ({ onChangeTheme, colors, theme, translationApplication, introducti
                 const hasBesmele = item.content.toLocaleLowerCase(lang).search(bsml) !== -1;
 
                 return (
-                    <div className={hasBesmele ? `select-none  w-full my-3 py-1.5 px-2.5 text-neutral-800 rounded shadow-md bg-gradient-to-r from-cyan-300 to-sky-500 besmele` : `select-text w-full my-3 flex items-center justify-center text-center ${colors[theme]["base-background"]} rounded p-2 font-semibold ${colors[theme]["app-text"]}  whitespace-pre-line ${item.order === 0 ? "text-2xl font-bold" : " text-base"}`}>
+                    <div className={hasBesmele ? `select-none  w-full my-3 py-1.5 px-2.5 text-neutral-800 rounded shadow-md bg-gradient-to-r from-cyan-300 to-sky-500 besmele` : `select-text w-full my-3 flex items-center justify-center text-center ${colors[theme]["base-background"]} rounded p-2 font-semibold ${colors[theme]["app-text"]}  whitespace-pre-line ${item.order === 0 ? "text-3xl font-bold" : " text-lg"}`}>
                         <h2 key={`title-${index}`}>{item.content}</h2>
                     </div>
                 );
@@ -745,7 +745,7 @@ const Book = ({ onChangeTheme, colors, theme, translationApplication, introducti
                     );
                 }
                 return (
-                    <div key={`evidence-${index}`} className={`${colors[theme]["base-background"]} ${colors[theme]["table-title-text"]} rounded shadow-md text-sm md:text-base p-3 border my-3 ${colors[theme]["border"]}`}>
+                    <div key={`evidence-${index}`} className={`${colors[theme]["base-background"]} ${colors[theme]["table-title-text"]} rounded shadow-md text-base md:text-xl p-3 border my-3 ${colors[theme]["border"]}`}>
                         {Object.entries(item.content.lines).map(([lineKey, lineValue]) => (
                             <p className={` whitespace-pre-wrap my-1`} key={lineKey}>{parseReferences(lineValue)}</p>
                         ))}
@@ -787,7 +787,7 @@ const Book = ({ onChangeTheme, colors, theme, translationApplication, introducti
         });
 
         return (
-            <div key={`content-${currentPage}`} ref={contentRef} className={`${colors[theme]["text"]} overflow-auto flex-1 p-3 text-justify lg:text-start text-base md:text-xl`}>
+            <div key={`content-${currentPage}`} ref={contentRef} className={`${colors[theme]["text"]} overflow-auto flex-1 p-3 text-justify lg:text-start text-lg md:text-xl lg:text-2xl`}>
                 {renderContent}
             </div>
         );
@@ -829,7 +829,7 @@ const Book = ({ onChangeTheme, colors, theme, translationApplication, introducti
                                     <select
                                         value={currentPage}
                                         onChange={(e) => setCurrentPage(parseInt(e.target.value))}
-                                        className={`flex rounded ${colors[theme]["app-background"]} ${colors[theme]["page-text"]} py-2 pr-0.5 text-right`}
+                                        className={`flex rounded ${colors[theme]["app-background"]} ${colors[theme]["page-text"]} text-base py-2 pr-0.5 text-right`}
                                     >
                                         {pages.map((page, index) => (
                                             <option key={index} value={page}>

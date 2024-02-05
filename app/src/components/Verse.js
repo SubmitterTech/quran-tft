@@ -341,7 +341,7 @@ const Verse = ({ besmele, colors, theme, translationApplication, relationalData,
                 <div className={`${(mode === "reading" && relatedVerses.size > 0) ? "overflow-auto p-2 delay-500 duration-200 ease-in-out " + heightClass : "duration-75 ease-linear h-0"}  transition-all w-full rounded ${colors[theme]["relation-background"]}`}>
                     {(mode === "reading" && relatedVerses.size > 0) && Array.from(relatedVerses.entries()).map(([themeKey, verseKeys]) => (
                         <div key={themeKey}>
-                            <h3 className={`text-base text-left ${colors[theme]["matching-text"]}`}>{themeKey}</h3>
+                            <h3 className={`text-lg text-left ${colors[theme]["matching-text"]}`}>{themeKey}</h3>
                             <div>
                                 {verseKeys.map(verseKey => (
                                     <button

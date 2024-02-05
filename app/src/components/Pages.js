@@ -469,8 +469,8 @@ const Pages = ({ colors, theme, translationApplication, map, quranData, translat
             <div ref={topRef} className={`flex flex-col `}>
                 {sortedVerses.map(({ suraNumber, verseNumber, verseText, encryptedText, title }) => {
                     const hasAsterisk = verseText.includes('*') || (title && title.includes('*'));
-                    const verseClassName = "transition-colors duration-700 ease-linear flex flex-col cursor-pointer rounded mx-2 my-1 p-1 md:p-1.5 shadow-md text-base hyphens-auto text-justify md:text-lg xl:text-xl ";
-                    const titleClassName = `italic font-semibold rounded shadow-md mx-2 mt-1.5 mb-0.5 p-2.5 text-base md:text-md lg:text-lg text-center whitespace-pre-wrap ${colors[theme]["base-background"]}`;
+                    const verseClassName = "text-lg mx-2 my-1 p-0.5 md:p-1.5 md:text-xl lg:text-2xl transition-colors duration-700 ease-linear flex flex-col cursor-pointer rounded shadow-md hyphens-auto text-justify ";
+                    const titleClassName = `text-lg mx-2 mt-1.5 mb-0.5 p-1.5 md:text-xl lg:text-2xl italic font-semibold rounded shadow-md text-center whitespace-pre-wrap ${colors[theme]["base-background"]}`;
                     const verseKey = `${suraNumber}:${verseNumber}`;
                     const noteReference = hasAsterisk ? verseKey : null;
 
@@ -490,7 +490,7 @@ const Pages = ({ colors, theme, translationApplication, map, quranData, translat
                             {title && (
                                 title.includes('♦')
                                     ? (
-                                        <div className={`w-full flex flex-col space-y-1 mb-1`}>
+                                        <div className={`text-lg w-full flex flex-col space-y-1 mb-1`}>
                                             {(() => {
                                                 const gw = translationApplication.gw.toLocaleLowerCase(lang);
                                                 let parts = title.split('\n').slice(1, -1);
@@ -519,7 +519,7 @@ const Pages = ({ colors, theme, translationApplication, map, quranData, translat
                                                     return (
                                                         <div
                                                             key={`last-title-${suraNumber}-${verseNumber}`}
-                                                            className={` py-1.5 px-2.5 text-neutral-800 rounded shadow-md mx-2 bg-gradient-to-r from-cyan-300 to-sky-500 besmele`}>
+                                                            className={` py-1 px-2.5 text-neutral-800 rounded shadow-md mx-2 bg-gradient-to-r from-cyan-300 to-sky-500 besmele`}>
                                                             {hasGODinit}
                                                         </div>
                                                     );
@@ -593,12 +593,12 @@ const Pages = ({ colors, theme, translationApplication, map, quranData, translat
             </div>
             {
                 notesData.data.length > 0 &&
-                <div className={`${colors[theme]["base-background"]} m-1.5 mt-3 rounded p-2 text-sm md:text-md lg:text-lg text-justify ${colors[theme]["app-text"]} flex flex-col space-y-4 whitespace-pre-line`}>
+                <div className={`${colors[theme]["base-background"]} m-1.5 mt-3 rounded p-2 text-lg md:text-xl lg:text-2xl xl:text-3xl text-justify ${colors[theme]["app-text"]} flex flex-col space-y-4 whitespace-pre-line`}>
                     <h3>{translationApplication?.notes}:</h3>
 
                     {notesData.data.map((note, index) => (
                         <p
-                            className={`${colors[theme]["notes-background"]} hyphens-auto rounded shadow-md px-2 py-3 ${colors[theme]["app-text"]} ${index === focusedNoteIndex ? 'animate-pulse' : ''}`}
+                            className={`${colors[theme]["notes-background"]} hyphens-auto rounded shadow-md px-2 py-1 ${colors[theme]["app-text"]} ${index === focusedNoteIndex ? 'animate-pulse' : ''}`}
                             ref={(el) => noteRefs.current[index] = el}
                             key={"notes:" + index}
                             lang={lang}
