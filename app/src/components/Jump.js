@@ -193,7 +193,7 @@ const Jump = ({ onChangeLanguage, suraNames, onChangeTheme, colors, theme, trans
                                 name="sura"
                                 onChange={handleSuraChange}
                                 value={suraNumber}
-                                className={`text-3xl w-28 whitespace-pre-line text-justify rounded p-4 shadow-md ${colors[theme]["text"]} ${colors[theme]["base-background"]} placeholder:text-sky-500 focus:ring-2 focus:ring-inset focus:ring-sky-500 `}>
+                                className={`text-3xl w-28 whitespace-pre-line text-justify rounded p-3 shadow-md ${colors[theme]["text"]} ${colors[theme]["base-background"]} placeholder:text-sky-500 focus:ring-2 focus:ring-inset focus:ring-sky-500 `}>
                                 <option key="0" value="0" disabled></option>
                                 {Object.entries(suraNameMap).map(([sura, sname]) => (
                                     <option key={sura} value={sura}>{sura}{`\t`}{sname}</option>
@@ -207,7 +207,7 @@ const Jump = ({ onChangeLanguage, suraNames, onChangeTheme, colors, theme, trans
                                 name="verse"
                                 onChange={handleVerseChange}
                                 value={verseNumber}
-                                className={`text-3xl w-28 rounded p-4 shadow-md ${colors[theme]["text"]} ${colors[theme]["base-background"]} placeholder:text-sky-500 focus:ring-2 focus:ring-inset focus:ring-sky-500 `}>
+                                className={`text-3xl w-28 rounded p-3 shadow-md ${colors[theme]["text"]} ${colors[theme]["base-background"]} placeholder:text-sky-500 focus:ring-2 focus:ring-inset focus:ring-sky-500 `}>
                                 {suraNumber && versesInSuras[suraNumber] ? versesInSuras[suraNumber].map(verse => (
                                     <option key={verse} value={verse}>{verse}</option>
                                 )) : null}
