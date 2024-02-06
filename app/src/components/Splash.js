@@ -12,7 +12,7 @@ const Splash = ({ bookContent, currentPage, colors, theme }) => {
     const lines = cpd?.text.split("\n").filter(element => element.trim().length > 0) || [];
 
     return (
-        <div className={`w-screen h-screen flex flex-col items-center justify-center ${colors[theme]["text"]}`}>
+        <div className={`w-screen h-screen flex flex-col items-center justify-center text-lg ${colors[theme]["text"]}`}>
             <div className={`text-left`}>
                 {lines.map((line, index) => (
                     <div
