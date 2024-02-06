@@ -219,7 +219,7 @@ const Apps = forwardRef(({ colors, theme, translationApplication, parseReference
 
                     return (
                         <div
-                            key={`title-${index}`}
+                            key={`title-${appno + index}`}
                             className={`w-full my-3 flex items-center justify-center text-center ${colors[theme]["base-background"]} p-2 font-semibold ${colors[theme]["app-text"]}  whitespace-pre-line ${isAppendixTitle ? "text-2xl font-bold sticky top-0 z-10 shadow-md" : " rounded text-lg"}`}
                             ref={isAppendixTitle ? el => appendixRef.current[`appendix-${item.content.match(/\d+/)[0]}`] = el : null}>
                             <h2>{item.content}</h2>

@@ -320,7 +320,11 @@ const Book = ({ onChangeTheme, colors, theme, translationApplication, introducti
             const listener = await App.addListener('backButton', async () => {
                 if (!backButtonPressedOnce) {
                     setBackButtonPressedOnce(true);
-                    prevPage();
+                    if (isModalOpen) {
+                        setModalOpen(false);
+                    } else {
+                        prevPage();
+                    }
                     setSearchOpen(false);
                     await Toast.show({
                         text: translationApplication.exitToast,
@@ -349,7 +353,7 @@ const Book = ({ onChangeTheme, colors, theme, translationApplication, introducti
                 removeListener();
             }
         };
-    }, [backButtonPressedOnce, translationApplication, prevPage]);
+    }, [backButtonPressedOnce, isModalOpen, translationApplication, prevPage]);
 
     const onMagnify = () => {
         setSearchOpen(true);
@@ -515,7 +519,7 @@ const Book = ({ onChangeTheme, colors, theme, translationApplication, introducti
 
             const handleAppClick = (no) => {
                 selectedApp.current = no
-                updatePage(397)
+                updatePage(397, null, null, 'openAppendix', no);
             };
 
             const content = cpd.evidence["2"].lines;
