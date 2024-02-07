@@ -326,14 +326,14 @@ const Verse = ({ besmele, colors, theme, translationApplication, relationalData,
                 onClick={() => handleClick()}
                 className={`px-1 w-full`}
             >
-                <span className={mode === "light" ? encryptedText.includes(besmele) ? `text-rose-500 font-semibold` : `${colors[theme]["matching-text"]} font-semibold` : `text-sky-500 `}>{`${verseNumber}. `}</span>
+                <span className={mode === "light" ? encryptedText.includes(besmele) ? `text-rose-500 font-semibold` : `${colors[theme]["matching-text"]} font-semibold` : ` brightness-75`}>{`${verseNumber}. `}</span>
                 <span className={``}>
                     {text}
                 </span>
             </div>
 
             <div className={`w-full flex flex-col flex-1  ${mode === "reading" ? "p-0.5 mt-2" : "h-0"} `}>
-                <div className={`${mode === "reading" ? " select-text ease-in mb-2 duration-200" : "h-0 ease-linear duration-75"} w-full transition-all  rounded ${colors[theme]["encrypted-background"]} shadow-md`} >
+                <div className={`${mode === "reading" ? " select-text ease-in mb-2 duration-200" : "h-0 ease-linear duration-75"} w-full transition-all  rounded ${colors[theme]["encrypted-background"]} `} >
                     <p className={` p-2 text-start `} dir="rtl" >
                         {mode === "reading" && lightAllahwords(encryptedText)}
                     </p>
@@ -345,7 +345,7 @@ const Verse = ({ besmele, colors, theme, translationApplication, relationalData,
                             <div>
                                 {verseKeys.map(verseKey => (
                                     <button
-                                        className={`${colors[theme]["base-background"]} p-2 rounded m-1 shadow-md text-sky-500`}
+                                        className={`${colors[theme]["base-background"]} p-2 rounded my-1 mr-2 shadow-lg text-sky-500`}
                                         key={verseKey}
                                         onClick={() => onRelatedVerseClick(verseKey)}
                                     >
@@ -362,7 +362,7 @@ const Verse = ({ besmele, colors, theme, translationApplication, relationalData,
             {tooltip.visible && (
                 <div
                     ref={tooltipRef}
-                    className={`fixed px-4 py-2 shadow-md rounded ${colors[theme]["base-background"]} ${colors[theme]["app-text"]}`}
+                    className={`fixed px-4 py-2  rounded ${colors[theme]["base-background"]} ${colors[theme]["app-text"]}`}
                     style={{ left: tooltip.x - 30, top: tooltip.y - 30, transform: 'translate(-50%, -50%)' }}
                 >
                     {tooltip.keys}{` `}{translationApplication.copied}

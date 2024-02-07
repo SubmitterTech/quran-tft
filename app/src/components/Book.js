@@ -444,10 +444,10 @@ const Book = ({ onChangeTheme, colors, theme, translationApplication, introducti
                         <div
                             onClick={() => updatePage(parseInt(page) + 22)}
                             className={`flex w-full justify-between mb-2`}>
-                            <div className={`font-semibold rounded m-0.5 ${colors[theme]["base-background"]} w-1/6 text-lg flex items-center justify-center`}>
+                            <div className={`font-semibold rounded m-0.5 ${colors[theme]["text-background"]} w-1/6 text-lg flex items-center justify-center`}>
                                 <p className={``} key={key + no}>{no}</p>
                             </div>
-                            <div className={`m-0.5 ring-1 ${colors[theme]["ring"]} text-lg flex justify-between ${colors[theme]["base-background"]} w-full rounded shadow-md`}>
+                            <div className={`m-0.5 ring-1 ${colors[theme]["ring"]} text-lg flex justify-between ${colors[theme]["base-background"]} w-full rounded `}>
                                 <div className={`rounded-l px-1 py-1.5 text-left`}>
                                     <p className={``} key={key + name + no}>{name}</p>
                                 </div>
@@ -455,7 +455,7 @@ const Book = ({ onChangeTheme, colors, theme, translationApplication, introducti
                                     <p className={``} key={key + arabic}>{arabic}</p>
                                 </div>
                             </div>
-                            <div className={`rounded px-2 py-1 m-0.5 ${colors[theme]["base-background"]} w-1/6 text-base flex items-center justify-center`}>
+                            <div className={`rounded px-2 py-1 m-0.5 ${colors[theme]["text-background"]} w-1/6 text-base flex items-center justify-center`}>
                                 <p className={``} key={key + versecount}>{versecount}</p>
                             </div>
                         </div>
@@ -466,7 +466,7 @@ const Book = ({ onChangeTheme, colors, theme, translationApplication, introducti
             return (
                 <div className={`w-screen h-screen flex flex-col overflow-auto ${colors[theme]["app-text"]}`}>
                     <div className={`w-full p-3`}>
-                        <div className={`w-full flex items-center justify-center text-center ${colors[theme]["base-background"]} rounded p-2 font-semibold ${colors[theme]["app-text"]} text-2xl shadow-md`}>
+                        <div className={`w-full flex items-center justify-center text-center ${colors[theme]["base-background"]} rounded p-2 font-semibold ${colors[theme]["app-text"]} text-2xl `}>
                             <h2 key={`title-1}`}>{cpd.titles["1"]}</h2>
                         </div>
                     </div>
@@ -538,10 +538,10 @@ const Book = ({ onChangeTheme, colors, theme, translationApplication, introducti
                             key={key}
                             onClick={() => handleAppClick(parseInt(elements[0]))}
                             className={`flex w-full justify-between text-lg`}>
-                            <div className={` font-semibold rounded p-3 m-1 ${colors[theme]["base-background"]} w-12 flex items-center justify-center`}>
+                            <div className={` font-semibold rounded p-3 m-1 ${colors[theme]["base-background"]} w-16 flex items-center justify-center`}>
                                 <p className={``} >{elements[0]}</p>
                             </div>
-                            <div key={key} className={`rounded p-3 mr-2 m-1 ${colors[theme]["base-background"]} w-full flex items-center`}>
+                            <div key={key} className={`rounded p-3 mr-2 m-1 ${colors[theme]["text-background"]} w-full flex items-center`}>
                                 <p className={``} >{elements[1]}</p>
                             </div>
                         </div>
@@ -623,7 +623,7 @@ const Book = ({ onChangeTheme, colors, theme, translationApplication, introducti
                 const hasBesmele = item.content.toLocaleLowerCase(lang).search(bsml) !== -1;
 
                 return (
-                    <div className={hasBesmele ? `select-none  w-full my-3 py-1.5 px-2.5 text-neutral-800 rounded shadow-md bg-gradient-to-r from-cyan-300 to-sky-500 besmele` : `select-text w-full my-3 flex items-center justify-center text-center ${colors[theme]["base-background"]} rounded p-2 font-semibold ${colors[theme]["app-text"]}  whitespace-pre-line ${item.order === 0 ? "text-3xl font-bold" : " text-lg"}`}>
+                    <div className={hasBesmele ? `select-none  w-full my-3 py-1.5 px-2.5 text-neutral-800 rounded  bg-gradient-to-r from-cyan-300 to-sky-500 besmele` : `select-text w-full flex items-center justify-center text-center p-2 font-semibold ${colors[theme]["app-text"]}  whitespace-pre-line ${item.order === 0 ? "text-3xl font-bold" : " text-lg"}`}>
                         <h2 key={`title-${index}`}>{item.content}</h2>
                     </div>
                 );
@@ -631,7 +631,7 @@ const Book = ({ onChangeTheme, colors, theme, translationApplication, introducti
                 return (
                     <div
                         lang={lang}
-                        className={`select-text rounded ${colors[theme]["text-background"]} ${colors[theme]["app-text"]} p-1.5 shadow-md mb-3 flex w-full justify-center hyphens-auto `}>
+                        className={`select-text rounded ${colors[theme]["text-background"]} ${colors[theme]["app-text"]} p-1.5  mb-3 flex w-full justify-center hyphens-auto `}>
                         <p key={`text-${index}`} className={`px-1`}>{parseReferences(item.content)}</p>
                     </div>
                 );
@@ -642,7 +642,7 @@ const Book = ({ onChangeTheme, colors, theme, translationApplication, introducti
                     return (
                         <div className={`w-full flex flex-col flex-1 my-3`}>
                             <div key={`evidence-${index}`}
-                                className={`bg-gray-100 text-gray-700 rounded shadow-md text-sm md:text-base border border-gray-700 flex justify-between w-full items-stretch`}>
+                                className={`bg-gray-100 text-gray-700 rounded  text-sm md:text-base border border-gray-700 flex justify-between w-full items-stretch`}>
 
                                 <div className={`relative text-gray-100 bg-gray-700 w-[11%] flex flex-wrap `}>
                                     {/* Render SVGs for index 0 in this div */}
@@ -698,7 +698,7 @@ const Book = ({ onChangeTheme, colors, theme, translationApplication, introducti
                             </div>
                             <div className={`w-full flex flex-col rounded border border-gray-700 p-1`}>
                                 <div className={`w-full flex items-center justify-between`}>
-                                    <div className={`w-7 h-7 rounded bg-gray-100 border border-gray-300 shadow-md`}>
+                                    <div className={`w-7 h-7 rounded bg-gray-100 border border-gray-300 `}>
 
                                     </div>
                                     <div className={`flex ml-1 w-full text-sm`}>
@@ -706,7 +706,7 @@ const Book = ({ onChangeTheme, colors, theme, translationApplication, introducti
                                     </div>
                                 </div>
                                 <div className={`w-full flex items-center justify-between mt-1`}>
-                                    <div className={`w-7 h-7 rounded bg-gray-700 border border-gray-300 shadow-md`}>
+                                    <div className={`w-7 h-7 rounded bg-gray-700 border border-gray-300 `}>
                                     </div>
                                     <div className={`ml-1 w-full text-sm`}>
                                         {item.content.lines["2"]}
@@ -724,7 +724,7 @@ const Book = ({ onChangeTheme, colors, theme, translationApplication, introducti
                     return (
                         <div className={`w-full flex flex-col flex-1 my-3`}>
                             <div key={`evidence-${index}`}
-                                className={` text-gray-700 rounded shadow-md text-sm md:text-base border border-gray-950 flex justify-between w-full items-stretch`}>
+                                className={` text-gray-700 rounded  text-sm md:text-base border border-gray-950 flex justify-between w-full items-stretch`}>
                                 <div className={`relative w-full bg-gray-100 flex flex-wrap justify-center p-2 text-gray-700 rounded-l`}>
                                     {item.content.lines["1"]}
                                 </div>
@@ -737,7 +737,7 @@ const Book = ({ onChangeTheme, colors, theme, translationApplication, introducti
                                 </svg>
                             </div>
                             <div key={`evidence-${index + 1}`}
-                                className={` text-gray-700 rounded shadow-md text-sm md:text-base border border-gray-950 flex justify-between w-full items-stretch`}>
+                                className={` text-gray-700 rounded  text-sm md:text-base border border-gray-950 flex justify-between w-full items-stretch`}>
                                 <div className={`relative w-full bg-gray-500 flex flex-wrap justify-center p-2 text-gray-200 rounded-l`}>
                                     {item.content.lines["2"]}
                                 </div>
@@ -749,7 +749,7 @@ const Book = ({ onChangeTheme, colors, theme, translationApplication, introducti
                     );
                 }
                 return (
-                    <div key={`evidence-${index}`} className={`${colors[theme]["base-background"]} ${colors[theme]["table-title-text"]} rounded shadow-md text-base md:text-xl p-3 border my-3 ${colors[theme]["border"]}`}>
+                    <div key={`evidence-${index}`} className={`${colors[theme]["base-background"]} ${colors[theme]["table-title-text"]} rounded  text-base md:text-xl p-3 border my-3 ${colors[theme]["border"]}`}>
                         {Object.entries(item.content.lines).map(([lineKey, lineValue]) => (
                             <p className={` whitespace-pre-wrap my-1`} key={lineKey}>{parseReferences(lineValue)}</p>
                         ))}
@@ -763,7 +763,7 @@ const Book = ({ onChangeTheme, colors, theme, translationApplication, introducti
                 return (
                     <div className={` flex flex-col flex-1 items-center justify-center w-full px-1`}>
 
-                        <div className={`rounded shadow-md flex justify-center`}>
+                        <div className={`rounded  flex justify-center`}>
 
                             <img
                                 src={imageUrl}
@@ -818,10 +818,10 @@ const Book = ({ onChangeTheme, colors, theme, translationApplication, introducti
                                 {
                                     isModalOpen ?
 
-                                        (<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" className={`w-9 h-9 lg:w-12 lg:h-12 transition-all duration-1000 ease-linear ${colors[theme]["text"]}`} onClick={() => handleTogglePage()}>
+                                        (<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" className={`w-11 h-11 lg:w-14 lg:h-14 transition-all duration-1000 ease-linear ${colors[theme]["text"]}`} onClick={() => handleTogglePage()}>
                                             <path fillRule="evenodd" d="M3 6a3 3 0 0 1 3-3h2.25a3 3 0 0 1 3 3v2.25a3 3 0 0 1-3 3H6a3 3 0 0 1-3-3V6Zm9.75 0a3 3 0 0 1 3-3H18a3 3 0 0 1 3 3v2.25a3 3 0 0 1-3 3h-2.25a3 3 0 0 1-3-3V6ZM3 15.75a3 3 0 0 1 3-3h2.25a3 3 0 0 1 3 3V18a3 3 0 0 1-3 3H6a3 3 0 0 1-3-3v-2.25Zm9.75 0a3 3 0 0 1 3-3H18a3 3 0 0 1 3 3V18a3 3 0 0 1-3 3h-2.25a3 3 0 0 1-3-3v-2.25Z" clipRule="evenodd" />
                                         </svg>) :
-                                        (<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className={`w-9 h-9 lg:w-12 lg:h-12 transition-all duration-1000 ease-linear `} onClick={() => handleTogglePage()}>
+                                        (<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className={`w-11 h-11 lg:w-14 lg:h-14 transition-all duration-1000 ease-linear `} onClick={() => handleTogglePage()}>
                                             <path strokeLinecap="round" strokeLinejoin="round" d="M3.75 6A2.25 2.25 0 0 1 6 3.75h2.25A2.25 2.25 0 0 1 10.5 6v2.25a2.25 2.25 0 0 1-2.25 2.25H6a2.25 2.25 0 0 1-2.25-2.25V6ZM3.75 15.75A2.25 2.25 0 0 1 6 13.5h2.25a2.25 2.25 0 0 1 2.25 2.25V18a2.25 2.25 0 0 1-2.25 2.25H6A2.25 2.25 0 0 1 3.75 18v-2.25ZM13.5 6a2.25 2.25 0 0 1 2.25-2.25H18A2.25 2.25 0 0 1 20.25 6v2.25A2.25 2.25 0 0 1 18 10.5h-2.25a2.25 2.25 0 0 1-2.25-2.25V6ZM13.5 15.75a2.25 2.25 0 0 1 2.25-2.25H18a2.25 2.25 0 0 1 2.25 2.25V18A2.25 2.25 0 0 1 18 20.25h-2.25A2.25 2.25 0 0 1 13.5 18v-2.25Z" />
                                         </svg>)
                                 }

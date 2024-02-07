@@ -220,7 +220,7 @@ const Apps = forwardRef(({ colors, theme, translationApplication, parseReference
                     return (
                         <div
                             key={`title-${appno + index}`}
-                            className={`w-full my-3 flex items-center justify-center text-center ${colors[theme]["base-background"]} p-2 font-semibold ${colors[theme]["app-text"]}  whitespace-pre-line ${isAppendixTitle ? "text-2xl font-bold sticky top-0 z-10 shadow-md" : " rounded text-lg"}`}
+                            className={`w-full my-3 flex items-center justify-center text-center  p-2 font-semibold ${colors[theme]["app-text"]}  whitespace-pre-line ${isAppendixTitle ? `text-2xl font-bold sticky top-0 z-10 ${colors[theme]["base-background"]}` : " rounded text-lg"}`}
                             ref={isAppendixTitle ? el => appendixRef.current[`appendix-${item.content.match(/\d+/)[0]}`] = el : null}>
                             <h2>{item.content}</h2>
                         </div>
@@ -233,7 +233,7 @@ const Apps = forwardRef(({ colors, theme, translationApplication, parseReference
                             key={`text-${index}`}
                             ref={(el) => textRef.current[appno + "-" + index] = el}
                             onClick={(e) => handleClick(e, appno, index)}
-                            className={`rounded ${colors[theme]["text-background"]} ${colors[theme]["app-text"]} p-1 shadow-md mb-3 flex w-full text-justify hyphens-auto`}>
+                            className={`rounded ${colors[theme]["text-background"]} ${colors[theme]["app-text"]} p-1  mb-3 flex w-full text-justify hyphens-auto`}>
                             <div className={`overflow-x-scroll`}>
                                 <p className={`px-1 break-words`}>{parseReferences(item.content)}</p>
                             </div>
@@ -241,7 +241,7 @@ const Apps = forwardRef(({ colors, theme, translationApplication, parseReference
                     );
                 case 'evidence':
                     return (
-                        <div key={`evidence-${index}`} className={`${colors[theme]["base-background"]} ${colors[theme]["table-title-text"]} rounded shadow-md text-base md:text-lg p-3 border my-3 ${colors[theme]["border"]}`}>
+                        <div key={`evidence-${index}`} className={`${colors[theme]["base-background"]} ${colors[theme]["table-title-text"]} rounded  text-base md:text-lg p-3 border my-3 ${colors[theme]["border"]}`}>
                             {Object.entries(item.content.lines).map(([lineKey, lineValue]) => (
                                 <p key={`${lineKey}`} className={`whitespace-pre-wrap my-1`}>{parseReferences(lineValue)}</p>
                             ))}
@@ -257,7 +257,7 @@ const Apps = forwardRef(({ colors, theme, translationApplication, parseReference
                     if (parseInt(item.content.no) === 10) {
                         return (
                             <div key={`picture-${index}`} className={`flex flex-col flex-1 items-center justify-center w-full px-1`}>
-                                <div className={`shadow-md flex p-1 overflow-y-auto`}>
+                                <div className={` flex p-1 overflow-y-auto`}>
                                     <div className={` flex flex-col justify-between `}>
                                         {item.content.data.slice(0, 4).map((word) => (
                                             <div className={`p-1.5 whitespace-nowrap text-right`}>{word}</div>
@@ -285,7 +285,7 @@ const Apps = forwardRef(({ colors, theme, translationApplication, parseReference
                             <div key={`picture-${index}`} className={`flex flex-col space-y-1.5 flex-1 items-center justify-center w-full px-1 mb-2`}>
 
                                 {item.content.text && Object.entries(item.content.text).map(([pickey, text]) => (
-                                    <div className={`rounded shadow-md flex flex-wrap md:flex-nowrap justify-between`}>
+                                    <div className={`rounded  flex flex-wrap md:flex-nowrap justify-between`}>
                                         <img src={images(`./${pickey}.jpg`)} alt={imageUrl} className={`object-contain`} />
                                         <div lang={lang} className={`p-2 text-justify hyphens-auto break-words`}>{parseReferences(text)}</div>
                                     </div>
@@ -297,7 +297,7 @@ const Apps = forwardRef(({ colors, theme, translationApplication, parseReference
                     }
                     return (
                         <div key={`picture-${index}`} className={`flex flex-col flex-1 items-center justify-center w-full px-1 mb-2`}>
-                            <div className={`rounded shadow-md flex justify-center`}>
+                            <div className={`rounded  flex justify-center`}>
                                 <img src={imageUrl} alt={imageUrl} className={`object-center`} />
                             </div>
                             {item.content.text && (
@@ -338,7 +338,7 @@ const Apps = forwardRef(({ colors, theme, translationApplication, parseReference
 
             </div>
             <button onClick={prevPage}
-                className={`fixed top-0.5 left-0.5 z-30 rounded shadow-md p-2 ${colors[theme]["base-background"]}`}>
+                className={`fixed top-0.5 left-0.5 z-30 rounded  p-2 ${colors[theme]["base-background"]}`}>
                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-7 h-7">
                     <path strokeLinecap="round" strokeLinejoin="round" d="M9 15 3 9m0 0 6-6M3 9h12a6 6 0 0 1 0 12h-3" />
                 </svg>

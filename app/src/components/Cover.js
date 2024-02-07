@@ -57,7 +57,7 @@ const Cover = ({ onCoverSeen, coverData, lang, onChangeLanguage }) => {
                                 return (
                                     <div
                                         key={key}
-                                        className={`flex p-2 shadow-md rounded justify-center ${languageClass} ${isSelectedLanguage ? "ring-1 ring-offset-4 ring-sky-400 ring-offset-sky-900" : ""}`}
+                                        className={`flex p-2  rounded justify-center ${languageClass} ${isSelectedLanguage ? "ring-1 ring-offset-4 ring-sky-400 ring-offset-sky-900" : ""}`}
                                         onClick={() => isLanguageDisabled ? null : onChangeLanguage(key)}>
                                         <input
                                             type="radio"

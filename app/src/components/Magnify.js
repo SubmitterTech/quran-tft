@@ -258,7 +258,7 @@ const Magnify = ({ colors, theme, translationApplication, quran, map, onClose, o
     return (
         <div className={`w-screen h-screen animated overflow-auto faster fixed left-0 top-0 flex flex-col items-center justify-start inset-0 z-10 outline-none focus:outline-none backdrop-blur-2xl`} id="jump-screen">
             <div className={`w-full flex p-2 sticky top-0 backdrop-blur-2xl`}>
-                <div className={`w-full flex rounded shadow-md space-x-2`}>
+                <div className={`w-full flex rounded  space-x-2`}>
                     <input
                         type="text"
                         ref={inputRef}
@@ -288,7 +288,7 @@ const Magnify = ({ colors, theme, translationApplication, quran, map, onClose, o
                                     <div
                                         ref={index === loadedTitles.length - 1 ? lastTitleElementRef : null}
                                         key={`${result.suraNumber}-${result.titleNumber}-${index}`}
-                                        className={`p-2 rounded shadow-md ${colors[theme]["base-background"]} cursor-pointer ml-0.5 mr-0.5 md:mr-1.5`}
+                                        className={`p-2 rounded  ${colors[theme]["base-background"]} cursor-pointer ml-0.5 mr-0.5 md:mr-1.5`}
                                         onClick={() => handleConfirm(`${result.suraNumber}:${result.titleNumber}`)}>
                                         <span className="text-sky-500">{result.suraNumber}:{result.titleNumber}</span> {lightWords(result.titleText, searchTerm)}
                                     </div>
@@ -309,7 +309,7 @@ const Magnify = ({ colors, theme, translationApplication, quran, map, onClose, o
                                     <div
                                         ref={index === loadedVerses.length - 1 ? lastVerseElementRef : null}
                                         key={`${result.suraNumber}-${result.verseNumber}-${index}`}
-                                        className={` p-1.5 rounded shadow-md ${colors[theme]["text-background"]} cursor-pointer ml-0.5 mr-0.5 md:mr-1.5`}
+                                        className={` p-1.5 rounded  ${colors[theme]["text-background"]} cursor-pointer ml-0.5 mr-0.5 md:mr-1.5`}
                                         onClick={() => handleConfirm(`${result.suraNumber}:${result.verseNumber}`)}>
                                         <span className="text-sky-500">{result.suraNumber}:{result.verseNumber}</span> {lightWords(result.verseText, searchTerm)}
                                     </div>
@@ -330,7 +330,7 @@ const Magnify = ({ colors, theme, translationApplication, quran, map, onClose, o
                                     <div
                                         ref={index === loadedNotes.length - 1 ? lastNoteElementRef : null}
                                         key={`${result.suraNumber}-${result.verseNumber}-${index}`}
-                                        className={` p-1.5 rounded shadow-md ${colors[theme]["notes-background"]} cursor-pointer ml-0.5 mr-0.5 md:mr-1.5`}
+                                        className={` p-1.5 rounded  ${colors[theme]["notes-background"]} cursor-pointer ml-0.5 mr-0.5 md:mr-1.5`}
                                         onClick={() => handleConfirm(`${result.suraNumber}:${result.verseNumber}`)}>
                                         {lightWords(result.note, searchTerm)}
                                     </div>
@@ -350,7 +350,7 @@ const Magnify = ({ colors, theme, translationApplication, quran, map, onClose, o
                                 <div
                                     key={exp}
 
-                                    className={`rounded shadow-md ${colors[theme]["base-background"]} ${themeorref.length === 0 ? "brightness-75" : ""}`}>
+                                    className={`rounded  ${colors[theme]["base-background"]} ${themeorref.length === 0 ? "brightness-75" : ""}`}>
                                     <div
                                         onClick={() => handleThemeClick(exp)}
                                         className={`rounded p-2`}>
@@ -360,7 +360,7 @@ const Magnify = ({ colors, theme, translationApplication, quran, map, onClose, o
                                         <div className={`flex flex-col space-y-1.5 mt-3 p-2`}>
                                             {typeof themeorref === 'object' ?
                                                 Object.entries(themeorref).map(([innerTheme, ref]) => (
-                                                    <div key={innerTheme} className={`p-2 ${colors[theme]["app-background"]} rounded shadow-md `}>
+                                                    <div key={innerTheme} className={`p-2 ${colors[theme]["app-background"]} rounded  `}>
                                                         <div className={`p-1`}>{innerTheme}</div>
                                                         <div className={`p-2 rounded ${colors[theme]["base-background"]} flex flex-col space-y-1.5`}>{renderref(ref)}</div>
                                                     </div>
