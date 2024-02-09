@@ -79,13 +79,13 @@ const Magnify = ({ colors, theme, translationApplication, quran, map, onClose, o
             return;
         }
 
+        const keywords = removeDiacritics(term).toLowerCase().split(' ').filter(keyword => keyword.trim() !== '');
         const titleResults = [];
         const verseResults = [];
         const notesResults = [];
 
         for (const page in quran) {
             const suras = quran[page].sura;
-            const normalizedTerm = removeDiacritics(term).toLowerCase();
 
             for (const suraNumber in suras) {
                 const verses = suras[suraNumber].verses;
@@ -93,9 +93,7 @@ const Magnify = ({ colors, theme, translationApplication, quran, map, onClose, o
                     const verseText = verses[verseNumber];
                     const normalizedVerseText = removeDiacritics(verseText).toLowerCase();
 
-                    if (normalizedVerseText.includes(normalizedTerm)) {
-                        verseResults.push({ suraNumber, verseNumber, verseText });
-                    } else if (verseNumber.includes(normalizedTerm) || suraNumber.includes(normalizedTerm) || (suraNumber + ":" + verseNumber).includes(normalizedTerm) ) {
+                    if (keywords.every(keyword => normalizedVerseText.includes(keyword))) {
                         verseResults.push({ suraNumber, verseNumber, verseText });
                     }
                 }
@@ -104,7 +102,7 @@ const Magnify = ({ colors, theme, translationApplication, quran, map, onClose, o
                     const titleText = titles[titleNumber];
                     const normalizedTitleText = removeDiacritics(titleText).toLowerCase();
 
-                    if (normalizedTitleText.includes(normalizedTerm)) {
+                    if (keywords.every(keyword => normalizedTitleText.includes(keyword))) {
                         titleResults.push({ suraNumber, titleNumber, titleText });
                     }
                 }
@@ -113,7 +111,7 @@ const Magnify = ({ colors, theme, translationApplication, quran, map, onClose, o
                     Object.values(notes).forEach((note) => {
                         const normalizedNote = removeDiacritics(note).toLowerCase();
 
-                        if (normalizedNote.includes(normalizedTerm)) {
+                        if (keywords.every(keyword => normalizedNote.includes(keyword))) {
                             const match = note.match(/\*+\d+:\d+/g);
                             if (match && match.length > 0) {
                                 const ref = match[0].split("*")[1].split(":");
@@ -129,6 +127,7 @@ const Magnify = ({ colors, theme, translationApplication, quran, map, onClose, o
         setSearchResultNotes(notesResults);
     }, [quran]);
 
+
     useEffect(() => {
         if (searchTerm) {
             if (searchTerm.length > 1) {
@@ -140,26 +139,43 @@ const Magnify = ({ colors, theme, translationApplication, quran, map, onClose, o
     }, [searchTerm, performSearch, performSearchSingleLetter]);
 
     const lightWords = (text, term) => {
-        const normalizedTerm = removeDiacritics(term);
-        const escapedTerm = escapeRegExp(normalizedTerm);
-        const regex = new RegExp(`(${escapedTerm})`, 'gi');
-        const regtext = removeDiacritics(text);
 
-        let lastIndex = 0;
-        return regtext.split(regex).reduce((prev, current, index) => {
-            const currentLength = current.length;
-            const originalSegment = text.substr(lastIndex, currentLength);
+        const highlightText = (text, keyword) => {
+            const regex = new RegExp(`(${keyword})`, 'gi');
+            let match;
+            const parts = [];
+            let currentIndex = 0;
 
-            if (regex.test(current)) {
-                prev.push(<span key={index} className={`font-bold  ${colors[theme]["matching-text"]}`}>{originalSegment}</span>);
-            } else {
-                prev.push(originalSegment);
+            while ((match = regex.exec(text)) !== null) {
+                const matchIndex = match.index;
+                const matchText = match[0];
+
+                if (matchIndex > currentIndex) {
+                    parts.push(text.substring(currentIndex, matchIndex));
+                }
+
+                parts.push(<span key={`${matchIndex}`} className={`font-bold ${colors[theme]["matching-text"]}`}>{matchText}</span>);
+                currentIndex = matchIndex + matchText.length;
+            }
+            if (currentIndex < text.length) {
+                parts.push(text.substring(currentIndex));
             }
 
-            lastIndex += currentLength;
-            return prev;
-        }, []);
+            return parts;
+        };
+
+        const normalizedTerm = removeDiacritics(term).toLowerCase();
+        const keywords = normalizedTerm.split(' ').filter(keyword => keyword.trim() !== '');
+        let highlightedText = [text];
+
+        keywords.forEach(keyword => {
+            const escapedKeyword = escapeRegExp(keyword);
+            highlightedText = highlightedText.flatMap(part => typeof part === 'string' ? highlightText(part, escapedKeyword) : part);
+        });
+
+        return highlightedText;
     };
+
 
 
     const lastTitleElementRef = useCallback(node => {
