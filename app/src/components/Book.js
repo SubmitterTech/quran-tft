@@ -8,7 +8,7 @@ import Magnify from '../components/Magnify';
 import Splash from '../components/Splash';
 import '../assets/css/Book.css';
 
-const Book = ({ onChangeTheme, colors, theme, translationApplication, introductionContent, quranData, coverData, map, appendicesContent, translation, onChangeLanguage }) => {
+const Book = ({ onChangeTheme, colors, theme, translationApplication, introductionContent, quranData, map, appendicesContent, translation, onChangeLanguage }) => {
     const lang = localStorage.getItem("lang")
     const images = require.context('../assets/pictures/', false, /\.jpg$/);
 
