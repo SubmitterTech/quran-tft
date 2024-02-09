@@ -52,6 +52,18 @@ const Magnify = ({ colors, theme, translationApplication, quran, map, onClose, o
         }
     }, []);
 
+    useEffect(() => {
+        if (searchTerm !== "") {
+            localStorage.setItem("st", searchTerm)
+        }
+    }, [searchTerm]);
+
+    useEffect(() => {
+        if (localStorage.getItem("st")) {
+            setSearchTerm(localStorage.getItem("st"));
+        }
+    }, []);
+
     const removeDiacritics = (text) => {
         return text.normalize("NFD").replace(/[\u0300-\u036f]/g, "");
     };
@@ -284,10 +296,25 @@ const Magnify = ({ colors, theme, translationApplication, quran, map, onClose, o
                         onChange={(e) => setSearchTerm(e.target.value)}
                         className={`w-full p-2 rounded ${colors[theme]["app-background"]} ${colors[theme]["page-text"]} focus:outline-none focus:ring-2 ${colors[theme]["focus-ring"]} ${colors[theme]["focus-text"]}`}
                     />
-                    <button className={`flex items-center justify-center ${colors[theme]["text"]}`} onClick={onClose}>
-                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className={`w-7 h-7`}>
-                            <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
-                        </svg>
+                    <button className={`flex items-center justify-center ${colors[theme]["text"]}`}
+                        onClick={() => {
+                            if (searchTerm.length > 0) {
+                                setSearchTerm("");
+                                localStorage.removeItem("st");
+                                inputRef.current && inputRef.current.focus();
+                            } else {
+                                onClose();
+                            }
+                        }}>
+                        {searchTerm.length === 0 ?
+                            (<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className={`w-8 h-8`}>
+                                <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
+                            </svg>)
+                            :
+                            (<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className={`w-8 h-8`}>
+                                <path strokeLinecap="round" strokeLinejoin="round" d="M12 9.75 14.25 12m0 0 2.25 2.25M14.25 12l2.25-2.25M14.25 12 12 14.25m-2.58 4.92-6.374-6.375a1.125 1.125 0 0 1 0-1.59L9.42 4.83c.21-.211.497-.33.795-.33H19.5a2.25 2.25 0 0 1 2.25 2.25v10.5a2.25 2.25 0 0 1-2.25 2.25h-9.284c-.298 0-.585-.119-.795-.33Z" />
+                            </svg>
+                            )}
                     </button>
                 </div>
             </div>
