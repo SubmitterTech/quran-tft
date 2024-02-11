@@ -91,8 +91,10 @@ const Apps = forwardRef(({ colors, theme, translationApplication, parseReference
                     setVisibleAppendices([selected.current - 1, selected.current]);
                 } else if (selected.current === 1) {
                     setVisibleAppendices([selected.current]);
+                } else if (selected.current === 24) {
+                    setVisibleAppendices([selected.current - 1, selected.current]);
                 } else {
-                    setVisibleAppendices([selected.current, selected.current + 1]);
+                    setVisibleAppendices([selected.current]);
                 }
             }
 
