@@ -105,7 +105,8 @@ const Magnify = ({ colors, theme, translationApplication, quran, map, onClose, o
                     const verseText = verses[verseNumber];
                     const normalizedVerseText = removeDiacritics(verseText).toLowerCase();
 
-                    if (keywords.every(keyword => normalizedVerseText.includes(keyword))) {
+                    if (keywords.every(keyword => normalizedVerseText.includes(keyword)) ||
+                        keywords.some(keyword => verseNumber.includes(keyword) || suraNumber.includes(keyword) || (`${suraNumber}:${verseNumber}`).includes(keyword))) {
                         verseResults.push({ suraNumber, verseNumber, verseText });
                     }
                 }
@@ -151,42 +152,44 @@ const Magnify = ({ colors, theme, translationApplication, quran, map, onClose, o
     }, [searchTerm, performSearch, performSearchSingleLetter]);
 
     const lightWords = (text, term) => {
-
-        const highlightText = (text, keyword) => {
-            const regex = new RegExp(`(${keyword})`, 'gi');
+        const highlightText = (originalText, keyword) => {
+            const normalizedText = removeDiacritics(originalText).toLowerCase();
+            const escapedKeyword = escapeRegExp(keyword);
+            const regex = new RegExp(escapedKeyword, 'gi');
             let match;
             const parts = [];
             let currentIndex = 0;
-
-            while ((match = regex.exec(text)) !== null) {
+    
+            while ((match = regex.exec(normalizedText)) !== null) {
                 const matchIndex = match.index;
-                const matchText = match[0];
-
+                const matchText = originalText.substr(matchIndex, match[0].length);
+    
                 if (matchIndex > currentIndex) {
-                    parts.push(text.substring(currentIndex, matchIndex));
+                    parts.push(originalText.substring(currentIndex, matchIndex));
                 }
-
-                parts.push(<span key={`${matchIndex}`} className={`font-bold ${colors[theme]["matching-text"]}`}>{matchText}</span>);
+    
+                parts.push(<span key={`${matchIndex}-${escapedKeyword}`} className={`font-bold ${colors[theme]["matching-text"]}`}>{matchText}</span>);
                 currentIndex = matchIndex + matchText.length;
             }
-            if (currentIndex < text.length) {
-                parts.push(text.substring(currentIndex));
+    
+            if (currentIndex < originalText.length) {
+                parts.push(originalText.substring(currentIndex));
             }
-
+    
             return parts;
         };
-
+    
         const normalizedTerm = removeDiacritics(term).toLowerCase();
         const keywords = normalizedTerm.split(' ').filter(keyword => keyword.trim() !== '');
         let highlightedText = [text];
-
+    
         keywords.forEach(keyword => {
-            const escapedKeyword = escapeRegExp(keyword);
-            highlightedText = highlightedText.flatMap(part => typeof part === 'string' ? highlightText(part, escapedKeyword) : part);
+            highlightedText = highlightedText.flatMap(part => typeof part === 'string' ? highlightText(part, keyword) : part);
         });
-
+    
         return highlightedText;
     };
+    
 
 
 
