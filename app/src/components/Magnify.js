@@ -326,7 +326,7 @@ const Magnify = ({ colors, theme, translationApplication, quran, map, onClose, o
 
                     <div className={`${loadedTitles.length > 0 ? (loadedVerses.length > 0 && loadedNotes.length > 0) ? "basis-2/12  p-1 mx-1.5 border" : "flex-1 p-1 mx-1.5 border" : "h-0 "} transition-all duration-200 ease-linear  overflow-auto rounded ${colors[theme]["verse-border"]} ${colors[theme]["text-background"]}`}>
                         <div className={`${loadedTitles.length > 0 ? "opacity-100" : "opacity-0 h-0"} sticky -top-1 text-sm md:text-base text-center rounded backdrop-blur-xl ${colors[theme]["page-text"]}`}>
-                            {translationApplication.titles}
+                            {translationApplication.titles}{` `}<span className={`${colors[theme]["matching-text"]}`}>{searchResultTitles.length}</span>
                         </div>
                         <div className={`text-sm md:text-base w-full ${colors[theme]["text"]}`}>
                             <div className={`w-full flex flex-col space-y-1.5`}>
@@ -345,7 +345,7 @@ const Magnify = ({ colors, theme, translationApplication, quran, map, onClose, o
 
                     <div className={`${loadedVerses.length > 0 ? (loadedNotes.length > 0 && loadedTitles.length > 0) ? "basis-7/12  p-1 mx-1.5 border" : "flex-1 p-1 mx-1.5 border" : "h-0 "} transition-all duration-200 ease-linear overflow-auto rounded ${colors[theme]["verse-border"]} ${colors[theme]["base-background"]}`}>
                         <div className={`${loadedVerses.length > 0 ? "opacity-100" : "opacity-0 h-0"} sticky -top-1 text-sm md:text-base text-center rounded backdrop-blur-xl ${colors[theme]["page-text"]}`}>
-                            {translationApplication.verses}
+                            {translationApplication.verses}{` `}<span className={`${colors[theme]["matching-text"]}`}>{searchResultVerses.length}</span>
                         </div>
                         <div
                             lang={lang}
@@ -366,7 +366,7 @@ const Magnify = ({ colors, theme, translationApplication, quran, map, onClose, o
 
                     <div className={`${loadedNotes.length > 0 ? (loadedVerses.length > 0 && loadedTitles.length > 0) ? "basis-3/12  p-1 mx-1.5 border" : "flex-1 p-1 mx-1.5 border" : "h-0 "} transition-all duration-200 ease-linear  overflow-auto rounded ${colors[theme]["verse-border"]} ${colors[theme]["base-background"]}`}>
                         <div className={`${loadedNotes.length > 0 ? "opacity-100" : "opacity-0 "} sticky -top-1 text-sm md:text-base text-center rounded backdrop-blur-xl  ${colors[theme]["page-text"]}`}>
-                            {translationApplication.notes}
+                            {translationApplication.notes}{` `}<span className={`${colors[theme]["matching-text"]}`}>{searchResultNotes.length}</span>
                         </div>
                         <div
                             lang={lang}
