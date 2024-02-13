@@ -519,7 +519,7 @@ const Pages = ({ colors, theme, translationApplication, map, quranData, translat
                                                     return (
                                                         <div
                                                             key={`last-title-${suraNumber}-${verseNumber}`}
-                                                            className={` py-1 px-2.5 text-neutral-800 rounded  mx-2 bg-gradient-to-r from-cyan-300 to-sky-500 besmele`}>
+                                                            className={` py-1 px-2.5 text-neutral-800 rounded  mx-2 bg-gradient-to-r from-cyan-300 to-sky-500 text-base md:text-lg lg:text-xl xl:text-2xl besmele`}>
                                                             {hasGODinit}
                                                         </div>
                                                     );
