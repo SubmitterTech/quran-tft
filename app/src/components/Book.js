@@ -802,7 +802,7 @@ const Book = ({ onChangeTheme, colors, theme, translationApplication, introducti
             {renderBookContent()}
             {(parseInt(currentPage) < 397 && !isSearchOpen) &&
                 <div>
-                    <div className="h-12"></div>
+                    <div className="h-12 md:h-20"></div>
                     <div className={`w-full flex z-20 p-0.5 ${colors[theme]["app-background"]} fixed bottom-0`}>
                         <div className={`flex w-full items-center justify-between`}>
                             <button onClick={prevPage}
