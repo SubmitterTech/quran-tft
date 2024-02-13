@@ -469,6 +469,7 @@ const Pages = ({ colors, theme, translationApplication, map, quranData, translat
             <div ref={topRef} className={`flex flex-col `}>
                 {sortedVerses.map(({ suraNumber, verseNumber, verseText, encryptedText, title }) => {
                     const hasAsterisk = verseText.includes('*') || (title && title.includes('*'));
+                    const hasTitleAsterisk = (title && title.includes('*'));
                     const verseClassName = "text-lg mx-2 mt-1.5 p-0.5 md:p-1 md:text-xl lg:text-2xl transition-colors duration-700 ease-linear flex flex-col cursor-pointer rounded  hyphens-auto text-justify ";
                     const titleClassName = `text-lg mx-2 mt-2.5 md:text-xl lg:text-2xl italic font-semibold rounded  text-center whitespace-pre-wrap `;
                     const verseKey = `${suraNumber}:${verseNumber}`;
@@ -531,8 +532,8 @@ const Pages = ({ colors, theme, translationApplication, map, quranData, translat
                                     : (
                                         <div
                                             key={`${"title:" + suraNumber + ":" + verseNumber}`}
-                                            className={`${titleClassName} ${hasAsterisk ? " cursor-pointer text-sky-500 border border-neutral-500/50 p-2 md:p-3" : "p-0.5 md:p-2"}`}
-                                            onClick={() => hasAsterisk && handleTitleClick(noteReference)}>
+                                            className={`${titleClassName} ${hasTitleAsterisk ? " cursor-pointer text-sky-500 border border-neutral-500/50 p-2 md:p-3" : "p-0.5 md:p-2"}`}
+                                            onClick={() => hasTitleAsterisk && handleTitleClick(noteReference)}>
                                             {title}
                                         </div>
                                     )
