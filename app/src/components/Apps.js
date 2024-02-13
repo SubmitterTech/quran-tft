@@ -284,7 +284,7 @@ const Apps = forwardRef(({ colors, theme, translationApplication, parseReference
                     if (parseInt(item.content.no) === 22) {
 
                         return (
-                            <div key={`picture-${index}`} className={`flex flex-col space-y-1.5 flex-1 items-center justify-center w-full px-1 mb-2`}>
+                            <div key={`picture-22-special`} className={`flex flex-col space-y-1.5 flex-1 items-center justify-center w-full px-1 mb-2`}>
 
                                 {item.content.text && Object.entries(item.content.text).map(([pickey, text]) => (
                                     <div className={`rounded  flex flex-wrap md:flex-nowrap justify-between`}>
@@ -350,7 +350,7 @@ const Apps = forwardRef(({ colors, theme, translationApplication, parseReference
             <div
                 ref={containerRef}
                 onScroll={loadMoreAppendices}
-                className={`relative h-screen overflow-y-auto`}>
+                className={`relative h-screen overflow-y-auto text-lg md:text-xl lg:text-2xl`}>
                 {renderAppendices()}
 
                 {!isRefsReady &&
