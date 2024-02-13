@@ -168,7 +168,7 @@ const Magnify = ({ colors, theme, translationApplication, quran, map, onClose, o
                     parts.push(originalText.substring(currentIndex, matchIndex));
                 }
     
-                parts.push(<span key={`${matchIndex}-${escapedKeyword}`} className={`font-bold ${colors[theme]["matching-text"]}`}>{matchText}</span>);
+                parts.push(<span  className={`font-bold ${colors[theme]["matching-text"]}`}>{matchText}</span>);
                 currentIndex = matchIndex + matchText.length;
             }
     
