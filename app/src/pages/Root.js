@@ -30,7 +30,8 @@ function Root() {
             "ring": "ring-neutral-800/80",
             "focus-ring": "focus:ring-neutral-800/80",
             "focus-text": "focus:text-neutral-800",
-            "matching-text": "text-pink-500"
+            "matching-text": "text-pink-500",
+            "matching-border": "border-pink-500"
         },
         "dark": {
             "text-background": "bg-neutral-700",
@@ -52,7 +53,8 @@ function Root() {
             "ring": "ring-neutral-300/80",
             "focus-ring": "focus:ring-neutral-200/80",
             "focus-text": "focus:text-neutral-200",
-            "matching-text": "text-fuchsia-400"
+            "matching-text": "text-fuchsia-400",
+            "matching-border": "border-fuchsia-400"
         },
         "sky": {
             "text-background": "bg-sky-800",
@@ -74,7 +76,8 @@ function Root() {
             "ring": "ring-sky-500/80",
             "focus-ring": "focus:ring-neutral-200/80",
             "focus-text": "focus:text-neutral-200",
-            "matching-text": "text-amber-400"
+            "matching-text": "text-amber-400",
+            "matching-border": "border-amber-400"
 
         },
         "green": {
@@ -97,7 +100,8 @@ function Root() {
             "ring": "ring-teal-500/80",
             "focus-ring": "focus:ring-neutral-200/80",
             "focus-text": "focus:text-neutral-100",
-            "matching-text": "text-orange-400"
+            "matching-text": "text-orange-400",
+            "matching-border": "border-orange-400"
         },
         "indigo": {
             "text-background": "bg-indigo-800",
@@ -119,7 +123,8 @@ function Root() {
             "ring": "ring-indigo-500/80",
             "focus-ring": "focus:ring-neutral-200/80",
             "focus-text": "focus:text-neutral-200",
-            "matching-text": "text-lime-400"
+            "matching-text": "text-lime-400",
+            "matching-border": "border-lime-400"
         }
     };
 
