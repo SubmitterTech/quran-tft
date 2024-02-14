@@ -43,7 +43,7 @@ const Verse = ({ besmele, colors, theme, translationApplication, relationalData,
             textToCopy += txt + "\n\n";
         });
 
-        navigator.clipboard.writeText(textToCopy)
+        navigator.clipboard?.writeText(textToCopy)
             .then(() => {
                 let keys = Object.keys(accumulatedCopiesRef.current).join(", ");
                 setTooltip({ visible: true, x, y, keys: keys });
