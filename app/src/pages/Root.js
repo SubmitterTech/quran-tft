@@ -11,8 +11,8 @@ import map from '../assets/map.json';
 function Root() {
     const colors = {
         "light": {
-            "text-background": "bg-neutral-300",
-            "app-background": "bg-neutral-200",
+            "text-background": "bg-neutral-200",
+            "app-background": "bg-neutral-50",
             "notes-background": "bg-neutral-200",
             "base-background": "bg-neutral-100",
             "verse-detail-background": "bg-neutral-100",
@@ -34,9 +34,9 @@ function Root() {
             "matching-border": "border-pink-500"
         },
         "dark": {
-            "text-background": "bg-neutral-700",
-            "app-background": "bg-neutral-800",
-            "notes-background": "bg-neutral-800",
+            "text-background": "bg-neutral-800",
+            "app-background": "bg-neutral-950",
+            "notes-background": "bg-neutral-700",
             "base-background": "bg-neutral-900",
             "verse-detail-background": "bg-neutral-900",
             "encrypted-background": "bg-neutral-800",
@@ -84,7 +84,7 @@ function Root() {
             "text-background": "bg-teal-800",
             "app-background": "bg-teal-950",
             "notes-background": "bg-neutral-700",
-            "base-background": "bg-neutral-800/90",
+            "base-background": "bg-neutral-900",
             "verse-detail-background": "bg-neutral-800",
             "encrypted-background": "bg-neutral-700/70",
             "relation-background": "bg-neutral-700/70",
@@ -92,7 +92,7 @@ function Root() {
             "border": "border-teal-100",
             "text": "text-neutral-200",
             "app-text": "text-neutral-300",
-            "page-text": "text-teal-100/50",
+            "page-text": "text-neutral-200/50",
             "log-text": "text-neutral-300/80",
             "verse-border": "border-teal-500/80",
             "verse-ring": "ring-orange-400/70",

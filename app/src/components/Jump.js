@@ -138,7 +138,7 @@ const Jump = ({ onChangeLanguage, suraNames, onChangeTheme, colors, theme, trans
                             className="hidden"
                         />
                         <span
-                            className={`flex items-center justify-center rounded border ${localTheme === theme ? `${colors[theme]["matching-border"]}` : "border-gray-500"} ${showThemes ? "h-10 w-10" : "hidden h-0 w-0"}`}
+                            className={`flex items-center justify-center rounded border ${localTheme === theme ? `${colors[theme]["matching-border"]}` : "border-gray-400"} ${showThemes ? "h-10 w-10" : "hidden h-0 w-0"}`}
                             style={{ backgroundColor: color }}>
                             {localTheme === theme &&
                                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" className={`${colors[theme]["matching-text"]} w-4 h-4`}>
@@ -156,7 +156,6 @@ const Jump = ({ onChangeLanguage, suraNames, onChangeTheme, colors, theme, trans
         <div className={`w-screen h-screen fixed left-0 top-0 inset-0 z-10 outline-none focus:outline-none `} id="jump-screen">
             <div className={` w-full h-full backdrop-blur-xl flex items-center justify-center `}>
                 <div className={` w-full md:w-2/3 lg:w-1/2 2xl:w-1/3 px-2 flex flex-col transition-all duration-200 ease-linear mb-7 `}>
-
                     <div className={`w-full fixed top-7 right-2 flex justify-between ${colors[theme]["app-text"]} mb-2`}>
                         <div className={`w-full flex justify-end place-self-end`}>
                             <button className={`flex justify-center`} onClick={onClose}>
@@ -167,11 +166,11 @@ const Jump = ({ onChangeLanguage, suraNames, onChangeTheme, colors, theme, trans
                             </button>
                         </div>
                     </div>
-                    <div className={`shadow-[rgba(125,211,252,0.4)_0px_7px_15px_15px] transition-colors duration-700 ease-linear flex flex-col items-center justify-center ${colors[theme]["text-background"]} rounded  w-full `}>
+                    <div className={`shadow-[rgba(125,211,252,0.4)_0px_7px_15px_15px] transition-colors duration-700 ease-linear flex flex-col items-center justify-center ${colors[theme]["app-background"]} rounded  w-full `}>
                         <div className={`w-full p-2`}>
                             <div
                                 onClick={onMagnify}
-                                className={`w-full flex justify-center ${colors[theme]["text"]} rounded p-2 ${colors[theme]["app-background"]} cursor-pointer`}>
+                                className={`w-full flex justify-center ${colors[theme]["text"]} rounded p-2 ${colors[theme]["text-background"]} cursor-pointer`}>
                                 <button className={`flex justify-center`} >
                                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className={`w-11 h-11`}>
                                         <path strokeLinecap="round" strokeLinejoin="round" d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607z" />
@@ -197,7 +196,7 @@ const Jump = ({ onChangeLanguage, suraNames, onChangeTheme, colors, theme, trans
                                     name="sura"
                                     onChange={handleSuraChange}
                                     value={suraNumber}
-                                    className={`text-3xl w-24 h-16 whitespace-pre-line text-justify rounded pb-4 pt-3.5 pl-5 pr-1 ${colors[theme]["text"]} ${colors[theme]["base-background"]} placeholder:text-sky-500 focus:ring-2 focus:ring-inset focus:ring-sky-500 `}>
+                                    className={`text-3xl w-24 h-16 whitespace-pre-line text-justify rounded pb-4 pt-3.5 pl-5 pr-1 ${colors[theme]["text"]} ${colors[theme]["notes-background"]} placeholder:text-sky-500 focus:ring-2 focus:ring-inset focus:ring-sky-500 `}>
                                     <option key="0" value="0" disabled></option>
                                     {Object.entries(suraNameMap).map(([sura, sname]) => (
                                         <option key={sura} value={sura}>{sura}{`\t`}{sname}</option>
@@ -211,7 +210,7 @@ const Jump = ({ onChangeLanguage, suraNames, onChangeTheme, colors, theme, trans
                                     name="verse"
                                     onChange={handleVerseChange}
                                     value={verseNumber}
-                                    className={`text-3xl w-24 rounded py-3 pr-5 text-right  ${colors[theme]["text"]} ${colors[theme]["base-background"]} placeholder:text-sky-500 focus:ring-2 focus:ring-inset focus:ring-sky-500 `}>
+                                    className={`text-3xl w-24 rounded py-3 pr-5 text-right  ${colors[theme]["text"]} ${colors[theme]["notes-background"]} placeholder:text-sky-500 focus:ring-2 focus:ring-inset focus:ring-sky-500 `}>
                                     {suraNumber && versesInSuras[suraNumber] ? versesInSuras[suraNumber].map(verse => (
                                         <option key={verse} value={verse}>{verse}</option>
                                     )) : null}
@@ -219,7 +218,7 @@ const Jump = ({ onChangeLanguage, suraNames, onChangeTheme, colors, theme, trans
                             </div>
                         </div>
                         <div className={`w-full p-2 ${colors[theme]["app-text"]} flex-1 mt-1`}>
-                            <div className={`w-full ${colors[theme]["app-background"]} p-3  rounded`}>
+                            <div className={`w-full p-3`}>
                                 <div className={`flex w-full ${colors[theme]["app-text"]} mb-4 text-sm`}>
                                     {translationApplication?.page} {selectedPage}
                                 </div>
@@ -258,7 +257,7 @@ const Jump = ({ onChangeLanguage, suraNames, onChangeTheme, colors, theme, trans
                         <div className={`flex w-full justify-between items-center ${colors[theme]["text"]} space-x-2 px-2 ${showThemes ? "pb-0" : "pb-2"}`}>
                             <button
                                 onClick={handleSubmit}
-                                className={`flex flex-col w-full items-center justify-between pt-2 rounded  transition-all delay-150 duration-700 ease-in-out ${lightOpen ? "bg-sky-600" : colors[theme]["app-background"]}`}>
+                                className={`flex flex-col w-full items-center justify-between pt-2 rounded  transition-all delay-150 duration-700 ease-in-out ${lightOpen ? "bg-sky-600" : colors[theme]["text-background"]}`}>
                                 <div className={`flex justify-center`} >
                                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className={`w-11 h-11`}>
                                         <path strokeLinecap="round" strokeLinejoin="round" d="M9 8.25H7.5a2.25 2.25 0 00-2.25 2.25v9a2.25 2.25 0 002.25 2.25h9a2.25 2.25 0 002.25-2.25v-9a2.25 2.25 0 00-2.25-2.25H15m0-3l-3-3m0 0l-3 3m3-3V15" />
@@ -270,7 +269,7 @@ const Jump = ({ onChangeLanguage, suraNames, onChangeTheme, colors, theme, trans
                             </button>
                             <button
                                 onClick={goIntro}
-                                className={`flex flex-col w-full items-center justify-between pt-2 rounded  ${colors[theme]["app-background"]}`}>
+                                className={`flex flex-col w-full items-center justify-between pt-2 rounded  ${colors[theme]["text-background"]}`}>
                                 <div className={`flex justify-center`}>
                                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" className={`w-11 h-11`}>
                                         <path fillRule="evenodd" d="M7.5 3.75A1.5 1.5 0 006 5.25v13.5a1.5 1.5 0 001.5 1.5h6a1.5 1.5 0 001.5-1.5V15a.75.75 0 011.5 0v3.75a3 3 0 01-3 3h-6a3 3 0 01-3-3V5.25a3 3 0 013-3h6a3 3 0 013 3V9A.75.75 0 0115 9V5.25a1.5 1.5 0 00-1.5-1.5h-6zm5.03 4.72a.75.75 0 010 1.06l-1.72 1.72h10.94a.75.75 0 010 1.5H10.81l1.72 1.72a.75.75 0 11-1.06 1.06l-3-3a.75.75 0 010-1.06l3-3a.75.75 0 011.06 0z" clipRule="evenodd" />
@@ -282,7 +281,7 @@ const Jump = ({ onChangeLanguage, suraNames, onChangeTheme, colors, theme, trans
                             </button>
                             <button
                                 onClick={goApps}
-                                className={`flex flex-col w-full items-center justify-between pt-2 rounded  ${colors[theme]["app-background"]}`}>
+                                className={`flex flex-col w-full items-center justify-between pt-2 rounded  ${colors[theme]["text-background"]}`}>
                                 <div className={`flex justify-center`} >
                                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" className={`w-11 h-11`}>
                                         <path fillRule="evenodd" d="M7.5 3.75A1.5 1.5 0 006 5.25v13.5a1.5 1.5 0 001.5 1.5h6a1.5 1.5 0 001.5-1.5V15a.75.75 0 011.5 0v3.75a3 3 0 01-3 3h-6a3 3 0 01-3-3V5.25a3 3 0 013-3h6a3 3 0 013 3V9A.75.75 0 0115 9V5.25a1.5 1.5 0 00-1.5-1.5h-6zm10.72 4.72a.75.75 0 011.06 0l3 3a.75.75 0 010 1.06l-3 3a.75.75 0 11-1.06-1.06l1.72-1.72H9a.75.75 0 010-1.5h10.94l-1.72-1.72a.75.75 0 010-1.06z" clipRule="evenodd" />
@@ -294,7 +293,7 @@ const Jump = ({ onChangeLanguage, suraNames, onChangeTheme, colors, theme, trans
                             </button>
                             <button
                                 onClick={toggleThemeView}
-                                className={`flex flex-col w-full items-center justify-between pt-2 rounded  ${colors[theme]["app-background"]}`}>
+                                className={`flex flex-col w-full items-center justify-between pt-2 rounded  ${colors[theme]["text-background"]}`}>
                                 <div className={`flex justify-center`} >
                                     {showThemes ?
                                         (<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" className={`w-11 h-11`}>
@@ -316,7 +315,7 @@ const Jump = ({ onChangeLanguage, suraNames, onChangeTheme, colors, theme, trans
                         </div>
                         {
                             <div className={`flex flex-col items-center justify-center w-full transition-all duration-200 ease-linear ${showThemes ? "p-2" : "h-0"}`}>
-                                <div className={`transition-colors duration-700 ease-linear flex flex-col items-center justify-center ${colors[theme]["app-background"]} rounded  w-full ${showThemes ? "p-3" : "h-0"} mx-2`}>
+                                <div className={`transition-colors duration-700 ease-linear flex flex-col items-center justify-center ${colors[theme]["notes-background"]} rounded  w-full ${showThemes ? "p-3" : "h-0"} mx-2`}>
                                     <div>
                                         <ThemePicker onChangeTheme={onChangeTheme} />
                                     </div>
