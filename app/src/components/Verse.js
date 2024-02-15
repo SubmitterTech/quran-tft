@@ -12,7 +12,9 @@ const Verse = ({ besmele, colors, theme, translationApplication, relationalData,
     const hasMovedRef = useRef(false);
     const hasLongPressedRef = useRef(false);
 
-    const lang = localStorage.getItem("lang")
+    const [pulseNumber, setPulseNumber] = useState("");
+
+    const lang = localStorage.getItem("lang");
 
     const handleTouchMove = () => {
         hasMovedRef.current = true;
@@ -252,14 +254,13 @@ const Verse = ({ besmele, colors, theme, translationApplication, relationalData,
 
     useEffect(() => {
         if (pulse) {
-            if (!cn.includes("animate-bounce")) {
-                setCn(cn + " animate-bounce");
+            if (!pulseNumber.includes("animate-ping")) {
+                setPulseNumber("animate-ping");
             }
         } else {
-            const updatedCn = cn.replace(/animate-bounce/g, '').trim();
-            setCn(updatedCn);
+            setPulseNumber("");
         };
-    }, [pulse, cn]);
+    }, [pulse, pulseNumber]);
 
 
     useEffect(() => {
@@ -326,7 +327,14 @@ const Verse = ({ besmele, colors, theme, translationApplication, relationalData,
                 onClick={() => handleClick()}
                 className={`px-1 w-full`}
             >
-                <span className={mode === "light" ? encryptedText.includes(besmele) ? `text-rose-500 font-semibold` : `${colors[theme]["matching-text"]} font-semibold` : ` brightness-75`}>{`${verseNumber}. `}</span>
+                <span className={`relative`}>
+                    <span className={mode === "light" ? encryptedText.includes(besmele) ? `text-rose-500 font-semibold absolute ${pulseNumber}` : `${colors[theme]["matching-text"]} font-semibold absolute ${pulseNumber}` : `absolute brightness-75 ${pulseNumber}`}>
+                        {`${verseNumber}. `}
+                    </span>
+                    <span className={mode === "light" ? encryptedText.includes(besmele) ? `text-rose-500 font-semibold relative` : `${colors[theme]["matching-text"]} font-semibold relative` : `relative brightness-75`}>
+                        {`${verseNumber}. `}
+                    </span>
+                </span>
                 <span className={``}>
                     {text}
                 </span>
