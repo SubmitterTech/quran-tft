@@ -470,8 +470,8 @@ const Pages = ({ colors, theme, translationApplication, map, quranData, translat
                 {sortedVerses.map(({ suraNumber, verseNumber, verseText, encryptedText, title }) => {
                     const hasAsterisk = verseText.includes('*') || (title && title.includes('*'));
                     const hasTitleAsterisk = (title && title.includes('*'));
-                    const verseClassName = "text-lg mx-2 mt-1.5 p-0.5 md:p-1 md:text-xl lg:text-2xl transition-colors duration-700 ease-linear flex flex-col cursor-pointer rounded  hyphens-auto text-justify ";
-                    const titleClassName = `text-lg mx-2 mt-2.5 md:text-xl lg:text-2xl italic font-semibold rounded  text-center whitespace-pre-wrap `;
+                    const verseClassName = "text-lg mx-2 mt-1 p-0.5 md:p-1 md:text-xl lg:text-2xl transition-colors duration-700 ease-linear flex flex-col cursor-pointer rounded  hyphens-auto text-justify ";
+                    const titleClassName = `text-lg mx-2 mt-1.5 md:text-xl lg:text-2xl italic font-semibold rounded  text-center whitespace-pre-wrap `;
                     const verseKey = `${suraNumber}:${verseNumber}`;
                     const noteReference = hasAsterisk ? verseKey : null;
 
