@@ -328,10 +328,10 @@ const Verse = ({ besmele, colors, theme, translationApplication, relationalData,
                 className={`px-1 w-full`}
             >
                 <span className={`relative`}>
-                    <span className={mode === "light" ? encryptedText.includes(besmele) ? `text-rose-500 font-semibold absolute ${pulseNumber}` : `${colors[theme]["matching-text"]} font-semibold absolute ${pulseNumber}` : `absolute brightness-75 ${pulseNumber}`}>
+                    <span className={mode === "light" ? encryptedText.includes(besmele) ? `text-rose-500 font-semibold absolute brightness-150 ${pulseNumber}` : `${colors[theme]["matching-text"]} font-semibold absolute brightness-150 ${pulseNumber}` : `absolute brightness-150 ${pulseNumber}`}>
                         {`${verseNumber}. `}
                     </span>
-                    <span className={mode === "light" ? encryptedText.includes(besmele) ? `text-rose-500 font-semibold relative` : `${colors[theme]["matching-text"]} font-semibold relative` : `relative brightness-75`}>
+                    <span className={mode === "light" ? encryptedText.includes(besmele) ? `text-rose-500 font-semibold relative` : `${colors[theme]["matching-text"]} font-semibold relative` : `relative brightness-150`}>
                         {`${verseNumber}. `}
                     </span>
                 </span>
