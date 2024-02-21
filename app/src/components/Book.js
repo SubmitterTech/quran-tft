@@ -87,10 +87,11 @@ const Book = ({ onChangeTheme, colors, theme, translationApplication, introducti
     };
 
     const updatePage = useCallback((newPage, sura = null, verse = null, actionType = 'navigate', appReference = null) => {
-        // console.log( "updatePage", newPage, currentPage, pageHistory.length, actionType, appReference)
-        if (actionType !== 'previous' && pageHistory[pageHistory.length - 1]?.page !== 396 && (newPage !== 397 || pageHistory[pageHistory.length - 1]?.page !== 397)) {
-            setPageHistory(prevHistory => [...prevHistory, { page: currentPage, sura: selectedSura, verse: selectedVerse, actionType, appReference }]);
+        //console.log("updatePage", newPage, currentPage, pageHistory.length, actionType, appReference)
+        if (actionType !== 'previous') {
+            setPageHistory(prevHistory => [...prevHistory, { page: parseInt(currentPage), sura: selectedSura, verse: selectedVerse, actionType, appReference }]);
         }
+
         setSelectedSura(sura);
         setSelectedVerse(verse);
         setCurrentPage(newPage);
@@ -106,15 +107,14 @@ const Book = ({ onChangeTheme, colors, theme, translationApplication, introducti
         }
         if (newPage === 397) {
             if (parseInt(currentPage) === 396) {
-                updatePage(newPage, null, null, 'next');
+                updatePage(parseInt(newPage), null, null, 'next', 1);
                 return setSelectedApp(parseInt(1));
             }
             if (selectedApp && selectedApp !== 38) {
                 setSelectedAppendix(parseInt(selectedApp) + 1);
             }
         } else {
-            updatePage(newPage, null, null, 'next');
-
+            updatePage(parseInt(newPage), null, null, 'next', selectedApp);
         }
     };
 
@@ -128,8 +128,13 @@ const Book = ({ onChangeTheme, colors, theme, translationApplication, introducti
             setSelectedSura(lastHistoryItem.sura);
             setSelectedVerse(lastHistoryItem.verse);
 
-            restoreAppText.current = lastHistoryItem.actionType === 'openAppendix';
+            restoreAppText.current = lastHistoryItem.actionType === 'fromAppendix';
 
+            if (lastHistoryItem.page === 397) {
+                if (pageHistory[pageHistory.length - 1]) {
+                    setSelectedApp(parseInt(pageHistory[pageHistory.length - 1].appReference));
+                }
+            }
         } else {
             // Default back navigation without history
             let newPage = parseInt(currentPage) > 1 ? parseInt(currentPage) - 1 : parseInt(currentPage);
@@ -164,7 +169,7 @@ const Book = ({ onChangeTheme, colors, theme, translationApplication, introducti
 
     const handleClickReference = (reference) => {
         if (reference.toLowerCase().includes("introduction") || reference.toLowerCase().includes("intro")) {
-            updatePage(13, null, null, currentPage === 397 ? 'openAppendix' : 'relationClick');
+            updatePage(13, null, null, currentPage === 397 ? 'fromAppendix' : 'relationClick', selectedApp ? selectedApp : null);
             return;
         }
         // Parse the reference to extract sura and verse information
@@ -192,7 +197,7 @@ const Book = ({ onChangeTheme, colors, theme, translationApplication, introducti
         });
 
         if (foundPageNumber) {
-            updatePage(foundPageNumber, sura, verseStart, currentPage === 397 ? 'openAppendix' : 'relationClick');
+            updatePage(foundPageNumber, sura, verseStart, currentPage === 397 ? 'fromAppendix' : 'relationClick', selectedApp ? selectedApp : null);
         } else {
             Toast.show({
                 text: translationApplication.refNotFound,
