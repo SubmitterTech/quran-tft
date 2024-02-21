@@ -150,7 +150,7 @@ const Apps = ({ colors, theme, translationApplication, parseReferences, appendic
                 return (
                     <div
                         key={`title-${appno + index}`}
-                        className={`sticky top-0 z-20 flex items-center justify-center text-center p-2 font-semibold ${colors[theme]["app-text"]} ${colors[theme]["app-background"]} `}
+                        className={`sticky top-0 flex items-center justify-center text-center p-2 font-semibold ${colors[theme]["app-text"]} ${colors[theme]["app-background"]} `}
                         ref={isAppendixTitle ? el => appendixRef.current[`appendix-${item.content.match(/\d+/)[0]}`] = el : null}>
                         {item.content}
                     </div>
