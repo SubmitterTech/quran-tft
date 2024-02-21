@@ -169,7 +169,7 @@ const Book = ({ onChangeTheme, colors, theme, translationApplication, introducti
 
     const handleClickReference = (reference) => {
         if (reference.toLowerCase().includes("introduction") || reference.toLowerCase().includes("intro")) {
-            updatePage(13, null, null, currentPage === 397 ? 'fromAppendix' : 'relationClick', selectedApp ? selectedApp : null);
+            updatePage(13, null, null, currentPage === 397 ? 'fromAppendix' : 'relationClick', currentPage === 397 ? selectedApp : null);
             return;
         }
         // Parse the reference to extract sura and verse information
@@ -197,7 +197,7 @@ const Book = ({ onChangeTheme, colors, theme, translationApplication, introducti
         });
 
         if (foundPageNumber) {
-            updatePage(foundPageNumber, sura, verseStart, currentPage === 397 ? 'fromAppendix' : 'relationClick', selectedApp ? selectedApp : null);
+            updatePage(foundPageNumber, sura, verseStart, currentPage === 397 ? 'fromAppendix' : 'relationClick', currentPage === 397 ? selectedApp : null);
         } else {
             Toast.show({
                 text: translationApplication.refNotFound,
