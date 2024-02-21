@@ -25,10 +25,16 @@ const Book = ({ onChangeTheme, colors, theme, translationApplication, introducti
     const refToRestore = useRef(null);
     const [pages, setPages] = useState([]);
 
-    const selectedApp = useRef(null);
-    const appsRef = useRef();
+    const [selectedApp, setSelectedApp] = useState(1);
+
+    const appendices = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38];
 
     const [backButtonPressedOnce, setBackButtonPressedOnce] = useState(false);
+
+    const setSelectedAppendix = (number) => {
+        updatePage(397, null, null, 'openAppendix', parseInt(number));
+        setSelectedApp(parseInt(number));
+    };
 
     useEffect(() => {
         if (introductionContent && appendicesContent) {
@@ -81,24 +87,35 @@ const Book = ({ onChangeTheme, colors, theme, translationApplication, introducti
     };
 
     const updatePage = useCallback((newPage, sura = null, verse = null, actionType = 'navigate', appReference = null) => {
-        if (actionType !== 'previous') {
+        // console.log( "updatePage", newPage, currentPage, pageHistory.length, actionType, appReference)
+        if (actionType !== 'previous' && pageHistory[pageHistory.length - 1]?.page !== 396 && (newPage !== 397 || pageHistory[pageHistory.length - 1]?.page !== 397)) {
             setPageHistory(prevHistory => [...prevHistory, { page: currentPage, sura: selectedSura, verse: selectedVerse, actionType, appReference }]);
         }
         setSelectedSura(sura);
         setSelectedVerse(verse);
         setCurrentPage(newPage);
-    }, [currentPage, selectedSura, selectedVerse]);
+    }, [currentPage, selectedSura, selectedVerse, pageHistory]);
 
     const nextPage = () => {
-        let newPage = parseInt(currentPage) >= 398 ? parseInt(currentPage) : parseInt(currentPage) + 1;
+        let newPage = parseInt(currentPage) > 396 ? parseInt(currentPage) : parseInt(currentPage) + 1;
 
         // Skip specified pages
         const skipPages = [2, 3, 4, 8, 9, 10, 12];
         while (skipPages.includes(newPage)) {
             newPage++;
         }
+        if (newPage === 397) {
+            if (parseInt(currentPage) === 396) {
+                updatePage(newPage, null, null, 'next');
+                return setSelectedApp(parseInt(1));
+            }
+            if (selectedApp && selectedApp !== 38) {
+                setSelectedAppendix(parseInt(selectedApp) + 1);
+            }
+        } else {
+            updatePage(newPage, null, null, 'next');
 
-        updatePage(newPage, null, null, 'next');
+        }
     };
 
     const prevPage = useCallback(() => {
@@ -186,19 +203,10 @@ const Book = ({ onChangeTheme, colors, theme, translationApplication, introducti
     const handleClickAppReference = (inp) => {
         const number = parseInt(inp);
         if (number > 0 && number < 39) {
+            setSelectedApp(number);
             updatePage(397, null, null, 'openAppendix', number);
-            selectedApp.current = number;
-            if (appsRef && appsRef.current) {
-                appsRef.current.scrollToSelectedApp(number);
-            }
         }
     };
-
-    useEffect(() => {
-        if (selectedApp.current && appsRef.current) {
-            appsRef.current.scrollToSelectedApp();
-        }
-    }, [selectedApp, appsRef]);
 
     const parseReferences = (text) => {
         const verseRegex = /(\d+:\d+(?:-\d+)?)/g;
@@ -518,7 +526,7 @@ const Book = ({ onChangeTheme, colors, theme, translationApplication, introducti
             }
 
             const handleAppClick = (no) => {
-                selectedApp.current = no
+                setSelectedApp(no)
                 updatePage(397, null, null, 'openAppendix', no);
             };
 
@@ -557,7 +565,6 @@ const Book = ({ onChangeTheme, colors, theme, translationApplication, introducti
 
         if (parseInt(currentPage) > 396) {
             return <Apps
-                ref={appsRef}
                 colors={colors}
                 theme={theme}
                 translationApplication={translationApplication}
@@ -566,7 +573,7 @@ const Book = ({ onChangeTheme, colors, theme, translationApplication, introducti
                 selected={selectedApp}
                 restoreAppText={restoreAppText}
                 refToRestore={refToRestore}
-                prevPage={prevPage} />;
+            />;
         }
 
 
@@ -800,21 +807,21 @@ const Book = ({ onChangeTheme, colors, theme, translationApplication, introducti
     return (
         <div className={`flex flex-col justify-start h-screen ${colors[theme]["app-background"]}`}>
             {renderBookContent()}
-            {(parseInt(currentPage) < 397 && !isSearchOpen) &&
+            {!isSearchOpen &&
                 <div>
                     <div className=" h-14 md:h-20"></div>
-                    <div className={`w-full flex z-20 p-0.5 ${colors[theme]["app-background"]} fixed bottom-0`}>
+                    <div className={`w-full flex z-40 ${colors[theme]["app-background"]} fixed bottom-0`}>
                         <div className={`flex w-full items-center justify-between`}>
                             <button onClick={prevPage}
                                 disabled={isModalOpen}
-                                className={`w-1/2 ${colors[theme]["app-text"]} px-2 rounded mr-2 flex justify-center transition-all duration-700 ease-linear ${(isModalOpen || currentPage === 1) ? "opacity-0" : "opacity-100"} `}>
+                                className={`w-1/2 h-full ${colors[theme]["app-text"]} px-2 mr-2 flex items-center justify-center transition-all duration-500 ease-linear ${(isModalOpen || currentPage === 1) ? "opacity-0" : "opacity-100"} `}>
                                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className={`w-7 h-7 lg:w-12 lg:h-12`}>
                                     <path strokeLinecap="round" strokeLinejoin="round" d="M9 15L3 9m0 0l6-6M3 9h12a6 6 0 010 12h-3" />
                                 </svg>
                             </button>
                             <div
 
-                                className={`w-full flex items-center ${colors[theme]["page-text"]} justify-center `}>
+                                className={`w-full flex items-center ${colors[theme]["page-text"]} justify-center p-0.5`}>
                                 {
                                     isModalOpen ?
 
@@ -826,26 +833,43 @@ const Book = ({ onChangeTheme, colors, theme, translationApplication, introducti
                                         </svg>)
                                 }
 
-                                <div className={`text-sm lg:text-lg flex transition-all duration-300 ease-linear ${isModalOpen ? "opacity-0 w-0" : "opacity-100 ml-3 p-1 "}`}>
-                                    <div className={`font-bold text-center flex items-center justify-center ${colors[theme]["page-text"]}`}>
-                                        {translationApplication?.page}
-                                    </div>
-                                    <select
-                                        value={currentPage}
-                                        onChange={(e) => setCurrentPage(parseInt(e.target.value))}
-                                        className={`flex rounded ${colors[theme]["app-background"]} ${colors[theme]["page-text"]} text-base py-2 pr-0.5 text-right`}
-                                    >
-                                        {pages.map((page, index) => (
-                                            <option key={index} value={page}>
-                                                {page}
-                                            </option>
-                                        ))}
-                                    </select>
-                                </div>
+                                {parseInt(currentPage) < 397 ?
+                                    (<div className={`text-sm lg:text-lg flex transition-all duration-300 ease-linear ${isModalOpen ? "opacity-0 w-0" : "opacity-100 ml-3 p-1 "}`}>
+                                        <div className={`font-bold text-center flex items-center justify-center ${colors[theme]["page-text"]}`}>
+                                            {translationApplication?.page}
+                                        </div>
+                                        <select
+                                            value={currentPage}
+                                            onChange={(e) => setCurrentPage(parseInt(e.target.value))}
+                                            className={`flex rounded ${colors[theme]["app-background"]} ${colors[theme]["page-text"]} text-base py-2 pr-0.5 text-right`}
+                                        >
+                                            {pages.map((page, index) => (
+                                                <option key={index} value={page}>
+                                                    {page}
+                                                </option>
+                                            ))}
+                                        </select>
+                                    </div>) :
+                                    (<div className={`text-2xl lg:text-3xl xl:text-4xl flex transition-all duration-300 ease-linear ${isModalOpen ? "opacity-0 w-0" : "opacity-100 ml-3 p-1 "}`}>
+                                        <div className={`text-center flex items-center justify-center ${colors[theme]["page-text"]}`}>
+                                            {translationApplication?.appendix}
+                                        </div>
+                                        <select
+                                            value={selectedApp}
+                                            onChange={(e) => setSelectedAppendix(e.target.value)}
+                                            className={`flex rounded ${colors[theme]["app-background"]} ${colors[theme]["page-text"]} text-2xl pr-0.5 text-right`}
+                                        >
+                                            {appendices.map((page, index) => (
+                                                <option key={index} value={page}>
+                                                    {page}
+                                                </option>
+                                            ))}
+                                        </select>
+                                    </div>)}
                             </div>
                             <button onClick={nextPage}
-                                disabled={isModalOpen}
-                                className={`w-1/2 ${colors[theme]["app-text"]} px-2 rounded ml-2 flex justify-center transition-all duration-700 ease-linear ${isModalOpen ? "opacity-0" : "opacity-100"}`}>
+                                disabled={isModalOpen || (selectedApp === 38 && currentPage === 397)}
+                                className={`w-1/2 h-full ${colors[theme]["app-text"]} px-2 ml-2 flex items-center justify-center transition-all duration-500 ease-linear ${(isModalOpen || (selectedApp === 38 && currentPage === 397)) ? "opacity-0" : "opacity-100"}`}>
                                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className={`w-7 h-7 lg:w-12 lg:h-12`}>
                                     <path strokeLinecap="round" strokeLinejoin="round" d="M15 15l6-6m0 0l-6-6m6 6H9a6 6 0 000 12h3" />
                                 </svg>

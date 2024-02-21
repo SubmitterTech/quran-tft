@@ -1,48 +1,34 @@
-import React, { useState, useEffect, useRef, useCallback, useImperativeHandle, forwardRef } from 'react';
+import React, { useState, useEffect, useRef, useCallback } from 'react';
 
-const Apps = forwardRef(({ colors, theme, translationApplication, parseReferences, appendices, selected, restoreAppText, refToRestore, prevPage }, ref) => {
+const Apps = ({ colors, theme, translationApplication, parseReferences, appendices, selected, restoreAppText, refToRestore }) => {
 
     const lang = localStorage.getItem("lang");
     const containerRef = useRef(null);
     const appendixRef = useRef({});
-    const [visibleAppendices, setVisibleAppendices] = useState([]);
+
     const [appendixMap, setAppendixMap] = useState({});
     const images = require.context('../assets/pictures/', false, /\.jpg$/);
 
-
-
     const textRef = useRef({});
-
-    const currentRef = useRef(null);
 
     const [isRefsReady, setIsRefsReady] = useState(false);
 
     const mapAppendicesData = useCallback((appendices) => {
         const appendixMap = {};
-        let currentAppendixNum = 1; // Start with Appendix 1
-        let globalContentOrder = 1; // Global counter for overall content order across pages    
+        let currentAppendixNum = 1;
+        let globalContentOrder = 1;
+
         appendices.forEach(page => {
             if (page.page < 397) {
                 return;
             }
-            if (!appendixMap[currentAppendixNum]) {
-                appendixMap[currentAppendixNum] = { content: [] };
-            }
-            const checkAndUpdateAppendixNum = (title) => {
-                const appx = translationApplication ? translationApplication.appendix : "Appendix";
-                const match = title.match(new RegExp(`${appx}\\s*(\\d+)`));
-                if (match) {
-                    currentAppendixNum = parseInt(match[1]);
-                    if (!appendixMap[currentAppendixNum]) {
-                        appendixMap[currentAppendixNum] = { content: [] };
-                    }
-                }
-            };
-            // Collect all content items with their keys from the page
             let allContentItems = [];
             Object.entries(page.titles || {}).forEach(([key, title]) => {
-                checkAndUpdateAppendixNum(title);
-                allContentItems.push({ type: 'title', content: title, key: parseInt(key) });
+                allContentItems.push({
+                    type: 'title',
+                    content: title,
+                    key: parseInt(key)
+                });
             });
 
             const collectContent = (type, data) => {
@@ -50,28 +36,36 @@ const Apps = forwardRef(({ colors, theme, translationApplication, parseReference
                     if (value) {
                         allContentItems.push({ type, content: value, key: parseInt(key) });
                     }
+
                 });
             };
-            // Collect content items from each section
             collectContent('text', page.text);
             collectContent('evidence', page.evidence);
             collectContent('table', page.table);
             collectContent('picture', page.picture);
 
-            // Sort all content items by their keys to respect the order within the page
             allContentItems.sort((a, b) => a.key - b.key);
-
-            // Add sorted content items to the appendix map with a global order
             allContentItems.forEach(item => {
-                item.order = globalContentOrder++; // Assign global order and increment the counter
+                item.order = globalContentOrder++;
+                if (item.type === 'title') {
+                    const appx = translationApplication ? translationApplication.appendix : "Appendix";
+                    const match = item.content.match(new RegExp(`${appx}\\s*(\\d+)`));
+                    if (/\d+/.test(item.content) && match) {
+                        currentAppendixNum = match[1];
+                    }
+                }
+                if (!appendixMap[currentAppendixNum]) {
+                    appendixMap[currentAppendixNum] = { content: [] };
+                }
+
                 appendixMap[currentAppendixNum].content.push(item);
             });
         });
 
-        // Sort the content of each appendix by the global order
         Object.values(appendixMap).forEach(appendix => {
             appendix.content.sort((a, b) => a.order - b.order);
         });
+
         return appendixMap;
     }, [translationApplication]);
 
@@ -80,90 +74,26 @@ const Apps = forwardRef(({ colors, theme, translationApplication, parseReference
         setAppendixMap(initialAppendixMap);
     }, [appendices, mapAppendicesData]);
 
-    useImperativeHandle(ref, () => ({
-
-        scrollToSelectedApp: (number) => {
-            selected.current = number;
-            currentRef.current = number;
-
-            if (selected.current) {
-                if (selected.current === 38) {
-                    setVisibleAppendices([selected.current - 1, selected.current]);
-                } else if (selected.current === 1) {
-                    setVisibleAppendices([selected.current]);
-                } else if (selected.current === 24) {
-                    setVisibleAppendices([selected.current - 1, selected.current]);
-                } else {
-                    setVisibleAppendices([selected.current]);
-                }
-            }
-
-            setTimeout(() => {
-                if (appendixRef.current[`appendix-${number}`]) {
-                    appendixRef.current[`appendix-${number}`].scrollIntoView({ behavior: 'smooth' });
-                }
-            }, 1000);
-        }
-    }));
-
     const handleRefsReady = () => {
         setIsRefsReady(true);
     };
 
-    const loadMoreAppendices = useCallback(() => {
-        if (containerRef.current) {
-            const { scrollTop, scrollHeight, clientHeight } = containerRef.current;
-            const currentMinAppendix = Math.min(...visibleAppendices);
-            const currentMaxAppendix = Math.max(...visibleAppendices);
-
-            // Check if the user is 20px from the bottom
-            if (scrollTop + clientHeight >= scrollHeight - 20) {
-                const nextAppendices = Object.keys(appendixMap)
-                    .map(Number)
-                    .filter(num => num > currentMaxAppendix)
-                    .slice(0, 1); // Load the next appendix
-
-                setVisibleAppendices(prevAppendices => [...prevAppendices, ...nextAppendices]);
-            }
-
-            // Check if the user is 20px from the top and the first appendix is not 1
-            if (scrollTop <= 20 && currentMinAppendix > 1) {
-                const previousAppendices = Object.keys(appendixMap)
-                    .map(Number)
-                    .filter(num => num < currentMinAppendix)
-                    .slice(-1); // Load the previous appendix
-
-                setVisibleAppendices(prevAppendices => [...previousAppendices, ...prevAppendices]);
-            }
-        }
-    }, [visibleAppendices, appendixMap]);
-
     useEffect(() => {
-        if (selected.current && isRefsReady && visibleAppendices && appendixRef.current[`appendix-${selected.current}`]) {
-            if (restoreAppText.current && refToRestore.current && textRef.current[refToRestore.current]) {
-                textRef.current[refToRestore.current].scrollIntoView({ behavior: 'smooth', block: 'center' });
-            } else {
-                appendixRef.current[`appendix-${selected.current}`].scrollIntoView({ behavior: 'smooth' });
-            }
-        }
-    }, [selected, restoreAppText, refToRestore, visibleAppendices, isRefsReady, textRef]);
+        if (selected && isRefsReady) {
+            setTimeout(() => {
+                if (restoreAppText.current && refToRestore.current && textRef.current[refToRestore.current]) {
+                    textRef.current[refToRestore.current].scrollIntoView({ behavior: 'smooth', block: 'center' });
+                } else {
+                    if (appendixRef.current && appendixRef.current[`appendix-${selected}`]) {
+                        appendixRef.current[`appendix-${selected}`].scrollIntoView({ behavior: 'smooth' });
+                    }
+                }
+            }, 1200);
 
-    useEffect(() => {
-        if (selected.current) {
-            if (selected.current === 38) {
-                setVisibleAppendices([selected.current - 1, selected.current]);
-            } else if (selected.current === 1) {
-                setVisibleAppendices([selected.current]);
-            } else {
-                setVisibleAppendices([selected.current - 1, selected.current, selected.current + 1]);
-            }
-        } else {
-            if (appendixMap) {
-                const initialAppendices = Object.keys(appendixMap).slice(0, 2).map(Number);
-                setVisibleAppendices(initialAppendices);
-            }
         }
-    }, [appendixMap, selected]);
+    }, [selected, restoreAppText, refToRestore, isRefsReady, textRef]);
+
+
 
     const renderTable = useCallback((tableData, key) => {
 
@@ -179,7 +109,6 @@ const Apps = forwardRef(({ colors, theme, translationApplication, parseReference
 
         return (
             <div key={key} className={`${colors[theme]["table-title-text"]}`}>
-
                 <div className={` my-4 overflow-x-scroll`}>
                     <div className={`${colors[theme]["base-background"]} w-full rounded text-sm py-2 text-center `}>
                         {tableRef}
@@ -208,99 +137,68 @@ const Apps = forwardRef(({ colors, theme, translationApplication, parseReference
     }, [colors, theme, parseReferences]);
 
     const handleClick = (_e, n, i) => {
-        //selected.current = n;
         refToRestore.current = n + "-" + i;
+        setIsRefsReady(false);
     };
 
-    const renderAppendices = () => {
-        const renderContentItem = (appno, item, index) => {
-            switch (item.type) {
-                case 'title':
-                    const appx = translationApplication ? translationApplication.appendix : "Appendix";
-                    const isAppendixTitle = new RegExp(appx + "\\s*(\\d+)", "i").test(item.content);
+    const renderContentItem = (appno, item, index) => {
+        switch (item.type) {
+            case 'title':
+                const appx = translationApplication ? translationApplication.appendix : "Appendix";
+                const isAppendixTitle = new RegExp(appx + "\\s*(\\d+)", "i").test(item.content);
 
-                    return (
-                        <div
-                            key={`title-${appno + index}`}
-                            className={`w-full my-3 flex items-center justify-center text-center  p-2 font-semibold ${colors[theme]["app-text"]}  whitespace-pre-line ${isAppendixTitle ? `text-2xl font-bold sticky top-0 z-10 ${colors[theme]["base-background"]}` : " rounded text-lg"}`}
-                            ref={isAppendixTitle ? el => appendixRef.current[`appendix-${item.content.match(/\d+/)[0]}`] = el : null}>
-                            <h2>{item.content}</h2>
-                        </div>
-                    );
-                case 'text':
-                    return (
+                return (
+                    <div
+                        key={`title-${appno + index}`}
+                        className={`sticky top-0 z-20 flex items-center justify-center text-center p-2 font-semibold ${colors[theme]["app-text"]} ${colors[theme]["app-background"]} `}
+                        ref={isAppendixTitle ? el => appendixRef.current[`appendix-${item.content.match(/\d+/)[0]}`] = el : null}>
+                        {item.content}
+                    </div>
+                );
+            case 'text':
+                return (
 
-                        <div
-                            lang={lang}
-                            key={`text-${index}`}
-                            ref={(el) => textRef.current[appno + "-" + index] = el}
-                            onClick={(e) => handleClick(e, appno, index)}
-                            className={`rounded ${colors[theme]["text-background"]} ${colors[theme]["app-text"]} p-1  mb-3 flex w-full text-justify hyphens-auto`}>
-                            <div className={`overflow-x-scroll`}>
-                                <p className={`px-1 break-words`}>{parseReferences(item.content)}</p>
-                            </div>
+                    <div
+                        lang={lang}
+                        key={`text-${index}`}
+                        ref={(el) => textRef.current[appno + "-" + index] = el}
+                        onClick={(e) => handleClick(e, appno, index)}
+                        className={`rounded ${colors[theme]["text-background"]} ${colors[theme]["app-text"]} p-1  mb-3 flex w-full text-justify hyphens-auto`}>
+                        <div className={`overflow-x-scroll`}>
+                            <p className={`px-1 break-words`}>{parseReferences(item.content)}</p>
                         </div>
-                    );
-                case 'evidence':
+                    </div>
+                );
+            case 'evidence':
+                return (
+                    <div key={`evidence-${index}`} className={`${colors[theme]["base-background"]} ${colors[theme]["table-title-text"]} rounded  text-base md:text-lg p-3 border my-3 ${colors[theme]["border"]}`}>
+                        {Object.entries(item.content.lines).map(([lineKey, lineValue]) => (
+                            <p key={`${lineKey}`} className={`whitespace-pre-wrap my-1`}>{parseReferences(lineValue)}</p>
+                        ))}
+                        {item.content.ref.length > 0 && (
+                            <p>{parseReferences("[" + item.content.ref.join(', ') + "]")}</p>
+                        )}
+                    </div>
+                );
+            case 'picture':
+                if (!item.content.no) return;
+                const imageUrl = images(`./${parseInt(item.content.no)}.jpg`);
+                // SPECIAL RENDER FOR PICTURE 10
+                if (parseInt(item.content.no) === 10) {
                     return (
-                        <div key={`evidence-${index}`} className={`${colors[theme]["base-background"]} ${colors[theme]["table-title-text"]} rounded  text-base md:text-lg p-3 border my-3 ${colors[theme]["border"]}`}>
-                            {Object.entries(item.content.lines).map(([lineKey, lineValue]) => (
-                                <p key={`${lineKey}`} className={`whitespace-pre-wrap my-1`}>{parseReferences(lineValue)}</p>
-                            ))}
-                            {item.content.ref.length > 0 && (
-                                <p>{parseReferences("[" + item.content.ref.join(', ') + "]")}</p>
-                            )}
-                        </div>
-                    );
-                case 'picture':
-                    if (!item.content.no) return;
-                    const imageUrl = images(`./${parseInt(item.content.no)}.jpg`);
-                    // SPECIAL RENDER FOR PICTURE 10
-                    if (parseInt(item.content.no) === 10) {
-                        return (
-                            <div key={`picture-${index}`} className={`flex flex-col flex-1 items-center justify-center w-full px-1`}>
-                                <div className={` flex p-1 overflow-y-auto`}>
-                                    <div className={` flex flex-col justify-between `}>
-                                        {item.content.data.slice(0, 4).map((word) => (
-                                            <div className={`p-1.5 whitespace-nowrap text-right`}>{word}</div>
-                                        ))}
-                                    </div>
-                                    <img src={imageUrl} alt={imageUrl} className={`object-contain `} />
-                                    <div className={` flex flex-col justify-between`}>
-                                        {item.content.data.slice(4, 8).map((word) => (
-                                            <div className={`p-1.5 flex-1 whitespace-pre text-left`}>{word}</div>
-                                        ))}
-                                    </div>
+                        <div key={`picture-${index}`} className={`flex flex-col flex-1 items-center justify-center w-full px-1`}>
+                            <div className={` flex p-1 overflow-y-auto`}>
+                                <div className={` flex flex-col justify-between `}>
+                                    {item.content.data.slice(0, 4).map((word) => (
+                                        <div className={`p-1.5 whitespace-nowrap text-right`}>{word}</div>
+                                    ))}
                                 </div>
-                                {item.content.text && (
-                                    <div className={`${colors[theme]["log-text"]} w-full text-base flex justify-center`}>
-                                        <div className={`p-2`}>{item.content.text}</div>
-                                    </div>
-                                )}
-                            </div>
-                        );
-                    }
-                    // SPECIAL RENDER FOR PICTURE 22
-                    if (parseInt(item.content.no) === 22) {
-
-                        return (
-                            <div key={`picture-22-special`} className={`flex flex-col space-y-1.5 flex-1 items-center justify-center w-full px-1 mb-2`}>
-
-                                {item.content.text && Object.entries(item.content.text).map(([pickey, text]) => (
-                                    <div className={`rounded  flex flex-wrap md:flex-nowrap justify-between`}>
-                                        <img src={images(`./${pickey}.jpg`)} alt={imageUrl} className={`object-contain`} />
-                                        <div lang={lang} className={`p-2 text-justify hyphens-auto break-words`}>{parseReferences(text)}</div>
-                                    </div>
-
-                                ))}
-                            </div>
-                        );
-
-                    }
-                    return (
-                        <div key={`picture-${index}`} className={`flex flex-col flex-1 items-center justify-center w-full px-1 mb-2`}>
-                            <div className={`rounded  flex justify-center`}>
-                                <img src={imageUrl} alt={imageUrl} className={`object-center`} />
+                                <img src={imageUrl} alt={imageUrl} className={`object-contain `} />
+                                <div className={` flex flex-col justify-between`}>
+                                    {item.content.data.slice(4, 8).map((word) => (
+                                        <div className={`p-1.5 flex-1 whitespace-pre text-left`}>{word}</div>
+                                    ))}
+                                </div>
                             </div>
                             {item.content.text && (
                                 <div className={`${colors[theme]["log-text"]} w-full text-base flex justify-center`}>
@@ -309,48 +207,84 @@ const Apps = forwardRef(({ colors, theme, translationApplication, parseReference
                             )}
                         </div>
                     );
-                case 'table':
-                    return renderTable(item.content, `table-${index}`);
-                default:
+                }
+                // SPECIAL RENDER FOR PICTURE 22
+                if (parseInt(item.content.no) === 22) {
                     return (
-                        <div key={`unknown-${index}`} className={`${colors[theme]["log-text"]} flex flex-1 items-center justify-center w-full`}>
-                            {translationApplication?.unrecognizedData}
+                        <div key={`picture-22-special`} className={`flex flex-col space-y-1.5 flex-1 items-center justify-center w-full px-1 mb-2`}>
+
+                            {item.content.text && Object.entries(item.content.text).map(([pickey, text]) => (
+                                <div className={`rounded  flex flex-wrap md:flex-nowrap justify-between`}>
+                                    <img src={images(`./${pickey}.jpg`)} alt={imageUrl} className={`object-contain`} />
+                                    <div lang={lang} className={`p-2 text-justify hyphens-auto break-words`}>{parseReferences(text)}</div>
+                                </div>
+
+                            ))}
                         </div>
                     );
+
+                }
+                return (
+                    <div key={`picture-${index}`} className={`flex flex-col flex-1 items-center justify-center w-full px-1 mb-2`}>
+                        <div className={`rounded  flex justify-center`}>
+                            <img src={imageUrl} alt={imageUrl} className={`object-center`} />
+                        </div>
+                        {item.content.text && (
+                            <div className={`${colors[theme]["log-text"]} w-full text-base flex justify-center`}>
+                                <div className={`p-2`}>{item.content.text}</div>
+                            </div>
+                        )}
+                    </div>
+                );
+            case 'table':
+                return renderTable(item.content, `table-${index}`);
+            default:
+                return (
+                    <div key={`unknown-${index}`} className={`${colors[theme]["log-text"]} flex flex-1 items-center justify-center w-full`}>
+                        {translationApplication?.unrecognizedData}
+                    </div>
+                );
+        }
+    };
+
+    const renderAppendices = () => {
+        const appendixContent = appendixMap[selected]?.content || [];
+        let groups = [];
+        let currentGroup = [];
+
+        appendixContent.forEach((item, index) => {
+            if (item.type === 'title' || index === 0) {
+                if (currentGroup.length > 0) {
+                    groups.push(currentGroup);
+                }
+                currentGroup = [renderContentItem(selected, item, `${item.type}-${index}`)];
+            } else {
+                currentGroup.push(renderContentItem(selected, item, `${item.type}-${index}`));
             }
-        };
-
-
-        return visibleAppendices.map(appendixNum => {
-            const appendixContent = appendixMap[appendixNum]?.content || [];
-            return (
-                <div className={`p-1`} key={appendixNum} ref={() => handleRefsReady()}>
-                    {appendixContent.map((item, index) => renderContentItem(appendixNum, item, `${item.type}-${index}`))}
-                </div>
-            );
         });
+        if (currentGroup.length > 0) {
+            groups.push(currentGroup);
+        }
+
+        return (
+            <div className={`p-1.5`} key={selected} ref={() => handleRefsReady()}>
+                {groups.map((group, groupIndex) => (
+                    <div key={`group-${groupIndex}`} className="group">
+                        {group.map((element) => element)}
+                    </div>
+                ))}
+            </div>
+        );
     };
 
 
     return (
         <div
-            className={`relative h-screen w-screen ${colors[theme]["app-text"]} text-lg select-text`}>
-
-            <div className={`fixed top-0 left-0 w-full ${colors[theme]["base-background"]} h-12`}>
-
-            </div>
-            <button onClick={prevPage}
-                className={`fixed top-0.5 left-0.5 z-30 rounded  p-2 ${colors[theme]["base-background"]}`}>
-                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-7 h-7">
-                    <path strokeLinecap="round" strokeLinejoin="round" d="M9 15 3 9m0 0 6-6M3 9h12a6 6 0 0 1 0 12h-3" />
-                </svg>
-            </button>
-
-
+            className={`h-screen w-screen relative overflow-y-auto pb-10 md:pb-14 ${colors[theme]["app-text"]} text-lg md:text-xl lg:text-2xl select-text`}>
             <div
                 ref={containerRef}
-                onScroll={loadMoreAppendices}
-                className={`relative h-screen overflow-y-auto text-lg md:text-xl lg:text-2xl`}>
+                // onScroll={loadMoreAppendices}
+                className={``}>
                 {renderAppendices()}
 
                 {!isRefsReady &&
@@ -366,6 +300,6 @@ const Apps = forwardRef(({ colors, theme, translationApplication, parseReference
             </div>
         </div>
     );
-});
+};
 
 export default Apps;
