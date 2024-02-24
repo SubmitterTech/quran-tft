@@ -1,6 +1,6 @@
 import React, { useCallback, useEffect, useState, useRef } from 'react';
 
-const Verse = ({ besmele, colors, theme, translationApplication, relationalData, verseClassName, hasAsterisk, suraNumber, verseNumber, verseText, encryptedText, verseRefs, handleVerseClick, pulse, grapFocus, pageGWC, handleClickReference, accumulatedCopiesRef, copyTimerRef, hasTitle, hasNotes }) => {
+const Verse = ({ besmele, colors, theme, translationApplication, relationalData, verseClassName, hasAsterisk, suraNumber, verseNumber, verseText, encryptedText, verseRefs, handleVerseClick, pulse, grapFocus, pageGWC, handleClickReference, accumulatedCopiesRef, copyTimerRef, hasTitle, hasNotes, path }) => {
     const [mode, setMode] = useState("idle");
     const [cn, setCn] = useState(verseClassName);
     const [text, setText] = useState(verseText);
@@ -20,7 +20,6 @@ const Verse = ({ besmele, colors, theme, translationApplication, relationalData,
         hasMovedRef.current = true;
         clearTimeout(longPressTimerRef.current); // Clear the timer as soon as the user moves
     };
-
 
     const copyToClipboard = (key, x, y) => {
 
@@ -90,6 +89,8 @@ const Verse = ({ besmele, colors, theme, translationApplication, relationalData,
     };
 
     const onRelatedVerseClick = (verseKey) => {
+        if (!path.current[currentVerseKey]) { path.current[currentVerseKey] = {} }
+        path.current[currentVerseKey][verseKey] = true;
         handleClickReference(verseKey);
     };
 
@@ -177,8 +178,6 @@ const Verse = ({ besmele, colors, theme, translationApplication, relationalData,
 
         return related;
     }, [currentVerseKey, relationalData, lang]);
-
-
 
     useEffect(() => {
         if (mode === "reading") {
@@ -284,8 +283,6 @@ const Verse = ({ besmele, colors, theme, translationApplication, relationalData,
         }
     }, [mode, verseClassName, verseText, lightGODwords, colors, theme, encryptedText, besmele]);
 
-
-
     const handleClick = () => {
         if (hasLongPressedRef.current) {
             hasLongPressedRef.current = false;
@@ -353,7 +350,7 @@ const Verse = ({ besmele, colors, theme, translationApplication, relationalData,
                             <div>
                                 {verseKeys.map(verseKey => (
                                     <button
-                                        className={`${colors[theme]["base-background"]} p-2 rounded my-1 mr-2 shadow-lg text-sky-500`}
+                                        className={` p-2 rounded my-1 mr-2  text-sky-500 ${(path.current && path.current[currentVerseKey] && path.current[currentVerseKey][verseKey]) ? `${colors[theme]["relation-background"]} brightness-75` : `${colors[theme]["base-background"]} shadow-lg`}`}
                                         key={verseKey}
                                         onClick={() => onRelatedVerseClick(verseKey)}
                                     >

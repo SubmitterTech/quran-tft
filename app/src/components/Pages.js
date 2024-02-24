@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef, useCallback, useMemo, useLayoutEffect } from 'react';
 import Verse from '../components/Verse';
 
-const Pages = ({ colors, theme, translationApplication, map, quranData, translation, selectedPage, selectedSura, selectedVerse, handleClickReference, handleClickAppReference, handleTogglePage }) => {
+const Pages = ({ colors, theme, translationApplication, map, quranData, translation, selectedPage, selectedSura, selectedVerse, handleClickReference, handleClickAppReference, handleTogglePage, path }) => {
     const lang = localStorage.getItem("lang")
     const [pageData, setPageData] = useState(null);
     const [notesData, setNotesData] = useState(null);
@@ -487,7 +487,7 @@ const Pages = ({ colors, theme, translationApplication, map, quranData, translat
 
                     return (
 
-                        <React.Fragment key={verseKey}>
+                        <div>
                             {title && (
                                 title.includes('♦')
                                     ? (
@@ -561,8 +561,9 @@ const Pages = ({ colors, theme, translationApplication, map, quranData, translat
                                 copyTimerRef={copyTimerRef}
                                 hasTitle={title}
                                 hasNotes={notes}
+                                path={path}
                             />
-                        </React.Fragment>
+                        </div>
                     );
                 })}
 

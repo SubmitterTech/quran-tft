@@ -35,6 +35,8 @@ const Book = ({ onChangeTheme, colors, theme, translationApplication, introducti
         updatePage(397, null, null, 'openAppendix', parseInt(number));
         setSelectedApp(parseInt(number));
     };
+    
+    let path = useRef({});
 
     useEffect(() => {
         if (introductionContent && appendicesContent) {
@@ -95,7 +97,7 @@ const Book = ({ onChangeTheme, colors, theme, translationApplication, introducti
         setSelectedSura(sura);
         setSelectedVerse(verse);
         setCurrentPage(newPage);
-    }, [currentPage, selectedSura, selectedVerse, pageHistory]);
+    }, [currentPage, selectedSura, selectedVerse]);
 
     const nextPage = () => {
         let newPage = parseInt(currentPage) > 396 ? parseInt(currentPage) : parseInt(currentPage) + 1;
@@ -501,7 +503,9 @@ const Book = ({ onChangeTheme, colors, theme, translationApplication, introducti
                 selectedVerse={selectedVerse}
                 handleClickReference={handleClickReference}
                 handleClickAppReference={handleClickAppReference}
-                handleTogglePage={handleTogglePage} />;
+                handleTogglePage={handleTogglePage}
+                path={path}
+            />;
         }
 
         if (parseInt(currentPage) === 395) {
