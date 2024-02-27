@@ -322,7 +322,7 @@ const Magnify = ({ colors, theme, translationApplication, quran, map, onClose, o
                 </div>
             </div>
             {searchTerm.length > 1 &&
-                <div className={`flex flex-col flex-1 space-y-1 w-full overflow-auto mb-10`}>
+                <div className={`flex flex-col flex-1 space-y-1 w-full overflow-auto mb-12 md:mb-14 lg:mb-16`}>
 
                     <div className={`${loadedTitles.length > 0 ? (loadedVerses.length > 0 && loadedNotes.length > 0) ? "basis-2/12  p-1 mx-1.5 border" : "flex-1 p-1 mx-1.5 border" : "h-0 "} transition-all duration-200 ease-linear  overflow-auto rounded ${colors[theme]["verse-border"]} ${colors[theme]["text-background"]}`}>
                         <div className={`${loadedTitles.length > 0 ? "opacity-100" : "opacity-0 h-0"} sticky -top-1 text-sm md:text-base text-center rounded backdrop-blur-xl ${colors[theme]["page-text"]}`}>
