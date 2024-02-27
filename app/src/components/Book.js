@@ -840,7 +840,7 @@ const Book = ({ onChangeTheme, colors, theme, translationApplication, introducti
                                     </svg>)
                             }
 
-                            {parseInt(currentPage) < 397 ?
+                            {!isSearchOpen && (parseInt(currentPage) < 397 ?
                                 (<div className={`text-sm lg:text-lg flex transition-all duration-300 ease-linear ${isModalOpen ? "opacity-0 w-0" : "opacity-100 ml-3 p-1 "}`}>
                                     <div className={`font-bold text-center flex items-center justify-center ${colors[theme]["page-text"]}`}>
                                         {translationApplication?.page}
@@ -872,7 +872,7 @@ const Book = ({ onChangeTheme, colors, theme, translationApplication, introducti
                                             </option>
                                         ))}
                                     </select>
-                                </div>)}
+                                </div>))}
                         </div>
                         <button onClick={nextPage}
                             disabled={(isModalOpen || (selectedApp === 38 && currentPage === 397) || isSearchOpen)}
