@@ -814,7 +814,7 @@ const Book = ({ onChangeTheme, colors, theme, translationApplication, introducti
     };
 
     return (
-        <div className={`fixed flex flex-col justify-start h-screen ${colors[theme]["app-background"]}`}>
+        <div className={`fixed flex flex-col justify-start h-screen ${colors[theme]["app-background"]} overflow-y-hidden`}>
             {renderBookContent()}
             <div>
                 <div className=" h-14 md:h-20"></div>

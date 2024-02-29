@@ -20,8 +20,20 @@ const Pages = ({ colors, theme, translationApplication, map, quranData, translat
 
     const stickyRef = useRef(null);
     const [stickyHeight, setStickyHeight] = useState(0);
-
+    const [isScrolling, setIsScrolling] = useState(false);
     const besmele = quranData["23"]["sura"]["1"]["encrypted"]["1"];
+
+    let scrollTimeout = useRef(null);
+
+    const handleScroll = () => {
+        if (!isScrolling) setIsScrolling(true);
+
+        clearTimeout(scrollTimeout.current);
+
+        scrollTimeout.current = setTimeout(() => {
+            setIsScrolling(false);
+        }, 400);
+    };
 
     useLayoutEffect(() => {
         if (stickyRef.current) {
@@ -423,7 +435,8 @@ const Pages = ({ colors, theme, translationApplication, map, quranData, translat
 
     return (
         <div
-            className={`flex relative w-full flex-1 flex-col ${colors[theme]["app-text"]} text-base overflow-auto `}
+            onScroll={handleScroll}
+            className={`flex relative w-full flex-1 flex-col ${colors[theme]["app-text"]} text-base overflow-y-auto overflow-x-hidden `}
             style={{ scrollPaddingTop: stickyHeight === 0 ? 79 : stickyHeight + 3 }}>
             <div
                 ref={stickyRef}
@@ -562,6 +575,7 @@ const Pages = ({ colors, theme, translationApplication, map, quranData, translat
                                 hasTitle={title}
                                 hasNotes={notes}
                                 path={path}
+                                isScrolling={isScrolling}
                             />
                         </div>
                     );

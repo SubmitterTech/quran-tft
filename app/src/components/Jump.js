@@ -9,7 +9,7 @@ const Jump = ({ onChangeLanguage, suraNames, onChangeTheme, colors, theme, trans
     const [versesInSuras, setVersesInSuras] = useState({});
     const [pageForSuraVerse, setPageForSuraVerse] = useState({});
     const [showThemes, setShowThemes] = useState(false);
-
+    const [showBookmarks, setShowBookmarks] = useState(false);
     const [suraNameMap, setSuraNameMap] = useState({});
     const [lightOpen, setLightOpen] = useState(false);
 
@@ -103,6 +103,15 @@ const Jump = ({ onChangeLanguage, suraNames, onChangeTheme, colors, theme, trans
         onClose();
     };
 
+    const handleMarkJump = (key) => {
+        const [sno, vno] = key.trim().split(":");
+        if (pageForSuraVerse[sno] && pageForSuraVerse[sno][vno]) {
+            onConfirm(pageForSuraVerse[sno][vno], sno, vno);
+        }
+        setShowBookmarks(false);
+        onClose();
+    };
+
     const goIntro = () => {
         onConfirm("13");
         onClose();
@@ -114,8 +123,20 @@ const Jump = ({ onChangeLanguage, suraNames, onChangeTheme, colors, theme, trans
     };
 
     const toggleThemeView = () => {
+        if (!showThemes) {
+            setShowBookmarks(false);
+        }
         setShowThemes(!showThemes);
+
     };
+
+    const toggleBookmark = () => {
+        if (!showBookmarks) {
+            setShowThemes(false);
+        }
+        setShowBookmarks(!showBookmarks);
+    };
+
 
     const ThemePicker = ({ onChangeTheme }) => {
         const themes = {
@@ -127,7 +148,7 @@ const Jump = ({ onChangeLanguage, suraNames, onChangeTheme, colors, theme, trans
         };
 
         return (
-            <div className={`flex space-x-7 ${showThemes ? "" : "h-0"}`}>
+            <div className={`flex space-x-6`}>
                 {Object.entries(themes).map(([localTheme, color]) => (
                     <label key={localTheme} className="cursor-pointer">
                         <input
@@ -138,7 +159,7 @@ const Jump = ({ onChangeLanguage, suraNames, onChangeTheme, colors, theme, trans
                             className="hidden"
                         />
                         <span
-                            className={`flex items-center justify-center rounded border ${localTheme === theme ? `${colors[theme]["matching-border"]}` : "border-gray-400"} ${showThemes ? "h-10 w-10" : "hidden h-0 w-0"}`}
+                            className={`flex items-center justify-center rounded border ${localTheme === theme ? `${colors[theme]["matching-border"]}` : "border-gray-400"} w-12 h-12`}
                             style={{ backgroundColor: color }}>
                             {localTheme === theme &&
                                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" className={`${colors[theme]["matching-text"]} w-4 h-4`}>
@@ -151,6 +172,16 @@ const Jump = ({ onChangeLanguage, suraNames, onChangeTheme, colors, theme, trans
         );
     };
 
+    function formatDate(timestamp) {
+        const date = new Date(timestamp);
+        const day = date.getDate().toString().padStart(2, '0');
+        const month = (date.getMonth() + 1).toString().padStart(2, '0');
+        const year = date.getFullYear();
+        const hours = date.getHours().toString().padStart(2, '0');
+        const minutes = date.getMinutes().toString().padStart(2, '0');
+        const seconds = date.getSeconds().toString().padStart(2, '0');
+        return `${day}/${month}/${year} ${hours}:${minutes}:${seconds}`;
+    }
 
     return (
         <div className={`w-screen h-screen fixed left-0 top-0 inset-0 z-10 outline-none focus:outline-none `} id="jump-screen">
@@ -167,94 +198,146 @@ const Jump = ({ onChangeLanguage, suraNames, onChangeTheme, colors, theme, trans
                         </div>
                     </div>
                     <div className={`shadow-[rgba(125,211,252,0.4)_0px_7px_15px_15px] transition-colors duration-700 ease-linear flex flex-col items-center justify-center ${colors[theme]["app-background"]} rounded  w-full `}>
-                        <div className={`w-full p-2`}>
-                            <div
-                                onClick={onMagnify}
-                                className={`w-full flex justify-center ${colors[theme]["text"]} rounded p-2 ${colors[theme]["text-background"]} cursor-pointer`}>
-                                <button className={`flex justify-center`} >
-                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className={`w-11 h-11`}>
-                                        <path strokeLinecap="round" strokeLinejoin="round" d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607z" />
-                                    </svg>
+                        <div className={`w-full pt-2`}>
+                            <div className={`w-full flex space-x-2 px-2`}>
+                                <div
+                                    onClick={onMagnify}
+                                    className={`w-3/4 flex justify-center ${colors[theme]["text"]} rounded p-2 ${colors[theme]["text-background"]} cursor-pointer`}>
+                                    <button className={`flex justify-center`} >
+                                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className={`w-14 h-14`}>
+                                            <path strokeLinecap="round" strokeLinejoin="round" d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607z" />
+                                        </svg>
+                                    </button>
+                                    <div className={`flex text-left items-center ml-3 ${colors[theme]["matching-text"]} text-xl`}>
+                                        {translationApplication.search}<span className={`${colors[theme]["text"]}`}>{"..."}</span>
+                                    </div>
+                                </div>
+                                <button
+                                    onClick={toggleBookmark}
+                                    className={`flex flex-col w-1/4 items-center justify-between pt-2 rounded ${colors[theme]["text"]} ${colors[theme]["text-background"]}`}>
+                                    <div className={`flex justify-center`}>
+                                        {showBookmarks ? (
+                                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" className={`w-11 h-11`}>
+                                                <path fillRule="evenodd" d="M6 3a3 3 0 0 0-3 3v12a3 3 0 0 0 3 3h12a3 3 0 0 0 3-3V6a3 3 0 0 0-3-3H6Zm1.5 1.5a.75.75 0 0 0-.75.75V16.5a.75.75 0 0 0 1.085.67L12 15.089l4.165 2.083a.75.75 0 0 0 1.085-.671V5.25a.75.75 0 0 0-.75-.75h-9Z" clipRule="evenodd" />
+                                            </svg>
+                                        ) : (
+                                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className={`w-11 h-11`}>
+                                                <path strokeLinecap="round" strokeLinejoin="round" d="M16.5 3.75V16.5L12 14.25 7.5 16.5V3.75m9 0H18A2.25 2.25 0 0 1 20.25 6v12A2.25 2.25 0 0 1 18 20.25H6A2.25 2.25 0 0 1 3.75 18V6A2.25 2.25 0 0 1 6 3.75h1.5m9 0h-9" />
+                                            </svg>
+
+                                        )}
+
+                                    </div>
+                                    <div className={`flex ${colors[theme]["page-text"]} text-sm items-center justify-center pb-2`}>
+                                        {translationApplication?.bookmark}
+                                    </div>
                                 </button>
-                                <div className={`flex text-left items-center ml-3 ${colors[theme]["matching-text"]} text-xl`}>
-                                    {translationApplication.search}<span className={`${colors[theme]["text"]}`}>{"..."}</span>
-                                </div>
                             </div>
                         </div>
-                        <div className={` w-full flex space-x-1 ${colors[theme]["app-text"]}`}>
-                            <div className={`w-full px-4 flex justify-end `}>
-                                {translationApplication?.sura} :
-                            </div>
-                            <div className={`w-full flex items-center justify-start`}>
-                                {translationApplication?.verse}
-                            </div>
-                        </div>
-                        <div className={` w-full flex space-x-3 `}>
-                            <div className={`relative w-full flex justify-end`}>
-                                <select
-                                    id="sura"
-                                    name="sura"
-                                    onChange={handleSuraChange}
-                                    value={suraNumber}
-                                    className={`text-3xl w-24 h-16 whitespace-pre-line text-justify rounded pb-4 pt-3.5 pl-5 pr-1 ${colors[theme]["text"]} ${colors[theme]["notes-background"]} placeholder:text-sky-500 focus:ring-2 focus:ring-inset focus:ring-sky-500 `}>
-                                    <option key="0" value="0" disabled></option>
-                                    {Object.entries(suraNameMap).map(([sura, sname]) => (
-                                        <option key={sura} value={sura}>{sura}{`\t`}{sname}</option>
-                                    ))}
-                                </select>
-
-                            </div>
-                            <div className={`w-full flex justify-start`}>
-                                <select
-                                    id="verse"
-                                    name="verse"
-                                    onChange={handleVerseChange}
-                                    value={verseNumber}
-                                    className={`text-3xl w-24 rounded py-3 pr-5 text-right  ${colors[theme]["text"]} ${colors[theme]["notes-background"]} placeholder:text-sky-500 focus:ring-2 focus:ring-inset focus:ring-sky-500 `}>
-                                    {suraNumber && versesInSuras[suraNumber] ? versesInSuras[suraNumber].map(verse => (
-                                        <option key={verse} value={verse}>{verse}</option>
-                                    )) : null}
-                                </select>
-                            </div>
-                        </div>
-                        <div className={`w-full p-2 ${colors[theme]["app-text"]} flex-1 mt-1`}>
-                            <div className={`w-full p-3`}>
-                                <div className={`flex w-full ${colors[theme]["app-text"]} mb-4 text-sm`}>
-                                    {translationApplication?.page} {selectedPage}
-                                </div>
-                                {pageTitles[selectedPage] && pageTitles[selectedPage].map((title, index) => {
-                                    // Use a regex to match the three groups: name, Latin pronunciation, and page info
-                                    const titleRegex = /^(.*?)\s+\((.*?)\)\s+(.*)$/;
-                                    const match = title.match(titleRegex);
-
-                                    // If the title matches the expected format, render the groups
-                                    if (match) {
-                                        return (
-                                            <div key={index} className="flex justify-between w-full mt-1">
-                                                <div className="w-full flex justify-between mr-0.5">
-                                                    <span className="text-left font-bold justify-self-center text-sky-500">{match[1]}</span>
-                                                    <span className="text-right ">{`(${match[2]})`}</span>
+                        <div className={`w-full`}>
+                            {showBookmarks ?
+                                (
+                                    <div className={`h-48 m-2 px-2 py-1 text-base rounded ${colors[theme]["relation-background"]} overflow-y-auto overflow-x-hidden`}>
+                                        {Object.entries(localStorage.getItem("bookmarks") ? JSON.parse(localStorage.getItem("bookmarks")) : {}).reverse().map(([key, value]) => (
+                                            <div key={key} className={`bookmark-entry flex p-1 space-x-2 border-b ${colors[theme]["border"]} mb-1`}>
+                                                <div className={`w-full p-2 ${colors[theme]["page-text"]} flex items-center justify-center`}>{formatDate(value)}</div>
+                                                <div
+                                                    onClick={() => handleMarkJump(key)}
+                                                    className={`w-20 rounded p-2 ${colors[theme]["base-background"]} shadow-lg text-sky-500 flex items-center justify-center`}>
+                                                    {key}
                                                 </div>
-                                                <span className="w-1/3 text-right">{match[3]}</span>
                                             </div>
-                                        );
-                                    } else {
-                                        // If the title doesn't match the expected format, split and render
-                                        const lastSpaceIndex = title.lastIndexOf(" ");
-                                        const namePart = title.substring(0, lastSpaceIndex);
-                                        const pageInfoPart = title.substring(lastSpaceIndex + 1);
+                                        ))}
+                                    </div>
+                                ) : showThemes ? (
+                                    <div className={`flex flex-col items-center justify-center py-2 h-48 m-2 `}>
+                                        <div className={`flex flex-col items-center justify-center ${colors[theme]["notes-background"]} rounded  w-full px-3 mx-2 py-5`}>
+                                            <div>
+                                                <ThemePicker onChangeTheme={onChangeTheme} />
+                                            </div>
+                                        </div>
+                                    </div>
+                                ) :
+                                    (
+                                        <div>
+                                            <div className={` w-full mt-2 flex space-x-1 ${colors[theme]["app-text"]}`}>
+                                                <div className={`w-full px-4 flex justify-end `}>
+                                                    {translationApplication?.sura} :
+                                                </div>
+                                                <div className={`w-full flex items-center justify-start`}>
+                                                    {translationApplication?.verse}
+                                                </div>
+                                            </div>
+                                            <div className={` w-full flex space-x-3 `}>
+                                                <div className={`relative w-full flex justify-end`}>
+                                                    <select
+                                                        id="sura"
+                                                        name="sura"
+                                                        onChange={handleSuraChange}
+                                                        value={suraNumber}
+                                                        className={`text-3xl w-24 h-16 whitespace-pre-line text-justify rounded pb-4 pt-3.5 pl-5 pr-1 ${colors[theme]["text"]} ${colors[theme]["notes-background"]} placeholder:text-sky-500 focus:ring-2 focus:ring-inset focus:ring-sky-500 `}>
+                                                        <option key="0" value="0" disabled></option>
+                                                        {Object.entries(suraNameMap).map(([sura, sname]) => (
+                                                            <option key={sura} value={sura}>{sura}{`\t`}{sname}</option>
+                                                        ))}
+                                                    </select>
 
-                                        return (
-                                            <div key={index} className="flex justify-between w-full">
-                                                <span className="text-left flex-1 font-bold text-sky-500">{namePart}</span>
-                                                <span className="text-right flex-1">{pageInfoPart}</span>
+                                                </div>
+                                                <div className={`w-full flex justify-start`}>
+                                                    <select
+                                                        id="verse"
+                                                        name="verse"
+                                                        onChange={handleVerseChange}
+                                                        value={verseNumber}
+                                                        className={`text-3xl w-24 rounded py-3 pr-5 text-right  ${colors[theme]["text"]} ${colors[theme]["notes-background"]} placeholder:text-sky-500 focus:ring-2 focus:ring-inset focus:ring-sky-500 `}>
+                                                        {suraNumber && versesInSuras[suraNumber] ? versesInSuras[suraNumber].map(verse => (
+                                                            <option key={verse} value={verse}>{verse}</option>
+                                                        )) : null}
+                                                    </select>
+                                                </div>
                                             </div>
-                                        );
-                                    }
-                                })}
-                            </div>
+                                            <div className={`w-full p-2 ${colors[theme]["app-text"]} flex-1 mt-1 `}>
+                                                <div className={`w-full p-3`}>
+                                                    <div className={`flex w-full ${colors[theme]["app-text"]} mb-4 text-sm`}>
+                                                        {translationApplication?.page} {selectedPage}
+                                                    </div>
+                                                    {pageTitles[selectedPage] && pageTitles[selectedPage].map((title, index) => {
+                                                        // Use a regex to match the three groups: name, Latin pronunciation, and page info
+                                                        const titleRegex = /^(.*?)\s+\((.*?)\)\s+(.*)$/;
+                                                        const match = title.match(titleRegex);
+
+                                                        // If the title matches the expected format, render the groups
+                                                        if (match) {
+                                                            return (
+                                                                <div key={index} className="flex justify-between w-full mt-1">
+                                                                    <div className="w-full flex justify-between mr-0.5">
+                                                                        <span className="text-left font-bold justify-self-center text-sky-500">{match[1]}</span>
+                                                                        <span className="text-right ">{`(${match[2]})`}</span>
+                                                                    </div>
+                                                                    <span className="w-1/3 text-right">{match[3]}</span>
+                                                                </div>
+                                                            );
+                                                        } else {
+                                                            // If the title doesn't match the expected format, split and render
+                                                            const lastSpaceIndex = title.lastIndexOf(" ");
+                                                            const namePart = title.substring(0, lastSpaceIndex);
+                                                            const pageInfoPart = title.substring(lastSpaceIndex + 1);
+
+                                                            return (
+                                                                <div key={index} className="flex justify-between w-full">
+                                                                    <span className="text-left flex-1 font-bold text-sky-500">{namePart}</span>
+                                                                    <span className="text-right flex-1">{pageInfoPart}</span>
+                                                                </div>
+                                                            );
+                                                        }
+                                                    })}
+                                                </div>
+                                            </div>
+                                        </div>
+                                    )
+                            }
                         </div>
-                        <div className={`flex w-full justify-between items-center ${colors[theme]["text"]} space-x-2 px-2 ${showThemes ? "pb-0" : "pb-2"}`}>
+                        <div className={`flex w-full justify-between items-center ${colors[theme]["text"]} space-x-2 px-2 pb-2`}>
                             <button
                                 onClick={handleSubmit}
                                 className={`flex flex-col w-full items-center justify-between pt-2 rounded  transition-all delay-150 duration-700 ease-in-out ${lightOpen ? "bg-sky-600" : colors[theme]["text-background"]}`}>
@@ -313,15 +396,6 @@ const Jump = ({ onChangeLanguage, suraNames, onChangeTheme, colors, theme, trans
                                 </div>
                             </button>
                         </div>
-                        {
-                            <div className={`flex flex-col items-center justify-center w-full transition-all duration-200 ease-linear ${showThemes ? "p-2" : "h-0"}`}>
-                                <div className={`transition-colors duration-700 ease-linear flex flex-col items-center justify-center ${colors[theme]["notes-background"]} rounded  w-full ${showThemes ? "p-3" : "h-0"} mx-2`}>
-                                    <div>
-                                        <ThemePicker onChangeTheme={onChangeTheme} />
-                                    </div>
-                                </div>
-                            </div>
-                        }
                     </div>
 
                 </div>
@@ -344,7 +418,7 @@ const Jump = ({ onChangeLanguage, suraNames, onChangeTheme, colors, theme, trans
                     </select>
                 </div>
             </div>
-        </div>
+        </div >
     );
 }
 
