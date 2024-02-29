@@ -140,6 +140,24 @@ const Verse = ({ besmele,
         isSwiping.current = false;
     };
 
+    const handleMouseEnter = (side) => {
+        if (mode !== 'reading') {
+            if (side === 'right') {
+                setSwipeDistance(110);
+                setSwipeEndX(110);
+            } else if (side === 'left') {
+                setSwipeDistance(-110);
+                setSwipeEndX(-110);
+            }
+        }
+    };
+
+    const handleMouseLeave = () => {
+
+        setSwipeDistance(0);
+        setSwipeEndX(0);
+    };
+
     const onRelatedVerseClick = (verseKey) => {
         if (!path.current[currentVerseKey]) { path.current[currentVerseKey] = {} }
         path.current[currentVerseKey][verseKey] = true;
@@ -316,20 +334,22 @@ const Verse = ({ besmele,
 
     useEffect(() => {
         setText(verseText);
-        let baseClass = `${verseClassName} ${colors[theme]["text-background"]}`;
-        if (encryptedText.includes(besmele)) {
-            baseClass = `${baseClass} bg-gradient-to-r from-cyan-300 to-sky-500 text-neutral-800`;
-        }
-
+        let highlighted = lightGODwords(verseText);
         if (mode === "reading") {
-            let highlighted = lightGODwords(verseText);
-            setCn(`${baseClass} flex-col ring-1 ${colors[theme]["ring"]}`);
+            setCn(verseClassName + " " + colors[theme]["verse-detail-background"] + " flex-col ring-1 " + colors[theme]["ring"]);
             setText(highlighted);
         } else if (mode === "light") {
-            setCn(`${baseClass} ${isMarked ? `border-l-2 ${colors[theme]["matching-border"]}` : ''}`);
+            let bcn = `${colors[theme]["text-background"]} ${isMarked ? `border-l-2 ${colors[theme]["matching-border"]}` : ''}`;
+            if (encryptedText.includes(besmele)) {
+                bcn = `bg-gradient-to-r from-cyan-300 to-sky-500 text-neutral-800`
+            }
+            setCn(verseClassName + " " + bcn);
         } else if (mode === "idle") {
-            // Keep the structure for potential future styling
-            setCn(`${baseClass} ${isMarked ? `border-l-2 ${colors[theme]["matching-border"]}` : ''}`);
+            let bcn = `${colors[theme]["text-background"]} ${isMarked ? `border-l-2 ${colors[theme]["matching-border"]}` : ''}`;
+            if (encryptedText.includes(besmele)) {
+                bcn = "bg-gradient-to-r from-cyan-300 to-sky-500 text-neutral-800"
+            }
+            setCn(verseClassName + " " + bcn);
         }
     }, [mode, verseClassName, verseText, lightGODwords, colors, theme, encryptedText, besmele, isMarked]);
 
@@ -445,6 +465,18 @@ const Verse = ({ besmele,
                     </div>
                 )}
             </div>
+            <div
+                onClick={() => handleSwipeEnd()}
+                className={`absolute left-0 top-0 h-full cursor-pointer w-0 md:w-1/12`}
+                onMouseEnter={() => handleMouseEnter('left')}
+                onMouseLeave={handleMouseLeave}
+            />
+            <div
+                onClick={() => handleSwipeEnd()}
+                className={`absolute right-0 top-0 h-full cursor-pointer w-0 md:w-1/12`}
+                onMouseEnter={() => handleMouseEnter('right')}
+                onMouseLeave={handleMouseLeave}
+            />
         </div>
     );
 };
