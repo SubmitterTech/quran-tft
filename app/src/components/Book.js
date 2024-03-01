@@ -848,7 +848,7 @@ const Book = ({ onChangeTheme, colors, theme, translationApplication, introducti
                                     <select
                                         value={currentPage}
                                         onChange={(e) => setCurrentPage(parseInt(e.target.value))}
-                                        className={`flex rounded ${colors[theme]["app-background"]} ${colors[theme]["page-text"]} text-base py-2 pr-0.5 text-right`}
+                                        className={`flex rounded ${colors[theme]["app-background"]} ${colors[theme]["page-text"]} text-base py-2 pr-0.5 text-right focus:outline-none focus:ring-2 focus:border-sky-500 focus:ring-sky-500`}
                                     >
                                         {pages.map((page, index) => (
                                             <option key={index} value={page}>
@@ -864,7 +864,7 @@ const Book = ({ onChangeTheme, colors, theme, translationApplication, introducti
                                     <select
                                         value={selectedApp}
                                         onChange={(e) => setSelectedAppendix(e.target.value)}
-                                        className={`flex rounded ${colors[theme]["app-background"]} ${colors[theme]["page-text"]} text-2xl pr-0.5 text-right`}
+                                        className={`flex rounded ${colors[theme]["app-background"]} ${colors[theme]["page-text"]} text-2xl pr-0.5 text-right focus:outline-none focus:ring-2 focus:border-sky-500 focus:ring-sky-500`}
                                     >
                                         {appendices.map((page, index) => (
                                             <option key={index} value={page}>

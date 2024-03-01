@@ -148,7 +148,7 @@ const Jump = ({ onChangeLanguage, suraNames, onChangeTheme, colors, theme, trans
         };
 
         return (
-            <div className={`flex space-x-6`}>
+            <div className={`flex space-x-4`}>
                 {Object.entries(themes).map(([localTheme, color]) => (
                     <label key={localTheme} className="cursor-pointer">
                         <input
@@ -173,15 +173,26 @@ const Jump = ({ onChangeLanguage, suraNames, onChangeTheme, colors, theme, trans
     };
 
     function formatDate(timestamp) {
-        const date = new Date(timestamp);
-        const day = date.getDate().toString().padStart(2, '0');
-        const month = (date.getMonth() + 1).toString().padStart(2, '0');
-        const year = date.getFullYear();
-        const hours = date.getHours().toString().padStart(2, '0');
-        const minutes = date.getMinutes().toString().padStart(2, '0');
-        const seconds = date.getSeconds().toString().padStart(2, '0');
-        return `${day}/${month}/${year} ${hours}:${minutes}:${seconds}`;
+        if (/^\d+$/.test(String(timestamp).trim())) {
+            const date = new Date(parseInt(timestamp, 10));
+            const day = date.getDate().toString().padStart(2, '0');
+            const month = (date.getMonth() + 1).toString().padStart(2, '0');
+            const year = date.getFullYear();
+            const hours = date.getHours().toString().padStart(2, '0');
+            const minutes = date.getMinutes().toString().padStart(2, '0');
+            const seconds = date.getSeconds().toString().padStart(2, '0');
+            return `${day}/${month}/${year} ${hours}:${minutes}:${seconds}`;
+        } else {
+            return timestamp;
+        }
     }
+
+    const updateBookmark = (key, val) => {
+        const bookmarks = JSON.parse(localStorage.getItem("bookmarks") || '{}');
+        bookmarks[key] = val;
+        localStorage.setItem("bookmarks", JSON.stringify(bookmarks));
+    };
+
 
     return (
         <div className={`w-screen h-screen fixed left-0 top-0 inset-0 z-10 outline-none focus:outline-none `} id="jump-screen">
@@ -239,8 +250,20 @@ const Jump = ({ onChangeLanguage, suraNames, onChangeTheme, colors, theme, trans
                                 (
                                     <div className={`h-48 m-2 px-2 py-1 text-base rounded ${colors[theme]["relation-background"]} overflow-y-auto overflow-x-hidden`}>
                                         {Object.entries(localStorage.getItem("bookmarks") ? JSON.parse(localStorage.getItem("bookmarks")) : {}).reverse().map(([key, value]) => (
-                                            <div key={key} className={`bookmark-entry flex p-1 space-x-2 border-b ${colors[theme]["border"]} mb-1`}>
-                                                <div className={`w-full p-2 ${colors[theme]["page-text"]} flex items-center justify-center`}>{formatDate(value)}</div>
+                                            <div key={key} className={`bookmark-entry flex p-1 space-x-2 border-b ${colors[theme]["verse-border"]} mb-1`}>
+
+                                                <div className={`w-full p-2 ${colors[theme]["page-text"]} flex items-center justify-center`}>
+
+                                                    <input
+                                                        type="text"
+                                                        value={formatDate(value)}
+                                                        onBlur={(e) => {
+                                                            updateBookmark(key, e.target.value);
+                                                        }}
+                                                        className={`w-full p-2 ${colors[theme]["text"]} ${colors[theme]["relation-background"]} text-center focus:outline-none focus:ring-2 focus:border-sky-500 focus:ring-sky-500`}
+                                                    />
+
+                                                </div>
                                                 <div
                                                     onClick={() => handleMarkJump(key)}
                                                     className={`w-20 rounded p-2 ${colors[theme]["base-background"]} shadow-lg text-sky-500 flex items-center justify-center`}>
@@ -261,22 +284,18 @@ const Jump = ({ onChangeLanguage, suraNames, onChangeTheme, colors, theme, trans
                                     (
                                         <div>
                                             <div className={` w-full mt-2 flex space-x-1 ${colors[theme]["app-text"]}`}>
-                                                <div className={`w-full px-4 flex justify-end `}>
-                                                    {translationApplication?.sura} :
-                                                </div>
                                                 <div className={`w-full flex items-center justify-start`}>
-                                                    {translationApplication?.verse}
                                                 </div>
                                             </div>
-                                            <div className={` w-full flex space-x-3 `}>
+                                            <div className={` w-full flex space-x-2 `}>
                                                 <div className={`relative w-full flex justify-end`}>
                                                     <select
                                                         id="sura"
                                                         name="sura"
                                                         onChange={handleSuraChange}
                                                         value={suraNumber}
-                                                        className={`text-3xl w-24 h-16 whitespace-pre-line text-justify rounded pb-4 pt-3.5 pl-5 pr-1 ${colors[theme]["text"]} ${colors[theme]["notes-background"]} placeholder:text-sky-500 focus:ring-2 focus:ring-inset focus:ring-sky-500 `}>
-                                                        <option key="0" value="0" disabled></option>
+                                                        className={`text-3xl w-32 h-16 whitespace-pre-line text-justify rounded pb-4 pt-3 pl-5 pr-1 ${colors[theme]["text"]} ${colors[theme]["notes-background"]} placeholder:text-sky-500 focus:ring-2 focus:ring-inset focus:ring-sky-500 `}>
+                                                        <option key="0" value="0" disabled>{translationApplication?.sura}</option>
                                                         {Object.entries(suraNameMap).map(([sura, sname]) => (
                                                             <option key={sura} value={sura}>{sura}{`\t`}{sname}</option>
                                                         ))}
@@ -289,10 +308,10 @@ const Jump = ({ onChangeLanguage, suraNames, onChangeTheme, colors, theme, trans
                                                         name="verse"
                                                         onChange={handleVerseChange}
                                                         value={verseNumber}
-                                                        className={`text-3xl w-24 rounded py-3 pr-5 text-right  ${colors[theme]["text"]} ${colors[theme]["notes-background"]} placeholder:text-sky-500 focus:ring-2 focus:ring-inset focus:ring-sky-500 `}>
+                                                        className={`text-3xl w-32 rounded py-3 pr-5 text-right  ${colors[theme]["text"]} ${colors[theme]["notes-background"]} placeholder:text-sky-500 focus:ring-2 focus:ring-inset focus:ring-sky-500 `}>
                                                         {suraNumber && versesInSuras[suraNumber] ? versesInSuras[suraNumber].map(verse => (
                                                             <option key={verse} value={verse}>{verse}</option>
-                                                        )) : null}
+                                                        )) : (<option key="0" value="1" disabled>{translationApplication?.verse}</option>)}
                                                     </select>
                                                 </div>
                                             </div>
