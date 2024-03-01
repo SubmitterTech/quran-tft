@@ -13,7 +13,6 @@ const Jump = ({ onChangeLanguage, suraNames, onChangeTheme, colors, theme, trans
     const [suraNameMap, setSuraNameMap] = useState({});
     const [lightOpen, setLightOpen] = useState(false);
 
-
     useEffect(() => {
         let themap = {}
         if (suraNames) {
@@ -289,26 +288,38 @@ const Jump = ({ onChangeLanguage, suraNames, onChangeTheme, colors, theme, trans
                                             </div>
                                             <div className={` w-full flex space-x-2 `}>
                                                 <div className={`relative w-full flex justify-end`}>
+                                                    <div
+                                                        className={`text-3xl w-24 h-16 absolute text-center rounded flex items-center justify-center ${colors[theme]["text"]} ${colors[theme]["notes-background"]}`}
+                                                        onClick={() => document.getElementById('sura').click()}
+                                                    >
+                                                        {suraNumber || translationApplication?.sura}
+                                                    </div>
                                                     <select
                                                         id="sura"
                                                         name="sura"
                                                         onChange={handleSuraChange}
                                                         value={suraNumber}
-                                                        className={`text-3xl w-32 h-16 whitespace-pre-line text-justify rounded pb-4 pt-3 pl-5 pr-1 ${colors[theme]["text"]} ${colors[theme]["notes-background"]} placeholder:text-sky-500 focus:ring-2 focus:ring-inset focus:ring-sky-500 `}>
+                                                        className={` inset-0 opacity-0 text-3xl w-32 h-16 rounded ${colors[theme]["text"]} ${colors[theme]["notes-background"]} focus:ring-2 focus:outline-none focus:ring-sky-500  `}
+                                                    >
                                                         <option key="0" value="0" disabled>{translationApplication?.sura}</option>
                                                         {Object.entries(suraNameMap).map(([sura, sname]) => (
                                                             <option key={sura} value={sura}>{sura}{`\t`}{sname}</option>
                                                         ))}
                                                     </select>
-
                                                 </div>
-                                                <div className={`w-full flex justify-start`}>
+                                                <div className={`relative w-full flex justify-start`}>
+                                                    <div
+                                                        className={`text-3xl w-24 h-16 absolute text-center rounded flex items-center justify-center ${colors[theme]["text"]} ${colors[theme]["notes-background"]}`}
+                                                        onClick={() => document.getElementById('verse').click()}
+                                                    >
+                                                        {verseNumber || translationApplication?.verse}
+                                                    </div>
                                                     <select
                                                         id="verse"
                                                         name="verse"
                                                         onChange={handleVerseChange}
                                                         value={verseNumber}
-                                                        className={`text-3xl w-32 rounded py-3 pr-5 text-right  ${colors[theme]["text"]} ${colors[theme]["notes-background"]} placeholder:text-sky-500 focus:ring-2 focus:ring-inset focus:ring-sky-500 `}>
+                                                        className={`inset-0 opacity-0 text-3xl w-32 h-16 rounded ${colors[theme]["text"]} ${colors[theme]["notes-background"]} focus:ring-2 focus:outline-none focus:ring-sky-500   `}>
                                                         {suraNumber && versesInSuras[suraNumber] ? versesInSuras[suraNumber].map(verse => (
                                                             <option key={verse} value={verse}>{verse}</option>
                                                         )) : (<option key="0" value="1" disabled>{translationApplication?.verse}</option>)}
@@ -316,7 +327,7 @@ const Jump = ({ onChangeLanguage, suraNames, onChangeTheme, colors, theme, trans
                                                 </div>
                                             </div>
                                             <div className={`w-full p-2 ${colors[theme]["app-text"]} flex-1 mt-1 `}>
-                                                <div className={`w-full p-3`}>
+                                                <div className={`w-full p-1`}>
                                                     <div className={`flex w-full ${colors[theme]["app-text"]} mb-4 text-sm`}>
                                                         {translationApplication?.page} {selectedPage}
                                                     </div>
@@ -418,7 +429,8 @@ const Jump = ({ onChangeLanguage, suraNames, onChangeTheme, colors, theme, trans
                     </div>
 
                 </div>
-                <div className={`w-full md:w-2/3 lg:w-1/2 2xl:w-1/3 fixed bottom-11 md:bottom-16 flex justify-center`}>
+                <div className={`w-full md:w-2/3 lg:w-1/2 2xl:w-1/3 fixed bottom-11 md:bottom-16 flex justify-center`}
+                    style={{ paddingBottom: 'env(safe-area-inset-bottom)' }}>
                     <select
                         id="languagepicker"
                         name="langpick"

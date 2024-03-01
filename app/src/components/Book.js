@@ -814,11 +814,13 @@ const Book = ({ onChangeTheme, colors, theme, translationApplication, introducti
     };
 
     return (
-        <div className={`fixed flex flex-col justify-start h-screen ${colors[theme]["app-background"]} overflow-y-hidden`}>
+        <div className={`fixed flex flex-col justify-start h-screen ${colors[theme]["app-background"]} overflow-y-hidden`}
+            style={{ paddingTop: 'env(safe-area-inset-top)', paddingBottom: 'env(safe-area-inset-bottom)' }}>
             {renderBookContent()}
             <div>
                 <div className=" h-14 md:h-20"></div>
-                <div className={`w-full flex z-40 ${colors[theme]["app-background"]} fixed bottom-0`}>
+                <div className={`w-full flex z-40 ${colors[theme]["app-background"]} fixed bottom-0`}
+                    style={{ paddingBottom: 'env(safe-area-inset-bottom)' }}>
                     <div className={`flex w-full items-center justify-between`}>
                         <button onClick={prevPage}
                             disabled={(isModalOpen || currentPage === 1 || isSearchOpen)}
