@@ -249,14 +249,14 @@ const Jump = ({ onChangeLanguage, suraNames, onChangeTheme, colors, theme, trans
                             {showBookmarks ?
                                 (
                                     <div className={`h-48 m-2 px-2 py-1 text-base rounded ${colors[theme]["relation-background"]} overflow-y-auto overflow-x-hidden`}>
-                                        {Object.entries(localStorage.getItem("bookmarks") ? JSON.parse(localStorage.getItem("bookmarks")) : {}).reverse().map(([key, value]) => (
+                                        {Object.entries(localStorage.getItem("bookmarks") ? JSON.parse(localStorage.getItem("bookmarks")) : {}).reverse().map(([key, val]) => (
                                             <div key={key} className={`bookmark-entry flex p-1 space-x-2 border-b ${colors[theme]["verse-border"]} mb-1`}>
 
                                                 <div className={`w-full p-2 ${colors[theme]["page-text"]} flex items-center justify-center`}>
 
                                                     <input
                                                         type="text"
-                                                        value={formatDate(value)}
+                                                        defaultValue={formatDate(val)}
                                                         onBlur={(e) => {
                                                             updateBookmark(key, e.target.value);
                                                         }}
