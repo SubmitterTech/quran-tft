@@ -341,13 +341,13 @@ const Verse = ({ besmele,
         } else if (mode === "light") {
             let bcn = `${colors[theme]["text-background"]} ${isMarked ? `border-l-2 ${colors[theme]["matching-border"]}` : ''}`;
             if (encryptedText.includes(besmele)) {
-                bcn = `bg-gradient-to-r from-cyan-300 to-sky-500 text-neutral-800`
+                bcn = `bg-gradient-to-r from-cyan-300 to-sky-500 text-neutral-800 ${isMarked ? `border-l-2 ${colors[theme]["matching-border"]}` : ''}`
             }
             setCn(verseClassName + " " + bcn);
         } else if (mode === "idle") {
             let bcn = `${colors[theme]["text-background"]} ${isMarked ? `border-l-2 ${colors[theme]["matching-border"]}` : ''}`;
             if (encryptedText.includes(besmele)) {
-                bcn = "bg-gradient-to-r from-cyan-300 to-sky-500 text-neutral-800"
+                bcn = `bg-gradient-to-r from-cyan-300 to-sky-500 text-neutral-800 ${isMarked ? `border-l-2 ${colors[theme]["matching-border"]}` : ''}`
             }
             setCn(verseClassName + " " + bcn);
         }
