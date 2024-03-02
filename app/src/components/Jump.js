@@ -291,7 +291,7 @@ const Jump = ({ onChangeLanguage, suraNames, onChangeTheme, colors, theme, trans
                                                     >
                                                         {parseInt(suraNumber) !== 0 ? suraNumber : translationApplication?.sura}
                                                     </div>
-                                                    <div className={`text-xs absolute bottom-0.5 right-1 ${colors[theme]["page-text"]} brightness-75`}>{translationApplication?.sura}</div>
+                                                    {parseInt(suraNumber) !== 0 && <div className={`text-xs absolute bottom-0.5 right-1 ${colors[theme]["page-text"]} brightness-75`}>{translationApplication?.sura}</div>}
                                                     <select
                                                         id="sura"
                                                         name="sura"
@@ -312,7 +312,7 @@ const Jump = ({ onChangeLanguage, suraNames, onChangeTheme, colors, theme, trans
                                                     >
                                                         {parseInt(verseNumber) !== 0 ? verseNumber : translationApplication?.verse}
                                                     </div>
-                                                    <div className={`text-xs absolute bottom-0.5 left-1 ${colors[theme]["page-text"]} brightness-75`}>{translationApplication?.verse}</div>
+                                                    {parseInt(suraNumber) !== 0 && <div className={`text-xs absolute bottom-0.5 left-1 ${colors[theme]["page-text"]} brightness-75`}>{translationApplication?.verse}</div>}
                                                     <select
                                                         id="verse"
                                                         name="verse"
