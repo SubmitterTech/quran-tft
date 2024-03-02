@@ -3,7 +3,7 @@ import languages from '../assets/languages.json';
 
 const Jump = ({ onChangeLanguage, suraNames, onChangeTheme, colors, theme, translationApplication, currentPage, quran, onClose, onConfirm, onMagnify }) => {
     const [suraNumber, setSuraNumber] = useState("0");
-    const [verseNumber, setVerseNumber] = useState("1");
+    const [verseNumber, setVerseNumber] = useState("0");
     const [selectedPage, setSelectedPage] = useState(currentPage);
     const [pageTitles, setPageTitles] = useState({});
     const [versesInSuras, setVersesInSuras] = useState({});
@@ -84,6 +84,7 @@ const Jump = ({ onChangeLanguage, suraNames, onChangeTheme, colors, theme, trans
         const firstVerseOfSura = versesInSuras[newSuraNumber][0];
         if (firstVerseOfSura && pageForSuraVerse[newSuraNumber][firstVerseOfSura]) {
             setSelectedPage(pageForSuraVerse[newSuraNumber][firstVerseOfSura]);
+            setVerseNumber(0);
         }
     };
 
@@ -282,24 +283,21 @@ const Jump = ({ onChangeLanguage, suraNames, onChangeTheme, colors, theme, trans
                                 ) :
                                     (
                                         <div>
-                                            <div className={` w-full mt-2 flex space-x-1 ${colors[theme]["app-text"]}`}>
-                                                <div className={`w-full flex items-center justify-start`}>
-                                                </div>
-                                            </div>
-                                            <div className={` w-full flex space-x-2 `}>
+                                            <div className={` w-full flex space-x-2 mt-2`}>
                                                 <div className={`relative w-full flex justify-end`}>
                                                     <div
-                                                        className={`text-3xl w-24 h-16 absolute text-center rounded flex items-center justify-center ${colors[theme]["text"]} ${colors[theme]["notes-background"]}`}
+                                                        className={`text-3xl w-1/2 p-3 absolute text-center rounded flex items-center justify-center ${colors[theme]["text"]} ${colors[theme]["notes-background"]}`}
                                                         onClick={() => document.getElementById('sura').click()}
                                                     >
-                                                        {suraNumber || translationApplication?.sura}
+                                                        {parseInt(suraNumber) !== 0 ? suraNumber : translationApplication?.sura}
                                                     </div>
+                                                    <div className={`text-xs absolute bottom-0.5 right-1 ${colors[theme]["page-text"]} brightness-75`}>{translationApplication?.sura}</div>
                                                     <select
                                                         id="sura"
                                                         name="sura"
                                                         onChange={handleSuraChange}
                                                         value={suraNumber}
-                                                        className={` inset-0 opacity-0 text-3xl w-32 h-16 rounded ${colors[theme]["text"]} ${colors[theme]["notes-background"]} focus:ring-2 focus:outline-none focus:ring-sky-500  `}
+                                                        className={`inset-0 opacity-0 text-3xl w-1/2 p-3 rounded ${colors[theme]["text"]} ${colors[theme]["notes-background"]} focus:ring-2 focus:outline-none focus:ring-sky-500  `}
                                                     >
                                                         <option key="0" value="0" disabled>{translationApplication?.sura}</option>
                                                         {Object.entries(suraNameMap).map(([sura, sname]) => (
@@ -309,24 +307,25 @@ const Jump = ({ onChangeLanguage, suraNames, onChangeTheme, colors, theme, trans
                                                 </div>
                                                 <div className={`relative w-full flex justify-start`}>
                                                     <div
-                                                        className={`text-3xl w-24 h-16 absolute text-center rounded flex items-center justify-center ${colors[theme]["text"]} ${colors[theme]["notes-background"]}`}
+                                                        className={`text-3xl w-1/2 p-3 absolute text-center rounded flex items-center justify-center ${colors[theme]["text"]} ${colors[theme]["notes-background"]}`}
                                                         onClick={() => document.getElementById('verse').click()}
                                                     >
-                                                        {verseNumber || translationApplication?.verse}
+                                                        {parseInt(verseNumber) !== 0 ? verseNumber : translationApplication?.verse}
                                                     </div>
+                                                    <div className={`text-xs absolute bottom-0.5 left-1 ${colors[theme]["page-text"]} brightness-75`}>{translationApplication?.verse}</div>
                                                     <select
                                                         id="verse"
                                                         name="verse"
                                                         onChange={handleVerseChange}
                                                         value={verseNumber}
-                                                        className={`inset-0 opacity-0 text-3xl w-32 h-16 rounded ${colors[theme]["text"]} ${colors[theme]["notes-background"]} focus:ring-2 focus:outline-none focus:ring-sky-500   `}>
+                                                        className={`inset-0 opacity-0 text-3xl w-1/2 p-3 rounded ${colors[theme]["text"]} ${colors[theme]["notes-background"]} focus:ring-2 focus:outline-none focus:ring-sky-500`}>
                                                         {suraNumber && versesInSuras[suraNumber] ? versesInSuras[suraNumber].map(verse => (
                                                             <option key={verse} value={verse}>{verse}</option>
-                                                        )) : (<option key="0" value="1" disabled>{translationApplication?.verse}</option>)}
+                                                        )) : (<option key="0" value="0" disabled>{translationApplication?.verse}</option>)}
                                                     </select>
                                                 </div>
                                             </div>
-                                            <div className={`w-full p-2 ${colors[theme]["app-text"]} flex-1 mt-1 `}>
+                                            <div className={`w-full p-2 ${colors[theme]["app-text"]} flex-1 `}>
                                                 <div className={`w-full p-1`}>
                                                     <div className={`flex w-full ${colors[theme]["app-text"]} mb-4 text-sm`}>
                                                         {translationApplication?.page} {selectedPage}
