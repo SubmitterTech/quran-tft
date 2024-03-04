@@ -411,21 +411,42 @@ const Verse = ({ besmele,
                     transition: isSwiping.current ? 'none' : 'transform 0.7s ease',
                 }}
                 className={`${cn} relative `}>
-                <div
-                    onClick={() => handleClick()}
-                    className={`px-1 w-full`}
-                >
-                    <span className={`relative`}>
-                        <span className={mode === "light" ? encryptedText.includes(besmele) ? `text-rose-500 font-semibold absolute brightness-150 ${pulseNumber}` : `${colors[theme]["matching-text"]} font-semibold absolute brightness-150 ${pulseNumber}` : `absolute brightness-150 ${pulseNumber}`}>
-                            {`${verseNumber}. `}
+                <div onClick={() => handleClick()} className={`px-1 w-full`}>
+                    {text.includes('\n') ? (
+                        text.split('\n').map((line, index, array) => {
+                            const middleIndex = Math.floor(array.length / 2);
+                            const isTitle = index === middleIndex;
+                            return (
+                                <React.Fragment key={index}>
+                                    {index === 0 && (
+                                        <span className={`relative`}>
+                                            <span className={mode === "light" ? encryptedText.includes(besmele) ? `text-rose-500 font-semibold absolute brightness-150 ${pulseNumber}` : `${colors[theme]["matching-text"]} font-semibold absolute brightness-150 ${pulseNumber}` : `absolute brightness-150 ${pulseNumber}`}>
+                                                {`${verseNumber}. `}
+                                            </span>
+                                            <span className={mode === "light" ? encryptedText.includes(besmele) ? `text-rose-500 font-semibold relative` : `${colors[theme]["matching-text"]} font-semibold relative` : `relative brightness-150`}>
+                                                {`${verseNumber}. `}
+                                            </span>
+                                        </span>
+                                    )}
+                                    <span className={isTitle ? `text-center w-full ${colors[theme]["app-background"]} block py-1.5 md:py-2 transform italic font-semibold ${index === middleIndex ? 'scale-x-[1.04]' : ''} ` : ``}>
+                                        {line}
+                                    </span>
+                                </React.Fragment>
+                            );
+                        })
+                    ) : (
+                        <span className={`relative`}>
+                            <span className={mode === "light" ? encryptedText.includes(besmele) ? `text-rose-500 font-semibold absolute brightness-150 ${pulseNumber}` : `${colors[theme]["matching-text"]} font-semibold absolute brightness-150 ${pulseNumber}` : `absolute brightness-150 ${pulseNumber}`}>
+                                {`${verseNumber}. `}
+                            </span>
+                            <span className={mode === "light" ? encryptedText.includes(besmele) ? `text-rose-500 font-semibold relative` : `${colors[theme]["matching-text"]} font-semibold relative` : `relative brightness-150`}>
+                                {`${verseNumber}. `}
+                            </span>
+                            <span>
+                                {text}
+                            </span>
                         </span>
-                        <span className={mode === "light" ? encryptedText.includes(besmele) ? `text-rose-500 font-semibold relative` : `${colors[theme]["matching-text"]} font-semibold relative` : `relative brightness-150`}>
-                            {`${verseNumber}. `}
-                        </span>
-                    </span>
-                    <span className={``}>
-                        {text}
-                    </span>
+                    )}
                 </div>
 
                 <div className={`w-full flex flex-col flex-1  ${mode === "reading" ? "p-0.5 mt-2" : "h-0"} `}>
