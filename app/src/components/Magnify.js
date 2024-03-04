@@ -287,7 +287,9 @@ const Magnify = ({ colors, theme, translationApplication, quran, map, onClose, o
     };
 
     return (
-        <div className={`w-screen h-screen animated overflow-auto faster fixed left-0 top-0 flex flex-col items-center justify-start inset-0 z-10 outline-none focus:outline-none backdrop-blur-2xl`} id="jump-screen">
+        <div className={`w-screen h-screen animated overflow-auto faster fixed  left-0 top-0 flex flex-col items-center justify-start inset-0 z-10 outline-none focus:outline-none backdrop-blur-2xl`} id="jump-screen"
+        style={{ paddingTop: 'env(safe-area-inset-top)', paddingBottom: 'env(safe-area-inset-bottom)' }}
+        >
             <div className={`w-full flex p-2 sticky top-0 backdrop-blur-2xl`}>
                 <div className={`w-full flex rounded  space-x-2`}>
                     <input
