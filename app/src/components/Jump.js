@@ -127,7 +127,6 @@ const Jump = ({ onChangeLanguage, suraNames, onChangeTheme, colors, theme, trans
             setShowBookmarks(false);
         }
         setShowThemes(!showThemes);
-
     };
 
     const toggleBookmark = () => {
@@ -319,9 +318,10 @@ const Jump = ({ onChangeLanguage, suraNames, onChangeTheme, colors, theme, trans
                                                         onChange={handleVerseChange}
                                                         value={verseNumber}
                                                         className={`inset-0 opacity-0 text-3xl w-1/2 p-3 rounded ${colors[theme]["text"]} ${colors[theme]["notes-background"]} focus:ring-2 focus:outline-none focus:ring-sky-500`}>
-                                                        {suraNumber && versesInSuras[suraNumber] ? versesInSuras[suraNumber].map(verse => (
+                                                        <option key="0" value="0" disabled>{translationApplication?.verse}</option>
+                                                        {suraNumber && versesInSuras[suraNumber] && versesInSuras[suraNumber].map(verse => (
                                                             <option key={verse} value={verse}>{verse}</option>
-                                                        )) : (<option key="0" value="0" disabled>{translationApplication?.verse}</option>)}
+                                                        ))}
                                                     </select>
                                                 </div>
                                             </div>
