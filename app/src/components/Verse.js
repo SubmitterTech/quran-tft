@@ -1,4 +1,5 @@
 import React, { useCallback, useEffect, useState, useRef } from 'react';
+import { Clipboard } from '@capacitor/clipboard';
 
 const Verse = ({ besmele,
     colors,
@@ -69,15 +70,21 @@ const Verse = ({ besmele,
             textToCopy += txt + "\n\n";
         });
 
-        navigator.clipboard?.writeText(textToCopy)
-            .then(() => {
+        const writeToClipboard = async () => {
+            try {
+                await Clipboard.write({
+                    string: textToCopy
+                });
                 let keys = Object.keys(accumulatedCopiesRef.current).join(", ");
                 setTooltip({ visible: true, x, y, keys: keys });
                 setTimeout(() => setTooltip({ ...tooltip, visible: false }), 2000);
-            })
-            .catch(err => {
+            } catch (err) {
                 console.error('Failed to copy text: ', err);
-            });
+            }
+        };
+
+        writeToClipboard();
+
     };
 
     const handleBookmark = (verseKey) => {
