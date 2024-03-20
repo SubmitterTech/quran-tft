@@ -113,7 +113,7 @@ const Verse = ({ besmele,
             const currentX = e.touches[0].clientX;
             const deltaX = swipeStartX - currentX;
             setSwipeEndX(deltaX);
-            if (Math.abs(deltaX) > 8) {
+            if (Math.abs(deltaX) > 9 && Math.abs(deltaX) < 266) {
                 setSwipeDistance(deltaX);
             }
         } else {
