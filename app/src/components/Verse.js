@@ -492,18 +492,20 @@ const Verse = ({ besmele,
                     </div>
                 )}
             </div>
-            <div
+            { mode !== "reading" && <div
                 onClick={() => handleSwipeEnd()}
                 className={`absolute left-0 top-0 h-full cursor-pointer w-0 md:w-1/12`}
                 onMouseEnter={() => handleMouseEnter('left')}
                 onMouseLeave={handleMouseLeave}
             />
+            }
+            { mode !== "reading" &&
             <div
                 onClick={() => handleSwipeEnd()}
                 className={`absolute right-0 top-0 h-full cursor-pointer w-0 md:w-1/12`}
                 onMouseEnter={() => handleMouseEnter('right')}
                 onMouseLeave={handleMouseLeave}
-            />
+            />}
         </div>
     );
 };
