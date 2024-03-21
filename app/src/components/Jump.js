@@ -435,7 +435,7 @@ const Jump = ({ onChangeLanguage, suraNames, onChangeTheme, colors, theme, trans
                         name="langpick"
                         onChange={(e) => onChangeLanguage(e.target.value)}
                         value={localStorage.getItem("lang")}
-                        className={`w-full m-2 text-center rounded px-4 py-2 border border-neutral-400/40 text-lg brightness-80 bg-neutral-500/20 ${colors[theme]["page-text"]}`}>
+                        className={`w-full m-2 text-center rounded px-4 py-2 border border-neutral-400/40 text-lg brightness-80 bg-neutral-500/30 ${colors[theme]["page-text"]} focus:outline-none focus:ring-2 focus:border-sky-500 focus:ring-sky-500`}>
                         {Object.keys(languages).map((key) => {
                             if (key) {
                                 const isLanguageDisabled = languages[key].includes("not complete");
