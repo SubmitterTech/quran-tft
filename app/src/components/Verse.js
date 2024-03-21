@@ -469,7 +469,7 @@ const Verse = ({ besmele,
                                     {verseKeys.map(verseKey => (
                                         <button
                                             className={` p-2 rounded my-1 mr-2  text-sky-500 ${(path.current && path.current[currentVerseKey] && path.current[currentVerseKey][verseKey]) ? `${colors[theme]["relation-background"]} brightness-75` : `${colors[theme]["base-background"]} shadow-lg`}`}
-                                            key={verseKey}
+                                            key={Date.now() + verseKey}
                                             onClick={() => onRelatedVerseClick(verseKey)}
                                         >
                                             {verseKey}
