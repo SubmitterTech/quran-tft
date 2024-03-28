@@ -617,7 +617,8 @@
         "text": {
             "1": "Bu, başlangıçların en uzun setidir, beş harf içerir ve tek bir surede, Sure 19’da yer alır. Sure 19’da “K” harfi 137 kez, “H” 175 kez, “Y” 343 kez “‘A” 117 kez ve “S” (Sad) 26 kez geçer. Böylece, bu beş harfin toplam geçişi 137 + 175 + 343 + 117 + 26 = 798 = 19x42 olur.",
             "2": "Birbirine kenetlenmeli girift bir ilişki, bu üst üste bindirilmiş Kuranî başlangıçları bir toplam oluşturmak üzere bağlar ki, bu da 19’un katıdır. “H.” başlangıcı Sure 19 ve 20’de bulunur. “T.H.” başlangıçları Sure 20’nin başında yer alır. “T.S.” başlangıçları Sure 27’de bulunurken, “T.S.M.” başlangıçları onu çevreleyen Sure 26 ve 28’de bulunur.",
-            "3": "Aynı zamanda belirtilmelidir ki; olağandışı güçlü mucizelerin anlatıldığı surelerde; daha uzun, daha kompleks, birbirine kenetlenmiş ve üst üste bindirilmiş başlangıçlar bulunur. Örneğin, İsa’nın bakire kadından doğuşu Sure 19’da geçer, ki bu en uzun başlangıç seti olan K.H.Y.‘A.S. ile başlar. Birbirine kenetlenmeli başlangıçlar olan “H.” “T.H.,” “T.S.” ve “T.S.M.” ise Musa’nın, İsa’nın mucizeleri ile Süleyman ve cinlerini kuşatan olağandışı olayları tarif eden surelerin başında yer alırlar. Böylece Tanrı, daha güçlü mucizeleri desteklemek için daha güçlü kanıtlar sağlar. Bu başlangıçların geçiş sıklığı Tablo 6’da sunulmaktadır.",
+            "3": "Aynı zamanda belirtilmelidir ki; olağandışı güçlü mucizelerin anlatıldığı surelerde; daha uzun, daha kompleks, birbirine kenetlenmiş ve üst üste bindirilmiş başlangıçlar bulunur. Örneğin, İsa’nın bakire kadından doğuşu Sure 19’da geçer, ki bu en uzun başlangıç seti olan K.H.Y.‘A.S. ile başlar.",
+            "4": "Birbirine kenetlenmeli başlangıçlar olan “H.” “T.H.,” “T.S.” ve “T.S.M.” ise Musa’nın, İsa’nın mucizeleri ile Süleyman ve cinlerini kuşatan olağandışı olayları tarif eden surelerin başında yer alırlar. Böylece Tanrı, daha güçlü mucizeleri desteklemek için daha güçlü kanıtlar sağlar. Bu başlangıçların geçiş sıklığı Tablo 6’da sunulmaktadır.",
             "6": "14 yüzyıl önce Kuran vahyedildiğinde, bugün bilinen sayılar yoktu. Evrensel bir sistem olarak Arap, İbrani, Arami ve Yunan alfabelerindeki harfler rakam olarak kullanılıyordu. Her bir harfe atanan sayı onun “Sayısal Değeri”dir. Arap alfabesinin sayısal değerleri Tablo 7’de gösterilmiştir."
         },
         "picture": {
@@ -1825,14 +1826,15 @@
             "11": {
                 "lines": {
                     "1": "Tanrımız Rab BİR’dir!",
-                    "2": "Bu nedenle, Tanrınız Rabbe tapın",
-                    "3": "tüm yüreğinizle,",
-                    "4": "tüm ruhunuzla,",
-                    "5": "tüm aklınızla",
-                    "6": "ve tüm gücünüzle.",
-                    "7": "[Yasa’nın Tekrarı 6:4-5]",
-                    "8": "[Markos 12:29]",
-                    "9": "[Kuran 2:163,17:22-23]"
+                    "2": "Bu nedenle,", 
+                    "3": "Tanrınız Rabbe tapın",
+                    "4": "tüm yüreğinizle,",
+                    "5": "tüm ruhunuzla,",
+                    "6": "tüm aklınızla",
+                    "7": "ve tüm gücünüzle.",
+                    "8": "[Yasa’nın Tekrarı 6:4-5]",
+                    "9": "[Markos 12:29]",
+                    "10": "[Kuran 2:163,17:22-23]"
                 },
                 "ref": []
             }
@@ -2823,7 +2825,7 @@
                     "1": "Biz Peygamberlerle antlaşma yaptığımızda ve seninle (Ey Muhammed), Nuh ile, İbrahim ile, Musa ile ve Meryemoğlu İsa ile, onlarla sağlam bir antlaşma yaptık. (33:7) (Muhammad Marmaduke Pickthall’a göre)"
                 },
                 "ref": [
-                   
+                   "33:7"
                 ]
             },
             "10": {
@@ -3531,7 +3533,7 @@
                     "13": "11. Tanrı’ya iman edenlerin çoğunun neden Cennete giremeyeceğini açıklamak (Ek 27)",
                     "14": "12. Tanrı’nın hiçbir zaman İbrahim’e oğlunu öldürmesini emretmediğini ilan etmek (Ek 9)",
                     "15": "13. Mükemmel mutluluğun sırrını ilan etmek (Giriş, xx)",
-                    "26": "14. Bir ceza adalet sistemi inşa etmek (Ek 37)"
+                    "16": "14. Bir ceza adalet sistemi inşa etmek (Ek 37)"
                 },
                 "ref": []
             }
@@ -3547,6 +3549,7 @@
             "3": "11:1 ayeti bize, Kuran’ın Mucizesinin, [1] onun fiziksel yapısının insanüstü matematiksel tasarımını ve [2] olağanüstü mükemmellikteki bir edebi eserin eş zamanlı yapısını içerdiğini haber verir.",
             "4": "Birinci madde, basit bir matematiksel modelin sayısal dağılım gereksinimlerini karşılayabilir. Ancak buna daima edebi kalite pahasına muvaffak olunur. Edebi tarzın ve Kuran boyunca bireysel harflerin iç içe geçmeli matematiksel dağılımının (Ek 1) eş zamanlı kontrolü, Kuran’ın ezberlenmesinin, anlaşılmasının ve zevk alınmasının kolaylaştırılması gerçeğiyle gün gibi ortadadır. İnsan yapımı bir kitaptan farklı olarak, Kuran’ı sonsuz kez ve tekrar tekrar okumak zevklidir.",
             "5": "Bu Ekin başlığı, 54’üncü surenin 17, 22, 32 ve 40. ayetlerinde tekrarlanmaktadır. Anlaşıldığı üzere, Kuran’ın Arapça metni, sonraki doğru ifadeyi yahut sonraki ayeti okuyucuya veya ezberleyene hatırlatacak şekilde oluşturulmuştur. Bizi yaratmış olan Tanrı’dır ve edebi materyalleri hafızamıza sabitlemenin en etkili yolunu O bilir. Yazılı kitapların az bulunduğu bir devirde Kuran’ın ezberlenmesi, orijinal metnin nesilden nesile korunmasında hayati bir rol oynamıştır.",
+            "6": "",
             "7": "1) 2’inci surenin 127, 128 ve 129. Ayetlerinin her biri, Tanrı’nın iki farklı ismiyle biter. Bu isim çiftleri sırasıyla şunlardır: “El-Semî’ El-‘Âlîm (İşiten, Her Şeyi Bilen)”, “El-Tevvâb El-Rahîm (Günahın Bedelinden Kurtaran, En Merhametli Olan)” ve “El-‘Azîz El-Hakîm (Kudretli, En Bilge Olan)”. Eğer bu sıradan bir kitap olsaydı, biri bu altı ismi kolayca yanlış eşleştirebilirdi. Fakat Kuran’da böyle bir şey söz konusu değildir. Bu çiftlerin her biri, aynı ayette, öncesinde bize doğru isim çiftini hatırlatan bir “Bellek Çanı” ile gelmiştir. Nitekim 127. Ayet, İbrahim ve İsmail’in Kâbe’nin temellerini yükseltmesinden bahseder. Ayet “El-Semî’ El-‘Âlîm” isimleriyle biter. Buradaki belirgin sesler “S,” “M” ve “ ‘Ayn”dır. Bu üç harf “İsmail” kelimesinde belirgindir. Edebi niteliğini geliştirirken, bu kelimenin cümle içinde dikkat çekici bir şekilde geciktirildiğini görüyoruz. Böylece, ayetin şöyle devam ettiğini görüyoruz: “İbrahim Kâbe’nin temellerini yükseltirken, İsmail’le birlikte…” Normalde insan bir yazar şöyle derdi, “İbrahim ve İsmail Kâbe’nin temellerini yükseltirken…” Fakat “İsmail”deki sesleri ertelemek, onları cümlenin sonuna yaklaştırır ve böylelikle bize Tanrı’nın bu suredeki doğru isimlerinin “El-Semî’ El-‘Âlîm” olduğunu hatırlatır.",
             "8": "128’inci ayetteki belirgin kelime olan “Tubb,” “El-Tevvâb El-Rahîm” kelimelerinden hemen önce gelir. “Tubb” kelimesi böylelikle bellek çanı olarak hizmet görür. 2:129’un sonundaki Tanrı’nın isimleri “Azîz, Hakîm”dir. Buradaki belirgin sesler “Z” ve “K”dir. Belli ki bu ayetteki bellek çanı olan kelime “Yuzekkihîm”dir."
         },
@@ -4047,7 +4050,9 @@
         },
         "evidence": {},
         "titles": {
-            "5": "GÜNLÜK BEŞ VAKİT NAMAZIN DOĞRULANMASI, EĞİLME (Rükû), SECDE (Sücûd) ve TEŞEHHÜT SAYISI"
+            "5": "GÜNLÜK BEŞ VAKİT NAMAZIN DOĞRULANMASI,", 
+            "6": "EĞİLME (Rükû),", 
+            "7": "SECDE (Sücûd) ve TEŞEHHÜT SAYISI"
         }
     },
     {
@@ -4092,7 +4097,7 @@
     {
         "page": 457,
         "text": {
-            "3": "Kuran, Kuran’da belirgin bir biçimde haram kılınmayan herhangi bir şeyi haram kılanlardan Tanrı’nın son derece hoşnutsuz olduğunu öğretir (16:112-116). Kuran’da belirgin bir biçimde bahsedilmeyen herhangi bir harama sarılmak putperestlikle eşdeğerdir (6:142-152). Bu gibi ha- ramlar, Tanrı’nın yanında bazı başka tanrı(ları) temsil etmektedir. Eğer YALNIZCA Tanrı’ya ta- pıyorsanız, YALNIZCA O’nun öğretilerine sarılacak ve sadece O’nun tayin ettiği buyruklara ve haramlara hürmet edeceksiniz.",
+            "3": "Kuran, Kuran’da belirgin bir biçimde haram kılınmayan herhangi bir şeyi haram kılanlardan Tanrı’nın son derece hoşnutsuz olduğunu öğretir (16:112-116). Kuran’da belirgin bir biçimde bahsedilmeyen herhangi bir harama sarılmak putperestlikle eşdeğerdir (6:142-152). Bu gibi ha- ramlar, Tanrı’nın yanında bazı başka tanrı(ları) temsil etmektedir. Eğer YALNIZCA Tanrı’ya tapıyorsanız, YALNIZCA O’nun öğretilerine sarılacak ve sadece O’nun tayin ettiği buyruklara ve haramlara hürmet edeceksiniz.",
             "4": "Kuran’daki beslenme yasaklarının mutlak belirginliği en iyi şekilde 6:145-146’da resmedilmektedir. Bu iki ayetten öğreniyoruz ki, Tanrı “eti” haram kıldığı zaman “eti” haram kılmıştır, başka bir şeyi değil ve Tanrı “yağı” haram kıldığı zaman O’nun belirgin bir biçimde haram kıldığı şey budur. Bu iki ayet bize domuzun “eti”nin haram olduğunu bildirir, “yağı”nın değil. Belli ki Tanrı, birçok ülkede domuz yağının unlu mamullerde ve diğer gıda ürünlerinde kullanılacağını biliyordu ve bu tür bir kullanım yiyecekleri Haram (yasaklı) kılmaz. Kuran, belirgin bir biçimde dört eti haram kılar (2:173, 5:3, 6:142-145 ve 16:112):",
             "7": "Ölüm çoğu insan için büyük bir gizemdir. Kuran öğrencileri için öyle değil. Ölümün tıpkı uyumak gibi olduğunu öğreniyoruz; rüyalarla tamamlanan (6:60, 40:46). Ölüm ve diriliş arasındaki süre bir gecelik uyku gibi geçer (2:259; 6:60; 10:45; 16:21; 18:11, 18:19, 18:25; 30:55).",
             "8": "Ölüm anında herkes kendi kaderini bilir; Cennet ya da Cehennem. İnkârcılar için ölüm korkunç bir olaydır; melekler onların ruhlarını koparıp çıkarırlarken yüzlerine ve arkalarına vururlar (8:50, 47:27, 79:1).",
@@ -4364,7 +4369,9 @@
                 "lines": {
                     "1": "“Tanrı benim de Rabbimdir sizin de Rabbinizdir; yalnızca O’na tapın. Doğru yol budur. (Kuran 3:51, 19:36 & 43:64)”"
                 },
-                "ref": []
+                "ref": [
+                    "Kuran 3:51, 19:36, & 43:64"
+                ]
             },
             "11": {
                 "lines": {
@@ -4426,9 +4433,10 @@
                     "2": "İsa’ya karşı birçok suçlamada bulundular.",
                     "3": "Pilatus onu tekrar sorguya çekti:",
                     "4": "“Elbette birkaç yanıtın vardır?",
-                    "5": "Sana karşı kaç suçlama yapıldığını gör.’’",
-                    "6": "Fakat Pilatus’a büyük ölçüde sürpriz oldu;",
-                    "7": "İsa başka yanıt vermedi."
+                    "5": "Sana karşı kaç suçlama ", 
+                    "6": "yapıldığını gör.’’",
+                    "7": "Fakat Pilatus’a büyük ölçüde sürpriz oldu;",
+                    "8": "İsa başka yanıt vermedi."
                 },
                 "ref": [
                     "Markos 15:3-5"

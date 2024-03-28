@@ -2030,6 +2030,21 @@
                 ]
             }
         },
+        "table": {
+            "3": {
+                "ref": "",
+                "title": [
+                    "Divine Name",
+                    "Gematrical Value"
+                ],
+                "values" : [
+                    "“Waahed” (One)", "19",
+                    "“Zul Fadl Al-‘Azim” (Possessor of Infinite Grace)", "2698",
+                    "“Majid” (Glorious)","57",
+                    "“Jaami‘ ”(Summoner)","114"
+                ]
+            }
+        },
         "evidence": {
             "1": {
                 "lines": {
@@ -2037,16 +2052,6 @@
                     "2": "The second word ........ “Allah” (God) .......... occurs ............... 2698 times (19x142).",
                     "3": "The third word............ “Al-Rahman” (Most Gracious)............ 57 times, 19x3.",
                     "4": "The fourth word.......... “Al-Raheem” (Most Merciful)............ 114 times, 19x6."
-                },
-                "ref": []
-            },
-            "3": {
-                "lines": {
-                    "1": "Divine Name Gematrical Value",
-                    "2": "1. “Waahed” (One) ... 19",
-                    "3": "2. “Zul Fadl Al-‘Azim” (Possessor of Infinite Grace) ... 2698",
-                    "4": "3. “Majid” (Glorious) ... 57",
-                    "5": "4. “Jaami‘ ”(Summoner) ... 114"
                 },
                 "ref": []
             }
@@ -2693,7 +2698,7 @@
             "4": "If we write down the number of suras (114), followed by the total number of numbered verses, followed by the Grand Sum of verse numbers in the whole Quran (333410), followed by the numbers of every sura and its verses, we end up with a very long number (12712 digits) that is a multiple of 19.",
             "6": "If we write down the numbers of verses in every sura next to each other, we end up with a 235-digit number that is a multiple of 19. To do this, write down the total number of numbered verses in the Quran (6234), followed by the number of verses in every sura, then close with the total number of numbered verses in the Quran. The final long number looks like this:",
             "8": "If we write down the number of numbered verses in the Quran (6234), followed by the number of suras (114), followed by the number of every verse in every sura, then close with the number of numbered verses in the Quran (6234) and the number of suras (114), the final number consists of 12479 digits, and is a multiple of 19.",
-            "10": "Another long number that consists of 12774 digits is formed by writing down the number of every verse in every sura, followed by the number of every sura added to its number of verses. Sura 1 consists of 7 verses, and the total 1 + 7 is 8. Therefore, the number representing Sura 1 looks like this: 1234567 8. Since Sura 2 consists of 286 verses, the number representing Sura 2 looks like this:"
+            "10": "Another long number that consists of 12774 digits is formed by writing down the number of every verse in every sura, followed by the number of every sura added to its number of verses. Sura 1 consists of 7 verses, and the total 1 + 7 is 8. Therefore, the number representing Sura 1 looks like this: 1234567 8. Since Sura 2 consists of 286 verses, the number representing Sura 2 looks like this: 12345...286 288. This is done for every sura in the Quran. The final combined number consists of 12774 digits, and is a multiple of 19."
         },
         "picture": {},
         "evidence": {
@@ -2737,7 +2742,6 @@
     {
         "page": 425,
         "text": {
-            "1": "12345...286 288. This is done for every sura in the Quran. The final combined number consists of 12774 digits, and is a multiple of 19.",
             "3": "More specialized features are in Appendices 2, 9,19, 24, 25, 26, 29, and 37.",
             "5": "The following quotation is taken from STUDIES IN JEWISH MYSTICISM, (Association for Jewish Studies, Cambridge, Mass., Joseph Dan & Frank Talmage, eds., Page 88, 1982). The quotation refers to the work of Rabbi Judah the Pious (12th Century AD):",
             "6": "The people [Jews] in France made it a custom to add [in the morning prayer] the words: “ ’Ashrei temimei derekh [blessed are those who walk the righteous way],” and our Rabbi, the Pious, of blessed memory, wrote that they were completely and utterly wrong. It is all gross falsehood, because there are only nineteen times that the Holy Name is mentioned [in that portion of the morning prayer]... and similarly you find the word ’Elohim nineteen times in the pericope of Ve-’elleh shemot. . . . Similarly, you find that Israel were called “sons” nineteen times, and there are many other examples. All these sets of nineteen are intricately intertwined, and they contain many secrets and esoteric meanings, which are contained in more than eight large volumes... Furthermore, in this section there are 152 (19x8) words."
@@ -3141,8 +3145,7 @@
                     "3": "Abraham delivered all the practices of Islam. The value of his name          = 258 ",
                     "4": "Muhammad delivered the Quran. The value of his name                          =  92 ",
                     "5": "Rashad delivered Islam’s proof of authenticity. The value of his name        = 505 ",
-                    "6": "Total gematrical value of the 3 names = 258 + 92 + 505                       = 855.",
-                    "7": "                                                                            (19x45)"
+                    "6": "Total gematrical value of the 3 names = 258 + 92 + 505                       = 855 (19x45)"
                 },
                 "ref": []
             }
@@ -3337,8 +3340,7 @@
             "5": "(37) The sum of the sura number (44) plus the number of the verse where the messenger is predicted (13) equals 57, 19x3. See Table 10.",
             "8": "(38) God is the only Knower of the future; He knows exactly when this world will end (7:187, 31:34, 33:63, 41:47, 43:85). We learn from the Quran that God reveals certain aspects of the future to His chosen messengers. In Appendix 25, evidence is presented that Rashad Khalifa was blessed with unveiling the End of the World, in accordance with 72:27.",
             "9": "(39) The number of verses from the beginning of the Quran to Verse 72:27 is 5472, or 19x72x4. Note that the messenger who is given information about the future in 72:27, and that this sura contains 4 “Rashada” words (72:2, 72:10, 72:14, & 72:21). By adding the value of “Rashad Khalifa” (1230), plus the sura number (72), plus the numbers of the 4 verses where “Rashada” is mentioned, we get 1230 + 72 + 2 + 10 +14 + 21 = 1349 = 19x71.",
-            "10": "(40) Verse 72:27 begins with the statement",
-            "12": "This reference to the messenger who is chosen by God to receive news about the future has a gematrical value of 1919. Table 11 presents the data."
+            "10": "(40) Verse 72:27 begins with the statement “إِلَّا مَنِ ارْتَضَى مِن رَّسُولٍ” This reference to the messenger who is chosen by God to receive news about the future has a gematrical value of 1919. Table 11 presents the data."
         },
         "table": {
             "6": {
@@ -3506,22 +3508,18 @@
                     "2": "2. Expose and remove the two false verses 9:128-129 from the Quran (App. 24).",
                     "3": "3. Explain the purpose of our lives; why we are here (Appendix 7).",
                     "4": "4. Proclaim one religion for all the people, and point out and purge away all",
-                    "5": "the corruptions afflicting Judaism, Christianity, and Islam (Appendices 13,",
-                    "6": "15,19).",
-                    "7": "5. Proclaim that Zakat (obligatory charity) is a prerequisite for redemption",
-                    "8": "(7:156), and explain the correct method of observing Zakat (Appendix 15).",
-                    "9": "6. Unveil the end of the world (Appendix 25).",
-                    "10": "7. Proclaim that those who die before the age of 40 go to Heaven (Appendix",
-                    "11": "32).",
-                    "12": "8. Explain Jesus’ death (Appendix 22).",
-                    "13": "9. Explain the Quran’s delivery to, then through Muhammad (Appendix 28).",
-                    "14": "10. Announce that Muhammad wrote God’s revelations (the Quran) with his",
-                    "15": "own hand (Appendix 28).",
-                    "16": "11. Explain why most believers in God do not make it to Heaven (Appendix",
-                    "17": "27).",
-                    "18": "12. Proclaim that God never ordered Abraham to kill his son (Appendix 9).",
-                    "19": "13. Proclaim the secret of perfect happiness (Introduction, xx).",
-                    "20": "14. Establish a criminal justice system (Appendix 37)."
+                    "5": "the corruptions afflicting Judaism, Christianity, and Islam (Appendices 13, 15, 19).",
+                    "6": "5. Proclaim that Zakat (obligatory charity) is a prerequisite for redemption (7:156), and",
+                    "7": "explain the correct method of observing Zakat (Appendix 15).",
+                    "8": "6. Unveil the end of the world (Appendix 25).",
+                    "9": "7. Proclaim that those who die before the age of 40 go to Heaven (Appendix 32).",
+                    "10": "8. Explain Jesus’ death (Appendix 22).",
+                    "11": "9. Explain the Quran’s delivery to, then through Muhammad (Appendix 28).",
+                    "12": "10. Announce that Muhammad wrote God’s revelations (the Quran) with his own hand (Appendix 28).",
+                    "13": "11. Explain why most believers in God do not make it to Heaven (Appendix 27).",
+                    "14": "12. Proclaim that God never ordered Abraham to kill his son (Appendix 9).",
+                    "15": "13. Proclaim the secret of perfect happiness (Introduction, xx).",
+                    "16": "14. Establish a criminal justice system (Appendix 37)."
                 },
                 "ref": []
             }
@@ -4085,22 +4083,22 @@
         "text": {
             "3": "The Quran teaches that God is extremely displeased with those who prohibit anything that was not specifically prohibited in the Quran (16:112-116). The upholding of any prohibitions not specifically mentioned in the Quran is tantamount to idolatry (6:142-152). Such prohibitions represent some other god(s) besides God. If you worship God ALONE, you will uphold His teachings ALONE and honor the commandments and prohibitions instituted only by Him.",
             "4": "The absolute specificity of dietary prohibitions in the Quran is best illustrated in 6:145-146. We learn from these two verses that when God prohibits “meat,” He prohibits “meat” and nothing else, and when He prohibits “fat,” that is what He specifically prohibits. These two verses inform us that “the meat” of pigs is prohibited, not “the fat.” Obviously, God knew that in many countries, lard would be used in baked goods and other food products, and that such usage does not render the foods Haraam (prohibited). The Quran specifically prohibits four meats (2:173, 5:3, 6:142-145, and 16:112):",
-            "5": "Say, “I do not find in what was revealed to me",
-            "6": "anything prohibited for any eater",
-            "7": "unless it is (1) carrion, (2) running blood,",
-            "8": "(3) the meat of pigs, for it is unclean, and",
-            "9": "(4) meat blasphemously dedicated to other than God.”",
-            "10": "If one is forced to eat these",
-            "11": "without being malicious or deliberate,",
-            "12": "then your Lord is Forgiver, Most Merciful.",
-            "13": "[ 6:145 ]",
-            "15": "Death is a great mystery to most people. Not so for the students of the Quran. We learn that death is exactly like sleeping; complete with dreams (6:60, 40:46). The period between death and resurrection passes like one night of sleep (2:259; 6:60; 10:45; 16:21; 18:11, 18:19, 18:25; 30:55).",
-            "16": "At the moment of death, everyone knows his or her destiny; Heaven or Hell. For the disbelievers, death is a horrible event; the angels beat them on the faces and rear ends as they snatch away their souls (8:50, 47:27, 79:1).",
-            "17": "Consistently, the Quran talks about two deaths, the first death took place when we failed to make a stand with God’s absolute authority (Appendix 7). That first death lasted until we were born into this world. The second death terminates our life in this world (2:28, 22:66, 40:11)."
+            "7": "Death is a great mystery to most people. Not so for the students of the Quran. We learn that death is exactly like sleeping; complete with dreams (6:60, 40:46). The period between death and resurrection passes like one night of sleep (2:259; 6:60; 10:45; 16:21; 18:11, 18:19, 18:25; 30:55).",
+            "8": "At the moment of death, everyone knows his or her destiny; Heaven or Hell. For the disbelievers, death is a horrible event; the angels beat them on the faces and rear ends as they snatch away their souls (8:50, 47:27, 79:1).",
+            "9": "Consistently, the Quran talks about two deaths, the first death took place when we failed to make a stand with God’s absolute authority (Appendix 7). That first death lasted until we were born into this world. The second death terminates our life in this world (2:28, 22:66, 40:11)."
         },
         "picture": {},
         "evidence": {
-            "18": {
+            "5":{
+                "lines": {
+                    "1": "Say, “I do not find in what was revealed to me anything prohibited for any eater unless it is (1) carrion, (2) running blood, (3) the meat of pigs, for it is unclean, and (4) meat blasphemously dedicated to other than God.” If one is forced to eat these without being malicious or deliberate, then your Lord is Forgiver, Most Merciful."
+
+                },
+                "ref": [
+                    "6:145"
+                ]
+            },
+            "10": {
                 "lines": {
                     "1": "Note: The following is a reproduction of the lead article from the February, 1990 issue of the Submitters Perspective, the montly bulletin of United Submitters Intercompleted and mailed ahead of time, in December, 1989. Dr. Khalifa was martyred on January 31, 1990 and his soul was taken directly to Paradise."
                 },
@@ -4110,7 +4108,8 @@
         "titles": {
             "1": "Appendix 16",
             "2": "Dietary Prohibitions",
-            "14": "Appendix 17"
+            "6": "Appendix 17",
+            "7": "Death"
         }
     },
     {
@@ -4152,18 +4151,41 @@
         "text": {
             "3": "The words of the Quran speak in 19:64, saying, “We come down in accordance with the commandments of your Lord. To Him belongs the past, present, and the future. Your Lord never forgets.” God did not forget, for example, to tell us how to sleep (18:109, 31:27). Yet, the fabricators of such false doctrine as Hadith & Sunna have come up with religious teachings dictating to their followers how to sleep, and even how to cut your nails. The Sacred Mosque in Mecca and the illegal “Sacred Mosque” of Medina, hire some individuals to seek out the exhausted visitors and beat them with a stick if they fall asleep on the wrong side!",
             "4": "The Quran proclaims that the Quran is complete, perfect, and fully detailed (6:19, 6:38, 6:114, 6:115; 50:45), and that religious regulations not specifically instituted in the Quran constitute a religion other than Islam, i.e., Submission (42:21, 17:46). The true believers uphold the Quran, the whole Quran, and nothing but the Quran. This principle is confirmed by the Quran’s mathematical code. Verse 46 of Sura 17 proclaims that we shall uphold the Quran ALONE. The word “ALONE” occurs in the Quran 6 times: 7:70, 17:46, 39:45, 40: 12 & 84, and 60:4. All these occurrences refer to God, except 17:46. When we add the numbers of suras and verses which refer to “GOD ALONE,” we get 361, 19x19. This proves that 17:46 refers to “the Quran ALONE.”",
-            "8": "The Quran informs us that some enemies of the Prophet, described as “human and jinn devils,” will fabricate lies and attribute them to the Prophet (6:112, 25:31). This is precisely what happened after the prophet Muhammad’s death; Hadith (oral) and Sunna (actions) were invented and attributed to the Prophet. Hadith and Sunna are satanic innovations because they: [1] defy the divine assertions that the Quran is complete, perfect, fully detailed, and shall be the only source of religious guidance (6:19, 6:38, 6:114 & 45:6-7), [2] blaspheme against the Prophet and depict him as a vicious tyrant who did not uphold the Quran, and [3] create false doctrines based on superstition, ignorance, and indefensible nonsensical traditions. The prophet Muhammad was enjoined, in very strong words, from issuing any religious teachings besides the Quran (69:38-48)."
+            "11": "The Quran informs us that some enemies of the Prophet, described as “human and jinn devils,” will fabricate lies and attribute them to the Prophet (6:112, 25:31). This is precisely what happened after the prophet Muhammad’s death; Hadith (oral) and Sunna (actions) were invented and attributed to the Prophet. Hadith and Sunna are satanic innovations because they: [1] defy the divine assertions that the Quran is complete, perfect, fully detailed, and shall be the only source of religious guidance (6:19, 6:38, 6:114 & 45:6-7), [2] blaspheme against the Prophet and depict him as a vicious tyrant who did not uphold the Quran, and [3] create false doctrines based on superstition, ignorance, and indefensible nonsensical traditions. The prophet Muhammad was enjoined, in very strong words, from issuing any religious teachings besides the Quran (69:38-48)."
         },
         "picture": {},
         "evidence": {
             "7": {
                 "lines": {
-                    "1": "Which Hadith, other than God and His revelations, do they uphold? [45:6]",
-                    "2": "The Quran is not a fabricated Hadith; ...it details everything. [12:111]",
-                    "3": "Some people uphold vain Hadith to divert others from the path of God. [31:6]",
-                    "4": "The only Sunna to follow shall be God’s Sunna. [17:77, 33:62, 48:23, 6:114]"
+                    "1": "Which Hadith, other than God and His revelations, do they uphold?"
                 },
-                "ref": []
+                "ref": [
+                    "45:6"
+                ]
+            },
+            "8": {
+                "lines": {
+                    "1": "The Quran is not a fabricated Hadith; ...it details everything."
+                },
+                "ref": [
+                    "12:111"
+                ]
+            },
+            "9": {
+                "lines": {
+                    "1": "Some people uphold vain Hadith to divert others from the path of God."
+                },
+                "ref": [
+                    "31:6"
+                ]
+            },
+            "10": {
+                "lines": {
+                    "1": "The only Sunna to follow shall be God’s Sunna."
+                },
+                "ref": [
+                    "17:77, 33:62, 48:23, 6:114"
+                ]
             }
         },
         "titles": {
@@ -5533,59 +5555,22 @@
                     "Sura No.",
                     " No. of Verses",
                     "Sum of Digits of Suras",
+                    "",
                     "Sum of Digits of Verses",
+                    "",
                     "Multiplication Product"
                 ],
                 "values": [
-                    " 1    ",
-                    "  7  ",
-                    "  1",
-                    "x      7",
-                    "=      7 ",
-                    " 2    ",
-                    "286  ",
-                    "  2",
-                    "x     16",
-                    "=      32 ",
-                    " 3    ",
-                    "200  ",
-                    "  3",
-                    "x      2",
-                    "=      6 ",
-                    "  .   ",
-                    " .   ",
-                    "  .",
-                    ".       ",
-                    ".     ",
-                    " 9    ",
-                    "127  ",
-                    "  9",
-                    "x     10",
-                    "=      90 ",
-                    "  .   ",
-                    "   . ",
-                    "  .",
-                    ".       ",
-                    "     . ",
-                    "114   ",
-                    " 6   ",
-                    "  6",
-                    "x     6 ",
-                    "=      36 ",
-                    "      ",
-                    "-----",
-                    "-----",
-                    "        ",
-                    "         ",
-                    "      ",
-                    "975  ",
-                    "906",
-                    "        ",
-                    "      7771 (19x409) ",
-                    "      ",
-                    "    ",
-                    " 975 + 906 = 1881= 19x99",
-                    "   "
+                    "1","7","1","x","7","=","7",
+                    "2","286","2","x","16","=","32",
+                    "3","200","3","x","2","=","6",
+                    ".",".",".","","",".","",
+                    "9","127","9","x","10","=","90",
+                    ".",".",".","",".","","",
+                    "114","6","6","x","6","=","36",
+                    "","",".....","",".....","",".....",
+                    "","","975","","906","","7771",
+                    "","","975 + 906 = 1881 = 19x99","","","","(19x409)"
                 ]
             },
             "5": {
