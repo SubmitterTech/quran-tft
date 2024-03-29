@@ -13,6 +13,9 @@ const Jump = ({ onChangeLanguage, suraNames, onChangeTheme, colors, theme, trans
     const [suraNameMap, setSuraNameMap] = useState({});
     const [lightOpen, setLightOpen] = useState(false);
 
+    const [isShufflingSura, setIsShufflingSura] = useState(false);
+    const [isShufflingVerse, setIsShufflingVerse] = useState(false);
+
     useEffect(() => {
         let themap = {}
         if (suraNames) {
@@ -77,6 +80,33 @@ const Jump = ({ onChangeLanguage, suraNames, onChangeTheme, colors, theme, trans
 
     }, [currentPage, quran]);
 
+    const shuffleSuraVerse = () => {
+        const newSuraNumber = String(Math.floor(Math.random() * Object.keys(suraNameMap).length) + 1);
+        setIsShufflingSura(true);
+        setSuraNumber(0);
+        setVerseNumber(0);
+        setLightOpen(false);
+        setTimeout(() => {
+            setSuraNumber(newSuraNumber);
+            const newVerseNumbers = versesInSuras[newSuraNumber];
+            const newVerseNumber = newVerseNumbers[Math.floor(Math.random() * newVerseNumbers.length)];
+
+            setIsShufflingSura(false);
+            setTimeout(() => {
+                setIsShufflingVerse(true);
+                setTimeout(() => {
+                    setVerseNumber(newVerseNumber);
+                    setIsShufflingVerse(false);
+
+                    if (pageForSuraVerse[newSuraNumber] && pageForSuraVerse[newSuraNumber][newVerseNumber]) {
+                        setSelectedPage(pageForSuraVerse[newSuraNumber][newVerseNumber]);
+                    }
+                    setLightOpen(true);
+                }, 300);
+            }, 300);
+        }, 300);
+    };
+
     const handleSuraChange = (e) => {
         const newSuraNumber = e.target.value;
         setSuraNumber(newSuraNumber);
@@ -89,7 +119,7 @@ const Jump = ({ onChangeLanguage, suraNames, onChangeTheme, colors, theme, trans
     };
 
     const handleVerseChange = (e) => {
-        setLightOpen(true)
+        setLightOpen(true);
         const newVerseNumber = e.target.value;
         setVerseNumber(newVerseNumber);
 
@@ -283,8 +313,11 @@ const Jump = ({ onChangeLanguage, suraNames, onChangeTheme, colors, theme, trans
                                     (
                                         <div>
                                             <div className={` w-full flex space-x-2 mt-2`}>
+
+
                                                 <div className={`relative w-full flex justify-end`}>
                                                     <div
+                                                        style={isShufflingSura ? { animation: 'animate-scale 0.4s ease-in-out' } : {}}
                                                         className={`text-3xl w-1/2 p-3 absolute text-center rounded flex items-center justify-center ${colors[theme]["text"]} ${colors[theme]["notes-background"]}`}
                                                         onClick={() => document.getElementById('sura').click()}
                                                     >
@@ -304,8 +337,15 @@ const Jump = ({ onChangeLanguage, suraNames, onChangeTheme, colors, theme, trans
                                                         ))}
                                                     </select>
                                                 </div>
+
+                                                <div className={`relative w-1/3 flex items-center justify-center cursor-pointer ${colors[theme]["text"]}`} onClick={shuffleSuraVerse} >
+                                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className={`w-11 h-11 p-0.5`}>
+                                                        <path strokeLinecap="round" strokeLinejoin="round" d="M3 7.5 7.5 3m0 0L12 7.5M7.5 3v13.5m13.5 0L16.5 21m0 0L12 16.5m4.5 4.5V7.5" />
+                                                    </svg>
+                                                </div>
                                                 <div className={`relative w-full flex justify-start`}>
                                                     <div
+                                                        style={isShufflingVerse ? { animation: 'animate-scale 0.4s ease-in-out' } : {}}
                                                         className={`text-3xl w-1/2 p-3 absolute text-center rounded flex items-center justify-center ${colors[theme]["text"]} ${colors[theme]["notes-background"]}`}
                                                         onClick={() => document.getElementById('verse').click()}
                                                     >
