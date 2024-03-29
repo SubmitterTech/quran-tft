@@ -814,7 +814,7 @@ const Book = ({ onChangeTheme, colors, theme, translationApplication, introducti
     };
 
     return (
-        <div className={`fixed flex flex-col justify-start h-screen ${colors[theme]["app-background"]} overflow-y-hidden`}
+        <div className={`fixed flex w-full flex-col justify-start h-screen ${colors[theme]["app-background"]} overflow-y-hidden`}
             style={{ paddingTop: 'env(safe-area-inset-top)', paddingBottom: 'env(safe-area-inset-bottom)' }}>
             {renderBookContent()}
             <div>
