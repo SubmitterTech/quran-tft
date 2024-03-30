@@ -174,10 +174,14 @@ const Verse = ({ besmele,
         const related = new Map();
 
         const addReferences = (theme, referenceString) => {
+            // Split the referenceString by ';' to handle multiple groups of referencesx
             referenceString.split(';').forEach(refGroup => {
                 const [sura, verses] = refGroup.trim().split(':');
+
+                // Check if verses contain ',' indicating a list or '-' indicating a range
                 if (verses && verses.includes(',')) {
-                    verses?.split(',').forEach(verseRange => {
+                    // Handle list of verses
+                    verses.split(',').forEach(verseRange => {
                         if (verseRange) {
                             const individualKey = `${sura}:${verseRange.trim()}`;
                             if (individualKey !== currentVerseKey) {
@@ -188,6 +192,7 @@ const Verse = ({ besmele,
                         }
                     });
                 } else if (verses && verses.includes('-')) {
+                    // Handle range of verses
                     const [start, end] = verses.split('-');
                     for (let verse = parseInt(start.trim()); verse <= parseInt(end.trim()); verse++) {
                         const individualKey = `${sura}:${verse}`;
@@ -197,6 +202,14 @@ const Verse = ({ besmele,
                             related.set(theme, themeRelated);
                         }
                     }
+                } else if (verses) {
+                    // Handle a single verse (this is the missing part that handles single references)
+                    const individualKey = `${sura}:${verses.trim()}`;
+                    if (individualKey !== currentVerseKey) {
+                        const themeRelated = related.get(theme) || [];
+                        themeRelated.push(individualKey);
+                        related.set(theme, themeRelated);
+                    }
                 }
             });
         };
@@ -204,30 +217,48 @@ const Verse = ({ besmele,
 
         const processTheme = (theme, references) => {
             // Split the references string by ';' to separate different references
+
             references.split(';').forEach(refGroup => {
                 const [sura, versesPart] = refGroup.trim().split(':');
 
+
                 // Handle different formats within the verses part
-                versesPart?.split(',').forEach(vp => {
+                if (versesPart) {
+                    if (versesPart.trim().includes(',')) {
+                        versesPart.split(',').map(vp => vp.trim()).forEach(vp => {
 
-                    if (vp.includes('-')) {
-                        // Handle range of verses
-                        const [start, end] = vp.split('-').filter(e => e.trim()).map(Number);
+                            if (vp.includes('-')) {
+                                // Handle range of verses
+                                const [start, end] = vp.split('-').filter(e => e.trim()).map(Number);
 
-                        for (let verse = start; verse <= end; verse++) {
-                            const individualKey = `${sura}:${verse}`;
-                            if (individualKey === currentVerseKey) {
-                                addReferences(theme, references);
+                                for (let verse = start; verse <= end; verse++) {
+                                    const individualKey = `${sura}:${verse}`;
+                                    if (individualKey === currentVerseKey) {
+                                        addReferences(theme, references);
+                                    }
+                                }
+                            } else {
+                                // Handle single verse
+                                const individualKey = `${sura}:${vp}`;
+                                if (individualKey === currentVerseKey) {
+                                    addReferences(theme, references);
+                                }
                             }
-                        }
+                        });
                     } else {
-                        // Handle single verse
-                        const individualKey = `${sura}:${vp}`;
-                        if (individualKey === currentVerseKey) {
+
+                        const verse = versesPart.trim();
+                        const singleKey = `${sura}:${verse}`;
+
+                        if (singleKey === currentVerseKey) {
+                            console.log(currentVerseKey, theme, singleKey)
                             addReferences(theme, references);
                         }
+
                     }
-                });
+
+                }
+
             });
         };
 
@@ -246,8 +277,6 @@ const Verse = ({ besmele,
                     } else {
                         processTheme(theme, themeorref)
                     }
-
-
                 }
             });
         });
@@ -492,20 +521,20 @@ const Verse = ({ besmele,
                     </div>
                 )}
             </div>
-            { mode !== "reading" && <div
+            {mode !== "reading" && <div
                 onClick={() => handleSwipeEnd()}
                 className={`absolute left-0 top-0 h-full cursor-pointer w-0 md:w-1/12`}
                 onMouseEnter={() => handleMouseEnter('left')}
                 onMouseLeave={handleMouseLeave}
             />
             }
-            { mode !== "reading" &&
-            <div
-                onClick={() => handleSwipeEnd()}
-                className={`absolute right-0 top-0 h-full cursor-pointer w-0 md:w-1/12`}
-                onMouseEnter={() => handleMouseEnter('right')}
-                onMouseLeave={handleMouseLeave}
-            />}
+            {mode !== "reading" &&
+                <div
+                    onClick={() => handleSwipeEnd()}
+                    className={`absolute right-0 top-0 h-full cursor-pointer w-0 md:w-1/12`}
+                    onMouseEnter={() => handleMouseEnter('right')}
+                    onMouseLeave={handleMouseLeave}
+                />}
         </div>
     );
 };
