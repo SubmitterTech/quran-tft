@@ -30,11 +30,11 @@ const Magnify = ({ colors, theme, translationApplication, quran, map, onClose, o
             Object.entries(value.sura).forEach(([sura, content]) => {
                 // Initialize qm[sura] as an object if it doesn't exist
                 if (!qm[sura]) {
-                    qm[sura] = {};
+                    qm[parseInt(sura)] = {};
                 }
 
                 Object.entries(content.verses).forEach(([verse, text]) => {
-                    qm[sura][verse] = text;
+                    qm[parseInt(sura)][parseInt(verse)] = text;
                 });
             });
         });
@@ -159,37 +159,37 @@ const Magnify = ({ colors, theme, translationApplication, quran, map, onClose, o
             let match;
             const parts = [];
             let currentIndex = 0;
-    
+
             while ((match = regex.exec(normalizedText)) !== null) {
                 const matchIndex = match.index;
                 const matchText = originalText.substr(matchIndex, match[0].length);
-    
+
                 if (matchIndex > currentIndex) {
                     parts.push(originalText.substring(currentIndex, matchIndex));
                 }
-    
-                parts.push(<span  className={`font-bold ${colors[theme]["matching-text"]}`}>{matchText}</span>);
+
+                parts.push(<span className={`font-bold ${colors[theme]["matching-text"]}`}>{matchText}</span>);
                 currentIndex = matchIndex + matchText.length;
             }
-    
+
             if (currentIndex < originalText.length) {
                 parts.push(originalText.substring(currentIndex));
             }
-    
+
             return parts;
         };
-    
+
         const normalizedTerm = removeDiacritics(term).toLowerCase();
         const keywords = normalizedTerm.split(' ').filter(keyword => keyword.trim() !== '');
         let highlightedText = [text];
-    
+
         keywords.forEach(keyword => {
             highlightedText = highlightedText.flatMap(part => typeof part === 'string' ? highlightText(part, keyword) : part);
         });
-    
+
         return highlightedText;
     };
-    
+
 
 
 
@@ -253,24 +253,31 @@ const Magnify = ({ colors, theme, translationApplication, quran, map, onClose, o
             ref.split(";").forEach(refPart => {
                 const [sura, verses] = refPart.split(":");
                 if (verses) {
-                    verses.split(",").forEach(verse => {
-                        if (verse.includes("-")) {
-                            // Range of verses
-                            const [start, end] = verse.split("-").map(Number);
-                            for (let i = start; i <= end; i++) {
-                                const verseText = quranmap[sura]?.[i.toString()];
+                    if (verses.includes(',')) {
+                        verses.split(",").forEach(verse => {
+                            if (verse.includes("-")) {
+                                // Range of verses
+                                const [start, end] = verse.split("-").map(Number);
+                                for (let i = start; i <= end; i++) {
+                                    const verseText = quranmap[parseInt(sura)]?.[i];
+                                    if (verseText) {
+                                        verseResults.push({ suraNumber: sura, verseNumber: i, text: verseText });
+                                    }
+                                }
+                            } else {
+                                // Single verse
+                                const verseText = quranmap[parseInt(sura)]?.[parseInt(verse)];
                                 if (verseText) {
-                                    verseResults.push({ suraNumber: sura, verseNumber: i.toString(), text: verseText });
+                                    verseResults.push({ suraNumber: sura, verseNumber: verse, text: verseText });
                                 }
                             }
-                        } else {
-                            // Single verse
-                            const verseText = quranmap[sura]?.[verse];
-                            if (verseText) {
-                                verseResults.push({ suraNumber: sura, verseNumber: verse, text: verseText });
-                            }
+                        });
+                    } else {
+                        const verseText = quranmap[parseInt(sura)]?.[parseInt(verses)];
+                        if (verseText) {
+                            verseResults.push({ suraNumber: sura, verseNumber: verses, text: verseText });
                         }
-                    });
+                    }
                 }
             });
 
@@ -288,7 +295,7 @@ const Magnify = ({ colors, theme, translationApplication, quran, map, onClose, o
 
     return (
         <div className={`w-screen h-screen animated overflow-auto faster fixed  left-0 top-0 flex flex-col items-center justify-start inset-0 z-10 outline-none focus:outline-none backdrop-blur-2xl`} id="jump-screen"
-        style={{ paddingTop: 'env(safe-area-inset-top)', paddingBottom: 'env(safe-area-inset-bottom)' }}
+            style={{ paddingTop: 'env(safe-area-inset-top)', paddingBottom: 'env(safe-area-inset-bottom)' }}
         >
             <div className={`w-full flex p-2 sticky top-0 backdrop-blur-2xl`}>
                 <div className={`w-full flex rounded  space-x-2`}>
