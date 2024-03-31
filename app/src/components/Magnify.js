@@ -73,9 +73,9 @@ const Magnify = ({ colors, theme, translationApplication, quran, map, onClose, o
     };
 
     const performSearchSingleLetter = useCallback((term) => {
-        const normalizedTerm = removeDiacritics(term).toUpperCase();
-        if (normalizedTerm.length === 1 && map[normalizedTerm]) {
-            setLoadedMap(map[normalizedTerm]);
+        const capitalizedTerm = term.toUpperCase();
+        if (capitalizedTerm.length === 1 && map[capitalizedTerm]) {
+            setLoadedMap(map[capitalizedTerm]);
         }
     }, [map]);
 
