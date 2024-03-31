@@ -279,10 +279,8 @@ const Jump = ({ onChangeLanguage, suraNames, onChangeTheme, colors, theme, trans
                                 (
                                     <div className={`h-48 m-2 px-2 py-1 text-base rounded ${colors[theme]["relation-background"]} overflow-y-auto overflow-x-hidden`}>
                                         {Object.entries(localStorage.getItem("bookmarks") ? JSON.parse(localStorage.getItem("bookmarks")) : {}).reverse().map(([key, val]) => (
-                                            <div key={key} className={`bookmark-entry flex p-1 space-x-2 border-b ${colors[theme]["verse-border"]} mb-1`}>
-
-                                                <div className={`w-full p-2 ${colors[theme]["page-text"]} flex items-center justify-center`}>
-
+                                            <div key={key} className={`bookmark-entry flex px-1 py-1.5 space-x-2 border-b ${colors[theme]["verse-border"]} mb-1.5`}>
+                                                <div className={`w-full py-2 ${colors[theme]["page-text"]} flex items-center justify-center`}>
                                                     <input
                                                         type="text"
                                                         defaultValue={formatDate(val)}
@@ -295,7 +293,7 @@ const Jump = ({ onChangeLanguage, suraNames, onChangeTheme, colors, theme, trans
                                                 </div>
                                                 <div
                                                     onClick={() => handleMarkJump(key)}
-                                                    className={`w-20 rounded p-2 ${colors[theme]["base-background"]} shadow-lg text-sky-500 flex items-center justify-center`}>
+                                                    className={`w-20 rounded px-2 py-1 ${colors[theme]["base-background"]} shadow-lg text-sky-500 flex items-center justify-center`}>
                                                     {key}
                                                 </div>
                                             </div>
@@ -313,8 +311,6 @@ const Jump = ({ onChangeLanguage, suraNames, onChangeTheme, colors, theme, trans
                                     (
                                         <div>
                                             <div className={` w-full flex space-x-2 mt-2`}>
-
-
                                                 <div className={`relative w-full flex justify-end`}>
                                                     <div
                                                         style={isShufflingSura ? { animation: 'animate-scale 0.4s ease-in-out' } : {}}
