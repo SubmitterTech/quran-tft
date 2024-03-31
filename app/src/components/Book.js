@@ -89,7 +89,6 @@ const Book = ({ onChangeTheme, colors, theme, translationApplication, introducti
     };
 
     const updatePage = useCallback((newPage, sura = null, verse = null, actionType = 'navigate', appReference = null) => {
-        //console.log("updatePage", newPage, currentPage, pageHistory.length, actionType, appReference)
         if (actionType !== 'previous') {
             setPageHistory(prevHistory => [...prevHistory, { page: parseInt(currentPage), sura: selectedSura, verse: selectedVerse, actionType, appReference }]);
         }

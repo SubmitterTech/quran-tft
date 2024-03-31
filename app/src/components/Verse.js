@@ -251,14 +251,10 @@ const Verse = ({ besmele,
                         const singleKey = `${sura}:${verse}`;
 
                         if (singleKey === currentVerseKey) {
-                            console.log(currentVerseKey, theme, singleKey)
                             addReferences(theme, references);
                         }
-
                     }
-
                 }
-
             });
         };
 
