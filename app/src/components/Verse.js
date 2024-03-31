@@ -219,7 +219,7 @@ const Verse = ({ besmele,
             // Split the references string by ';' to separate different references
 
             references.split(';').forEach(refGroup => {
-                const [sura, versesPart] = refGroup.trim().split(':');
+                const [sura, versesPart] = refGroup.trim().split(':').map(part => part.trim());;
 
 
                 // Handle different formats within the verses part
