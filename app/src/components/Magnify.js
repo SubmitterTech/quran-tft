@@ -251,7 +251,7 @@ const Magnify = ({ colors, theme, translationApplication, quran, map, onClose, o
         if (ref) {
             const verseResults = [];
             ref.split(";").forEach(refPart => {
-                const [sura, verses] = refPart.split(":");
+                const [sura, verses] = refPart.split(":").map(part => part.trim());
                 if (verses) {
                     if (verses.includes(',')) {
                         verses.split(",").forEach(verse => {
