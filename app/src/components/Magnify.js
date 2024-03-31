@@ -398,7 +398,7 @@ const Magnify = ({ colors, theme, translationApplication, quran, map, onClose, o
 
             }
             {searchTerm.length === 1 &&
-                <div className={`w-full px-2 mb-10`}>
+                <div className={`w-full px-2 mb-12 lg:mb-14 xl:mb-16`}>
                     <div className={`text-sm md:text-base w-full p-1 ${colors[theme]["text"]} transition-all duration-200 ease-linear overflow-auto`}>
                         <div className={` w-full flex flex-col space-y-1.5 transition-all duration-200 ease-linear `}>
                             {Object.entries(loadedMap).map(([exp, themeorref]) => (
