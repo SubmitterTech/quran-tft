@@ -34,7 +34,7 @@ const Magnify = ({ colors, theme, translationApplication, quran, map, onClose, o
                 }
 
                 Object.entries(content.verses).forEach(([verse, text]) => {
-                    qm[parseInt(sura)][parseInt(verse)] = text;
+                    qm[parseInt(sura)][parseInt(verse.trim())] = text;
                 });
             });
         });
@@ -266,16 +266,27 @@ const Magnify = ({ colors, theme, translationApplication, quran, map, onClose, o
                                 }
                             } else {
                                 // Single verse
-                                const verseText = quranmap[parseInt(sura)]?.[parseInt(verse)];
+                                const verseText = quranmap[parseInt(sura)]?.[parseInt(verse.trim())];
                                 if (verseText) {
-                                    verseResults.push({ suraNumber: sura, verseNumber: verse, text: verseText });
+                                    verseResults.push({ suraNumber: sura, verseNumber: verse.trim(), text: verseText });
                                 }
                             }
                         });
                     } else {
-                        const verseText = quranmap[parseInt(sura)]?.[parseInt(verses)];
-                        if (verseText) {
-                            verseResults.push({ suraNumber: sura, verseNumber: verses, text: verseText });
+                        if (verses.includes("-")) {
+                            // Range of verses
+                            const [start, end] = verses.split("-").map(Number);
+                            for (let i = start; i <= end; i++) {
+                                const verseText = quranmap[parseInt(sura)]?.[i];
+                                if (verseText) {
+                                    verseResults.push({ suraNumber: sura, verseNumber: i, text: verseText });
+                                }
+                            }
+                        } else {
+                            const verseText = quranmap[parseInt(sura)]?.[parseInt(verses.trim())];
+                            if (verseText) {
+                                verseResults.push({ suraNumber: sura, verseNumber: verses.trim(), text: verseText });
+                            }
                         }
                     }
                 }
