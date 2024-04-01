@@ -27,7 +27,6 @@ const Book = ({ onChangeTheme, colors, theme, translationApplication, introducti
 
     const [selectedApp, setSelectedApp] = useState(1);
 
-    const appendices = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38];
 
     const [backButtonPressedOnce, setBackButtonPressedOnce] = useState(false);
 
@@ -38,7 +37,34 @@ const Book = ({ onChangeTheme, colors, theme, translationApplication, introducti
 
     let path = useRef({});
 
+    const [appendices, setAppendices] = useState(
+        Array.from({ length: 38 }, (_, i) => ({ number: i + 1, title: "" }))
+    );
+
+    function transformAppendices(appc) {
+        const lines = appc[1].evidence["2"].lines;
+
+        const newAppendices = Object.entries(lines).map(([key, value]) => {
+
+            const match = value.match(/^(\d+)\.\s*(.+)/);
+            if (match && key > 1) {
+                const elements = value.split(".").filter(element => element);
+
+                return { number: parseInt(elements[0]), title: elements[1].trim() };
+            }
+            return null;
+        }).filter(Boolean);
+
+        return newAppendices;
+    }
+
     useEffect(() => {
+
+        if (appendicesContent) {
+            const scApps = transformAppendices(appendicesContent);
+            setAppendices(scApps);
+        }
+
         if (introductionContent && appendicesContent) {
             const content = introductionContent.concat(appendicesContent)
             setBookContent(content);
@@ -858,18 +884,23 @@ const Book = ({ onChangeTheme, colors, theme, translationApplication, introducti
                                         ))}
                                     </select>
                                 </div>) :
-                                (<div className={`text-2xl lg:text-3xl xl:text-4xl flex transition-all duration-300 ease-linear ${isModalOpen ? "opacity-0 w-0" : "opacity-100 ml-3 p-1 "}`}>
-                                    <div className={`text-center flex items-center justify-center ${colors[theme]["page-text"]}`}>
+                                (<div
+                                    onClick={() => document.getElementById('appselect').click()}
+                                    className={`text-2xl lg:text-3xl xl:text-4xl flex transition-all duration-300 ease-linear ${isModalOpen ? "opacity-0 w-0" : "opacity-100 ml-3 p-1 "}`}>
+                                    <div
+                                        className={`text-center flex items-center justify-center ${colors[theme]["page-text"]}`}>
                                         {translationApplication?.appendix}
                                     </div>
                                     <select
+                                        id="appselect"
+                                        name="appselect"
                                         value={selectedApp}
                                         onChange={(e) => setSelectedAppendix(e.target.value)}
-                                        className={`flex rounded ${colors[theme]["app-background"]} ${colors[theme]["page-text"]} text-2xl pr-0.5 text-right focus:outline-none focus:ring-2 focus:border-sky-500 focus:ring-sky-500`}
+                                        className={`flex w-12 lg:w-14 pt-0.5 md:pt-1 whitespace-pre-line rounded ${colors[theme]["app-background"]} ${colors[theme]["page-text"]} text-2xl pr-0.5 text-right focus:outline-none focus:ring-2 focus:border-sky-500 focus:ring-sky-500`}
                                     >
-                                        {appendices.map((page, index) => (
-                                            <option key={index} value={page}>
-                                                {page}
+                                        {appendices.map((appendix, index) => (
+                                            <option key={index} value={appendix.number}>
+                                                {appendix.number}{"\t"}{appendix.title}
                                             </option>
                                         ))}
                                     </select>
