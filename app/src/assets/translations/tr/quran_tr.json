@@ -3240,7 +3240,7 @@
                 },
                 "titles": {
                     "80": "Lut: Eşcinsellik Kınandı",
-                    "85": "Sahtekârlık Kınandı"
+                    "85": "Şuayb:\nHilekârlık, Sahtekârlık Kınandı"
                 }
             }
         },
@@ -4937,7 +4937,7 @@
                     "78": "Onlar, “Ey asil kişi! Onun oldukça yaşlı bir babası var; onun yerine bizden birini alır mısın? Görüyoruz ki sen iyi birisin” dediler.",
                     "79": "Dedi ki “TANRI esirgesin, biz yanında malımızı bulduğumuz kişiden başkasını alamayız. Aksi halde haksızlık edenlerden oluruz.”",
                     "80": "Onun fikrini değiştirmekten umutlarını kestiklerinde hep birlikte müzakere ettiler. Yaşça en büyükleri şöyle dedi, “Babanız sizden TANRI’nın huzurunda ciddi bir söz almıştı farkında mısınız? Geçmişte Yusuf’u kaybettiniz. Babam bana izin verinceye kadar veya TANRI benim için hükmünü verinceye kadar ben buradan ayrılmıyorum; O, en iyi Hüküm Verendir.",
-                    "81": "“Babanıza dönün ve ona söyleyin…” Filistin’e Dönüş ‘Babamız! Oğlun bir hırsızlık yaptı. Kesin bir şekilde biliyoruz çünkü buna şahit olduk. Bu beklenmeyen bir olaydı.",
+                    "81": "“Babanıza dönün ve ona söyleyin…” \n\nFilistin’e Dönüş\n‘Babamız! Oğlun bir hırsızlık yaptı. Kesin bir şekilde biliyoruz çünkü buna şahit olduk. Bu beklenmeyen bir olaydı.",
                     "82": "‘Bulunduğumuz yerdeki topluluğa ve bizimle dönen kervana sorabilirsin. Biz doğruyu söylüyoruz.’",
                     "83": "O dedi ki “Doğrusu, belli bir planı yerine getirmek için komplo kurmuşsunuz. Sessizce sabretmek benim başvuracağım tek şeydir. TANRI hepsini bana geri getirsin. O, Her Şeyi Bilendir, En Bilge Olandır.”",
                     "84": "“Ben Yusuf’a kederleniyorum” diyerek onlardan yüz çevirdi. Çok fazla kederlenmekten gözleri beyaza dönmüştü; gerçekten üzgündü.",
@@ -4945,9 +4945,7 @@
                     "86": "Dedi ki “Ben kendi açmazımı ve kederimi sadece TANRI’ya şikâyet ediyorum, çünkü ben TANRI’dan sizin bilmediğiniz şeyleri biliyorum.",
                     "87": "“Ey oğullarım! Gidip Yusuf’u ve kardeşini alıp getirin ve asla TANRI’nın lütfundan umudunuzu kesmeyin. İnkâr eden insanlar dışında hiç kimse TANRI’nın lütfundan umudunu kesmez.”"
                 },
-                "titles": {
-                    "81": "Filistin’e Dönüş "
-                }
+                "titles": {}
             }
         },
         "notes": {
@@ -8771,7 +8769,7 @@
                 "verses": {
                     "15": "Biz onu ve gemide ona eşlik edenleri kurtardık ve bunu da tüm insanlar için bir ders kıldık.",
                     "16": "İbrahim halkına dedi ki “TANRI’ya tapın ve O’na derin saygı duyun. Bu sizin için daha iyidir, keşke bilseydiniz.",
-                    "17": "“TANRI’nın yerine taptıklarınız güçsüz putlardır; siz bir yalan uydurdunuz.” Tanrı: Rızıkların Tek Kaynağı TANRI’nın yanında taptığınız putların size sağlayacakları herhangi bir rızıkları yoktur. Bu nedenle, rızıkları sadece TANRI’dan arayın. Yalnızca O’na tapın ve O’na minnettar olun; O’nadır nihai dönüşünüz.",
+                    "17": "“TANRI’nın yerine taptıklarınız güçsüz putlardır; siz bir yalan uydurdunuz.” \n\nTanrı: Rızıkların Tek Kaynağı\nTANRI’nın yanında taptığınız putların size sağlayacakları herhangi bir rızıkları yoktur. Bu nedenle, rızıkları sadece TANRI’dan arayın. Yalnızca O’na tapın ve O’na minnettar olun; O’nadır nihai dönüşünüz.",
                     "18": "Eğer inkâr ederseniz, sizden önceki nesiller de inkâr etmişlerdi. Elçinin tek işlevi (mesajı) iletmektir.",
                     "19": "TANRI’nın yaratılışı nasıl başlattığını, sonra da onu nasıl tekrarladığını görmediler mi? Bunu yapmak TANRI için kolaydır.",
                     "20": "De ki, “Yeryüzünü dolaşıp yaşamın kökenini keşfedin.”* Çünkü TANRI, Ahiretteki yaratılışı da böyle başlatacaktır. TANRI Her Şeye Gücü Yetendir.",
