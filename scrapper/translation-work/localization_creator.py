@@ -6,7 +6,7 @@
 import json
 
 # Hypothetical loading of the original JSON file - replace 'your_json_file.json' with your actual file path
-with open('qurantft.json', 'r') as file:
+with open('../../app/src/assets/qurantft.json', 'r') as file:
     data = json.load(file)
 
 # Iterate over pages 23 to 394 and remove the specified keys
