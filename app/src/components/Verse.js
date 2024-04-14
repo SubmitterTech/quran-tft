@@ -45,7 +45,12 @@ const Verse = ({ besmele,
 
     useEffect(() => {
         setMarked(localStorage.getItem("bookmarks") ? (JSON.parse(localStorage.getItem("bookmarks")))[currentVerseKey] : false)
-    }, [currentVerseKey]);
+        if (hasAsterisk) {
+            setMode("light");
+        } else {
+            setMode("idle");
+        };
+    }, [currentVerseKey, hasAsterisk]);
 
     const copyToClipboard = (key, x, y) => {
 
@@ -342,15 +347,6 @@ const Verse = ({ besmele,
             return text;
         }
     };
-
-
-    useEffect(() => {
-        if (hasAsterisk) {
-            setMode("light");
-        } else {
-            setMode("idle");
-        };
-    }, [hasAsterisk, verseClassName]);
 
     useEffect(() => {
         if (pulse) {
