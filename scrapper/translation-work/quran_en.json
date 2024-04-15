@@ -1578,7 +1578,7 @@
             },
             "4": {
                 "verses": {
-                    "1": "O  people, observe  your  Lord;  the One  who  created  you  from  one being, and created from it its mate, then spread from the two many men and women. You shall regard GOD, by whom you swear, and regard the parents. GOD is watching over you.* Regard the Orphans",
+                    "1": "O  people, observe  your  Lord;  the One  who  created  you  from  one being, and created from it its mate, then spread from the two many men and women. You shall regard GOD, by whom you swear, and regard the parents. GOD is watching over you.*",
                     "2": "You shall hand over to the orphans their  rightful  properties.  Do  not substitute the bad for the good, and do not consume their properties by combining them with yours. This would be a gross injustice.",
                     "3": "If you deem it best for the orphans, you may marry their mothers—you may marry two, three, or four. If you fear  lest  you  become  unfair,  then you shall be content with only one, or with what you already have. Additionally, you are thus more likely to avoid financial hardship.",
                     "4": "You shall give the women their due dowries, equitably. If they willingly forfeit anything, then you may accept it; it is rightfully yours.",
@@ -1589,6 +1589,7 @@
                 },
                 "titles": {
                     "1": "♦ ♦ ♦ ♦\nSura 4: Women\n(Al-Nesã’)\nIn the name of God, Most Gracious, Most Merciful ",
+                    "2": "Regard the Orphans",
                     "3": "Grounds For Polygamy* ",
                     "7": "Women’s Inheritance Rights "
                 }
@@ -5001,11 +5002,16 @@
                     "106": "The majority of those who believe in GOD do not do so without committing idol worship.",
                     "107": "Have they guaranteed that an overwhelming  retribution  from  GOD will not strike them, or the Hour will not come to them suddenly, when they least expect it?",
                     "108": "Say, “This is my path: I invite to GOD, on the basis of a clear proof, and  so do those  who  follow  me. GOD be glorified. I am not an idol worshiper.” ",
-                    "109": "We did not send before you except men  whom  we  inspired,  chosen from  the  people  of  various  communities.  Did  they not roam the earth and see the consequences for those before them? The abode of the Hereafter is far better for those who lead a righteous life. Would you then understand? ",
+                    "109": "We did not send before you except men whom we inspired, chosen from the people of various communities. Did they not roam the earth and see the consequences for those before them? The abode of the Hereafter is far better for those who lead a righteous life. Would you then understand?",
                     "110": "Just when the messengers despair, and  think  that  they  had been  rejected, our victory comes to them. We then save whomever we choose, while our retribution for the guilty people is unavoidable. ",
                     "111": "In their history, there is a lesson for those who possess intelligence. This is not fabricated Hadith; this  (Quran)  confirms  all  previous  scriptures, provides the details of everything, and is a beacon and mercy for those who believe."
                 },
-                "titles": {}
+                "titles": {
+                    "103": "The  Majority of People\nDo Not Believe",
+                    "106": "The  Majority  of  Believers\nDestined for Hell",
+                    "110": "Victory, Ultimately, Belongs\nto the Believers",
+                    "111": "The Quran is All We Need"
+                }
             },
             "13": {
                 "verses": {
@@ -10131,6 +10137,7 @@
                     "150": "Did we create the angels to be females? Did they witness that?"
                 },
                 "titles": {
+                    "114": "Moses and Aaron",
                     "123": "Elias",
                     "133": "Lot",
                     "139": "Jonah"
