@@ -492,8 +492,9 @@ const Pages = ({ colors, theme, translationApplication, map, quranData, translat
 
                     let notes = null;
 
+
                     Object.values(noteReferencesMap).forEach((refkey) => {
-                        if (notesData && notesData.data && notesData.data[refkey] && notesData.data[refkey].includes(verseKey)) {
+                        if (notesData && notesData.data && notesData.data[refkey] && notesData.data[refkey].split(' ')[0].includes(verseKey)) {
                             notes = notesData.data[refkey];
                         }
                     });
