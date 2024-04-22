@@ -309,7 +309,7 @@ const Verse = ({ besmele,
 
     const lightAllahwords = (text) => {
         if (pageGWC[currentVerseKey]) {
-            const namesofGOD = "(?<![\\u0600-\\u06FF])(الله|لله|والله|بالله)(?![\\u0600-\\u06FF])";
+            const namesofGOD = "(?<![\\u0600-\\u06FF])(الله|لله|ولله|والله|بالله)(?![\\u0600-\\u06FF])";
             const regex = new RegExp(namesofGOD, 'g');
 
             let parts = [];
