@@ -11,6 +11,8 @@ import '../assets/css/Book.css';
 const Book = ({ onChangeTheme, colors, theme, translationApplication, introductionContent, quranData, map, appendicesContent, translation, onChangeLanguage }) => {
     const lang = localStorage.getItem("lang")
     const images = require.context('../assets/pictures/', false, /\.jpg$/);
+    const [selectOpen, setSelectOpen] = useState(false);
+
 
     const [currentPage, setCurrentPage] = useState(parseInt(localStorage.getItem("qurantft-pn")) ? parseInt(localStorage.getItem("qurantft-pn")) : 1);
     const [pageHistory, setPageHistory] = useState([]);
@@ -896,11 +898,13 @@ const Book = ({ onChangeTheme, colors, theme, translationApplication, introducti
                                         name="appselect"
                                         value={selectedApp}
                                         onChange={(e) => setSelectedAppendix(e.target.value)}
+                                        onFocus={() => setSelectOpen(true)}
+                                        onBlur={() => setSelectOpen(false)}
                                         className={`flex w-12 lg:w-14 pt-0.5 md:pt-1 whitespace-pre-line rounded ${colors[theme]["app-background"]} ${colors[theme]["page-text"]} text-2xl pr-0.5 text-right focus:outline-none focus:ring-2 focus:border-sky-500 focus:ring-sky-500`}
                                     >
                                         {appendices.map((appendix, index) => (
                                             <option key={index} value={appendix.number}>
-                                                {appendix.number}{"\t"}{appendix.title}
+                                                {selectOpen ? `${appendix.number}\t${appendix.title}` : appendix.number}
                                             </option>
                                         ))}
                                     </select>
