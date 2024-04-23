@@ -226,17 +226,17 @@ const Jump = ({ onChangeLanguage, suraNames, onChangeTheme, colors, theme, trans
     return (
         <div className={`w-screen h-screen fixed left-0 top-0 inset-0 z-10 outline-none focus:outline-none `} id="jump-screen">
             <div className={` w-full h-full backdrop-blur-xl flex items-center justify-center `}>
-                <div className={` w-full md:w-2/3 lg:w-1/2 2xl:w-1/3 px-2 flex flex-col transition-all duration-200 ease-linear mb-7 `}>
-                    <div className={`w-full fixed top-7 right-2 flex justify-between ${colors[theme]["app-text"]} mb-2`}>
-                        <div className={`w-full flex justify-end place-self-end`}>
-                            <button className={`flex justify-center`} onClick={onClose}>
-                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className={`w-14 h-14`}>
-                                    <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
-                                </svg>
+                <div className={`w-full fixed top-14 flex justify-between ${colors[theme]["app-text"]} mb-2 -z-10 `}>
+                    <div className={`w-full flex justify-end place-self-end pr-3`}>
+                        <button className={`flex justify-center`} onClick={onClose}>
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className={`w-14 h-14`}>
+                                <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
+                            </svg>
 
-                            </button>
-                        </div>
+                        </button>
                     </div>
+                </div>
+                <div className={` w-full md:w-2/3 lg:w-1/2 2xl:w-1/3 px-2 flex flex-col transition-all duration-200 ease-linear mb-7 `}>
                     <div className={`shadow-[rgba(125,211,252,0.4)_0px_7px_15px_15px] transition-colors duration-700 ease-linear flex flex-col items-center justify-center ${colors[theme]["app-background"]} rounded  w-full `}>
                         <div className={`w-full pt-2`}>
                             <div className={`w-full flex space-x-2 px-2`}>
@@ -464,7 +464,7 @@ const Jump = ({ onChangeLanguage, suraNames, onChangeTheme, colors, theme, trans
                     </div>
 
                 </div>
-                <div className={`w-full md:w-2/3 lg:w-1/2 2xl:w-1/3 fixed bottom-11 md:bottom-16 flex justify-center`}
+                <div className={`w-full md:w-2/3 lg:w-1/2 2xl:w-1/3 fixed bottom-12 md:bottom-16 flex justify-center`}
                     style={{ paddingBottom: 'env(safe-area-inset-bottom)' }}>
                     <select
                         id="languagepicker"
@@ -484,7 +484,7 @@ const Jump = ({ onChangeLanguage, suraNames, onChangeTheme, colors, theme, trans
                     </select>
                 </div>
             </div>
-        </div >
+        </div>
     );
 }
 
