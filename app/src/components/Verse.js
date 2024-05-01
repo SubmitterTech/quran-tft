@@ -182,7 +182,6 @@ const Verse = ({ besmele,
             // Split the referenceString by ';' to handle multiple groups of referencesx
             referenceString.split(';').forEach(refGroup => {
                 const [sura, verses] = refGroup.trim().split(':');
-
                 // Check if verses contain ',' indicating a list or '-' indicating a range
                 if (verses && verses.includes(',')) {
                     // Handle list of verses
@@ -222,11 +221,8 @@ const Verse = ({ besmele,
 
         const processTheme = (theme, references) => {
             // Split the references string by ';' to separate different references
-
             references.split(';').forEach(refGroup => {
                 const [sura, versesPart] = refGroup.trim().split(':').map(part => part.trim());;
-
-
                 // Handle different formats within the verses part
                 if (versesPart) {
                     if (versesPart.trim().includes(',')) {
@@ -251,12 +247,23 @@ const Verse = ({ besmele,
                             }
                         });
                     } else {
-
                         const verse = versesPart.trim();
-                        const singleKey = `${sura}:${verse}`;
+                        if (verse.includes('-')) {
+                            // Handle range of verses
+                            const [start, end] = verse.split('-').filter(e => e.trim()).map(Number);
 
-                        if (singleKey === currentVerseKey) {
-                            addReferences(theme, references);
+                            for (let v = start; v <= end; v++) {
+                                const individualKey = `${sura}:${v}`;
+                                if (individualKey === currentVerseKey) {
+                                    addReferences(theme, references);
+                                }
+                            }
+                        } else {
+                            // Handle single verse
+                            const singleKey = `${sura}:${verse}`;
+                            if (singleKey === currentVerseKey) {
+                                addReferences(theme, references);
+                            }
                         }
                     }
                 }
