@@ -864,13 +864,21 @@ const Book = ({ onChangeTheme, colors, theme, translationApplication, introducti
                 <div className={`w-full flex z-40 ${colors[theme]["app-background"]} fixed bottom-0`}
                     style={{ paddingBottom: 'env(safe-area-inset-bottom)' }}>
                     <div className={`flex w-full items-center justify-between`}>
+
                         <button onClick={prevPage}
                             disabled={(isModalOpen || currentPage === 1 || isSearchOpen)}
                             className={`w-1/2 h-full ${colors[theme]["app-text"]} px-2 mr-2 flex items-center justify-center transition-all duration-500 ease-linear ${(isModalOpen || currentPage === 1 || isSearchOpen) ? "opacity-0" : "opacity-100"} `}>
                             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className={`w-7 h-7 lg:w-12 lg:h-12`}>
                                 <path strokeLinecap="round" strokeLinejoin="round" d="M9 15L3 9m0 0l6-6M3 9h12a6 6 0 010 12h-3" />
                             </svg>
+                            {pageHistory.length > 0 && (
+                                <div className={`bg-transparent absolute translate-y-3 -translate-x-3 text-xs lg:translate-y-4 lg:-translate-x-4 lg:text-base ${colors[theme]["matching-text"]} flex items-center justify-center px-2 py-1 rounded-full`}>
+                                    {pageHistory.length}
+                                </div>
+                            )}
+
                         </button>
+
                         <div
                             className={`w-full flex items-center ${colors[theme]["page-text"]} justify-center p-0.5`}>
                             {
