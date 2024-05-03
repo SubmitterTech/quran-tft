@@ -88,7 +88,7 @@ const Apps = ({ colors, theme, translationApplication, parseReferences, appendic
                         appendixRef.current[`appendix-${selected}`].scrollIntoView({ behavior: 'smooth' });
                     }
                 }
-            }, 1200);
+            }, 300);
 
         }
     }, [selected, restoreAppText, refToRestore, isRefsReady, textRef]);

@@ -8,6 +8,7 @@ const Pages = ({
     map,
     quranData,
     translation,
+    actionType,
     selectedPage,
     selectedSura,
     selectedVerse,
@@ -72,7 +73,7 @@ const Pages = ({
             setTimeout(() => {
                 verseRefs.current[key].scrollIntoView({ behavior: 'smooth', block: 'center' });
                 setNotify(true);
-            }, 200);
+            }, 150);
         }
     }, []);
 
@@ -97,19 +98,26 @@ const Pages = ({
     }, [quranData, selectedPage, selectedSura, selectedVerse, translation]);
 
     useEffect(() => {
+        const verseKey = `${parseInt(selectedSura)}:${parseInt(selectedVerse)}`;
         if (selectedPage && selectedPage !== currentPageRef.current) {
-            const verseKey = `${parseInt(selectedSura)}:${parseInt(selectedVerse)}`;
-            if (!selectedVerse && topRef.current) {
-                topRef.current.scrollIntoView({ behavior: 'smooth', block: 'start' });
-            }
-            else {
+            if (!selectedVerse) {
+                if (topRef.current) {
+                    topRef.current.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                }
+            } else {
                 setTimeout(() => {
                     forceScroll(verseKey);
-                }, 100);
+                }, 50);
             }
             currentPageRef.current = selectedPage;
+        } else {
+            if (actionType === 'fromAppendix' || actionType === 'fromIntro') {
+                setTimeout(() => {
+                    forceScroll(verseKey);
+                }, 50);
+            }
         }
-    }, [selectedPage, selectedSura, selectedVerse, forceScroll]);
+    }, [selectedPage, selectedSura, selectedVerse, actionType, forceScroll]);
 
 
 

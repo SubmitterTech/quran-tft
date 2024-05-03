@@ -19,6 +19,7 @@ const Book = ({ onChangeTheme, colors, theme, translationApplication, introducti
     const [isModalOpen, setModalOpen] = useState(false);
     const [selectedSura, setSelectedSura] = useState(null);
     const [selectedVerse, setSelectedVerse] = useState(null);
+    const [action, setAction] = useState(null);
     const [bookContent, setBookContent] = useState(null);
     const [isSearchOpen, setSearchOpen] = useState(false);
 
@@ -115,6 +116,7 @@ const Book = ({ onChangeTheme, colors, theme, translationApplication, introducti
     };
 
     const updatePage = useCallback((newPage, sura = null, verse = null, actionType = 'navigate', appReference = null) => {
+        setAction(actionType);
         if (actionType !== 'previous' && parseInt(newPage) !== parseInt(currentPage)) {
             setPageHistory(prevHistory => {
                 const lastElement = prevHistory[prevHistory.length - 1];
@@ -239,7 +241,13 @@ const Book = ({ onChangeTheme, colors, theme, translationApplication, introducti
         });
 
         if (foundPageNumber) {
-            updatePage(foundPageNumber, sura, verseStart + '', currentPage === 397 ? 'fromAppendix' : 'relationClick', currentPage === 397 ? selectedApp : null);
+            let act = 'relationClick';
+            if(parseInt(currentPage) < 23) {
+                act = 'fromIntro';
+            } else if (parseInt(currentPage) > 396) {
+                act = 'fromAppendix';
+            }
+            updatePage(foundPageNumber, sura, verseStart + '', act, currentPage === 397 ? selectedApp : null);
         } else {
             Toast.show({
                 text: translationApplication.refNotFound,
@@ -538,6 +546,7 @@ const Book = ({ onChangeTheme, colors, theme, translationApplication, introducti
                 map={map}
                 quranData={quranData}
                 translation={translation}
+                actionType={action}
                 selectedPage={currentPage}
                 selectedSura={selectedSura}
                 selectedVerse={selectedVerse}
