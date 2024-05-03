@@ -1,7 +1,23 @@
 import React, { useState, useEffect, useRef, useCallback, useMemo, useLayoutEffect } from 'react';
 import Verse from '../components/Verse';
 
-const Pages = ({ colors, theme, translationApplication, map, quranData, translation, selectedPage, selectedSura, selectedVerse, handleClickReference, handleClickAppReference, handleTogglePage, path }) => {
+const Pages = ({
+    colors,
+    theme,
+    translationApplication,
+    map,
+    quranData,
+    translation,
+    selectedPage,
+    selectedSura,
+    selectedVerse,
+    setSelectedSura,
+    setSelectedVerse,
+    handleClickReference,
+    handleClickAppReference,
+    handleTogglePage,
+    path
+}) => {
     const lang = localStorage.getItem("lang")
     const [pageData, setPageData] = useState(null);
     const [notesData, setNotesData] = useState(null);
@@ -21,6 +37,7 @@ const Pages = ({ colors, theme, translationApplication, map, quranData, translat
     const stickyRef = useRef(null);
     const [stickyHeight, setStickyHeight] = useState(0);
     const [isScrolling, setIsScrolling] = useState(false);
+    const currentPageRef = useRef(selectedPage);
     const besmele = quranData["23"]["sura"]["1"]["encrypted"]["1"];
 
     let scrollTimeout = useRef(null);
@@ -50,14 +67,12 @@ const Pages = ({ colors, theme, translationApplication, map, quranData, translat
         }
     }, [stickyRef, selectedPage]);
 
-    const forceScroll = useCallback(() => {
-        const verseKey = `${parseInt(selectedSura)}:${parseInt(selectedVerse)}`;
-
-        if (verseRefs.current[verseKey]) {
-            verseRefs.current[verseKey].scrollIntoView({ behavior: 'smooth', block: 'center' });
+    const forceScroll = useCallback((key) => {
+        if (verseRefs.current[key]) {
+            verseRefs.current[key].scrollIntoView({ behavior: 'smooth', block: 'center' });
             setNotify(true);
         }
-    }, [selectedSura, selectedVerse]);
+    }, []);
 
     useEffect(() => {
         setPageData(quranData[selectedPage]);
@@ -77,16 +92,23 @@ const Pages = ({ colors, theme, translationApplication, map, quranData, translat
             });
             setPageTitle(newPageTitles);
         }
+    }, [quranData, selectedPage, selectedSura, selectedVerse, translation]);
 
-        if (!selectedVerse && topRef.current) {
-            topRef.current.scrollIntoView({ behavior: 'smooth', block: 'start' });
-        } else {
-            setTimeout(() => {
-                forceScroll();
-            }, 200);
-            forceScroll();
+    useEffect(() => {
+        if (selectedPage && selectedPage !== currentPageRef.current) {
+            const verseKey = `${parseInt(selectedSura)}:${parseInt(selectedVerse)}`;
+            if (!selectedVerse && topRef.current) {
+                topRef.current.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            }
+            else {
+                setTimeout(() => {
+                    forceScroll(verseKey);
+                }, 200);
+            }
+            currentPageRef.current = selectedPage;
         }
-    }, [quranData, selectedPage, selectedSura, selectedVerse, translation, forceScroll]);
+    }, [selectedPage, selectedSura, selectedVerse, forceScroll]);
+
 
 
     const parsePageVerses = () => {
@@ -152,11 +174,14 @@ const Pages = ({ colors, theme, translationApplication, map, quranData, translat
     const updatedPageGWC = calculatePageGWC();
 
     const clickReferenceController = (part) => {
-        if (parseInt(selectedSura) === parseInt(part.split(":")[0]) && parseInt(selectedVerse) === parseInt(part.split(":")[1])) {
-            forceScroll();
-        } else {
-            handleClickReference(part);
+        handleClickReference(part);
+        let key = part;
+        if (part.includes("-")) {
+            key = part.split("-")[0]
         }
+        setTimeout(() => {
+            forceScroll(key);
+        }, 200);
     };
 
     const parseReferences = (text) => {
@@ -327,7 +352,6 @@ const Pages = ({ colors, theme, translationApplication, map, quranData, translat
 
         // If a matching note index is found, scroll to the note
         if (matchingNoteIndex !== undefined && noteRefs.current[matchingNoteIndex]) {
-
             noteRefs.current[matchingNoteIndex].scrollIntoView({ behavior: 'smooth', block: 'center' });
             setFocusedNoteIndex(matchingNoteIndex);
         }
@@ -423,13 +447,17 @@ const Pages = ({ colors, theme, translationApplication, map, quranData, translat
         if (hasAsterisk) {
             handleTitleClick(key);
         } else {
-            console.log("Unknown action from verse to page")
-        };
+            const [sura, verse] = key.split(':');
+            setSelectedSura(sura);
+            setSelectedVerse(verse);
+        }
     }
     const grapFocus = (sura, verse) => {
         const verseKey = `${parseInt(sura)}:${parseInt(verse)}`;
         if (verseRefs.current[verseKey]) {
-            verseRefs.current[verseKey].scrollIntoView({ behavior: 'smooth', block: 'start' });
+            setTimeout(() => {
+                verseRefs.current[verseKey].scrollIntoView({ behavior: 'smooth', block: 'start' });
+            }, 400)
         }
     };
 
@@ -483,7 +511,7 @@ const Pages = ({ colors, theme, translationApplication, map, quranData, translat
                 {sortedVerses.map(({ suraNumber, verseNumber, verseText, encryptedText, title }) => {
                     const hasAsterisk = verseText.includes('*') || (title && title.includes('*'));
                     const hasTitleAsterisk = (title && title.includes('*'));
-                    const verseClassName = "text-lg mx-2 mt-1 p-0.5 md:p-1 md:text-xl lg:text-2xl transition-colors duration-700 ease-linear flex flex-col cursor-pointer rounded  hyphens-auto text-justify ";
+                    const verseClassName = "text-lg mx-2 mt-1 p-0.5 md:p-1 md:text-xl lg:text-2xl flex flex-col cursor-pointer rounded  hyphens-auto text-justify ";
                     const titleClassName = `text-lg mx-2 mt-1.5 md:text-xl lg:text-2xl italic font-semibold rounded  text-center whitespace-pre-wrap `;
                     const verseKey = `${suraNumber}:${verseNumber}`;
                     const noteReference = hasAsterisk ? verseKey : null;
@@ -570,7 +598,7 @@ const Pages = ({ colors, theme, translationApplication, map, quranData, translat
                                 pulse={notify && (parseInt(selectedSura) === parseInt(suraNumber) && parseInt(selectedVerse) === parseInt(verseNumber))}
                                 grapFocus={grapFocus}
                                 pageGWC={updatedPageGWC}
-                                handleClickReference={handleClickReference}
+                                handleClickReference={clickReferenceController}
                                 accumulatedCopiesRef={accumulatedCopiesRef}
                                 copyTimerRef={copyTimerRef}
                                 hasTitle={title}

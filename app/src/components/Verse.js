@@ -394,9 +394,10 @@ const Verse = ({ besmele,
             return;
         }
         if (mode === "light") {
-            handleVerseClick(hasAsterisk, currentVerseKey)
             setMode("idle");
+            handleVerseClick(true, currentVerseKey);
         } else if (mode === "idle") {
+            handleVerseClick(false, currentVerseKey);
             setMode("reading");
             grapFocus(suraNumber, verseNumber);
         } else if (mode === "reading") {
@@ -406,7 +407,7 @@ const Verse = ({ besmele,
                 setMode("idle");
             };
         } else {
-            console.log("Unknown state action");
+            console.error("Unknown state action");
         }
     };
 
@@ -414,7 +415,7 @@ const Verse = ({ besmele,
     const heightClass = totalVerseKeysCount <= 19 ? "h-52" : "h-96";
 
     return (
-        <div className={`relative `}>
+        <div className={`relative`}>
             <div className={`absolute w-full flex h-full justify-between px-2.5`}>
                 <div className={`flex h-full w-full px-2 justify-start items-start ${isMarked ? `${colors[theme]["matching-text"]}` : `${colors[theme]["text"]}`}`}>
                     {isMarked ? (<svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24" strokeWidth={1.5} className={`w-8 h-8 transition-colors duration-500`} style={{ opacity: Math.abs(swipeEndX) / 120 }}>
@@ -444,7 +445,7 @@ const Verse = ({ besmele,
                     transform: `translateX(${-swipeDistance}px)`,
                     transition: isSwiping.current ? 'none' : 'transform 0.7s ease',
                 }}
-                className={`${cn} relative `}>
+                className={`${cn} relative`}>
                 <div onClick={() => handleClick()} className={`px-1 w-full`}>
                     {text.includes('\n') ? (
                         text.split('\n').map((line, index, array) => {
@@ -484,12 +485,12 @@ const Verse = ({ besmele,
                 </div>
 
                 <div className={`w-full flex flex-col flex-1  ${mode === "reading" ? "p-0.5 mt-2" : "h-0"} `}>
-                    <div className={`${mode === "reading" ? " select-text ease-in mb-2 duration-200" : "h-0 ease-linear duration-75"} w-full transition-all  rounded ${colors[theme]["encrypted-background"]} `} >
+                    <div className={`${mode === "reading" ? " select-text ease-linear mb-2 duration-300" : "h-0 "} w-full transition-all  rounded ${colors[theme]["encrypted-background"]} `} >
                         <p className={` p-2 text-start `} dir="rtl" >
                             {mode === "reading" && lightAllahwords(encryptedText)}
                         </p>
                     </div>
-                    <div className={`${(mode === "reading" && relatedVerses.size > 0) ? "overflow-auto p-2 delay-500 duration-200 ease-in-out " + heightClass : "duration-75 ease-linear h-0"}  transition-all w-full rounded ${colors[theme]["relation-background"]}`}>
+                    <div className={`${(mode === "reading" && relatedVerses.size > 0) ? "overflow-auto p-2 delay-75 duration-200 ease-in-out " + heightClass : " h-0"}  transition-all w-full rounded ${colors[theme]["relation-background"]}`}>
                         {(mode === "reading" && relatedVerses.size > 0) && Array.from(relatedVerses.entries()).map(([themeKey, verseKeys]) => (
                             <div key={themeKey}>
                                 <h3 className={`text-lg text-left ${colors[theme]["matching-text"]}`}>{themeKey}</h3>
@@ -497,7 +498,7 @@ const Verse = ({ besmele,
                                     {verseKeys.map(verseKey => (
                                         <button
                                             className={` p-2 rounded my-1 mr-2  text-sky-500 ${(path.current && path.current[currentVerseKey] && path.current[currentVerseKey][verseKey]) ? `${colors[theme]["relation-background"]} brightness-75` : `${colors[theme]["base-background"]} shadow-lg`}`}
-                                            key={Date.now() + verseKey}
+                                            key={Date.now() + '_' + themeKey.replace(' ','') + '_' + verseKey}
                                             onClick={() => onRelatedVerseClick(verseKey)}
                                         >
                                             {verseKey}

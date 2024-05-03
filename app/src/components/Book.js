@@ -28,16 +28,14 @@ const Book = ({ onChangeTheme, colors, theme, translationApplication, introducti
     const [pages, setPages] = useState([]);
 
     const [selectedApp, setSelectedApp] = useState(1);
-
-
     const [backButtonPressedOnce, setBackButtonPressedOnce] = useState(false);
+
+    let path = useRef({});
 
     const setSelectedAppendix = (number) => {
         updatePage(397, null, null, 'openAppendix', parseInt(number));
         setSelectedApp(parseInt(number));
     };
-
-    let path = useRef({});
 
     const [appendices, setAppendices] = useState(
         Array.from({ length: 38 }, (_, i) => ({ number: i + 1, title: "" }))
@@ -117,8 +115,23 @@ const Book = ({ onChangeTheme, colors, theme, translationApplication, introducti
     };
 
     const updatePage = useCallback((newPage, sura = null, verse = null, actionType = 'navigate', appReference = null) => {
-        if (actionType !== 'previous') {
-            setPageHistory(prevHistory => [...prevHistory, { page: parseInt(currentPage), sura: selectedSura, verse: selectedVerse, actionType, appReference }]);
+        if (actionType !== 'previous' && parseInt(newPage) !== parseInt(currentPage)) {
+            setPageHistory(prevHistory => {
+                const lastElement = prevHistory[prevHistory.length - 1];
+                if (lastElement && lastElement.page === parseInt(currentPage)) {
+                    lastElement.sura = sura;
+                    lastElement.verse = verse;
+                    return [...prevHistory.slice(0, prevHistory.length - 1), lastElement];
+                } else {
+                    return [...prevHistory, {
+                        page: parseInt(currentPage),
+                        sura: selectedSura,
+                        verse: selectedVerse,
+                        actionType,
+                        appReference
+                    }];
+                }
+            });
         }
 
         setSelectedSura(sura);
@@ -226,7 +239,7 @@ const Book = ({ onChangeTheme, colors, theme, translationApplication, introducti
         });
 
         if (foundPageNumber) {
-            updatePage(foundPageNumber, sura, verseStart, currentPage === 397 ? 'fromAppendix' : 'relationClick', currentPage === 397 ? selectedApp : null);
+            updatePage(foundPageNumber, sura, verseStart + '', currentPage === 397 ? 'fromAppendix' : 'relationClick', currentPage === 397 ? selectedApp : null);
         } else {
             Toast.show({
                 text: translationApplication.refNotFound,
@@ -528,6 +541,8 @@ const Book = ({ onChangeTheme, colors, theme, translationApplication, introducti
                 selectedPage={currentPage}
                 selectedSura={selectedSura}
                 selectedVerse={selectedVerse}
+                setSelectedSura={setSelectedSura}
+                setSelectedVerse={setSelectedVerse}
                 handleClickReference={handleClickReference}
                 handleClickAppReference={handleClickAppReference}
                 handleTogglePage={handleTogglePage}
