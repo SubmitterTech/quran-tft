@@ -179,40 +179,41 @@ const Verse = ({ besmele,
         const related = new Map();
 
         const addReferences = (theme, referenceString) => {
-            // Split the referenceString by ';' to handle multiple groups of referencesx
             referenceString.split(';').forEach(refGroup => {
                 const [sura, verses] = refGroup.trim().split(':');
-                // Check if verses contain ',' indicating a list or '-' indicating a range
                 if (verses && verses.includes(',')) {
-                    // Handle list of verses
                     verses.split(',').forEach(verseRange => {
                         if (verseRange) {
                             const individualKey = `${sura}:${verseRange.trim()}`;
                             if (individualKey !== currentVerseKey) {
                                 const themeRelated = related.get(theme) || [];
-                                themeRelated.push(individualKey);
-                                related.set(theme, themeRelated);
+                                if (!themeRelated.includes(individualKey)) {
+                                    themeRelated.push(individualKey);
+                                    related.set(theme, themeRelated);
+                                }
                             }
                         }
                     });
                 } else if (verses && verses.includes('-')) {
-                    // Handle range of verses
                     const [start, end] = verses.split('-');
                     for (let verse = parseInt(start.trim()); verse <= parseInt(end.trim()); verse++) {
                         const individualKey = `${sura}:${verse}`;
                         if (individualKey !== currentVerseKey) {
                             const themeRelated = related.get(theme) || [];
-                            themeRelated.push(individualKey);
-                            related.set(theme, themeRelated);
+                            if (!themeRelated.includes(individualKey)) {
+                                themeRelated.push(individualKey);
+                                related.set(theme, themeRelated);
+                            }
                         }
                     }
                 } else if (verses) {
-                    // Handle a single verse (this is the missing part that handles single references)
                     const individualKey = `${sura}:${verses.trim()}`;
                     if (individualKey !== currentVerseKey) {
                         const themeRelated = related.get(theme) || [];
-                        themeRelated.push(individualKey);
-                        related.set(theme, themeRelated);
+                        if (!themeRelated.includes(individualKey)) {
+                            themeRelated.push(individualKey);
+                            related.set(theme, themeRelated);
+                        }
                     }
                 }
             });
@@ -498,7 +499,7 @@ const Verse = ({ besmele,
                                     {verseKeys.map(verseKey => (
                                         <button
                                             className={` p-2 rounded my-1 mr-2  text-sky-500 ${(path.current && path.current[currentVerseKey] && path.current[currentVerseKey][verseKey]) ? `${colors[theme]["relation-background"]} brightness-75` : `${colors[theme]["base-background"]} shadow-lg`}`}
-                                            key={Date.now() + '_' + themeKey.replace(' ','') + '_' + verseKey}
+                                            key={Date.now() + '_' + themeKey.replace(' ', '') + '_' + verseKey}
                                             onClick={() => onRelatedVerseClick(verseKey)}
                                         >
                                             {verseKey}
