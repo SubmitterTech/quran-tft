@@ -69,8 +69,10 @@ const Pages = ({
 
     const forceScroll = useCallback((key) => {
         if (verseRefs.current[key]) {
-            verseRefs.current[key].scrollIntoView({ behavior: 'smooth', block: 'center' });
-            setNotify(true);
+            setTimeout(() => {
+                verseRefs.current[key].scrollIntoView({ behavior: 'smooth', block: 'center' });
+                setNotify(true);
+            }, 200);
         }
     }, []);
 
@@ -103,7 +105,7 @@ const Pages = ({
             else {
                 setTimeout(() => {
                     forceScroll(verseKey);
-                }, 200);
+                }, 100);
             }
             currentPageRef.current = selectedPage;
         }
@@ -179,9 +181,7 @@ const Pages = ({
         if (part.includes("-")) {
             key = part.split("-")[0]
         }
-        setTimeout(() => {
-            forceScroll(key);
-        }, 200);
+        forceScroll(key);
     };
 
     const parseReferences = (text) => {
