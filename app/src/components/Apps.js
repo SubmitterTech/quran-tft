@@ -163,7 +163,7 @@ const Apps = ({ colors, theme, translationApplication, parseReferences, appendic
                         key={`text-${index}`}
                         ref={(el) => textRef.current[appno + "-" + index] = el}
                         onClick={(e) => handleClick(e, appno, index)}
-                        className={`rounded ${colors[theme]["text-background"]} ${colors[theme]["app-text"]} p-1  mb-3 flex w-full text-justify hyphens-auto`}>
+                        className={`rounded ${colors[theme]["text-background"]} ${colors[theme]["app-text"]} p-1 mb-1.5 flex w-full text-justify hyphens-auto`}>
                         <div className={`overflow-x-scroll`}>
                             <p className={`px-1 break-words`}>{parseReferences(item.content)}</p>
                         </div>

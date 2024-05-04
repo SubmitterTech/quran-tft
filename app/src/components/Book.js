@@ -596,7 +596,7 @@ const Book = ({ onChangeTheme, colors, theme, translationApplication, introducti
                 if (parseInt(key) === 1) {
                     const titles = elements[0].split(" ").filter(element => element);
                     return (
-                        <div className={` ${colors[theme]["app-text"]} text-3xl w-full flex justify-center`} key={key}>
+                        <div className={`${colors[theme]["app-text"]} text-3xl w-full flex justify-center`} key={key}>
                             <div className={`p-3`}>{titles[0]}</div>
                         </div>
                     );
@@ -606,10 +606,10 @@ const Book = ({ onChangeTheme, colors, theme, translationApplication, introducti
                             key={key}
                             onClick={() => handleAppClick(parseInt(elements[0]))}
                             className={`flex w-full justify-between text-lg`}>
-                            <div className={` font-semibold rounded p-3 m-1 ${colors[theme]["base-background"]} w-16 flex items-center justify-center`}>
+                            <div className={`font-semibold rounded p-3 m-1 ${colors[theme]["base-background"]} w-16 flex items-center justify-center`}>
                                 <p className={``} >{elements[0]}</p>
                             </div>
-                            <div key={key} className={`rounded p-3 mr-2 m-1 ${colors[theme]["text-background"]} w-full flex items-center`}>
+                            <div key={key} className={`rounded p-3 my-1 mr-1 ${colors[theme]["text-background"]} w-full flex items-center`}>
                                 <p className={``} >{elements[1]}</p>
                             </div>
                         </div>
@@ -690,7 +690,7 @@ const Book = ({ onChangeTheme, colors, theme, translationApplication, introducti
                 const hasBesmele = item.content.toLocaleLowerCase(lang).search(bsml) !== -1;
 
                 return (
-                    <div className={hasBesmele ? `select-none  w-full my-3 py-1.5 px-2.5 text-neutral-800 rounded  bg-gradient-to-r from-cyan-300 to-sky-500 besmele` : `select-text w-full flex items-center justify-center text-center p-2 font-semibold ${colors[theme]["app-text"]}  whitespace-pre-line ${item.order === 0 ? "text-3xl font-bold" : " text-lg"}`}>
+                    <div className={hasBesmele ? `select-none w-full my-3 py-1.5 px-2.5 text-neutral-900 rounded text-base md:text-lg lg:text-xl bg-gradient-to-r from-cyan-300 to-sky-500 besmele` : `select-text w-full flex items-center justify-center text-center p-2 font-semibold ${colors[theme]["app-text"]}  whitespace-pre-line ${item.order === 0 ? "text-3xl font-bold" : " text-lg"}`}>
                         <h2 key={`title-${index}`}>{item.content}</h2>
                     </div>
                 );
@@ -698,7 +698,7 @@ const Book = ({ onChangeTheme, colors, theme, translationApplication, introducti
                 return (
                     <div
                         lang={lang}
-                        className={`select-text rounded ${colors[theme]["text-background"]} ${colors[theme]["app-text"]} p-1.5  mb-3 flex w-full justify-center hyphens-auto `}>
+                        className={`select-text rounded ${colors[theme]["text-background"]} ${colors[theme]["app-text"]} p-1.5 mb-1.5 flex w-full justify-center hyphens-auto `}>
                         <p key={`text-${index}`} className={`px-1`}>{parseReferences(item.content)}</p>
                     </div>
                 );
@@ -858,7 +858,7 @@ const Book = ({ onChangeTheme, colors, theme, translationApplication, introducti
         });
 
         return (
-            <div key={`content-${currentPage}`} ref={contentRef} className={`${colors[theme]["text"]} overflow-auto flex-1 p-3 text-justify lg:text-start text-lg md:text-xl lg:text-2xl`}>
+            <div key={`content-${currentPage}`} ref={contentRef} className={`${colors[theme]["text"]} overflow-auto flex-1 p-1.5 text-justify lg:text-start text-lg md:text-xl lg:text-2xl`}>
                 {renderContent}
             </div>
         );
