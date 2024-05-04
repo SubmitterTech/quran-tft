@@ -11,10 +11,10 @@ import map from '../assets/map.json';
 function Root() {
     const colors = {
         "light": {
-            "text-background": "bg-neutral-200",
-            "app-background": "bg-neutral-50",
-            "notes-background": "bg-neutral-200",
-            "base-background": "bg-neutral-100",
+            "text-background": "bg-neutral-50",
+            "app-background": "bg-neutral-200",
+            "notes-background": "bg-neutral-100",
+            "base-background": "bg-neutral-300",
             "verse-detail-background": "bg-neutral-100",
             "encrypted-background": "bg-neutral-200",
             "relation-background": "bg-neutral-200",
@@ -34,10 +34,10 @@ function Root() {
             "matching-border": "border-pink-500"
         },
         "dark": {
-            "text-background": "bg-neutral-800",
-            "app-background": "bg-neutral-950",
-            "notes-background": "bg-neutral-700",
-            "base-background": "bg-neutral-900",
+            "text-background": "bg-neutral-950",
+            "app-background": "bg-neutral-900",
+            "notes-background": "bg-neutral-800",
+            "base-background": "bg-neutral-700",
             "verse-detail-background": "bg-neutral-900",
             "encrypted-background": "bg-neutral-800",
             "relation-background": "bg-neutral-800",
@@ -104,13 +104,13 @@ function Root() {
             "matching-border": "border-orange-400"
         },
         "indigo": {
-            "text-background": "bg-indigo-800",
-            "app-background": "bg-indigo-950",
+            "text-background": "bg-indigo-950",
+            "app-background": "bg-indigo-800",
             "notes-background": "bg-neutral-700",
             "base-background": "bg-neutral-800",
             "verse-detail-background": "bg-neutral-800",
-            "encrypted-background": "bg-indigo-600/70",
-            "relation-background": "bg-indigo-600/70",
+            "encrypted-background": "bg-neutral-600/70",
+            "relation-background": "bg-neutral-600/70",
             "table-title-text": "text-neutral-300",
             "border": "border-indigo-100",
             "text": "text-neutral-100",
