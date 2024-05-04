@@ -126,8 +126,10 @@ const Magnify = ({ colors, theme, translationApplication, quran, map, onClose, o
 
                         if (keywords.every(keyword => normalizedNote.includes(keyword))) {
                             const match = note.match(/\*+\d+:\d+/g);
+
                             if (match && match.length > 0) {
-                                const ref = match[0].split("*")[1].split(":");
+                                const cleanedRef = match[0].replace(/^\*+/, '');
+                                const ref = cleanedRef.split(":");
                                 notesResults.push({ suraNumber: ref[0], verseNumber: ref[1], note });
                             }
                         }
@@ -189,9 +191,6 @@ const Magnify = ({ colors, theme, translationApplication, quran, map, onClose, o
 
         return highlightedText;
     };
-
-
-
 
     const lastTitleElementRef = useCallback(node => {
         if (observerTitles.current) observerTitles.current.disconnect();
