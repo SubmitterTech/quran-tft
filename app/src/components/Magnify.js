@@ -307,7 +307,7 @@ const Magnify = ({ colors, theme, translationApplication, quran, map, onClose, o
         <div className={`w-screen h-screen animated overflow-auto faster fixed  left-0 top-0 flex flex-col items-center justify-start inset-0 z-10 outline-none focus:outline-none backdrop-blur-2xl`} id="jump-screen"
             style={{ paddingTop: 'env(safe-area-inset-top)', paddingBottom: 'env(safe-area-inset-bottom)' }}
         >
-            <div className={`w-full flex p-2 sticky top-0 backdrop-blur-2xl`}>
+            <div className={`w-full flex p-1.5 sticky top-0 backdrop-blur-2xl`}>
                 <div className={`w-full flex rounded  space-x-2`}>
                     <input
                         type="text"
@@ -343,7 +343,7 @@ const Magnify = ({ colors, theme, translationApplication, quran, map, onClose, o
             {searchTerm.length > 1 &&
                 <div className={`flex flex-col flex-1 space-y-1 w-full overflow-auto mb-12 md:mb-14 lg:mb-16`}>
 
-                    <div className={`${loadedTitles.length > 0 ? (loadedVerses.length > 0 && loadedNotes.length > 0) ? "basis-2/12  p-1 mx-1.5 border" : "flex-1 p-1 mx-1.5 border" : "h-0 "} transition-all duration-200 ease-linear  overflow-auto rounded ${colors[theme]["verse-border"]} ${colors[theme]["text-background"]}`}>
+                    <div className={`${loadedTitles.length > 0 ? (loadedVerses.length > 0 && loadedNotes.length > 0) ? "basis-2/12  p-1 mx-1 border" : "flex-1 p-1 mx-1 border" : "h-0 "} transition-all duration-200 ease-linear  overflow-auto rounded ${colors[theme]["verse-border"]} ${colors[theme]["text-background"]}`}>
                         <div className={`${loadedTitles.length > 0 ? "opacity-100" : "opacity-0 h-0"} sticky -top-1 text-sm md:text-base text-center rounded backdrop-blur-xl ${colors[theme]["page-text"]}`}>
                             {translationApplication.titles}{` `}<span className={`${colors[theme]["matching-text"]}`}>{searchResultTitles.length}</span>
                         </div>
@@ -362,7 +362,7 @@ const Magnify = ({ colors, theme, translationApplication, quran, map, onClose, o
                         </div>
                     </div>
 
-                    <div className={`${loadedVerses.length > 0 ? (loadedNotes.length > 0 && loadedTitles.length > 0) ? "basis-7/12  p-1 mx-1.5 border" : "flex-1 p-1 mx-1.5 border" : "h-0 "} transition-all duration-200 ease-linear overflow-auto rounded ${colors[theme]["verse-border"]} ${colors[theme]["base-background"]}`}>
+                    <div className={`${loadedVerses.length > 0 ? (loadedNotes.length > 0 && loadedTitles.length > 0) ? "basis-7/12  p-1 mx-1 border" : "flex-1 p-1 mx-1 border" : "h-0 "} transition-all duration-200 ease-linear overflow-auto rounded ${colors[theme]["verse-border"]} ${colors[theme]["base-background"]}`}>
                         <div className={`${loadedVerses.length > 0 ? "opacity-100" : "opacity-0 h-0"} sticky -top-1 text-sm md:text-base text-center rounded backdrop-blur-xl ${colors[theme]["page-text"]}`}>
                             {translationApplication.verses}{` `}<span className={`${colors[theme]["matching-text"]}`}>{searchResultVerses.length}</span>
                         </div>
@@ -383,7 +383,7 @@ const Magnify = ({ colors, theme, translationApplication, quran, map, onClose, o
                         </div>
                     </div>
 
-                    <div className={`${loadedNotes.length > 0 ? (loadedVerses.length > 0 && loadedTitles.length > 0) ? "basis-3/12  p-1 mx-1.5 border" : "flex-1 p-1 mx-1.5 border" : "h-0 "} transition-all duration-200 ease-linear  overflow-auto rounded ${colors[theme]["verse-border"]} ${colors[theme]["base-background"]}`}>
+                    <div className={`${loadedNotes.length > 0 ? (loadedVerses.length > 0 && loadedTitles.length > 0) ? "basis-3/12  p-1 mx-1 border" : "flex-1 p-1 mx-1 border" : "h-0 "} transition-all duration-200 ease-linear  overflow-auto rounded ${colors[theme]["verse-border"]} ${colors[theme]["base-background"]}`}>
                         <div className={`${loadedNotes.length > 0 ? "opacity-100" : "opacity-0 "} sticky -top-1 text-sm md:text-base text-center rounded backdrop-blur-xl  ${colors[theme]["page-text"]}`}>
                             {translationApplication.notes}{` `}<span className={`${colors[theme]["matching-text"]}`}>{searchResultNotes.length}</span>
                         </div>
@@ -408,8 +408,8 @@ const Magnify = ({ colors, theme, translationApplication, quran, map, onClose, o
 
             }
             {searchTerm.length === 1 &&
-                <div className={`w-full px-2 mb-12 lg:mb-14 xl:mb-16`}>
-                    <div className={`text-sm md:text-base w-full p-1 ${colors[theme]["text"]} transition-all duration-200 ease-linear overflow-auto`}>
+                <div className={`w-full px-1 mb-12 lg:mb-14 xl:mb-16`}>
+                    <div className={`text-lg md:text-base w-full p-0.5 ${colors[theme]["text"]} transition-all duration-200 ease-linear overflow-auto`}>
                         <div className={` w-full flex flex-col space-y-1.5 transition-all duration-200 ease-linear `}>
                             {Object.entries(loadedMap).map(([exp, themeorref]) => (
                                 <div
@@ -422,16 +422,16 @@ const Magnify = ({ colors, theme, translationApplication, quran, map, onClose, o
                                         {exp}
                                     </div>
                                     {openTheme === exp && (
-                                        <div className={`flex flex-col space-y-1.5 mt-3 p-2`}>
+                                        <div className={`flex flex-col space-y-1.5 mt-3 p-1 pl-1.5`}>
                                             {typeof themeorref === 'object' ?
                                                 Object.entries(themeorref).map(([innerTheme, ref]) => (
-                                                    <div key={innerTheme} className={`p-2 ${colors[theme]["app-background"]} rounded  `}>
+                                                    <div key={innerTheme} className={`p-1 pl-1.5 ${colors[theme]["app-background"]} rounded  `}>
                                                         <div className={`p-1`}>{innerTheme}</div>
-                                                        <div className={`p-2 rounded ${colors[theme]["base-background"]} flex flex-col space-y-1.5`}>{renderref(ref)}</div>
+                                                        <div className={`p-1 rounded ${colors[theme]["base-background"]} flex flex-col space-y-1`}>{renderref(ref)}</div>
                                                     </div>
                                                 ))
                                                 :
-                                                <div className={`p-2 rounded ${colors[theme]["base-background"]} flex flex-col space-y-1.5`}>{renderref(themeorref)}</div>
+                                                <div className={`rounded ${colors[theme]["base-background"]} flex flex-col space-y-1`}>{renderref(themeorref)}</div>
                                             }
                                         </div>
                                     )}
