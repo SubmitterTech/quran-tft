@@ -236,6 +236,25 @@ const Jump = ({ onChangeLanguage, suraNames, onChangeTheme, colors, theme, trans
                         </button>
                     </div>
                 </div>
+                <div className={`w-full md:w-2/3 lg:w-1/2 2xl:w-1/3 fixed bottom-12 md:bottom-16 flex justify-center -z-10`}
+                    style={{ paddingBottom: 'env(safe-area-inset-bottom)' }}>
+                    <select
+                        id="languagepicker"
+                        name="langpick"
+                        onChange={(e) => onChangeLanguage(e.target.value)}
+                        value={localStorage.getItem("lang")}
+                        className={`w-full m-2 text-center rounded px-4 py-2 border border-neutral-400/40 text-lg brightness-80 bg-neutral-500/30 ${colors[theme]["page-text"]} focus:outline-none focus:ring-2 focus:border-sky-500 focus:ring-sky-500`}>
+                        {Object.keys(languages).map((key) => {
+                            if (key) {
+                                const isLanguageDisabled = languages[key].includes("not complete");
+                                return (
+                                    <option key={key} value={key} disabled={isLanguageDisabled}>{languages[key]}</option>
+                                );
+                            }
+                            return null;
+                        })}
+                    </select>
+                </div>
                 <div className={` w-full md:w-2/3 lg:w-1/2 2xl:w-1/3 px-2 flex flex-col transition-all duration-200 ease-linear mb-7 `}>
                     <div className={`shadow-[rgba(125,211,252,0.4)_0px_7px_15px_15px] transition-colors duration-200 ease-linear flex flex-col items-center justify-center ${colors[theme]["app-background"]} rounded  w-full `}>
                         <div className={`w-full pt-2`}>
@@ -463,25 +482,6 @@ const Jump = ({ onChangeLanguage, suraNames, onChangeTheme, colors, theme, trans
                         </div>
                     </div>
 
-                </div>
-                <div className={`w-full md:w-2/3 lg:w-1/2 2xl:w-1/3 fixed bottom-12 md:bottom-16 flex justify-center`}
-                    style={{ paddingBottom: 'env(safe-area-inset-bottom)' }}>
-                    <select
-                        id="languagepicker"
-                        name="langpick"
-                        onChange={(e) => onChangeLanguage(e.target.value)}
-                        value={localStorage.getItem("lang")}
-                        className={`w-full m-2 text-center rounded px-4 py-2 border border-neutral-400/40 text-lg brightness-80 bg-neutral-500/30 ${colors[theme]["page-text"]} focus:outline-none focus:ring-2 focus:border-sky-500 focus:ring-sky-500`}>
-                        {Object.keys(languages).map((key) => {
-                            if (key) {
-                                const isLanguageDisabled = languages[key].includes("not complete");
-                                return (
-                                    <option key={key} value={key} disabled={isLanguageDisabled}>{languages[key]}</option>
-                                );
-                            }
-                            return null;
-                        })}
-                    </select>
                 </div>
             </div>
         </div>
