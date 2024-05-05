@@ -33,6 +33,7 @@ const Pages = ({
     const copyTimerRef = useRef();
 
     const [notify, setNotify] = useState(false);
+    const notifyTimeoutRef = useRef();
     const [focusedNoteIndex, setFocusedNoteIndex] = useState(null);
 
     const stickyRef = useRef(null);
@@ -73,6 +74,11 @@ const Pages = ({
             setTimeout(() => {
                 verseRefs.current[key].scrollIntoView({ behavior: 'smooth', block: 'center' });
                 setNotify(true);
+                clearTimeout(notifyTimeoutRef.current);
+                notifyTimeoutRef.current = setTimeout(() => {
+                    setNotify(false);
+                }, 4450);
+                return () => clearTimeout(notifyTimeoutRef.current);
             }, 150);
         }
     }, []);
@@ -367,18 +373,10 @@ const Pages = ({
     }, [noteReferencesMap]);
 
     useEffect(() => {
-        if (notify) {
-            setTimeout(() => {
-                setNotify(false);
-            }, 4450);
-        }
-    }, [notify]);
-
-    useEffect(() => {
         if (focusedNoteIndex !== null) {
             const timer = setTimeout(() => {
                 setFocusedNoteIndex(null);
-            }, 4000);
+            }, 4400);
 
             return () => clearTimeout(timer);
         }
