@@ -111,7 +111,7 @@ const Pages = ({
             }
             currentPageRef.current = selectedPage;
         } else {
-            if (actionType === 'fromAppendix' || actionType === 'fromIntro') {
+            if (actionType === 'fromAppendix' || actionType === 'fromIntro' || actionType === 'navigate') {
                 setTimeout(() => {
                     forceScroll(verseKey);
                 }, 50);
