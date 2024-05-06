@@ -242,7 +242,7 @@ const Book = ({ onChangeTheme, colors, theme, translationApplication, introducti
 
         if (foundPageNumber) {
             let act = 'relationClick';
-            if(parseInt(currentPage) < 23) {
+            if (parseInt(currentPage) < 23) {
                 act = 'fromIntro';
             } else if (parseInt(currentPage) > 396) {
                 act = 'fromAppendix';
@@ -707,61 +707,60 @@ const Book = ({ onChangeTheme, colors, theme, translationApplication, introducti
                 if (item.content.special && item.content.special.key === 1) {
                     const data = item.content.special.data;
                     return (
-                        <div className={`w-full flex flex-col flex-1 my-3`}>
-                            <div key={`evidence-${index}`}
-                                className={`bg-gray-100 text-gray-700 rounded  text-sm md:text-base border border-gray-700 flex justify-between w-full items-stretch`}>
+                        <div className={`w-full flex flex-col flex-1 my-3 `}>
+                            <div key={`evidence-${index}`} className={`w-full px-1.5`}>
+                                <div className={`bg-gray-100 text-gray-700 rounded  text-sm md:text-base border border-gray-700 flex justify-between w-full items-stretch `}>
+                                    <div className={`relative text-gray-100 bg-gray-700 w-[11%] flex flex-wrap `}>
+                                        {/* Render SVGs for index 0 in this div */}
+                                        {Object.entries(data).map(([key, value]) => {
+                                            if (parseInt(key) === 0) {
+                                                return Array.from({ length: value }, (_, i) => (
+                                                    <div className={`p-0.5`}>
+                                                        <svg key={i} xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className={`w-3 h-3 md:h-5 md:w-5 lg:h-6 lg:w-6`}>
+                                                            <path strokeLinecap="round" strokeLinejoin="round" d="M15.75 6a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0zM4.501 20.118a7.5 7.5 0 0114.998 0A17.933 17.933 0 0112 21.75c-2.676 0-5.216-.584-7.499-1.632z" />
+                                                        </svg>
+                                                    </div>
 
-                                <div className={`relative text-gray-100 bg-gray-700 w-[11%] flex flex-wrap `}>
-                                    {/* Render SVGs for index 0 in this div */}
-                                    {Object.entries(data).map(([key, value]) => {
-                                        if (parseInt(key) === 0) {
-                                            return Array.from({ length: value }, (_, i) => (
-                                                <div className={`p-0.5`}>
-                                                    <svg key={i} xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className={`w-3 h-3 md:h-5 md:w-5 lg:h-6 lg:w-6`}>
-                                                        <path strokeLinecap="round" strokeLinejoin="round" d="M15.75 6a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0zM4.501 20.118a7.5 7.5 0 0114.998 0A17.933 17.933 0 0112 21.75c-2.676 0-5.216-.584-7.499-1.632z" />
-                                                    </svg>
-                                                </div>
+                                                ));
+                                            }
+                                            return null;
+                                        })}
+                                    </div>
 
-                                            ));
-                                        }
-                                        return null;
-                                    })}
+                                    <div className={`relative w-full text-gray-900 bg-gray-100 h-fit flex flex-wrap rounded-r`}>
+                                        {/* Render SVGs for index 1 in this div */}
+                                        {Object.entries(data).map(([key, value]) => {
+                                            if (parseInt(key) === 1) {
+                                                return Array.from({ length: value }, (_, i) => (
+                                                    <div className={`p-0.5`}>
+                                                        <svg key={i} xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className={` w-3 h-3 md:h-5 md:w-5 lg:h-6 lg:w-6`}>
+                                                            <path strokeLinecap="round" strokeLinejoin="round" d="M15.75 6a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0zM4.501 20.118a7.5 7.5 0 0114.998 0A17.933 17.933 0 0112 21.75c-2.676 0-5.216-.584-7.499-1.632z" />
+                                                        </svg>
+                                                    </div>
+                                                ));
+                                            }
+                                            return null;
+                                        })}
+                                    </div>
+
                                 </div>
-
-                                <div className={`relative w-full text-gray-900 bg-gray-100 h-fit flex flex-wrap rounded-r`}>
-                                    {/* Render SVGs for index 1 in this div */}
-                                    {Object.entries(data).map(([key, value]) => {
-                                        if (parseInt(key) === 1) {
-                                            return Array.from({ length: value }, (_, i) => (
-                                                <div className={`p-0.5`}>
-                                                    <svg key={i} xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className={` w-3 h-3 md:h-5 md:w-5 lg:h-6 lg:w-6`}>
-                                                        <path strokeLinecap="round" strokeLinejoin="round" d="M15.75 6a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0zM4.501 20.118a7.5 7.5 0 0114.998 0A17.933 17.933 0 0112 21.75c-2.676 0-5.216-.584-7.499-1.632z" />
-                                                    </svg>
-                                                </div>
-                                            ));
-                                        }
-                                        return null;
-                                    })}
-                                </div>
-
-                            </div>
-                            <div className={`w-full flex justify-between`}>
-                                <div className={`relative h-6 w-[11%]`}>
-                                    <div className={`absolute -left-2 text-xs`}>
-                                        {translationApplication?.adam}
+                                <div className={`w-full flex justify-between`}>
+                                    <div className={`relative h-6 w-[11%]`}>
+                                        <div className={`absolute -left-2 text-xs`}>
+                                            {translationApplication?.adam}
+                                        </div>
+                                    </div>
+                                    <div className={`relative h-6 w-[100%]`}>
+                                        <div className={`absolute -left-1 text-xs`}>
+                                            1990
+                                        </div>
+                                    </div>
+                                    <div className={`relative h-6 w-[11%] text-xs`}>
+                                        <div className={`absolute -right-2`}>
+                                            2280
+                                        </div>
                                     </div>
                                 </div>
-                                <div className={`relative h-6 w-[100%]`}>
-                                    <div className={`absolute -left-1 text-xs`}>
-                                        1990
-                                    </div>
-                                </div>
-                                <div className={`relative h-6 w-[11%] text-xs`}>
-                                    <div className={`absolute -right-2`}>
-                                        2280
-                                    </div>
-                                </div>
-
                             </div>
                             <div className={`w-full flex flex-col rounded border border-gray-700 p-1`}>
                                 <div className={`w-full flex items-center justify-between`}>
@@ -795,7 +794,7 @@ const Book = ({ onChangeTheme, colors, theme, translationApplication, introducti
                                 <div className={`relative w-full bg-gray-100 flex flex-wrap justify-center p-2 text-gray-700 rounded-l`}>
                                     {item.content.lines["1"]}
                                 </div>
-                                <div className={`relative bg-gray-500 w-[3%] flex flex-wrap py-2`}>
+                                <div className={`relative bg-gray-500 w-[3%] flex flex-wrap py-2 rounded-r`}>
                                 </div>
                             </div>
                             <div className={`w-full flex justify-end py-0.5`}>
@@ -808,7 +807,7 @@ const Book = ({ onChangeTheme, colors, theme, translationApplication, introducti
                                 <div className={`relative w-full bg-gray-500 flex flex-wrap justify-center p-2 text-gray-200 rounded-l`}>
                                     {item.content.lines["2"]}
                                 </div>
-                                <div className={`relative bg-gray-900 w-[3%] flex flex-wrap py-2`}>
+                                <div className={`relative bg-gray-900 w-[3%] flex flex-wrap py-2 rounded-r`}>
 
                                 </div>
                             </div>
