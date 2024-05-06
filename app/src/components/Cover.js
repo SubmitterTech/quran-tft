@@ -1,50 +1,61 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import '../assets/css/Splash.css';
 import languages from '../assets/languages.json';
 
 const Cover = ({ onCoverSeen, coverData, lang, onChangeLanguage }) => {
-    // Split the text into lines
-
     const [show19, setShow19] = useState(true)
+    const parentRef = useRef(null);
+    const [lineHeight, setLineHeight] = useState(0);
+    const [lineMargin, setLineMargin] = useState(0);
+
+    useEffect(() => {
+        if (parentRef.current) {
+            console.log(parentRef.current.offsetHeight)
+            const totalHeight = parentRef.current.offsetHeight;
+            const linesHeight = totalHeight * 0.28;
+            const marginsHeight = totalHeight * 0.32;
+            setLineHeight(linesHeight / 19);
+            setLineMargin(marginsHeight / 18);
+        }
+    }, [show19,parentRef]);
 
     const handleTap = async (e) => {
         setShow19(!show19);
     };
+
     // Forward to the source
     const openPdf = () => {
         window.location.href = '/quran-english1667577051837.pdf';
     };
 
     return (
-        <div className="splash-screen relative h-screen flex flex-col w-full p-1 justify-between  text-center bg-sky-800 text-neutral-300">
-
-            <div className="w-full h-96 md:h-1/3 flex items-center">
+        <div className="splash-screen relative h-screen flex flex-col w-full p-1 justify-between  text-center bg-sky-700 text-neutral-200 overflow-hidden">
+            <div className="w-full h-1/3 flex items-center">
                 <div className="flex flex-col w-full space-y-2 md:space-y-3 mt-4 ">
                     <h1 className="text-6xl font-extrabold">{coverData.quran}</h1>
                     <h2 className="text-4xl font-bold whitespace-pre">{coverData.title}</h2>
                     <h2 className="text-lg font-bold whitespace-pre">{coverData.version}</h2>
                 </div>
             </div>
-            <div className=" w-full h-96 md:h-1/2 ">
-
-                {show19 && <div className={`flex flex-col items-center`}
-                    onClick={handleTap}>
-                    {/* 19 lines for animated splash, starting from the bottom */}
-                    {Array.from({ length: 19 }).map((_, index) => (
-                        <div
-                            key={index}
-                            className="splash-line bg-white h-1 my-1.5 md:h-2 md:my-2.5"
-                            style={{
-                                animationDelay: `${0.5 * (18 - index)}s`, // Animation delay starts from the longest (bottom) line
-                                width: `${81 - 2 * (18 - index)}%` // Width decreases from bottom to top
-                            }}
-                        >
-
-                        </div>
-                    ))}
-                </div>}
-                <div className="flex w-full justify-center">
-                    <div className={`overflow-y-auto flex flex-col p-4 space-y-4 items-end m-4 ${show19 ? "opacity-0 h-0 w-0 pointer-events-none" : "opacity-100 h-80"} transition-opacity duration-1000 ease-linear `}>
+            <div className=" w-full h-1/2" ref={parentRef}>
+                {show19 && (
+                    <div className={`flex flex-col items-center`} onClick={handleTap}>
+                        {Array.from({ length: 19 }).map((_, index) => (
+                            <div
+                                key={index}
+                                className="splash-line "
+                                style={{
+                                    animationDelay: `${0.4 * (18 - index)}s`,
+                                    width: `${90 - 2.2 * (18 - index)}%`,
+                                    height: `${lineHeight}px`,
+                                    margin: `${lineMargin}px 0`,
+                                }}
+                            ></div>
+                        ))}
+                    </div>
+                )}
+                <div className="flex w-full justify-center h-full pb-4">
+                    <div className={`overflow-y-auto flex flex-col p-4 space-y-4 items-end m-4 ${show19 ? "opacity-0 h-0 w-0 pointer-events-none" : "opacity-100 h-full"} transition-opacity duration-1000 ease-linear `}>
                         {Object.keys(languages).map((key) => {
                             if (key) {
                                 const isSelectedLanguage = lang === key;
@@ -86,9 +97,9 @@ const Cover = ({ onCoverSeen, coverData, lang, onChangeLanguage }) => {
 
                 </div>
             </div>
-            <div className="mb-3 w-full flex flex-col space-y-3 h-fit justify-center">
+            <div className="w-full flex flex-col space-y-3 h-1/6 justify-center">
                 <div
-                    className="text-sky-400 cursor-pointer"
+                    className="text-sky-300 cursor-pointer"
                     onClick={openPdf}
                 >
                     <p className="whitespace-pre">{coverData.translated}</p>
@@ -97,7 +108,6 @@ const Cover = ({ onCoverSeen, coverData, lang, onChangeLanguage }) => {
                 </div>
                 <p className="whitespace-pre">{coverData.edition + "  1992"}</p>
             </div>
-
         </div>
     );
 };
