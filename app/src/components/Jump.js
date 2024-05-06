@@ -177,7 +177,7 @@ const Jump = ({ onChangeLanguage, suraNames, onChangeTheme, colors, theme, trans
         };
 
         return (
-            <div className={`flex space-x-4`}>
+            <div className={`flex space-x-3`}>
                 {Object.entries(themes).map(([localTheme, color]) => (
                     <label key={localTheme} className="cursor-pointer">
                         <input
@@ -188,10 +188,10 @@ const Jump = ({ onChangeLanguage, suraNames, onChangeTheme, colors, theme, trans
                             className="hidden"
                         />
                         <span
-                            className={`flex items-center justify-center rounded border ${localTheme === theme ? `${colors[theme]["matching-border"]}` : "border-gray-400"} w-12 h-12`}
+                            className={`flex items-center justify-center rounded border ${localTheme === theme ? `${colors[theme]["matching-border"]}` : "border-gray-400"} w-14 h-20`}
                             style={{ backgroundColor: color }}>
                             {localTheme === theme &&
-                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" className={`${colors[theme]["matching-text"]} w-4 h-4`}>
+                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" className={`${colors[theme]["matching-text"]} w-7 h-7`}>
                                     <path fillRule="evenodd" d="M19.916 4.626a.75.75 0 0 1 .208 1.04l-9 13.5a.75.75 0 0 1-1.154.114l-6-6a.75.75 0 0 1 1.06-1.06l5.353 5.353 8.493-12.74a.75.75 0 0 1 1.04-.207Z" clipRule="evenodd" />
                                 </svg>}
                         </span>
@@ -312,15 +312,15 @@ const Jump = ({ onChangeLanguage, suraNames, onChangeTheme, colors, theme, trans
                                                 </div>
                                                 <div
                                                     onClick={() => handleMarkJump(key)}
-                                                    className={`w-20 rounded px-2 py-1 ${colors[theme]["base-background"]} shadow-lg text-sky-500 flex items-center justify-center`}>
+                                                    className={`w-20 text-lg rounded px-2 py-1 ${colors[theme]["base-background"]} shadow-lg text-sky-500 flex items-center justify-center`}>
                                                     {key}
                                                 </div>
                                             </div>
                                         ))}
                                     </div>
                                 ) : showThemes ? (
-                                    <div className={`flex flex-col items-center justify-center py-2 h-48 m-2 `}>
-                                        <div className={`flex flex-col items-center justify-center ${colors[theme]["notes-background"]} rounded  w-full px-3 mx-2 py-5`}>
+                                    <div className={`flex flex-col items-center justify-center h-48 m-2 `}>
+                                        <div className={`flex flex-col items-center justify-center ${colors[theme]["notes-background"]} rounded h-full w-full px-3 mx-2 py-5`}>
                                             <div>
                                                 <ThemePicker onChangeTheme={onChangeTheme} />
                                             </div>
@@ -426,8 +426,11 @@ const Jump = ({ onChangeLanguage, suraNames, onChangeTheme, colors, theme, trans
                                 onClick={handleSubmit}
                                 className={`flex flex-col w-full items-center justify-between pt-2 rounded  transition-all delay-150 duration-700 ease-in-out ${lightOpen ? "bg-sky-500" : colors[theme]["text-background"]}`}>
                                 <div className={`flex justify-center transition-all delay-150 duration-700 ${lightOpen ? "text-neutral-50" : colors[theme]["text"]}`} >
-                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className={`w-11 h-11 `}>
+                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className={`w-11 h-11 transition-all delay-150 duration-600 ease-in-out ${lightOpen ? "opacity-0" : "opacity-100"}`}>
                                         <path strokeLinecap="round" strokeLinejoin="round" d="M12 6.042A8.967 8.967 0 0 0 6 3.75c-1.052 0-2.062.18-3 .512v14.25A8.987 8.987 0 0 1 6 18c2.305 0 4.408.867 6 2.292m0-14.25a8.966 8.966 0 0 1 6-2.292c1.052 0 2.062.18 3 .512v14.25A8.987 8.987 0 0 0 18 18a8.967 8.967 0 0 0-6 2.292m0-14.25v14.25" />
+                                    </svg>
+                                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" className={`w-11 h-11 absolute transition-all ease-in-out duration-400 ${lightOpen ? "opacity-100" : "opacity-0"}`}>
+                                        <path d="M11.25 4.533A9.707 9.707 0 0 0 6 3a9.735 9.735 0 0 0-3.25.555.75.75 0 0 0-.5.707v14.25a.75.75 0 0 0 1 .707A8.237 8.237 0 0 1 6 18.75c1.995 0 3.823.707 5.25 1.886V4.533ZM12.75 20.636A8.214 8.214 0 0 1 18 18.75c.966 0 1.89.166 2.75.47a.75.75 0 0 0 1-.708V4.262a.75.75 0 0 0-.5-.707A9.735 9.735 0 0 0 18 3a9.707 9.707 0 0 0-5.25 1.533v16.103Z" />
                                     </svg>
                                 </div>
                                 <div className={` flex text-sm items-center justify-center pb-2 transition-all delay-100 duration-700 ${lightOpen ? "text-neutral-50" : colors[theme]["page-text"]}`}>
