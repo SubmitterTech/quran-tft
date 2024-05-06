@@ -35,9 +35,9 @@ function Root() {
         },
         "dark": {
             "text-background": "bg-neutral-950",
-            "app-background": "bg-neutral-900",
+            "app-background": "bg-neutral-800",
             "notes-background": "bg-neutral-700",
-            "base-background": "bg-neutral-800",
+            "base-background": "bg-neutral-900",
             "verse-detail-background": "bg-neutral-900",
             "encrypted-background": "bg-neutral-700",
             "relation-background": "bg-neutral-700",
