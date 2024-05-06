@@ -10,7 +10,6 @@ const Cover = ({ onCoverSeen, coverData, lang, onChangeLanguage }) => {
 
     useEffect(() => {
         if (parentRef.current) {
-            console.log(parentRef.current.offsetHeight)
             const totalHeight = parentRef.current.offsetHeight;
             const linesHeight = totalHeight * 0.28;
             const marginsHeight = totalHeight * 0.32;
