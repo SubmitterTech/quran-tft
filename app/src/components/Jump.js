@@ -181,9 +181,9 @@ const Jump = ({ onChangeLanguage, suraNames, onChangeTheme, colors, theme, trans
         };
 
         return (
-            <div className={`flex space-x-3`}>
+            <div className={`flex space-x-2 w-full h-full`}>
                 {Object.entries(themes).map(([localTheme, color]) => (
-                    <label key={localTheme} className="cursor-pointer">
+                    <label key={localTheme} className="flex cursor-pointer flex-1 items-stretch">
                         <input
                             type="radio"
                             name="theme"
@@ -192,10 +192,10 @@ const Jump = ({ onChangeLanguage, suraNames, onChangeTheme, colors, theme, trans
                             className="hidden"
                         />
                         <span
-                            className={`flex items-center justify-center rounded border ${localTheme === theme ? `${colors[theme]["matching-border"]}` : "border-gray-400"} w-14 h-20`}
+                            className={`flex items-center justify-center rounded border flex-1 ${localTheme === theme ? `${colors[theme]["matching-border"]}` : "border-gray-400"} h-20`}
                             style={{ backgroundColor: color }}>
                             {localTheme === theme &&
-                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" className={`${colors[theme]["matching-text"]} w-7 h-7`}>
+                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" className={`${colors[theme]["matching-text"]} w-9 h-9`}>
                                     <path fillRule="evenodd" d="M19.916 4.626a.75.75 0 0 1 .208 1.04l-9 13.5a.75.75 0 0 1-1.154.114l-6-6a.75.75 0 0 1 1.06-1.06l5.353 5.353 8.493-12.74a.75.75 0 0 1 1.04-.207Z" clipRule="evenodd" />
                                 </svg>}
                         </span>
@@ -323,8 +323,8 @@ const Jump = ({ onChangeLanguage, suraNames, onChangeTheme, colors, theme, trans
                                         ))}
                                     </div>
                                 ) : showThemes ? (
-                                    <div className={`flex flex-col items-center justify-center h-48 m-2 `}>
-                                        <div className={`flex flex-col items-center justify-center ${colors[theme]["notes-background"]} rounded h-full w-full px-3 mx-2 py-5`}>
+                                    <div className={`flex flex-col items-center justify-center h-36 m-2 `}>
+                                        <div className={`flex flex-col justify-center ${colors[theme]["notes-background"]} rounded h-full w-full p-2`}>
                                             <div>
                                                 <ThemePicker onChangeTheme={onChangeTheme} />
                                             </div>
