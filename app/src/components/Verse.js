@@ -53,22 +53,34 @@ const Verse = ({ besmele,
     }, [currentVerseKey, hasAsterisk]);
 
     const copyToClipboard = (key, x, y) => {
-
         const verseKey = `${key} ${verseText}`;
         let accumulatedText = verseKey;
-
         if (hasTitle && parseInt(key.split(":")[1]) !== 1) {
             accumulatedText = `${hasTitle}\n${accumulatedText}`;
         }
 
-        if (hasNotes) {
-            accumulatedText += `\n\n[${hasNotes}]`;
+        function normalizeText(text) {
+            text = text.replace(/[^\u0020-\u007E]/g, '');
+            text = text.toLowerCase();
+            text = text.normalize("NFD").replace(/[\u0300-\u036f]/g, '').replace(/\s+/g, '');
+            return text;
         }
-
+        // Update the current verse copy before checking for notes
         accumulatedCopiesRef.current = {
             ...accumulatedCopiesRef.current,
             [key]: accumulatedText
         };
+
+        if (hasNotes) {
+            // Normalize and check the whole current text for notes
+            let currentText = Object.values(accumulatedCopiesRef.current).join("\n\n");
+            let sourcetext = normalizeText(currentText);
+            let notestext = normalizeText(hasNotes);
+
+            if(!sourcetext.includes(notestext)) {
+                accumulatedCopiesRef.current[key] += `\n\n${hasNotes}`;
+            }
+        }
 
         let textToCopy = "";
         Object.values(accumulatedCopiesRef.current).forEach((txt) => {
@@ -89,7 +101,6 @@ const Verse = ({ besmele,
         };
 
         writeToClipboard();
-
     };
 
     const handleBookmark = (verseKey) => {

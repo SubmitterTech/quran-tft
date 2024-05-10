@@ -322,27 +322,27 @@ const Pages = ({
 
     const parseNoteReferences = (notes) => {
         const noteRefsMap = {};
-        let emptyMatch = false;
+        let lastValidRef = null;
         notes.forEach((note, index) => {
             // Extract references like "2:1", "2:1-5", or "2:1,3"
             const referencePattern = /\d+:\d+(-\d+)?(,\d+)?/g;
-            let ref = note.split(" ")[0]
+            let ref = note.split(" ")[0];
             if (ref === "*" || ref === "**") {
-                ref = note.split(" ")[1]
+                ref = note.split(" ")[1];
             }
             const match = ref.match(referencePattern);
             if (match) {
-                if (!noteRefsMap[match]) {
-                    noteRefsMap[match] = [];
+                const key = match[0];
+                if (!noteRefsMap[key]) {
+                    noteRefsMap[key] = [];
                 }
-                if (emptyMatch) {
-                    noteRefsMap[match].push(index - 1);
-                } else {
-                    noteRefsMap[match].push(index);
-                }
-                emptyMatch = false;
+                noteRefsMap[key].push(index);
+                lastValidRef = key;
             } else {
-                emptyMatch = true;
+                // If no reference is found and there's a last valid reference, associate this note with it
+                if (lastValidRef) {
+                    noteRefsMap[lastValidRef].push(index);
+                }
             }
         });
         return noteRefsMap;
@@ -539,10 +539,43 @@ const Pages = ({
                     let notes = null;
 
 
-                    Object.values(noteReferencesMap).forEach((refkey) => {
-                        if (notesData && notesData.data && notesData.data[refkey] && notesData.data[refkey].split(' ')[0].includes(verseKey)) {
-                            notes = notesData.data[refkey];
-                        }
+                    Object.keys(noteReferencesMap).forEach((notesRefKey) => {
+                        const refkeys = noteReferencesMap[notesRefKey];
+
+                        Object.values(refkeys).forEach((refkey) => {
+                            if (notesData && notesData.data && notesData.data[refkey]) {
+
+                                const [suraPart, versePart] = notesRefKey.split(':');
+                                if (versePart) {
+                                    const verseKeyParts = verseKey.split(':');
+                                    const verseKeySura = verseKeyParts[0];
+                                    const verseKeyVerse = parseInt(verseKeyParts[1], 10);
+
+                                    // Handle ranges if present
+                                    if (versePart.includes('-')) {
+                                        const [startVerse, endVerse] = versePart.split('-').map(Number);
+                                        if (hasAsterisk && verseKeySura === suraPart && verseKeyVerse >= startVerse && verseKeyVerse <= endVerse) {
+                                            if (notes === null) {
+                                                notes = notesData.data[refkey];
+                                            } else {
+                                                notes += '\n' + notesData.data[refkey];
+                                            }
+                                        }
+                                    } else {
+                                        // Handle single verse
+                                        const singleVerse = parseInt(versePart, 10);
+                                        if (hasAsterisk && verseKeySura === suraPart && verseKeyVerse === singleVerse) {
+                                            if (notes === null) {
+                                                notes = notesData.data[refkey];
+                                            } else {
+                                                notes += '\n' + notesData.data[refkey];
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+
+                        });
                     });
 
                     return (
