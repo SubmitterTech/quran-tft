@@ -34,7 +34,7 @@ const Pages = ({
 
     const [notify, setNotify] = useState(false);
     const notifyTimeoutRef = useRef();
-    const [focusedNoteIndex, setFocusedNoteIndex] = useState(null);
+    const [focusedNoteIndices, setFocusedNoteIndices] = useState([false, false, false, false, false, false, false, false, false, false]);
 
     const stickyRef = useRef(null);
     const [stickyHeight, setStickyHeight] = useState(0);
@@ -43,6 +43,15 @@ const Pages = ({
     const besmele = quranData["23"]["sura"]["1"]["encrypted"]["1"];
 
     let scrollTimeout = useRef(null);
+
+
+    const updateFocusedNoteIndices = (index, value) => {
+        setFocusedNoteIndices(prev => {
+            const newIndices = [...prev];
+            newIndices[index] = value;
+            return newIndices;
+        });
+    };
 
     const handleScroll = () => {
         if (!isScrolling) setIsScrolling(true);
@@ -323,10 +332,13 @@ const Pages = ({
             }
             const match = ref.match(referencePattern);
             if (match) {
+                if (!noteRefsMap[match]) {
+                    noteRefsMap[match] = [];
+                }
                 if (emptyMatch) {
-                    noteRefsMap[match] = index - 1;
+                    noteRefsMap[match].push(index - 1);
                 } else {
-                    noteRefsMap[match] = index;
+                    noteRefsMap[match].push(index);
                 }
                 emptyMatch = false;
             } else {
@@ -334,7 +346,6 @@ const Pages = ({
             }
         });
         return noteRefsMap;
-
     };
 
     const noteReferencesMap = useMemo(() => {
@@ -361,26 +372,27 @@ const Pages = ({
             // Check if verseRef is within the range specified by the key, considering only verse numbers
             if (verseRef >= rangeStart && (!rangeEnd || verseRef <= rangeEnd)) {
                 matchingNoteIndex = noteReferencesMap[key];
+                Object.values(matchingNoteIndex).forEach((index) => {
+                    if (noteRefs.current[index]) {
+                        updateFocusedNoteIndices(index, true);
+                    }
+                });
             }
         });
 
-        // If a matching note index is found, scroll to the note
-        if (matchingNoteIndex !== undefined && noteRefs.current[matchingNoteIndex]) {
-            noteRefs.current[matchingNoteIndex].scrollIntoView({ behavior: 'smooth', block: 'center' });
-            setFocusedNoteIndex(matchingNoteIndex);
+        if (matchingNoteIndex !== undefined) {
+            noteRefs.current[matchingNoteIndex[matchingNoteIndex.length - 1]].scrollIntoView({ behavior: 'smooth', block: 'center' });
         }
 
     }, [noteReferencesMap]);
 
     useEffect(() => {
-        if (focusedNoteIndex !== null) {
-            const timer = setTimeout(() => {
-                setFocusedNoteIndex(null);
-            }, 4400);
+        const timer = setTimeout(() => {
+            setFocusedNoteIndices([false, false, false, false, false, false, false, false, false]);
+        }, 4450);
 
-            return () => clearTimeout(timer);
-        }
-    }, [focusedNoteIndex]);
+        return () => clearTimeout(timer);
+    }, [focusedNoteIndices]);
 
     useEffect(() => {
         if (showExplanation['GODnamefrequency']) {
@@ -648,7 +660,7 @@ const Pages = ({
 
                     {notesData.data.map((note, index) => (
                         <p
-                            className={`${colors[theme]["notes-background"]} hyphens-auto rounded p-2 ${colors[theme]["app-text"]} ${index === focusedNoteIndex ? 'animate-pulse' : ''}`}
+                            className={`${colors[theme]["notes-background"]} hyphens-auto rounded p-2 ${colors[theme]["app-text"]} ${focusedNoteIndices[index] ? 'animate-pulse' : ''}`}
                             ref={(el) => noteRefs.current[index] = el}
                             key={"notes:" + index}
                             lang={lang}
