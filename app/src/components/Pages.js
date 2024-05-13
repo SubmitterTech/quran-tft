@@ -499,12 +499,11 @@ const Pages = ({
                             // If the title matches the expected format, render the groups
                             if (match) {
                                 return (
-                                    <div key={index} className="flex justify-between w-full">
+                                    <div key={`title-matches-${index}`} className="flex justify-between w-full">
                                         <div className="w-full flex justify-between mr-2">
                                             <span className="text-left font-bold justify-self-center text-sky-500">{match[1]}</span>
                                             <span className="text-right ">{`(${match[2]})`}</span>
                                         </div>
-
                                         <span className="w-1/3 text-right">{match[3]}</span>
                                     </div>
                                 );
@@ -515,7 +514,7 @@ const Pages = ({
                                 const pageInfoPart = title.substring(lastSpaceIndex + 1);
 
                                 return (
-                                    <div key={index} className="flex justify-between w-full">
+                                    <div key={`title-not-matches-${index}`} className="flex justify-between w-full">
                                         <span className="text-left flex-1 font-bold text-sky-500">{namePart}</span>
                                         <span className="text-right flex-1">{pageInfoPart}</span>
                                     </div>
@@ -537,7 +536,6 @@ const Pages = ({
                     pageGWC[verseKey] = countGODwords(verseText)
 
                     let notes = null;
-
 
                     Object.keys(noteReferencesMap).forEach((notesRefKey) => {
                         const refkeys = noteReferencesMap[notesRefKey];
@@ -579,7 +577,7 @@ const Pages = ({
                     });
 
                     return (
-                        <div>
+                        <div key={`section-${verseKey}`}>
                             {title && (
                                 title.includes('♦')
                                     ? (

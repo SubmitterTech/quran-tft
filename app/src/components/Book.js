@@ -433,7 +433,9 @@ const Book = ({ onChangeTheme, colors, theme, translationApplication, introducti
         }
 
         return (
-            <div className={`w-full flex flex-col ${colors[theme]["table-title-text"]}`}>
+            <div 
+            key={`${tableData.title}`}
+            className={`w-full flex flex-col ${colors[theme]["table-title-text"]}`}>
                 <div className={`${colors[theme]["base-background"]} w-full rounded text-sm py-2 text-center `}>
                     {tableRef}
                 </div>
@@ -496,7 +498,9 @@ const Book = ({ onChangeTheme, colors, theme, translationApplication, introducti
 
                 if (parseInt(key) === 0) {
                     return (
-                        <div className={`${colors[theme]["app-text"]} w-full flex justify-between`} key={key}>
+                        <div 
+                        key={`each-title-${key}`}
+                        className={`${colors[theme]["app-text"]} w-full flex justify-between`} >
                             <div className={`p-3 w-1/6 flex justify-center text-center`}>{no}</div>
                             <div className={`p-3 w-full flex justify-center`}>{name}</div>
                             <div className={`p-3 w-1/6 flex justify-center text-center`}>{arabic}</div>
@@ -506,6 +510,7 @@ const Book = ({ onChangeTheme, colors, theme, translationApplication, introducti
                     return (
                         <div
                             onClick={() => updatePage(parseInt(page) + 22)}
+                            key={`each-key-${key}`}
                             className={`flex w-full justify-between mb-2`}>
                             <div className={`font-semibold rounded m-0.5 ${colors[theme]["text-background"]} w-1/6 text-lg flex items-center justify-center`}>
                                 <p className={``} key={key + no}>{no}</p>
@@ -527,10 +532,12 @@ const Book = ({ onChangeTheme, colors, theme, translationApplication, introducti
             });
 
             return (
-                <div className={`w-screen h-screen flex flex-col overflow-auto ${colors[theme]["app-text"]}`}>
+                <div 
+                key={`title-of-suras}`}
+                className={`w-screen h-screen flex flex-col overflow-auto ${colors[theme]["app-text"]}`}>
                     <div className={`w-full p-3`}>
                         <div className={`w-full flex items-center justify-center text-center ${colors[theme]["base-background"]} rounded p-2 font-semibold ${colors[theme]["app-text"]} text-2xl `}>
-                            <h2 key={`title-1}`}>{cpd.titles["1"]}</h2>
+                            <h2>{cpd.titles["1"]}</h2>
                         </div>
                     </div>
                     {renderedContent}
@@ -690,16 +697,19 @@ const Book = ({ onChangeTheme, colors, theme, translationApplication, introducti
                 const hasBesmele = item.content.toLocaleLowerCase(lang).search(bsml) !== -1;
 
                 return (
-                    <div className={hasBesmele ? `select-none w-full my-3 py-1.5 px-2.5 text-neutral-900 rounded text-base md:text-lg lg:text-xl bg-gradient-to-r from-cyan-300 to-sky-500 besmele` : `select-text w-full flex items-center justify-center text-center p-2 font-semibold ${colors[theme]["app-text"]}  whitespace-pre-line ${item.order === 0 ? "text-3xl font-bold" : " text-lg"}`}>
-                        <h2 key={`title-${index}`}>{item.content}</h2>
+                    <div
+                        key={`title-${index}`}
+                        className={hasBesmele ? `select-none w-full my-3 py-1.5 px-2.5 text-neutral-900 rounded text-base md:text-lg lg:text-xl bg-gradient-to-r from-cyan-300 to-sky-500 besmele` : `select-text w-full flex items-center justify-center text-center p-2 font-semibold ${colors[theme]["app-text"]}  whitespace-pre-line ${item.order === 0 ? "text-3xl font-bold" : " text-lg"}`}>
+                        <h2>{item.content}</h2>
                     </div>
                 );
             } else if (item.type === 'text') {
                 return (
                     <div
                         lang={lang}
+                        key={`text-${index}`}
                         className={`select-text rounded ${colors[theme]["text-background"]} ${colors[theme]["app-text"]} p-1.5 mb-1.5 flex w-full justify-center hyphens-auto `}>
-                        <p key={`text-${index}`} className={`px-1`}>{parseReferences(item.content)}</p>
+                        <p className={`px-1`}>{parseReferences(item.content)}</p>
                     </div>
                 );
             } else if (item.type === 'evidence') {
@@ -707,16 +717,18 @@ const Book = ({ onChangeTheme, colors, theme, translationApplication, introducti
                 if (item.content.special && item.content.special.key === 1) {
                     const data = item.content.special.data;
                     return (
-                        <div className={`w-full flex flex-col flex-1 my-3 `}>
-                            <div key={`evidence-${index}`} className={`w-full px-1.5`}>
+                        <div
+                            key={`special-1-${index}`}
+                            className={`w-full flex flex-col flex-1 my-3 `}>
+                            <div className={`w-full px-1.5`}>
                                 <div className={`bg-gray-100 text-gray-700 rounded  text-sm md:text-base border border-gray-700 flex justify-between w-full items-stretch `}>
                                     <div className={`relative text-gray-100 bg-gray-700 w-[11%] flex flex-wrap `}>
                                         {/* Render SVGs for index 0 in this div */}
                                         {Object.entries(data).map(([key, value]) => {
                                             if (parseInt(key) === 0) {
                                                 return Array.from({ length: value }, (_, i) => (
-                                                    <div className={`p-0.5`}>
-                                                        <svg key={i} xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className={`w-3 h-3 md:h-5 md:w-5 lg:h-6 lg:w-6`}>
+                                                    <div key={`prevman-${i}`} className={`p-0.5`}>
+                                                        <svg  xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className={`w-3 h-3 md:h-5 md:w-5 lg:h-6 lg:w-6`}>
                                                             <path strokeLinecap="round" strokeLinejoin="round" d="M15.75 6a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0zM4.501 20.118a7.5 7.5 0 0114.998 0A17.933 17.933 0 0112 21.75c-2.676 0-5.216-.584-7.499-1.632z" />
                                                         </svg>
                                                     </div>
@@ -732,8 +744,8 @@ const Book = ({ onChangeTheme, colors, theme, translationApplication, introducti
                                         {Object.entries(data).map(([key, value]) => {
                                             if (parseInt(key) === 1) {
                                                 return Array.from({ length: value }, (_, i) => (
-                                                    <div className={`p-0.5`}>
-                                                        <svg key={i} xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className={` w-3 h-3 md:h-5 md:w-5 lg:h-6 lg:w-6`}>
+                                                    <div key={`futureman-${i}`} className={`p-0.5`}>
+                                                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className={` w-3 h-3 md:h-5 md:w-5 lg:h-6 lg:w-6`}>
                                                             <path strokeLinecap="round" strokeLinejoin="round" d="M15.75 6a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0zM4.501 20.118a7.5 7.5 0 0114.998 0A17.933 17.933 0 0112 21.75c-2.676 0-5.216-.584-7.499-1.632z" />
                                                         </svg>
                                                     </div>
@@ -786,11 +798,11 @@ const Book = ({ onChangeTheme, colors, theme, translationApplication, introducti
                 }
                 // SPECIAL RENDER 2
                 else if (item.content.special && item.content.special.key === 2) {
-
                     return (
-                        <div className={`w-full flex flex-col flex-1 my-3`}>
-                            <div key={`evidence-${index}`}
-                                className={` text-gray-700 rounded  text-sm md:text-base border border-gray-950 flex justify-between w-full items-stretch`}>
+                        <div
+                            key={`special-2-${index}`}
+                            className={`w-full flex flex-col flex-1 my-3`}>
+                            <div className={` text-gray-700 rounded  text-sm md:text-base border border-gray-950 flex justify-between w-full items-stretch`}>
                                 <div className={`relative w-full bg-gray-100 flex flex-wrap justify-center p-2 text-gray-700 rounded-l`}>
                                     {item.content.lines["1"]}
                                 </div>
@@ -802,7 +814,7 @@ const Book = ({ onChangeTheme, colors, theme, translationApplication, introducti
                                     <path strokeLinecap="round" strokeLinejoin="round" d="M15.75 17.25L12 21m0 0l-3.75-3.75M12 21V3" />
                                 </svg>
                             </div>
-                            <div key={`evidence-${index + 1}`}
+                            <div key={`special-2-${index + 1}`}
                                 className={` text-gray-700 rounded  text-sm md:text-base border border-gray-950 flex justify-between w-full items-stretch`}>
                                 <div className={`relative w-full bg-gray-500 flex flex-wrap justify-center p-2 text-gray-200 rounded-l`}>
                                     {item.content.lines["2"]}
@@ -815,7 +827,9 @@ const Book = ({ onChangeTheme, colors, theme, translationApplication, introducti
                     );
                 }
                 return (
-                    <div key={`evidence-${index}`} className={`${colors[theme]["base-background"]} ${colors[theme]["table-title-text"]} rounded  text-base md:text-xl p-3 border my-3 ${colors[theme]["border"]}`}>
+                    <div
+                        key={`evidence-${index}`}
+                        className={`${colors[theme]["base-background"]} ${colors[theme]["table-title-text"]} rounded  text-base md:text-xl p-3 border my-3 ${colors[theme]["border"]}`}>
                         {Object.entries(item.content.lines).map(([lineKey, lineValue]) => (
                             <p className={` whitespace-pre-wrap my-1`} key={lineKey}>{parseReferences(lineValue)}</p>
                         ))}
@@ -827,8 +841,9 @@ const Book = ({ onChangeTheme, colors, theme, translationApplication, introducti
             } else if (item.type === 'picture') {
                 const imageUrl = images(`./${item.no}.jpg`);
                 return (
-                    <div className={` flex flex-col flex-1 items-center justify-center w-full px-1`}>
-
+                    <div
+                        key={`picture-${index}`}
+                        className={` flex flex-col flex-1 items-center justify-center w-full px-1`}>
                         <div className={`rounded  flex justify-center`}>
 
                             <img
@@ -846,7 +861,6 @@ const Book = ({ onChangeTheme, colors, theme, translationApplication, introducti
                 );
             } else if (item.type === 'table') {
                 return (renderTable(item.content));
-
             } else {
                 return (
                     <div className={`${colors[theme]["log-text"]} flex flex-1 items-center justify-center w-full`}>
@@ -857,7 +871,7 @@ const Book = ({ onChangeTheme, colors, theme, translationApplication, introducti
         });
 
         return (
-            <div key={`content-${currentPage}`} ref={contentRef} className={`${colors[theme]["text"]} overflow-auto flex-1 p-1.5 text-justify lg:text-start text-lg md:text-xl lg:text-2xl`}>
+            <div key={`content-${currentPage}-${lang}`} ref={contentRef} className={`${colors[theme]["text"]} overflow-auto flex-1 p-1.5 text-justify lg:text-start text-lg md:text-xl lg:text-2xl`}>
                 {renderContent}
             </div>
         );
