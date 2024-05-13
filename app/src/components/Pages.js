@@ -554,7 +554,7 @@ const Pages = ({
                                     // Handle ranges if present
                                     if (versePart.includes('-')) {
                                         const [startVerse, endVerse] = versePart.split('-').map(Number);
-                                        if (hasAsterisk && verseKeySura === suraPart && verseKeyVerse >= startVerse && verseKeyVerse <= endVerse) {
+                                        if (verseKeySura === suraPart && verseKeyVerse >= startVerse && verseKeyVerse <= endVerse) {
                                             if (notes === null) {
                                                 notes = notesData.data[refkey];
                                             } else {
@@ -564,7 +564,7 @@ const Pages = ({
                                     } else {
                                         // Handle single verse
                                         const singleVerse = parseInt(versePart, 10);
-                                        if (hasAsterisk && verseKeySura === suraPart && verseKeyVerse === singleVerse) {
+                                        if (verseKeySura === suraPart && verseKeyVerse === singleVerse) {
                                             if (notes === null) {
                                                 notes = notesData.data[refkey];
                                             } else {
