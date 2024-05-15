@@ -1,4 +1,6 @@
 import React, { useCallback, useEffect, useState, useRef } from 'react';
+import { useSpring, animated } from '@react-spring/web';
+import { useDrag } from '@use-gesture/react';
 import { Clipboard } from '@capacitor/clipboard';
 
 const Verse = ({ besmele,
@@ -25,23 +27,19 @@ const Verse = ({ besmele,
     path,
     isScrolling
 }) => {
+    const currentVerseKey = `${suraNumber}:${verseNumber}`;
+    const tooltipRef = useRef();
     const [mode, setMode] = useState("idle");
     const [cn, setCn] = useState(verseClassName);
     const [text, setText] = useState(verseText);
-    const currentVerseKey = `${suraNumber}:${verseNumber}`;
     const [relatedVerses, setRelatedVerses] = useState([]);
     const [tooltip, setTooltip] = useState({ visible: false, x: 0, y: 0, keys: [] });
-    const tooltipRef = useRef();
-
-    const isSwiping = useRef(false);
-
     const [pulseNumber, setPulseNumber] = useState("");
-
     const lang = localStorage.getItem("lang");
     const [isMarked, setMarked] = useState(false);
-    const [swipeStartX, setSwipeStartX] = useState(0);
-    const [swipeEndX, setSwipeEndX] = useState(0);
     const [swipeDistance, setSwipeDistance] = useState(0);
+
+    const [{ x }, api] = useSpring(() => ({ x: 0 }));
 
     useEffect(() => {
         setMarked(localStorage.getItem("bookmarks") ? (JSON.parse(localStorage.getItem("bookmarks")))[currentVerseKey] : false)
@@ -77,7 +75,7 @@ const Verse = ({ besmele,
             let sourcetext = normalizeText(currentText);
             let notestext = normalizeText(hasNotes);
 
-            if(!sourcetext.includes(notestext)) {
+            if (!sourcetext.includes(notestext)) {
                 accumulatedCopiesRef.current[key] += `\n\n${hasNotes}`;
             }
         }
@@ -117,67 +115,73 @@ const Verse = ({ besmele,
         setMarked(!isMarked);
     };
 
-    const handleSwipeStart = (e) => {
-        if (!isScrolling && mode !== 'reading') {
-            setSwipeStartX(e.touches[0].clientX);
+    const handleCopy = () => {
+        const clip = "[" + currentVerseKey + "]";
+        copyToClipboard(clip, 0, 0);
+        if (copyTimerRef.current) {
+            clearTimeout(copyTimerRef.current);
+        }
+        copyTimerRef.current = setTimeout(() => {
+            accumulatedCopiesRef.current = ({});
+        }, 19000); // 19 seconds
+    };
+
+    const handleActions = () => {
+        if (!isScrolling && Math.abs(swipeDistance) > 100) {
+            if (swipeDistance > 100) {
+                handleBookmark(currentVerseKey);
+            } else if (swipeDistance < -100) {
+                handleCopy();
+            }
         }
     };
 
-    const handleSwipeMove = (e) => {
-        if (!isScrolling && mode !== 'reading') {
-            isSwiping.current = true;
-            const currentX = e.touches[0].clientX;
-            const deltaX = swipeStartX - currentX;
-            setSwipeEndX(deltaX);
-            if (Math.abs(deltaX) > 9 && Math.abs(deltaX) < 266) {
-                setSwipeDistance(deltaX);
+    const bindDrag = useDrag(({ down, movement: [mx], memo }) => {
+        if (mode === 'reading') {
+            return;
+        }
+        if (!memo) {
+            const initialX = mx;
+            return initialX;
+        }
+        const deltaX = mx - memo;
+        setSwipeDistance(mx - memo);
+        if (!down) {
+            if (Math.abs(deltaX) > 100) {
+                if (deltaX > 0) {
+                    handleBookmark(currentVerseKey);
+                } else {
+                    handleCopy();
+                }
+                api.start({ x: 0, config: { tension: 190, friction: 38 } });
+            } else {
+                api.start({ x: 0, config: { tension: 190, friction: 38 } });
             }
         } else {
-            setSwipeDistance(0);
-            setSwipeEndX(0);
+            api.start({ x: deltaX, immediate: true });
         }
-    };
 
-    const handleSwipeEnd = () => {
-        if (!isScrolling && Math.abs(swipeDistance) > 100) {
-            if (swipeDistance > 100) { // Swipe left
-                const clip = "[" + currentVerseKey + "]";
-                copyToClipboard(clip, 0, 0);
-                isSwiping.current = false;
-                // Start a 60-second timer
-                if (copyTimerRef.current) {
-
-                    clearTimeout(copyTimerRef.current);
-                }
-                copyTimerRef.current = setTimeout(() => {
-                    // Clear accumulatedCopies after 60 seconds
-                    accumulatedCopiesRef.current = ({});
-
-                }, 19000); // 19 seconds
-            } else if (swipeDistance < -100) { // Swipe right
-                handleBookmark(currentVerseKey);
-            }
-        }
-        setSwipeDistance(0);
-        isSwiping.current = false;
-    };
+        return memo;
+    }, {
+        axis: 'x',
+        pointer: { touch: true }
+    });
 
     const handleMouseEnter = (side) => {
         if (mode !== 'reading') {
             if (side === 'right') {
-                setSwipeDistance(110);
-                setSwipeEndX(110);
-            } else if (side === 'left') {
+                api.start({ x: -110 });
                 setSwipeDistance(-110);
-                setSwipeEndX(-110);
+            } else if (side === 'left') {
+                api.start({ x: 110 });
+                setSwipeDistance(110);
             }
         }
     };
 
     const handleMouseLeave = () => {
-
         setSwipeDistance(0);
-        setSwipeEndX(0);
+        api.start({ x: 0 });
     };
 
     const onRelatedVerseClick = (verseKey) => {
@@ -229,7 +233,6 @@ const Verse = ({ besmele,
                 }
             });
         };
-
 
         const processTheme = (theme, references) => {
             // Split the references string by ';' to separate different references
@@ -325,7 +328,6 @@ const Verse = ({ besmele,
         }, []);
     }, [translationApplication]);
 
-
     const lightAllahwords = (text) => {
         if (pageGWC[currentVerseKey]) {
             const namesofGOD = "(?<![\\u0600-\\u06FF])(الله|لله|ولله|والله|بالله)(?![\\u0600-\\u06FF])";
@@ -401,10 +403,6 @@ const Verse = ({ besmele,
 
 
     const handleClick = () => {
-        if (isSwiping.current) {
-            isSwiping.current = false;
-            return;
-        }
         if (mode === "light") {
             setMode("idle");
             handleVerseClick(true, currentVerseKey);
@@ -430,32 +428,30 @@ const Verse = ({ besmele,
         <div className={`relative`}>
             <div className={`absolute w-full flex h-full justify-between px-2.5`}>
                 <div className={`flex h-full w-full px-2 justify-start items-start ${isMarked ? `${colors[theme]["matching-text"]}` : `${colors[theme]["text"]}`}`}>
-                    {isMarked ? (<svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24" strokeWidth={1.5} className={`w-8 h-8 transition-colors duration-500`} style={{ opacity: Math.abs(swipeEndX) / 120 }}>
+                    {isMarked ? (<svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24" strokeWidth={1.5} className={`w-8 h-8 transition-colors duration-500`} style={{ opacity: Math.abs(swipeDistance) / 120 }}>
                         <path fillRule="evenodd" d="M6 3a3 3 0 0 0-3 3v12a3 3 0 0 0 3 3h12a3 3 0 0 0 3-3V6a3 3 0 0 0-3-3H6Zm1.5 1.5a.75.75 0 0 0-.75.75V16.5a.75.75 0 0 0 1.085.67L12 15.089l4.165 2.083a.75.75 0 0 0 1.085-.671V5.25a.75.75 0 0 0-.75-.75h-9Z" clipRule="evenodd" />
                     </svg>
 
-                    ) : (<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className={`w-8 h-8 transition-colors duration-500`} style={{ opacity: Math.abs(swipeEndX) / 120 }}>
+                    ) : (<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className={`w-8 h-8 transition-colors duration-500`} style={{ opacity: Math.abs(swipeDistance) / 120 }}>
                         <path strokeLinecap="round" strokeLinejoin="round" d="M16.5 3.75V16.5L12 14.25 7.5 16.5V3.75m9 0H18A2.25 2.25 0 0 1 20.25 6v12A2.25 2.25 0 0 1 18 20.25H6A2.25 2.25 0 0 1 3.75 18V6A2.25 2.25 0 0 1 6 3.75h1.5m9 0h-9" />
                     </svg>)}
                 </div>
-                <div className={`flex h-full w-full justify-end items-start px-2 ${Math.abs(swipeEndX) > 100 ? `${colors[theme]["matching-text"]}` : `${colors[theme]["page-text"]}`}`}>
-                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className={`w-8 h-8 transition-colors duration-300`} style={{ opacity: Math.abs(swipeEndX) / 140 }}>
+                <div className={`flex h-full w-full justify-end items-start px-2 ${Math.abs(swipeDistance) > 100 ? `${colors[theme]["matching-text"]}` : `${colors[theme]["page-text"]}`}`}>
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className={`w-8 h-8 transition-colors duration-300`} style={{ opacity: Math.abs(swipeDistance) / 140 }}>
                         <path strokeLinecap="round" strokeLinejoin="round" d="M9 12h3.75M9 15h3.75M9 18h3.75m3 .75H18a2.25 2.25 0 0 0 2.25-2.25V6.108c0-1.135-.845-2.098-1.976-2.192a48.424 48.424 0 0 0-1.123-.08m-5.801 0c-.065.21-.1.433-.1.664 0 .414.336.75.75.75h4.5a.75.75 0 0 0 .75-.75 2.25 2.25 0 0 0-.1-.664m-5.8 0A2.251 2.251 0 0 1 13.5 2.25H15c1.012 0 1.867.668 2.15 1.586m-5.8 0c-.376.023-.75.05-1.124.08C9.095 4.01 8.25 4.973 8.25 6.108V8.25m0 0H4.875c-.621 0-1.125.504-1.125 1.125v11.25c0 .621.504 1.125 1.125 1.125h9.75c.621 0 1.125-.504 1.125-1.125V9.375c0-.621-.504-1.125-1.125-1.125H8.25ZM6.75 12h.008v.008H6.75V12Zm0 3h.008v.008H6.75V15Zm0 3h.008v.008H6.75V18Z" />
                     </svg>
 
                 </div>
 
             </div>
-            <div
+            <animated.div
                 ref={(el) => verseRefs.current[currentVerseKey] = el}
                 lang={lang}
                 key={"verse:" + currentVerseKey}
-                onTouchStart={handleSwipeStart}
-                onTouchMove={handleSwipeMove}
-                onTouchEnd={handleSwipeEnd}
+                {...bindDrag()}
+                onTouchEnd={() => api.start({ x: 0 })}
                 style={{
-                    transform: `translateX(${-swipeDistance}px)`,
-                    transition: isSwiping.current ? 'none' : 'transform 0.7s ease',
+                    transform: x.to(x => `translateX(${x}px)`),
                 }}
                 className={`${cn} relative`}>
                 <div onClick={() => handleClick()} className={`px-1 w-full`}>
@@ -521,8 +517,6 @@ const Verse = ({ besmele,
                         ))}
                     </div>
                 </div>
-
-
                 {tooltip.visible && (
                     <div
                         ref={tooltipRef}
@@ -532,9 +526,9 @@ const Verse = ({ besmele,
                         {tooltip.keys}{` `}{translationApplication.copied}
                     </div>
                 )}
-            </div>
+            </animated.div>
             {mode !== "reading" && <div
-                onClick={() => handleSwipeEnd()}
+                onClick={() => handleActions()}
                 className={`absolute left-0 top-0 h-full cursor-pointer w-0 md:w-1/12`}
                 onMouseEnter={() => handleMouseEnter('left')}
                 onMouseLeave={handleMouseLeave}
@@ -542,7 +536,7 @@ const Verse = ({ besmele,
             }
             {mode !== "reading" &&
                 <div
-                    onClick={() => handleSwipeEnd()}
+                    onClick={() => handleActions()}
                     className={`absolute right-0 top-0 h-full cursor-pointer w-0 md:w-1/12`}
                     onMouseEnter={() => handleMouseEnter('right')}
                     onMouseLeave={handleMouseLeave}
