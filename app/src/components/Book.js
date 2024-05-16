@@ -12,8 +12,7 @@ const Book = ({ onChangeTheme, colors, theme, translationApplication, introducti
     const lang = localStorage.getItem("lang")
     const images = require.context('../assets/pictures/', false, /\.jpg$/);
     const [selectOpen, setSelectOpen] = useState(false);
-
-
+    const magnifyConfirm = useRef(false);
     const [currentPage, setCurrentPage] = useState(parseInt(localStorage.getItem("qurantft-pn")) ? parseInt(localStorage.getItem("qurantft-pn")) : 1);
     const [pageHistory, setPageHistory] = useState([]);
     const [isModalOpen, setModalOpen] = useState(false);
@@ -97,6 +96,11 @@ const Book = ({ onChangeTheme, colors, theme, translationApplication, introducti
 
     const handleJump = async (page, suraNumber, verseNumber) => {
         updatePage(parseInt(page), suraNumber, verseNumber);
+    };
+
+    const handleMagnifyConfirm = (reference) => {
+        magnifyConfirm.current = true;
+        handleClickReference(reference);
     };
 
     const handleCloseModal = () => {
@@ -241,7 +245,7 @@ const Book = ({ onChangeTheme, colors, theme, translationApplication, introducti
         });
 
         if (foundPageNumber) {
-            let act = 'relationClick';
+            let act = magnifyConfirm.current === true ? 'navigate' : 'relationClick';
             if (parseInt(currentPage) < 23) {
                 act = 'fromIntro';
             } else if (parseInt(currentPage) > 396) {
@@ -253,6 +257,7 @@ const Book = ({ onChangeTheme, colors, theme, translationApplication, introducti
                 text: translationApplication.refNotFound,
             });
         }
+        magnifyConfirm.current = false;
     };
 
     const handleClickAppReference = (inp) => {
@@ -433,9 +438,9 @@ const Book = ({ onChangeTheme, colors, theme, translationApplication, introducti
         }
 
         return (
-            <div 
-            key={`${tableData.title}`}
-            className={`w-full flex flex-col ${colors[theme]["table-title-text"]}`}>
+            <div
+                key={`${tableData.title}`}
+                className={`w-full flex flex-col ${colors[theme]["table-title-text"]}`}>
                 <div className={`${colors[theme]["base-background"]} w-full rounded text-sm py-2 text-center `}>
                     {tableRef}
                 </div>
@@ -498,9 +503,9 @@ const Book = ({ onChangeTheme, colors, theme, translationApplication, introducti
 
                 if (parseInt(key) === 0) {
                     return (
-                        <div 
-                        key={`each-title-${key}`}
-                        className={`${colors[theme]["app-text"]} w-full flex justify-between`} >
+                        <div
+                            key={`each-title-${key}`}
+                            className={`${colors[theme]["app-text"]} w-full flex justify-between`} >
                             <div className={`p-3 w-1/6 flex justify-center text-center`}>{no}</div>
                             <div className={`p-3 w-full flex justify-center`}>{name}</div>
                             <div className={`p-3 w-1/6 flex justify-center text-center`}>{arabic}</div>
@@ -532,9 +537,9 @@ const Book = ({ onChangeTheme, colors, theme, translationApplication, introducti
             });
 
             return (
-                <div 
-                key={`title-of-suras}`}
-                className={`w-screen h-screen flex flex-col overflow-auto ${colors[theme]["app-text"]}`}>
+                <div
+                    key={`title-of-suras}`}
+                    className={`w-screen h-screen flex flex-col overflow-auto ${colors[theme]["app-text"]}`}>
                     <div className={`w-full p-3`}>
                         <div className={`w-full flex items-center justify-center text-center ${colors[theme]["base-background"]} rounded p-2 font-semibold ${colors[theme]["app-text"]} text-2xl `}>
                             <h2>{cpd.titles["1"]}</h2>
@@ -728,7 +733,7 @@ const Book = ({ onChangeTheme, colors, theme, translationApplication, introducti
                                             if (parseInt(key) === 0) {
                                                 return Array.from({ length: value }, (_, i) => (
                                                     <div key={`prevman-${i}`} className={`p-0.5`}>
-                                                        <svg  xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className={`w-3 h-3 md:h-5 md:w-5 lg:h-6 lg:w-6`}>
+                                                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className={`w-3 h-3 md:h-5 md:w-5 lg:h-6 lg:w-6`}>
                                                             <path strokeLinecap="round" strokeLinejoin="round" d="M15.75 6a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0zM4.501 20.118a7.5 7.5 0 0114.998 0A17.933 17.933 0 0112 21.75c-2.676 0-5.216-.584-7.499-1.632z" />
                                                         </svg>
                                                     </div>
@@ -988,7 +993,7 @@ const Book = ({ onChangeTheme, colors, theme, translationApplication, introducti
                     quran={translation ? translation : quranData}
                     map={map}
                     onClose={handleCloseSearch}
-                    onConfirm={handleClickReference}
+                    onConfirm={handleMagnifyConfirm}
                 />
             }
         </div>
