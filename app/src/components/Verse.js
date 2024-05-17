@@ -136,8 +136,8 @@ const Verse = ({ besmele,
         }
     };
 
-    const bindDrag = useDrag(({ down, movement: [mx], memo }) => {
-        if (mode === 'reading') {
+    const bindDrag = useDrag(({ down, movement: [mx], memo, event }) => {
+        if (mode === 'reading' || event.pointerType === 'mouse') {
             return;
         }
         if (!memo) {
@@ -529,7 +529,7 @@ const Verse = ({ besmele,
             </animated.div>
             {mode !== "reading" && <div
                 onClick={() => handleActions()}
-                className={`absolute left-0 top-0 h-full cursor-pointer w-0 md:w-1/12`}
+                className={`absolute left-0 top-0 h-full cursor-pointer w-0 sm:w-1/12`}
                 onMouseEnter={() => handleMouseEnter('left')}
                 onMouseLeave={handleMouseLeave}
             />
@@ -537,7 +537,7 @@ const Verse = ({ besmele,
             {mode !== "reading" &&
                 <div
                     onClick={() => handleActions()}
-                    className={`absolute right-0 top-0 h-full cursor-pointer w-0 md:w-1/12`}
+                    className={`absolute right-0 top-0 h-full cursor-pointer w-0 sm:w-1/12`}
                     onMouseEnter={() => handleMouseEnter('right')}
                     onMouseLeave={handleMouseLeave}
                 />}
