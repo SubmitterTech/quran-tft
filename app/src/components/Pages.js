@@ -116,9 +116,11 @@ const Pages = ({
         const verseKey = `${parseInt(selectedSura)}:${parseInt(selectedVerse)}`;
         if (selectedPage && selectedPage !== currentPageRef.current) {
             if (!selectedVerse) {
-                if (topRef.current) {
-                    topRef.current.scrollIntoView({ behavior: 'smooth', block: 'start' });
-                }
+                setTimeout(() => {
+                    if (topRef.current) {
+                        topRef.current.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                    }
+                }, 78);
             } else {
                 setTimeout(() => {
                     forceScroll(verseKey);
