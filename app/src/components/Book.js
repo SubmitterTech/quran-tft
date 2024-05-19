@@ -21,14 +21,14 @@ const Book = ({ onChangeTheme, colors, theme, translationApplication, introducti
     const [action, setAction] = useState(null);
     const [bookContent, setBookContent] = useState(null);
     const [isSearchOpen, setSearchOpen] = useState(false);
-
     const contentRef = useRef(null);
     const restoreAppText = useRef(null);
     const refToRestore = useRef(null);
     const [pages, setPages] = useState([]);
-
     const [selectedApp, setSelectedApp] = useState(1);
     const [backButtonPressedOnce, setBackButtonPressedOnce] = useState(false);
+    const [remainingTime, setRemainingTime] = useState(0);
+    const progressPercentage = (remainingTime / 19000) * 100;
 
     let path = useRef({});
 
@@ -568,6 +568,7 @@ const Book = ({ onChangeTheme, colors, theme, translationApplication, introducti
                 handleClickAppReference={handleClickAppReference}
                 handleTogglePage={handleTogglePage}
                 path={path}
+                setRemainingTime={setRemainingTime}
             />;
         }
 
@@ -887,11 +888,12 @@ const Book = ({ onChangeTheme, colors, theme, translationApplication, introducti
             style={{ paddingTop: 'env(safe-area-inset-top)', paddingBottom: 'env(safe-area-inset-bottom)' }}>
             {renderBookContent()}
             <div>
-                <div className=" h-14 md:h-20"></div>
+                <div className={`h-14 md:h-20`}></div>
                 <div className={`w-full flex z-40 ${colors[theme]["app-background"]} fixed bottom-0`}
                     style={{ paddingBottom: 'env(safe-area-inset-bottom)' }}>
-                    <div className={`flex w-full items-center justify-between`}>
-
+                    <div className={`relative flex w-full items-center justify-between`}>
+                        <div className={`absolute h-1 left-0 -top-1 ${colors[theme]["matching"]}`}
+                            style={{ width: `${progressPercentage}%` }}></div>
                         <button onClick={prevPage}
                             disabled={(isModalOpen || currentPage === 1 || isSearchOpen)}
                             className={`w-1/2 h-full ${colors[theme]["app-text"]} px-2 mr-2 flex items-center justify-center transition-all duration-500 ease-linear ${(isModalOpen || currentPage === 1 || isSearchOpen) ? "opacity-0" : "opacity-100"} `}>

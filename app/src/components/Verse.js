@@ -25,7 +25,8 @@ const Verse = ({ besmele,
     hasTitle,
     hasNotes,
     path,
-    isScrolling
+    isScrolling,
+    setRemainingTime
 }) => {
     const currentVerseKey = `${suraNumber}:${verseNumber}`;
     const tooltipRef = useRef();
@@ -38,6 +39,7 @@ const Verse = ({ besmele,
     const lang = localStorage.getItem("lang");
     const [isMarked, setMarked] = useState(false);
     const [swipeDistance, setSwipeDistance] = useState(0);
+    const timerRef = useRef();
 
     const [{ x }, api] = useSpring(() => ({ x: 0 }));
 
@@ -116,15 +118,35 @@ const Verse = ({ besmele,
     };
 
     const handleCopy = () => {
-        const clip = "[" + currentVerseKey + "]";
-        copyToClipboard(clip, 0, 0);
+        const clip = `[${currentVerseKey}]`;
+        copyToClipboard(clip);
         if (copyTimerRef.current) {
             clearTimeout(copyTimerRef.current);
         }
         copyTimerRef.current = setTimeout(() => {
-            accumulatedCopiesRef.current = ({});
-        }, 19000); // 19 seconds
+            accumulatedCopiesRef.current = {};
+            setRemainingTime(0);
+        }, 19000);
+
+        let startTime = Date.now();
+        let endTime = startTime + 19000;
+
+        // Clear the previous animation frame
+        if (timerRef.current) {
+            cancelAnimationFrame(timerRef.current);
+        }
+
+        const updateRemainingTime = () => {
+            let now = Date.now();
+            let remaining = Math.max(endTime - now, 0);
+            setRemainingTime(remaining);
+            if (remaining > 0) {
+                timerRef.current = requestAnimationFrame(updateRemainingTime);
+            }
+        };
+        updateRemainingTime();
     };
+
 
     const handleActions = () => {
         if (!isScrolling && Math.abs(swipeDistance) > 100) {

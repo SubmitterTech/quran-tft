@@ -17,7 +17,8 @@ const Pages = ({
     handleClickReference,
     handleClickAppReference,
     handleTogglePage,
-    path
+    path,
+    setRemainingTime
 }) => {
     const lang = localStorage.getItem("lang")
     const [pageData, setPageData] = useState(null);
@@ -655,6 +656,7 @@ const Pages = ({
                                 hasNotes={notes}
                                 path={path}
                                 isScrolling={isScrolling}
+                                setRemainingTime={setRemainingTime}
                             />
                         </div>
                     );
