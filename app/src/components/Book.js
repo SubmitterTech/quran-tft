@@ -892,7 +892,7 @@ const Book = ({ onChangeTheme, colors, theme, translationApplication, introducti
                 <div className={`w-full flex z-40 ${colors[theme]["app-background"]} fixed bottom-0`}
                     style={{ paddingBottom: 'env(safe-area-inset-bottom)' }}>
                     <div className={`relative flex w-full items-center justify-between`}>
-                        <div className={`absolute h-1 left-0 -top-1 ${colors[theme]["matching"]}`}
+                        <div className={`absolute h-0.5 left-0 -top-0.5 ${colors[theme]["matching"]}`}
                             style={{ width: `${progressPercentage}%` }}></div>
                         <button onClick={prevPage}
                             disabled={(isModalOpen || currentPage === 1 || isSearchOpen)}
