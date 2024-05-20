@@ -291,7 +291,6 @@ const Pages = ({
                         );
                     }
 
-
                     lastIndex = match.index + match[0].length;
                 });
 
@@ -326,21 +325,21 @@ const Pages = ({
     const parseNoteReferences = (notes) => {
         const noteRefsMap = {};
         let lastValidRef = null;
+        const referencePattern = /\d+:\d+(-\d+)?(,\d+)?/g;
         notes.forEach((note, index) => {
-            // Extract references like "2:1", "2:1-5", or "2:1,3"
-            const referencePattern = /\d+:\d+(-\d+)?(,\d+)?/g;
-            let ref = note.split(" ")[0];
-            if (ref === "*" || ref === "**") {
-                ref = note.split(" ")[1];
-            }
-            const match = ref.match(referencePattern);
-            if (match) {
-                const key = match[0];
-                if (!noteRefsMap[key]) {
-                    noteRefsMap[key] = [];
-                }
-                noteRefsMap[key].push(index);
-                lastValidRef = key;
+            // Extract all references in the note
+            const matches = note.match(referencePattern);
+            if (matches) {
+                matches.forEach(match => {
+                    const key = match.trim();
+                    if (!noteRefsMap[key]) {
+                        noteRefsMap[key] = [];
+                    }
+                    if (!noteRefsMap[key].includes(index)) {
+                        noteRefsMap[key].push(index);
+                    }
+                    lastValidRef = key;
+                });
             } else {
                 // If no reference is found and there's a last valid reference, associate this note with it
                 if (lastValidRef) {
