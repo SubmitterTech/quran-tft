@@ -360,6 +360,7 @@ const Pages = ({
 
     const handleTitleClick = useCallback((suraVerseRef) => {
         // Extract the numeric value of the verse from suraVerseRef
+        const suraRef = parseInt(suraVerseRef.split(':')[0]);
         const verseRef = parseInt(suraVerseRef.split(':')[1]);
 
         // Initialize a variable to store the matching note index
@@ -367,12 +368,12 @@ const Pages = ({
 
         // Iterate over the keys in noteReferencesMap to find a range match
         Object.keys(noteReferencesMap).forEach((key) => {
-            // Split the key into sura and verse parts, and then check for verse range
+            const keySura = parseInt(key.split(':')[0]);
             const keyVerseRange = key.split(':')[1];
             const [rangeStart, rangeEnd] = keyVerseRange.includes('-') ? keyVerseRange.split('-').map(Number) : [parseInt(keyVerseRange), parseInt(keyVerseRange)];
 
             // Check if verseRef is within the range specified by the key, considering only verse numbers
-            if (verseRef >= rangeStart && (!rangeEnd || verseRef <= rangeEnd)) {
+            if (suraRef === keySura && (verseRef >= rangeStart && (!rangeEnd || verseRef <= rangeEnd))) {
                 matchingNoteIndex = noteReferencesMap[key];
                 Object.values(matchingNoteIndex).forEach((index) => {
                     if (noteRefs.current[index]) {
@@ -391,7 +392,7 @@ const Pages = ({
     useEffect(() => {
         const timer = setTimeout(() => {
             setFocusedNoteIndices([false, false, false, false, false, false, false, false, false]);
-        }, 4450);
+        }, 6040);
 
         return () => clearTimeout(timer);
     }, [focusedNoteIndices]);
@@ -400,7 +401,7 @@ const Pages = ({
         if (showExplanation['GODnamefrequency']) {
             const timer = setTimeout(() => {
                 setShowExplanation(prev => ({ ...prev, 'GODnamefrequency': false }));
-            }, 7000);
+            }, 7600);
             return () => clearTimeout(timer);
         }
     }, [showExplanation]);
@@ -409,7 +410,7 @@ const Pages = ({
         if (showExplanation['GODnamesum']) {
             const timer = setTimeout(() => {
                 setShowExplanation(prev => ({ ...prev, 'GODnamesum': false }));
-            }, 7000);
+            }, 7600);
             return () => clearTimeout(timer);
         }
     }, [showExplanation]);
@@ -693,14 +694,14 @@ const Pages = ({
                     <h3 className={`p-1`}>{translationApplication?.notes}:</h3>
 
                     {notesData.data.map((note, index) => (
-                        <p
+                        <div
                             className={`${colors[theme]["notes-background"]} hyphens-auto rounded p-2 ${colors[theme]["app-text"]} ${focusedNoteIndices[index] ? 'animate-pulse' : ''}`}
                             ref={(el) => noteRefs.current[index] = el}
                             key={"notes:" + index}
                             lang={lang}
                         >
                             {parseReferences(note)}
-                        </p>
+                        </div>
                     ))}
                     {notesData.tables && notesData.tables.map((table, index) => (
                         <div className={`flex justify-center`}
