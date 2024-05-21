@@ -130,7 +130,15 @@ const Magnify = ({ colors, theme, translationApplication, quran, map, onClose, o
                             if (match && match.length > 0) {
                                 const cleanedRef = match[0].replace(/^\*+/, '');
                                 const ref = cleanedRef.split(":");
-                                notesResults.push({ suraNumber: ref[0], verseNumber: ref[1], note });
+                                const suraNumberRef = ref[0];
+                                const verseNumberRef = ref[1];
+
+                                if (!notesResults.some(result =>
+                                    result.suraNumber === suraNumberRef &&
+                                    result.verseNumber === verseNumberRef &&
+                                    result.note.replace(/^\*+/, '') === note.replace(/^\*+/, ''))) {
+                                    notesResults.push({ suraNumber: suraNumberRef, verseNumber: verseNumberRef, note });
+                                }
                             }
                         }
                     });
