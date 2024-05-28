@@ -8,6 +8,7 @@
     "@capacitor/app": "^5.0.7",
     "@capacitor/clipboard": "^5.0.7",
     "@capacitor/core": "^5.7.5",
+    "@capacitor/device": "^5.0.7",
     "@capacitor/ios": "^5.7.5",
     "@capacitor/toast": "^5.0.7",
     "@react-spring/web": "^9.7.3",
