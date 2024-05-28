@@ -1,0 +1,7 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
+    <string name="app_name">Kuran</string>
+    <string name="title_activity_main">Kuran</string>
+    <string name="package_name">com.submittertech.quran</string>
+    <string name="custom_url_scheme">com.submittertech.quran</string>
+</resources>
