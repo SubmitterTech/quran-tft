@@ -6,6 +6,10 @@ export const getDeviceLanguage = async () => {
 };
 
 export const setInitialLanguage = async () => {
+  const existingLang = localStorage.getItem("lang");
+  if (existingLang) {
+    return existingLang;
+  }
   try {
     const langCode = await getDeviceLanguage();
     localStorage.setItem("lang", langCode);
