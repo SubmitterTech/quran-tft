@@ -16,7 +16,7 @@ const Cover = ({ onCoverSeen, coverData, lang, onChangeLanguage }) => {
             setLineHeight(linesHeight / 19);
             setLineMargin(marginsHeight / 18);
         }
-    }, [show19,parentRef]);
+    }, [show19, parentRef]);
 
     const handleTap = async (e) => {
         setShow19(!show19);
@@ -54,11 +54,11 @@ const Cover = ({ onCoverSeen, coverData, lang, onChangeLanguage }) => {
                     </div>
                 )}
                 <div className="flex w-full justify-center h-full pb-4">
-                    <div className={`overflow-y-auto flex flex-col p-4 space-y-4 items-end m-4 ${show19 ? "opacity-0 h-0 w-0 pointer-events-none" : "opacity-100 h-full"} transition-opacity duration-1000 ease-linear `}>
+                    <div className={`overflow-y-auto flex flex-col p-2 space-y-4 items-end m-4 ${show19 ? "opacity-0 h-0 w-0 pointer-events-none" : "opacity-100 h-full"} transition-opacity duration-1000 ease-linear `}>
                         {Object.keys(languages).map((key) => {
                             if (key) {
                                 const isSelectedLanguage = lang === key;
-                                const isLanguageDisabled = languages[key].includes("not complete");
+                                const isLanguageDisabled = languages[key]["comp"] < 50;
 
                                 const languageClass = isLanguageDisabled
                                     ? "bg-neutral-500 cursor-not-allowed opacity-50"
@@ -67,7 +67,7 @@ const Cover = ({ onCoverSeen, coverData, lang, onChangeLanguage }) => {
                                 return (
                                     <div
                                         key={key}
-                                        className={`flex p-2  rounded justify-center ${languageClass} ${isSelectedLanguage ? "ring-1 ring-offset-4 ring-sky-400 ring-offset-sky-900" : ""}`}
+                                        className={`flex flex-col p-2 rounded text-base justify-center ${languageClass} ${isSelectedLanguage ? "ring-1 ring-offset-4 ring-sky-400 ring-offset-sky-900" : ""}`}
                                         onClick={() => isLanguageDisabled ? null : onChangeLanguage(key)}>
                                         <input
                                             type="radio"
@@ -78,7 +78,20 @@ const Cover = ({ onCoverSeen, coverData, lang, onChangeLanguage }) => {
                                             onChange={(e) => isLanguageDisabled ? null : onChangeLanguage(e.target.value)}
                                             className="hidden"
                                         />
-                                        {languages[key]}
+                                        <div className="flex justify-between items-center w-full">
+                                            <span>{languages[key]["name"]}</span>
+                                        </div>
+                                        {key !== "en" && (
+                                            <div className="relative w-full rounded h-3.5 bg-neutral-600 mt-1.5 font-semibold ">
+                                                <div
+                                                    className="bg-sky-400 h-3.5 rounded "
+                                                    style={{ width: `${languages[key]["comp"]}%` }}
+                                                ></div>
+                                                <span className="absolute inset-0 flex items-center justify-center text-xs text-neutral-800">
+                                                    {languages[key]["comp"]}%
+                                                </span>
+                                            </div>
+                                        )}
                                     </div>
                                 );
                             }

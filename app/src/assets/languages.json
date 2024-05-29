@@ -1,13 +1,68 @@
 {
-    "en": "Authorized English Version",
-    "tr": "Türkçe Tercümesi",
-    "de": "Deutsch (not complete)",
-    "fr": "Français (not complete)",
-    "es": "Español (not complete)",
-    "ja": "日本語 (not complete)",
-    "pt": "Português (not complete)",
-    "ru": "Русский (not complete)",
-    "zh": "中国人 (not complete)",
-    "fa": "ترجمه فارسی (not complete)",
-    "nl": "Dutch (not complete)"
+    "en": {
+        "name": "Authorized English Version",
+        "comp": 100,
+        "dir": "ltr",
+        "nums": "0 1 2 3 4 5 6 7 8 9"
+    },
+    "tr": {
+        "name": "Türkçe Tercümesi",
+        "comp": 100,
+        "dir": "ltr",
+        "nums": "0 1 2 3 4 5 6 7 8 9"
+    },
+    "de": {
+        "name": "Deutsch Übersetzung",
+        "comp": 0,
+        "dir": "ltr",
+        "nums": "0 1 2 3 4 5 6 7 8 9"
+    },
+    "fa": {
+        "name": "فارسی ترجمه",
+        "comp": 0,
+        "dir": "rtl",
+        "nums": "۰ ۱ ۲ ۳ ۴ ۵ ۶ ۷ ۸ ۹"
+    },
+    "fr": {
+        "name": "Français Traduction",
+        "comp": 0,
+        "dir": "ltr",
+        "nums": "0 1 2 3 4 5 6 7 8 9"
+    },
+    "es": {
+        "name": "Español Traducción",
+        "comp": 0,
+        "dir": "ltr",
+        "nums": "0 1 2 3 4 5 6 7 8 9"
+    },
+    "ja": {
+        "name": "日本語 翻訳",
+        "comp": 0,
+        "dir": "ltr",
+        "nums": "０ １ ２ ３ ４ ５ ６ ７ ８ ９"
+    },
+    "pt": {
+        "name": "Português Tradução",
+        "comp": 0,
+        "dir": "ltr",
+        "nums": "0 1 2 3 4 5 6 7 8 9"
+    },
+    "ru": {
+        "name": "Русский Перевод",
+        "comp": 0,
+        "dir": "ltr",
+        "nums": "0 1 2 3 4 5 6 7 8 9"
+    },
+    "zh": {
+        "name": "中文 翻译",
+        "comp": 0,
+        "dir": "ltr",
+        "nums": "0 1 2 3 4 5 6 7 8 9"
+    },
+    "nl": {
+        "name": "Dutch Vertaling",
+        "comp": 0,
+        "dir": "ltr",
+        "nums": "0 1 2 3 4 5 6 7 8 9"
+    }
 }
