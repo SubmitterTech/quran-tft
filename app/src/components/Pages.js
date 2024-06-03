@@ -18,7 +18,8 @@ const Pages = ({
     handleClickAppReference,
     handleTogglePage,
     path,
-    setRemainingTime
+    setRemainingTime,
+    direction
 }) => {
     const lang = localStorage.getItem("lang")
     const [pageData, setPageData] = useState(null);
@@ -657,6 +658,7 @@ const Pages = ({
                                 path={path}
                                 isScrolling={isScrolling}
                                 setRemainingTime={setRemainingTime}
+                                direction={direction}
                             />
                         </div>
                     );
@@ -666,21 +668,23 @@ const Pages = ({
                     <div className={`flex text-sm justify-between flex-1`}>
                         <p
                             key={`cfotwG`}
+                            dir={direction}
                             className={`cursor-pointer`} onClick={() => openExplanation('GODnamefrequency')}>
                             {pageData.notes.cumulativefrequencyofthewordGOD}
                         </p>
                         {showExplanation.GODnamefrequency && (
-                            <div className={`absolute w-36 left-1.5 -translate-y-28 text-start p-3 ${colors[theme]["base-background"]} rounded break-word`}>
+                            <div dir={direction} className={`absolute w-36 left-1.5 -translate-y-28 text-start p-3 ${colors[theme]["base-background"]} rounded break-word`}>
                                 {translationApplication?.wc1} = {formatHitCount(parseInt(pageData.notes.cumulativefrequencyofthewordGOD))}
                             </div>
                         )}
                         <p
                             key={`csovwGwo`}
+                            dir={direction}
                             className={`cursor-pointer`} onClick={() => openExplanation('GODnamesum')}>
                             {pageData.notes.cumulativesumofverseswhereGODwordoccurs}
                         </p>
                         {showExplanation.GODnamesum && (
-                            <div className={`absolute w-36 -translate-y-28 right-1.5 text-end  p-3 ${colors[theme]["base-background"]} rounded break-word`}>
+                            <div dir={direction} className={`absolute w-36 -translate-y-28 right-1.5 text-end  p-3 ${colors[theme]["base-background"]} rounded break-word`}>
                                 {translationApplication?.wc2} = {formatHitCount(parseInt(pageData.notes.cumulativesumofverseswhereGODwordoccurs))}
                             </div>
                         )}
@@ -690,7 +694,7 @@ const Pages = ({
             </div>
             {
                 notesData.data.length > 0 &&
-                <div className={`${colors[theme]["base-background"]} mx-1 my-3 rounded p-1 text-lg lg:text-xl xl:text-2xl text-justify ${colors[theme]["app-text"]} flex flex-col space-y-1.5 whitespace-pre-line`}>
+                <div dir={direction} className={`${colors[theme]["base-background"]} mx-1 my-3 rounded p-1 text-lg lg:text-xl xl:text-2xl text-justify ${colors[theme]["app-text"]} flex flex-col space-y-1.5 whitespace-pre-line`}>
                     <h3 className={`p-1`}>{translationApplication?.notes}:</h3>
 
                     {notesData.data.map((note, index) => (

@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useCallback, useRef } from 'react';
 
-const Magnify = ({ colors, theme, translationApplication, quran, map, onClose, onConfirm }) => {
+const Magnify = ({ colors, theme, translationApplication, quran, map, onClose, onConfirm, direction }) => {
     const lang = localStorage.getItem("lang")
 
     const [searchTerm, setSearchTerm] = useState("");
@@ -319,6 +319,7 @@ const Magnify = ({ colors, theme, translationApplication, quran, map, onClose, o
                 <div className={`w-full flex rounded  space-x-2`}>
                     <input
                         type="text"
+                        dir={direction}
                         ref={inputRef}
                         id="searchBar"
                         placeholder={translationApplication.search + "..."}
@@ -349,8 +350,9 @@ const Magnify = ({ colors, theme, translationApplication, quran, map, onClose, o
                 </div>
             </div>
             {searchTerm.length > 1 &&
-                <div className={`flex flex-col flex-1 space-y-1 w-full overflow-auto mb-12 md:mb-14 lg:mb-16`}>
-
+                <div
+                    dir={direction}
+                    className={`flex flex-col flex-1 space-y-1 w-full overflow-auto mb-12 md:mb-14 lg:mb-16`}>
                     <div className={`${loadedTitles.length > 0 ? (loadedVerses.length > 0 && loadedNotes.length > 0) ? "basis-2/12  p-1 mx-1 border" : "flex-1 p-1 mx-1 border" : "h-0 "} transition-all duration-200 ease-linear  overflow-auto rounded ${colors[theme]["verse-border"]} ${colors[theme]["text-background"]}`}>
                         <div className={`${loadedTitles.length > 0 ? "opacity-100" : "opacity-0 h-0"} sticky -top-1 text-sm md:text-base text-center rounded backdrop-blur-xl ${colors[theme]["page-text"]}`}>
                             {translationApplication.titles}{` `}<span className={`${colors[theme]["matching-text"]}`}>{searchResultTitles.length}</span>

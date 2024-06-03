@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef, useCallback } from 'react';
 
-const Apps = ({ colors, theme, translationApplication, parseReferences, appendices, selected, restoreAppText, refToRestore }) => {
+const Apps = ({ colors, theme, translationApplication, parseReferences, appendices, selected, restoreAppText, refToRestore, direction }) => {
 
     const lang = localStorage.getItem("lang");
     const containerRef = useRef(null);
@@ -150,6 +150,7 @@ const Apps = ({ colors, theme, translationApplication, parseReferences, appendic
                 return (
                     <div
                         key={`title-${appno + index}`}
+                        dir={direction}
                         className={`sticky top-0 flex items-center justify-center text-center p-2 font-semibold ${colors[theme]["app-text"]} ${colors[theme]["app-background"]} `}
                         ref={isAppendixTitle ? el => appendixRef.current[`appendix-${item.content.match(/\d+/)[0]}`] = el : null}>
                         {item.content}
@@ -160,6 +161,7 @@ const Apps = ({ colors, theme, translationApplication, parseReferences, appendic
 
                     <div
                         lang={lang}
+                        dir={direction}
                         key={`text-${index}`}
                         ref={(el) => textRef.current[appno + "-" + index] = el}
                         onClick={(e) => handleClick(e, appno, index)}
@@ -171,7 +173,10 @@ const Apps = ({ colors, theme, translationApplication, parseReferences, appendic
                 );
             case 'evidence':
                 return (
-                    <div key={`evidence-${index}`} className={`${colors[theme]["base-background"]} ${colors[theme]["table-title-text"]} rounded  text-base md:text-lg p-3 border my-3 ${colors[theme]["border"]}`}>
+                    <div 
+                    dir={direction}
+                    key={`evidence-${index}`}
+                    className={`${colors[theme]["base-background"]} ${colors[theme]["table-title-text"]} rounded  text-base md:text-lg p-3 border my-3 ${colors[theme]["border"]}`}>
                         {Object.entries(item.content.lines).map(([lineKey, lineValue]) => (
                             <p key={`${lineKey}`} className={`whitespace-pre-wrap my-1`}>{parseReferences(lineValue)}</p>
                         ))}

@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import languages from '../assets/languages.json';
 
-const Jump = ({ onChangeLanguage, suraNames, onChangeTheme, colors, theme, translationApplication, currentPage, quran, onClose, onConfirm, onMagnify }) => {
+const Jump = ({ onChangeLanguage, suraNames, onChangeTheme, colors, theme, translationApplication, currentPage, quran, onClose, onConfirm, onMagnify, direction }) => {
     const [suraNumber, setSuraNumber] = useState("0");
     const [verseNumber, setVerseNumber] = useState("0");
     const [selectedPage, setSelectedPage] = useState(currentPage);
@@ -265,6 +265,7 @@ const Jump = ({ onChangeLanguage, suraNames, onChangeTheme, colors, theme, trans
                             <div className={`w-full flex space-x-2 px-2`}>
                                 <div
                                     onClick={onMagnify}
+                                    dir={direction}
                                     className={`w-3/4 flex justify-center ${colors[theme]["text"]} rounded p-2 ${colors[theme]["text-background"]} cursor-pointer`}>
                                     <button className={`flex justify-center`} >
                                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className={`w-14 h-14`}>
@@ -306,6 +307,7 @@ const Jump = ({ onChangeLanguage, suraNames, onChangeTheme, colors, theme, trans
                                                 <div className={`w-full py-2 ${colors[theme]["page-text"]} flex items-center justify-center`}>
                                                     <input
                                                         type="text"
+                                                        dir={direction}
                                                         defaultValue={formatDate(val)}
                                                         onBlur={(e) => {
                                                             updateBookmark(key, e.target.value);
@@ -385,7 +387,9 @@ const Jump = ({ onChangeLanguage, suraNames, onChangeTheme, colors, theme, trans
                                                 </div>
                                             </div>
                                             <div className={`w-full p-2 ${colors[theme]["app-text"]} flex-1 `}>
-                                                <div className={`w-full p-1`}>
+                                                <div 
+                                                dir={direction}
+                                                className={`w-full p-1`}>
                                                     <div className={`flex w-full ${colors[theme]["app-text"]} mb-4 text-sm`}>
                                                         {translationApplication?.page} {selectedPage}
                                                     </div>

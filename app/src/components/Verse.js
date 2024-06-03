@@ -26,7 +26,8 @@ const Verse = ({ besmele,
     hasNotes,
     path,
     isScrolling,
-    setRemainingTime
+    setRemainingTime,
+    direction
 }) => {
     const currentVerseKey = `${suraNumber}:${verseNumber}`;
     const tooltipRef = useRef();
@@ -345,10 +346,10 @@ const Verse = ({ besmele,
             if (index % 2 === 0) {
                 return [...prev, current];
             } else {
-                return [...prev, <span key={index} className={`font-bold text-sky-500`}>{gw}</span>];
+                return [...prev, <span key={index} dir={direction} className={`font-bold text-sky-500`}>{gw}</span>];
             }
         }, []);
-    }, [translationApplication]);
+    }, [translationApplication, direction]);
 
     const lightAllahwords = (text) => {
         if (pageGWC[currentVerseKey]) {
@@ -469,6 +470,7 @@ const Verse = ({ besmele,
             <animated.div
                 ref={(el) => verseRefs.current[currentVerseKey] = el}
                 lang={lang}
+                dir={direction}
                 key={"verse:" + currentVerseKey}
                 {...bindDrag()}
                 onTouchEnd={() => api.start({ x: 0 })}

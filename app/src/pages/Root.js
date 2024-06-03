@@ -7,6 +7,7 @@ import appendicesContent from '../assets/appendices.json';
 import application from '../assets/application.json';
 import cover from '../assets/cover.json';
 import map from '../assets/map.json';
+import languages from '../assets/languages.json';
 
 function Root() {
     const colors = {
@@ -245,6 +246,7 @@ function Root() {
                 appendicesContent={translationAppx}
                 translation={translation} 
                 onChangeLanguage={setLang}
+                direction={languages[lang]["dir"]}
                 />}
         </div>
     );

@@ -8,7 +8,7 @@ import Magnify from '../components/Magnify';
 import Splash from '../components/Splash';
 import '../assets/css/Book.css';
 
-const Book = ({ onChangeTheme, colors, theme, translationApplication, introductionContent, quranData, map, appendicesContent, translation, onChangeLanguage }) => {
+const Book = ({ onChangeTheme, colors, theme, translationApplication, introductionContent, quranData, map, appendicesContent, translation, onChangeLanguage, direction }) => {
     const lang = localStorage.getItem("lang")
     const images = require.context('../assets/pictures/', false, /\.jpg$/);
     const [selectOpen, setSelectOpen] = useState(false);
@@ -469,7 +469,7 @@ const Book = ({ onChangeTheme, colors, theme, translationApplication, introducti
     const renderBookContent = () => {
 
         if (parseInt(currentPage) === 1) {
-            return <Splash bookContent={bookContent} currentPage={currentPage} colors={colors} theme={theme} />;
+            return <Splash bookContent={bookContent} currentPage={currentPage} colors={colors} theme={theme} direction={direction} />;
         }
 
         if (parseInt(currentPage) === 22) {
@@ -569,6 +569,7 @@ const Book = ({ onChangeTheme, colors, theme, translationApplication, introducti
                 handleTogglePage={handleTogglePage}
                 path={path}
                 setRemainingTime={setRemainingTime}
+                direction={direction}
             />;
         }
 
@@ -617,6 +618,7 @@ const Book = ({ onChangeTheme, colors, theme, translationApplication, introducti
                     return (
                         <div
                             key={key}
+                            dir={direction}
                             onClick={() => handleAppClick(parseInt(elements[0]))}
                             className={`flex w-full justify-between text-lg`}>
                             <div className={`font-semibold rounded p-3 m-1 ${colors[theme]["base-background"]} w-16 flex items-center justify-center`}>
@@ -646,6 +648,7 @@ const Book = ({ onChangeTheme, colors, theme, translationApplication, introducti
                 selected={selectedApp}
                 restoreAppText={restoreAppText}
                 refToRestore={refToRestore}
+                direction={direction}
             />;
         }
 
@@ -884,7 +887,8 @@ const Book = ({ onChangeTheme, colors, theme, translationApplication, introducti
     };
 
     return (
-        <div className={`fixed flex w-full flex-col justify-start h-screen ${colors[theme]["app-background"]} overflow-y-hidden`}
+        <div
+            className={`fixed flex w-full flex-col justify-start h-screen ${colors[theme]["app-background"]} overflow-y-hidden`}
             style={{ paddingTop: 'env(safe-area-inset-top)', paddingBottom: 'env(safe-area-inset-bottom)' }}>
             {renderBookContent()}
             <div>
@@ -909,6 +913,7 @@ const Book = ({ onChangeTheme, colors, theme, translationApplication, introducti
                         </button>
 
                         <div
+                            dir={direction}
                             className={`w-full flex items-center ${colors[theme]["page-text"]} justify-center p-0.5`}>
                             {
                                 isModalOpen ?
@@ -984,6 +989,7 @@ const Book = ({ onChangeTheme, colors, theme, translationApplication, introducti
                     onClose={handleCloseModal}
                     onConfirm={handleJump}
                     onMagnify={onMagnify}
+                    direction={direction}
                 />
             }
             {isSearchOpen &&
@@ -996,6 +1002,7 @@ const Book = ({ onChangeTheme, colors, theme, translationApplication, introducti
                     map={map}
                     onClose={handleCloseSearch}
                     onConfirm={handleMagnifyConfirm}
+                    direction={direction}
                 />
             }
         </div>

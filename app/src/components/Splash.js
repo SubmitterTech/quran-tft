@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 
-const Splash = ({ bookContent, currentPage, colors, theme }) => {
+const Splash = ({ bookContent, currentPage, colors, theme, direction }) => {
     const [showLines, setShowLines] = useState(false);
 
     useEffect(() => {
@@ -13,11 +13,12 @@ const Splash = ({ bookContent, currentPage, colors, theme }) => {
 
     return (
         <div className={`w-screen h-screen flex flex-col items-center justify-center text-lg ${colors[theme]["text"]}`}>
-            <div className={`text-left`}>
+            <div className={direction === "ltr" ? `text-left`: `text-right`}>
                 {lines.map((line, index) => (
                     <div
                         key={index}
-                        className={`mb-1 transition-opacity duration-1000 text-left ${showLines ? 'opacity-100' : 'opacity-0'} ${colors[theme]["text"]}`}
+                        dir={direction}
+                        className={`mb-1 transition-opacity duration-1000 ${showLines ? 'opacity-100' : 'opacity-0'} ${colors[theme]["text"]}`}
                         style={{ transitionDelay: `${index * 1700}ms` }}
                     >
                         {line}

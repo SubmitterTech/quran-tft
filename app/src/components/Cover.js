@@ -118,7 +118,7 @@ const Cover = ({ onCoverSeen, coverData, lang, onChangeLanguage }) => {
                     <p className="whitespace-pre">{coverData.author}</p>
 
                 </div>
-                <p className="whitespace-pre">{coverData.edition + "  1992"}</p>
+                <p dir={languages[lang]["dir"]} className="whitespace-pre">{coverData.edition + "  1992"}</p>
             </div>
         </div>
     );
