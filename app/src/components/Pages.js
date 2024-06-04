@@ -560,7 +560,9 @@ const Pages = ({
                                             if (notes === null) {
                                                 notes = notesData.data[refkey];
                                             } else {
-                                                notes += '\n' + notesData.data[refkey];
+                                                if (notes !== notesData.data[refkey]) {
+                                                    notes += '\n' + notesData.data[refkey];
+                                                }
                                             }
                                         }
                                     } else {

@@ -61,11 +61,17 @@ const Verse = ({ besmele,
         }
 
         function normalizeText(text) {
+            // Remove all non-ASCII characters
             text = text.replace(/[^\u0020-\u007E]/g, '');
+            // Convert to lowercase
             text = text.toLowerCase();
-            text = text.normalize("NFD").replace(/[\u0300-\u036f]/g, '').replace(/\s+/g, '');
+            // Normalize to remove diacritics
+            text = text.normalize("NFD").replace(/[\u0300-\u036f]/g, '');
+            // Remove all characters except for a-z and 0-9
+            text = text.replace(/[^a-z0-9]/g, '');
             return text;
         }
+
         // Update the current verse copy before checking for notes
         accumulatedCopiesRef.current = {
             ...accumulatedCopiesRef.current,
