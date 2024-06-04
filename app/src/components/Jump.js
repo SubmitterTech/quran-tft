@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import languages from '../assets/languages.json';
+import { getRandom } from '../utils/Generator';
 
 const Jump = ({ onChangeLanguage, suraNames, onChangeTheme, colors, theme, translationApplication, currentPage, quran, onClose, onConfirm, onMagnify, direction }) => {
     const [suraNumber, setSuraNumber] = useState("0");
@@ -81,25 +82,36 @@ const Jump = ({ onChangeLanguage, suraNames, onChangeTheme, colors, theme, trans
     }, [currentPage, quran]);
 
     const shuffleSuraVerse = () => {
-        const newSuraNumber = String(Math.floor(Math.random() * Object.keys(suraNameMap).length) + 1);
+        const randomVerse = getRandom();
+
+        let verseIndex = randomVerse;
+        let ns = 0;
+        let nv = 0;
+        for (const s of Object.keys(versesInSuras)) {
+            if ((verseIndex - versesInSuras[s].length) <= 0) {
+                ns = parseInt(s);
+                nv = verseIndex;
+                break
+            } else {
+                verseIndex -= versesInSuras[s].length;
+            }
+        }
+
         setIsShufflingSura(true);
         setSuraNumber(0);
         setVerseNumber(0);
         setLightOpen(false);
         setTimeout(() => {
-            setSuraNumber(newSuraNumber);
-            const newVerseNumbers = versesInSuras[newSuraNumber];
-            const newVerseNumber = newVerseNumbers[Math.floor(Math.random() * newVerseNumbers.length)];
-
+            setSuraNumber(ns);
             setIsShufflingSura(false);
             setTimeout(() => {
                 setIsShufflingVerse(true);
                 setTimeout(() => {
-                    setVerseNumber(newVerseNumber);
+                    setVerseNumber(nv);
                     setIsShufflingVerse(false);
 
-                    if (pageForSuraVerse[newSuraNumber] && pageForSuraVerse[newSuraNumber][newVerseNumber]) {
-                        setSelectedPage(pageForSuraVerse[newSuraNumber][newVerseNumber]);
+                    if (pageForSuraVerse[ns] && pageForSuraVerse[ns][nv]) {
+                        setSelectedPage(pageForSuraVerse[ns][nv]);
                     }
                     setLightOpen(true);
                 }, 300);
@@ -387,9 +399,9 @@ const Jump = ({ onChangeLanguage, suraNames, onChangeTheme, colors, theme, trans
                                                 </div>
                                             </div>
                                             <div className={`w-full p-2 ${colors[theme]["app-text"]} flex-1 `}>
-                                                <div 
-                                                dir={direction}
-                                                className={`w-full p-1`}>
+                                                <div
+                                                    dir={direction}
+                                                    className={`w-full p-1`}>
                                                     <div className={`flex w-full ${colors[theme]["app-text"]} mb-4 text-sm`}>
                                                         {translationApplication?.page} {selectedPage}
                                                     </div>
