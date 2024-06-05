@@ -25,26 +25,26 @@ function App() {
     setQuranMap(qmap);
   }, []);
 
-  // const countLetterInSura = async (sura, l) => {
-  //   let cnt = 0;
+  const countLetterInSura = async (sura, l) => {
+    let cnt = 0;
 
-  //   // Convert the task to asynchronous using Promise
-  //   await new Promise(resolve => {
-  //     Object.values(quranMap[sura]).forEach((verse) => {
-  //       // Count the occurrences of the letter in each verse
-  //       for (const char of verse) {
-  //         if (char === l) {
-  //           cnt++;
-  //         }
-  //       }
-  //       // console.log(verse, l, cnt)
+    // Convert the task to asynchronous using Promise
+    await new Promise(resolve => {
+      Object.values(quranMap[sura]).forEach((verse) => {
+        // Count the occurrences of the letter in each verse
+        for (const char of verse) {
+          if (char === l) {
+            cnt++;
+          }
+        }
+        // console.log(verse, l, cnt)
 
-  //     });
-  //     resolve();
-  //   });
+      });
+      resolve();
+    });
 
-  //   return cnt;
-  // };
+    return cnt;
+  };
 
   const countWordOccurrences = () => {
     if (!selectedWord) return 0;
@@ -156,22 +156,27 @@ function App() {
                 dir="rtl">
                 {quranMap[selectedSura][selectedVerse]}
               </div>
-              <div dir="rtl" className={`w-full flex overflow-y-auto items-center justify-start pb-3  rounded `}>
+              <div dir="rtl" className={`w-full flex flex-wrap items-center justify-start pb-3  rounded `}>
                 {quranMap[selectedSura][selectedVerse].split(" ").map((word, index) => (
-                  <p
+                  <div
                     onClick={() => handleSelectedWord(word.trim())}
                     key={selectedSura + selectedVerse + index + word}
-                    className={`p-2 shadow-md rounded text-start ml-1 cursor-pointer ${selectedWord === word.trim() ? "bg-neutral-700 " : "bg-neutral-800 "}`}
+                    className={`p-2 shadow-md rounded text-start ml-1 mb-1 cursor-pointer ${selectedWord === word.trim() ? "bg-sky-300 text-neutral-900" : "bg-neutral-800 "}`}
                     dir="rtl">
-                    {word}
-                  </p>
+                    <div className={`p-1 shadow-md rounded mb-1 text-base w-full text-center bg-neutral-600`}>
+                      {index + 1}
+                    </div>
+                    <div className={`p-1 w-full `} >
+                      {word}
+                    </div>
+                  </div>
                 ))}
               </div>
-              <div dir="rtl" className={`w-full flex overflow-y-auto items-center justify-start pb-3 rounded`}>
+              <div dir="rtl" className={`w-full flex flex-wrap items-center justify-start pb-3 rounded`}>
                 {quranMap[selectedSura][selectedVerse].replace(/\s/g, '').split('').map((letter, index) => (
                   <div
                     key={`${selectedSura}${selectedVerse}${index}${letter}`}
-                    className={`p-1 shadow-md rounded w-11 ml-1 cursor-pointer bg-neutral-800 flex flex-col items-center`}
+                    className={`p-1 shadow-md rounded w-11 ml-1 mb-1 cursor-pointer bg-neutral-800 flex flex-col items-center`}
                     dir="rtl">
                     <div className={`p-1 shadow-md rounded mb-1 text-base w-9 bg-neutral-600`}>
                       {index + 1}
