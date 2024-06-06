@@ -114,9 +114,9 @@ const Jump = ({ onChangeLanguage, suraNames, onChangeTheme, colors, theme, trans
                         setSelectedPage(pageForSuraVerse[ns][nv]);
                     }
                     setLightOpen(true);
-                }, 300);
-            }, 300);
-        }, 300);
+                }, 209);
+            }, 76);
+        }, 209);
     };
 
     const handleSuraChange = (e) => {
@@ -350,8 +350,8 @@ const Jump = ({ onChangeLanguage, suraNames, onChangeTheme, colors, theme, trans
                                             <div className={` w-full flex space-x-2 mt-2`}>
                                                 <div className={`relative w-full flex justify-end`}>
                                                     <div
-                                                        style={isShufflingSura ? { animation: 'animate-scale 0.4s ease-in-out' } : {}}
-                                                        className={`text-3xl w-1/2 p-3 absolute text-center rounded flex items-center justify-center ${colors[theme]["text"]} ${colors[theme]["notes-background"]}`}
+                                                        style={isShufflingSura ? { animation: 'animate-scale 0.2s ease-in-out' } : {}}
+                                                        className={`text-3xl w-1/2 p-3 absolute shadow-md text-center rounded flex items-center justify-center ${colors[theme]["text"]} ${colors[theme]["notes-background"]}`}
                                                         onClick={() => document.getElementById('sura').click()}
                                                     >
                                                         {parseInt(suraNumber) !== 0 ? suraNumber : translationApplication?.sura}
@@ -378,8 +378,8 @@ const Jump = ({ onChangeLanguage, suraNames, onChangeTheme, colors, theme, trans
                                                 </div>
                                                 <div className={`relative w-full flex justify-start`}>
                                                     <div
-                                                        style={isShufflingVerse ? { animation: 'animate-scale 0.4s ease-in-out' } : {}}
-                                                        className={`text-3xl w-1/2 p-3 absolute text-center rounded flex items-center justify-center ${colors[theme]["text"]} ${colors[theme]["notes-background"]}`}
+                                                        style={isShufflingVerse ? { animation: 'animate-scale 0.2s ease-in-out' } : {}}
+                                                        className={`text-3xl w-1/2 p-3 absolute shadow-md text-center rounded flex items-center justify-center ${colors[theme]["text"]} ${colors[theme]["notes-background"]}`}
                                                         onClick={() => document.getElementById('verse').click()}
                                                     >
                                                         {parseInt(verseNumber) !== 0 ? verseNumber : translationApplication?.verse}
