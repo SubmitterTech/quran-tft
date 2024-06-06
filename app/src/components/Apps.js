@@ -74,17 +74,13 @@ const Apps = ({ colors, theme, translationApplication, parseReferences, appendic
         setAppendixMap(initialAppendixMap);
     }, [appendices, mapAppendicesData]);
 
-    const handleRefsReady = () => {
-        setIsRefsReady(true);
-    };
-
     useEffect(() => {
         if (selected && isRefsReady) {
             setTimeout(() => {
                 if (restoreAppText.current && refToRestore.current && textRef.current[refToRestore.current]) {
                     textRef.current[refToRestore.current].scrollIntoView({ behavior: 'smooth', block: 'center' });
                 } else {
-                    if (appendixRef.current && appendixRef.current[`appendix-${selected}`]) {
+                    if (appendixRef.current && appendixRef.current[`appendix-${selected}`] && isRefsReady) {
                         appendixRef.current[`appendix-${selected}`].scrollIntoView({ behavior: 'smooth' });
                     }
                 }
@@ -93,7 +89,13 @@ const Apps = ({ colors, theme, translationApplication, parseReferences, appendic
         }
     }, [selected, restoreAppText, refToRestore, isRefsReady, textRef]);
 
+    const handleRefsReady = () => {
+        setIsRefsReady(true);
+    };
 
+    const handleClick = (_e, n, i) => {
+        refToRestore.current = n + "-" + i;
+    };
 
     const renderTable = useCallback((tableData, key) => {
 
@@ -136,11 +138,6 @@ const Apps = ({ colors, theme, translationApplication, parseReferences, appendic
         );
     }, [colors, theme, parseReferences]);
 
-    const handleClick = (_e, n, i) => {
-        refToRestore.current = n + "-" + i;
-        setIsRefsReady(false);
-    };
-
     const renderContentItem = (appno, item, index) => {
         switch (item.type) {
             case 'title':
@@ -173,10 +170,10 @@ const Apps = ({ colors, theme, translationApplication, parseReferences, appendic
                 );
             case 'evidence':
                 return (
-                    <div 
-                    dir={direction}
-                    key={`evidence-${index}`}
-                    className={`${colors[theme]["base-background"]} ${colors[theme]["table-title-text"]} rounded  text-base md:text-lg p-3 border my-3 ${colors[theme]["border"]}`}>
+                    <div
+                        dir={direction}
+                        key={`evidence-${index}`}
+                        className={`${colors[theme]["base-background"]} ${colors[theme]["table-title-text"]} rounded  text-base md:text-lg p-3 border my-3 ${colors[theme]["border"]}`}>
                         {Object.entries(item.content.lines).map(([lineKey, lineValue]) => (
                             <p key={`${lineKey}`} className={`whitespace-pre-wrap my-1`}>{parseReferences(lineValue)}</p>
                         ))}
