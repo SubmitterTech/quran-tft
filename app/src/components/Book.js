@@ -32,11 +32,6 @@ const Book = ({ onChangeTheme, colors, theme, translationApplication, introducti
 
     let path = useRef({});
 
-    const setSelectedAppendix = (number) => {
-        updatePage(397, null, null, 'openAppendix', parseInt(number));
-        setSelectedApp(parseInt(number));
-    };
-
     const [appendices, setAppendices] = useState(
         Array.from({ length: 38 }, (_, i) => ({ number: i + 1, title: "" }))
     );
@@ -119,14 +114,20 @@ const Book = ({ onChangeTheme, colors, theme, translationApplication, introducti
         }
     };
 
+    const setSelectedAppendix = (number) => {
+        updatePage(397, null, null, 'openAppendix', parseInt(number));
+        setSelectedApp(parseInt(number));
+    };
+
     const updatePage = useCallback((newPage, sura = null, verse = null, actionType = 'navigate', appReference = null) => {
         setAction(actionType);
-        if (actionType !== 'previous' && parseInt(newPage) !== parseInt(currentPage)) {
+        if (actionType !== 'previous' && (parseInt(newPage) === 397 || (parseInt(newPage) !== parseInt(currentPage)))) {
             setPageHistory(prevHistory => {
                 const lastElement = prevHistory[prevHistory.length - 1];
-                if (lastElement && lastElement.page === parseInt(currentPage)) {
+                if (lastElement && lastElement.page === parseInt(currentPage) && (parseInt(currentPage) !== 397)) {
                     lastElement.sura = sura;
                     lastElement.verse = verse;
+                    lastElement.actionType = actionType;
                     return [...prevHistory.slice(0, prevHistory.length - 1), lastElement];
                 } else {
                     return [...prevHistory, {
