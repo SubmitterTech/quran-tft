@@ -794,7 +794,7 @@ const Book = ({ onChangeTheme, colors, theme, translationApplication, introducti
                                     <div className={`w-7 h-7 rounded bg-gray-100 border border-gray-300 `}>
                                     </div>
                                     <div
-                                        className={`flex ml-1 w-full text-sm`}>
+                                        className={`${direction === "rtl" ? "mr-1" : "ml-1"} flex w-full text-sm`}>
                                         {item.content.lines["1"]}
                                     </div>
                                 </div>
@@ -802,11 +802,10 @@ const Book = ({ onChangeTheme, colors, theme, translationApplication, introducti
                                     <div className={`w-7 h-7 rounded bg-gray-700 border border-gray-300 `}>
                                     </div>
                                     <div
-                                        className={`ml-1 w-full text-sm`}>
+                                        className={`${direction === "rtl" ? "mr-1" : "ml-1"} w-full text-sm`}>
                                         {item.content.lines["2"]}
                                     </div>
                                 </div>
-
                             </div>
                         </div>
 
