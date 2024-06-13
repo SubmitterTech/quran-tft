@@ -269,12 +269,17 @@ const Book = ({ onChangeTheme, colors, theme, translationApplication, introducti
         }
     };
 
-    const parseReferences = (text) => {
+    const parseReferences = (text, controller = null) => {
+        return direction === 'rtl' ? parseReferencesRTL(text, controller) : parseReferencesLTR(text, controller);
+    };
+
+    const parseReferencesLTR = (text, controller = null) => {
         const verseRegex = /(\d+:\d+(?:-\d+)?)/g;
         const app = translation ? translationApplication.appendix : translationApplication.appendix + "?";
         const intro = translationApplication.intro;
         const appendixRegex = new RegExp(`${app}`, 'g');
-        const introRegex = new RegExp(`${intro}`, 'gi');
+        //const introRegex = new RegExp(`${intro}`, 'gi');
+        const introRegex = new RegExp(`(?<!\\p{L})${intro}(?!\\p{L})`, 'giu');
 
         const replaceAppendixNumbers = (part) => {
             return part.split(/(\d+)/).map((segment, index) => {
@@ -299,7 +304,6 @@ const Book = ({ onChangeTheme, colors, theme, translationApplication, introducti
                 processingAppendix = true;
                 return part;
             }
-
             if (processingAppendix) {
                 if (part.match(/\d+/)) {
                     if (part.includes('.')) {
@@ -323,7 +327,7 @@ const Book = ({ onChangeTheme, colors, theme, translationApplication, introducti
                     elements.push(part.slice(lastIndex, match.index));
                     const reference = (splitted[i - 2] && !splitted[i - 2].match(/\d+/) ? splitted[i - 2] : " ") + "" + splitted[i - 1]
                     let oldscripture = false
-                    //TODO: give outer references for old oldscripture
+                    //TODO: give outer references for old scriptures
                     if (reference && !reference.match(/\d+/)) {
                         if (reference.includes(translationApplication.acts) ||
                             reference.includes(translationApplication.isaiah) ||
@@ -345,7 +349,7 @@ const Book = ({ onChangeTheme, colors, theme, translationApplication, introducti
                         elements.push(match[0]);
                     } else {
                         elements.push(
-                            <span key={index} className="cursor-pointer text-sky-500" onClick={() => handleClickReference(match[0])}>
+                            <span key={index} className="cursor-pointer text-sky-500" onClick={() => controller ? controller(match[0]) : handleClickReference(match[0])}>
                                 {match[0]}
                             </span>
                         );
@@ -368,6 +372,121 @@ const Book = ({ onChangeTheme, colors, theme, translationApplication, introducti
                     if (index < segments.length - 1) {
                         elements.push(
                             <span key={index} className={`cursor-pointer text-sky-500`} onClick={() => handleClickReference("Introduction")}>
+                                {translationApplication?.intro}
+                            </span>
+                        );
+                    }
+                });
+
+                return elements;
+            } else {
+                return part;
+            }
+        });
+
+        return result;
+    };
+
+    const parseReferencesRTL = (text, controller = null) => {
+        const verseRegex = /(\d+-\d+:\d+|\d+:\d+(?:-\d+)?)/g;
+        const app = translation ? translationApplication.appendix : translationApplication.appendix + "?";
+        const intro = translationApplication.intro;
+        const appendixRegex = new RegExp(`${app}`, 'g');
+        const introRegex = new RegExp(`${intro}`, 'gi');
+
+        const replaceAppendixNumbers = (part) => {
+            return part.split(/(\d+)/).map((segment, index) => {
+                if (/\d+/.test(segment)) {
+                    return (
+                        <span key={index} className="cursor-pointer text-sky-500" onClick={() => handleClickAppReference(segment)}>
+                            {segment}
+                        </span>
+                    );
+                } else {
+                    return segment;
+                }
+            });
+        };
+
+        const splitted = text.split(/(\S+\s*)/).filter(part => part.length > 0)
+
+        let processingAppendix = false;
+
+        const result = splitted.map((part, i) => {
+
+            //console.log(i, part, app, appendixRegex.test(part),part.match(appendixRegex))
+
+            if (part.match(appendixRegex)) {
+                processingAppendix = true;
+                return part;
+            }
+
+            if (processingAppendix) {
+                if (part.match(/\d+/)) {
+                    if (part.includes('.')) {
+                        processingAppendix = false;
+                    }
+                    return replaceAppendixNumbers(part);
+                } else if (['&', translationApplication.and].includes(part.trim())) {
+                    return part;
+                } else {
+                    processingAppendix = false;
+                }
+            }
+
+            if (part.match(verseRegex)) {
+                part = part.trim().split('-').reverse().join('-');
+                const matches = [...part.matchAll(verseRegex)];
+                let lastIndex = 0;
+                const elements = [];
+
+                matches.forEach((match, index) => {
+                    elements.push(part.slice(lastIndex, match.index));
+                    const reference = (splitted[i - 2] && !splitted[i - 2].match(/\d+/) ? splitted[i - 2] : " ") + "" + splitted[i - 1]
+                    let oldscripture = false
+                    //TODO: give outer references for old scriptures
+                    if (reference && !reference.match(/\d+/)) {
+                        if (reference.includes(translationApplication.acts) ||
+                            reference.includes(translationApplication.isaiah) ||
+                            reference.includes(translationApplication.john) ||
+                            reference.includes(translationApplication.mark) ||
+                            reference.includes(translationApplication.luke) ||
+                            reference.includes(translationApplication.matthew) ||
+                            reference.includes(translationApplication.romans) ||
+                            reference.includes(translationApplication.malachi) ||
+                            reference.includes(translationApplication.deuteronomy)) {
+
+                            oldscripture = true;
+                        } else if (reference.toLowerCase().includes(translationApplication.quran.toLocaleLowerCase(lang))) {
+                            oldscripture = false;
+                        }
+                    }
+
+                    if (oldscripture) {
+                        elements.push(match[0]);
+                    } else {
+                        elements.push(
+                            <span key={index} dir={direction} className="cursor-pointer text-sky-500" onClick={() => controller ? controller(match[0]) : handleClickReference(match[0])}>
+                                {match[0]}
+                            </span>
+                        );
+                    }
+                    lastIndex = match.index + match[0].length;
+                });
+
+                elements.push(part.slice(lastIndex));
+                return elements;
+            }
+
+            if (introRegex.test(part)) {
+                const segments = part.split(introRegex);
+                const elements = [];
+                segments.forEach((segment, index) => {
+                    elements.push(segment);
+
+                    if (index < segments.length - 1) {
+                        elements.push(
+                            <span key={index} dir={direction} className={`cursor-pointer text-sky-500`} onClick={() => handleClickReference("Introduction")}>
                                 {translationApplication?.intro}
                             </span>
                         );
@@ -560,6 +679,7 @@ const Book = ({ onChangeTheme, colors, theme, translationApplication, introducti
                 quranData={quranData}
                 translation={translation}
                 actionType={action}
+                parseReferences={parseReferences}
                 selectedPage={currentPage}
                 selectedSura={selectedSura}
                 selectedVerse={selectedVerse}

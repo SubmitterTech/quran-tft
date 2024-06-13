@@ -9,6 +9,7 @@ const Pages = ({
     quranData,
     translation,
     actionType,
+    parseReferences,
     selectedPage,
     selectedSura,
     selectedVerse,
@@ -209,118 +210,6 @@ const Pages = ({
             key = part.split("-")[0]
         }
         forceScroll(key);
-    };
-
-    const parseReferences = (text) => {
-        const verseRegex = /(\d+:\d+(?:-\d+)?)/g;
-        const app = translation ? translationApplication.appendix : translationApplication.appendix + "?";
-        const intro = translationApplication.intro;
-        const appendixRegex = new RegExp(`${app}`, 'g');
-        const introRegex = new RegExp(`${intro}`, 'gi');
-
-        const replaceAppendixNumbers = (part) => {
-            return part.split(/(\d+)/).map((segment, index) => {
-                if (/\d+/.test(segment)) {
-                    return (
-                        <span key={index} className="cursor-pointer text-sky-500" onClick={() => handleClickAppReference(segment)}>
-                            {segment}
-                        </span>
-                    );
-                } else {
-                    return segment;
-                }
-            });
-        };
-
-        const splitted = text.split(/(\S+\s*)/).filter(part => part.length > 0)
-
-        let processingAppendix = false;
-
-        const result = splitted.map((part, i) => {
-            if (part.match(appendixRegex)) {
-                processingAppendix = true;
-                return part;
-            }
-
-            if (processingAppendix) {
-                if (part.match(/\d+/)) {
-                    if (part.includes('.')) {
-                        processingAppendix = false;
-                    }
-                    return replaceAppendixNumbers(part);
-                } else if (['&', translationApplication.and].includes(part.trim())) {
-                    return part;
-                } else {
-                    processingAppendix = false;
-                }
-            }
-
-            if (part.match(verseRegex)) {
-                const matches = [...part.matchAll(verseRegex)];
-                let lastIndex = 0;
-                const elements = [];
-
-                matches.forEach((match, index) => {
-                    elements.push(part.slice(lastIndex, match.index));
-                    const reference = (splitted[i - 2] && !splitted[i - 2].match(/\d+/) ? splitted[i - 2] : " ") + "" + splitted[i - 1]
-                    let oldscripture = false
-                    //TODO: give outer references for old oldscripture
-                    if (reference && !reference.match(/\d+/)) {
-                        if (reference.includes(translationApplication.acts) ||
-                            reference.includes(translationApplication.isaiah) ||
-                            reference.includes(translationApplication.john) ||
-                            reference.includes(translationApplication.mark) ||
-                            reference.includes(translationApplication.luke) ||
-                            reference.includes(translationApplication.matthew) ||
-                            reference.includes(translationApplication.romans) ||
-                            reference.includes(translationApplication.malachi) ||
-                            reference.includes(translationApplication.deuteronomy)) {
-
-                            oldscripture = true;
-                        } else if (reference.toLowerCase().includes(translationApplication.quran.toLocaleLowerCase(lang))) {
-                            oldscripture = false;
-                        }
-                    }
-
-                    if (oldscripture) {
-                        elements.push(match[0]);
-                    } else {
-                        elements.push(
-                            <span key={index} className="cursor-pointer text-sky-500" onClick={() => clickReferenceController(match[0])}>
-                                {match[0]}
-                            </span>
-                        );
-                    }
-
-                    lastIndex = match.index + match[0].length;
-                });
-
-                elements.push(part.slice(lastIndex));
-                return elements;
-            }
-
-            if (introRegex.test(part)) {
-                const segments = part.split(introRegex);
-                const elements = [];
-                segments.forEach((segment, index) => {
-                    elements.push(segment);
-
-                    if (index < segments.length - 1) {
-                        elements.push(
-                            <span key={index} className={`cursor-pointer text-sky-500`} onClick={() => clickReferenceController("Introduction")}>
-                                {translationApplication?.intro}
-                            </span>
-                        );
-                    }
-                });
-
-                return elements;
-            } else {
-                return part;
-            }
-        });
-
-        return result;
     };
 
     const parseNoteReferences = (notes) => {
@@ -705,8 +594,9 @@ const Pages = ({
                             ref={(el) => noteRefs.current[index] = el}
                             key={"notes:" + index}
                             lang={lang}
+                            dir={direction}
                         >
-                            {parseReferences(note)}
+                            {parseReferences(note, clickReferenceController)}
                         </div>
                     ))}
                     {notesData.tables && notesData.tables.map((table, index) => (
