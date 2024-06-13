@@ -365,11 +365,11 @@ const Pages = ({
     }
     const grapFocus = (sura, verse) => {
         const verseKey = `${parseInt(sura)}:${parseInt(verse)}`;
-        if (verseRefs.current[verseKey]) {
-            setTimeout(() => {
+        setTimeout(() => {
+            if (verseRefs.current[verseKey]) {
                 verseRefs.current[verseKey].scrollIntoView({ behavior: 'smooth', block: 'start' });
-            }, 400)
-        }
+            }
+        }, 400)
     };
 
     return (
