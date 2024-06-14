@@ -264,7 +264,7 @@ const Jump = ({ onChangeLanguage, suraNames, onChangeTheme, colors, theme, trans
                             if (key) {
                                 const isLanguageDisabled = languages[key]["comp"] < 50;
                                 return (
-                                    <option key={key} value={key} disabled={isLanguageDisabled}>{languages[key]["name"]}</option>
+                                    <option dir={languages[key]["dir"]} key={key} value={key} disabled={isLanguageDisabled}>{languages[key]["name"]}</option>
                                 );
                             }
                             return null;

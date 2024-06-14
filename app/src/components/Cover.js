@@ -79,7 +79,7 @@ const Cover = ({ onCoverSeen, coverData, lang, onChangeLanguage }) => {
                                             className="hidden"
                                         />
                                         <div className="flex justify-between items-center w-full">
-                                            <span>{languages[key]["name"]}</span>
+                                            <span dir={languages[key]["dir"]}>{languages[key]["name"]}</span>
                                         </div>
                                         {key !== "en" && (
                                             <div className="relative w-full rounded h-3.5 bg-neutral-600 mt-1.5 font-semibold ">
