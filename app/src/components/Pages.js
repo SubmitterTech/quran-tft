@@ -555,25 +555,27 @@ const Pages = ({
                     );
                 })}
 
-                <div className={`sticky -bottom-1 mt-3 py-2 px-3 ${colors[theme]["app-background"]} flex`}>
+                <div className={`sticky -bottom-1 mt-3 flex`}>
                     <div className={`flex text-sm justify-between flex-1`}>
-                        <p
-                            key={`cfotwG`}
-                            dir={direction}
-                            className={`cursor-pointer`} onClick={() => openExplanation('GODnamefrequency')}>
-                            {pageData.notes.cumulativefrequencyofthewordGOD}
-                        </p>
+                        <div className={`py-2 px-3 ${colors[theme]["app-background"]} rounded-r`}>
+                            <p
+                                key={`cfotwG`}
+                                className={`cursor-pointer `} onClick={() => openExplanation('GODnamefrequency')}>
+                                {pageData.notes.cumulativefrequencyofthewordGOD}
+                            </p>
+                        </div>
                         {showExplanation.GODnamefrequency && (
                             <div dir={direction} className={`absolute w-36 left-1.5 -translate-y-28 text-start p-3 ${colors[theme]["base-background"]} rounded break-word`}>
                                 {translationApplication?.wc1} = {formatHitCount(parseInt(pageData.notes.cumulativefrequencyofthewordGOD))}
                             </div>
                         )}
-                        <p
-                            key={`csovwGwo`}
-                            dir={direction}
-                            className={`cursor-pointer`} onClick={() => openExplanation('GODnamesum')}>
-                            {pageData.notes.cumulativesumofverseswhereGODwordoccurs}
-                        </p>
+                        <div className={`py-2 px-3 ${colors[theme]["app-background"]} rounded-l`}>
+                            <p
+                                key={`csovwGwo`}
+                                className={`cursor-pointer`} onClick={() => openExplanation('GODnamesum')}>
+                                {pageData.notes.cumulativesumofverseswhereGODwordoccurs}
+                            </p>
+                        </div>
                         {showExplanation.GODnamesum && (
                             <div dir={direction} className={`absolute w-36 -translate-y-28 right-1.5 text-end  p-3 ${colors[theme]["base-background"]} rounded break-word`}>
                                 {translationApplication?.wc2} = {formatHitCount(parseInt(pageData.notes.cumulativesumofverseswhereGODwordoccurs))}
