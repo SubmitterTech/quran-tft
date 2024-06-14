@@ -1037,7 +1037,7 @@ const Book = ({ onChangeTheme, colors, theme, translationApplication, introducti
                                 <path strokeLinecap="round" strokeLinejoin="round" d="M9 15L3 9m0 0l6-6M3 9h12a6 6 0 010 12h-3" />
                             </svg>
                             {direction !== 'rtl' && pageHistory.length > 0 && (
-                                <div className={`bg-transparent absolute translate-y-3 translate-x-3 text-xs lg:translate-y-4 lg:-translate-x-4 lg:text-base ${colors[theme]["matching-text"]} flex items-center justify-center px-2 py-1 rounded-full`}>
+                                <div className={`bg-transparent absolute translate-y-3 -translate-x-3 text-xs lg:translate-y-4 lg:-translate-x-4 lg:text-base ${colors[theme]["matching-text"]} flex items-center justify-center px-2 py-1 rounded-full`}>
                                     {pageHistory.length}
                                 </div>
                             )}
@@ -1106,7 +1106,7 @@ const Book = ({ onChangeTheme, colors, theme, translationApplication, introducti
                                 <path strokeLinecap="round" strokeLinejoin="round" d="M15 15l6-6m0 0l-6-6m6 6H9a6 6 0 000 12h3" />
                             </svg>
                             {direction === 'rtl' && pageHistory.length > 0 && (
-                                <div className={`bg-transparent absolute translate-y-3 -translate-x-3 text-xs lg:translate-y-4 lg:translate-x-4 lg:text-base ${colors[theme]["matching-text"]} flex items-center justify-center px-2 py-1 rounded-full`}>
+                                <div className={`bg-transparent absolute translate-y-3 translate-x-3 text-xs lg:translate-y-4 lg:translate-x-4 lg:text-base ${colors[theme]["matching-text"]} flex items-center justify-center px-2 py-1 rounded-full`}>
                                     {pageHistory.length}
                                 </div>
                             )}
