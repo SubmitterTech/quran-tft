@@ -1028,20 +1028,19 @@ const Book = ({ onChangeTheme, colors, theme, translationApplication, introducti
                 <div className={`w-full flex z-40 ${colors[theme]["app-background"]} fixed bottom-0`}
                     style={{ paddingBottom: 'env(safe-area-inset-bottom)' }}>
                     <div className={`relative flex w-full items-center justify-between`}>
-                        <div className={`absolute h-0.5 left-0 -top-0.5 ${colors[theme]["matching"]}`}
-                            style={{ width: `${progressPercentage}%` }}></div>
-                        <button onClick={prevPage}
-                            disabled={(isModalOpen || currentPage === 1 || isSearchOpen)}
-                            className={`w-1/2 h-full ${colors[theme]["app-text"]} px-2 mr-2 flex items-center justify-center transition-all duration-500 ease-linear ${(isModalOpen || currentPage === 1 || isSearchOpen) ? "opacity-0" : "opacity-100"} `}>
+                        <div className={`absolute h-0.5 left-0 -top-0.5 ${colors[theme]["matching"]}`} style={{ width: `${progressPercentage}%` }}></div>
+
+                        <button onClick={direction === 'rtl' ? nextPage : prevPage}
+                            disabled={direction === 'rtl' ? (isModalOpen || (selectedApp === 38 && currentPage === 397) || isSearchOpen) : (isModalOpen || currentPage === 1 || isSearchOpen)}
+                            className={`w-1/2 h-full ${colors[theme]["app-text"]} px-2 ${direction === 'rtl' ? 'ml-2' : 'mr-2'} flex items-center justify-center transition-all duration-500 ease-linear ${direction === 'rtl' ? (isModalOpen || (selectedApp === 38 && currentPage === 397) || isSearchOpen) ? "opacity-0" : "opacity-100" : (isModalOpen || currentPage === 1 || isSearchOpen) ? "opacity-0" : "opacity-100"}`}>
                             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className={`w-7 h-7 lg:w-12 lg:h-12`}>
                                 <path strokeLinecap="round" strokeLinejoin="round" d="M9 15L3 9m0 0l6-6M3 9h12a6 6 0 010 12h-3" />
                             </svg>
-                            {pageHistory.length > 0 && (
-                                <div className={`bg-transparent absolute translate-y-3 -translate-x-3 text-xs lg:translate-y-4 lg:-translate-x-4 lg:text-base ${colors[theme]["matching-text"]} flex items-center justify-center px-2 py-1 rounded-full`}>
+                            {direction !== 'rtl' && pageHistory.length > 0 && (
+                                <div className={`bg-transparent absolute translate-y-3 translate-x-3 text-xs lg:translate-y-4 lg:-translate-x-4 lg:text-base ${colors[theme]["matching-text"]} flex items-center justify-center px-2 py-1 rounded-full`}>
                                     {pageHistory.length}
                                 </div>
                             )}
-
                         </button>
 
                         <div
@@ -1099,13 +1098,20 @@ const Book = ({ onChangeTheme, colors, theme, translationApplication, introducti
                                     </select>
                                 </div>))}
                         </div>
-                        <button onClick={nextPage}
-                            disabled={(isModalOpen || (selectedApp === 38 && currentPage === 397) || isSearchOpen)}
-                            className={`w-1/2 h-full ${colors[theme]["app-text"]} px-2 ml-2 flex items-center justify-center transition-all duration-500 ease-linear ${(isModalOpen || (selectedApp === 38 && currentPage === 397) || isSearchOpen) ? "opacity-0" : "opacity-100"}`}>
+
+                        <button onClick={direction === 'rtl' ? prevPage : nextPage}
+                            disabled={direction === 'rtl' ? (isModalOpen || currentPage === 1 || isSearchOpen) : (isModalOpen || (selectedApp === 38 && currentPage === 397) || isSearchOpen)}
+                            className={`w-1/2 h-full ${colors[theme]["app-text"]} px-2 ${direction === 'rtl' ? 'mr-2' : 'ml-2'} flex items-center justify-center transition-all duration-500 ease-linear ${direction === 'rtl' ? (isModalOpen || currentPage === 1 || isSearchOpen) ? "opacity-0" : "opacity-100" : (isModalOpen || (selectedApp === 38 && currentPage === 397) || isSearchOpen) ? "opacity-0" : "opacity-100"}`}>
                             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className={`w-7 h-7 lg:w-12 lg:h-12`}>
                                 <path strokeLinecap="round" strokeLinejoin="round" d="M15 15l6-6m0 0l-6-6m6 6H9a6 6 0 000 12h3" />
                             </svg>
+                            {direction === 'rtl' && pageHistory.length > 0 && (
+                                <div className={`bg-transparent absolute translate-y-3 -translate-x-3 text-xs lg:translate-y-4 lg:translate-x-4 lg:text-base ${colors[theme]["matching-text"]} flex items-center justify-center px-2 py-1 rounded-full`}>
+                                    {pageHistory.length}
+                                </div>
+                            )}
                         </button>
+
                     </div>
                 </div>
             </div>
