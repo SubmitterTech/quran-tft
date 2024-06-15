@@ -414,8 +414,6 @@ const Book = ({ onChangeTheme, colors, theme, translationApplication, introducti
 
         const result = splitted.map((part, i) => {
 
-            //console.log(i, part, app, appendixRegex.test(part),part.match(appendixRegex))
-
             if (part.match(appendixRegex)) {
                 processingAppendix = true;
                 return part;
