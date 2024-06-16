@@ -684,7 +684,6 @@ const Book = ({ onChangeTheme, colors, theme, translationApplication, introducti
                 setSelectedSura={setSelectedSura}
                 setSelectedVerse={setSelectedVerse}
                 handleClickReference={handleClickReference}
-                handleClickAppReference={handleClickAppReference}
                 handleTogglePage={handleTogglePage}
                 path={path}
                 setRemainingTime={setRemainingTime}

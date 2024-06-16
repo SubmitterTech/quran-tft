@@ -16,7 +16,6 @@ const Pages = ({
     setSelectedSura,
     setSelectedVerse,
     handleClickReference,
-    handleClickAppReference,
     handleTogglePage,
     path,
     setRemainingTime,
