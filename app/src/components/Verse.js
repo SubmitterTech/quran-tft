@@ -36,7 +36,6 @@ const Verse = ({ besmele,
     const [text, setText] = useState(verseText);
     const [relatedVerses, setRelatedVerses] = useState([]);
     const [tooltip, setTooltip] = useState({ visible: false, x: 0, y: 0, keys: [] });
-    const [pulseNumber, setPulseNumber] = useState("");
     const lang = localStorage.getItem("lang");
     const [isMarked, setMarked] = useState(false);
     const [swipeDistance, setSwipeDistance] = useState(0);
@@ -399,17 +398,6 @@ const Verse = ({ besmele,
     };
 
     useEffect(() => {
-        if (pulse) {
-            if (!pulseNumber.includes("animate-ping")) {
-                setPulseNumber("animate-ping");
-            }
-        } else {
-            setPulseNumber("");
-        };
-    }, [pulse, pulseNumber]);
-
-
-    useEffect(() => {
         setText(verseText);
         let highlighted = lightGODwords(verseText);
         if (mode === "reading") {
@@ -473,90 +461,84 @@ const Verse = ({ besmele,
                 </div>
 
             </div>
-            <animated.div
-                ref={(el) => verseRefs.current[currentVerseKey] = el}
-                lang={lang}
-                dir={direction}
-                key={"verse:" + currentVerseKey}
-                {...bindDrag()}
-                onTouchEnd={() => api.start({ x: 0 })}
-                style={{
-                    transform: x.to(x => `translateX(${x}px)`),
-                }}
-                className={`${cn} relative`}>
-                <div onClick={() => handleClick()} className={`px-1 w-full`}>
-                    {text.includes('\n') ? (
-                        text.split('\n').map((line, index, array) => {
-                            const middleIndex = Math.floor(array.length / 2);
-                            const isTitle = index === middleIndex;
-                            return (
-                                <React.Fragment key={index}>
-                                    {index === 0 && (
-                                        <span className={`relative`}>
-                                            <span className={mode === "light" ? encryptedText.includes(besmele) ? `text-rose-500 font-semibold absolute brightness-150 ${pulseNumber}` : `${colors[theme]["matching-text"]} font-semibold absolute brightness-150 ${pulseNumber}` : `absolute brightness-150 ${pulseNumber}`}>
+            <div className={`relative rounded-md flex mx-0.5 items-center overflow-hidden`}>
+                {(pulse && mode !== "reading") && <div className={`absolute inset-0 animate-rotate ${colors[theme]["matching-conic"]} `}></div>}
+                <animated.div
+                    ref={(el) => verseRefs.current[currentVerseKey] = el}
+                    lang={lang}
+                    dir={direction}
+                    key={"verse:" + currentVerseKey}
+                    {...bindDrag()}
+                    onTouchEnd={() => api.start({ x: 0 })}
+                    style={{
+                        transform: x.to(x => `translateX(${x}px)`),
+                    }}
+                    className={`${cn} relative`}>
+                    <div onClick={() => handleClick()} className={`px-1 w-full`}>
+                        {text.includes('\n') ? (
+                            text.split('\n').map((line, index, array) => {
+                                const middleIndex = Math.floor(array.length / 2);
+                                const isTitle = index === middleIndex;
+                                return (
+                                    <React.Fragment key={index}>
+                                        {index === 0 && (
+                                            <span className={mode === "light" ? encryptedText.includes(besmele) ? `text-rose-500 font-semibold ` : `${colors[theme]["matching-text"]} font-semibold ` : ` brightness-150`}>
                                                 {`${verseNumber}. `}
                                             </span>
-                                            <span className={mode === "light" ? encryptedText.includes(besmele) ? `text-rose-500 font-semibold relative` : `${colors[theme]["matching-text"]} font-semibold relative` : `relative brightness-150`}>
-                                                {`${verseNumber}. `}
-                                            </span>
+                                        )}
+                                        <span className={isTitle ? `text-center w-full ${colors[theme]["app-background"]} block py-1.5 md:py-2 transform italic font-semibold ${index === middleIndex ? 'scale-x-[1.04]' : ''} ` : ``}>
+                                            {line}
                                         </span>
-                                    )}
-                                    <span className={isTitle ? `text-center w-full ${colors[theme]["app-background"]} block py-1.5 md:py-2 transform italic font-semibold ${index === middleIndex ? 'scale-x-[1.04]' : ''} ` : ``}>
-                                        {line}
-                                    </span>
-                                </React.Fragment>
-                            );
-                        })
-                    ) : (
-                        <span className={`relative`}>
-                            <span className={mode === "light" ? encryptedText.includes(besmele) ? `text-rose-500 font-semibold absolute brightness-150 ${pulseNumber}` : `${colors[theme]["matching-text"]} font-semibold absolute brightness-150 ${pulseNumber}` : `absolute brightness-150 ${pulseNumber}`}>
-                                {`${verseNumber}. `}
+                                    </React.Fragment>
+                                );
+                            })
+                        ) : (
+                            <span className={`relative`}>
+                                <span className={mode === "light" ? encryptedText.includes(besmele) ? `text-rose-500 font-semibold relative` : `${colors[theme]["matching-text"]} font-semibold relative` : `relative brightness-150`}>
+                                    {`${verseNumber}. `}
+                                </span>
+                                <span>
+                                    {text}
+                                </span>
                             </span>
-                            <span className={mode === "light" ? encryptedText.includes(besmele) ? `text-rose-500 font-semibold relative` : `${colors[theme]["matching-text"]} font-semibold relative` : `relative brightness-150`}>
-                                {`${verseNumber}. `}
-                            </span>
-                            <span>
-                                {text}
-                            </span>
-                        </span>
-                    )}
-                </div>
-
-                <div className={`w-full flex flex-col flex-1  ${mode === "reading" ? "p-0.5 mt-2" : "h-0"} `}>
-                    <div className={`${mode === "reading" ? " select-text ease-linear mb-2 duration-300" : "h-0 "} w-full transition-all  rounded ${colors[theme]["encrypted-background"]} `} >
-                        <p className={` p-2 text-start `} dir="rtl" >
-                            {mode === "reading" && lightAllahwords(encryptedText)}
-                        </p>
+                        )}
                     </div>
-                    <div className={`${(mode === "reading" && relatedVerses.size > 0) ? "overflow-auto p-2 delay-75 duration-200 ease-in-out " + heightClass : " h-0"}  transition-all w-full rounded ${colors[theme]["relation-background"]}`}>
-                        {(mode === "reading" && relatedVerses.size > 0) && Array.from(relatedVerses.entries()).map(([themeKey, verseKeys]) => (
-                            <div key={themeKey}>
-                                <h3 className={`text-lg text-left ${colors[theme]["matching-text"]}`}>{themeKey}</h3>
-                                <div>
-                                    {verseKeys.map(verseKey => (
-                                        <button
-                                            className={` p-2 rounded my-1 mr-2  text-sky-500 ${(path.current && path.current[currentVerseKey] && path.current[currentVerseKey][verseKey]) ? `${colors[theme]["relation-background"]} brightness-75` : `${colors[theme]["base-background"]} shadow-lg`}`}
-                                            key={Date.now() + '_' + themeKey.replace(' ', '') + '_' + verseKey}
-                                            onClick={() => onRelatedVerseClick(verseKey)}
-                                        >
-                                            {verseKey}
-                                        </button>
-                                    ))}
+                    <div className={`w-full flex flex-col flex-1  ${mode === "reading" ? "p-0.5 mt-2" : "h-0"} `}>
+                        <div className={`${mode === "reading" ? " select-text ease-linear mb-2 duration-300" : "h-0 "} w-full transition-all  rounded ${colors[theme]["encrypted-background"]} `} >
+                            <p className={` p-2 text-start `} dir="rtl" >
+                                {mode === "reading" && lightAllahwords(encryptedText)}
+                            </p>
+                        </div>
+                        <div className={`${(mode === "reading" && relatedVerses.size > 0) ? "overflow-auto p-2 delay-75 duration-200 ease-in-out " + heightClass : " h-0"}  transition-all w-full rounded ${colors[theme]["relation-background"]}`}>
+                            {(mode === "reading" && relatedVerses.size > 0) && Array.from(relatedVerses.entries()).map(([themeKey, verseKeys]) => (
+                                <div key={themeKey}>
+                                    <h3 className={`text-lg text-left ${colors[theme]["matching-text"]}`}>{themeKey}</h3>
+                                    <div>
+                                        {verseKeys.map(verseKey => (
+                                            <button
+                                                className={` p-2 rounded my-1 mr-2  text-sky-500 ${(path.current && path.current[currentVerseKey] && path.current[currentVerseKey][verseKey]) ? `${colors[theme]["relation-background"]} brightness-75` : `${colors[theme]["base-background"]} shadow-lg`}`}
+                                                key={Date.now() + '_' + themeKey.replace(' ', '') + '_' + verseKey}
+                                                onClick={() => onRelatedVerseClick(verseKey)}
+                                            >
+                                                {verseKey}
+                                            </button>
+                                        ))}
+                                    </div>
                                 </div>
-                            </div>
-                        ))}
+                            ))}
+                        </div>
                     </div>
-                </div>
-                {tooltip.visible && (
-                    <div
-                        ref={tooltipRef}
-                        className={`fixed px-4 py-2 rounded ${colors[theme]["base-background"]} ${colors[theme]["matching-text"]} text-base shadow-xl`}
-                        style={{ right: 0, top: 0 }}
-                    >
-                        {tooltip.keys}{` `}{translationApplication.copied}
-                    </div>
-                )}
-            </animated.div>
+                    {tooltip.visible && (
+                        <div
+                            ref={tooltipRef}
+                            className={`fixed px-4 py-2 rounded ${colors[theme]["base-background"]} ${colors[theme]["matching-text"]} text-base shadow-xl`}
+                            style={{ right: 0, top: 0 }}
+                        >
+                            {tooltip.keys}{` `}{translationApplication.copied}
+                        </div>
+                    )}
+                </animated.div>
+            </div>
             {mode !== "reading" && <div
                 onClick={() => handleActions()}
                 className={`absolute left-0 top-0 h-full cursor-pointer w-0 sm:w-1/12`}

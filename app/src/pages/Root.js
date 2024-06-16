@@ -33,7 +33,8 @@ function Root() {
             "focus-text": "focus:text-neutral-800",
             "matching-text": "text-pink-500",
             "matching-border": "border-pink-500",
-            "matching": "bg-pink-500"
+            "matching": "bg-pink-500",
+            "matching-conic": "bg-[conic-gradient(#f472b6_20deg,transparent_180deg)]", // pink-400
         },
         "dark": {
             "text-background": "bg-neutral-950",
@@ -57,7 +58,8 @@ function Root() {
             "focus-text": "focus:text-neutral-200",
             "matching-text": "text-fuchsia-400",
             "matching-border": "border-fuchsia-400",
-            "matching": "bg-fuchsia-400"
+            "matching": "bg-fuchsia-400",
+            "matching-conic": "bg-[conic-gradient(#e879f9_20deg,transparent_180deg)]", // fuchsia-400
         },
         "sky": {
             "text-background": "bg-sky-800",
@@ -81,7 +83,8 @@ function Root() {
             "focus-text": "focus:text-neutral-200",
             "matching-text": "text-amber-400",
             "matching-border": "border-amber-400",
-            "matching": "bg-amber-400"
+            "matching": "bg-amber-400",
+            "matching-conic": "bg-[conic-gradient(#fbbf24_20deg,transparent_180deg)]", // amber-300
         },
         "green": {
             "text-background": "bg-teal-800",
@@ -105,7 +108,8 @@ function Root() {
             "focus-text": "focus:text-neutral-100",
             "matching-text": "text-orange-400",
             "matching-border": "border-orange-400",
-            "matching": "bg-orange-400"
+            "matching": "bg-orange-400",
+            "matching-conic": "bg-[conic-gradient(#fb923c_20deg,transparent_180deg)]", // orange-400
         },
         "indigo": {
             "text-background": "bg-indigo-950",
@@ -129,7 +133,8 @@ function Root() {
             "focus-text": "focus:text-neutral-200",
             "matching-text": "text-lime-400",
             "matching-border": "border-lime-400",
-            "matching": "bg-lime-400"
+            "matching": "bg-lime-400",
+            "matching-conic": "bg-[conic-gradient(#a3e635_20deg,transparent_180deg)]", // lime-400
         }
     };
 
