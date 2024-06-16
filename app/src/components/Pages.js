@@ -139,8 +139,6 @@ const Pages = ({
         }
     }, [selectedPage, selectedSura, selectedVerse, actionType, forceScroll]);
 
-
-
     const parsePageVerses = () => {
         let sortedVerses = [];
         if (pageData && pageData.sura) {
@@ -220,6 +218,7 @@ const Pages = ({
             // Extract all references in the note
             const matches = note.match(referencePattern);
             if (matches) {
+                lastValidRef = matches[0];
                 matches.forEach(match => {
                     const key = match.trim();
                     if (!noteRefsMap[key]) {
@@ -228,7 +227,6 @@ const Pages = ({
                     if (!noteRefsMap[key].includes(index)) {
                         noteRefsMap[key].push(index);
                     }
-                    lastValidRef = key;
                 });
             } else {
                 // If no reference is found and there's a last valid reference, associate this note with it
