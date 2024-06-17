@@ -279,7 +279,9 @@ const Book = ({ onChangeTheme, colors, theme, translationApplication, introducti
         const intro = translationApplication.intro;
         const appendixRegex = new RegExp(`${app}`, 'g');
         //const introRegex = new RegExp(`${intro}`, 'gi');
-        const introRegex = new RegExp(`(?<!\\p{L})${intro}(?!\\p{L})`, 'giu');
+        //const introRegex = new RegExp(`(?<!\\p{L})${intro}(?!\\p{L})`, 'giu');
+        const introRegex = new RegExp(`(?:^|\\s|[.,'";:!?(){}])${intro}(?:$|\\s|[.,'";:!?(){}])`, 'gi');
+
 
         const replaceAppendixNumbers = (part) => {
             return part.split(/(\d+)/).map((segment, index) => {
