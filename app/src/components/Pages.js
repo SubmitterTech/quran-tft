@@ -419,7 +419,7 @@ const Pages = ({
                     const hasAsterisk = verseText.includes('*') || (title && title.includes('*'));
                     const hasTitleAsterisk = (title && title.includes('*'));
                     const verseClassName = `text-lg p-0.5 md:p-1 m-0.5 w-full md:text-xl lg:text-2xl flex flex-col cursor-pointer rounded  hyphens-auto text-justify `;
-                    const titleClassName = `text-lg mx-1.5 mt-1 md:text-xl lg:text-2xl italic font-semibold rounded  text-center whitespace-pre-wrap `;
+                    const titleClassName = `text-lg mx-1 my-0.5 md:text-xl lg:text-2xl italic font-semibold rounded  text-center whitespace-pre-wrap `;
                     const verseKey = `${suraNumber}:${verseNumber}`;
                     const noteReference = hasAsterisk ? verseKey : null;
 
@@ -504,7 +504,7 @@ const Pages = ({
                                                     return (
                                                         <div
                                                             key={`last-title-${suraNumber}-${verseNumber}`}
-                                                            className={`mx-1.5 py-1 px-2.5 text-neutral-800 rounded bg-gradient-to-r from-cyan-300 to-sky-500 text-base md:text-lg lg:text-xl xl:text-2xl besmele`}>
+                                                            className={`mx-1 py-1 px-2 text-neutral-800 rounded bg-gradient-to-r from-cyan-300 to-sky-500 text-base md:text-lg lg:text-xl xl:text-2xl besmele`}>
                                                             {hasGODinit}
                                                         </div>
                                                     );
@@ -586,7 +586,7 @@ const Pages = ({
             </div>
             {
                 notesData.data.length > 0 &&
-                <div dir={direction} className={`${colors[theme]["base-background"]} mx-1 my-3 rounded p-1 text-lg lg:text-xl xl:text-2xl text-justify ${colors[theme]["app-text"]} flex flex-col space-y-1.5 whitespace-pre-line`}>
+                <div dir={direction} className={`${colors[theme]["base-background"]} mx-0.5 my-3 rounded p-1 text-lg lg:text-xl xl:text-2xl text-justify ${colors[theme]["app-text"]} flex flex-col space-y-1 whitespace-pre-line`}>
                     <h3 className={`p-1`}>{translationApplication?.notes}:</h3>
 
                     {notesData.data.map((note, index) => (
