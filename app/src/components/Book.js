@@ -300,6 +300,7 @@ const Book = ({ onChangeTheme, colors, theme, translationApplication, introducti
         const splitted = text.split(/(\S+\s*)/).filter(part => part.length > 0)
 
         let processingAppendix = false;
+        let pushedOld = false;
 
         const result = splitted.map((part, i) => {
             if (part.match(appendixRegex)) {
@@ -327,7 +328,7 @@ const Book = ({ onChangeTheme, colors, theme, translationApplication, introducti
 
                 matches.forEach((match, index) => {
                     elements.push(part.slice(lastIndex, match.index));
-                    const reference = (splitted[i - 2] && !splitted[i - 2].match(/\d+/) ? splitted[i - 2] : " ") + "" + splitted[i - 1]
+                    const reference = splitted[i - 1] ? ((splitted[i - 2] && !splitted[i - 2].match(/\d+/) ? splitted[i - 2] : " ") + "" + splitted[i - 1]) : null
                     let oldscripture = false
                     //TODO: give outer references for old scriptures
                     if (reference && !reference.match(/\d+/)) {
@@ -339,11 +340,15 @@ const Book = ({ onChangeTheme, colors, theme, translationApplication, introducti
                             reference.includes(translationApplication.matthew) ||
                             reference.includes(translationApplication.romans) ||
                             reference.includes(translationApplication.malachi) ||
+                            reference.includes(translationApplication.peter) ||
                             reference.includes(translationApplication.deuteronomy)) {
 
                             oldscripture = true;
+                            pushedOld = true;
                         } else if (reference.toLowerCase().includes(translationApplication.quran.toLocaleLowerCase(lang))) {
                             oldscripture = false;
+                        } else if ((reference.trim().includes(translationApplication.and) || reference.trim().includes('&')) && pushedOld) {
+                            oldscripture = true;
                         }
                     }
 
@@ -413,6 +418,7 @@ const Book = ({ onChangeTheme, colors, theme, translationApplication, introducti
         const splitted = text.split(/(\S+\s*)/).filter(part => part.length > 0)
 
         let processingAppendix = false;
+        let pushedOld = false;
 
         const result = splitted.map((part, i) => {
 
@@ -442,7 +448,7 @@ const Book = ({ onChangeTheme, colors, theme, translationApplication, introducti
 
                 matches.forEach((match, index) => {
                     elements.push(part.slice(lastIndex, match.index));
-                    const reference = (splitted[i - 2] && !splitted[i - 2].match(/\d+/) ? splitted[i - 2] : " ") + "" + splitted[i - 1]
+                    const reference = splitted[i - 1] ? ((splitted[i - 2] && !splitted[i - 2].match(/\d+/) ? splitted[i - 2].trim() : " ") + "" + splitted[i - 1].trim()) : null
                     let oldscripture = false
                     //TODO: give outer references for old scriptures
                     if (reference && !reference.match(/\d+/)) {
@@ -454,11 +460,15 @@ const Book = ({ onChangeTheme, colors, theme, translationApplication, introducti
                             reference.includes(translationApplication.matthew) ||
                             reference.includes(translationApplication.romans) ||
                             reference.includes(translationApplication.malachi) ||
+                            reference.includes(translationApplication.peter) ||
                             reference.includes(translationApplication.deuteronomy)) {
 
                             oldscripture = true;
+                            pushedOld = true;
                         } else if (reference.toLowerCase().includes(translationApplication.quran.toLocaleLowerCase(lang))) {
                             oldscripture = false;
+                        } else if (reference.trim().includes(translationApplication.and) && pushedOld) {
+                            oldscripture = true;
                         }
                     }
 
