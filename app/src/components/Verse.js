@@ -342,6 +342,18 @@ const Verse = ({ besmele,
         }
     }, [mode, currentVerseKey, findRelatedVerses]);
 
+    const thickenGODwords = useCallback((verse) => {
+        const gw = translationApplication ? translationApplication.gw : "GOD";
+        const regex = new RegExp(`\\b(${gw})\\b`, 'g');
+
+        return verse.split(regex).reduce((prev, current, index) => {
+            if (index % 2 === 0) {
+                return [...prev, current];
+            } else {
+                return [...prev, <span key={index} dir={direction} className={`font-bold `}>{gw}</span>];
+            }
+        }, []);
+    }, [translationApplication, direction]);
 
     const lightGODwords = useCallback((verse) => {
         const gw = translationApplication ? translationApplication.gw : "GOD";
@@ -398,7 +410,7 @@ const Verse = ({ besmele,
     };
 
     useEffect(() => {
-        setText(verseText);
+        setText(thickenGODwords(verseText));
         let highlighted = lightGODwords(verseText);
         if (mode === "reading") {
             setCn(verseClassName + " " + colors[theme]["verse-detail-background"] + " flex-col ring-1 " + colors[theme]["ring"]);
@@ -416,7 +428,7 @@ const Verse = ({ besmele,
             }
             setCn(verseClassName + " " + bcn);
         }
-    }, [mode, verseClassName, verseText, lightGODwords, colors, theme, encryptedText, besmele, isMarked]);
+    }, [mode, verseClassName, verseText, lightGODwords, thickenGODwords, colors, theme, encryptedText, besmele, isMarked]);
 
 
     const handleClick = () => {
