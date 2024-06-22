@@ -7,6 +7,7 @@ const Cover = ({ onCoverSeen, coverData, lang, onChangeLanguage }) => {
     const parentRef = useRef(null);
     const [lineHeight, setLineHeight] = useState(0);
     const [lineMargin, setLineMargin] = useState(0);
+    const direction = languages[lang]["dir"] ? languages[lang]["dir"] : "ltr";
 
     useEffect(() => {
         if (parentRef.current) {
@@ -118,7 +119,7 @@ const Cover = ({ onCoverSeen, coverData, lang, onChangeLanguage }) => {
                     <p className="whitespace-pre">{coverData.author}</p>
 
                 </div>
-                <p dir={languages[lang]["dir"]} className="whitespace-pre">{coverData.edition + "  1992"}</p>
+                <p dir={direction} className="whitespace-pre">{coverData.edition + "  1992"}</p>
             </div>
         </div>
     );
