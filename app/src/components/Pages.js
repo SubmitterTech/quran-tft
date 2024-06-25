@@ -182,22 +182,30 @@ const Pages = ({
 
     const calculatePageGWC = () => {
         const sortedVerses = parsePageVerses(pageData);
-        let newPageGWC = { "0:0": quranData[(parseInt(selectedPage) - 1) + ""]?.notes ? parseInt(quranData[(parseInt(selectedPage) - 1) + ""].notes.cumulativefrequencyofthewordGOD) : 0 };
+        let newPageGWC = {
+            "0:0": {
+                cumulative: quranData[(parseInt(selectedPage) - 1) + ""]?.notes ? parseInt(quranData[(parseInt(selectedPage) - 1) + ""].notes.cumulativefrequencyofthewordGOD) : 0,
+                local: 0
+            }
+        };
+        let lastCumulativeCount = newPageGWC["0:0"].cumulative;
 
         sortedVerses.forEach(({ suraNumber, verseNumber, verseText }) => {
             const count = countGODwords(verseText);
             const key = `${suraNumber}:${verseNumber}`;
-            const previousKey = Object.keys(newPageGWC).filter(k => k.startsWith(`${suraNumber}:`)).pop() || "0:0";
 
             if (count > 0) {
-                newPageGWC[key] = (newPageGWC[previousKey] || 0) + count;
+                lastCumulativeCount += count;
+                newPageGWC[key] = {
+                    cumulative: lastCumulativeCount,
+                    local: count
+                };
             }
         });
-
         return newPageGWC;
     };
 
-    // Call this function before rendering Verse components
+
     const updatedPageGWC = calculatePageGWC();
 
     const clickReferenceController = (part) => {

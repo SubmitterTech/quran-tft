@@ -368,35 +368,43 @@ const Verse = ({ besmele,
         }, []);
     }, [translationApplication, direction]);
 
+    const formatHitCount = (count) => {
+        const factor = 19;
+        if (count % factor === 0) {
+            return `${count} (${factor} x ${count / factor})`;
+        }
+        return count;
+    };
+
     const lightAllahwords = (text) => {
         if (pageGWC[currentVerseKey]) {
             const namesofGOD = "(?<![\\u0600-\\u06FF])(الله|لله|ولله|والله|بالله)(?![\\u0600-\\u06FF])";
             const regex = new RegExp(namesofGOD, 'g');
 
             let parts = [];
-            let localCount = 0;
             const matches = [...text.matchAll(regex)];
+            let cursor = 0; 
 
-            let cursor = 0; // Keep track of the cursor position in the original text
+            let startIndex = pageGWC[currentVerseKey].cumulative - pageGWC[currentVerseKey].local + 1;
+
             matches.forEach((match, index) => {
-                // Add the text before the match
                 parts.push(
                     <span key={`${currentVerseKey}-text-${cursor}`} dir="rtl">
                         {text.slice(cursor, match.index)}
                     </span>
                 );
 
-                localCount++;
+                let currentCount = startIndex + index;
+
                 parts.push(
                     <span key={`${currentVerseKey}-match-${index}`} className="text-sky-500" dir="rtl">
-                        {match[0]}<sub> {pageGWC[currentVerseKey] - localCount + 1} </sub>
+                        {match[0]}<sub dir="ltr" className={`text-xs md:text-sm`} > {formatHitCount(currentCount)} </sub>
                     </span>
                 );
 
                 cursor = match.index + match[0].length;
             });
 
-            // Add any remaining text after the last match
             parts.push(
                 <span key={`${currentVerseKey}-remaining-${cursor}`} dir="rtl">
                     {text.slice(cursor)}
