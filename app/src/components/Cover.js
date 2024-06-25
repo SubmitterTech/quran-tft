@@ -29,11 +29,29 @@ const Cover = ({ onCoverSeen, coverData, lang, onChangeLanguage }) => {
     };
 
     return (
-        <div className="splash-screen relative h-screen flex flex-col w-full p-1 justify-between  text-center bg-sky-700 text-neutral-200 overflow-hidden">
-            <div className="w-full h-1/3 flex items-center">
+        <div className="splash-screen relative h-screen flex flex-col w-full p-1 justify-between  text-center bg-sky-950 text-neutral-200 overflow-hidden">
+            <div
+                onClick={handleTap}
+                className="w-full h-1/3 flex items-center">
                 <div className="flex flex-col w-full space-y-2 md:space-y-3 mt-4 ">
-                    <h1 className="text-6xl font-extrabold">{coverData.quran}</h1>
-                    <h2 className="text-4xl font-bold whitespace-pre">{coverData.title}</h2>
+                    <h1 className="text-6xl font-extrabold" style={{
+                        backgroundImage: 'linear-gradient(45deg, #ECC440, #FFFA8A, #DDAC17, #FFFF95)',
+                        color: 'transparent',
+                        WebkitBackgroundClip: 'text',
+                        backgroundClip: 'text',
+                        textShadow: '0 2px 2px rgba(0,0,0,0.1), 0 3px 5px rgba(255,215,0,0.19)'
+                    }}>
+                        {coverData.quran}
+                    </h1>
+                    <h2 className="text-4xl font-bold" style={{
+                        backgroundImage: 'linear-gradient(45deg, #ECC440, #FFFA8A, #DDAC17, #FFFF95)',
+                        color: 'transparent',
+                        WebkitBackgroundClip: 'text',
+                        backgroundClip: 'text',
+                        textShadow: '0 1px 1px rgba(0,0,0,0.1), 0 2px 3px rgba(255,215,0,0.19)'
+                    }}>
+                        {coverData.title}
+                    </h2>
                     <h2 className="text-lg font-bold whitespace-pre">{coverData.version}</h2>
                 </div>
             </div>
@@ -110,7 +128,9 @@ const Cover = ({ onCoverSeen, coverData, lang, onChangeLanguage }) => {
 
                 </div>
             </div>
-            <div className="w-full flex flex-col space-y-3 h-1/6 justify-center">
+            <div
+                onClick={handleTap}
+                className="w-full flex flex-col space-y-3 h-1/6 justify-center">
                 <div
                     className="text-sky-300 cursor-pointer"
                     onClick={openPdf}
