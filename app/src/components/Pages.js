@@ -402,7 +402,7 @@ const Pages = ({
                                             <span className="text-left font-bold justify-self-center text-sky-500">{match[1]}</span>
                                             <span className="text-right ">{`(${match[2]})`}</span>
                                         </div>
-                                        <span className="w-1/3 text-right">{match[3]}</span>
+                                        <span className="w-1/3 text-right">{direction === 'rtl' ? match[3].trim().split('-').reverse().join('-') : match[3]}</span>
                                     </div>
                                 );
                             } else {
@@ -414,7 +414,7 @@ const Pages = ({
                                 return (
                                     <div key={`title-not-matches-${index}`} className="flex justify-between w-full">
                                         <span className="text-left flex-1 font-bold text-sky-500">{namePart}</span>
-                                        <span className="text-right flex-1">{pageInfoPart}</span>
+                                        <span className="text-right flex-1">{direction === 'rtl' ? pageInfoPart.trim().split('-').reverse().join('-') : pageInfoPart}</span>
                                     </div>
                                 );
                             }
