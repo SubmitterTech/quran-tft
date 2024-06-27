@@ -346,6 +346,7 @@ const Verse = ({ besmele,
         const gw = translationApplication ? translationApplication.gw : "GOD";
 
         if (direction === 'rtl') {
+            // Function to check regex support
             const supportsUnicodeRegex = () => {
                 try {
                     new RegExp("\\p{L}", "u");
@@ -355,38 +356,50 @@ const Verse = ({ besmele,
                 }
             };
 
-            const regex = supportsUnicodeRegex()
-                ? new RegExp(`(?<!\\p{L})(${gw})(?!\\p{L})`, 'gu') // Enhanced with Unicode properties for RTL
-                : new RegExp(`(^|(?<=[^\u0600-\u06FF]))${gw}(?=[^\u0600-\u06FF]|$)`, 'g'); // Fallback regex for environments without Unicode support
+            try {
+                const regex = supportsUnicodeRegex()
+                    ? new RegExp(`(?<!\\p{L})(${gw})(?!\\p{L})`, 'gu') // Enhanced with Unicode properties for RTL
+                    : new RegExp(`(^|(?<=[^\u0600-\u06FF]))${gw}(?=[^\u0600-\u06FF]|$)`, 'g'); // Fallback regex for environments without Unicode support
 
-            const elements = [];
-            let lastIndex = 0;
+                const elements = [];
+                let lastIndex = 0;
 
-            const matches = [...verse.matchAll(regex)];
+                const matches = [...verse.matchAll(regex)];
 
-            matches.forEach(match => {
-                elements.push(verse.substring(lastIndex, match.index));
-                elements.push(<span key={match.index} dir={direction} className={`font-bold ${paint ? 'text-sky-500' : ''}`}>{match[0]}</span>);
-                lastIndex = match.index + match[0].length;
-            });
+                matches.forEach(match => {
+                    elements.push(verse.substring(lastIndex, match.index));
+                    elements.push(<span key={match.index} dir={direction} className={`font-bold ${paint ? 'text-sky-500' : ''}`}>{match[0]}</span>);
+                    lastIndex = match.index + match[0].length;
+                });
 
-            if (lastIndex < verse.length) {
-                elements.push(verse.substring(lastIndex));
-            }
-            return elements;
-
-        } else {
-            const regex = new RegExp(`\\b(${gw})\\b`, 'g');
-
-            return verse.split(regex).reduce((prev, current, index) => {
-                if (index % 2 === 0) {
-                    return [...prev, current];
-                } else {
-                    return [...prev, <span key={index} dir={direction} className={`font-bold ${paint ? 'text-sky-500' : ''}`}>{gw}</span>];
+                if (lastIndex < verse.length) {
+                    elements.push(verse.substring(lastIndex));
                 }
-            }, []);
+                return elements;
+            } catch (error) {
+                console.error("Error processing regex: ", error);
+                // Fallback behavior in case of regex failure
+                return [<span key="fallback" dir={direction}>{verse}</span>];
+            }
+        } else {
+            try {
+                const regex = new RegExp(`\\b(${gw})\\b`, 'g');
+
+                return verse.split(regex).reduce((prev, current, index) => {
+                    if (index % 2 === 0) {
+                        return [...prev, current];
+                    } else {
+                        return [...prev, <span key={index} dir={direction} className={`font-bold ${paint ? 'text-sky-500' : ''}`}>{gw}</span>];
+                    }
+                }, []);
+            } catch (error) {
+                console.error("Error processing regex for LTR: ", error);
+                // Fallback behavior in case of regex failure
+                return [<span key="fallback" dir={direction}>{verse}</span>];
+            }
         }
     }, [translationApplication, direction]);
+
 
     const formatHitCount = (count) => {
         const factor = 19;
