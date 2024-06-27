@@ -176,7 +176,7 @@ const Pages = ({
 
     const countGODwords = (verse) => {
         const gw = translationApplication ? translationApplication.gw : "GOD";
-        const regex = new RegExp(`\\b(${gw})\\b`, 'g');
+        const regex = direction === 'ltr' ? new RegExp(`\\b(${gw})\\b`, 'g') : new RegExp(`(${gw})`, 'g');
         return (verse.match(regex) || []).length;
     };
 

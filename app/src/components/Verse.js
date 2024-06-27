@@ -342,30 +342,50 @@ const Verse = ({ besmele,
         }
     }, [mode, currentVerseKey, findRelatedVerses]);
 
-    const thickenGODwords = useCallback((verse) => {
+    const lightGODwords = useCallback((verse, paint = false) => {
         const gw = translationApplication ? translationApplication.gw : "GOD";
-        const regex = new RegExp(`\\b(${gw})\\b`, 'g');
 
-        return verse.split(regex).reduce((prev, current, index) => {
-            if (index % 2 === 0) {
-                return [...prev, current];
-            } else {
-                return [...prev, <span key={index} dir={direction} className={`font-bold `}>{gw}</span>];
+        if (direction === 'rtl') {
+            const supportsUnicodeRegex = () => {
+                try {
+                    new RegExp("\\p{L}", "u");
+                    return true;
+                } catch (e) {
+                    return false;
+                }
+            };
+
+            const regex = supportsUnicodeRegex()
+                ? new RegExp(`(?<!\\p{L})(${gw})(?!\\p{L})`, 'gu') // Enhanced with Unicode properties for RTL
+                : new RegExp(`(^|(?<=[^\u0600-\u06FF]))${gw}(?=[^\u0600-\u06FF]|$)`, 'g'); // Fallback regex for environments without Unicode support
+
+            const elements = [];
+            let lastIndex = 0;
+
+            const matches = [...verse.matchAll(regex)];
+
+            matches.forEach(match => {
+                elements.push(verse.substring(lastIndex, match.index));
+                elements.push(<span key={match.index} dir={direction} className={`font-bold ${paint ? 'text-sky-500' : ''}`}>{match[0]}</span>);
+                lastIndex = match.index + match[0].length;
+            });
+
+            if (lastIndex < verse.length) {
+                elements.push(verse.substring(lastIndex));
             }
-        }, []);
-    }, [translationApplication, direction]);
+            return elements;
 
-    const lightGODwords = useCallback((verse) => {
-        const gw = translationApplication ? translationApplication.gw : "GOD";
-        const regex = new RegExp(`\\b(${gw})\\b`, 'g');
+        } else {
+            const regex = new RegExp(`\\b(${gw})\\b`, 'g');
 
-        return verse.split(regex).reduce((prev, current, index) => {
-            if (index % 2 === 0) {
-                return [...prev, current];
-            } else {
-                return [...prev, <span key={index} dir={direction} className={`font-bold text-sky-500`}>{gw}</span>];
-            }
-        }, []);
+            return verse.split(regex).reduce((prev, current, index) => {
+                if (index % 2 === 0) {
+                    return [...prev, current];
+                } else {
+                    return [...prev, <span key={index} dir={direction} className={`font-bold ${paint ? 'text-sky-500' : ''}`}>{gw}</span>];
+                }
+            }, []);
+        }
     }, [translationApplication, direction]);
 
     const formatHitCount = (count) => {
@@ -383,7 +403,7 @@ const Verse = ({ besmele,
 
             let parts = [];
             const matches = [...text.matchAll(regex)];
-            let cursor = 0; 
+            let cursor = 0;
 
             let startIndex = pageGWC[currentVerseKey].cumulative - pageGWC[currentVerseKey].local + 1;
 
@@ -418,8 +438,8 @@ const Verse = ({ besmele,
     };
 
     useEffect(() => {
-        setText(thickenGODwords(verseText));
-        let highlighted = lightGODwords(verseText);
+        setText(lightGODwords(verseText));
+        let highlighted = lightGODwords(verseText, true);
         if (mode === "reading") {
             setCn(verseClassName + " " + colors[theme]["verse-detail-background"] + " flex-col ring-1 " + colors[theme]["ring"]);
             setText(highlighted);
@@ -436,7 +456,7 @@ const Verse = ({ besmele,
             }
             setCn(verseClassName + " " + bcn);
         }
-    }, [mode, verseClassName, verseText, lightGODwords, thickenGODwords, colors, theme, encryptedText, besmele, isMarked]);
+    }, [mode, verseClassName, verseText, lightGODwords, colors, theme, encryptedText, besmele, isMarked]);
 
 
     const handleClick = () => {
