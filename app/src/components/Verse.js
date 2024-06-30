@@ -100,7 +100,7 @@ const Verse = ({ besmele,
                 });
                 let keys = Object.keys(accumulatedCopiesRef.current).join(", ");
                 setTooltip({ visible: true, x, y, keys: keys });
-                setTimeout(() => setTooltip({ ...tooltip, visible: false }), 2000);
+                setTimeout(() => setTooltip({ ...tooltip, visible: false }), 2400);
             } catch (err) {
                 console.error('Failed to copy text: ', err);
             }
@@ -593,7 +593,7 @@ const Verse = ({ besmele,
                     {tooltip.visible && (
                         <div
                             ref={tooltipRef}
-                            className={`fixed px-4 py-2 rounded ${colors[theme]["base-background"]} ${colors[theme]["matching-text"]} text-base shadow-xl`}
+                            className={`fixed px-3 py-1.5 md:py-2 md:px-4 rounded ${colors[theme]["base-background"]} ${colors[theme]["matching-text"]} text-base shadow-xl`}
                             style={{ right: 0, top: 0 }}
                         >
                             {tooltip.keys}{` `}{translationApplication.copied}
