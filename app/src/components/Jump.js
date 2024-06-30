@@ -262,7 +262,7 @@ const Jump = ({ onChangeLanguage, suraNames, onChangeTheme, colors, theme, trans
                         className={`w-full m-2 text-center rounded px-4 py-2 border border-neutral-400/40 text-lg brightness-80 bg-neutral-500/30 ${colors[theme]["page-text"]} focus:outline-none focus:ring-2 focus:border-sky-500 focus:ring-sky-500`}>
                         {Object.keys(languages).map((key) => {
                             if (key) {
-                                const isLanguageDisabled = languages[key]["comp"] < 50;
+                                const isLanguageDisabled = languages[key]["comp"] < 60;
                                 return (
                                     <option dir={languages[key]["dir"]} key={key} value={key} disabled={isLanguageDisabled}>{languages[key]["name"]}</option>
                                 );
