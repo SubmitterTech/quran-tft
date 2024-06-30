@@ -644,7 +644,7 @@ const Book = ({ onChangeTheme, colors, theme, translationApplication, introducti
                 } else {
                     return (
                         <div
-                            onClick={() => updatePage(parseInt(page) + 22)}
+                            onClick={() => updatePage(parseInt(page) + 22, no, 1)}
                             key={`each-key-${key}`}
                             className={`flex w-full justify-between mb-2`}>
                             <div className={`font-semibold rounded m-0.5 ${colors[theme]["text-background"]} w-1/6 text-lg flex items-center justify-center`}>
