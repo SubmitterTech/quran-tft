@@ -2037,11 +2037,15 @@
                     "Divine Name",
                     "Gematrical Value"
                 ],
-                "values" : [
-                    "“Waahed” (One)", "19",
-                    "“Zul Fadl Al-‘Azim” (Possessor of Infinite Grace)", "2698",
-                    "“Majid” (Glorious)","57",
-                    "“Jaami‘ ”(Summoner)","114"
+                "values": [
+                    "“Waahed” (One)",
+                    "19",
+                    "“Zul Fadl Al-‘Azim” (Possessor of Infinite Grace)",
+                    "2698",
+                    "“Majid” (Glorious)",
+                    "57",
+                    "“Jaami‘ ”(Summoner)",
+                    "114"
                 ]
             }
         },
@@ -2780,7 +2784,12 @@
         "evidence": {
             "2": {
                 "lines": {
-                    "1": "God’s  Messenger  of  the  Covenant  is  a  consolidating  messenger.  His  mission  is  to  purify  and  unify  all  existing  religions  into  one:  Islam  (Submission). \n\nIslam  is  NOT  a  name;  it  is  a  description  of  one’s  total  submission  and devotion  to  God  ALONE,  without  idolizing  Jesus,  Mary,  Muhammad,  or the  saints.  Anyone  who  meets  this  criterion  is  a  “Muslim”  (Submitter). Therefore,  one  may  be  a  Muslim  Jew,  a  Muslim  Christian,  a  Muslim Hindu, a Muslim Buddhist, or Muslim Muslim.\n\nGod’s  Messenger  of  the  Covenant  delivers  God’s  proclamation  that  “The only  religion  approved  by  God  is  Submission”  (3:19)  and  that  “Anyone who  seeks  other  than  Submission  as  a  religion,  it  will  not  be  accepted from him/her” (3:85).\n\nA  messenger  of  God  must  present  proof  that  he  is  God’s  messenger.  Every messenger  of  God  is  supported  by  incontrovertible  divine  signs  proving that  he  is  authorized  by  the  Almighty  to  deliver  His  messages.  Moses  threw down  his  staff  and  it  turned  into  a  serpent,  Jesus  healed  the  leprous  and revived  the  dead  by  God’s  leave,  Saaleh’s  sign  was  the  famous  camel, Abraham  walked  out  of  the  fire,  and  Muhammad’s  miracle  was  the Quran (29:50-51). \n\nThe  Quran  (3:81,  33:7,  33:40)  and  the  Bible  (Malachi  3:1-3)  have prophesied  the  advent  of  the  consolidating  messenger,  God’s  Messenger  of the  Covenant.  It  is  only  befitting  that  a  messenger  with  such  a  crucial mission  must  be  supported  by  the  most  powerful  miracle  (74:30-35). While  the  miracles  of  previous  messengers  were  limited  in  time  and  place, God’s  miracle  supporting  His  Messenger  of  the  Covenant  is  perpetual;  it can be witnessed by anyone, at anytime, in any place. \n\nThis  Appendix  presents  physical,  examinable,  verifiable,  and  irrefutable evidence that Rashad Khalifa is God’s Messenger of the Covenant."
+                    "1": "God’s  Messenger  of  the  Covenant  is  a  consolidating  messenger.  His  mission  is  to  purify  and  unify  all  existing  religions  into  one:  Islam  (Submission).",
+                    "2": "Islam  is  NOT  a  name;  it  is  a  description  of  one’s  total  submission  and devotion  to  God  ALONE,  without  idolizing  Jesus,  Mary,  Muhammad,  or the  saints.  Anyone  who  meets  this  criterion  is  a  “Muslim”  (Submitter). Therefore,  one  may  be  a  Muslim  Jew,  a  Muslim  Christian,  a  Muslim Hindu, a Muslim Buddhist, or Muslim Muslim.",
+                    "3": "God’s  Messenger  of  the  Covenant  delivers  God’s  proclamation  that  “The only  religion  approved  by  God  is  Submission”  (3:19)  and  that  “Anyone who  seeks  other  than  Submission  as  a  religion,  it  will  not  be  accepted from him/her” (3:85).",
+                    "4": "A  messenger  of  God  must  present  proof  that  he  is  God’s  messenger.  Every messenger  of  God  is  supported  by  incontrovertible  divine  signs  proving that  he  is  authorized  by  the  Almighty  to  deliver  His  messages.  Moses  threw down  his  staff  and  it  turned  into  a  serpent,  Jesus  healed  the  leprous  and revived  the  dead  by  God’s  leave,  Saaleh’s  sign  was  the  famous  camel, Abraham  walked  out  of  the  fire,  and  Muhammad’s  miracle  was  the Quran (29:50-51).",
+                    "5": "The  Quran  (3:81,  33:7,  33:40)  and  the  Bible  (Malachi  3:1-3)  have prophesied  the  advent  of  the  consolidating  messenger,  God’s  Messenger  of the  Covenant.  It  is  only  befitting  that  a  messenger  with  such  a  crucial mission  must  be  supported  by  the  most  powerful  miracle  (74:30-35). While  the  miracles  of  previous  messengers  were  limited  in  time  and  place, God’s  miracle  supporting  His  Messenger  of  the  Covenant  is  perpetual;  it can be witnessed by anyone, at anytime, in any place.",
+                    "6": "This  Appendix  presents  physical,  examinable,  verifiable,  and  irrefutable evidence that Rashad Khalifa is God’s Messenger of the Covenant."
                 },
                 "ref": []
             }
@@ -3406,7 +3415,7 @@
             "2": {
                 "lines": {
                     "1": "Those who disbelieved among the people of the scripture (Jews, Christians, Muslims), and the idolators, will not believe, despite the profound sign given to them. [98:1]",
-                    "2":"A messenger from God, reciting Sacred Scriptures. [98:2]"
+                    "2": "A messenger from God, reciting Sacred Scriptures. [98:2]"
                 },
                 "ref": []
             }
@@ -4087,10 +4096,9 @@
         },
         "picture": {},
         "evidence": {
-            "5":{
+            "5": {
                 "lines": {
                     "1": "Say, “I do not find in what was revealed to me anything prohibited for any eater unless it is (1) carrion, (2) running blood, (3) the meat of pigs, for it is unclean, and (4) meat blasphemously dedicated to other than God.” If one is forced to eat these without being malicious or deliberate, then your Lord is Forgiver, Most Merciful."
-
                 },
                 "ref": [
                     "6:145"
@@ -5559,16 +5567,76 @@
                     "Multiplication Product"
                 ],
                 "values": [
-                    "1","7","1","x","7","=","7",
-                    "2","286","2","x","16","=","32",
-                    "3","200","3","x","2","=","6",
-                    ".",".",".","","",".","",
-                    "9","127","9","x","10","=","90",
-                    ".",".",".","",".","","",
-                    "114","6","6","x","6","=","36",
-                    "","",".....","",".....","",".....",
-                    "","","975","","906","","7771",
-                    "","","975 + 906 = 1881 = 19x99","","","","(19x409)"
+                    "1",
+                    "7",
+                    "1",
+                    "x",
+                    "7",
+                    "=",
+                    "7",
+                    "2",
+                    "286",
+                    "2",
+                    "x",
+                    "16",
+                    "=",
+                    "32",
+                    "3",
+                    "200",
+                    "3",
+                    "x",
+                    "2",
+                    "=",
+                    "6",
+                    ".",
+                    ".",
+                    ".",
+                    "",
+                    "",
+                    ".",
+                    "",
+                    "9",
+                    "127",
+                    "9",
+                    "x",
+                    "10",
+                    "=",
+                    "90",
+                    ".",
+                    ".",
+                    ".",
+                    "",
+                    ".",
+                    "",
+                    "",
+                    "114",
+                    "6",
+                    "6",
+                    "x",
+                    "6",
+                    "=",
+                    "36",
+                    "",
+                    "",
+                    ".....",
+                    "",
+                    ".....",
+                    "",
+                    ".....",
+                    "",
+                    "",
+                    "975",
+                    "",
+                    "906",
+                    "",
+                    "7771",
+                    "",
+                    "",
+                    "975 + 906 = 1881 = 19x99",
+                    "",
+                    "",
+                    "",
+                    "(19x409)"
                 ]
             },
             "5": {
