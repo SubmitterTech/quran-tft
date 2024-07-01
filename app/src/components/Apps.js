@@ -93,11 +93,11 @@ const Apps = ({ colors, theme, translationApplication, parseReferences, appendic
         setIsRefsReady(true);
     };
 
-    const handleClick = (_e, n, i) => {
+    const handleClick = useCallback((_e, n, i) => {
         refToRestore.current = n + "-" + i;
-    };
+    }, [refToRestore]);
 
-    const renderTable = useCallback((tableData, key) => {
+    const renderTable = useCallback((tableData, appno, key) => {
 
         const tableRef = tableData.ref;
         const { title: columnHeaders, values } = tableData;
@@ -127,7 +127,10 @@ const Apps = ({ colors, theme, translationApplication, parseReferences, appendic
                             {rows.map((row, rowIndex) => (
                                 <tr key={`row-${rowIndex}`}>
                                     {row.map((cell, cellIndex) => (
-                                        <td key={`cell-${rowIndex}-${cellIndex}`} className={`border-2 ${colors[theme]["border"]} p-2 text-center break-words`}>{parseReferences(cell)}</td>
+                                        <td key={`cell-${rowIndex}-${cellIndex}`}
+                                            ref={(el) => textRef.current[appno + "-" + key] = el}
+                                            onClick={(e) => handleClick(e, appno, key)}
+                                            className={`border-2 ${colors[theme]["border"]} p-2 text-center break-words`}>{parseReferences(cell)}</td>
                                     ))}
                                 </tr>
                             ))}
@@ -136,7 +139,7 @@ const Apps = ({ colors, theme, translationApplication, parseReferences, appendic
                 </div>
             </div>
         );
-    }, [colors, theme, parseReferences]);
+    }, [colors, theme, parseReferences, handleClick]);
 
     const renderContentItem = (appno, item, index) => {
         switch (item.type) {
@@ -173,6 +176,8 @@ const Apps = ({ colors, theme, translationApplication, parseReferences, appendic
                     <div
                         dir={direction}
                         key={`evidence-${index}`}
+                        ref={(el) => textRef.current[appno + "-" + index] = el}
+                        onClick={(e) => handleClick(e, appno, index)}
                         className={`${colors[theme]["base-background"]} ${colors[theme]["table-title-text"]} rounded  text-base md:text-lg p-3 border my-3 ${colors[theme]["border"]}`}>
                         {Object.entries(item.content.lines).map(([lineKey, lineValue]) => (
                             <p key={`${lineKey}`} className={`whitespace-pre-wrap my-1`}>{parseReferences(lineValue)}</p>
@@ -239,7 +244,7 @@ const Apps = ({ colors, theme, translationApplication, parseReferences, appendic
                     </div>
                 );
             case 'table':
-                return renderTable(item.content, `table-${index}`);
+                return renderTable(item.content, appno, `table-${index}`);
             default:
                 return (
                     <div key={`unknown-${index}`} className={`${colors[theme]["log-text"]} flex flex-1 items-center justify-center w-full`}>
