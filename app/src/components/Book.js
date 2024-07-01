@@ -311,6 +311,8 @@ const Book = ({ onChangeTheme, colors, theme, translationApplication, introducti
                 if (part.match(/\d+/)) {
                     if (part.includes('.')) {
                         processingAppendix = false;
+                    } else if (part.includes(')')) {
+                        processingAppendix = false;
                     }
                     return replaceAppendixNumbers(part);
                 } else if (['&', translationApplication.and].includes(part.trim())) {
