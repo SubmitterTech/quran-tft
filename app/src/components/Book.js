@@ -177,7 +177,7 @@ const Book = ({ onChangeTheme, colors, theme, translationApplication, introducti
             setSelectedSura(lastHistoryItem.sura);
             setSelectedVerse(lastHistoryItem.verse);
 
-            restoreAppText.current = lastHistoryItem.actionType === 'fromAppendix';
+            restoreAppText.current = (lastHistoryItem.actionType === 'fromAppendix' || lastHistoryItem.actionType === 'openAppendix');
 
             if (lastHistoryItem.page === 397) {
                 if (pageHistory[pageHistory.length - 1]) {
