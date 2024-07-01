@@ -756,7 +756,7 @@ const Book = ({ onChangeTheme, colors, theme, translationApplication, introducti
                             <div className={`font-semibold rounded p-3 m-1 ${colors[theme]["base-background"]} w-16 flex items-center justify-center`}>
                                 <p className={``} >{elements[0]}</p>
                             </div>
-                            <div key={key} className={`rounded p-3 my-1 mr-1 ${colors[theme]["text-background"]} w-full flex items-center`}>
+                            <div key={key} className={`rounded p-3 my-1 ${direction === 'ltr' ? "mr-1" : "ml-1" } ${colors[theme]["text-background"]} w-full flex items-center`}>
                                 <p className={``} >{elements[1]}</p>
                             </div>
                         </div>
