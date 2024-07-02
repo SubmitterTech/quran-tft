@@ -1,39 +1,40 @@
 import json
 
-def load_json_file(file_path):
-    """Loads a JSON file and returns its content."""
-    with open(file_path, 'r', encoding='utf-8') as file:
-        return json.load(file)
+def generate_new_dict(data, path='', result=None):
+    if result is None:
+        result = {}
 
-def find_reference_in_tr(reference, tr_data, path=[]):
-    """Recursively searches for the reference in map_tr.json."""
-    for key, value in tr_data.items():
+    for key, value in data.items():
+        current_path = f"{key} => {path}" if path else key
         if isinstance(value, dict):
-            path_found = find_reference_in_tr(reference, value, path + [key])
-            if path_found:
-                return path_found
-        elif reference in str(value):
-            return path + [key]
-    return []
+            generate_new_dict(value, current_path, result)
+        elif isinstance(value, str) and value:
+            result[value] = current_path if path else key
 
-def iterate_and_check(map_data, tr_data, path=[]):
-    """Iterates through map.json and checks references in map_tr.json."""
-    if isinstance(map_data, dict):
-        for key, value in map_data.items():
-            iterate_and_check(value, tr_data, path + [key])
-    elif isinstance(map_data, list) or isinstance(map_data, str):
-        if isinstance(map_data, str):
-            map_data = [map_data]  # Convert string to list for uniform processing
-        for item in map_data:
-            references = item.split('; ')
-            for ref in references:
-                if not find_reference_in_tr(ref, tr_data):
-                    print(f"Reference '{ref}' not found. Path: {' > '.join(path)}")
-                    print(" ");
+    return result
 
-# Load the JSON files
-map_data = load_json_file('map.json')
-tr_data = load_json_file('map_tr.json')
+def compare_dicts(turkish_dict, english_dict):
+    missing_keys = {key: turkish_dict[key] for key in turkish_dict if key not in english_dict}
+    return missing_keys
 
-# Start the iteration and check process
-iterate_and_check(map_data, tr_data)
+def process_json(file_path):
+    with open(file_path, 'r') as file:
+        data = json.load(file)
+    combined_dict = {}
+    for key in data:
+        combined_dict.update(generate_new_dict(data[key], key))
+    return combined_dict
+
+# Load and process the Turkish JSON
+turkish_dict = process_json('../../app/src/assets/translations/tr/map_tr.json')
+
+# Load and process the English JSON
+english_dict = process_json('../../app/src/assets/map.json')
+
+# Compare Turkish dictionary against English dictionary
+missing_keys = compare_dicts(turkish_dict, english_dict)
+
+# Output the missing keys
+for key, value in missing_keys.items():
+    formatted_value = value[:-4] if value.endswith(' => ') else value
+    print(formatted_value + "                        ===== " + key)
