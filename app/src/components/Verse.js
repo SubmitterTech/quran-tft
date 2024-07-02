@@ -436,7 +436,7 @@ const Verse = ({ besmele,
 
                 parts.push(
                     <span key={`${currentVerseKey}-match-${index}`} className="text-sky-500" dir="rtl">
-                        {match[0]}<sub dir="ltr" className={`text-xs md:text-sm`} > {formatHitCount(currentCount)} </sub>
+                        {match[0]}<sub dir="ltr" className={`text-xs md:text-sm whitespace-nowrap`} > {formatHitCount(currentCount)} </sub>
                     </span>
                 );
 
