@@ -13,7 +13,7 @@
     },
     "de": {
         "name": "Deutsch Übersetzung",
-        "comp": 75.00,
+        "comp": 76.70,
         "dir": "ltr",
         "nums": "0 1 2 3 4 5 6 7 8 9"
     },
@@ -25,13 +25,13 @@
     },
     "fr": {
         "name": "Français Traduction",
-        "comp": 55.75,
+        "comp": 57.39,
         "dir": "ltr",
         "nums": "0 1 2 3 4 5 6 7 8 9"
     },
     "ru": {
         "name": "Русский Перевод",
-        "comp": 42.33,
+        "comp": 42.82,
         "dir": "ltr",
         "nums": "0 1 2 3 4 5 6 7 8 9"
     },
