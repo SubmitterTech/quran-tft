@@ -319,11 +319,7 @@ const Verse = ({ besmele,
                 if (themeorref) {
                     if (typeof themeorref === 'object') {
                         Object.entries(themeorref).forEach(([t, ref]) => {
-                            if (lang === "en") {
-                                processTheme(t + " " + theme, ref)
-                            } else {
-                                processTheme(theme + " " + t, ref)
-                            }
+                            processTheme(theme + "\n· " + t, ref)
                         });
                     } else {
                         processTheme(theme, themeorref)
@@ -574,7 +570,7 @@ const Verse = ({ besmele,
                         <div className={`${(mode === "reading" && relatedVerses.size > 0) ? "overflow-auto p-2 delay-75 duration-200 ease-in-out " + heightClass : " h-0"}  transition-all w-full rounded ${colors[theme]["relation-background"]}`}>
                             {(mode === "reading" && relatedVerses.size > 0) && Array.from(relatedVerses.entries()).map(([themeKey, verseKeys]) => (
                                 <div key={themeKey}>
-                                    <h3 className={`text-lg text-left ${colors[theme]["matching-text"]}`}>{themeKey}</h3>
+                                    <h3 className={`text-lg text-left whitespace-pre ${colors[theme]["matching-text"]}`}>{themeKey}</h3>
                                     <div>
                                         {verseKeys.map(verseKey => (
                                             <button
