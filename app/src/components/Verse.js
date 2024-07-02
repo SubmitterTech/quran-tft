@@ -329,7 +329,7 @@ const Verse = ({ besmele,
         });
 
         return related;
-    }, [currentVerseKey, relationalData, lang]);
+    }, [currentVerseKey, relationalData]);
 
     useEffect(() => {
         if (mode === "reading") {

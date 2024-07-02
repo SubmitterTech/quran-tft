@@ -77,7 +77,7 @@ const Magnify = ({ colors, theme, translationApplication, quran, map, onClose, o
         if (capitalizedTerm.length === 1 && map[capitalizedTerm]) {
             setLoadedMap(map[capitalizedTerm]);
         }
-    }, [map]);
+    }, [map, lang]);
 
 
     const performSearch = useCallback((term) => {
