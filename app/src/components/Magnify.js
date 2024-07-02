@@ -73,7 +73,7 @@ const Magnify = ({ colors, theme, translationApplication, quran, map, onClose, o
     };
 
     const performSearchSingleLetter = useCallback((term) => {
-        const capitalizedTerm = term.toUpperCase();
+        const capitalizedTerm = term.toLocaleUpperCase(lang);
         if (capitalizedTerm.length === 1 && map[capitalizedTerm]) {
             setLoadedMap(map[capitalizedTerm]);
         }
