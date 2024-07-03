@@ -6,11 +6,11 @@ import Apps from '../components/Apps';
 import Jump from '../components/Jump';
 import Magnify from '../components/Magnify';
 import Splash from '../components/Splash';
+import Intro from '../components/Intro';
 import '../assets/css/Book.css';
 
 const Book = ({ onChangeTheme, colors, theme, translationApplication, introductionContent, quranData, map, appendicesContent, translation, onChangeLanguage, direction }) => {
     const lang = localStorage.getItem("lang")
-    const images = require.context('../assets/pictures/', false, /\.jpg$/);
     const [selectOpen, setSelectOpen] = useState(false);
     const magnifyConfirm = useRef(false);
     const [currentPage, setCurrentPage] = useState(parseInt(localStorage.getItem("qurantft-pn")) ? parseInt(localStorage.getItem("qurantft-pn")) : 1);
@@ -19,19 +19,16 @@ const Book = ({ onChangeTheme, colors, theme, translationApplication, introducti
     const [selectedSura, setSelectedSura] = useState(null);
     const [selectedVerse, setSelectedVerse] = useState(null);
     const [action, setAction] = useState(null);
-    const [bookContent, setBookContent] = useState(null);
     const [isSearchOpen, setSearchOpen] = useState(false);
-    const contentRef = useRef(null);
     const restoreAppText = useRef(null);
     const restoreIntroText = useRef(null);
-    const refToRestore = useRef(null);
+    const endReferenceToRestore = useRef(null);
+    const beginingReferenceToRestore = useRef(null);
     const [pages, setPages] = useState([]);
     const [selectedApp, setSelectedApp] = useState(1);
     const [backButtonPressedOnce, setBackButtonPressedOnce] = useState(false);
     const [remainingTime, setRemainingTime] = useState(0);
     const progressPercentage = (remainingTime / 19000) * 100;
-    const [futureManVisible, setFutureManVisible] = useState(false);
-    const textRememberRef = useRef({});
 
     let path = useRef({});
 
@@ -62,9 +59,7 @@ const Book = ({ onChangeTheme, colors, theme, translationApplication, introducti
             setAppendices(scApps);
         }
 
-        if (introductionContent && appendicesContent) {
-            const content = introductionContent.concat(appendicesContent)
-            setBookContent(content);
+        if (introductionContent) {
             let pgs = [];
             Object.values(introductionContent).forEach((item) => {
                 pgs.push(item.page)
@@ -81,26 +76,8 @@ const Book = ({ onChangeTheme, colors, theme, translationApplication, introducti
     useEffect(() => {
         if (currentPage) {
             localStorage.setItem("qurantft-pn", currentPage);
-
-            setTimeout(() => {
-                if (restoreIntroText.current && refToRestore.current && textRememberRef.current[refToRestore.current]) {
-                    textRememberRef.current[refToRestore.current].scrollIntoView({ behavior: 'smooth', block: 'center' });
-                } else {
-                    if (contentRef.current) {
-                        contentRef.current.scrollTo({
-                            top: 0,
-                            left: 0,
-                            behavior: 'smooth'
-                        });
-                    }
-                }
-            }, 133);
         }
-    }, [currentPage, textRememberRef]);
-
-    const handleRefClick = (_e, n, i) => {
-        refToRestore.current = n + "-" + i;
-    };
+    }, [currentPage]);
 
     const handleJump = async (page, suraNumber, verseNumber) => {
         updatePage(parseInt(page), suraNumber, verseNumber);
@@ -125,10 +102,6 @@ const Book = ({ onChangeTheme, colors, theme, translationApplication, introducti
         if (isSearchOpen) {
             setSearchOpen(false);
         }
-    };
-
-    const handleToggleFutureMan = () => {
-        setFutureManVisible(!futureManVisible);
     };
 
     const setSelectedAppendix = (number) => {
@@ -209,7 +182,6 @@ const Book = ({ onChangeTheme, colors, theme, translationApplication, introducti
             updatePage(newPage, null, null, 'previous');
         }
     }, [currentPage, pageHistory, updatePage]);
-
 
     const createReferenceMap = () => {
         const referenceMap = {};
@@ -577,52 +549,32 @@ const Book = ({ onChangeTheme, colors, theme, translationApplication, introducti
         setModalOpen(false);
     };
 
-    const renderTable = (tableData) => {
-        const tableRef = tableData.ref;
-        const columnCount = tableData.title.length;
-        const rows = [];
-
-        for (let i = 0; i < tableData.values.length; i += columnCount) {
-            rows.push(tableData.values.slice(i, i + columnCount));
-        }
-
-        return (
-            <div
-                key={`${tableData.title}`}
-                className={`w-full flex flex-col ${colors[theme]["table-title-text"]}`}>
-                <div className={`${colors[theme]["base-background"]} w-full rounded text-sm py-2 text-center `}>
-                    {tableRef}
-                </div>
-                <table title={tableRef} className={`table-auto ${colors[theme]["base-background"]} border-collapse border-2 ${colors[theme]["border"]} text-center mb-3 w-full text-sm md:text-base`}>
-                    <thead>
-                        <tr>
-                            {tableData.title.map((header, index) => (
-                                <th key={index} className={`border-2 ${colors[theme]["border"]} p-2 `}>{header}</th>
-                            ))}
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {rows.map((row, rowIndex) => (
-                            <tr key={rowIndex}>
-                                {row.map((cell, cellIndex) => (
-                                    <td key={cellIndex} className={`border-2 ${colors[theme]["border"]} p-2`}>{cell}</td>
-                                ))}
-                            </tr>
-                        ))}
-                    </tbody>
-                </table>
-            </div>
-        );
-    };
-
     const renderBookContent = () => {
 
         if (parseInt(currentPage) === 1) {
-            return <Splash bookContent={bookContent} currentPage={currentPage} colors={colors} theme={theme} direction={direction} />;
+            return <Splash
+                bookContent={introductionContent}
+                currentPage={currentPage}
+                colors={colors}
+                theme={theme}
+                direction={direction} />;
+        }
+
+        if (parseInt(currentPage) > 1 && parseInt(currentPage) <= 21) {
+            return <Intro
+                colors={colors}
+                theme={theme}
+                translationApplication={translationApplication}
+                parseReferences={parseReferences}
+                introduction={introductionContent}
+                currentPage={currentPage}
+                restoreIntroText={restoreIntroText}
+                refToRestore={beginingReferenceToRestore}
+                direction={direction} />;
         }
 
         if (parseInt(currentPage) === 22) {
-            const cpd = bookContent ? bookContent.find(iterator => iterator.page === currentPage) : null;
+            const cpd = introductionContent ? introductionContent.find(iterator => iterator.page === currentPage) : null;
 
             if (!cpd || !cpd.evidence["2"] || !cpd.evidence["2"].lines) {
                 return (
@@ -738,7 +690,7 @@ const Book = ({ onChangeTheme, colors, theme, translationApplication, introducti
         }
 
         if (parseInt(currentPage) === 396) {
-            const cpd = bookContent ? bookContent.find(iterator => iterator.page === currentPage) : null;
+            const cpd = appendicesContent ? appendicesContent.find(iterator => iterator.page === currentPage) : null;
 
             if (!cpd || !cpd.evidence["2"] || !cpd.evidence["2"].lines) {
                 return (
@@ -796,264 +748,10 @@ const Book = ({ onChangeTheme, colors, theme, translationApplication, introducti
                 appendices={appendicesContent}
                 selected={selectedApp}
                 restoreAppText={restoreAppText}
-                refToRestore={refToRestore}
+                refToRestore={endReferenceToRestore}
                 direction={direction}
             />;
         }
-
-
-        const combinedContent = [];
-
-        const currentPageData = bookContent ? bookContent.find(iterator => iterator.page === currentPage) : null;
-
-
-        if (!currentPageData || !currentPageData.titles) {
-            return <div className={`${colors[theme]["log-text"]} flex flex-1 items-center justify-center w-full text-xl`}>
-                <svg className={`animate-spin -ml-1 mr-3 h-5 w-5 text-white`} xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
-                    <circle className={`opacity-25`} cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
-                    <path className={`opacity-75`} fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
-                </svg>
-                {translationApplication?.loading}
-            </div>;
-        }
-
-        // Add titles to combined content
-        Object.entries(currentPageData.titles).forEach(([key, value]) => {
-            combinedContent.push({ type: 'title', content: value, order: parseInt(key) });
-        });
-
-        // Add text paragraphs to combined content
-        Object.entries(currentPageData.text).forEach(([key, value]) => {
-            combinedContent.push({ type: 'text', content: value, order: parseInt(key) });
-        });
-
-        // Add evidence to combined content
-        Object.entries(currentPageData.evidence).forEach(([key, value]) => {
-            combinedContent.push({ type: 'evidence', content: value, order: parseInt(key) });
-        });
-
-        if (currentPageData.picture) {
-            // Add pictures to combined content
-            Object.entries(currentPageData.picture).forEach(([key, value]) => {
-                combinedContent.push({ type: 'picture', no: value["no"], order: parseInt(key), text: value["text"] });
-            });
-        }
-
-        if (currentPageData.table) {
-            // Add pictures to combined content
-            Object.entries(currentPageData.table).forEach(([key, value]) => {
-                combinedContent.push({ type: 'table', content: value, order: parseInt(key) });
-            });
-        }
-        // Sort the combined content by order
-        combinedContent.sort((a, b) => a.order - b.order);
-
-        // Render combined content
-        const renderContent = combinedContent.map((item, index) => {
-            if (item.type === 'title') {
-                const bsml = translationApplication.bsml.toLocaleLowerCase(lang);
-                const hasBesmele = item.content.toLocaleLowerCase(lang).search(bsml) !== -1;
-
-                return (
-                    <div
-                        key={`title-${index}`}
-                        dir={direction}
-                        className={hasBesmele ? `select-none w-full my-1.5 py-1.5 px-2.5 text-neutral-900 rounded text-base md:text-lg lg:text-xl bg-gradient-to-r from-cyan-300 to-sky-500 besmele` : `select-text w-full flex items-center justify-center text-center p-2 font-semibold ${colors[theme]["app-text"]}  whitespace-pre-line ${item.order === 0 ? "text-3xl font-bold" : " text-lg"}`}>
-                        <h2>{item.content}</h2>
-                    </div>
-                );
-            } else if (item.type === 'text') {
-                return (
-                    <div
-                        lang={lang}
-                        dir={direction}
-                        key={`text-${index}`}
-                        ref={(el) => textRememberRef.current["intro-" + index] = el}
-                        onClick={(e) => handleRefClick(e, "intro", index)}
-                        className={`select-text rounded ${colors[theme]["text-background"]} ${colors[theme]["app-text"]} p-1 mb-1 flex w-full justify-center hyphens-auto `}>
-                        <p className={`px-0.5 md:px-1`}>{parseReferences(item.content)}</p>
-                    </div>
-                );
-            } else if (item.type === 'evidence') {
-                // SPECIAL RENDER 1
-                if (item.content.special && item.content.special.key === 1) {
-                    const data = item.content.special.data;
-                    return (
-                        <div
-                            key={`special-1-${index}`}
-                            className={`w-full flex flex-col flex-1 my-2 `}>
-                            <div className={`w-full px-1 mt-6`}>
-                                <div
-                                    onClick={handleToggleFutureMan}
-                                    className={`bg-gray-100 text-gray-700 text-sm md:text-base border border-gray-700 flex justify-between w-full items-stretch cursor-pointer`}>
-                                    <div className={`relative text-gray-100 bg-gray-700 w-[11%] flex flex-wrap `}>
-                                        {/* Render SVGs for index 0 in this div */}
-                                        {Object.entries(data).map(([key, value]) => {
-                                            if (parseInt(key) === 0) {
-                                                return Array.from({ length: value }, (_, i) => (
-                                                    <div key={`prevman-${i}`} className={`p-0.5 transition-opacity duration-300 ease-in-out ${futureManVisible ? 'opacity-100' : 'opacity-0'}`}>
-                                                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className={`w-3 h-3 md:h-5 md:w-5 lg:h-6 lg:w-6`}>
-                                                            <path strokeLinecap="round" strokeLinejoin="round" d="M15.75 6a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0zM4.501 20.118a7.5 7.5 0 0114.998 0A17.933 17.933 0 0112 21.75c-2.676 0-5.216-.584-7.499-1.632z" />
-                                                        </svg>
-                                                    </div>
-                                                ));
-                                            }
-                                            return null;
-                                        })}
-                                    </div>
-
-                                    <div className={`relative w-full text-gray-900 bg-gray-100 h-fit flex flex-wrap `}>
-                                        {/* Render SVGs for index 1 in this div */}
-                                        {Object.entries(data).map(([key, value]) => {
-                                            if (parseInt(key) === 1) {
-                                                return Array.from({ length: value }, (_, i) => (
-                                                    <div key={`futureman-${i}`} className={`p-0.5 `}
-                                                        style={{
-                                                            transition: 'opacity 300ms ease-in-out',
-                                                            transitionDelay: futureManVisible ? `${i * 38}ms` : `0ms`,
-                                                            opacity: futureManVisible ? 1 : 0
-                                                        }}
-                                                    >
-                                                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className={` w-3 h-3 md:h-5 md:w-5 lg:h-6 lg:w-6`}>
-                                                            <path strokeLinecap="round" strokeLinejoin="round" d="M15.75 6a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0zM4.501 20.118a7.5 7.5 0 0114.998 0A17.933 17.933 0 0112 21.75c-2.676 0-5.216-.584-7.499-1.632z" />
-                                                        </svg>
-                                                    </div>
-                                                ));
-                                            }
-                                            return null;
-                                        })}
-                                    </div>
-                                </div>
-                                <div className={`w-full flex justify-between px-1`}>
-                                    <div className={`relative h-6 w-[11%]`}>
-                                        <div className={`absolute -left-2 text-xs transition-opacity duration-300 ease-in-out ${colors[theme]["log-text"]} ${futureManVisible ? 'opacity-100' : 'opacity-0'}`}>
-                                            {translationApplication?.adam}
-                                        </div>
-                                    </div>
-                                    <div className={`relative h-6 w-[100%]`}>
-                                        <div className={`absolute -left-1 text-xs transition-opacity duration-300 ease-in-out ${colors[theme]["log-text"]} ${futureManVisible ? 'opacity-100' : 'opacity-0'}`}>
-                                            1990
-                                        </div>
-                                    </div>
-                                    <div className={`relative h-6 w-[11%] text-xs transition-opacity duration-300 ease-in-out ${colors[theme]["log-text"]} ${futureManVisible ? 'opacity-100 delay-[2800ms]' : 'opacity-0'}`}>
-                                        <div className={`absolute -right-2`}>
-                                            2280
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div
-                                lang={lang}
-                                dir={direction}
-                                className={`w-full flex flex-col ${colors[theme]["log-text"]} p-1`}>
-                                <div className={`w-full flex items-center justify-between`}>
-                                    <div className={`w-7 h-9 bg-gray-100 border border-gray-400`}>
-                                    </div>
-                                    <div
-                                        className={`${direction === "rtl" ? "mr-1" : "ml-1"} flex w-full text-sm md:text-base`}>
-                                        {item.content.lines["1"]}
-                                    </div>
-                                </div>
-                                <div className={`w-full flex items-center justify-between mt-1`}>
-                                    <div className={`w-7 h-9 bg-gray-700 border border-gray-400`}>
-                                    </div>
-                                    <div
-                                        className={`${direction === "rtl" ? "mr-1" : "ml-1"} w-full text-sm md:text-base`}>
-                                        {item.content.lines["2"]}
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                    );
-                }
-                // SPECIAL RENDER 2
-                else if (item.content.special && item.content.special.key === 2) {
-                    return (
-                        <div
-                            key={`special-2-${index}`}
-                            className={`w-full flex flex-col flex-1 my-3 px-1`}>
-                            <div className={` text-gray-700 text-sm md:text-base border border-gray-950 flex justify-between w-full items-stretch`}>
-                                <div
-                                    lang={lang}
-                                    dir={direction}
-                                    className={`relative w-full bg-gray-100 flex flex-wrap justify-center p-2.5 text-gray-700`}>
-                                    {item.content.lines["1"]}
-                                </div>
-                                <div className={`relative bg-gray-500 w-[3%] flex flex-wrap py-2`}>
-                                </div>
-                            </div>
-                            <div className={`w-full flex justify-end py-0.5 `}>
-                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className={`w-7 md:w-20 h-6`}>
-                                    <path strokeLinecap="round" strokeLinejoin="round" d="m19.5 4.5-15 15m0 0h11.25m-11.25 0V8.25" />
-                                </svg>
-                            </div>
-                            <div key={`special-2-${index + 1}`}
-                                lang={lang}
-                                dir={direction}
-                                className={` text-gray-700 text-sm md:text-base border border-gray-950 flex justify-between w-full items-stretch`}>
-                                <div className={`relative w-full bg-gray-500 flex flex-wrap justify-center p-2.5 text-gray-200`}>
-                                    {item.content.lines["2"]}
-                                </div>
-                                <div className={`relative bg-gray-900 w-[3%] flex flex-wrap py-2 `}>
-                                </div>
-                            </div>
-                        </div>
-                    );
-                }
-                return (
-                    <div
-                        key={`evidence-${index}`}
-                        lang={lang}
-                        dir={direction}
-                        ref={(el) => textRememberRef.current["intro-" + index] = el}
-                        onClick={(e) => handleRefClick(e, "intro", index)}
-                        className={`${colors[theme]["base-background"]} ${colors[theme]["table-title-text"]} rounded  text-base md:text-xl p-3 border my-1.5 ${colors[theme]["border"]}`}>
-                        {Object.entries(item.content.lines).map(([lineKey, lineValue]) => (
-                            <p className={` whitespace-pre-wrap my-1`} key={lineKey}>{parseReferences(lineValue)}</p>
-                        ))}
-                        {item.content.ref.length > 0 && (
-                            <p>{parseReferences("[" + item.content.ref.join(', ') + "]")}</p>
-                        )}
-                    </div>
-                );
-            } else if (item.type === 'picture') {
-                const imageUrl = images(`./${item.no}.jpg`);
-                return (
-                    <div
-                        key={`picture-${index}`}
-                        className={` flex flex-col flex-1 items-center justify-center w-full`}>
-                        <div className={`rounded  flex justify-center`}>
-
-                            <img
-                                src={imageUrl}
-                                alt={imageUrl}
-                                className={`object-center`}
-                            />
-                        </div>
-                        {item.text && <div className={`${colors[theme]["log-text"]} w-full text-base flex justify-center`}>
-                            <div className={`py-2 px-1`}>
-                                {item.text}
-                            </div>
-                        </div>}
-                    </div>
-                );
-            } else if (item.type === 'table') {
-                return (renderTable(item.content));
-            } else {
-                return (
-                    <div className={`${colors[theme]["log-text"]} flex flex-1 items-center justify-center w-full`}>
-                        {translationApplication?.unrecognizedData}
-                    </div>
-                );
-            }
-        });
-
-        return (
-            <div key={`content-${currentPage}-${lang}`} ref={contentRef} className={`${colors[theme]["text"]} overflow-auto flex-1 p-1 text-justify lg:text-start text-lg md:text-xl lg:text-2xl`}>
-                {renderContent}
-            </div>
-        );
     };
 
     return (
