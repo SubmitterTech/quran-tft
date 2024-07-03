@@ -1032,12 +1032,12 @@ const Book = ({ onChangeTheme, colors, theme, translationApplication, introducti
     return (
         <div
             className={`fixed flex w-full flex-col justify-start h-screen ${colors[theme]["app-background"]} overflow-y-hidden`}
-            style={{ paddingTop: 'env(safe-area-inset-top)', paddingBottom: 'env(safe-area-inset-bottom)' }}>
+            style={{ paddingTop: 'calc(env(safe-area-inset-top) * 0.76)', paddingBottom: 'calc(env(safe-area-inset-bottom) * 0.57)' }}>
             {renderBookContent()}
             <div>
                 <div className={`h-14 md:h-20`}></div>
                 <div className={`w-full flex z-40 ${colors[theme]["app-background"]} fixed bottom-0`}
-                    style={{ paddingBottom: 'env(safe-area-inset-bottom)' }}>
+                    style={{ paddingBottom: 'calc(env(safe-area-inset-bottom) * 0.57)' }}>
                     <div className={`relative flex w-full items-center justify-between`}>
                         <div className={`absolute h-0.5 left-0 -top-0.5 ${colors[theme]["matching"]}`} style={{ width: `${progressPercentage}%` }}></div>
 

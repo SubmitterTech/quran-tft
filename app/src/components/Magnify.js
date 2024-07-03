@@ -313,7 +313,7 @@ const Magnify = ({ colors, theme, translationApplication, quran, map, onClose, o
 
     return (
         <div className={`w-screen h-screen animated overflow-auto faster fixed  left-0 top-0 flex flex-col items-center justify-start inset-0 z-10 outline-none focus:outline-none backdrop-blur-2xl`} id="jump-screen"
-            style={{ paddingTop: 'env(safe-area-inset-top)', paddingBottom: 'env(safe-area-inset-bottom)' }}
+            style={{ paddingTop: 'calc(env(safe-area-inset-top) * 0.76)', paddingBottom: 'calc(env(safe-area-inset-bottom) * 0.57)' }}
         >
             <div className={`w-full flex p-1.5 sticky top-0 backdrop-blur-2xl`}>
                 <div className={`w-full flex rounded  space-x-2`}>
@@ -419,7 +419,7 @@ const Magnify = ({ colors, theme, translationApplication, quran, map, onClose, o
             }
             {searchTerm.length === 1 &&
                 <div className={`w-full px-1 mb-12 lg:mb-14 xl:mb-16`}>
-                    <div className={`text-lg md:text-base w-full p-0.5 ${colors[theme]["text"]} transition-all duration-200 ease-linear overflow-auto`}>
+                    <div className={`text-lg md:text-base w-full p-0.5 ${colors[theme]["text"]} transition-all duration-200 ease-linear overflow-y-auto`}>
                         <div className={` w-full flex flex-col space-y-1.5 transition-all duration-200 ease-linear `}>
                             {Object.entries(loadedMap).map(([exp, themeorref]) => (
                                 <div
