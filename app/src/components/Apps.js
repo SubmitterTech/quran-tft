@@ -128,8 +128,8 @@ const Apps = ({ colors, theme, translationApplication, parseReferences, appendic
                                 <tr key={`row-${rowIndex}`}>
                                     {row.map((cell, cellIndex) => (
                                         <td key={`cell-${rowIndex}-${cellIndex}`}
-                                            ref={(el) => textRef.current[appno + "-" + key] = el}
-                                            onClick={(e) => handleClick(e, appno, key)}
+                                            ref={(el) => textRef.current[appno + "-" + key + "-" + row + rowIndex] = el}
+                                            onClick={(e) => handleClick(e, appno, key + "-" + row + rowIndex)}
                                             className={`border-2 ${colors[theme]["border"]} p-2 text-center break-words`}>{parseReferences(cell)}</td>
                                     ))}
                                 </tr>
