@@ -1035,7 +1035,7 @@ const Book = ({ onChangeTheme, colors, theme, translationApplication, introducti
             style={{ paddingTop: 'calc(env(safe-area-inset-top) * 0.76)', paddingBottom: 'calc(env(safe-area-inset-bottom) * 0.57)' }}>
             {renderBookContent()}
             <div>
-                <div className={`h-14 md:h-20`}></div>
+                <div className={`h-12 md:h-14`}></div>
                 <div className={`w-full flex z-40 ${colors[theme]["app-background"]} fixed bottom-0`}
                     style={{ paddingBottom: 'calc(env(safe-area-inset-bottom) * 0.57)' }}>
                     <div className={`relative flex w-full items-center justify-between`}>
