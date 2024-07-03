@@ -867,8 +867,8 @@ const Book = ({ onChangeTheme, colors, theme, translationApplication, introducti
                     return (
                         <div
                             key={`special-1-${index}`}
-                            className={`w-full flex flex-col flex-1 my-3 `}>
-                            <div className={`w-full px-1`}>
+                            className={`w-full flex flex-col flex-1 my-2 `}>
+                            <div className={`w-full px-1 mt-6`}>
                                 <div
                                     onClick={handleToggleFutureMan}
                                     className={`bg-gray-100 text-gray-700 text-sm md:text-base border border-gray-700 flex justify-between w-full items-stretch cursor-pointer`}>
@@ -909,20 +909,19 @@ const Book = ({ onChangeTheme, colors, theme, translationApplication, introducti
                                             return null;
                                         })}
                                     </div>
-
                                 </div>
-                                <div className={`w-full flex justify-between`}>
+                                <div className={`w-full flex justify-between px-1`}>
                                     <div className={`relative h-6 w-[11%]`}>
-                                        <div className={`absolute -left-2 text-xs`}>
+                                        <div className={`absolute -left-2 text-xs transition-opacity duration-300 ease-in-out ${colors[theme]["log-text"]} ${futureManVisible ? 'opacity-100' : 'opacity-0'}`}>
                                             {translationApplication?.adam}
                                         </div>
                                     </div>
                                     <div className={`relative h-6 w-[100%]`}>
-                                        <div className={`absolute -left-1 text-xs`}>
+                                        <div className={`absolute -left-1 text-xs transition-opacity duration-300 ease-in-out ${colors[theme]["log-text"]} ${futureManVisible ? 'opacity-100' : 'opacity-0'}`}>
                                             1990
                                         </div>
                                     </div>
-                                    <div className={`relative h-6 w-[11%] text-xs`}>
+                                    <div className={`relative h-6 w-[11%] text-xs transition-opacity duration-300 ease-in-out ${colors[theme]["log-text"]} ${futureManVisible ? 'opacity-100 delay-[2800ms]' : 'opacity-0'}`}>
                                         <div className={`absolute -right-2`}>
                                             2280
                                         </div>
@@ -932,9 +931,9 @@ const Book = ({ onChangeTheme, colors, theme, translationApplication, introducti
                             <div
                                 lang={lang}
                                 dir={direction}
-                                className={`w-full flex flex-col rounded border border-gray-700 p-1`}>
+                                className={`w-full flex flex-col ${colors[theme]["log-text"]} p-1`}>
                                 <div className={`w-full flex items-center justify-between`}>
-                                    <div className={`w-7 h-8  bg-gray-100 border border-gray-300 `}>
+                                    <div className={`w-7 h-9 bg-gray-100 border border-gray-400`}>
                                     </div>
                                     <div
                                         className={`${direction === "rtl" ? "mr-1" : "ml-1"} flex w-full text-sm md:text-base`}>
@@ -942,7 +941,7 @@ const Book = ({ onChangeTheme, colors, theme, translationApplication, introducti
                                     </div>
                                 </div>
                                 <div className={`w-full flex items-center justify-between mt-1`}>
-                                    <div className={`w-7 h-8  bg-gray-700 border border-gray-300 `}>
+                                    <div className={`w-7 h-9 bg-gray-700 border border-gray-400`}>
                                     </div>
                                     <div
                                         className={`${direction === "rtl" ? "mr-1" : "ml-1"} w-full text-sm md:text-base`}>
@@ -959,12 +958,12 @@ const Book = ({ onChangeTheme, colors, theme, translationApplication, introducti
                     return (
                         <div
                             key={`special-2-${index}`}
-                            className={`w-full flex flex-col flex-1 my-3`}>
+                            className={`w-full flex flex-col flex-1 my-3 px-1`}>
                             <div className={` text-gray-700 text-sm md:text-base border border-gray-950 flex justify-between w-full items-stretch`}>
                                 <div
                                     lang={lang}
                                     dir={direction}
-                                    className={`relative w-full bg-gray-100 flex flex-wrap justify-center p-2 text-gray-700`}>
+                                    className={`relative w-full bg-gray-100 flex flex-wrap justify-center p-2.5 text-gray-700`}>
                                     {item.content.lines["1"]}
                                 </div>
                                 <div className={`relative bg-gray-500 w-[3%] flex flex-wrap py-2`}>
@@ -979,7 +978,7 @@ const Book = ({ onChangeTheme, colors, theme, translationApplication, introducti
                                 lang={lang}
                                 dir={direction}
                                 className={` text-gray-700 text-sm md:text-base border border-gray-950 flex justify-between w-full items-stretch`}>
-                                <div className={`relative w-full bg-gray-500 flex flex-wrap justify-center p-2 text-gray-200`}>
+                                <div className={`relative w-full bg-gray-500 flex flex-wrap justify-center p-2.5 text-gray-200`}>
                                     {item.content.lines["2"]}
                                 </div>
                                 <div className={`relative bg-gray-900 w-[3%] flex flex-wrap py-2 `}>
