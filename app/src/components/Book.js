@@ -23,6 +23,7 @@ const Book = ({ onChangeTheme, colors, theme, translationApplication, introducti
     const [isSearchOpen, setSearchOpen] = useState(false);
     const contentRef = useRef(null);
     const restoreAppText = useRef(null);
+    const restoreIntroText = useRef(null);
     const refToRestore = useRef(null);
     const [pages, setPages] = useState([]);
     const [selectedApp, setSelectedApp] = useState(1);
@@ -30,6 +31,7 @@ const Book = ({ onChangeTheme, colors, theme, translationApplication, introducti
     const [remainingTime, setRemainingTime] = useState(0);
     const progressPercentage = (remainingTime / 19000) * 100;
     const [futureManVisible, setFutureManVisible] = useState(false);
+    const textRememberRef = useRef({});
 
     let path = useRef({});
 
@@ -55,7 +57,6 @@ const Book = ({ onChangeTheme, colors, theme, translationApplication, introducti
     }
 
     useEffect(() => {
-
         if (appendicesContent) {
             const scApps = transformAppendices(appendicesContent);
             setAppendices(scApps);
@@ -79,16 +80,27 @@ const Book = ({ onChangeTheme, colors, theme, translationApplication, introducti
 
     useEffect(() => {
         if (currentPage) {
-            localStorage.setItem("qurantft-pn", currentPage)
-            if (contentRef.current) {
-                contentRef.current.scrollTo({
-                    top: 0,
-                    left: 0,
-                    behavior: 'smooth'
-                });
-            }
+            localStorage.setItem("qurantft-pn", currentPage);
+
+            setTimeout(() => {
+                if (restoreIntroText.current && refToRestore.current && textRememberRef.current[refToRestore.current]) {
+                    textRememberRef.current[refToRestore.current].scrollIntoView({ behavior: 'smooth', block: 'center' });
+                } else {
+                    if (contentRef.current) {
+                        contentRef.current.scrollTo({
+                            top: 0,
+                            left: 0,
+                            behavior: 'smooth'
+                        });
+                    }
+                }
+            }, 133);
         }
-    }, [currentPage]);
+    }, [currentPage, textRememberRef]);
+
+    const handleRefClick = (_e, n, i) => {
+        refToRestore.current = n + "-" + i;
+    };
 
     const handleJump = async (page, suraNumber, verseNumber) => {
         updatePage(parseInt(page), suraNumber, verseNumber);
@@ -170,6 +182,7 @@ const Book = ({ onChangeTheme, colors, theme, translationApplication, introducti
         } else {
             updatePage(parseInt(newPage), null, null, 'next', selectedApp);
         }
+        restoreIntroText.current = false;
     };
 
     const prevPage = useCallback(() => {
@@ -183,6 +196,7 @@ const Book = ({ onChangeTheme, colors, theme, translationApplication, introducti
             setSelectedVerse(lastHistoryItem.verse);
 
             restoreAppText.current = (lastHistoryItem.actionType === 'fromAppendix' || lastHistoryItem.actionType === 'openAppendix');
+            restoreIntroText.current = (lastHistoryItem.actionType === 'fromIntro' || lastHistoryItem.actionType === 'openAppendix');
 
             if (lastHistoryItem.page === 397) {
                 if (pageHistory[pageHistory.length - 1]) {
@@ -284,8 +298,6 @@ const Book = ({ onChangeTheme, colors, theme, translationApplication, introducti
         const intro = translationApplication.intro;
         const appendixRegex = new RegExp(`${app}`, 'g');
         const introRegex = new RegExp(`${intro}`, 'g');
-        //const introRegex = new RegExp(`(?<!\\p{L})${intro}(?!\\p{L})`, 'giu');
-        //const introRegex = new RegExp(`(?:^|\\s|[.,'";:!?(){}])${intro}(?:$|\\s|[.,'";:!?(){}])`, 'gi');
 
 
         const replaceAppendixNumbers = (part) => {
@@ -856,6 +868,8 @@ const Book = ({ onChangeTheme, colors, theme, translationApplication, introducti
                         lang={lang}
                         dir={direction}
                         key={`text-${index}`}
+                        ref={(el) => textRememberRef.current["intro-" + index] = el}
+                        onClick={(e) => handleRefClick(e, "intro", index)}
                         className={`select-text rounded ${colors[theme]["text-background"]} ${colors[theme]["app-text"]} p-1 mb-1 flex w-full justify-center hyphens-auto `}>
                         <p className={`px-0.5 md:px-1`}>{parseReferences(item.content)}</p>
                     </div>
@@ -992,6 +1006,8 @@ const Book = ({ onChangeTheme, colors, theme, translationApplication, introducti
                         key={`evidence-${index}`}
                         lang={lang}
                         dir={direction}
+                        ref={(el) => textRememberRef.current["intro-" + index] = el}
+                        onClick={(e) => handleRefClick(e, "intro", index)}
                         className={`${colors[theme]["base-background"]} ${colors[theme]["table-title-text"]} rounded  text-base md:text-xl p-3 border my-1.5 ${colors[theme]["border"]}`}>
                         {Object.entries(item.content.lines).map(([lineKey, lineValue]) => (
                             <p className={` whitespace-pre-wrap my-1`} key={lineKey}>{parseReferences(lineValue)}</p>
