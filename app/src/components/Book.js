@@ -29,6 +29,7 @@ const Book = ({ onChangeTheme, colors, theme, translationApplication, introducti
     const [backButtonPressedOnce, setBackButtonPressedOnce] = useState(false);
     const [remainingTime, setRemainingTime] = useState(0);
     const progressPercentage = (remainingTime / 19000) * 100;
+    const [futureManVisible, setFutureManVisible] = useState(false);
 
     let path = useRef({});
 
@@ -112,6 +113,10 @@ const Book = ({ onChangeTheme, colors, theme, translationApplication, introducti
         if (isSearchOpen) {
             setSearchOpen(false);
         }
+    };
+
+    const handleToggleFutureMan = () => {
+        setFutureManVisible(!futureManVisible);
     };
 
     const setSelectedAppendix = (number) => {
@@ -756,7 +761,7 @@ const Book = ({ onChangeTheme, colors, theme, translationApplication, introducti
                             <div className={`font-semibold rounded p-3 m-1 ${colors[theme]["base-background"]} w-16 flex items-center justify-center`}>
                                 <p className={``} >{elements[0]}</p>
                             </div>
-                            <div key={key} className={`rounded p-3 my-1 ${direction === 'ltr' ? "mr-1" : "ml-1" } ${colors[theme]["text-background"]} w-full flex items-center`}>
+                            <div key={key} className={`rounded p-3 my-1 ${direction === 'ltr' ? "mr-1" : "ml-1"} ${colors[theme]["text-background"]} w-full flex items-center`}>
                                 <p className={``} >{elements[1]}</p>
                             </div>
                         </div>
@@ -841,7 +846,7 @@ const Book = ({ onChangeTheme, colors, theme, translationApplication, introducti
                     <div
                         key={`title-${index}`}
                         dir={direction}
-                        className={hasBesmele ? `select-none w-full my-3 py-1.5 px-2.5 text-neutral-900 rounded text-base md:text-lg lg:text-xl bg-gradient-to-r from-cyan-300 to-sky-500 besmele` : `select-text w-full flex items-center justify-center text-center p-2 font-semibold ${colors[theme]["app-text"]}  whitespace-pre-line ${item.order === 0 ? "text-3xl font-bold" : " text-lg"}`}>
+                        className={hasBesmele ? `select-none w-full my-1.5 py-1.5 px-2.5 text-neutral-900 rounded text-base md:text-lg lg:text-xl bg-gradient-to-r from-cyan-300 to-sky-500 besmele` : `select-text w-full flex items-center justify-center text-center p-2 font-semibold ${colors[theme]["app-text"]}  whitespace-pre-line ${item.order === 0 ? "text-3xl font-bold" : " text-lg"}`}>
                         <h2>{item.content}</h2>
                     </div>
                 );
@@ -851,8 +856,8 @@ const Book = ({ onChangeTheme, colors, theme, translationApplication, introducti
                         lang={lang}
                         dir={direction}
                         key={`text-${index}`}
-                        className={`select-text rounded ${colors[theme]["text-background"]} ${colors[theme]["app-text"]} p-1.5 mb-1.5 flex w-full justify-center hyphens-auto `}>
-                        <p className={`px-1`}>{parseReferences(item.content)}</p>
+                        className={`select-text rounded ${colors[theme]["text-background"]} ${colors[theme]["app-text"]} p-1 mb-1 flex w-full justify-center hyphens-auto `}>
+                        <p className={`px-0.5 md:px-1`}>{parseReferences(item.content)}</p>
                     </div>
                 );
             } else if (item.type === 'evidence') {
@@ -863,31 +868,38 @@ const Book = ({ onChangeTheme, colors, theme, translationApplication, introducti
                         <div
                             key={`special-1-${index}`}
                             className={`w-full flex flex-col flex-1 my-3 `}>
-                            <div className={`w-full px-1.5`}>
-                                <div className={`bg-gray-100 text-gray-700 rounded  text-sm md:text-base border border-gray-700 flex justify-between w-full items-stretch `}>
+                            <div className={`w-full px-1`}>
+                                <div
+                                    onClick={handleToggleFutureMan}
+                                    className={`bg-gray-100 text-gray-700 text-sm md:text-base border border-gray-700 flex justify-between w-full items-stretch cursor-pointer`}>
                                     <div className={`relative text-gray-100 bg-gray-700 w-[11%] flex flex-wrap `}>
                                         {/* Render SVGs for index 0 in this div */}
                                         {Object.entries(data).map(([key, value]) => {
                                             if (parseInt(key) === 0) {
                                                 return Array.from({ length: value }, (_, i) => (
-                                                    <div key={`prevman-${i}`} className={`p-0.5`}>
+                                                    <div key={`prevman-${i}`} className={`p-0.5 transition-opacity duration-300 ease-in-out ${futureManVisible ? 'opacity-100' : 'opacity-0'}`}>
                                                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className={`w-3 h-3 md:h-5 md:w-5 lg:h-6 lg:w-6`}>
                                                             <path strokeLinecap="round" strokeLinejoin="round" d="M15.75 6a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0zM4.501 20.118a7.5 7.5 0 0114.998 0A17.933 17.933 0 0112 21.75c-2.676 0-5.216-.584-7.499-1.632z" />
                                                         </svg>
                                                     </div>
-
                                                 ));
                                             }
                                             return null;
                                         })}
                                     </div>
 
-                                    <div className={`relative w-full text-gray-900 bg-gray-100 h-fit flex flex-wrap rounded-r`}>
+                                    <div className={`relative w-full text-gray-900 bg-gray-100 h-fit flex flex-wrap `}>
                                         {/* Render SVGs for index 1 in this div */}
                                         {Object.entries(data).map(([key, value]) => {
                                             if (parseInt(key) === 1) {
                                                 return Array.from({ length: value }, (_, i) => (
-                                                    <div key={`futureman-${i}`} className={`p-0.5`}>
+                                                    <div key={`futureman-${i}`} className={`p-0.5 `}
+                                                        style={{
+                                                            transition: 'opacity 300ms ease-in-out',
+                                                            transitionDelay: futureManVisible ? `${i * 38}ms` : `0ms`,
+                                                            opacity: futureManVisible ? 1 : 0
+                                                        }}
+                                                    >
                                                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className={` w-3 h-3 md:h-5 md:w-5 lg:h-6 lg:w-6`}>
                                                             <path strokeLinecap="round" strokeLinejoin="round" d="M15.75 6a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0zM4.501 20.118a7.5 7.5 0 0114.998 0A17.933 17.933 0 0112 21.75c-2.676 0-5.216-.584-7.499-1.632z" />
                                                         </svg>
@@ -922,18 +934,18 @@ const Book = ({ onChangeTheme, colors, theme, translationApplication, introducti
                                 dir={direction}
                                 className={`w-full flex flex-col rounded border border-gray-700 p-1`}>
                                 <div className={`w-full flex items-center justify-between`}>
-                                    <div className={`w-7 h-7 rounded bg-gray-100 border border-gray-300 `}>
+                                    <div className={`w-7 h-8  bg-gray-100 border border-gray-300 `}>
                                     </div>
                                     <div
-                                        className={`${direction === "rtl" ? "mr-1" : "ml-1"} flex w-full text-sm`}>
+                                        className={`${direction === "rtl" ? "mr-1" : "ml-1"} flex w-full text-sm md:text-base`}>
                                         {item.content.lines["1"]}
                                     </div>
                                 </div>
                                 <div className={`w-full flex items-center justify-between mt-1`}>
-                                    <div className={`w-7 h-7 rounded bg-gray-700 border border-gray-300 `}>
+                                    <div className={`w-7 h-8  bg-gray-700 border border-gray-300 `}>
                                     </div>
                                     <div
-                                        className={`${direction === "rtl" ? "mr-1" : "ml-1"} w-full text-sm`}>
+                                        className={`${direction === "rtl" ? "mr-1" : "ml-1"} w-full text-sm md:text-base`}>
                                         {item.content.lines["2"]}
                                     </div>
                                 </div>
@@ -948,29 +960,29 @@ const Book = ({ onChangeTheme, colors, theme, translationApplication, introducti
                         <div
                             key={`special-2-${index}`}
                             className={`w-full flex flex-col flex-1 my-3`}>
-                            <div className={` text-gray-700 rounded  text-sm md:text-base border border-gray-950 flex justify-between w-full items-stretch`}>
+                            <div className={` text-gray-700 text-sm md:text-base border border-gray-950 flex justify-between w-full items-stretch`}>
                                 <div
                                     lang={lang}
                                     dir={direction}
-                                    className={`relative w-full bg-gray-100 flex flex-wrap justify-center p-2 text-gray-700 rounded-l`}>
+                                    className={`relative w-full bg-gray-100 flex flex-wrap justify-center p-2 text-gray-700`}>
                                     {item.content.lines["1"]}
                                 </div>
-                                <div className={`relative bg-gray-500 w-[3%] flex flex-wrap py-2 rounded-r`}>
+                                <div className={`relative bg-gray-500 w-[3%] flex flex-wrap py-2`}>
                                 </div>
                             </div>
-                            <div className={`w-full flex justify-end py-0.5`}>
-                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className={`w-6 h-6`}>
-                                    <path strokeLinecap="round" strokeLinejoin="round" d="M15.75 17.25L12 21m0 0l-3.75-3.75M12 21V3" />
+                            <div className={`w-full flex justify-end py-0.5 `}>
+                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className={`w-7 md:w-20 h-6`}>
+                                    <path strokeLinecap="round" strokeLinejoin="round" d="m19.5 4.5-15 15m0 0h11.25m-11.25 0V8.25" />
                                 </svg>
                             </div>
                             <div key={`special-2-${index + 1}`}
                                 lang={lang}
                                 dir={direction}
-                                className={` text-gray-700 rounded  text-sm md:text-base border border-gray-950 flex justify-between w-full items-stretch`}>
-                                <div className={`relative w-full bg-gray-500 flex flex-wrap justify-center p-2 text-gray-200 rounded-l`}>
+                                className={` text-gray-700 text-sm md:text-base border border-gray-950 flex justify-between w-full items-stretch`}>
+                                <div className={`relative w-full bg-gray-500 flex flex-wrap justify-center p-2 text-gray-200`}>
                                     {item.content.lines["2"]}
                                 </div>
-                                <div className={`relative bg-gray-900 w-[3%] flex flex-wrap py-2 rounded-r`}>
+                                <div className={`relative bg-gray-900 w-[3%] flex flex-wrap py-2 `}>
                                 </div>
                             </div>
                         </div>
@@ -981,7 +993,7 @@ const Book = ({ onChangeTheme, colors, theme, translationApplication, introducti
                         key={`evidence-${index}`}
                         lang={lang}
                         dir={direction}
-                        className={`${colors[theme]["base-background"]} ${colors[theme]["table-title-text"]} rounded  text-base md:text-xl p-3 border my-3 ${colors[theme]["border"]}`}>
+                        className={`${colors[theme]["base-background"]} ${colors[theme]["table-title-text"]} rounded  text-base md:text-xl p-3 border my-1.5 ${colors[theme]["border"]}`}>
                         {Object.entries(item.content.lines).map(([lineKey, lineValue]) => (
                             <p className={` whitespace-pre-wrap my-1`} key={lineKey}>{parseReferences(lineValue)}</p>
                         ))}
@@ -995,7 +1007,7 @@ const Book = ({ onChangeTheme, colors, theme, translationApplication, introducti
                 return (
                     <div
                         key={`picture-${index}`}
-                        className={` flex flex-col flex-1 items-center justify-center w-full px-1`}>
+                        className={` flex flex-col flex-1 items-center justify-center w-full`}>
                         <div className={`rounded  flex justify-center`}>
 
                             <img
@@ -1005,7 +1017,7 @@ const Book = ({ onChangeTheme, colors, theme, translationApplication, introducti
                             />
                         </div>
                         {item.text && <div className={`${colors[theme]["log-text"]} w-full text-base flex justify-center`}>
-                            <div className={`p-2`}>
+                            <div className={`py-2 px-1`}>
                                 {item.text}
                             </div>
                         </div>}
@@ -1023,7 +1035,7 @@ const Book = ({ onChangeTheme, colors, theme, translationApplication, introducti
         });
 
         return (
-            <div key={`content-${currentPage}-${lang}`} ref={contentRef} className={`${colors[theme]["text"]} overflow-auto flex-1 p-1.5 text-justify lg:text-start text-lg md:text-xl lg:text-2xl`}>
+            <div key={`content-${currentPage}-${lang}`} ref={contentRef} className={`${colors[theme]["text"]} overflow-auto flex-1 p-1 text-justify lg:text-start text-lg md:text-xl lg:text-2xl`}>
                 {renderContent}
             </div>
         );
