@@ -112,7 +112,7 @@ const Apps = ({ colors, theme, translationApplication, parseReferences, appendic
         return (
             <div key={key} className={`${colors[theme]["table-title-text"]}`}>
                 <div className={` my-4 overflow-x-scroll`}>
-                    <div className={`${colors[theme]["base-background"]} w-full rounded text-sm py-2 text-center `}>
+                    <div className={`${colors[theme]["base-background"]} w-full rounded text-sm py-2 px-1 text-center `}>
                         {tableRef}
                     </div>
                     <table className={`table-auto w-full text-base md:text-lg ${colors[theme]["base-background"]} border-collapse border-2 ${colors[theme]["border"]}`}>
@@ -165,7 +165,7 @@ const Apps = ({ colors, theme, translationApplication, parseReferences, appendic
                         key={`text-${index}`}
                         ref={(el) => textRef.current[appno + "-" + index] = el}
                         onClick={(e) => handleClick(e, appno, index)}
-                        className={`rounded ${colors[theme]["text-background"]} ${colors[theme]["app-text"]} p-1 mb-1.5 flex w-full text-justify hyphens-auto`}>
+                        className={`rounded ${colors[theme]["text-background"]} ${colors[theme]["app-text"]} p-0.5 mb-1 flex w-full text-justify hyphens-auto`}>
                         <div className={`overflow-x-scroll`}>
                             <p className={`px-1 break-words`}>{parseReferences(item.content)}</p>
                         </div>
@@ -274,7 +274,7 @@ const Apps = ({ colors, theme, translationApplication, parseReferences, appendic
         }
 
         return (
-            <div className={`p-1.5`} key={selected} ref={() => handleRefsReady()}>
+            <div className={`px-1`} key={selected} ref={() => handleRefsReady()}>
                 {groups.map((group, groupIndex) => (
                     <div key={`group-${groupIndex}`} className="group">
                         {group.map((element) => element)}
@@ -288,12 +288,8 @@ const Apps = ({ colors, theme, translationApplication, parseReferences, appendic
     return (
         <div
             className={`h-screen w-screen relative overflow-y-auto pb-10 md:pb-14 ${colors[theme]["app-text"]} text-lg md:text-xl lg:text-2xl select-text`}>
-            <div
-                ref={containerRef}
-                // onScroll={loadMoreAppendices}
-                className={``}>
+            <div ref={containerRef}>
                 {renderAppendices()}
-
                 {!isRefsReady &&
                     <div className={`absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 flex ${colors[theme]["page-text"]} select-none`}>
                         <svg className={`animate-spin -ml-1 mr-3 h-5 w-5 text-white`} xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
