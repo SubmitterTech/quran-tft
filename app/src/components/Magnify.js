@@ -176,7 +176,7 @@ const Magnify = ({ colors, theme, translationApplication, quran, map, onClose, o
         setSearchResultTitles(titleResults);
         setSearchResultVerses(verseResults);
         setSearchResultNotes(notesResults);
-    }, [quran, caseSensitive, normalize]);
+    }, [quran, caseSensitive, normalize, lang]);
 
     const performSearchSingleLetter = useCallback((term) => {
         const capitalizedTerm = term.toLocaleUpperCase(lang);
