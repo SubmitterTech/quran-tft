@@ -367,7 +367,7 @@ const Magnify = ({ colors, theme, translationApplication, quran, map, onClose, o
                         className={`w-full p-2 rounded ${colors[theme]["app-background"]} ${colors[theme]["page-text"]} focus:outline-none focus:ring-2 ${colors[theme]["focus-ring"]} ${colors[theme]["focus-text"]}`}
                     />
                     <button
-                        className={`flex items-center justify-center transition-all duration-150 ease-linear ${optionsVisible ? " -rotate-90 " : " rotate-0"} ${optionsVisible ? colors[theme]["matching-text"] : colors[theme]["log-text"]}`}
+                        className={`flex items-center justify-center transition-all duration-300 ease-linear ${optionsVisible ? " -rotate-180 " : " rotate-0"} ${optionsVisible ? colors[theme]["matching-text"] : colors[theme]["log-text"]}`}
                         onClick={() => setOptionsVisible(!optionsVisible)}
                     >
                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className={`w-8 h-8 `}>
@@ -505,17 +505,17 @@ const Magnify = ({ colors, theme, translationApplication, quran, map, onClose, o
             {optionsVisible && (
                 <div className={`absolute mt-12 left-1 right-1 top-1 ${colors[theme]["app-background"]} shadow-lg rounded px-1 py-1.5 border ${colors[theme]["verse-border"]}`}>
                     <div className={`flex flex-col space-y-1.5 text-lg md:text-xl`}>
-                        <label className={`flex items-center justify-between md:justify-end space-x-2 py-2 px-4 rounded border ${caseSensitive ? colors[theme]["matching-border"] : colors[theme]["border"]} cursor-pointer`}>
-                            <span className={`${caseSensitive ? colors[theme]["text"] : colors[theme]["page-text"]}`}>{translationApplication?.case}</span>
-                            <input type="checkbox" checked={caseSensitive} onChange={(e) => setCaseSensitive(e.target.checked)} className={`w-8 h-8 text-sky-600 focus:ring-sky-500 border-gray-300 rounded`} />
+                        <label className={`flex items-center justify-between md:justify-end space-x-2 py-2 px-4 rounded border ${caseSensitive && direction !== 'rtl' ? colors[theme]["matching-border"] : colors[theme]["border"]} cursor-pointer`}>
+                            <span className={`${caseSensitive && direction !== 'rtl' ? colors[theme]["text"] : colors[theme]["page-text"]}`}>{translationApplication?.case}</span>
+                            <input disabled={direction === 'rtl'} type="checkbox" checked={caseSensitive} onChange={(e) => setCaseSensitive(e.target.checked)} className={`w-8 h-8 text-sky-600 focus:ring-sky-500 border-neutral-400 rounded`} />
                         </label>
                         {/* <label className={`flex items-center justify-between md:justify-end space-x-2 py-2 px-4 rounded ${colors[theme]["text-background"]} cursor-pointer`}>
                             <span>Exact Match</span>
                             <input type="checkbox" checked={exactMatch} onChange={(e) => setExactMatch(e.target.checked)} className="w-8 h-8 text-sky-600 focus:ring-sky-500 border-gray-300 rounded" />
                         </label> */}
-                        <label className={`flex items-center justify-between md:justify-end space-x-2 py-2 px-4 rounded border ${normalize ? colors[theme]["matching-border"] : colors[theme]["border"]} cursor-pointer`}>
-                            <span className={`${normalize ? colors[theme]["text"] : colors[theme]["page-text"]}`}>{translationApplication?.norm}</span>
-                            <input type="checkbox" checked={normalize} onChange={(e) => setNormalize(e.target.checked)} className={`w-8 h-8 text-sky-600 focus:ring-sky-500 border-gray-300 rounded`} />
+                        <label className={`flex items-center justify-between md:justify-end space-x-2 py-2 px-4 rounded border ${normalize && direction !== 'rtl' ? colors[theme]["matching-border"] : colors[theme]["border"]} cursor-pointer`}>
+                            <span className={`${normalize && direction !== 'rtl' ? colors[theme]["text"] : colors[theme]["page-text"]}`}>{translationApplication?.norm}</span>
+                            <input disabled={direction === 'rtl'} type="checkbox" checked={normalize} onChange={(e) => setNormalize(e.target.checked)} className={`w-8 h-8 text-sky-600 focus:ring-sky-500 border-neutral-400 rounded`} />
                         </label>
                     </div>
                 </div>
