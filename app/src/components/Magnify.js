@@ -4,6 +4,17 @@ const Magnify = ({ colors, theme, translationApplication, quran, map, onClose, o
     const lang = localStorage.getItem("lang")
 
     const [searchTerm, setSearchTerm] = useState("");
+    //const [exactMatch, setExactMatch] = useState(false);
+    const [caseSensitive, setCaseSensitive] = useState(() => {
+        const saved = localStorage.getItem("case");
+        return saved !== null ? JSON.parse(saved) : false;
+    });
+    const [normalize, setNormalize] = useState(() => {
+        const saved = localStorage.getItem("norm");
+        return saved !== null ? JSON.parse(saved) : true;
+    });
+    const [optionsVisible, setOptionsVisible] = useState(false);
+
     const [searchResultTitles, setSearchResultTitles] = useState([]);
     const [searchResultVerses, setSearchResultVerses] = useState([]);
     const [searchResultNotes, setSearchResultNotes] = useState([]);
@@ -64,21 +75,21 @@ const Magnify = ({ colors, theme, translationApplication, quran, map, onClose, o
         }
     }, []);
 
-    const removeDiacritics = (text) => {
+    useEffect(() => {
+        localStorage.setItem("case", JSON.stringify(caseSensitive));
+    }, [caseSensitive]);
+
+    useEffect(() => {
+        localStorage.setItem("norm", JSON.stringify(normalize));
+    }, [normalize]);
+
+    const normalizeText = (text) => {
         return text.normalize("NFD").replace(/[\u0300-\u036f]/g, "");
     };
 
-    const escapeRegExp = (text) => {
+    const removePunctuations = (text) => {
         return text.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
     };
-
-    const performSearchSingleLetter = useCallback((term) => {
-        const capitalizedTerm = term.toLocaleUpperCase(lang);
-        if (capitalizedTerm.length === 1 && map[capitalizedTerm]) {
-            setLoadedMap(map[capitalizedTerm]);
-        }
-    }, [map, lang]);
-
 
     const performSearch = useCallback((term) => {
         if (!term) {
@@ -91,7 +102,12 @@ const Magnify = ({ colors, theme, translationApplication, quran, map, onClose, o
             return;
         }
 
-        const keywords = removeDiacritics(term).toLowerCase().split(' ').filter(keyword => keyword.trim() !== '');
+        // const keywords = normalizeText(term).toLowerCase().split(' ').filter(keyword => keyword.trim() !== '');
+        let processedTerm = term;
+        processedTerm = normalize ? normalizeText(processedTerm) : processedTerm;
+        processedTerm = caseSensitive ? processedTerm : processedTerm.toLocaleUpperCase(lang);
+
+        const keywords = processedTerm.split(' ').filter(keyword => keyword.trim() !== '');
         const titleResults = [];
         const verseResults = [];
         const notesResults = [];
@@ -103,28 +119,40 @@ const Magnify = ({ colors, theme, translationApplication, quran, map, onClose, o
                 const verses = suras[suraNumber].verses;
                 for (const verseNumber in verses) {
                     const verseText = verses[verseNumber];
-                    const normalizedVerseText = removeDiacritics(verseText).toLowerCase();
+                    // const processedVerseText = normalizeText(verseText).toLowerCase();
+                    let processedVerseText = verseText;
+                    processedVerseText = normalize ? normalizeText(processedVerseText) : processedVerseText;
+                    processedVerseText = caseSensitive ? processedVerseText : processedVerseText.toLocaleUpperCase(lang);
 
-                    if (keywords.every(keyword => normalizedVerseText.includes(keyword)) ||
-                        keywords.some(keyword => verseNumber.includes(keyword) || suraNumber.includes(keyword) || (`${suraNumber}:${verseNumber}`).includes(keyword))) {
+                    if (keywords.every(keyword => processedVerseText.includes(keyword)) ||
+                        keywords.some(keyword => verseNumber.includes(keyword) ||
+                            suraNumber.includes(keyword) ||
+                            (`${suraNumber}:${verseNumber}`).includes(keyword))) {
                         verseResults.push({ suraNumber, verseNumber, verseText });
                     }
                 }
                 const titles = suras[suraNumber].titles;
                 for (const titleNumber in titles) {
                     const titleText = titles[titleNumber];
-                    const normalizedTitleText = removeDiacritics(titleText).toLowerCase();
+                    // const processedTitleText = normalizeText(titleText).toLowerCase();
+                    let processedTitleText = titleText;
+                    processedTitleText = normalize ? normalizeText(processedTitleText) : processedTitleText;
+                    processedTitleText = caseSensitive ? processedTitleText : processedTitleText.toLocaleUpperCase(lang);
 
-                    if (keywords.every(keyword => normalizedTitleText.includes(keyword))) {
+                    if (keywords.every(keyword => processedTitleText.includes(keyword))) {
                         titleResults.push({ suraNumber, titleNumber, titleText });
                     }
                 }
                 const notes = quran[page].notes.data;
                 if (notes.length > 0) {
                     Object.values(notes).forEach((note) => {
-                        const normalizedNote = removeDiacritics(note).toLowerCase();
+                        // const processedNote = normalizeText(note).toLowerCase();
 
-                        if (keywords.every(keyword => normalizedNote.includes(keyword))) {
+                        let processedNote = note;
+                        processedNote = normalize ? normalizeText(processedNote) : processedNote;
+                        processedNote = caseSensitive ? processedNote : processedNote.toLocaleUpperCase(lang);
+
+                        if (keywords.every(keyword => processedNote.includes(keyword))) {
                             const match = note.match(/\*+\d+:\d+/g);
 
                             if (match && match.length > 0) {
@@ -148,8 +176,14 @@ const Magnify = ({ colors, theme, translationApplication, quran, map, onClose, o
         setSearchResultTitles(titleResults);
         setSearchResultVerses(verseResults);
         setSearchResultNotes(notesResults);
-    }, [quran]);
+    }, [quran, caseSensitive, normalize]);
 
+    const performSearchSingleLetter = useCallback((term) => {
+        const capitalizedTerm = term.toLocaleUpperCase(lang);
+        if (capitalizedTerm.length === 1 && map[capitalizedTerm]) {
+            setLoadedMap(map[capitalizedTerm]);
+        }
+    }, [map, lang]);
 
     useEffect(() => {
         if (searchTerm) {
@@ -163,14 +197,16 @@ const Magnify = ({ colors, theme, translationApplication, quran, map, onClose, o
 
     const lightWords = (text, term) => {
         const highlightText = (originalText, keyword) => {
-            const normalizedText = removeDiacritics(originalText).toLowerCase();
-            const escapedKeyword = escapeRegExp(keyword);
+            let processedText = originalText;
+            processedText = normalize ? normalizeText(processedText) : processedText;
+            processedText = caseSensitive ? processedText : processedText.toLocaleUpperCase(lang);
+            const escapedKeyword = removePunctuations(keyword);
             const regex = new RegExp(escapedKeyword, 'gi');
             let match;
             const parts = [];
             let currentIndex = 0;
 
-            while ((match = regex.exec(normalizedText)) !== null) {
+            while ((match = regex.exec(processedText)) !== null) {
                 const matchIndex = match.index;
                 const matchText = originalText.substr(matchIndex, match[0].length);
 
@@ -189,8 +225,10 @@ const Magnify = ({ colors, theme, translationApplication, quran, map, onClose, o
             return parts;
         };
 
-        const normalizedTerm = removeDiacritics(term).toLowerCase();
-        const keywords = normalizedTerm.split(' ').filter(keyword => keyword.trim() !== '');
+        let processedTerm = term;
+        processedTerm = normalize ? normalizeText(processedTerm) : processedTerm;
+        processedTerm = caseSensitive ? processedTerm : processedTerm.toLocaleUpperCase(lang);
+        const keywords = processedTerm.split(' ').filter(keyword => keyword.trim() !== '');
         let highlightedText = [text];
 
         keywords.forEach(keyword => {
@@ -312,11 +350,11 @@ const Magnify = ({ colors, theme, translationApplication, quran, map, onClose, o
     };
 
     return (
-        <div className={`w-screen h-screen animated overflow-auto faster fixed  left-0 top-0 flex flex-col items-center justify-start inset-0 z-10 outline-none focus:outline-none backdrop-blur-2xl`} id="jump-screen"
+        <div className={` w-screen h-screen animated overflow-auto faster fixed  left-0 top-0 flex flex-col items-center justify-start inset-0 z-10 outline-none focus:outline-none backdrop-blur-2xl`} id="jump-screen"
             style={{ paddingTop: 'calc(env(safe-area-inset-top) * 0.76)', paddingBottom: 'calc(env(safe-area-inset-bottom) * 0.57)' }}
         >
             <div className={`w-full flex p-1.5 sticky top-0 backdrop-blur-2xl`}>
-                <div className={`w-full flex rounded  space-x-2`}>
+                <div className={`relative w-full flex rounded  space-x-2`}>
                     <input
                         type="text"
                         dir={direction}
@@ -325,8 +363,20 @@ const Magnify = ({ colors, theme, translationApplication, quran, map, onClose, o
                         placeholder={translationApplication.search + "..."}
                         value={searchTerm}
                         onChange={(e) => setSearchTerm(e.target.value)}
+                        onFocus={() => { setOptionsVisible(false) }}
                         className={`w-full p-2 rounded ${colors[theme]["app-background"]} ${colors[theme]["page-text"]} focus:outline-none focus:ring-2 ${colors[theme]["focus-ring"]} ${colors[theme]["focus-text"]}`}
                     />
+                    <button
+                        className={`flex items-center justify-center transition-all duration-150 ease-linear ${optionsVisible ? " -rotate-90 " : " rotate-0"} ${optionsVisible ? colors[theme]["matching-text"] : colors[theme]["log-text"]}`}
+                        onClick={() => setOptionsVisible(!optionsVisible)}
+                    >
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className={`w-8 h-8 `}>
+                            <path strokeLinecap="round" strokeLinejoin="round" d="M10.343 3.94c.09-.542.56-.94 1.11-.94h1.093c.55 0 1.02.398 1.11.94l.149.894c.07.424.384.764.78.93.398.164.855.142 1.205-.108l.737-.527a1.125 1.125 0 0 1 1.45.12l.773.774c.39.389.44 1.002.12 1.45l-.527.737c-.25.35-.272.806-.107 1.204.165.397.505.71.93.78l.893.15c.543.09.94.559.94 1.109v1.094c0 .55-.397 1.02-.94 1.11l-.894.149c-.424.07-.764.383-.929.78-.165.398-.143.854.107 1.204l.527.738c.32.447.269 1.06-.12 1.45l-.774.773a1.125 1.125 0 0 1-1.449.12l-.738-.527c-.35-.25-.806-.272-1.203-.107-.398.165-.71.505-.781.929l-.149.894c-.09.542-.56.94-1.11.94h-1.094c-.55 0-1.019-.398-1.11-.94l-.148-.894c-.071-.424-.384-.764-.781-.93-.398-.164-.854-.142-1.204.108l-.738.527c-.447.32-1.06.269-1.45-.12l-.773-.774a1.125 1.125 0 0 1-.12-1.45l.527-.737c.25-.35.272-.806.108-1.204-.165-.397-.506-.71-.93-.78l-.894-.15c-.542-.09-.94-.56-.94-1.109v-1.094c0-.55.398-1.02.94-1.11l.894-.149c.424-.07.765-.383.93-.78.165-.398.143-.854-.108-1.204l-.526-.738a1.125 1.125 0 0 1 .12-1.45l.773-.773a1.125 1.125 0 0 1 1.45-.12l.737.527c.35.25.807.272 1.204.107.397-.165.71-.505.78-.929l.15-.894Z" />
+                            <path strokeLinecap="round" strokeLinejoin="round" d="M15 12a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z" />
+                        </svg>
+
+                    </button>
+
                     <button className={`flex items-center justify-center ${colors[theme]["text"]}`}
                         onClick={() => {
                             if (searchTerm.length > 0) {
@@ -451,6 +501,25 @@ const Magnify = ({ colors, theme, translationApplication, quran, map, onClose, o
                     </div>
                 </div>
             }
+
+            {optionsVisible && (
+                <div className={`absolute mt-12 left-1 right-1 top-1 ${colors[theme]["app-background"]} shadow-lg rounded px-1 py-1.5 border ${colors[theme]["verse-border"]}`}>
+                    <div className={`flex flex-col space-y-1.5 text-lg md:text-xl`}>
+                        <label className={`flex items-center justify-between md:justify-end space-x-2 py-2 px-4 rounded border ${caseSensitive ? colors[theme]["matching-border"] : colors[theme]["border"]} cursor-pointer`}>
+                            <span className={`${caseSensitive ? colors[theme]["text"] : colors[theme]["page-text"]}`}>{translationApplication?.case}</span>
+                            <input type="checkbox" checked={caseSensitive} onChange={(e) => setCaseSensitive(e.target.checked)} className={`w-8 h-8 text-sky-600 focus:ring-sky-500 border-gray-300 rounded`} />
+                        </label>
+                        {/* <label className={`flex items-center justify-between md:justify-end space-x-2 py-2 px-4 rounded ${colors[theme]["text-background"]} cursor-pointer`}>
+                            <span>Exact Match</span>
+                            <input type="checkbox" checked={exactMatch} onChange={(e) => setExactMatch(e.target.checked)} className="w-8 h-8 text-sky-600 focus:ring-sky-500 border-gray-300 rounded" />
+                        </label> */}
+                        <label className={`flex items-center justify-between md:justify-end space-x-2 py-2 px-4 rounded border ${normalize ? colors[theme]["matching-border"] : colors[theme]["border"]} cursor-pointer`}>
+                            <span className={`${normalize ? colors[theme]["text"] : colors[theme]["page-text"]}`}>{translationApplication?.norm}</span>
+                            <input type="checkbox" checked={normalize} onChange={(e) => setNormalize(e.target.checked)} className={`w-8 h-8 text-sky-600 focus:ring-sky-500 border-gray-300 rounded`} />
+                        </label>
+                    </div>
+                </div>
+            )}
         </div>
     );
 }

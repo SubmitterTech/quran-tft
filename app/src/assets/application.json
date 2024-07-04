@@ -25,6 +25,8 @@
     "wc1": "Cumulative frequency of the word GOD",
     "wc2": "Cumulative sum of verses where GOD word occurs",
     "and": "and",
+    "case": "Case Sensitivity",
+    "norm": "Normalization",
     "acts": "Acts",
     "isaiah":"Isaiah",
     "john": "John",
