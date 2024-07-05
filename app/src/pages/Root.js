@@ -112,18 +112,18 @@ function Root() {
             "matching-conic": "bg-[conic-gradient(#fb923c_20deg,transparent_180deg)]", // orange-400
         },
         "indigo": {
-            "text-background": "bg-indigo-950",
-            "app-background": "bg-indigo-800",
+            "text-background": "bg-indigo-900",
+            "app-background": "bg-indigo-950",
             "notes-background": "bg-neutral-700",
             "base-background": "bg-neutral-800",
             "verse-detail-background": "bg-neutral-800",
-            "encrypted-background": "bg-neutral-600/70",
-            "relation-background": "bg-neutral-600/70",
+            "encrypted-background": "bg-neutral-700",
+            "relation-background": "bg-neutral-700",
             "table-title-text": "text-neutral-300",
             "border": "border-indigo-100",
             "text": "text-neutral-100",
             "app-text": "text-neutral-300",
-            "page-text": "text-indigo-100/60",
+            "page-text": "text-neutral-100/60",
             "log-text": "text-neutral-300/80",
             "verse-border": "border-indigo-500/80",
             "verse-ring": "ring-lime-400/70",
@@ -160,7 +160,7 @@ function Root() {
     useEffect(() => {
         if (!lang.toLowerCase().includes("en")) {
             loadTranslation(lang);
-            
+
         } else {
             setTranslation(null);
             setTranslationApplication(application);
@@ -249,10 +249,10 @@ function Root() {
                 quranData={quranData}
                 map={translationMap}
                 appendicesContent={translationAppx}
-                translation={translation} 
+                translation={translation}
                 onChangeLanguage={setLang}
                 direction={languages[lang]["dir"]}
-                />}
+            />}
         </div>
     );
 }
