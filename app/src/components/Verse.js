@@ -319,7 +319,8 @@ const Verse = ({ besmele,
                 if (themeorref) {
                     if (typeof themeorref === 'object') {
                         Object.entries(themeorref).forEach(([t, ref]) => {
-                            processTheme(theme + "\n· " + t, ref)
+                            const subt = t === "" ? "" : "\n· " + t;
+                            processTheme(theme + subt, ref)
                         });
                     } else {
                         processTheme(theme, themeorref)
