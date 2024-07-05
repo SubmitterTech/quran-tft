@@ -520,18 +520,46 @@ const Magnify = ({ colors, theme, translationApplication, quran, map, onClose, o
             {optionsVisible && (
                 <div className={`absolute mt-12 left-1 right-1 top-1 ${colors[theme]["app-background"]} shadow-lg rounded px-1 py-1.5 border ${colors[theme]["verse-border"]}`}>
                     <div className={`flex flex-col space-y-1.5 text-lg md:text-xl`}>
-                        <label className={`flex items-center justify-between md:justify-end space-x-2 py-2 px-4 rounded border ${caseSensitive && direction !== 'rtl' ? colors[theme]["matching-border"] : colors[theme]["border"]} cursor-pointer`}>
+                        <label className={`flex items-center justify-between md:justify-end space-x-2 py-2 px-4 rounded border cursor-pointer ${colors[theme]["verse-border"]}`}>
                             <span className={`${caseSensitive && direction !== 'rtl' ? colors[theme]["text"] : colors[theme]["page-text"]}`}>{translationApplication?.case}</span>
-                            <input disabled={direction === 'rtl'} type="checkbox" checked={caseSensitive} onChange={(e) => setCaseSensitive(e.target.checked)} className={`w-8 h-8 text-sky-600 focus:ring-sky-500 border-neutral-400 rounded`} />
+                            <div>
+                                <label className='flex cursor-pointer select-none items-center'>
+                                    <div className='relative'>
+                                        <input
+                                            type='checkbox'
+                                            checked={caseSensitive}
+                                            disabled={direction === 'rtl'}
+                                            onChange={(e) => setCaseSensitive(e.target.checked)}
+                                            className='sr-only'
+                                        />
+                                        <div className={`box block h-8 w-14 rounded-full ${caseSensitive ? colors[theme]["text-background"] : colors[theme]["base-background"]}`}></div>
+                                        <div className={`absolute left-1 top-1 flex h-6 w-6 items-center justify-center rounded-full ${caseSensitive ? colors[theme]["matching"] : colors[theme]["notes-background"]} transition ${caseSensitive ? 'translate-x-full' : ''}`}></div>
+                                    </div>
+                                </label>
+                            </div>
+                        </label>
+                        <label className={`flex items-center justify-between md:justify-end space-x-2 py-2 px-4 rounded border cursor-pointer ${colors[theme]["verse-border"]}`}>
+                            <span className={`${normalize && direction !== 'rtl' ? colors[theme]["text"] : colors[theme]["page-text"]}`}>{translationApplication?.norm}</span>
+                            <div>
+                                <label className='flex cursor-pointer select-none items-center'>
+                                    <div className='relative'>
+                                        <input
+                                            type='checkbox'
+                                            checked={normalize}
+                                            disabled={direction === 'rtl'}
+                                            onChange={(e) => setNormalize(e.target.checked)}
+                                            className='sr-only'
+                                        />
+                                        <div className={`box block h-8 w-14 rounded-full ${normalize ? colors[theme]["text-background"] : colors[theme]["base-background"]}`}></div>
+                                        <div className={`absolute left-1 top-1 flex h-6 w-6 items-center justify-center rounded-full ${normalize ? colors[theme]["matching"] : colors[theme]["notes-background"]} transition ${normalize ? 'translate-x-full' : ''}`}></div>
+                                    </div>
+                                </label>
+                            </div>
                         </label>
                         {/* <label className={`flex items-center justify-between md:justify-end space-x-2 py-2 px-4 rounded ${colors[theme]["text-background"]} cursor-pointer`}>
                             <span>Exact Match</span>
                             <input type="checkbox" checked={exactMatch} onChange={(e) => setExactMatch(e.target.checked)} className="w-8 h-8 text-sky-600 focus:ring-sky-500 border-gray-300 rounded" />
                         </label> */}
-                        <label className={`flex items-center justify-between md:justify-end space-x-2 py-2 px-4 rounded border ${normalize && direction !== 'rtl' ? colors[theme]["matching-border"] : colors[theme]["border"]} cursor-pointer`}>
-                            <span className={`${normalize && direction !== 'rtl' ? colors[theme]["text"] : colors[theme]["page-text"]}`}>{translationApplication?.norm}</span>
-                            <input disabled={direction === 'rtl'} type="checkbox" checked={normalize} onChange={(e) => setNormalize(e.target.checked)} className={`w-8 h-8 text-sky-600 focus:ring-sky-500 border-neutral-400 rounded`} />
-                        </label>
                     </div>
                 </div>
             )}
