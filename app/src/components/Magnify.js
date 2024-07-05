@@ -125,9 +125,25 @@ const Magnify = ({ colors, theme, translationApplication, quran, map, onClose, o
                     processedVerseText = caseSensitive ? processedVerseText : processedVerseText.toLocaleUpperCase(lang);
 
                     if (keywords.every(keyword => processedVerseText.includes(keyword)) ||
-                        keywords.some(keyword => verseNumber.includes(keyword) ||
-                            suraNumber.includes(keyword) ||
-                            (`${suraNumber}:${verseNumber}`).includes(keyword))) {
+                        keywords.some(keyword => {
+                            if (/\d+/.test(keyword) && (keyword.includes(':') || keyword.includes('-'))) {
+                                if (keyword.includes(':')) {
+                                    const [keywordSura, keywordVerse] = keyword.split(':');
+                                    if (keywordVerse.includes('-')) {
+                                        const [startVerse, endVerse] = keywordVerse.split('-').map(Number);
+                                        const verseNum = Number(verseNumber);
+                                        return keywordSura === suraNumber && verseNum >= startVerse && verseNum <= endVerse;
+                                    } else {
+                                        return (keywordSura === suraNumber && keywordVerse === verseNumber) ||
+                                            (keywordSura === suraNumber && keywordVerse === '') ||
+                                            (keywordSura === '' && keywordVerse === verseNumber);
+                                    }
+                                } else {
+                                    return keyword === suraNumber || keyword === verseNumber;
+                                }
+                            }
+                            return false; // Ensure that non-numeric keywords do not trigger numeric checks
+                        })) {
                         verseResults.push({ suraNumber, verseNumber, verseText });
                     }
                 }
@@ -147,7 +163,6 @@ const Magnify = ({ colors, theme, translationApplication, quran, map, onClose, o
                 if (notes.length > 0) {
                     Object.values(notes).forEach((note) => {
                         // const processedNote = normalizeText(note).toLowerCase();
-
                         let processedNote = note;
                         processedNote = normalize ? normalizeText(processedNote) : processedNote;
                         processedNote = caseSensitive ? processedNote : processedNote.toLocaleUpperCase(lang);
