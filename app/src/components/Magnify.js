@@ -518,7 +518,8 @@ const Magnify = ({ colors, theme, translationApplication, quran, map, onClose, o
             }
 
             {optionsVisible && (
-                <div className={`absolute mt-12 left-1 right-1 top-1 ${colors[theme]["app-background"]} shadow-lg rounded px-1 py-1.5 border ${colors[theme]["verse-border"]}`}>
+                <div className={`absolute left-1 right-1 ${colors[theme]["app-background"]} shadow-lg rounded px-1 py-1.5 border ${colors[theme]["verse-border"]}`}
+                    style={{ top: `calc(3rem + env(safe-area-inset-top) * 0.76)` }}>
                     <div className={`flex flex-col space-y-1.5 text-lg md:text-xl`}>
                         <label className={`flex items-center justify-between md:justify-end space-x-2 py-2 px-4 rounded border cursor-pointer ${colors[theme]["verse-border"]}`}>
                             <span className={`${caseSensitive && direction !== 'rtl' ? colors[theme]["text"] : colors[theme]["page-text"]}`}>{translationApplication?.case}</span>
