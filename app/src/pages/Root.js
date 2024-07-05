@@ -31,10 +31,10 @@ function Root() {
             "ring": "ring-neutral-800/80",
             "focus-ring": "focus:ring-neutral-800/80",
             "focus-text": "focus:text-neutral-800",
-            "matching-text": "text-pink-500",
-            "matching-border": "border-pink-500",
-            "matching": "bg-pink-500",
-            "matching-conic": "bg-[conic-gradient(#f472b6_20deg,transparent_180deg)]", // pink-400
+            "matching-text": "text-rose-500",
+            "matching-border": "border-rose-500",
+            "matching": "bg-rose-500",
+            "matching-conic": "bg-[conic-gradient(#f43f5e_20deg,transparent_180deg)]", // rose-500
         },
         "dark": {
             "text-background": "bg-neutral-800",
