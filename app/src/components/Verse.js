@@ -520,18 +520,19 @@ const Verse = ({ besmele,
                 </div>
 
             </div>
-            <div className={`relative rounded-md flex mx-0.5 items-center overflow-hidden`}>
+            <animated.div
+                key={"verse:" + currentVerseKey}
+                {...bindDrag()}
+                onTouchEnd={() => api.start({ x: 0 })}
+                style={{
+                    transform: x.to(x => `translateX(${x}px)`),
+                }}
+                className={`relative rounded-md flex mx-0.5 items-center overflow-hidden`}>
                 {(pulse && mode !== "reading") && <div className={`absolute inset-0 animate-rotate ${colors[theme]["matching-conic"]} `}></div>}
-                <animated.div
+                <div
                     ref={(el) => verseRefs.current[currentVerseKey] = el}
                     lang={lang}
                     dir={direction}
-                    key={"verse:" + currentVerseKey}
-                    {...bindDrag()}
-                    onTouchEnd={() => api.start({ x: 0 })}
-                    style={{
-                        transform: x.to(x => `translateX(${x}px)`),
-                    }}
                     className={`${cn} relative`}>
                     <div onClick={() => handleClick()} className={`px-1 w-full`}>
                         {text.includes('\n') ? (
@@ -596,8 +597,8 @@ const Verse = ({ besmele,
                             {tooltip.keys}{` `}{translationApplication.copied}
                         </div>
                     )}
-                </animated.div>
-            </div>
+                </div>
+            </animated.div>
             {mode !== "reading" && <div
                 onClick={() => handleActions()}
                 className={`absolute left-0 top-0 h-full cursor-pointer w-0 sm:w-1/12`}
