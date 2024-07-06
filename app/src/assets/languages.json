@@ -13,13 +13,13 @@
     },
     "de": {
         "name": "Deutsch Übersetzung",
-        "comp": 76.70,
+        "comp": 80.13,
         "dir": "ltr",
         "nums": "0 1 2 3 4 5 6 7 8 9"
     },
     "fa": {
         "name": "ترجمه فارسی",
-        "comp": 95.00,
+        "comp": 95.95,
         "dir": "rtl",
         "nums": "۰ ۱ ۲ ۳ ۴ ۵ ۶ ۷ ۸ ۹"
     },
@@ -37,7 +37,7 @@
     },
     "az": {
         "name": "Azərbaycan Tərcüməsi",
-        "comp": 1.60,
+        "comp": 1.98,
         "dir": "ltr",
         "nums": "0 1 2 3 4 5 6 7 8 9"
     },

@@ -25,7 +25,7 @@
     "wc1": "Kumulative Häufigkeit des Wortes GOTT",
     "wc2": "Kumulative Summe der Verse,  in denen das Wort GOTT vorkommt",
     "and": "und",
-    "case": "Groß-/Kleinschreibung",
+    "case": "Sensibilität für Groß-/Kleinschreibung",
     "norm": "Normalisierung",
     "acts": "Handlungen",
     "isaiah":"Jesaja",
