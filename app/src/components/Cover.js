@@ -72,8 +72,8 @@ const Cover = ({ onCoverSeen, coverData, lang, onChangeLanguage }) => {
                         ))}
                     </div>
                 )}
-                <div className="flex w-full justify-center h-full pb-4">
-                    <div className={`overflow-y-auto flex flex-col p-2 space-y-4 items-end m-4 ${show19 ? "opacity-0 h-0 w-0 pointer-events-none" : "opacity-100 h-full"} transition-opacity duration-1000 ease-linear `}>
+                <div className="flex w-full items-center justify-center h-full ">
+                    <div className={`overflow-y-scroll flex flex-col p-2 space-y-4 items-end m-4 ${show19 ? "opacity-0 h-0 w-0 pointer-events-none" : "opacity-100 h-full transition-opacity duration-500 ease-in"}`}>
                         {Object.keys(languages).map((key) => {
                             if (key) {
                                 const isSelectedLanguage = lang === key;
@@ -86,7 +86,7 @@ const Cover = ({ onCoverSeen, coverData, lang, onChangeLanguage }) => {
                                 return (
                                     <div
                                         key={key}
-                                        className={`flex flex-col p-2 rounded text-base justify-center ${languageClass} ${isSelectedLanguage ? "ring-1 ring-offset-4 ring-sky-400 ring-offset-sky-900" : ""}`}
+                                        className={`flex flex-col p-2 rounded text-base justify-center ${languageClass} ${isSelectedLanguage ? "ring-1 ring-offset-4 ring-sky-500 ring-offset-sky-950" : ""}`}
                                         onClick={() => isLanguageDisabled ? null : onChangeLanguage(key)}>
                                         <input
                                             type="radio"
@@ -97,7 +97,7 @@ const Cover = ({ onCoverSeen, coverData, lang, onChangeLanguage }) => {
                                             onChange={(e) => isLanguageDisabled ? null : onChangeLanguage(e.target.value)}
                                             className="hidden"
                                         />
-                                        <div className="flex justify-between items-center w-full">
+                                        <div className={`flex justify-between items-center w-full ${key === "en" ? 'py-3' : ''}`}>
                                             <span dir={languages[key]["dir"]}>{languages[key]["name"]}</span>
                                         </div>
                                         {key !== "en" && (
@@ -117,15 +117,15 @@ const Cover = ({ onCoverSeen, coverData, lang, onChangeLanguage }) => {
                             return null;
                         })}
                     </div>
-                    {show19 || <div className={`text-neutral-200 flex items-center justify-center m-4  ${show19 ? "opacity-0 h-0 pointer-events-none" : "opacity-100"}`}>
-                        <button onClick={() => onCoverSeen()}
-                            className={` px-2 mb-1 rounded ml-2 flex justify-center`}>
+                    <div
+                        onClick={() => onCoverSeen()}
+                        className={`text-neutral-200 flex items-center justify-center transition-opacity ease-in py-10 px-3 ${show19 ? "opacity-0 h-0 pointer-events-none" : "delay-700 duration-700 opacity-100"}`}>
+                        <div className={` px-2 mb-1 rounded ml-2 flex justify-center`}>
                             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className={`w-12 h-12`}>
                                 <path strokeLinecap="round" strokeLinejoin="round" d="M15 15l6-6m0 0l-6-6m6 6H9a6 6 0 000 12h3" />
                             </svg>
-                        </button>
-                    </div>}
-
+                        </div>
+                    </div>
                 </div>
             </div>
             <div
