@@ -1826,7 +1826,7 @@
             "11": {
                 "lines": {
                     "1": "Tanrımız Rab BİR’dir!",
-                    "2": "Bu nedenle,", 
+                    "2": "Bu nedenle,",
                     "3": "Tanrınız Rabbe tapın",
                     "4": "tüm yüreğinizle,",
                     "5": "tüm ruhunuzla,",
@@ -2037,11 +2037,15 @@
                     "İlahi İsim",
                     "Sayısal Değer"
                 ],
-                "values" : [
-                    "“Vahid” (Bir)", "19",
-                    "“Zul Fadl El-‘Azim” (Sonsuz Lütuf Sahibi)", "2698",
-                    "“Mecid” (Şanlı)","57",
-                    "“Cami” (Toplayan)","114"
+                "values": [
+                    "“Vahid” (Bir)",
+                    "19",
+                    "“Zul Fadl El-‘Azim” (Sonsuz Lütuf Sahibi)",
+                    "2698",
+                    "“Mecid” (Şanlı)",
+                    "57",
+                    "“Cami” (Toplayan)",
+                    "114"
                 ]
             }
         },
@@ -2825,7 +2829,7 @@
                     "1": "Biz Peygamberlerle antlaşma yaptığımızda ve seninle (Ey Muhammed), Nuh ile, İbrahim ile, Musa ile ve Meryemoğlu İsa ile, onlarla sağlam bir antlaşma yaptık. (33:7) (Muhammad Marmaduke Pickthall’a göre)"
                 },
                 "ref": [
-                   "33:7"
+                    "33:7"
                 ]
             },
             "10": {
@@ -4048,8 +4052,8 @@
         },
         "evidence": {},
         "titles": {
-            "5": "GÜNLÜK BEŞ VAKİT NAMAZIN DOĞRULANMASI,", 
-            "6": "EĞİLME (Rükû),", 
+            "5": "GÜNLÜK BEŞ VAKİT NAMAZIN DOĞRULANMASI,",
+            "6": "EĞİLME (Rükû),",
             "7": "SECDE (Sücûd) ve TEŞEHHÜT SAYISI"
         }
     },
@@ -4431,7 +4435,7 @@
                     "2": "İsa’ya karşı birçok suçlamada bulundular.",
                     "3": "Pilatus onu tekrar sorguya çekti:",
                     "4": "“Elbette birkaç yanıtın vardır?",
-                    "5": "Sana karşı kaç suçlama ", 
+                    "5": "Sana karşı kaç suçlama ",
                     "6": "yapıldığını gör.’’",
                     "7": "Fakat Pilatus’a büyük ölçüde sürpriz oldu;",
                     "8": "İsa başka yanıt vermedi."
@@ -5574,16 +5578,76 @@
                     "Çarpım Sonucu"
                 ],
                 "values": [
-                    "1","7","1","x","7","=","7",
-                    "2","286","2","x","16","=","32",
-                    "3","200","3","x","2","=","6",
-                    ".",".",".","","",".","",
-                    "9","127","9","x","10","=","90",
-                    ".",".",".","",".","","",
-                    "114","6","6","x","6","=","36",
-                    "","",".....","",".....","",".....",
-                    "","","975","","906","","7771",
-                    "","","975 + 906 = 1881 = 19x99","","","","(19x409)"
+                    "1",
+                    "7",
+                    "1",
+                    "x",
+                    "7",
+                    "=",
+                    "7",
+                    "2",
+                    "286",
+                    "2",
+                    "x",
+                    "16",
+                    "=",
+                    "32",
+                    "3",
+                    "200",
+                    "3",
+                    "x",
+                    "2",
+                    "=",
+                    "6",
+                    ".",
+                    ".",
+                    ".",
+                    "",
+                    "",
+                    ".",
+                    "",
+                    "9",
+                    "127",
+                    "9",
+                    "x",
+                    "10",
+                    "=",
+                    "90",
+                    ".",
+                    ".",
+                    ".",
+                    "",
+                    ".",
+                    "",
+                    "",
+                    "114",
+                    "6",
+                    "6",
+                    "x",
+                    "6",
+                    "=",
+                    "36",
+                    "",
+                    "",
+                    ".....",
+                    "",
+                    ".....",
+                    "",
+                    ".....",
+                    "",
+                    "",
+                    "975",
+                    "",
+                    "906",
+                    "",
+                    "7771",
+                    "",
+                    "",
+                    "975 + 906 = 1881 = 19x99",
+                    "",
+                    "",
+                    "",
+                    "(19x409)"
                 ]
             },
             "5": {
@@ -6954,9 +7018,15 @@
                     "9",
                     "127",
                     "8128",
-                    "","---","----", 
-                    "","988","85690", 
-                    "","(19x52)","(19x4510)"
+                    "",
+                    "---",
+                    "----",
+                    "",
+                    "988",
+                    "85690",
+                    "",
+                    "(19x52)",
+                    "(19x4510)"
                 ]
             },
             "11": {
@@ -8206,9 +8276,7 @@
                     "1": "İnsanlar maymunların neslinden değildir: “O, insanın yaratılışını çamurdan başlattı.” (32:7)",
                     "2": "İnsan “yıllanmış” çamurdan yaratıldı: “Ben insanoğlunu ‘yıllanmış’ balçıktan yaratıyorum.” (15:28)"
                 },
-                "ref": [
-                    "23:7, 15:28"
-                ]
+                "ref": []
             }
         },
         "titles": {
@@ -8424,8 +8492,7 @@
                     "2": "Keşke çeşitli toplumların halkları iman edip doğru bir hayatı sürdürseydi, onlara gökten ve yerden nimetler yağdırırdık. [7:96]",
                     "3": "Mutluluğunuzu veya bedbahtlığınızı kontrol eden Tanrı’dır. … sizi zengin yahut fakir yapan Tanrı’dır. [53:43, 53:48]"
                 },
-                "ref": [
-                ]
+                "ref": []
             }
         },
         "titles": {
