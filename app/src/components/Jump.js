@@ -302,7 +302,6 @@ const Jump = ({ onChangeLanguage, suraNames, onChangeTheme, colors, theme, trans
                                             </svg>
 
                                         )}
-
                                     </div>
                                     <div className={`flex ${colors[theme]["page-text"]} text-sm items-center justify-center pb-2`}>
                                         {translationApplication?.bookmark}
@@ -351,7 +350,7 @@ const Jump = ({ onChangeLanguage, suraNames, onChangeTheme, colors, theme, trans
                                                 <div className={`relative w-full flex justify-end`}>
                                                     <div
                                                         style={isShufflingSura ? { animation: 'animate-scale 0.2s ease-in-out' } : {}}
-                                                        className={`text-3xl w-3/5 p-3 absolute shadow-md text-center rounded flex items-center justify-center ${colors[theme]["text"]} ${colors[theme]["notes-background"]}`}
+                                                        className={`text-3xl w-3/4 p-3 absolute shadow-md text-center rounded flex items-center justify-center ${colors[theme]["text"]} ${colors[theme]["notes-background"]}`}
                                                         onClick={() => document.getElementById('sura').click()}
                                                     >
                                                         {parseInt(suraNumber) !== 0 ? suraNumber : translationApplication?.sura}
@@ -362,7 +361,7 @@ const Jump = ({ onChangeLanguage, suraNames, onChangeTheme, colors, theme, trans
                                                         name="sura"
                                                         onChange={handleSuraChange}
                                                         value={suraNumber}
-                                                        className={`inset-0 opacity-0 text-3xl w-3/5 p-3 rounded ${colors[theme]["text"]} ${colors[theme]["notes-background"]} focus:ring-2 focus:outline-none focus:ring-sky-500  `}
+                                                        className={`inset-0 opacity-0 text-3xl w-3/4 p-3 rounded ${colors[theme]["text"]} ${colors[theme]["notes-background"]} focus:ring-2 focus:outline-none focus:ring-sky-500  `}
                                                     >
                                                         <option key="0" value="0" disabled>{translationApplication?.sura}</option>
                                                         {Object.entries(suraNameMap).map(([sura, sname]) => (
@@ -379,7 +378,7 @@ const Jump = ({ onChangeLanguage, suraNames, onChangeTheme, colors, theme, trans
                                                 <div className={`relative w-full flex justify-start`}>
                                                     <div
                                                         style={isShufflingVerse ? { animation: 'animate-scale 0.2s ease-in-out' } : {}}
-                                                        className={`text-3xl w-3/5 p-3 absolute shadow-md text-center rounded flex items-center justify-center ${colors[theme]["text"]} ${colors[theme]["notes-background"]}`}
+                                                        className={`text-3xl w-3/4 p-3 absolute shadow-md text-center rounded flex items-center justify-center ${colors[theme]["text"]} ${colors[theme]["notes-background"]}`}
                                                         onClick={() => document.getElementById('verse').click()}
                                                     >
                                                         {parseInt(verseNumber) !== 0 ? verseNumber : translationApplication?.verse}
@@ -390,7 +389,7 @@ const Jump = ({ onChangeLanguage, suraNames, onChangeTheme, colors, theme, trans
                                                         name="verse"
                                                         onChange={handleVerseChange}
                                                         value={verseNumber}
-                                                        className={`inset-0 opacity-0 text-3xl w-3/5 p-3 rounded ${colors[theme]["text"]} ${colors[theme]["notes-background"]} focus:ring-2 focus:outline-none focus:ring-sky-500`}>
+                                                        className={`inset-0 opacity-0 text-3xl w-3/4 p-3 rounded ${colors[theme]["text"]} ${colors[theme]["notes-background"]} focus:ring-2 focus:outline-none focus:ring-sky-500`}>
                                                         <option key="0" value="0" disabled>{translationApplication?.verse}</option>
                                                         {suraNumber && versesInSuras[suraNumber] && versesInSuras[suraNumber].map(verse => (
                                                             <option key={verse} value={verse}>{verse}</option>
