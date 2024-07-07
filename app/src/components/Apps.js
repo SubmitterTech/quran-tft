@@ -193,17 +193,17 @@ const Apps = ({ colors, theme, translationApplication, parseReferences, appendic
                 // SPECIAL RENDER FOR PICTURE 10
                 if (parseInt(item.content.no) === 10) {
                     return (
-                        <div key={`picture-${index}`} className={`flex flex-col flex-1 items-center justify-center w-full px-1`}>
-                            <div className={` flex p-1 overflow-y-auto`}>
+                        <div key={`picture10-${index}`} className={`flex flex-col flex-1 items-center justify-center w-full px-1`}>
+                            <div className={`flex p-1 overflow-y-auto`}>
                                 <div className={` flex flex-col justify-between `}>
                                     {item.content.data.slice(0, 4).map((word) => (
-                                        <div className={`p-1.5 whitespace-nowrap text-right`}>{word}</div>
+                                        <div key={word} className={`p-1.5 whitespace-nowrap text-right`}>{word}</div>
                                     ))}
                                 </div>
                                 <img src={imageUrl} alt={imageUrl} className={`object-contain `} />
                                 <div className={` flex flex-col justify-between`}>
                                     {item.content.data.slice(4, 8).map((word) => (
-                                        <div className={`p-1.5 flex-1 whitespace-pre text-left`}>{word}</div>
+                                        <div key={word} className={`p-1.5 flex-1 whitespace-pre text-left`}>{word}</div>
                                     ))}
                                 </div>
                             </div>
@@ -219,9 +219,8 @@ const Apps = ({ colors, theme, translationApplication, parseReferences, appendic
                 if (parseInt(item.content.no) === 22) {
                     return (
                         <div key={`picture-22-special`} className={`flex flex-col space-y-1.5 flex-1 items-center justify-center w-full px-1 mb-2`}>
-
                             {item.content.text && Object.entries(item.content.text).map(([pickey, text]) => (
-                                <div className={`rounded  flex flex-wrap md:flex-nowrap justify-between`}>
+                                <div key={pickey} className={`rounded  flex flex-wrap md:flex-nowrap justify-between`}>
                                     <img src={images(`./${pickey}.jpg`)} alt={imageUrl} className={`object-contain`} />
                                     <div lang={lang} className={`p-2 text-justify hyphens-auto break-words`}>{parseReferences(text)}</div>
                                 </div>
