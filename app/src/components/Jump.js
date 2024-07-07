@@ -248,7 +248,6 @@ const Jump = ({ onChangeLanguage, suraNames, onChangeTheme, colors, theme, trans
                             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className={`w-14 h-14`}>
                                 <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
                             </svg>
-
                         </button>
                     </div>
                 </div>
@@ -261,10 +260,11 @@ const Jump = ({ onChangeLanguage, suraNames, onChangeTheme, colors, theme, trans
                         value={localStorage.getItem("lang")}
                         className={`w-full m-2 text-center rounded px-4 py-2 border border-neutral-400/40 text-lg brightness-80 bg-neutral-500/30 ${colors[theme]["page-text"]} focus:outline-none focus:ring-2 focus:border-sky-500 focus:ring-sky-500`}>
                         {Object.keys(languages).map((key) => {
-                            if (key) {
-                                const isLanguageDisabled = languages[key]["comp"] < 60;
+                            if (key && languages[key]["comp"] >= 60) {
                                 return (
-                                    <option dir={languages[key]["dir"]} key={key} value={key} disabled={isLanguageDisabled}>{languages[key]["name"]}</option>
+                                    <option dir={languages[key]["dir"]} key={key} value={key}>
+                                        {languages[key]["name"]}
+                                    </option>
                                 );
                             }
                             return null;
