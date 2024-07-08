@@ -90,7 +90,6 @@ const Magnify = ({ colors, theme, translationApplication, quran, map, onClose, o
     const removePunctuations = (text) => {
         return text.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
     };
-
     const performSearch = useCallback((term) => {
         if (!term) {
             return;
@@ -102,26 +101,23 @@ const Magnify = ({ colors, theme, translationApplication, quran, map, onClose, o
             return;
         }
 
-        // const keywords = normalizeText(term).toLowerCase().split(' ').filter(keyword => keyword.trim() !== '');
-        let processedTerm = term;
-        processedTerm = normalize ? normalizeText(processedTerm) : processedTerm;
+        let processedTerm = normalize ? normalizeText(term) : term;
         processedTerm = caseSensitive ? processedTerm : processedTerm.toLocaleUpperCase(lang);
 
-        const keywords = processedTerm.split(' ').filter(keyword => keyword.trim() !== '');
+        const keywords = processedTerm.split(/\s+/)
+        .map(keyword => /\d+/.test(keyword) ? keyword.replace(/[;,]+/g, '') : keyword)
+        .filter(keyword => keyword.trim() !== '');
         const titleResults = [];
         const verseResults = [];
         const notesResults = [];
 
         for (const page in quran) {
             const suras = quran[page].sura;
-
             for (const suraNumber in suras) {
                 const verses = suras[suraNumber].verses;
                 for (const verseNumber in verses) {
                     const verseText = verses[verseNumber];
-                    // const processedVerseText = normalizeText(verseText).toLowerCase();
-                    let processedVerseText = verseText;
-                    processedVerseText = normalize ? normalizeText(processedVerseText) : processedVerseText;
+                    let processedVerseText = normalize ? normalizeText(verseText) : verseText;
                     processedVerseText = caseSensitive ? processedVerseText : processedVerseText.toLocaleUpperCase(lang);
 
                     if (keywords.every(keyword => processedVerseText.includes(keyword)) ||
@@ -150,9 +146,7 @@ const Magnify = ({ colors, theme, translationApplication, quran, map, onClose, o
                 const titles = suras[suraNumber].titles;
                 for (const titleNumber in titles) {
                     const titleText = titles[titleNumber];
-                    // const processedTitleText = normalizeText(titleText).toLowerCase();
-                    let processedTitleText = titleText;
-                    processedTitleText = normalize ? normalizeText(processedTitleText) : processedTitleText;
+                    let processedTitleText = normalize ? normalizeText(titleText) : titleText;
                     processedTitleText = caseSensitive ? processedTitleText : processedTitleText.toLocaleUpperCase(lang);
 
                     if (keywords.every(keyword => processedTitleText.includes(keyword))) {
@@ -162,9 +156,7 @@ const Magnify = ({ colors, theme, translationApplication, quran, map, onClose, o
                 const notes = quran[page].notes.data;
                 if (notes.length > 0) {
                     Object.values(notes).forEach((note) => {
-                        // const processedNote = normalizeText(note).toLowerCase();
-                        let processedNote = note;
-                        processedNote = normalize ? normalizeText(processedNote) : processedNote;
+                        let processedNote = normalize ? normalizeText(note) : note;
                         processedNote = caseSensitive ? processedNote : processedNote.toLocaleUpperCase(lang);
 
                         if (keywords.every(keyword => processedNote.includes(keyword))) {
