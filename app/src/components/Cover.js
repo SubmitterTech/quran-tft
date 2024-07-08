@@ -86,7 +86,7 @@ const Cover = ({ onCoverSeen, coverData, lang, onChangeLanguage }) => {
                                 return (
                                     <div
                                         key={key}
-                                        className={`flex flex-col p-2 rounded text-base justify-center ${languageClass} ${isSelectedLanguage ? "ring-1 ring-offset-4 ring-sky-500 ring-offset-sky-950" : ""}`}
+                                        className={`flex flex-col p-2 rounded text-base justify-center ${languageClass} ${isSelectedLanguage ? "ring-1 ring-offset-4 ring-sky-400 ring-offset-sky-950" : ""}`}
                                         onClick={() => isLanguageDisabled ? null : onChangeLanguage(key)}>
                                         <input
                                             type="radio"
@@ -132,7 +132,7 @@ const Cover = ({ onCoverSeen, coverData, lang, onChangeLanguage }) => {
                 onClick={handleTap}
                 className="w-full flex flex-col space-y-3 h-1/6 justify-center">
                 <div
-                    className="text-sky-300 cursor-pointer"
+                    className="text-sky-400 cursor-pointer"
                     onClick={openPdf}
                 >
                     <p className="whitespace-pre">{coverData.translated}</p>
