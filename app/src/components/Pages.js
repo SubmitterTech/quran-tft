@@ -36,6 +36,7 @@ const Pages = ({
 
     const [notify, setNotify] = useState(false);
     const notifyTimeoutRef = useRef();
+    const notifyRange = useRef({});
     const [focusedNoteIndices, setFocusedNoteIndices] = useState([false, false, false, false, false, false, false, false, false, false]);
 
     const stickyRef = useRef(null);
@@ -88,6 +89,7 @@ const Pages = ({
                 clearTimeout(notifyTimeoutRef.current);
                 notifyTimeoutRef.current = setTimeout(() => {
                     setNotify(false);
+                    notifyRange.current = {};
                 }, 4450);
                 return () => clearTimeout(notifyTimeoutRef.current);
             }, 150);
@@ -210,10 +212,23 @@ const Pages = ({
 
     const clickReferenceController = (part) => {
         handleClickReference(part);
+
         let key = part;
+        let range;
         if (part.includes("-")) {
-            key = part.split("-")[0]
+            let parts = part.split("-");
+            key = parts[0];
+            range = parts[1];
+
+            let [sura, startVerse] = key.split(":");
+            let endVerse = parseInt(range, 10);
+            for (let i = parseInt(startVerse, 10); i <= endVerse; i++) {
+                notifyRange.current[`${sura}:${i}`] = true;
+            }
+        } else {
+            notifyRange.current[part] = true;
         }
+
         forceScroll(key);
     };
 
@@ -545,7 +560,8 @@ const Pages = ({
                                 verseRefs={verseRefs}
                                 verseKey={verseKey}
                                 handleVerseClick={handleVerseClick}
-                                pulse={notify && (parseInt(selectedSura) === parseInt(suraNumber) && parseInt(selectedVerse) === parseInt(verseNumber))}
+                                pulse={(notify && (notifyRange.current[`${suraNumber}:${verseNumber}`] ? notifyRange.current[`${suraNumber}:${verseNumber}`] : false)) ||
+                                    (notify && (parseInt(selectedSura) === parseInt(suraNumber) && parseInt(selectedVerse) === parseInt(verseNumber)))}
                                 grapFocus={grapFocus}
                                 pageGWC={updatedPageGWC}
                                 handleClickReference={clickReferenceController}
