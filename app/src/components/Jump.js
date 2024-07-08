@@ -312,10 +312,10 @@ const Jump = ({ onChangeLanguage, suraNames, onChangeTheme, colors, theme, trans
                         <div className={`w-full`}>
                             {showBookmarks ?
                                 (
-                                    <div className={`h-48 m-2 px-2 py-1 text-base rounded ${colors[theme]["relation-background"]} overflow-y-auto overflow-x-hidden`}>
+                                    <div className={`h-48 m-2 px-1 py-1 text-base rounded ${colors[theme]["relation-background"]} overflow-y-auto overflow-x-hidden`}>
                                         {Object.entries(localStorage.getItem("bookmarks") ? JSON.parse(localStorage.getItem("bookmarks")) : {}).reverse().map(([key, val]) => (
-                                            <div key={key} className={`bookmark-entry flex px-1 py-1.5 space-x-2 border-b ${colors[theme]["verse-border"]} mb-1.5`}>
-                                                <div className={`w-full py-2 ${colors[theme]["page-text"]} flex items-center justify-center`}>
+                                            <div key={key} className={`bookmark-entry flex py-2 space-x-2 border-b ${colors[theme]["verse-border"]} mb-1.5`}>
+                                                <div className={`w-full ${colors[theme]["page-text"]} flex items-center justify-center`}>
                                                     <input
                                                         type="text"
                                                         dir={direction}
@@ -323,13 +323,12 @@ const Jump = ({ onChangeLanguage, suraNames, onChangeTheme, colors, theme, trans
                                                         onBlur={(e) => {
                                                             updateBookmark(key, e.target.value);
                                                         }}
-                                                        className={`w-full p-2 ${colors[theme]["text"]} ${colors[theme]["relation-background"]} text-center focus:outline-none focus:ring-2 focus:border-sky-500 focus:ring-sky-500`}
+                                                        className={`w-full rounded text-lg p-2.5 ${colors[theme]["text"]} ${colors[theme]["relation-background"]} text-center focus:outline-none focus:ring-2 focus:border-sky-500 focus:ring-sky-500`}
                                                     />
-
                                                 </div>
                                                 <div
                                                     onClick={() => handleMarkJump(key)}
-                                                    className={`w-20 text-lg rounded px-2 py-1 ${colors[theme]["base-background"]} shadow-lg text-sky-500 flex items-center justify-center`}>
+                                                    className={`w-24 text-lg rounded px-2 ${colors[theme]["base-background"]} shadow-lg text-sky-500 flex items-center justify-center`}>
                                                     {key}
                                                 </div>
                                             </div>
