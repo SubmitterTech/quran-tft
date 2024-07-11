@@ -535,33 +535,81 @@ const Verse = ({ besmele,
                     dir={direction}
                     className={`${cn} relative`}>
                     <div onClick={() => handleClick()} className={`px-1 w-full`}>
-                        {text.includes('\n') ? (
-                            text.split('\n').map((line, index, array) => {
-                                const middleIndex = Math.floor(array.length / 2);
-                                const isTitle = index === middleIndex;
-                                return (
-                                    <React.Fragment key={index}>
-                                        {index === 0 && (
-                                            <span className={mode === "light" ? encryptedText.includes(besmele) ? `text-rose-500 font-semibold ` : `${colors[theme]["matching-text"]} font-semibold ` : ` brightness-150`}>
-                                                {`${verseNumber}. `}
-                                            </span>
-                                        )}
-                                        <span className={isTitle ? `text-center w-full ${colors[theme]["app-background"]} block py-1.5 md:py-2 transform italic font-semibold ${index === middleIndex ? 'scale-x-[1.04]' : ''} ` : ``}>
-                                            {line}
+                        {
+                            Array.isArray(text) ? (
+                                text.some(element => typeof element === 'string' && element.includes('\n')) ? (
+                                    text.flatMap((element, index) => {
+                                        if (typeof element === 'string' && element.includes('\n')) {
+                                            return element.split('\n').map((line, lineIndex) => ({
+                                                line,
+                                                indexToStart: `${lineIndex}`
+                                            }));
+                                        }
+                                        return [{ line: element, combinedIndex: index }];
+                                    })
+                                        .map(({ line, indexToStart }, index) => {
+                                            const isTitle = parseInt(indexToStart) === 2;
+                                            return (
+                                                <React.Fragment key={index}>
+                                                    {index === 0 && typeof line === 'string' && (
+                                                        <span className={mode === "light" ? encryptedText.includes(besmele) ? `text-rose-500 font-semibold` : `${colors[theme]["matching-text"]} font-semibold` : `brightness-150`}>
+                                                            {`${verseNumber}. `}
+                                                        </span>
+                                                    )}
+                                                    <span className={isTitle ? `text-center w-full ${colors[theme]["app-background"]} block py-1.5 md:py-2 transform italic font-semibold ${isTitle ? 'scale-x-[1.035]' : ''}` : ``}>
+                                                        {line}
+                                                    </span>
+                                                </React.Fragment>
+                                            );
+                                        })
+                                ) : (
+                                    text.map((element, index) => (
+                                        <React.Fragment key={index}>
+                                            {index === 0 && typeof element === 'string' && (
+                                                <span className={mode === "light" ? encryptedText.includes(besmele) ? `text-rose-500 font-semibold` : `${colors[theme]["matching-text"]} font-semibold` : `brightness-150`}>
+                                                    {`${verseNumber}. `}
+                                                </span>
+                                            )}
+                                            {typeof element === 'string' ? (
+                                                <span>
+                                                    {element}
+                                                </span>
+                                            ) : (
+                                                element
+                                            )}
+                                        </React.Fragment>
+                                    ))
+                                )
+                            ) : (
+                                text.includes('\n') ? (
+                                    text.split('\n').map((line, index, array) => {
+                                        const middleIndex = Math.floor(array.length / 2);
+                                        const isTitle = index === middleIndex;
+                                        return (
+                                            <React.Fragment key={index}>
+                                                {index === 0 && (
+                                                    <span className={mode === "light" ? encryptedText.includes(besmele) ? `text-rose-500 font-semibold ` : `${colors[theme]["matching-text"]} font-semibold ` : `brightness-150`}>
+                                                        {`${verseNumber}. `}
+                                                    </span>
+                                                )}
+                                                <span className={isTitle ? `text-center w-full ${colors[theme]["app-background"]} block py-1.5 md:py-2 transform italic font-semibold ${index === middleIndex ? 'scale-x-[1.035]' : ''}` : ``}>
+                                                    {line}
+                                                </span>
+                                            </React.Fragment>
+                                        );
+                                    })
+                                ) : (
+                                    <span className={`relative`}>
+                                        <span className={mode === "light" ? encryptedText.includes(besmele) ? `text-rose-500 font-semibold relative` : `${colors[theme]["matching-text"]} font-semibold relative` : `relative brightness-150`}>
+                                            {`${verseNumber}. `}
                                         </span>
-                                    </React.Fragment>
-                                );
-                            })
-                        ) : (
-                            <span className={`relative`}>
-                                <span className={mode === "light" ? encryptedText.includes(besmele) ? `text-rose-500 font-semibold relative` : `${colors[theme]["matching-text"]} font-semibold relative` : `relative brightness-150`}>
-                                    {`${verseNumber}. `}
-                                </span>
-                                <span>
-                                    {text}
-                                </span>
-                            </span>
-                        )}
+                                        <span>
+                                            {text}
+                                        </span>
+                                    </span>
+                                )
+                            )
+                        }
                     </div>
                     <div className={`w-full flex flex-col flex-1  ${mode === "reading" ? "p-0.5 mt-2" : "h-0"} `}>
                         <div className={`${mode === "reading" ? " select-text ease-linear mb-2 duration-300" : "h-0 "} w-full transition-all  rounded ${colors[theme]["encrypted-background"]} `} >
