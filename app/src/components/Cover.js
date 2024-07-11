@@ -43,7 +43,7 @@ const Cover = ({ onCoverSeen, coverData, lang, onChangeLanguage }) => {
                     }}>
                         {coverData.quran}
                     </h1>
-                    <h2 className="text-4xl font-bold" style={{
+                    <h2 className="text-4xl font-bold whitespace-pre" style={{
                         backgroundImage: 'linear-gradient(45deg, #ECC440, #FFFA8A, #DDAC17, #FFFF95)',
                         color: 'transparent',
                         WebkitBackgroundClip: 'text',
