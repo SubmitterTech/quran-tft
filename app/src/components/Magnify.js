@@ -208,7 +208,7 @@ const Magnify = ({ colors, theme, translationApplication, quran, map, onClose, o
             processedText = normalize ? normalizeText(processedText) : processedText;
             processedText = caseSensitive ? processedText : processedText.toLocaleUpperCase(lang);
             const escapedKeyword = removePunctuations(keyword);
-            const regex = new RegExp(escapedKeyword, 'gi');
+            const regex = new RegExp(escapedKeyword, caseSensitive ? 'g' :'gi');
             let match;
             const parts = [];
             let currentIndex = 0;
