@@ -207,6 +207,22 @@ const Book = ({ onChangeTheme, colors, theme, translationApplication, introducti
 
     const referenceMap = createReferenceMap();
 
+    const checkOldScripture = (reference) => {
+        return (
+            reference.includes(translationApplication.acts) ||
+            reference.includes(translationApplication.isaiah) ||
+            reference.includes(translationApplication.john) ||
+            reference.includes(translationApplication.mark) ||
+            reference.includes(translationApplication.luke) ||
+            reference.includes(translationApplication.matthew) ||
+            reference.includes(translationApplication.romans) ||
+            reference.includes(translationApplication.malachi) ||
+            reference.includes(translationApplication.peter) ||
+            reference.includes(translationApplication.deuteronomy) ||
+            reference.includes(translationApplication.genesis)
+        )
+    }
+
     const handleClickReference = (reference) => {
         if (reference.toLowerCase().includes("introduction") || reference.toLowerCase().includes("intro")) {
             updatePage(13, null, null, currentPage === 397 ? 'fromAppendix' : 'relationClick', currentPage === 397 ? selectedApp : null);
@@ -323,17 +339,7 @@ const Book = ({ onChangeTheme, colors, theme, translationApplication, introducti
                     let oldscripture = false
                     //TODO: give outer references for old scriptures
                     if (reference && !reference.match(/\d+/)) {
-                        if (reference.includes(translationApplication.acts) ||
-                            reference.includes(translationApplication.isaiah) ||
-                            reference.includes(translationApplication.john) ||
-                            reference.includes(translationApplication.mark) ||
-                            reference.includes(translationApplication.luke) ||
-                            reference.includes(translationApplication.matthew) ||
-                            reference.includes(translationApplication.romans) ||
-                            reference.includes(translationApplication.malachi) ||
-                            reference.includes(translationApplication.peter) ||
-                            reference.includes(translationApplication.deuteronomy)) {
-
+                        if (checkOldScripture(reference)) {
                             oldscripture = true;
                             pushedOld = true;
                         } else if (reference.toLowerCase().includes(translationApplication.quran.toLocaleLowerCase(lang))) {
@@ -443,17 +449,7 @@ const Book = ({ onChangeTheme, colors, theme, translationApplication, introducti
                     let oldscripture = false
                     //TODO: give outer references for old scriptures
                     if (reference && !reference.match(/\d+/)) {
-                        if (reference.includes(translationApplication.acts) ||
-                            reference.includes(translationApplication.isaiah) ||
-                            reference.includes(translationApplication.john) ||
-                            reference.includes(translationApplication.mark) ||
-                            reference.includes(translationApplication.luke) ||
-                            reference.includes(translationApplication.matthew) ||
-                            reference.includes(translationApplication.romans) ||
-                            reference.includes(translationApplication.malachi) ||
-                            reference.includes(translationApplication.peter) ||
-                            reference.includes(translationApplication.deuteronomy)) {
-
+                        if (checkOldScripture(reference)){
                             oldscripture = true;
                             pushedOld = true;
                         } else if (reference.toLowerCase().includes(translationApplication.quran.toLocaleLowerCase(lang))) {
