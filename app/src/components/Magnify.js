@@ -490,14 +490,14 @@ const Magnify = ({ colors, theme, translationApplication, quran, map, onClose, o
                                 {Object.entries(loadedMap).map(([exp, themeorref], index) => (
                                     <div
                                         key={index + exp}
-                                        id={`theme-container-${index}`}
+                                        id={`theme-container-${index}-${searchTerm}`}
                                         className={`rounded ${colors[theme]["base-background"]} ${themeorref.length === 0 ? "brightness-75" : ""}`}>
                                         <div
-                                            onClick={() => handleThemeClick(index)}
+                                            onClick={() => handleThemeClick(index + "-" + searchTerm)}
                                             className={`rounded p-2`}>
                                             {exp}
                                         </div>
-                                        {openTheme === index && (
+                                        {openTheme === (index + "-" + searchTerm) && (
                                             <div className={`flex flex-col space-y-1.5 p-1`}>
                                                 {typeof themeorref === 'object' ?
                                                     Object.entries(themeorref).map(([innerTheme, ref]) => (
