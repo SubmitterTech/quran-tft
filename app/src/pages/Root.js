@@ -101,15 +101,15 @@ function Root() {
             "page-text": "text-neutral-200/60",
             "log-text": "text-neutral-300/80",
             "verse-border": "border-teal-500/80",
-            "verse-ring": "ring-orange-400/70",
+            "verse-ring": "ring-orange-500/70",
             "title-ring": "ring-neutral-200/70",
             "ring": "ring-teal-500/80",
             "focus-ring": "focus:ring-neutral-200/80",
             "focus-text": "focus:text-neutral-100",
-            "matching-text": "text-orange-400",
-            "matching-border": "border-orange-400",
-            "matching": "bg-orange-400",
-            "matching-conic": "bg-[conic-gradient(#fb923c_20deg,transparent_180deg)]", // orange-400
+            "matching-text": "text-orange-500",
+            "matching-border": "border-orange-500",
+            "matching": "bg-orange-500",
+            "matching-conic": "bg-[conic-gradient(#f97316_20deg,transparent_180deg)]", // orange-500
         },
         "indigo": {
             "text-background": "bg-indigo-900",
