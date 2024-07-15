@@ -185,11 +185,11 @@ const Jump = ({ onChangeLanguage, suraNames, onChangeTheme, colors, theme, trans
 
     const ThemePicker = ({ onChangeTheme }) => {
         const themes = {
-            light: "#e5e5e5",
-            dark: "#171717",
-            indigo: "#4338ca",
-            green: "#0f766e",
-            sky: "#0284c7",
+            light: "#fafafa",
+            dark: "#262626",
+            indigo: "#312e81",
+            green: "#115e59",
+            sky: "#075985",
         };
 
         return (
