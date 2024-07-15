@@ -414,9 +414,9 @@ const Jump = ({ onChangeLanguage, suraNames, onChangeTheme, colors, theme, trans
                                                                 <div key={index} className="flex justify-between w-full mt-1">
                                                                     <div className="w-full flex justify-between mr-0.5">
                                                                         <span className="text-left font-bold justify-self-center text-sky-500">{match[1]}</span>
-                                                                        <span className="text-right ">{`(${match[2]})`}</span>
+                                                                        <span className="text-right text-nowrap">{`(${match[2]})`}</span>
                                                                     </div>
-                                                                    <span className="w-1/3 text-right">{match[3]}</span>
+                                                                    <span className="w-5/12 text-right text-nowrap">{match[3]}</span>
                                                                 </div>
                                                             );
                                                         } else {
