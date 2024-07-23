@@ -239,7 +239,7 @@
                 "titles": {
                     "54": "Egonu Öldür*",
                     "55": "Fiziksel Delil*",
-                    "58": "Tanrı’ya Olan Güven Eksikliği: Kudüs’e Girmeyi Reddettiler",
+                    "58": "Tanrı’ya Olan Güven Eksikliği:\nKudüs’e Girmeyi Reddettiler",
                     "60": "Daha Fazla Mucize"
                 }
             }
@@ -274,7 +274,7 @@
                 },
                 "titles": {
                     "61": "İsrail İsyancıları",
-                    "62": "Tüm Teslim Olanların Birliği",
+                    "62": "Tüm Teslim Olanların\nBirliği",
                     "63": "İsrail ile Antlaşma",
                     "67": "Düve*"
                 }
@@ -310,8 +310,8 @@
                 "titles": {
                     "72": "Düvenin Amacı",
                     "75": "Tanrı’nın Sözünü Çarpıtmak",
-                    "76": "Tanrı’nın Sözünü Gizlemek",
-                    "80": "Cennet ve Cehennemin Ebedi Oluşu*",
+                    "76": "Tanrı’nın Sözünü\nGizlemek",
+                    "80": "Cennet ve Cehennemin\nEbedi Oluşu*",
                     "83": "Buyruklar"
                 }
             }
@@ -342,9 +342,9 @@
                 },
                 "titles": {
                     "87": "İsrail Peygamberleri",
-                    "88": "Trajik İfade: Ben Sabit Fikirliyim",
-                    "89": "Kuran Tüm Kutsal Yazıları Tamamına Erdirir",
-                    "92": "İsrail Tarihinden Öğrenmek"
+                    "88": "Trajik İfade:\n“Ben Sabit Fikirliyim!”",
+                    "89": "Kuran\nTüm Kutsal Yazıları Tamamına Erdirir",
+                    "92": "İsrail'in Tarihinden\nÖğrenmek"
                 }
             }
         },
@@ -373,7 +373,7 @@
                     "103": "Eğer iman edip doğru bir hayat sürerlerse, TANRI’dan gelen ödül çok daha iyidir, keşke bilselerdi!"
                 },
                 "titles": {
-                    "97": "Cebrail Vahiyde Aracılık Eder",
+                    "97": "Cebrail\nVahiyde\nAracılık Eder",
                     "101": "Tanrı’nın Kutsal Yazılarını Göz Ardı Etmek",
                     "102": "Büyücülük Kınandı"
                 }
@@ -407,9 +407,9 @@
                 "titles": {
                     "104": "Yakarış Sözlerini Eğip-Bükmek",
                     "105": "Kıskançlık Kınandı",
-                    "106": "Nihai Mucize: Kuran’ın Matematiksel Kodu*",
-                    "111": "Dinlerinin İsmi Ne Olursa Olsun Tüm İmanlılar Günahın Bedelinden Kurtarılır",
-                    "112": "Teslimiyet: Tek Din"
+                    "106": "Nihai Mucize:\nKuran’ın\nMatematiksel Kodu*",
+                    "111": "Dinlerinin İsmi Ne Olursa Olsun\nTüm İmanlılar\nGünahın Bedelinden Kurtarılır",
+                    "112": "Teslimiyet:\nTek Din"
                 }
             }
         },
@@ -478,9 +478,9 @@
                     "138": "İşte böyledir TANRI’nın sistemi ve kimin sistemi TANRI’nınkinden daha iyidir? “Yalnızca O’na taparız biz.”"
                 },
                 "titles": {
-                    "127": "Teslimiyet’in (İslam’ın) Tüm Uygulamalarını İbrahim İletti",
+                    "127": "Teslimiyet’in (İslam’ın) Tüm Uygulamalarını\nİbrahim İletti",
                     "135": "Teslimiyet (İslam): İbrahim’in Dini*",
-                    "136": "Tanrı’nın Elçileri Arasında Ayrım Yok"
+                    "136": "Tanrı’nın Elçileri\nArasında\nAyrım Yok"
                 }
             }
         },
@@ -513,7 +513,7 @@
                 "titles": {
                     "142": "Bağnazlık ve Ön Yargıya Son Verilmesi*",
                     "144": "Kıble Mekke’ye Geri Çevrildi",
-                    "146": "Kutsal Yazıların Suistimal Edilmesi: Seçici Vurgu ve Gizleme"
+                    "146": "Kutsal Yazıların Suistimal Edilmesi:\nSeçici Vurgu\nve Gizleme"
                 }
             }
         },
@@ -586,7 +586,7 @@
                     "164": "Tanrı’nın Karşı Konulmaz İşaretleri",
                     "165": "Putlar Kendilerini Putlaştıranları Sahiplenmezler*",
                     "168": "Şeytan Helal Şeyleri Haram Kılar",
-                    "170": "Statükonun Sürdürülmesi: Bir İnsan Trajedisi",
+                    "170": "Statükonun Sürdürülmesi:\nBir İnsan Trajedisi",
                     "172": "Sadece Dört Et Haram Kılınmıştır*"
                 }
             }
@@ -617,7 +617,7 @@
                     "182": "Kim vasiyet sahibi tarafında büyük bir adaletsizlik veya tarafgirlik görürse ve vasiyet için adaleti onarmaya yönelik düzeltici faaliyette bulunursa bir günah işlemiş olmaz. TANRI Bağışlayıcıdır, En Merhametli Olandır."
                 },
                 "titles": {
-                    "174": "Bozulmuş Dini Liderler Kuran’ın Mucizesini Gizliyorlar*",
+                    "174": "Bozulmuş Dini Liderler\nKuran’ın Mucizesini Gizliyorlar*",
                     "177": "Doğruluk Tanımlandı",
                     "178": "İdam Cezasının Caydırılması*",
                     "180": "Vasiyet Yazmak"
@@ -649,7 +649,7 @@
                 },
                 "titles": {
                     "183": "Oruç Vurgulandı ve Değiştirildi*",
-                    "186": "Tanrı, “Kullarının” Dualarını Yanıtlar",
+                    "186": "Tanrı, “Kullarının” Dualarını\nYanıtlar",
                     "188": "Rüşvet, Yolsuzluk Kınandı",
                     "189": "Lafı Dolandırmayın"
                 }
@@ -751,7 +751,7 @@
                     "212": "İleriyi Görememe",
                     "213": "Felaket Getiren Kıskançlık",
                     "215": "Bağış Alacak Olan Kimseler",
-                    "216": "İmanlılar: Nihai Galipler",
+                    "216": "İmanlılar:\nNihai Galipler",
                     "217": "Zulüm Kınanmıştır"
                 }
             }
@@ -781,10 +781,10 @@
                     "227": "Eğer boşanmayı gerçekleştirirlerse o zaman TANRI İşitendir, Bilendir."
                 },
                 "titles": {
-                    "219": "Sarhoş Ediciler ve Kumar Haram Kılındı*",
+                    "219": "Sarhoş Ediciler ve Kumar\nHaram Kılındı*",
                     "221": "Puta Tapanlarla Evlenmeyin",
                     "222": "Regl",
-                    "224": "Tanrı’nın Adını Boş Yere Ağzınıza Almayın",
+                    "224": "Tanrı’nın Adını Boş Yere\nAğzınıza Almayın",
                     "226": "Boşanma Yasaları"
                 }
             }
@@ -812,8 +812,8 @@
                     "234": "Ölüp de geride eşler bırakanlar var ya, onların dul bıraktıkları (tekrar evlenmeden önce) dört ay on gün beklesin. Geçiş dönemlerini tamamladıklarında, yapmayı arzu ettikleri doğru işleri yapmalarına izin vererek bir hata işlemiş olmazsınız. TANRI yaptığınız her şeyden tamamen Haberdardır."
                 },
                 "titles": {
-                    "231": "Boşanmış Kimseleri Sokağa Atmayın",
-                    "234": "Evlilik Öncesi Geçiş Dönemlerini Gözetin"
+                    "231": "Boşanmış Kimseleri\nSokağa Atmayın",
+                    "234": "Evlilik Öncesi Geçiş Dönemlerini\nGözetin"
                 }
             }
         },
@@ -872,7 +872,7 @@
                 },
                 "titles": {
                     "246": "Saul*",
-                    "247": "Tanrı’nın Hikmetini Sorgulamak",
+                    "247": "Tanrı’nın Hikmetini\nSorgulamak",
                     "248": "Ahit Sandığı",
                     "249": "Davut ve Golyat"
                 }
@@ -1068,10 +1068,10 @@
                     "19": "TANRI’nın onayladığı tek din “Teslimiyet”tir. İronik bir şekilde, kıskançlıktan dolayı bu gerçeğe itiraz edenler, aldıkları bu bilgiye rağmen kutsal yazı almış olanlardır. TANRI’nın vahiylerini reddeden böyleleri için TANRI hesap görmede en şiddetli olandır."
                 },
                 "titles": {
-                    "13": "İmanlılar: Nihai Galipler",
+                    "13": "İmanlılar:\nNihai Galipler",
                     "14": "Farklı Öncelikler",
-                    "18": "En Önemli Buyruk*",
-                    "19": "Teslimiyet: Tek Din"
+                    "18": "En Önemli\nBuyruk*",
+                    "19": "Teslimiyet:\nTek Din"
                 }
             }
         },
@@ -1209,8 +1209,8 @@
                     "74": "O, rahmetini irade ettiği kimselere özgü kılar; TANRI sonsuz lütuf sahibidir."
                 },
                 "titles": {
-                    "61": "İnkârcılara Meydan Okuma",
-                    "64": "Bütün İmanlılara Davet"
+                    "61": "İnkârcılara\nMeydan Okuma",
+                    "64": "Bütün İmanlılara\nDavet"
                 }
             }
         },
@@ -1236,7 +1236,7 @@
                 },
                 "titles": {
                     "75": "Bütün İnsanlara Karşı Dürüst Ol",
-                    "81": "Büyük Kehanet Gerçekleşti: Tanrı’nın Antlaşma Elçisi*"
+                    "81": "Büyük Kehanet Gerçekleşti:\nTanrı’nın Antlaşma Elçisi*"
                 }
             }
         },
@@ -1270,10 +1270,10 @@
                     "94": "Bundan sonra sahte haramlar uydurup da onları TANRI’ya isnat edenler, gerçekten de kötü kimselerdir."
                 },
                 "titles": {
-                    "82": "Tanrı’nın Antlaşma Elçisini Reddedenler İnkârcılardır",
-                    "84": "Tanrı’nın Elçileri Arasında Hiçbir Ayrım Yapmayın",
-                    "85": "Tanrı'nın Onayladığı Tek Din",
-                    "90": "Tövbe Ne Zaman Kabul Edilmez",
+                    "82": "Tanrı’nın Antlaşma Elçisini Reddedenler\nİnkârcılardır",
+                    "84": "Tanrı’nın Elçileri Arasında\nHiçbir Ayrım Yapmayın",
+                    "85": "Tanrı'nın Onayladığı\nTek Din",
+                    "90": "Tövbe Ne Zaman\nKabul Edilmez",
                     "93": "Helal Şeyleri Haram Kılmayın"
                 }
             }
@@ -1515,7 +1515,7 @@
                     "186": "Paranızla ve hayatlarınızla kesinlikle test edileceksiniz, kutsal yazı alanlardan ve puta tapanlardan pek çok hakaret işiteceksiniz. Eğer kararlılıkla sebat eder ve doğru bir hayat sürerseniz, bu, imanınızın gücünü ispatlayacaktır."
                 },
                 "titles": {
-                    "181": "İnsanlar Tanrı’ya Meydan Okumaya Devam Ediyorlar",
+                    "181": "İnsanlar Tanrı’ya Meydan\nOkumayaDevam Ediyorlar\"",
                     "185": "Büyük Bir Zafer",
                     "186": "Kaçınılmaz Test*"
                 }
@@ -1618,9 +1618,9 @@
                     "14": "TANRI’ya ve elçisine itaatsizlik eden ve O’nun yasalarını çiğneyen kişiye gelince, onu da içinde ebedi kalacağı Cehenneme kabul edecektir. O, utanç verici bir azabı üzerine çekmiştir."
                 },
                 "titles": {
-                    "11": "Eğer Hiçbir Vasiyet Bırakılmamışsa*",
+                    "11": "Eğer Hiçbir Vasiyet\nBırakılmamışsa*",
                     "12": "Eşler İçin Miras",
-                    "13": "Tanrı Bizimle Elçileri Aracılığıyla Haberleşir"
+                    "13": "Tanrı\nBizimle Elçileri Aracılığıyla\nHaberleşir"
                 }
             }
         },
@@ -1684,11 +1684,11 @@
                     "33": "Her biriniz için, ana-baba ve akrabalar tarafından bırakılan mirasa ait payları belirledik. Ayrıca evlilik yoluyla sizinle ilişkili olanlar var ya, onlara da gereken paylarını verin. TANRI her şeye şahittir."
                 },
                 "titles": {
-                    "24": "Karşılıklı Cazibe ve Mehir Gereklidir",
+                    "24": "Karşılıklı Cazibe ve\nMehir Gereklidir",
                     "27": "Tanrı’nın Merhameti",
-                    "29": "Cinayet, İntihar ve Gayrimeşru Kazançlar Haram Kılınmıştır",
-                    "32": "Erkeklere de Kadınlara da Eşsiz Nitelikler Verilmiştir",
-                    "33": "Tanrı Tarafından Getirilen Miras Kanunlarına İtiraz Etmeyin"
+                    "29": "Cinayet, İntihar ve\nGayrimeşru Kazançlar Haram Kılınmıştır",
+                    "32": "Erkeklere de Kadınlara da\nEşsiz Nitelikler Verilmiştir",
+                    "33": "Tanrı Tarafından Getirilen Miras Kanunlarına\nİtiraz Etmeyin"
                 }
             }
         },
@@ -1790,7 +1790,7 @@
                     "56": "Cehennemin Alegorik Tarifi",
                     "58": "Dürüstlük & Adalet Desteklendi",
                     "60": "İmanlılar veya İkiyüzlüler?",
-                    "64": "Kayıtsız-Şartsız Teslimiyet: Gerçek İmanlıların Özelliği"
+                    "64": "Kayıtsız-Şartsız Teslimiyet:\nGerçek İmanlıların Özelliği"
                 }
             }
         },
@@ -1820,7 +1820,7 @@
                     "77": "Kendilerine, “Siz savaşmak zorunda değilsiniz; tek yapmanız gereken İletişim Dualarını (Namazı) yerine getirmek ve zorunlu bağışı (Zekâtı) vermektir” denilen kişilere dikkat ettin mi? Sonra onlar için savaş hükmü verildiğinde, insanlardan, TANRI’dan korktukları kadar, hatta daha fazla korktular. Dediler ki “Rabbimiz! Neden bizi bu savaşa zorladın? Keşke bize biraz daha mühlet verseydin!” De ki, “Bu dünyanın maddiyatı sıfırdır, oysa Ahiret, doğrular için çok daha iyidir ve siz asla en ufak bir haksızlığa uğramazsınız.”"
                 },
                 "titles": {
-                    "66": "Tanrı’nın Testleri Asla Mantıksız Değildir",
+                    "66": "Tanrı’nın Testleri Asla\nMantıksız Değildir",
                     "69": "İmanlıların Eşitliği",
                     "75": "İmanlılar Korkusuzdur"
                 }
@@ -1884,7 +1884,7 @@
                     "94": "Ey iman edenler! Eğer TANRI uğrunda çarpışırsanız, kesin olarak emin olun. Size barış teklif edene, bu dünyanın ganimetlerini arayarak “Sen bir imanlı değilsin” demeyin. Çünkü TANRI sınırsız ganimet sahibidir. Hatırlayın daha önce sizler de onlar gibiydiniz ve TANRI sizi nimetlendirdi. Bu nedenle, (çarpışmadan önce) kesin olarak emin olmalısınız. TANRI yaptığınız her şeyden tamamen Haberdardır."
                 },
                 "titles": {
-                    "88": "İkiyüzlülerle Nasıl Baş Edilir",
+                    "88": "İkiyüzlülerle\nNasıl Baş Edilir",
                     "92": "Öldürmeyeceksin",
                     "93": "Bağışlanamaz Bir Suç"
                 }
@@ -1918,7 +1918,7 @@
                 "titles": {
                     "95": "Çaba Gösterenler İçin Yüksek Dereceler",
                     "97": "İlgisiz Kalmak Kınandı",
-                    "102": "Savaş Tedbirleri",
+                    "102": "Savaş\nTedbirleri",
                     "103": "İletişim Duaları"
                 }
             }
@@ -1955,7 +1955,7 @@
                 },
                 "titles": {
                     "107": "Haddi Aşanları Müdafaa Etme",
-                    "109": "''İyi'' Olmakla Onlara Yardım Etmiş Olmazsınız",
+                    "109": "''İyi'' Olmakla\nOnlara Yardım Etmiş Olmazsınız",
                     "116": "Bağışlanamaz Günah"
                 }
             }
@@ -1990,7 +1990,7 @@
                 },
                 "titles": {
                     "123": "Yasa",
-                    "125": "İbrahim: İslam’ın İlk Elçisi*",
+                    "125": "İbrahim:\nİslam’ın İlk Elçisi*",
                     "128": "Boşanma Caydırılmaktadır",
                     "129": "Çok Eşlilik Caydırılmıştır.*"
                 }
@@ -2025,7 +2025,7 @@
                     "142": "İkiyüzlüler TANRI’yı kandırdıklarını zannederler, gel gör ki onları doğru yolda olduklarına inandıran O’dur. İletişim Duaları (Namaz) için kalktıklarında tembel bir şekilde kalkarlar. Bunun nedeni, insanların önünde sadece gösteriş yapmaları ve TANRI’yı nadiren akıllarından geçirmeleridir."
                 },
                 "titles": {
-                    "135": "Yalancı Şahitlik Yapmayın",
+                    "135": "Yalancı Şahitlik\nYapmayın",
                     "141": "İkiyüzlüler"
                 }
             }
@@ -2058,9 +2058,9 @@
                     "156": "İnançsızlıkları ve Meryem hakkında büyük bir yalan söyledikleri için (kınandılar)."
                 },
                 "titles": {
-                    "145": "Onlar Kendilerini İmanlı Zannediyorlar",
+                    "145": "Onlar Kendilerini\nİmanlı Zannediyorlar",
                     "148": "Kötü Dil Kullanmayın",
-                    "150": "Tanrı’nın Elçileri Arasında Hiçbir Ayrım Yapmayın",
+                    "150": "Tanrı’nın Elçileri Arasında\nHiçbir Ayrım\nYapmayın",
                     "153": "İsrail’den Dersler"
                 }
             }
@@ -2121,7 +2121,7 @@
                 },
                 "titles": {
                     "171": "Üçlü Birlik: Sahte Bir Doktrin",
-                    "174": "Kuran’ın Matematiksel Kodu: Somut, Çürütülemez Kanıt"
+                    "174": "Kuran’ın Matematiksel Kodu:\nSomut, Çürütülemez Kanıt"
                 }
             },
             "5": {
@@ -2151,7 +2151,7 @@
                     "5": "Bugün tüm temiz yiyecekler size helal kılınmıştır. Kutsal yazı halkının yiyeceği size helaldir. Ayrıca, kendilerine gereken mehiri ödemek koşuluyla hem imanlılar arasındaki iffetli kadınlar hem de önceki kutsal yazıların takipçileri arasındaki iffetli kadınlarla evlenebilirsiniz. Zina etmeyerek, gizli sevgililer de edinmeyerek iffetinizi muhafaza edin. Kim imanı reddederse, tüm işleri boşa çıkacak ve Ahirette kaybedenlerle olacaktır."
                 },
                 "titles": {
-                    "3": "Sadece Dört Et Haram Kılındı Kendi kendine ölen hayvanlar Tanımlandı"
+                    "3": "Sadece Dört Et Haram Kılındı\n“Kendi kendine ölen hayvanlar” Tanımlandı"
                 }
             }
         },
@@ -2212,10 +2212,10 @@
                     "21": "“Ey halkım! TANRI’nın sizin için karara bağladığı kutsal topraklara girin ve isyan etmeyin yoksa kaybedenler olursunuz.”"
                 },
                 "titles": {
-                    "14": "Hristiyanlar da Tanrı’nın Elçisine İtaat Etmek Zorundadır",
-                    "15": "Kuran: Tanrı’nın Yahudilere ve Hristiyanlara Mesajı",
+                    "14": "Hristiyanlar da Tanrı’nın Elçisine\nİtaat Etmek Zorundadır",
+                    "15": "Kuran: Tanrı’nın\nYahudilere ve Hristiyanlara Mesajı",
                     "17": "Büyük Küfür",
-                    "18": "Yahudilere, Hristiyanlara ve Müslümanlara Tanrı’nın Elçisi",
+                    "18": "Yahudilere, Hristiyanlara ve Müslümanlara\nTanrı’nın Elçisi",
                     "19": "Tanrı’nın Antlaşma Elçisi",
                     "21": "Tanrı Kutsal Toprakları İsrail’e Verir"
                 }
@@ -2282,7 +2282,7 @@
                 },
                 "titles": {
                     "36": "İnkârın Maliyeti",
-                    "38": "Matematiksel Kanıt Kuranî Adaleti Destekler"
+                    "38": "Matematiksel Kanıt\nKuranî Adaleti Destekler"
                 }
             }
         },
@@ -2346,7 +2346,7 @@
                 "titles": {
                     "51": "Belirli Yahudi ve Hristiyanlarla Dost Olunamaz*",
                     "57": "Hangi Yahudi ve Hristiyanlar",
-                    "58": "Kutsal Yazılar Alanlar Haddi Aşıyor"
+                    "58": "Kutsal Yazılar Alanlar\nHaddi Aşıyor"
                 }
             }
         },
@@ -2380,7 +2380,7 @@
                     "65": "Yahudi ve Hristiyanlar İçin Kurtuluş",
                     "66": "Onlar Bu Kuran’a İman Etmek Zorundalar",
                     "67": "Elçi İletmek Zorundadır",
-                    "69": "Kurtuluş İçin Minimum Gereksinimler"
+                    "69": "Kurtuluş İçin\nMinimum Gereksinimler"
                 }
             }
         },
@@ -2409,7 +2409,7 @@
                     "82": "İmanlıların en azılı düşmanlarının Yahudiler ve puta tapanlar olduğunu göreceksin. Ve imanlılara dostlukta en yakın insanların “Biz Hristiyanız” diyenler olduğunu göreceksin. Bunun nedeni onların arasında papazların ve keşişlerin olmasıdır ve onlar kibirli değildirler."
                 },
                 "titles": {
-                    "72": "Günümüz Hristiyanlığı İsa’nın Dini Değil*",
+                    "72": "Günümüz Hristiyanlığı\nİsa’nın Dini Değil*",
                     "77": "Dostlarınızı Dikkatli Seçin",
                     "79": "İlgisiz Kalmak Kınandı",
                     "82": "Gerçeğin Bir İfadesi"
@@ -2445,8 +2445,8 @@
                 },
                 "titles": {
                     "87": "Helal Şeyleri Haram Kılmayın",
-                    "89": "Tanrı’nın Adını Boş Yere Ağzınıza Almayın",
-                    "90": "Sarhoş Ediciler ve Kumar Haram Kılındı",
+                    "89": "Tanrı’nın Adını\nBoş Yere Ağzınıza Almayın",
+                    "90": "Sarhoş Ediciler ve Kumar\nHaram Kılındı",
                     "94": "Av Hayvanını Koruma"
                 }
             }
@@ -2475,8 +2475,8 @@
                     "104": "Onlara “TANRI’nın vahyettiğine ve elçiye gelin” denildiğinde, “Atalarımızı ne yapıyor bulduysak o bizim için yeterlidir” derler. Ya ataları hiçbir şey bilmediyse ve kendilerine rehberlik edilmediyse?"
                 },
                 "titles": {
-                    "96": "Tüm Deniz Canlıları Yemek için Helaldir",
-                    "104": "Atalarınızın Dinini Körü Körüne Takip Etmeyin"
+                    "96": "Tüm Deniz Canlıları\nYemek için Helaldir",
+                    "104": "Atalarınızın Dinini\nKörü Körüne Takip Etmeyin"
                 }
             }
         },
@@ -2506,7 +2506,7 @@
                 },
                 "titles": {
                     "106": "Bir Vasiyete Şahit Olmak",
-                    "109": "Ölmüş Elçiler Tamamen Habersizdirler",
+                    "109": "Ölmüş Elçiler\nTamamen Habersizdirler",
                     "112": "Ziyafet"
                 }
             }
@@ -2583,7 +2583,7 @@
                 "titles": {
                     "9": "Testin Gereklilikleri",
                     "17": "Mutluluğu Sadece Tanrı Kontrol Eder",
-                    "19": "Kuran Dışında Hiçbir Şey"
+                    "19": "Kuran, tüm Kuran,\nve Kuran Dışında Hiçbir Şey"
                 }
             }
         },
@@ -2617,7 +2617,7 @@
                     "34": "Senden önceki elçiler de reddedilmişti ve onlar reddedilme karşısında kararlılıkla sebat ettiler. Galibiyetimiz onlara ulaşıncaya dek zulme uğradılar. Böyledir asla değişmeyecek olan TANRI’nın sistemi. Elçilerimin tarihi böylelikle sana emsal teşkil etmektedir."
                 },
                 "titles": {
-                    "22": "Puta Tapanlar Putperestliklerini İnkâr Ederler",
+                    "22": "Puta Tapanlar Putperestliklerini\nİnkâr Ederler",
                     "32": "Önceliklerimizi Yeniden Düzenlemek"
                 }
             }
@@ -2651,10 +2651,10 @@
                     "46": "De ki, “Farzedelim TANRI işitme ve görme yeteneğinizi sizden aldı ve zihinlerinizi de mühürledi; TANRI’dan başka hangi tanrı bunları sizin için eski haline getirebilir?” Vahiyleri nasıl açıkladığımıza dikkat et ve nasıl hâlâ saptıklarına da dikkat et!"
                 },
                 "titles": {
-                    "38": "Hayvanlar ve Kuşlar: Teslim Olan Yaratıklar*",
-                    "39": "Kuran’ın Karşı Konulmaz Mucizesi",
+                    "38": "Hayvanlar ve Kuşlar:\nTeslim Olan Yaratıklar*",
+                    "39": "Kuran’ın\nKarşı Konulmaz Mucizesi",
                     "44": "Sistem*",
-                    "46": "Yalnızca Tanrı'dır Tapılmaya Layık Olan"
+                    "46": "Yalnızca Tanrı'dır\nTapılmaya Layık Olan"
                 }
             }
         },
@@ -2757,7 +2757,7 @@
                     "87": "Onların atalarından, soylarından ve kardeşlerinden birçoğunu seçtik ve onlara dosdoğru bir yolda rehberlik ettik."
                 },
                 "titles": {
-                    "74": "İbrahim Puta Tapanlarla Tartışıyor",
+                    "74": "İbrahim Puta Tapanlarla\nTartışıyor",
                     "82": "İmanlılar için Mükemmel Güvenlik"
                 }
             }
@@ -2851,11 +2851,11 @@
                     "122": "Ölmüş olup kendisine hayat bahşettiğimiz ve kendisine insanlar arasında hareket edebilmesi için ışık sağladığımız kişi, asla çıkamayacağı zifiri karanlıkta olan kişiye eşit midir? İnkârcıların işleri kendi gözlerinde böyle süslenmiştir."
                 },
                 "titles": {
-                    "111": "Kendi Kararlarının Bir Sonucu",
-                    "112": "Hadis ve Sünnet: Peygamber Düşmanlarının Uydurmaları",
+                    "111": "Kendi Kararlarının\nBir Sonucu",
+                    "112": "Hadis ve Sünnet:\nPeygamber Düşmanlarının Uydurmaları",
                     "113": "Önemli Kriter",
                     "114": "Kuran: Tamamen Detaylı*",
-                    "119": "Tanrı’yı Hatırlama Şansı: Yemeden Önce Tanrı’nın Adını Zikredin"
+                    "119": "Tanrı’yı Hatırlama Şansı:\nYemeden Önce\nTanrı’nın Adını Zikredin"
                 }
             }
         },
@@ -2890,7 +2890,7 @@
                 },
                 "titles": {
                     "124": "Tanrı’nın Hikmetini Sorgulamak*",
-                    "125": "Kuranî Bilgi İnsanlığın Katettiği Mesafenin Çok İlerisinde"
+                    "125": "Kuranî Bilgi\nİnsanlığın Katettiği Mesafenin Çok İlerisinde*"
                 }
             }
         },
@@ -2920,8 +2920,8 @@
                 },
                 "titles": {
                     "136": "Tanrı’nın Rızıklarını Suistimal Etmek",
-                    "138": "Dini Bidatler Kınandı",
-                    "141": "Zekât Hasat Gününde Verilmelidir*"
+                    "138": "Dini Bidatler\nKınandı",
+                    "141": "Zekât\n“Hasat Gününde” Verilmelidir*"
                 }
             }
         },
@@ -3097,9 +3097,9 @@
                 },
                 "titles": {
                     "28": "Miras Alınan Tüm Bilgileri İnceleyin",
-                    "30": "Dikkat Edin: Onlar Rehberlik Edildiklerine İnanırlar",
+                    "30": "Dikkat Edin: Onlar\nRehberlik Edildiklerine İnanırlar",
                     "31": "Mescit İçin Güzel Giyinin",
-                    "32": "İcat Edilen Haramlar Kınandı",
+                    "32": "İcat Edilen Haramlar\nKınandı",
                     "35": "Aranızdan Elçiler"
                 }
             }
@@ -3166,7 +3166,7 @@
                     "62": "“Size Rabbimin mesajlarını iletiyorum, size öğüt veriyorum ve sizin bilmediklerinizi ben TANRI tarafından biliyorum."
                 },
                 "titles": {
-                    "52": "Kuran: Tamamen Detaylı",
+                    "52": "Kuran:\nTamamen Detaylı",
                     "59": "Nuh"
                 }
             }
@@ -3201,9 +3201,9 @@
                 },
                 "titles": {
                     "65": "Hûd",
-                    "70": "Atalarını Körü Körüne Takip Etmek: Bir İnsan Trajedisi",
+                    "70": "Ataları Körü Körüne Takip Etmek:\nBir İnsan Trajedisi",
                     "73": "Salih",
-                    "75": "Mesaj: Elçiliğin Kanıtı"
+                    "75": "Mesaj:\nElçiliğin Kanıtı"
                 }
             }
         },
@@ -3239,7 +3239,7 @@
                     "93": "O, “Ey halkım! Ben size Rabbimin mesajlarını ilettim ve size öğüt verdim. İnkâr eden insanlara nasıl üzülebilirim” diyerek onlardan yüz çevirdi."
                 },
                 "titles": {
-                    "80": "Lut: Eşcinsellik Kınandı",
+                    "80": "Lut:\nEşcinsellik Kınandı",
                     "85": "Şuayb:\nHilekârlık, Sahtekârlık Kınandı"
                 }
             }
@@ -3277,7 +3277,7 @@
                 },
                 "titles": {
                     "94": "Şer Gibi Görünen Nimetler",
-                    "96": "Birçok İnsan Yanlış Seçim Yapar",
+                    "96": "Birçok İnsan\nYanlış Seçim Yapar",
                     "103": "Musa"
                 }
             }
@@ -3355,7 +3355,7 @@
                     "136": "Kaçınılmaz Azap",
                     "138": "Tüm Mucizelerden Sonra",
                     "141": "İsrailoğullarına Hatırlatma",
-                    "142": "Dünyamız Tanrı’nın Fiziksel Varlığına Dayanamaz"
+                    "142": "Dünyamız Tanrı’nın Fiziksel Varlığına\nDayanamaz"
                 }
             }
         },
@@ -3385,7 +3385,7 @@
                     "155": "Sonra, Musa bizimle kararlaştırılmış görüşmeye gelmeleri için halkından yetmiş adam seçti. Deprem onları sarstığında dedi ki “Rabbim! Eğer öyle irade etseydin benimle birlikte onları geçmişte de yok edebilirdin. İçimizdeki beyinsizlerin eylemleri yüzünden bizleri de mi yok edeceksin? Bu, bizim için belirlediğin bir test olmalı. Onunla irade ettiğin kişiyi kınar, irade ettiğin kişiye rehberlik edersin. Sen bizim Sahibimiz ve Efendimizsin, öyleyse bizi bağışla, bize rahmetini yağdır; Sen en iyi Bağışlayıcısın."
                 },
                 "titles": {
-                    "146": "İlahi Müdahale İnkârcıları Karanlıkta Tutar",
+                    "146": "İlahi Müdahale\nİnkârcıları Karanlıkta Tutar",
                     "148": "Altın Buzağı"
                 }
             }
@@ -3414,7 +3414,7 @@
                     "163": "Onlara Şabat Günü’ne saygısızlık eden deniz kıyısındaki topluluğu hatırlat. Şabat Günü’nü gözettiklerinde onlara balık bolca geliyordu. Ve Şabat Günü’nü ihlal ettiklerinde ise balık gelmiyordu. Haddi aşmalarının bir sonucu olarak onlara bu şekilde sıkıntı veriyorduk."
                 },
                 "titles": {
-                    "156": "Tanrı’nın Rahmetini Kazanmak İçin Gerekenler: Zekâtın Önemi",
+                    "156": "Tanrı’nın Rahmetini Kazanmak İçin Gerekenler:\nZekâtın Önemi",
                     "159": "Rehberlik Edilen Yahudiler",
                     "160": "Sina’daki Mucizeler",
                     "161": "Mucizelere Rağmen İsyan",
@@ -3451,8 +3451,8 @@
                     "175": "Onlara, kendisine kanıtlarımızın verildiği ancak onları umursamamayı seçen kişinin haberlerini oku. Sonuç olarak şeytan, yoldan sapmış biri oluncaya dek onun peşine düştü."
                 },
                 "titles": {
-                    "164": "Tanrı’nın Mesajı ile Alay Edip Eğlenmek",
-                    "172": "Tanrı Hakkında İçgüdüsel Bilgi ile Doğarız*"
+                    "164": "Tanrı’nın Mesajı ile\nAlay Edip Eğlenmek",
+                    "172": "Tanrı Hakkında İçgüdüsel Bilgi\nile Doğarız*"
                 }
             }
         },
@@ -3486,8 +3486,8 @@
                     "188": "De ki, “Ben kendime fayda sağlama yahut zarar verme gücüne sahip değilim. Sadece TANRI’nın irade ettiği gelir başıma. Eğer geleceği bilseydim servetimi artırırdım ve bana hiçbir zarar dokunmazdı. Ben, iman eden kimseler için bir uyarıcıdan ve müjdeciden fazlası değilim.”"
                 },
                 "titles": {
-                    "179": "Şeytan Kendi Elemanlarını Hipnotize Eder",
-                    "188": "Elçiler Güçsüzdürler: Onlar Geleceği Bilmezler"
+                    "179": "Şeytan Kendi Elemanlarını\nHipnotize Eder",
+                    "188": "Elçiler Güçsüzdürler;\nOnlar Geleceği Bilmezler"
                 }
             }
         },
@@ -3563,7 +3563,7 @@
                     "2": "Gerçek İmanlılar",
                     "5": "Zayıf İmanlılar",
                     "9": "Tanrı’nın Görünmeyen Askerleri",
-                    "10": "İmanlılar İçin Garanti Edilmiştir",
+                    "10": "Galibiyet İmanlılar İçin\nGaranti Edilmiştir",
                     "12": "Tarihten Dersler*"
                 }
             }
@@ -3635,7 +3635,7 @@
                 "titles": {
                     "28": "Para & Evlatlar Testtir",
                     "30": "Tanrı, Elçisini Korur*",
-                    "35": "İletişim Duaları (Namaz) Kuran’dan Önce de Vardı*",
+                    "35": "İletişim Duaları (Namaz)\nKuran’dan Önce de Vardı*",
                     "36": "Paralarını Tanrı ile Savaşmak için Harcamaları*"
                 }
             }
@@ -3671,7 +3671,7 @@
                 },
                 "titles": {
                     "42": "Tanrı İmanlılar için Her Şeyi Kontrol Eder ve Planlar",
-                    "48": "Şeytan Tanrı’nın Görünmeyen Askerlerini Görür"
+                    "48": "Şeytan Tanrı’nın\nGörünmeyen Askerlerini Görür"
                 }
             }
         },
@@ -3705,8 +3705,8 @@
                     "65": "Ey peygamber! İmanlıları savaşa yüreklendir. Eğer sizden kararlı yirmi kişi olursa iki yüz kişiyi yenebilir ve sizden yüz kişi, inkâr edenlerden bin kişiyi yenebilir. Bunun sebebi, onların anlamayan insanlar olmasıdır."
                 },
                 "titles": {
-                    "53": "Azap: Günahın Bir Sonucu",
-                    "60": "Hazırlıklı Olun: İlahi Bir Buyruk",
+                    "53": "Azap:\nGünahın Bir Sonucu",
+                    "60": "Hazırlıklı Olun:\nİlahi Bir Buyruk",
                     "62": "Tanrı İmanlılara Yeter"
                 }
             }
@@ -3836,7 +3836,7 @@
                 },
                 "titles": {
                     "30": "Küfürler",
-                    "31": "Tanrı’nın Öğretileri Yerine Dini Liderlerin Öğretilerine Sarılmak"
+                    "31": "Tanrı’nın Öğretileri Yerine\nDini Liderlerin Öğretilerine\nSarılmak"
                 }
             }
         },
@@ -3864,7 +3864,7 @@
                 "titles": {
                     "33": "Teslimiyet Üstün Gelmeye Mukadderdir*",
                     "34": "Profesyonel Dincilere Dikkat Edin",
-                    "36": "Tanrı’nın Sistemi: Yılda On iki Ay*",
+                    "36": "Tanrı’nın Sistemi:\nYılda On iki Ay*",
                     "37": "Kutsal Ayların Yerini Değiştirmek*"
                 }
             }
@@ -3933,10 +3933,10 @@
                     "64": "İkiyüzlüler, kalplerindekini ortaya çıkaracak bir surenin vahyedilmesinden endişe ederler. De ki, “Buyurun alay edin. TANRI, korktuğunuz şeyi tamamen ifşa edecektir.”"
                 },
                 "titles": {
-                    "54": "İletişim Duası Muhammed’den Önce Vardı*",
+                    "54": "İletişim Duası\nMuhammed’den Önce Vardı*",
                     "55": "Görünür Dünyevi Başarı",
                     "60": "Bağışların Dağıtım Sistemi",
-                    "63": "Tanrı’ya ve Elçisine Muhalefet Etmenin Getirdiği Azap",
+                    "63": "Tanrı’ya ve Elçisine Muhalefet Etmenin\nGetirdiği Azap",
                     "64": "İkiyüzlüler"
                 }
             }
@@ -3970,7 +3970,7 @@
                     "69": "Tanrı’nın Sistemi Değişmez",
                     "70": "Kaybedenler",
                     "71": "Kazananlar",
-                    "73": "İnkârcılara Karşı Amansız Ol"
+                    "73": "İnkârcılara Karşı\nAmansız Ol"
                 }
             }
         },
@@ -4002,7 +4002,7 @@
                     "88": "Elçi ve onunla birlikte iman etmiş olanlara gelince, onlar paraları ve hayatları ile şevkle çaba gösterirler. Bunlar tüm iyi şeyleri hak ettiler; kazananlar onlardır."
                 },
                 "titles": {
-                    "80": "Şeytan’ın En Etkili Yemi: Şefaat Efsanesi*",
+                    "80": "Şeytan’ın En Etkili Yemi:\nŞefaat Efsanesi*",
                     "85": "Dünya Maddiyatı Sıfırdır",
                     "88": "Gerçek İmanlılar Çaba Göstermeye Şevklidirler"
                 }
@@ -4036,7 +4036,7 @@
                     "100": "Göç eden ilk öncülere (Muhacirlere) ve onlara sığınma veren destekçilere (Ensara) ve onları doğrulukta takip edenlere gelince, TANRI onlardan hoşnuttur ve onlar da O’ndan hoşnutturlar. O onlara içinde ebedi kalacakları, akan nehirleri olan bahçeler hazırladı. Bu en büyük zaferdir."
                 },
                 "titles": {
-                    "94": "Zor Zamanlar İkiyüzlüleri İfşa Etme Hizmeti Görür",
+                    "94": "Zor Zamanlar İkiyüzlüleri\nİfşa Etme Hizmeti Görür",
                     "97": "Araplar"
                 }
             }
@@ -4101,7 +4101,7 @@
                 "titles": {
                     "111": "En Kârlı Yatırım",
                     "112": "İmanlılar",
-                    "113": "Tanrı’nın Düşmanlarını Sahiplenmeyin: İbrahim Babasını Sahiplenmedi",
+                    "113": "Tanrı’nın Düşmanlarını Sahiplenmeyin:\nİbrahim Babasını Sahiplenmedi",
                     "118": "Elçiyi Terk Etmeyin"
                 }
             }
@@ -4126,10 +4126,10 @@
                     "127": "Ne zaman bir sure vahyedilse, içlerinden bir kısmı “Sizi gören biri var mı?” dercesine birbirlerine bakarlardı. Ardından ayrılırlardı. Böylece TANRI onların kalplerini çevirdi, çünkü onlar kavrayamayan insanlardır."
                 },
                 "titles": {
-                    "122": "Din Eğitiminin Önemi",
+                    "122": "Din Eğitiminin\nÖnemi",
                     "123": "İnkârcılar",
                     "124": "İkiyüzlüler",
-                    "127": "Tarihi Bir Cürüm Ortaya Çıkarıldı: Tanrı’nın Sözü İle Oynamak. Tanrı,Çürütülemez Deliller Sunuyor*"
+                    "127": "Tarihi Bir Cürüm Ortaya Çıkarıldı:\nTanrı’nın Sözü İle\nOynamak*\nTanrı Çürütülemez Deliller Sunuyor"
                 }
             },
             "10": {
@@ -4201,8 +4201,8 @@
                     "23": "Fakat O onları kurtarır kurtarmaz yeryüzünde haddi aşarlar ve gerçeğe muhalefet ederler. Ey insanlar! Sizin taşkınlığınız sadece kendi ruhlarınızın zararınadır. Kafalarınız sürekli bu dünya hayatıyla meşgul olmayı sürdürür, sonra da nihai dönüşünüz bize olur, o zaman yapmış olduğunuz her şeyi size bildiririz."
                 },
                 "titles": {
-                    "15": "Her bir Harf Hesaplanmış ve İlahi Olarak Tasarlanmıştır",
-                    "20": "Muhammed’den Sonra Açığa Çıkarılacak Kuran Mucizesi*",
+                    "15": "Her bir Harf Hesaplanmış ve\nİlahi Olarak Tasarlanmıştır",
+                    "20": "Muhammed’den Sonra Açığa Çıkarılacak\nKuran Mucizesi*",
                     "21": "İsyankâr İnsanlar"
                 }
             }
@@ -4237,7 +4237,7 @@
                 },
                 "titles": {
                     "26": "Cennet ve Cehennem Ebedidir",
-                    "28": "Putlar Kendilerine Tapanları Sahiplenmeyecekler",
+                    "28": "Putlar Kendilerine Tapanları\nSahiplenmeyecekler",
                     "34": "Putlarınızın Üzerinde Tefekkür Edin"
                 }
             }
@@ -4277,7 +4277,7 @@
                 },
                 "titles": {
                     "37": "Kuran’ı Yalnızca Tanrı Yazabilir",
-                    "43": "İnsanlar Kendi Yollarını Özgürce Seçer",
+                    "43": "İnsanlar Kendi Yollarını\nÖzgürce Seçer",
                     "49": "Elçinin Hiçbir Gücü Yoktur"
                 }
             }
@@ -4312,7 +4312,7 @@
                 "titles": {
                     "54": "İmanın Bedeli Nedir",
                     "58": "İmanlılar İçin Sevinç",
-                    "59": "İnsan Yapımı Beslenme Yasakları",
+                    "59": "İnsan Yapımı\nBeslenme Yasakları",
                     "61": "Tanrı’yı Bilmek",
                     "62": "Mutluluk: Şimdi ve Sonsuza Dek*"
                 }
@@ -4421,7 +4421,7 @@
                     "109": "Sana vahyedileni takip et ve TANRI hükmünü verinceye kadar sabırlı ol; O, en iyi hüküm verendir."
                 },
                 "titles": {
-                    "100": "İnkârcılar Bloke Edilirler",
+                    "100": "İnkârcılar\nBloke Edildiler*",
                     "103": "Garantilenmiş Galibiyet",
                     "107": "Tüm Güç Tanrı’ya Aittir"
                 }
@@ -4578,7 +4578,7 @@
                 "titles": {
                     "44": "Gemi Nereye İndi",
                     "46": "Şefaat Efsanesi*",
-                    "50": "Hûd: Bir ve Aynı Mesaj"
+                    "50": "Hûd:\nBir ve Aynı Mesaj"
                 }
             }
         },
@@ -4616,7 +4616,7 @@
                     "72": "Dedi ki “Vay başıma gelenler! Bu yaşta nasıl çocuk doğurabilirim ve işte yaşlı bir adam olan kocam? Bu gerçekten garip!”"
                 },
                 "titles": {
-                    "61": "Salih: Bir ve Aynı Mesaj",
+                    "61": "Salih:\nBir ve Aynı Mesaj",
                     "63": "İnkârcılar Daima Kaybedenlerdir",
                     "69": "İbrahim ve Lut"
                 }
@@ -4654,7 +4654,7 @@
                 "titles": {
                     "77": "Eşcinsellik Kınanmıştır",
                     "82": "Sodom & Gomora Yok Edildi",
-                    "84": "Şuayb: Bir ve Aynı Mesaj"
+                    "84": "Şuayb:\nBir ve Aynı Mesaj"
                 }
             }
         },
@@ -4723,7 +4723,7 @@
                     "120": "Kalbini güçlendirmek için sana elçilerin tarihini yeterince aktarıyoruz. Burada sana gerçek geldi, aynı zamanda imanlılar için aydınlanmalar ve hatırlatıcılar."
                 },
                 "titles": {
-                    "109": "Atalarımızı Körü Körüne Takip Etmek Büyük Bir İnsan Trajedisi",
+                    "109": "Atalarımızı Körü Körüne Takip Etmek\nBüyük Bir İnsan Trajedisi",
                     "114": "Beş Namazın Üçü",
                     "118": "Biz Niçin Yaratıldık"
                 }
@@ -4769,7 +4769,7 @@
                 },
                 "titles": {
                     "1": "♦ ♦ ♦ ♦\nSure 12: Yusuf\n(Yusuf)\nEn Lütufkâr, En Merhametli olan Tanrı ’nın adıyla. ",
-                    "9": "Yusuf’un Kaderine Tanrı Tarafından Önceden Karar Verilmişti*"
+                    "9": "Yusuf’un Kaderine\nTanrı Tarafından Önceden Karar Verilmişti*"
                 }
             }
         },
@@ -4805,9 +4805,9 @@
                     "28": "Kocası, elbisesinin arkadan yırtılmış olduğunu gördüğünde şöyle dedi, “Bu bir kadın planıdır. Gerçekten de sizin plan kuruşunuz çetindir.”"
                 },
                 "titles": {
-                    "15": "İmanlılar Tanrı’nın Güvenceleri ile Nimetlendirilirler",
+                    "15": "İmanlılar Tanrı’nın Güvenceleri ile\nNimetlendirilirler",
                     "19": "Yusuf Mısır’a Götürülüyor",
-                    "23": "Tanrı İmanlıları Günah İşlemekten Korur"
+                    "23": "Tanrı İmanlıları Günah İşlemekten\nKorur"
                 }
             }
         },
@@ -5007,9 +5007,9 @@
                     "111": "Onların tarihlerinde akıl sahipleri için bir ders vardır. Bu, uydurulmuş bir Hadis değildir; bu (Kuran), önceki tüm kutsal yazıları doğrular, her şeyin detayını verir ve iman edenler için bir yol gösterici ve rahmettir."
                 },
                 "titles": {
-                    "103": "İnsanların Çoğu İman Etmezler",
-                    "106": "İmanlıların Çoğu Cehennemle Mukadderdir",
-                    "110": "Galibiyet Eninde Sonunda İmanlılara Aittir",
+                    "103": "İnsanların Çoğu\nİman Etmezler",
+                    "106": "İmanlıların Çoğu\nCehennemle Mukadderdir",
+                    "110": "Galibiyet, Eninde Sonunda,\nİmanlılara Aittir",
                     "111": "Kuran, İhtiyacımız Olan Her Şeydir"
                 }
             },
@@ -5051,7 +5051,7 @@
                     "14": "Akla uygun tek yakarış O’na yalvarmaktır, kaldı ki O’ndan başka yalvardıkları putlar asla yanıt veremezler. Nitekim onlar ellerini suya uzatan fakat ağızlarına hiçbir şey ulaşmayan kimselere benzerler. İnkârcıların yakarışları boşunadır."
                 },
                 "titles": {
-                    "5": "Kurtuluş İçin Ahiret İnancı Gereklidir"
+                    "5": "Kurtuluş İçin\nAhiret İnancı\nGereklidir"
                 }
             }
         },
@@ -5145,7 +5145,7 @@
                     "43": "İnkâr etmiş olanlar “Sen bir elçi değilsin!” diyecekler. De ki, “TANRI ve kutsal yazının bilgisine sahip olanlar benimle sizin aranızda bir şahit olarak yeter.”"
                 },
                 "titles": {
-                    "37": "Kuran’ın Matematiksel Kodunun İlahi Yetkilendirmesi*"
+                    "37": "Kuran’ın Matematiksel Kodunun\nİlahi Yetkilendirmesi*"
                 }
             },
             "14": {
@@ -5193,10 +5193,10 @@
                     "17": "Ona katlanamadığı halde onu yutuverecek, ölüm ona her yönden gelmesine rağmen o asla ölmeyecektir. Onu bekleyen korkunç bir azaptır.*"
                 },
                 "titles": {
-                    "6": "Minnettar Olmanın Önemi",
+                    "6": "Minnettar Olmanın\nÖnemi",
                     "7": "Nanköre karşı Minnettar",
                     "9": "Egoistçe Karşı Koyma: Bir İnsan Özelliği",
-                    "10": "Atalarımızı Körü Körüne Takip Etmek: Büyük Bir İnsan Trajedisi"
+                    "10": "Atalarımızı Körü Körüne Takip Etmek:\nBüyük Bir İnsan Trajedisi"
                 }
             }
         },
@@ -5234,7 +5234,7 @@
                     "21": "Diriliş Günü’nde",
                     "22": "Şeytan, Takipçilerine Sahip Çıkmaz",
                     "24": "Batıla karşı Hak",
-                    "28": "Onlar Ailelerini Tanrı’nın Korumasından Çıkarırlar",
+                    "28": "Onlar Ailelerini\nTanrı’nın Korumasından Çıkarırlar",
                     "30": "Puta Tapmak: Tüm Kötülüklerin Anası",
                     "31": "Kritik Buyruklar"
                 }
@@ -5272,8 +5272,8 @@
                 },
                 "titles": {
                     "35": "İbrahim",
-                    "40": "İletişim Duaları: Tanrı’dan Armağan",
-                    "44": "Tanrı, Emirlerini Elçileri Vasıtasıyla Gönderir"
+                    "40": "İletişim Duaları:\nTanrı’dan Armağan",
+                    "44": "Tanrı, Emirlerini\nElçileri Vasıtasıyla Gönderir"
                 }
             }
         },
@@ -5297,7 +5297,7 @@
                     "52": "Bu, kendisiyle uyarılmaları, O’nun tek bir tanrı olduğunu bilmeleri ve akıl sahiplerinin dikkate almaları için insanlara bir ilandır."
                 },
                 "titles": {
-                    "47": "Tanrı’nın Elçileri İçin Garanti Edilmiş Galibiyet",
+                    "47": "Tanrı’nın Elçileri İçin\nGaranti Edilmiş Galibiyet",
                     "48": "Yeni Gökler ve Yeni Yeryüzü*"
                 }
             },
@@ -5465,7 +5465,7 @@
                     "99": "Kesinliğe erişmek için Rabbine ibadet et.*"
                 },
                 "titles": {
-                    "85": "Dünyanın Sonu Açığa Çıkarıldı*"
+                    "85": "Dünyanın Sonu\nAçığa Çıkarıldı*"
                 }
             },
             "16": {
@@ -5663,8 +5663,8 @@
                 },
                 "titles": {
                     "71": "Tanrı’nın Hiçbir Ortağı Yoktur",
-                    "73": "Puta Tapmak: Pek Akıllıca Değil",
-                    "75": "Zengin İmanlı Fakir İmanlıdan Daha İyidir",
+                    "73": "Puta Tapmak:\nPek Akıllıca Değil",
+                    "75": "Zengin İmanlı Fakir İmanlıdan\nDaha İyidir",
                     "77": "Bu Hayat Çok Kısa"
                 }
             }
@@ -5703,7 +5703,7 @@
                     "84": "Diriliş Günü’nde",
                     "86": "Putlar Kendilerine Tapanları Sahiplenmezler",
                     "91": "Sözünüzü Tutun",
-                    "94": "Yeminlerinizi Bozmak: Ciddi Bir Suç"
+                    "94": "Yeminlerinizi Bozmak:\nCiddi Bir Suç"
                 }
             }
         },
@@ -5738,9 +5738,9 @@
                     "110": "Zulüm yüzünden göç eden, ardından çaba gösterip kararlılıkla sebat etmeye devam edenlere gelince, senin Rabbin, tüm bunlardan dolayı, Bağışlayıcıdır, En Merhametli Olandır."
                 },
                 "titles": {
-                    "97": "Şimdi ve Sonsuza Dek Garanti Edilmiş Mutluluk",
+                    "97": "Şimdi ve Sonsuza Dek\nGaranti Edilmiş Mutluluk",
                     "98": "Önemli Bir Buyruk*",
-                    "103": "Kuran, Kitab-ı Mukaddes’ten Kopyalanmamıştır",
+                    "103": "Kuran, Kitab-ı Mukaddes’ten\nKopyalanmamıştır",
                     "106": "Lafta Bağlılık Hesaba Katılmaz",
                     "107": "Zihnin Sürekli Bu Hayatla Meşgul Olması Tanrı’dan Sürülmeye Yol Açar"
                 }
@@ -5777,9 +5777,9 @@
                 },
                 "titles": {
                     "112": "Helal Yiyecekleri Haram Kılmak Yoksulluk Getirir",
-                    "115": "Sadece Dört Yiyecek Haram Kılınmıştır",
+                    "115": "Sadece Dört Yiyecek\nHaram Kılınmıştır",
                     "120": "İbrahim",
-                    "123": "Muhammed: İbrahim’in Bir Takipçisi*"
+                    "123": "Muhammed:\nİbrahim’in Bir Takipçisi*"
                 }
             }
         },
@@ -5858,7 +5858,7 @@
                 "titles": {
                     "9": "Kuran: Kurtuluş Aracımız",
                     "13": "Videokaset*",
-                    "18": "Bu Hayatta Önceliklerini Dikkatlice Seç",
+                    "18": "Bu Hayatta\nÖnceliklerini Dikkatlice Seç",
                     "19": "Ahiret",
                     "22": "Başlıca Buyruklar"
                 }
@@ -5937,10 +5937,10 @@
                 },
                 "titles": {
                     "44": "Her Şey Tanrı’yı Yüceltir",
-                    "45": "İnkârcılar Kuran’ı Anlayamazlar",
+                    "45": "İnkârcılar\nKuran’ı Anlayamazlar",
                     "46": "Kuran: TEK Kaynak",
                     "53": "Birbirinize Dostça Davranın",
-                    "57": "Doğruluk Üzere Olan Putlar Yalnızca Tanrı’ya Taparlar"
+                    "57": "Doğruluk Üzere Olan Putlar\nYalnızca Tanrı’ya Taparlar"
                 }
             }
         },
@@ -5973,9 +5973,9 @@
                     "71": "Gün gelecek, her insanı kendi kaydı ile çağıracağız. Kendilerine doğruluk kaydı verilen kimselere gelince, onlar kendi kayıtlarını okuyacaklar ve en ufak bir haksızlığa uğramayacaklar."
                 },
                 "titles": {
-                    "59": "Eski Tür Mucizelerin Modası Geçti",
+                    "59": "Eski Tür Mucizelerin\nModası Geçti",
                     "61": "Şeytan İnsanları Aldatır",
-                    "67": "Kötü Gün Dostları"
+                    "67": "Kötü Gün\nDostları"
                 }
             }
         },
@@ -6018,8 +6018,8 @@
                     "78": "Öğlen Namazı",
                     "79": "Tefekkür Halinde Bulunma",
                     "82": "Şifa ve Rahmet",
-                    "85": "İlahi Vahiy: Tüm Bilginin Kaynağı",
-                    "88": "Kuran’ın Matematiksel Yapısı"
+                    "85": "İlahi Vahiy:\nTüm Bilginin Kaynağı",
+                    "88": "Kuran’ın\nMatematiksel Yapısı"
                 }
             }
         },
@@ -6083,7 +6083,7 @@
                     "111": "Ve ilan et: “TANRI’ya övgüler olsun, ki hiçbir zaman bir oğula baba olmamıştır, Kendi saltanatında bir ortağı da yoktur ve zayıflıktan ötürü herhangi bir müttefike ihtiyacı da yoktur” ve O’nu hiç durmadan büyükle."
                 },
                 "titles": {
-                    "105": "Ezberlemeyi Kolaylaştırmak için Kuran Yavaş Yavaş Bırakıldı",
+                    "105": "Ezberlemeyi Kolaylaştırmak için\nKuran Yavaş Yavaş Bırakıldı",
                     "110": "İletişim Dualarının (Namazın) Ses Tonu"
                 }
             },
@@ -6129,8 +6129,8 @@
                 },
                 "titles": {
                     "9": "Mağara Sakinleri",
-                    "16": "Efes’in Yedi Uyuyanları*",
-                    "17": "Bir Rehber Öğretmen bir Ön-Şarttır"
+                    "16": "Efes’in\nYedi Uyuyanları*",
+                    "17": "Bir Rehber Öğretmen\nbir Ön-Şarttır"
                 }
             }
         },
@@ -6162,8 +6162,8 @@
                     "28": "Gece gündüz Rablerine tapınıp yalnızca O’nu arayanlarla birlikte olmak için kendini zorla. Bu dünyanın gösterişini arayarak gözlerini onlardan kaçırma. Kalplerini mesajımıza karşı ilgisiz kıldıklarımıza, yani kendi arzularını takip eden ve önceliklerini karıştırmış olan kimselere de uyma."
                 },
                 "titles": {
-                    "21": "Dünyanın Sonu ile Bağlantı*",
-                    "23": "Her Fırsat Bulduğumuzda Tanrı’yı Hatırlamak",
+                    "21": "Dünyanın Sonu\nile Bağlantı*",
+                    "23": "Her Fırsat Bulduğumuzda\nTanrı’yı Hatırlamak",
                     "25": "300 + 9*",
                     "28": "Kuran Çalışma Grupları"
                 }
@@ -6238,7 +6238,7 @@
                 "titles": {
                     "46": "Önceliklerimizi Yeniden Düzenlenmek",
                     "50": "Tanrı’nın Yarattığı Varlıkların Sınıflandırılması",
-                    "54": "İnkârcılar Kuran’ın Tam Oluşunu Kabul Etmeyi Reddederler"
+                    "54": "İnkârcılar Kuran’ın Tam Oluşunu\nKabul Etmeyi Reddederler"
                 }
             }
         },
@@ -6316,8 +6316,8 @@
                     "93": "Savunma amaçlı yapılmış iki çitin arasındaki vadiye ulaştığında, dilleri zar zor anlaşılabilen insanlar buldu."
                 },
                 "titles": {
-                    "78": "Her Şey İçin İyi Bir Sebep Var",
-                    "83": "Zu’l-Karneyn: İki Boynuzu veya İki Nesli Olan"
+                    "78": "Her Şey İçin\nİyi Bir Sebep Var",
+                    "83": "Zu’l-Karneyn:\nİki Boynuzu veya İki Nesli Olan"
                 }
             }
         },
@@ -6562,7 +6562,7 @@
                     "98": "Onlardan önce nice nesli yok ettik; onlardan herhangi birini algılayabiliyor musun yahut onlardan herhangi bir ses işitebiliyor musun?"
                 },
                 "titles": {
-                    "82": "Putlar Kendilerine Tapanları Sahiplenmezler",
+                    "82": "Putlar Kendilerine Tapanları\nSahiplenmezler",
                     "88": "Büyük Küfür"
                 }
             },
@@ -6629,7 +6629,7 @@
                     "39": "“Şöyle diyerek: ‘Onu sandığın içine at, sonra da nehre bırak. Nehir onu, Benim ve onun bir düşmanı tarafından alınmak üzere kıyıya atacak.’ Sana tarafımdan sevgi yağdırdım ve seni gözümün önünde hazırlamıştım."
                 },
                 "titles": {
-                    "15": "Dünyanın Sonu Gizli Değildir*"
+                    "15": "Dünyanın Sonu\nGizli Değildir*"
                 }
             }
         },
@@ -6788,7 +6788,7 @@
                 },
                 "titles": {
                     "105": "Diriliş Günü’nde",
-                    "115": "İnsanlar Sağlam Bir Duruş Göstermeyi Başaramadılar*"
+                    "115": "İnsanlar Sağlam Bir Duruş Göstermeyi\nBaşaramadılar*"
                 }
             }
         },
@@ -6823,7 +6823,7 @@
                     "135": "De ki, “Hepimiz bekliyoruz, öyleyse bekleyin; kimlerin doğru yolda olduğunu ve kimlere gerçekten rehberlik edildiğini mutlaka öğreneceksiniz.”"
                 },
                 "titles": {
-                    "124": "İnkârcılar için: Bedbaht Hayat Kaçınılmaz",
+                    "124": "İnkârcılar için:\nBedbaht Hayat Kaçınılmaz",
                     "132": "Ebeveynlerin Sorumluluğu",
                     "133": "Neden Elçiler?"
                 }
@@ -6902,7 +6902,7 @@
                 "titles": {
                     "21": "Tek Tanrı",
                     "23": "Tanrı’nın Hikmetini Asla Sorgulamayın",
-                    "25": "Tek Tanrı / Tek Mesaj / Tek Din",
+                    "25": "Tek Tanrı\nTek Mesaj\nTek Din",
                     "28": "Şefaat Efsanesi",
                     "30": "Big Bang Teorisi Doğrulandı*",
                     "36": "Tüm Elçilerle Alay Edildi"
@@ -6990,7 +6990,7 @@
                 "titles": {
                     "63": "İbrahim Bakış Açısını Kanıtlıyor",
                     "68": "Esaslı Mucize",
-                    "73": "İbrahim: İslam’ın Tüm Dini Görevlerini İletti",
+                    "73": "İbrahim:\nİslam’ın Tüm Dini Görevlerini\nİletti",
                     "74": "Lut",
                     "76": "Nuh"
                 }
@@ -7147,7 +7147,7 @@
                 "titles": {
                     "15": "Şimdi ve Sonsuza Dek Mutluluk",
                     "17": "Tanrı: Tek Yargıç",
-                    "19": "Cehennem Ne Kadar da Korkunç!*",
+                    "19": "Cehennem\nNe Kadar da Korkunç!*",
                     "23": "Cennet Saadeti"
                 }
             }
@@ -7180,8 +7180,8 @@
                     "37": "Onların ne etleri TANRI’ya ulaşır, ne de kanları. O’na ulaşan sizin doğruluğunuzdur. Onları size boyun eğdirdi ki, size rehberlik ettiği için TANRI'yı yücelterek minnettarlığınızı gösteresiniz. Hayırseverlere müjde ver."
                 },
                 "titles": {
-                    "26": "İslam’daki Tüm Görevler Gibi Kutsal Yolculuk da İbrahim Aracılığı ile Hükme Bağlandı*",
-                    "33": "Kutsal Yolculuk Sırasındaki Çiftlik Hayvanı Sunuları"
+                    "26": "İslam’daki Tüm Görevler Gibi Kutsal Yolculuk da\nİbrahim Aracılığı ile Hükme Bağlandı*",
+                    "33": "Kutsal Yolculuk Sırasındaki* Çiftlik Hayvanı Sunuları"
                 }
             }
         },
@@ -7253,7 +7253,7 @@
                 "titles": {
                     "52": "Sistem*",
                     "53": "İkiyüzlüler Ayrılırlar",
-                    "56": "Şeytan’ın Geçici Saltanatı",
+                    "56": "Şeytan’ın\nGeçici Saltanatı",
                     "58": "Tanrı Uğrunda Çaba Sarf Etmek",
                     "60": "Ezilenlere İlahi Yardım",
                     "61": "Tanrı’nın Her Şeye Gücü Yetmesi"
@@ -7289,7 +7289,7 @@
                     "77": "Ey iman edenler! Rükû edin, secde edin, Rabbinize tapının ve doğruluğa çalışın ki başarılı olasınız."
                 },
                 "titles": {
-                    "72": "Şiddet & Agresiflik: İnkârcılık Belirtileri",
+                    "72": "Şiddet & Agresiflik:\nİnkârcılık Belirtileri",
                     "73": "Onlar Bir Sinek Yaratabilirler mi?"
                 }
             }
@@ -7309,7 +7309,7 @@
                     "78": "TANRI uğrunda, O’nun uğrunda çaba göstermeniz gerektiği gibi çaba gösterin. O sizi seçti ve dininizi uygularken size hiçbir zorluk yüklemedi—babanız İbrahim’in dini. Size ilk başta “Teslim Olanlar” ismini veren odur. Böylelikle, elçi sizin aranızda bir şahitlik görevi görsün ve siz de insanlar arasında şahitlik görevi görün. Bunun için, İletişim Dualarını (Namazı) yerine getirin, zorunlu bağışı (Zekâtı) verin ve TANRI’ya sımsıkı tutunun; O sizin Rabbinizdir, en iyi Rab ve en iyi Destekçi."
                 },
                 "titles": {
-                    "78": "İbrahim: İslam’ın İlk Elçisi*"
+                    "78": "İbrahim:\nİslam’ın İlk Elçisi*"
                 }
             },
             "23": {
@@ -7337,7 +7337,7 @@
                     "1": "♦ ♦ ♦ ♦\nSure 23: İmanlılar\n(El-Muminun)\nEn Lütufkâr, En Merhametli olan Tanrı ’nın adıyla. ",
                     "12": "İsabetli Embriyoloji",
                     "17": "Yedi Evren",
-                    "18": "Tanrı’dan Sayısız Nimetler"
+                    "18": "Tanrı’dan\nSayısız Nimetler"
                 }
             }
         },
@@ -7512,7 +7512,7 @@
                 },
                 "titles": {
                     "97": "Şeytan’dan Korunmak İçin",
-                    "99": "Ölüler Diriliş Günü’ne Kadar Asla Geri Gelmez",
+                    "99": "Ölüler Diriliş Günü’ne Kadar\nAsla Geri Gelmez",
                     "109": "Onlar İmanlılarla Alay Etmişlerdi"
                 }
             }
@@ -7588,7 +7588,7 @@
                 "titles": {
                     "11": "Dedikodular ve Kanıtlanmamış Suçlamalarla Nasıl Başa Çıkılır",
                     "16": "Ne Yapmalı",
-                    "21": "Şeytan Asılsız Suçlamaları Teşvik Eder",
+                    "21": "Şeytan Asılsız Suçlamaları\nTeşvik Eder",
                     "23": "Büyük Günah"
                 }
             }
@@ -7620,7 +7620,7 @@
                 "titles": {
                     "27": "İlahi Görgü Kuralları",
                     "30": "İmanlılar İçin Giyinme Kuralı*",
-                    "32": "Ahlaksızlığı Önlemek İçin Evliliği Teşvik Edin"
+                    "32": "Ahlaksızlığı Önlemek İçin\nEvliliği\nTeşvik Edin"
                 }
             }
         },
@@ -7654,7 +7654,7 @@
                     "35": "Tanrı",
                     "37": "Mescitlere Sıkça Gidenler",
                     "39": "Bir Serabın Peşine Düşmek",
-                    "40": "Tanrı’dan Sürgün: Büsbütün Karanlık"
+                    "40": "Tanrı’dan Sürgün:\nBüsbütün Karanlık"
                 }
             }
         },
@@ -7686,9 +7686,9 @@
                     "57": "İnkâr edenlerin yanlarına kâr kalacağını sanmayın. Nihai meskenleri Cehennemdir; ne berbat bir kader!"
                 },
                 "titles": {
-                    "47": "Tanrı, Elçisi Yoluyla Talimatlar Gönderir",
-                    "51": "İmanlılar Tanrı’ya ve Elçisine Tereddüt Etmeden İtaat Ederler",
-                    "55": "Tanrı’nın Vaadi Yeryüzünde Krallar ve Kraliçeler",
+                    "47": "Tanrı, Elçisi Yoluyla\nTalimatlar Gönderir",
+                    "51": "İmanlılar\nTanrı’ya ve Elçisine\nTereddüt Etmeden İtaat Ederler",
+                    "55": "Tanrı’nın Vaadi\nYeryüzünde Krallar ve Kraliçeler",
                     "56": "Başarının Formülü"
                 }
             }
@@ -7714,7 +7714,7 @@
                     "64": "Kesinlikle, TANRI’ya aittir göklerdeki ve yerdeki her şey. O, içinde bulunabileceğiniz her durumu tam olarak bilir. O’na döndürüldüğünüz gün, yapmış oldukları her şeyi onlara bildirecektir. TANRI her şeyin tamamen farkındadır."
                 },
                 "titles": {
-                    "58": "Görgü Kuralları Adıyla Bahsedilen İki Namaz",
+                    "58": "Görgü Kuralları\nAdıyla Bahsedilen İki Namaz",
                     "60": "Mütevazi Giyinin",
                     "61": "Yemeğinizin Helal Olduğundan Emin Olun"
                 }
@@ -7748,7 +7748,7 @@
                 },
                 "titles": {
                     "1": "♦ ♦ ♦ ♦\nSure 25: Yasa Kitabı\n(El-Furkan)\nEn Lütufkâr, En Merhametli olan Tanrı ’nın adıyla.",
-                    "4": "Kuran’ın Matematiksel Koduyla Çürütülen İnkârcılar",
+                    "4": "Kuran’ın Matematiksel Koduyla\nÇürütülen İnkârcılar",
                     "7": "İnkârcıların Tipik Sözleri",
                     "11": "Gerçek Sebep"
                 }
@@ -7867,7 +7867,7 @@
                 },
                 "titles": {
                     "45": "Tanrı’dan Sonsuz Nimetler",
-                    "58": "Peygamberler ve Azizler Ölüdürler",
+                    "58": "Peygamberler ve Azizler\nÖlüdürler",
                     "60": "Nankör İnsan"
                 }
             }
@@ -8273,7 +8273,7 @@
                     "227": "İman edip doğru bir hayat sürenler, TANRI’yı sık sık ananlar ve haklarını savunanlar bunun dışındadır. Şüphesiz, haddi aşanlar nihai kaderlerinin ne olduğunu görecekler."
                 },
                 "titles": {
-                    "210": "Yalancı Elçiler YALNIZCA Tanrı’ya Tapmayı Vaaz Etmekten Acizdirler*",
+                    "210": "Yalancı Elçiler\nYALNIZCA Tanrı’ya Tapmayı\nVaaz Etmekten Acizdirler*",
                     "214": "Tanrı’nın Antlaşma Elçisi*"
                 }
             },
@@ -8407,7 +8407,7 @@
                     "45": "Salih",
                     "50": "Tanrı İmanlıları Korur",
                     "54": "Lut",
-                    "59": "Tanrı’nın Elçileri Arasında Hiçbir Ayırım Yapmayın"
+                    "59": "Tanrı’nın Elçileri Arasında\nHiçbir Ayırım Yapmayın"
                 }
             }
         },
@@ -8445,8 +8445,8 @@
                 },
                 "titles": {
                     "60": "YALNIZCA Tanrı Tapılmaya Layıktır",
-                    "61": "İsa, Meryem, Muhammed, Azizler vs. Asla İştirak Etmediler",
-                    "66": "Ahirete İman Etmek: İnsanların Çoğu İçin Büyük Engel"
+                    "61": "İsa, Meryem, Muhammed,\nAzizler vs. Asla İştirak Etmediler",
+                    "66": "Ahirete İman Etmek:\nİnsanların Çoğu İçin Büyük Engel"
                 }
             }
         },
@@ -8479,9 +8479,9 @@
                     "93": "Ve de ki, “TANRI’ya övgüler olsun; O size kanıtlarını gösterecek, ta ki siz onları tanıyıncaya dek. Senin Rabbin yaptığınız hiçbir şeyden asla habersiz değildir.”"
                 },
                 "titles": {
-                    "82": "O Yaratık Bilgisayardır*",
-                    "84": "Kuran’ın Matematiksel Kodunu İnceleyin",
-                    "88": "Dünya’nın Hareketi: Bilimsel Bir Mucize",
+                    "82": "O Yaratık\nBilgisayardır*",
+                    "84": "Kuran’ın Matematiksel Kodunu\nİnceleyin",
+                    "88": "Dünya’nın Hareketi:\nBilimsel Bir Mucize",
                     "89": "Yargı Günü"
                 }
             },
@@ -8638,9 +8638,9 @@
                 "titles": {
                     "47": "Bahane Yok",
                     "48": "Tevrat ve Kuran",
-                    "50": "Tanrı, Öğretilerini Elçileri Vasıtasıyla Bize Gönderir",
+                    "50": "Tanrı, Öğretilerini Elçileri Vasıtasıyla\nBize Gönderir",
                     "51": "Gerçek İmanlıların Tamamı Kuran’ı Kabul Ederler",
-                    "54": "Gerçeği Tanıyan Hristiyan & Yahudiler İçin İki Misli Ödül",
+                    "54": "Gerçeği Tanıyan Hristiyan & Yahudiler İçin\nİki Misli Ödül",
                     "56": "Sadece Tanrı Rehberlik Eder"
                 }
             }
@@ -9103,7 +9103,7 @@
                     "12": "Lokman’ın Bilgeliği",
                     "14": "İkinci Buyruk",
                     "16": "Lokman’ın Tavsiyesi",
-                    "21": "Ataları Körü Körüne Taklit: Yaygın Bir Trajedi"
+                    "21": "Ataları Körü Körüne Takip Etmek:\nYaygın Bir Trajedi"
                 }
             }
         },
@@ -9175,7 +9175,7 @@
                 },
                 "titles": {
                     "1": "♦ ♦ ♦ ♦\nSure 32: Secde\n(El-Secde)\nEn Lütufkâr, En Merhametli olan Tanrı ’nın adıyla. ",
-                    "4": "Tanrı ile Aranızda Hiçbir Aracı Yok",
+                    "4": "Tanrı ile Aranızda Hiçbir\nAracı Yok",
                     "7": "İnsanın Kökeni",
                     "12": "Çok Geç"
                 }
@@ -9357,7 +9357,7 @@
                     "49": "Ey iman edenler! Eğer imanlı kadınlarla evlendiyseniz, ardından cinsel birleşmeye girmeden onları boşadıysanız, (başka bir adamla evlenmeden önce) onların size bir bekleme süresi borcu yoktur. Onları adil bir şekilde tazmin edin ve güzel bir şekilde gitmelerine izin verin."
                 },
                 "titles": {
-                    "40": "Son Elçi Değil*",
+                    "40": "Son Elçi\nDeğil*",
                     "49": "Evlilik Yasaları"
                 }
             }
@@ -9421,9 +9421,9 @@
                 },
                 "titles": {
                     "56": "Peygamber Yaşadığı Sürece*",
-                    "59": "Kadınlar İçin Giyinme Kuralı",
+                    "59": "Kadınlar İçin\nGiyinme Kuralı",
                     "63": "Dünyanın Sonu Vahyedildi*",
-                    "64": "Takipçiler Önderlerine Düşman Kesilirler"
+                    "64": "Takipçiler\nÖnderlerine Düşman Kesilirler"
                 }
             }
         },
@@ -9499,7 +9499,7 @@
                     "12": "İlk Petrol Sahası",
                     "14": "Cinlerin Bilgisi Sınırlıdır",
                     "20": "Şeytan Çoğunluğu Ele Geçirir",
-                    "21": "Amaç: Ahirete İman Ediyor Muyuz?*"
+                    "21": "Amaç:\nAhirete\nİman Ediyor Muyuz?*"
                 }
             }
         },
@@ -9641,10 +9641,10 @@
                     "18": "Hiçbir ruh, bir başka ruhun günahlarını yüklenemez. Eğer günahlarla yüklenmiş bir ruh, kendi yükünün bir kısmını yüklenmesi için bir başkasına yalvarsa, diğer ruh onun hiçbir kısmını taşıyamaz, hatta akraba olsalar bile. Senin uyarılarına kulak asan yegâne insanlar, kendi başlarına yalnız olduklarında dahi Rablerine derin saygı duyanlar ve İletişim Dualarını (Namazı) yerine getirenlerdir. Kim ruhunu arındırırsa bunu kendi iyiliği için yapar. TANRI’yadır son varış."
                 },
                 "titles": {
-                    "10": "Tüm İtibar Tanrı'nın Yanındadır",
+                    "10": "Tüm İtibar\nTanrı'nın Yanındadır",
                     "11": "Tanrı Tam Kontrol Durumundadır",
                     "12": "Tanrı’nın Büyüklüğünü Takdir Etmek*",
-                    "14": "Putlar Tamamen Güçsüzdürler*"
+                    "14": "Putlar\nTamamen Güçsüzdürler*"
                 }
             }
         },
@@ -9682,9 +9682,9 @@
                     "35": "“Bizi, lütfundan sonsuz saadet meskenine kabul etti. Burada asla sıkılmayız, asla yorulmayız.”"
                 },
                 "titles": {
-                    "24": "Tanrı’nın Antlaşma Elçisi",
+                    "24": "Tanrı’nın Antlaşma Elçisi*",
                     "27": "Tanrı’nın Rengârenk Yaratımları",
-                    "31": "Kuran: Tüm Kutsal Yazıların Tamamına Erdirilmesi",
+                    "31": "Kuran: Tüm Kutsal Yazıların\nTamamına Erdirilmesi",
                     "33": "İmanlılar"
                 }
             }
@@ -9812,7 +9812,7 @@
                 },
                 "titles": {
                     "26": "Doğrular Direkt Cennete Giderler*",
-                    "30": "Elçilerle Alay Etmek: Trajik Bir İnsan Özelliği*",
+                    "30": "Elçilerle Alay Etmek:\nTrajik Bir İnsan Özelliği*",
                     "33": "Tanrı’nın İşaretleri",
                     "41": "İlk Geminin İcadı"
                 }
@@ -10020,7 +10020,7 @@
                     "79": "Halklar arasında Nuh’a esenlik olsun."
                 },
                 "titles": {
-                    "50": "Cennet Sakinleri Cehennem Sakinlerini Ziyaret Ederler",
+                    "50": "Cennet Sakinleri Cehennem Sakinlerini\nZiyaret Ederler",
                     "60": "Günahın Bedelinden Kurtuluş: En Büyük Zafer",
                     "69": "Atalarını Körü Körüne Takip Ettiler",
                     "75": "Nuh"
@@ -10079,7 +10079,7 @@
                 "titles": {
                     "83": "İbrahim",
                     "102": "Şeytani Rüya*",
-                    "104": "Tanrı İbrahim’i ve İsmail’i Kurtarmak İçin Müdahale Ediyor",
+                    "104": "Tanrı\nİbrahim’i ve İsmail’i Kurtarmak İçin\nMüdahale Ediyor",
                     "112": "İshak’ın Doğumu"
                 }
             }
@@ -10195,7 +10195,7 @@
                     "155": "İnkârcılara Hitaben",
                     "164": "Melekler",
                     "167": "Ataları Körü Körüne Takip Etmek",
-                    "171": "Elçiler İçin Galibiyet Garantidir"
+                    "171": "Elçiler İçin Galibiyet\nGarantidir"
                 }
             },
             "38": {
@@ -10388,7 +10388,7 @@
                 },
                 "titles": {
                     "1": "♦ ♦ ♦ ♦\nSure 39: Yığınlar\n(El-Zümer)\nEn Lütufkâr, En Merhametli olan Tanrı ’nın adıyla. ",
-                    "3": "Aracılar Olarak Putlar: Yaygın Bir Efsane"
+                    "3": "Aracılar Olarak Putlar:\nYaygın Bir Efsane"
                 }
             }
         },
@@ -10496,7 +10496,7 @@
                 "titles": {
                     "33": "Kuran: Mutlak Gerçek",
                     "36": "Esaslı Soru",
-                    "38": "Yine de Cehenneme Gidiyorlar",
+                    "38": "Tanrı'ya İman Ederler Yine de\nCehenneme Gidiyorlar",
                     "43": "Şefaat Efsanesi",
                     "45": "En Büyük Kriter*"
                 }
@@ -10605,8 +10605,8 @@
                 "titles": {
                     "1": "♦ ♦ ♦ ♦\nSure 40: Bağışlayıcı\n(Ğafir)\nEn Lütufkâr, En Merhametli olan Tanrı ’nın adıyla.",
                     "7": "Melekler İmanlılar İçin Dua Ederler",
-                    "10": "YALNIZCA Tanrı: İnkârcılar İtiraf Ederler",
-                    "11": "YALNIZCA Tanrı: İnkârcılar İki Ölüm Tadarlar*",
+                    "10": "YALNIZCA Tanrı:\nİnkârcılar İtiraf Ederler",
+                    "11": "YALNIZCA Tanrı:\nİnkârcılar İki Ölüm Tadarlar*",
                     "12": "YALNIZCA Tanrı: Sebebe Dikkat Edin"
                 }
             }
@@ -10679,7 +10679,7 @@
                     "41": "“Ey halkım! Ben sizi kurtarılmaya davet ederken siz beni cehennem ateşine davet ediyorsunuz."
                 },
                 "titles": {
-                    "34": "Son Elçi Kimdir?\nTrajik Bir İnsan Özelliği",
+                    "34": "Son Elçi Kimdir?*\nTrajik Bir İnsan Özelliği",
                     "40": "En İyi Anlaşma",
                     "41": "İman Eden Mısırlı Kendi Halkı İle Tartışıyor"
                 }
@@ -10719,9 +10719,9 @@
                     "58": "Kör ile gören bir değildir. İman edip doğruluğa çalışanlar da günahkârlarla eşit değildir. Nadiren dikkate alıyorsunuz."
                 },
                 "titles": {
-                    "46": "Kabirdeyken: Sürekli Bir Kâbus",
+                    "46": "Kabirdeyken:\nSürekli Bir Kâbus",
                     "49": "Çok Geç",
-                    "51": "Burada ve Sonsuza Dek",
+                    "51": "Garantilenmiş Galibiyet;\nBurada ve Sonsuza Dek",
                     "53": "Tarihten Ders Alın",
                     "57": "Kâinatın Muhteşem İnşası"
                 }
@@ -10755,7 +10755,7 @@
                 },
                 "titles": {
                     "60": "Yakarış: Bir Tapınma Şekli*",
-                    "66": "Tanrı’nın Ona olan Nimetlerinden Önce Muhammed Putlara Tapardı"
+                    "66": "Tanrı’nın Ona Olan Nimetlerinden Önce,\nMuhammed Putlara Tapardı"
                 }
             }
         },
@@ -10792,7 +10792,7 @@
                 },
                 "titles": {
                     "74": "Onlar Bir Hiçe Taptılar",
-                    "78": "Kuran’ın Matematiksel Mucizesi için Tanrı’nın Yetkilendirmesi*",
+                    "78": "Kuran’ın Matematiksel Mucizesi için\nTanrı’nın Yetkilendirmesi*",
                     "84": "YALNIZCA Tanrı",
                     "85": "Çok Geç"
                 }
@@ -10871,7 +10871,7 @@
                     "21": "Video Kaydı",
                     "25": "Cin Yoldaşlar",
                     "29": "Yargı Günü’nde",
-                    "30": "Mükemmel Mutluluk: Şimdi ve Sonsuza Dek"
+                    "30": "Mükemmel Mutluluk:\nŞimdi ve Sonsuza Dek"
                 }
             }
         },
@@ -10905,8 +10905,8 @@
                     "33": "Teslim Olanlar",
                     "36": "Şeytan Seni Ayarttığında",
                     "37": "Tanrı’nın Kanıtları",
-                    "41": "Kuran’ın Matematiksel Mucizesi*",
-                    "43": "Tanrı’nın Antlaşma Elçisi"
+                    "41": "Kuran’ın\nMatematiksel Mucizesi*",
+                    "43": "Tanrı’nın Antlaşma Elçisi*"
                 }
             }
         },
@@ -11009,9 +11009,9 @@
                     "23": "Bu, iman edip doğru bir hayat süren kullarına TANRI’dan bir müjdedir. De ki, “Ben sizden herhangi bir ücret istemiyorum. Ben her birinizden kendi akrabalarınızla ilgilenmenizi istiyorum.” Kim doğru bir iş yaparsa onun için ödülünü katlarız. TANRI Bağışlayıcıdır, Takdir Edendir."
                 },
                 "titles": {
-                    "15": "Hristiyanlara ve Yahudilere Mesaj",
-                    "18": "İmanlılar Yargı Günü’nü Önemserler",
-                    "21": "Putlar: Yeni Dini Yasalar İcat Ederler*"
+                    "15": "Hristiyanlara ve Yahudilere\nMesaj",
+                    "18": "İmanlılar\nYargı Günü’nü Önemserler",
+                    "21": "Putlar:\nYeni Dini Yasalar İcat Ederler*"
                 }
             }
         },
@@ -11048,7 +11048,7 @@
                     "40": "Bir haksızlığın adil karşılığı denk bir ceza olsa da, affedip doğruluğu sürdürenler TANRI tarafından ödüllendirilirler. O, haksızlık yapanları sevmez."
                 },
                 "titles": {
-                    "24": "Tanrı Sahte Olanı Siler ve Gerçek Olanı Tasdik Eder*",
+                    "24": "Tanrı Sahte Olanı Siler ve\nGerçek Olanı Tasdik Eder*",
                     "30": "Sadece Bir Sonuç",
                     "37": "İmanlıların Özellikleri"
                 }
@@ -11175,7 +11175,7 @@
                     "26": "İbrahim’in Örneği",
                     "31": "Muhammed’le Alay Edildi",
                     "33": "Bu Dünyanın Maddiyatı:\n İnkârcıların Elde Ettiği Tüm Şey",
-                    "36": "Görünmez, Şeytanî Yoldaşlar"
+                    "36": "Görünmez, Şeytanî Yoldaşlar*"
                 }
             }
         },
@@ -11501,7 +11501,7 @@
                 "titles": {
                     "1": "♦ ♦ ♦ ♦\nSure 46: Kum Tepeleri\n(El-Ahkâf) \nEn Lütufkâr, En Merhametli olan Tanrı ’nın adıyla.",
                     "5": "Putlar Tamamen Habersiz",
-                    "6": "Putlar Kendilerine Tapanları Sahiplenmez*"
+                    "6": "Putlar Kendilerine Tapanları\nSahiplenmezler*"
                 }
             }
         },
@@ -11569,7 +11569,7 @@
                 },
                 "titles": {
                     "21": "Hûd",
-                    "26": "Elçinin Uyarılarını Alaya Aldılar",
+                    "26": "Elçinin Uyarılarını\nAlaya Aldılar",
                     "29": "Cinler Arasındaki İmanlılar*"
                 }
             }
@@ -11645,9 +11645,9 @@
                 },
                 "titles": {
                     "18": "Dünyanın Sonu*",
-                    "19": "La İlahe İlla Allah: İlk Buyruk",
+                    "19": "La İlahe İlla Allah:\nİlk Buyruk",
                     "20": "İkiyüzlülerin İfşa Olması",
-                    "21": "Muhammed’in Devrinde İmanın Kanıtı"
+                    "21": "Muhammed’in Devrinde\nİmanın Kanıtı"
                 }
             }
         },
@@ -11718,7 +11718,7 @@
                 },
                 "titles": {
                     "1": "♦ ♦ ♦ ♦\nSure 48: Galibiyet\n(El-Fetih)\nEn Lütufkâr, En Merhametli olan Tanrı ’nın adıyla. ",
-                    "10": "Tanrı’nın Elçisine Destek Verin"
+                    "10": "Tanrı’nın Elçisine\nDestek Verin"
                 }
             }
         },
@@ -11751,7 +11751,7 @@
                 },
                 "titles": {
                     "16": "İlk Nesiller İçin Test",
-                    "22": "İmanlılar İçin Galibiyet Garantidir"
+                    "22": "İmanlılar İçin\nGalibiyet\nGarantidir"
                 }
             }
         },
@@ -11817,12 +11817,12 @@
                     "14": "Araplar dediler ki “Bizler Mü’minleriz (imanlılarız).” De ki, “Siz iman etmediniz; kalplerinize iman yerleşinceye dek söylemeniz gereken şey şu olmalıdır, ‘Bizler Müslümanlarız (teslim olanlarız).’ ” Eğer TANRI’ya ve elçisine itaat ederseniz, O sizin hiçbir işinizi heba etmeyecektir. TANRI Bağışlayıcıdır, En Merhametli Olandır."
                 },
                 "titles": {
-                    "6": "İnanmadan Önce Söylentileri Araştırın",
+                    "6": "İnanmadan Önce\nSöylentileri Araştırın",
                     "9": "İmanlıları Uzlaştırın",
                     "10": "Gerçek Aile",
                     "11": "İmanlılar Örnek Olurlar",
                     "12": "Zan Günahtır",
-                    "13": "İnsanlar Arasında Ayrım Yapmanın Tek Kriteri",
+                    "13": "İnsanlar Arasında Ayrım Yapmanın\nTek Kriteri",
                     "14": "Mü'mine karşı Müslüman"
                 }
             }
@@ -11845,7 +11845,7 @@
                     "18": "TANRI göklerdeki ve yerdeki tüm sırları bilir; TANRI yaptığınız her şeyi Görendir."
                 },
                 "titles": {
-                    "17": "Kim Kime İyilik Yapıyor?"
+                    "17": "Kim Kime\nİyilik Yapıyor?"
                 }
             },
             "50": {
@@ -12013,7 +12013,7 @@
                     "60": "Kendilerini gözlemekte olan günden ötürü inkâr etmiş olanların vay haline."
                 },
                 "titles": {
-                    "47": "Evrenin Genişlemesi Teorisi Doğrulandı",
+                    "47": "“Evrenin Genişlemesi Teorisi”\nDoğrulandı",
                     "56": "Varlığımızın Amacı"
                 }
             },
@@ -12187,7 +12187,7 @@
                 },
                 "titles": {
                     "29": "Dostlarınızı Dikkatlice Seçin",
-                    "45": "Bebeğin Cinsiyetini Koca Belirliyor"
+                    "45": "Bebeğin Cinsiyetini\nKoca Belirliyor"
                 }
             }
         },
@@ -12575,7 +12575,7 @@
                     "96": "Büyük olan Rabbinin adını yücelt."
                 },
                 "titles": {
-                    "75": "Kuran’ı Sadece Samimi Olanlar Anlayabilir"
+                    "75": "Kuran’ı Sadece\nSamimi Olanlar Anlayabilir"
                 }
             },
             "57": {
@@ -12650,7 +12650,7 @@
                 },
                 "titles": {
                     "16": "Dinin Bozulması",
-                    "20": "Zihnin Sürekli Bu Hayatla Meşgul Olması Kınandı",
+                    "20": "Zihnin Sürekli\nBu Hayatla Meşgul Olması Kınandı",
                     "21": "Akıllı Seçenek",
                     "22": "Derin Gerçek*",
                     "25": "Demir: En Faydalı Metal"
@@ -12857,7 +12857,7 @@
                     "13": "Ey iman edenler! TANRI’nın kızgın olduğu ve umutsuzca inkâra saplanmış kimseleri dost edinmeyin; onlar, hâlihazırda kabirlerde olan inkârcılar kadar umutsuzdurlar."
                 },
                 "titles": {
-                    "8": "İmansızlar İle İlişkileri Düzenleyen Temel Yasa",
+                    "8": "İmansızlar İle İlişkileri Düzenleyen\nTemel Yasa",
                     "10": "Savaş Durumunda"
                 }
             },
@@ -12976,7 +12976,7 @@
                 },
                 "titles": {
                     "4": "Öfkeleri Burunlarında",
-                    "6": "Şefaat Efsanesi Paramparça Oldu*"
+                    "6": "Şefaat Efsanesi\nParamparça Oldu*"
                 }
             },
             "64": {
@@ -13241,7 +13241,7 @@
                     "41": "Onların putları mı var? Haydi putları kendilerine yardım etsin, eğer doğru sözlü iseler."
                 },
                 "titles": {
-                    "28": "Onların “Tanrı İrade Ediyorsa” Demeleri Gerekirdi"
+                    "28": "Onların “Tanrı İrade Ediyorsa”\nDemeleri Gerekirdi"
                 }
             }
         },
@@ -13349,7 +13349,7 @@
                 "titles": {
                     "19": "İmanlılar",
                     "25": "İnkârcılar",
-                    "44": "Muhammed’in Herhangi Bir Dini Öğreti Tebliğ Etmekten Menedilişi"
+                    "44": "Muhammed’in Herhangi Bir\nDini Öğreti Tebliğ Etmekten Menedilişi"
                 }
             },
             "70": {
@@ -13656,8 +13656,8 @@
                     "56": "TANRI’nın iradesi olmadıkça dikkate alamazlar. O, doğruluğun kaynağıdır; O, bağışlamanın kaynağıdır."
                 },
                 "titles": {
-                    "30": "Kuran’ın Ortak Paydası",
-                    "35": "Büyük Mucizelerden Biri"
+                    "30": "Kuran’ın Ortak\nPaydası",
+                    "35": "Büyük\nMucizelerden Biri"
                 }
             },
             "75": {
@@ -13724,7 +13724,7 @@
                     "40": "Öyleyse O’nun ölüleri diriltmeye gücü yetmez mi?"
                 },
                 "titles": {
-                    "16": "Muhammed’in Kuran’ı Açıklamaktan Menedilişi"
+                    "16": "Muhammed’in\nKuran’ı Açıklamaktan Menedilişi"
                 }
             },
             "76": {
