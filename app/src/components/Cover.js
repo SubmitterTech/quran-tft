@@ -29,11 +29,11 @@ const Cover = ({ onCoverSeen, coverData, lang, onChangeLanguage }) => {
     };
 
     return (
-        <div className="splash-screen relative h-screen flex flex-col w-full p-1 justify-between  text-center bg-sky-950 text-neutral-200 overflow-hidden">
+        <div className="splash-screen fixed h-screen flex flex-col w-full justify-between  text-center bg-sky-950 text-neutral-200 overflow-hidden">
             <div
                 onClick={handleTap}
-                className="w-full h-1/3 flex items-center">
-                <div className="flex flex-col w-full space-y-2 md:space-y-3 mt-4 ">
+                className="w-full h-1/3 flex items-center ">
+                <div className="flex flex-col w-full space-y-1 md:space-y-3 mt-3">
                     <h1 className="text-6xl font-extrabold" style={{
                         backgroundImage: 'linear-gradient(45deg, #ECC440, #FFFA8A, #DDAC17, #FFFF95)',
                         color: 'transparent',
@@ -57,7 +57,7 @@ const Cover = ({ onCoverSeen, coverData, lang, onChangeLanguage }) => {
             </div>
             <div className=" w-full h-1/2" ref={parentRef}>
                 {show19 && (
-                    <div className={`flex flex-col items-center`} onClick={handleTap}>
+                    <div className={`flex flex-col items-center h-full pt-1`} onClick={handleTap}>
                         {Array.from({ length: 19 }).map((_, index) => (
                             <div
                                 key={index}
@@ -72,7 +72,7 @@ const Cover = ({ onCoverSeen, coverData, lang, onChangeLanguage }) => {
                         ))}
                     </div>
                 )}
-                <div className="flex w-full items-center justify-center h-full ">
+                <div className="flex w-full items-center justify-center h-full pt-2">
                     <div className={`overflow-y-scroll flex flex-col p-2 space-y-4 items-end m-4 ${show19 ? "opacity-0 h-0 w-0 pointer-events-none" : "opacity-100 h-full transition-opacity duration-500 ease-in"}`}>
                         {Object.keys(languages).map((key) => {
                             if (key) {
@@ -130,7 +130,7 @@ const Cover = ({ onCoverSeen, coverData, lang, onChangeLanguage }) => {
             </div>
             <div
                 onClick={handleTap}
-                className="w-full flex flex-col space-y-3 h-1/6 justify-center">
+                className="w-full flex flex-col space-y-3 h-1/6 justify-center pb-1">
                 <div
                     className="text-sky-400 cursor-pointer"
                     onClick={openPdf}
