@@ -2447,7 +2447,7 @@
                 ]
             },
             "3": {
-                "ref": "Tablo 27: Sura, Total Number of Verses, Verse numbers & Sum of Verse numbers for every sura.",
+                "ref": "Tablo 27: Sure, Toplam Ayet Sayısı, Ayet Numaraları & Her bir Sure için Ayetlerin Toplamı.",
                 "title": [
                     "Sure",
                     "Sure, Ayet Sayısı, Ayet Numaraları, Ayet Numaraları Toplamı"
@@ -2462,7 +2462,7 @@
                     "114",
                     "114123456621",
                     "",
-                    "Total is 759 digits and a multiple of 19"
+                    "Toplam 759 basamaktır ve 19’un katıdır."
                 ]
             },
             "5": {
@@ -2728,7 +2728,7 @@
             "7": {
                 "lines": {
                     "1": "6234\t\t\t\t\t\t7 286 200 176\t\t … 127 … \t\t\t5 4 5 6 \t\t\t\t\t6234",
-                    "2": "(total verses) \t\t\t(First 4 suras) \t\t(Sura 9) \t\t(Last 4 suras) \t\t\t(total verses) ",
+                    "2": "(toplam ayetler) \t\t\t(İlk 4 Sure) \t\t(Sure 9) \t\t(Son 4 Sure) \t\t\t(toplam ayetler) ",
                     "3": "ONÜÇÜNCÜ SAYI"
                 },
                 "ref": []
@@ -2873,16 +2873,9 @@
         "evidence": {
             "1": {
                 "lines": {
-                    "1": "İşte, önümde yolu hazırlaması için elçimi gönderiyorum;",
-                    "2": "ve aradığınız Rab ve arzu ettiğiniz antlaşma elçisi ansızın tapınağa gelecektir.",
-                    "3": "Evet, o geliyor diyor Her Şeye Egemen Rab.",
-                    "4": "Fakat onun geldiği güne kim dayanacak?",
-                    "5": "Ve o göründüğünde kim ayakta durabilir?",
-                    "6": "Çünkü o bir maden arıtıcının ateşi gibi veya çırpıcının kül suyu gibidir."
+                    "1": "İşte, önümde yolu hazırlaması için elçimi gönderiyorum;"
                 },
-                "ref": [
-                    "Malaki 3:1-2"
-                ]
+                "ref": []
             },
             "4": {
                 "lines": {
@@ -3339,9 +3332,7 @@
                 "lines": {
                     "1": "Ey kutsal yazı halkı! “Biz hiçbir vaiz veya bir uyarıcı almadık” demeyesiniz diye, elçilerin olmadığı uzun bir aradan sonra elçimiz size bir şeyleri açıklamak için gelmiş bulunuyor. Size bir vaiz ve bir uyarıcı geldi. Tanrı Her Şeye Gücü Yetendir.*"
                 },
-                "ref": [
-                    "5:19"
-                ]
+                "ref": []
             }
         },
         "titles": {
@@ -3598,9 +3589,7 @@
                 "lines": {
                     "1": "Her kim Cehennemden güç bela kurtulmayı başarır ve Cennete kabul edilirse, büyük bir zafer elde etmiştir."
                 },
-                "ref": [
-                    "3:185"
-                ]
+                "ref": []
             }
         },
         "titles": {
@@ -6684,7 +6673,7 @@
         "picture": {},
         "table": {
             "9": {
-                "ref": "Tablo 37: Kuran’ın başlangıcından Sure 9’a kadar her surenin ilk ve son harflerinin sayısal değeri.",
+                "ref": "",
                 "title": [
                     "Sure No.",
                     "İlk Harf",
@@ -7017,16 +7006,7 @@
                     "2850",
                     "9",
                     "127",
-                    "8128",
-                    "",
-                    "---",
-                    "----",
-                    "",
-                    "988",
-                    "85690",
-                    "",
-                    "(19x52)",
-                    "(19x4510)"
+                    "8128"
                 ]
             },
             "11": {
@@ -8229,17 +8209,13 @@
                 "lines": {
                     "1": "9 127 11 123 13 43 15 99 17 111 25 77 27 29 Her sure numarasını o suredeki ayetlerin sayısı takip eder. Bu uzun sayı 19 x 48037427533385052195322409091’e eşittir."
                 },
-                "ref": [
-                    "Şekil 1"
-                ]
+                "ref": []
             },
             "3": {
                 "lines": {
                     "1": "9 1234567890123… …27 1234567890 ... 789 Sure numarasını, Sure 9’dan Sure 27’nin 29. Ayetine kadar olan ayet numaralarındaki son rakam takip eder."
                 },
-                "ref": [
-                    "Şekil 2"
-                ]
+                "ref": []
             }
         },
         "titles": {
