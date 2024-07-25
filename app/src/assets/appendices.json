@@ -106,10 +106,10 @@
                     "The Quran consists of 114 suras, which is ................................",
                     "19 x 6.",
                     "3",
-                    "The total number of verses in the Quran is 6346, or [6234 numbered verses & 112 un-numbered verses (Basmalahs) 6234 + 112 = 6346] Note that 6 + 3 + 4 + 6 = ...... 19.",
+                    "The total number of verses in the Quran is 6346, or [6234 numbered verses & 112 un-numbered verses (Basmalahs) 6234 + 112 = 6346] Note that 6 + 3 + 4 + 6 = 19.",
                     "19 x 334.",
                     "4",
-                    "The Basmalah occurs 114 times, despite its conspicuous absence from Sura 9 (it occurs twice in Sura 27) & 114 =....... 19 x 6.",
+                    "The Basmalah occurs 114 times, despite its conspicuous absence from Sura 9 (it occurs twice in Sura 27) & 114 =.......",
                     "19 x 6.",
                     "5",
                     "From the missing Basmalah of Sura 9 to the extra Basmalah of Sura 27, there are precisely....",
@@ -2873,9 +2873,9 @@
         "evidence": {
             "1": {
                 "lines": {
-                    "1": "Lo, I am sending my messenger to prepare the way before me; and suddenly there will come to the temple the Lord whom you seek and the messenger of the covenant whom you desire. Yes, he is coming, says the Lord of hosts. But who will endure the day of his coming? And who can stand when he appears? For he is like the refiner’s fire, or like the fuller’s lye. [Malachi 3:1-2]"
+                    "1": "Lo, I am sending my messenger to prepare the way before me; and suddenly there will come to the temple the Lord whom you seek and the messenger of the covenant whom you desire. Yes, he is coming, says the Lord of hosts. But who will endure the day of his coming? And who can stand when he appears? For he is like the refiner’s fire, or like the fuller’s lye."
                 },
-                "ref": []
+                "ref": ["Malachi 3:1-2"]
             },
             "4": {
                 "lines": {
@@ -3330,9 +3330,9 @@
         "evidence": {
             "7": {
                 "lines": {
-                    "1": "O people of the scripture, our messenger has come to you, to clarify things for you, after a long period without messengers. Lest you say, “No preacher or warner has come to us.” A preacher and warner has come to you. God is Omnipotent. [5:19]"
+                    "1": "O people of the scripture, our messenger has come to you, to clarify things for you, after a long period without messengers. Lest you say, “No preacher or warner has come to us.” A preacher and warner has come to you. God is Omnipotent."
                 },
-                "ref": []
+                "ref": ["5:19"]
             }
         },
         "titles": {
@@ -3587,9 +3587,9 @@
         "evidence": {
             "13": {
                 "lines": {
-                    "1": "Whoever succeeds in barely missing Hell, and is admitted into Heaven, has attained a great triumph. [ 3:185 ]"
+                    "1": "Whoever succeeds in barely missing Hell, and is admitted into Heaven, has attained a great triumph."
                 },
-                "ref": []
+                "ref": ["3:185"]
             }
         },
         "titles": {
@@ -6190,10 +6190,10 @@
                     "285,286",
                     "0",
                     "3  ",
-                    "199,20,",
+                    "199,200",
                     "0",
                     "4  ",
-                    "175,16,",
+                    "175,176",
                     "2",
                     ".  ",
                     ". ",

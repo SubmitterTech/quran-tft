@@ -106,10 +106,10 @@
                     "Le Coran se compose de 114 sourates, c’est-à-dire ….........................",
                     "19 x 6 ",
                     "3",
-                    "Le nombre total de versets dans le Coran est 6346, soit…………......... [6234 versets numérotés & 112 versets non-numérotés (Basmalahs) 6234 + 112 = 6346] Notez que 6 + 3 + 4 + 6 = ……………………….19.",
+                    "Le nombre total de versets dans le Coran est 6346, soit…………......... [6234 versets numérotés & 112 versets non-numérotés (Basmalahs) 6234 + 112 = 6346] Notez que 6 + 3 + 4 + 6 = 19.",
                     "19 x 334",
                     "4",
-                    "La Basmalah apparaît 114 fois, malgré son absence manifeste dans la Sourate 9 (elle apparaît deux fois dans la Sourate 27) & 114 = ………. 19 x 6",
+                    "La Basmalah apparaît 114 fois, malgré son absence manifeste dans la Sourate 9 (elle apparaît deux fois dans la Sourate 27) & 114 = ……",
                     "19 x 6 ",
                     "5",
                     "De la Basmalah manquante de la Sourate 9 à la Basmalah supplémentaire de la Sourate 27, il y a précisément ……",
@@ -2873,9 +2873,9 @@
         "evidence": {
             "1": {
                 "lines": {
-                    "1": "Voici, j’enverrai Mon messager ; Il préparera le chemin devant Moi. Et soudain entrera dans son temple le Seigneur que vous cherchez ; Et le messager de l’alliance que vous désirez, voici, il vient, Dit l’Éternel des armées. Qui pourra soutenir le jour de sa venue ? Qui restera debout quand il paraîtra ? Car il sera comme le feu du fondeur… Comme la potasse des foulons… [Malachie 3:1-2]"
+                    "1": "Voici, j’enverrai Mon messager ; Il préparera le chemin devant Moi. Et soudain entrera dans son temple le Seigneur que vous cherchez ; Et le messager de l’alliance que vous désirez, voici, il vient, Dit l’Éternel des armées. Qui pourra soutenir le jour de sa venue ? Qui restera debout quand il paraîtra ? Car il sera comme le feu du fondeur… Comme la potasse des foulons…"
                 },
-                "ref": []
+                "ref": ["Malachie 3:1-2"]
             },
             "4": {
                 "lines": {
@@ -3330,9 +3330,9 @@
         "evidence": {
             "7": {
                 "lines": {
-                    "1": "Ô gens de l'Écriture, notre messager est venu à vous, pour vous expliquer des choses, après une période de temps sans messagers, pour que vous ne disiez pas: « Nous n'avons reçu aucun prêcheur ou avertisseur. » Un prêcheur et un avertisseur est maintenant venu à vous. DIEU est Omnipotent. [5:19] "
+                    "1": "Ô gens de l'Écriture, notre messager est venu à vous, pour vous expliquer des choses, après une période de temps sans messagers, pour que vous ne disiez pas: « Nous n'avons reçu aucun prêcheur ou avertisseur. » Un prêcheur et un avertisseur est maintenant venu à vous. DIEU est Omnipotent."
                 },
-                "ref": []
+                "ref": ["5:19"]
             }
         },
         "titles": {
@@ -3587,9 +3587,9 @@
         "evidence": {
             "13": {
                 "lines": {
-                    "1": "Quiconque manque l'Enfer de peu et réussit à aller au Paradis, a atteint un grand triomphe. [3:185]"
+                    "1": "Quiconque manque l'Enfer de peu et réussit à aller au Paradis, a atteint un grand triomphe."
                 },
-                "ref": []
+                "ref": ["3:185"]
             }
         },
         "titles": {
@@ -6190,10 +6190,10 @@
                     "285,286",
                     "0",
                     "3  ",
-                    "199,20,",
+                    "199,200",
                     "0",
                     "4  ",
-                    "175,16,",
+                    "175,176",
                     "2",
                     ".  ",
                     ". ",

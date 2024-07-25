@@ -106,7 +106,7 @@
                     "Kuran 114 sureden oluşmaktadır, bu sayı ...",
                     "19 x 6.",
                     "3",
-                    "[6234 numaralı ayet ve 112 numarasız ayet (Besmeleler) . 6234+112= 6346] Ayrıca şuna da dikkat edin 6 + 3 + 4 + 6 = ... 19.",
+                    "[6234 numaralı ayet ve 112 numarasız ayet (Besmeleler) . 6234+112= 6346] Ayrıca şuna da dikkat edin 6 + 3 + 4 + 6 = 19.",
                     "19 x 334.",
                     "4",
                     "Besmele, Sure 9’daki dikkat çekici yokluğuna rağmen 114 kez geçer (Sure 27’de 2 kez geçer) ve 114=...",
@@ -1433,7 +1433,7 @@
         "picture": {},
         "table": {
             "1": {
-                "ref": "Tablo 15: İlk 2 Sütunu Toplamak Yerine Çarpmak",
+                "ref": "Tablo 15: Tablo 14 deki İlk 2 Sütunu Toplamak Yerine Çarpmak",
                 "title": [
                     "Sure Numarası",
                     "",
@@ -2599,7 +2599,7 @@
         "page": 422,
         "text": {
             "1": "Şimdi, her suredeki her ayetin numarasını, ardından her sure için ayet numaralarının toplamını yazalım. Sure 1, 7 ayetten oluşmaktadır ve ayet numaralarının toplamı 1 + 2 + 3 + 4 + 5 + 6 + 7 = 28’dir. Böylelikle, Sure 1’i temsil eden sayı şu şekilde gözükür: 1234567 28.",
-            "2": "Sure 2 için ayet numaralarının toplamı 41041’dir (1 + 2 + 3 + ... + 286). Böylelikle, Sure 2’yi temsil eden sayı şu şekilde gözükür: 12345…284 285 286 41041.ÜNCÜ Sayı: Her bir suredeki ayetlerin toplam sayısını her bir ayetin numarası, ardından sure numarası takip eder. Yukarıda gösterilen son 14 basamak, son suredeki ayet sayısı (6), ardından altı ayetin numaraları (123456), ardından surenin numarası (114), sonra Kuran’daki toplam numaralı ayet sayısıdır. (12930 basamaktan oluşan) bu çok uzun sayı 19’un bir katıdır.",
+            "2": "Sure 2 için ayet numaralarının toplamı 41041’dir (1 + 2 + 3 + ... + 286). Böylelikle, Sure 2’yi temsil eden sayı şu şekilde gözükür: 12345…284 285 286 41041.",
             "3": "6 ayetten oluşan son sureyi temsil eden sayı şu şekilde gözükür: 123456 21 çünkü 1 + 2 + 3 + 4 + 5 + 6 = 21.",
             "4": "Tüm Kuran’ı temsil eden bütün sayı 12836 basamaktan oluşmaktadır ve 19’un bir katıdır. Şu şekilde gözükür.",
             "7": "Dikkat çekici bir şekilde, eğer yukarıda gösterilen “Beşinci Sayıyı” alıp ayet numaraları ile ayet numaralarının toplamını tersine çevirirsek, yani ayet numaralarının toplamını alıp surenin başına koyarsak, ortaya çıkan uzun sayı hâlâ 19’un bir katıdır.",
@@ -2701,7 +2701,7 @@
             "3": "Herhangi biri, herhangi bir Kuranî parametrenin bu harika matematiksel kodla korunmadığını düşünebiliyorsa, o halde daha fazla parametreye bakalım.",
             "4": "Eğer sure sayısını (114), ardından numaralı ayetlerin toplam sayısını, ardından tüm Kuran’daki ayet numaralarının Genel Toplamını (333410), ardından her surenin numarası ile onun ayetlerini yazarsak, sonunda 19’un katı olan (12712 basamaklı) büyük bir sayı ile karşılaşırız.",
             "6": "Eğer her suredeki ayet sayılarını yan yana yazarsak, sonunda 235-basamaklı 19’un katı olan bir sayı ile karşılaşırız. Bunu yapmak için, Kuran’daki numaralı ayetlerin toplam sayısını (6234), ardından her suredeki ayet sayısını yazıp, sonra Kuran’daki numaralı ayetlerin toplam sayısı ile kapatın. En son uzun sayı şu şekilde gözükür:",
-            "8": "Eğer Kuran’daki toplam numaralı ayet sayısını (6234), ardından sure sayısını (114), ardından her suredeki her ayetin numarasını yazıp sonra Kuran’daki toplam numaralı ayet sayısı ve sure sayısı ile kapatırsak, en son sayı 12479 basamaktan oluşur ve 19’un bir katıdır.",
+            "8": "Eğer Kuran’daki toplam numaralı ayet sayısını (6234), ardından sure sayısını (114), ardından her suredeki her ayetin numarasını yazıp sonra Kuran’daki toplam numaralı ayet sayısı (6234) ve sure sayısı (114) ile kapatırsak, en son sayı 12479 basamaktan oluşur ve 19’un bir katıdır.",
             "10": "12774 basamaktan oluşan bir diğer uzun sayı, her suredeki her ayetin numarasını, ardından ayet sayısı eklenmiş her surenin numarasını yazarak oluşturulur. Sure 1, 7 ayetten oluşmaktadır ve toplam 1 + 7 = 8’dir. Bu nedenle, Sure 1’i temsil eden sayı şu şekilde gözükür: 1234567 8. Sure 2 ise 286 ayetten oluştuğundan Sure 2’yi temsil eden sayı şu şekilde gözükür: 12345...286 288. Bu, Kuran’daki her sure için yapılır. Birleştirilmiş son sayı 12774 basamaklıdır ve 19’un bir katıdır."
         },
         "picture": {},
@@ -2873,9 +2873,9 @@
         "evidence": {
             "1": {
                 "lines": {
-                    "1": "İşte, önümde yolu hazırlaması için elçimi gönderiyorum;"
+                    "1": "İşte, önümde yolu hazırlaması için elçimi gönderiyorum; aradığınız Rab ve arzu ettiğiniz antlaşma elçisi ansızın tapınağa gelecektir. Evet, o geliyor diyor Her Şeye Egemen Rab. Fakat onun geldiği güne kim dayanacak? Ve o göründüğünde kim ayakta durabilir? Çünkü o bir arıtıcının ateşi gibidir... oturup arındıracak..."
                 },
-                "ref": []
+                "ref": ["Malaki 3:1-2"]
             },
             "4": {
                 "lines": {
@@ -3332,7 +3332,7 @@
                 "lines": {
                     "1": "Ey kutsal yazı halkı! “Biz hiçbir vaiz veya bir uyarıcı almadık” demeyesiniz diye, elçilerin olmadığı uzun bir aradan sonra elçimiz size bir şeyleri açıklamak için gelmiş bulunuyor. Size bir vaiz ve bir uyarıcı geldi. Tanrı Her Şeye Gücü Yetendir.*"
                 },
-                "ref": []
+                "ref": ["5:19"]
             }
         },
         "titles": {
@@ -3589,7 +3589,7 @@
                 "lines": {
                     "1": "Her kim Cehennemden güç bela kurtulmayı başarır ve Cennete kabul edilirse, büyük bir zafer elde etmiştir."
                 },
-                "ref": []
+                "ref": ["3:185"]
             }
         },
         "titles": {
@@ -6190,10 +6190,10 @@
                     "285,286",
                     "0",
                     "3  ",
-                    "199,200,",
+                    "199,200",
                     "0",
                     "4  ",
-                    "175,176,",
+                    "175,176",
                     "2",
                     ".  ",
                     ". ",

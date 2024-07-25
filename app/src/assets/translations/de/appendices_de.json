@@ -65,7 +65,7 @@
             "3": "Zum ersten Mal in der Geschichte verfügen wir über eine Schrift mit eingebautem Beweis der göttlichen Verfasserschaft– eine übermenschliche mathematische Komposition. ",
             "4": "Jeder Leser dieses Buches kann das mathematische Wunder des Koran leicht verifizieren. Das Wort „Gott“ (Allah) ist im gesamten Text hindurch in fetten Großbuchstaben geschrieben. Die kumulative Auftrittshäufigkeit des Wortes „Gott“ ist unten auf jeder Seite in der linken Ecke angegeben. Die Zahl in der rechten Ecke ist die kumulative Summe von der Anzahl der Verse, die das Wort „Gott“ beinthalten. Die letzte Seite des Textes, Seite 372, zeigt, dass das gesamte Auftreten des Wortes „Gott“ insgesamt 2698 ist oder 19x142. Die Gesamtsumme der Versnummern für alle Verse, die das Wort „Gott“ beinthalten, beträgt 118123, ebenfalls ein Vielfaches von 19 (118123 = 19x6217).",
             "5": "Neunzehn ist der gemeinsame Nenner durch das ganze mathematischen System des Koran hindurch. ",
-            "6": "Schon allein dieses Phänomen reicht als unwiderlegbarer Beweis dafür aus, dass der Koran Gottes Botschaft an die Welt ist. Kein Mensch hätte 2698 Vorkommen des Wortes „Gott“ und die Anzahl der Verse, in denen es vorkommt, im Überblick halten können. Dies ist unmöglich, insbesondere angesichts (1) des Zeitalters der Unwissenheit, in dem der Koran offenbart wurde, und (2) der Tatsache, dass die Suren und Verse hinsichtlich Zeit und Ort der Offenbarung weit auseinander liegen. Die chronologische Reihenfolge der Offenbarung unterscheidet sich erheblich von dem Endormat (Anhang 23). Das mathematische System des Koran ist jedoch nicht auf das Wort „Gott“ beschränkt; Es ist extrem gewaltig, extrem kompliziert und absolut umfassend."
+            "6": "Allein dieses Phänomen genügt als unwiderlegbarer Beweis dafür, dass der Koran Gottes Botschaft an die Welt ist. Kein Mensch hätte 2698 Vorkommen des Wortes „Gott“ und die Anzahl der Verse, in denen sie vorkommen, im Auge behalten können. Dies ist insbesondere unmöglich angesichts (1) des Zeitalters der Unwissenheit, in dem der Koran offenbart wurde, und (2) der Tatsache, dass die Suren und Verse in Bezug auf Zeit und Ort der Offenbarung weit voneinander entfernt waren. Die chronologische Reihenfolge der Offenbarung unterschied sich erheblich vom endgültigen Format (Anhang 23). Das mathematische System des Korans ist jedoch nicht auf das Wort „Gott“ beschränkt; es ist äußerst umfangreich, äußerst kompliziert und absolut umfassend."
         },
         "evidence": {
             "2": {
@@ -106,10 +106,10 @@
                     "Der Koran besteht aus 114 Suren, welche wären...............................",
                     "19 x 6.",
                     "3",
-                    "Die Gesamtzahl der Verse im Koran beträgt 6346, oder [6234 gezählte Verse und 112 nicht gezählte Verse (Basmalahs) 6234 + 112 = 6346] Beachten Sie, dass 6 + 3 + 4 + 6 = ...... 19.",
+                    "Die Gesamtzahl der Verse im Koran beträgt 6346, oder [6234 gezählte Verse und 112 nicht gezählte Verse (Basmalahs) 6234 + 112 = 6346] Beachten Sie, dass 6 + 3 + 4 + 6 = 19.",
                     "19 x 334.",
                     "4",
-                    "Die Basmalah kommt 114 Mal vor, trotz ihres auffälligen Ausbleibens in der Sure 9 (sie kommt zweimal in Sure 27 vor) & 114 =....... 19 x 6.",
+                    "Die Basmalah kommt 114 Mal vor, trotz ihres auffälligen Ausbleibens in der Sure 9 (sie kommt zweimal in Sure 27 vor) & 114 =......",
                     "19 x 6.",
                     "5",
                     "Von der fehlenden Basmalah in Sure 9 bis zur zusätzlichen Basmalah in Sure 27 sind es genau....",
@@ -2873,9 +2873,9 @@
         "evidence": {
             "1": {
                 "lines": {
-                    "1": "Siehe, Ich sende Meinen Botschafter, um Meinen Weg vor Mir zu bereiten; und plötzlich wird zu dem Tempel der Herr kommen, den ihr sucht, und der Botschafter des Bundes, den ihr begehrt. Ja, er ist am Kommen, sagt der Herr der Heerscharen. Doch wer wird die Tage seines Kommens ertragen? Und wer kann bestehen, wenn er erscheint? Denn er ist wie das Feuer des Schmelzers und wie die Lauge der Wäscher. [Maleachi 3:1-2]"
+                    "1": "Siehe, Ich sende Meinen Botschafter, um Meinen Weg vor Mir zu bereiten; und plötzlich wird zu dem Tempel der Herr kommen, den ihr sucht, und der Botschafter des Bundes, den ihr begehrt. Ja, er ist am Kommen, sagt der Herr der Heerscharen. Doch wer wird die Tage seines Kommens ertragen? Und wer kann bestehen, wenn er erscheint? Denn er ist wie das Feuer des Schmelzers und wie die Lauge der Wäscher."
                 },
-                "ref": []
+                "ref": ["Maleachi 3:1-2"]
             },
             "4": {
                 "lines": {
@@ -3330,9 +3330,9 @@
         "evidence": {
             "7": {
                 "lines": {
-                    "1": "O Leute der Schrift, unser Botschafter ist zu euch gekommen, um euch, nach einer Zeitspanne ohne Botschafter, Dinge zu erklären, damit ihr nicht sagt: „Wir haben keinen Prediger oder Warner empfangen“. Ein Prediger und Warner ist jetzt zu euch gekommen. Gott ist Allmächtig. [5:19]"
+                    "1": "O Leute der Schrift, unser Botschafter ist zu euch gekommen, um euch, nach einer Zeitspanne ohne Botschafter, Dinge zu erklären, damit ihr nicht sagt: „Wir haben keinen Prediger oder Warner empfangen“. Ein Prediger und Warner ist jetzt zu euch gekommen. Gott ist Allmächtig."
                 },
-                "ref": []
+                "ref": ["5:19"]
             }
         },
         "titles": {
@@ -3587,9 +3587,9 @@
         "evidence": {
             "13": {
                 "lines": {
-                    "1": "Wer auch immer der Hölle entgeht, gerade noch, und es ins Paradies schafft, hat einen großen Triumph erlangt. [3:185]"
+                    "1": "Wer auch immer der Hölle entgeht, gerade noch, und es ins Paradies schafft, hat einen großen Triumph erlangt."
                 },
-                "ref": []
+                "ref": ["3:185"]
             }
         },
         "titles": {
@@ -6190,10 +6190,10 @@
                     "285,286",
                     "0",
                     "3  ",
-                    "199,20,",
+                    "199,200",
                     "0",
                     "4  ",
-                    "175,16,",
+                    "175,176",
                     "2",
                     ".  ",
                     ". ",
@@ -7105,7 +7105,7 @@
             },
             "6": {
                 "lines": {
-                    "1": "If we revealed this Quran to a mountain, you would see it trembling, crumbling, out of reverence for God."
+                    "1": "Wenn wir diesen Koran einem Berg offenbaren würden, würdest du ihn aus Ehrfurcht vor Gott erzittern und zerbröckeln sehen."
                 },
                 "ref": [
                     "59:21"
@@ -7126,18 +7126,18 @@
             "4": "Zu den Pflichten, die mir als Gottes Botschafter des Bundes übertragen wurden, gehört es, das Ende der Welt anzukündigen (Seite 415). Aus 18:7-8 und 69:13-15 erfahren wir, dass diese Welt untergehen wird. Eine neue Erde und ein neuer Himmel werden die gegenwärtigen Himmel und die gegenwärtige Erde ersetzen (14:48).",
             "6": "Der Koran nennt viele Zeichen und sagt, dass die Mittel zur Enthüllung des Weltuntergangs gegeben wurden (47:18). Zu den im Koran genannten Zeichen gehören:",
             "7": "1. Die Spaltung des Mondes: Dies geschah bereits im Juni 1969, als wir auf dem Mond landeten und Mondgestein mitbrachten. Heute können die Menschen auf der Erde in vielen Museen, Hochschulen und Observatorien Mondstücke besichtigen.",
-            "8": "2. Discovering the Quran’s 19-based mathematical code (74:30-37): Fulfilled in 1969-1974.",
-            "9": "3. The creature (27:82): “Made from the earth, it alerts the people that they have been oblivious to their Creator.” The Creature, made from the earth, did appear and was instrumental in unveiling the Quran’s numerical code, and proclaiming that the world has neglected God’s message; the creature is the computer. Note that the digits that make up 27:82 add up to 19.",
-            "10": "4. Appearance of God’s Messenger of the Covenant (3:81): As detailed in Appendix 2, a consolidating messenger, prophesied in the Quran, comes after all the prophets have delivered the scriptures, to purify and unify. This prophecy was fulfilled in Ramadan 1408.",
-            "11": "5. The Smoke (44:10): occurs after God’s Messenger of the Covenant has delivered the unified message and proclaimed Islam (Submission) as the only religion acceptable by God.",
-            "12": "6. Gog and Magog: they re-appear, in accordance with God’s plan, in the year 1700 AH (2271 AD). Gog and Magog are mentioned in 18:94 and 21:96. If you count the verses from 18:94 to the end of Sura 18, you find them 17. If you count the verses from 21:96 to the end of Sura 21, you find them also 17. This is the Quran’s sign that Gog and Magog will re-appear in 1700 AH."
+            "8": "2. Entdeckung des auf 19 basierenden mathematischen Codes des Korans (74:30-37): Erfüllt in den Jahren 1969-1974.",
+            "9": "3. Das Geschöpf (27:82): „Aus Erde gemacht, macht es die Menschen darauf aufmerksam, dass sie ihren Schöpfer vergessen haben.“ Das aus Erde gemachte Geschöpf erschien tatsächlich und war maßgeblich an der Enthüllung des Zahlencodes des Korans beteiligt und verkündete, dass die Welt Gottes Botschaft vernachlässigt hat; das Geschöpf ist der Computer. Beachten Sie, dass die Ziffern, aus denen 27:82 besteht, zusammen 19 ergeben.",
+            "10": "4. Das Erscheinen von Gottes Botschafter des Bundes (3:81): Wie in Anhang 2 beschrieben, kommt ein im Koran prophezeiter, konsolidierender Botschafter, nachdem alle Propheten die Schriften überbracht haben, um zu reinigen und zu vereinen. Diese Prophezeiung hat sich im Ramadan 1408 erfüllt. ",
+            "11": "5. Der Rauch (44:10): tritt auf, nachdem Gottes Botschafter des Bundes die einheitliche Botschaft überbracht und den Islam (Ergebenheit) als die einzig von Gott annehmbare Religion verkündet hat.",
+            "12": "6. Gog und Magog: Sie erscheinen gemäß Gottes Plan im Jahr 1700 AH (2271 n. Chr.) wieder. Gog und Magog werden in 18:94 und 21:96 erwähnt. Zählt man die Verse von 18:94 bis zum Ende von Sure 18, so sind es 17. Zählt man die Verse von 21:96 bis zum Ende von Sure 21, so sind es ebenfalls 17. Dies ist das Zeichen des Korans, dass Gog und Magog im Jahr 1700 AH wieder erscheinen werden."
         },
         "picture": {},
         "table": {},
         "evidence": {
             "3": {
                 "lines": {
-                    "1": "(God is) the Knower of the future; He does not permit anyone to unveil such knowledge. Only through the messengers that He chooses does He reveal future and past events."
+                    "1": "(Gott ist) derjenige, der die Zukunft kennt. Er erlaubt niemandem, dieses Wissen zu enthüllen. Nur durch die Boten, die Er auswählt, enthüllt Er zukünftige und vergangene Ereignisse."
                 },
                 "ref": [
                     "72:27"
@@ -7146,26 +7146,26 @@
         },
         "titles": {
             "1": "Anhang 25",
-            "2": "End Of The World",
-            "5": "Signs of the Approaching End of the World"
+            "2": "Das Ende Der Welt",
+            "5": "Anzeichen für das Nahende Ende der Welt"
         }
     },
     {
         "page": 489,
         "text": {
-            "2": "Verse 15 of Sura 20 informs us that the end of the world will be revealed by God before the end of the world, and Sura 15, Verse 87, gives the time for that event:",
-            "4": "The seven pairs are the 14 Quranic Initials. The total gematrical value of these profound pillars of the Quran’s miracle pinpoints the year of the end of the world. It is noteworthy that Verse 85 of Sura 15 states: “The end of the world will surely come to pass.” The next verse, 15:86, tells us that God is the Creator of this world, and, of course, He knows when it will end. The following verse, 15:87, tells us when the world will end. As shown in Table 1, the gematrical values of “The Seven Pairs” of Quranic Initials total 1709 (see also Table 1 of Appendix 1). According to 15:87, the world will survive for 1709 lunar years from the time this prophecy is stated in the Quran. This means that the world will end in the year 1710 AH. This number is a multiple of 19; 1710 = 19x90.",
-            "5": "The unveiling of this information took place in the year 1400 AH, 309 years before the prophesied end of the world (1709-1400 = 309). The number 309 is a Quranic number (18:25), and is connected with the end of the world (18:21). The peculiar way of writing 309 in 18:25, “Three hundred years, increased by nine,” indicates that the 309 are lunar years. The difference between 300 solar years and 300 lunar years is 9 years.",
-            "6": "The year of this discovery, 1400 AH, coincided with 1980 AD, and 1980 plus 300 solar years is 2280, also a multiple of 19, 19x120. Thus the world ends in 1710 AH, 19x90, which coincides with 2280 AD, 19x120. For the disbelievers who do not accept these powerful Quranic proofs, the end of the world will come suddenly (6:31, 6:44, 6:47; 7:95, 7:187; 12:107; 21:40, 22:55; 26:202; 29:53; 39:55; 43:66; and 47:18).",
-            "8": "While Hadith is forbidden as a source of religious teachings (Appendix 19), it can be a useful source of history. We can derive a lot of information about historical events and local customs and traditions during the early centuries of Islam. The books of Hadith indicate that the Quranic Initials were believed to determine the life span of the Muslim Ummah. The classic exegesis by Al-Baydaawy cites the following historical event as a possible explanation of the Quranic Initials. The same event is detailed in Al-Suyooty’s ITQAAN, First Printing, 1318 AH, Vol 2, Page 10:"
+            "2": "Vers 15 der Sure 20 informiert uns darüber, dass das Ende der Welt von Gott vor dem Ende der Welt offenbart werden wird, und Sure 15, Vers 87, gibt den Zeitpunkt für dieses Ereignis an:",
+            "4": "Die sieben Paare sind die 14 Koranischen Initialen. Der gesamte gematrische Wert dieser tiefgreifenden Säulen des Koranwunders bestimmt das Jahr des Endes der Welt. Bemerkenswert ist, dass Vers 85 der Sure 15 besagt: „Das Ende der Welt wird gewiss kommen.“ Der nächste Vers, 15:86, sagt uns, dass Gott der Schöpfer dieser Welt ist, und natürlich weiß Er, wann sie untergehen wird. Der folgende Vers, 15:87, sagt uns, wann die Welt enden wird. Wie in Tabelle 1 gezeigt, beträgt der gematrische Wert der „sieben Paare“ Koranischen Initialen insgesamt 1709 (siehe auch Tabelle 1 in Anhang 1). Gemäß 15:87 wird die Welt ab dem Zeitpunkt, an dem diese Prophezeiung im Koran ausgesprochen wird, 1709 Mondjahre lang bestehen. Das bedeutet, dass die Welt im Jahr 1710 AH untergehen wird. Diese Zahl ist ein Vielfaches von 19; 1710 = 19 x 90. ",
+            "5": "Die Enthüllung dieser Informationen erfolgte im Jahr 1400 AH, 309 Jahre vor dem prophezeiten Weltuntergang (1709-1400 = 309). Die Zahl 309 ist eine Zahl aus dem Koran (18:25) und wird mit dem Ende der Welt in Verbindung gebracht (18:21). Die eigentümliche Schreibweise der Zahl 309 in 18:25, „Dreihundert Jahre, vermehrt um neun“, weist darauf hin, dass es sich bei den 309 um Mondjahre handelt. Der Unterschied zwischen 300 Sonnenjahren und 300 Mondjahren beträgt 9 Jahre. ",
+            "6": "Das Jahr dieser Entdeckung, 1400 AH, fiel mit 1980 n. Chr. zusammen, und 1980 plus 300 Sonnenjahre ist 2280, ebenfalls ein Vielfaches von 19, 19x120. Somit endet die Welt im Jahr 1710 AH, 19x90, das mit 2280 n. Chr., 19x120, zusammenfällt. Für die Ungläubigen, die diese aussagekräftigen Koranischen Beweise nicht akzeptieren, wird das Ende der Welt plötzlich kommen (6:31, 6:44, 6:47; 7:95, 7:187; 12:107; 21:40, 22:55; 26:202; 29:53; 39:55; 43:66; und 47:18).",
+            "8": "Obwohl der Hadith als Quelle für religiöse Lehren verboten ist (Anhang 19), kann er eine nützliche Quelle für die Geschichte sein. Wir können daraus viele Informationen über historische Ereignisse und lokale Sitten und Gebräuche in den ersten Jahrhunderten des Islam ableiten. Aus den Hadith-Büchern geht hervor, dass man glaubte, die Koranischen Initialen würden die Lebensdauer der muslimischen Umma bestimmen. In der klassischen Exegese von Al-Baydaawy wird das folgende historische Ereignis als mögliche Erklärung für die Koranischen Initialen angeführt. Das gleiche Ereignis wird in Al-Suyooty’s ITQAAN, Erstdruck, 1318 AH, Band 2, Seite 10, beschrieben:"
         },
         "picture": {},
         "table": {
             "7": {
-                "ref": "Table 1: Total Gematrical Value of “The Seven Pairs” of Quranic Initials.",
+                "ref": "Tabelle 1: Gematrischer Gesamtwert der „Sieben Paare“ von Koranischen Initialen.",
                 "title": [
-                    "Quranic Initial",
-                    "Gematrical Value"
+                    "Koranische Initiale",
+                    "Gematrischer Wert"
                 ],
                 "values": [
                     "1. Q           ",
@@ -7204,7 +7204,7 @@
         "evidence": {
             "3": {
                 "lines": {
-                    "1": "We have given you the seven pairs, and the great Quran."
+                    "1": "Wir haben euch die sieben Paare und den großartigen Koran gegeben."
                 },
                 "ref": [
                     "15:87"
@@ -7212,27 +7212,27 @@
             }
         },
         "titles": {
-            "1": "It Will Not Remain Hidden [20:15]"
+            "1": "Es wird nicht verborgen bleiben [20:15]"
         }
     },
     {
         "page": 490,
         "text": {
-            "2": "Although this narration is well known, many scholars have been reluctant to accept the unmistakable connection between the Quranic Initials and the end of the world. They could not bring themselves to deal with this subject for the simple reason that the calculation makes the end of the world, and judgment, a reality.",
-            "5": "This Appendix provides the Quranic mathematical evidence that [1] Abraham was the original messenger of Islam, i.e., Submission (22:78), [2] Muhammad was the scripture delivering messenger (47:2), and [3] Rashad is the purifying and consolidating messenger who delivered the religion’s authenticating proof (3:81, & Appendix 2).",
-            "7": "[1] As pointed out in Appendix 2, the gematrical value of “Abraham” is 258, the gematrical value of “Muhammad” is 92, the gematrical value of “Rashad” is 505, and 258 + 92 + 505 =855 = 19x45.",
-            "8": "[2] If we include “Ismail,” whose gematrical value is 211 and “Isaac,” whose gematrical value is 169, we still end up with a total gematrical value of 855 + 211 + 169 = 1235 = 19x65. The total gematrical value of the three messengers, or the five, cannot conform with the Quran’s 19-based mathematical code if either Abraham, Muhammad, or Rashad is not included.",
-            "9": "[3] The first and last occurrences of “Abraham” are in 2:124 and 87:19. By adding the sura numbers plus the number of verses, plus the sum of verse numbers from the first occurrence to the last occurrence, the grand total is 333260, 19x17540 (Table 1)."
+            "2": "Obwohl diese Erzählung wohlbekannt ist, haben viele Gelehrte gezögert, die unmissverständliche Verbindung zwischen den Koranischen Initialen und dem Ende der Welt zu akzeptieren. Sie konnten sich nicht dazu durchringen, sich mit diesem Thema zu befassen, und zwar aus dem einfachen Grund, dass die Berechnung das Ende der Welt und das Gericht zu einer Realität macht.",
+            "5": "Dieser Anhang liefert den mathematischen Beweis des Korans, dass [1] Abraham der ursprüngliche Botschafter des Islams war, d.h. die Ergebenheit (22:78), [2] Muhammad der die Schrift überbringende Botschafter war (47:2), und [3] Raschad der reinigende und vereinigende Botschafter ist, der den authentifizierenden Beweis der Religion überbrachte (3:81, & Anhang 2). ",
+            "7": "[1] Wie im Anhang 2 dargelegt, beträgt der gematrische Wert von „Abraham“ 258, der gematrische Wert von „Muhammad“ 92, der gematrische Wert von „Rashad“ 505 und 258 + 92 + 505 = 855 = 19 x 45.",
+            "8": "[2] Wenn wir „Ismail“, dessen gematrischer Wert 211 ist, und „Isaak“, dessen gematrischer Wert 169 ist, mit einbeziehen, kommen wir immer noch auf einen gematrischen Gesamtwert von 855 + 211 + 169 = 1235 = 19x65. Der gematrische Gesamtwert der drei Botschafter oder der fünf kann nicht mit dem auf 19 basierenden mathematischen Code des Korans übereinstimmen, wenn entweder Abraham, Muhammad oder Raschad nicht eingeschlossen sind.",
+            "9": "[3] Das erste und letzte Vorkommen von „Abraham“ sind in 2:124 und 87:19. Wenn man die Nummern der Suren plus die Anzahl der Verse plus die Summe der Versnummern vom ersten bis zum letzten Vorkommen addiert, ergibt sich eine Gesamtsumme von 333260, 19x17540 (Tabelle 1)."
         },
         "picture": {},
         "table": {
             "10": {
-                "ref": "Table 1: The Suras & Verses from the First to the Last Occurrence of Abraham.",
+                "ref": "Tabelle 1: Die Suren & Verse vom ersten bis zum letzten Vorkommen von Abraham.",
                 "title": [
-                    "Sura No.",
-                    " No. of Verses",
-                    "Sum of Verse #'s",
-                    "Total"
+                    "Sure Nr.",
+                    "Anzahl der Verse",
+                    "Summe der Verse",
+                    "Gesamt"
                 ],
                 "values": [
                     "2    ",
@@ -7293,32 +7293,32 @@
         "evidence": {
             "1": {
                 "lines": {
-                    "1": "The Jews of Medina went to the Prophet and said, “Your Quran is initialed with A.L.M., and these Initials determine the life span of your religion. Since ‘A’ is 1, ‘L’ is 30, and ‘M’ is 40, this means that your religion will survive only 71 years.” Muhammad said, “We also have A.L.M.S.” They said, “The ‘A’ is 1, the ‘L’ is 30, the ‘M’ is 40, and the ‘S’ is 90. This adds up to 161. Do you have anything else?” The Prophet said, “Yes, A.L.M.R.” They said, “This is longer and heavier; the ‘A’ is 1, ‘L’ is 30, ‘M’ is 40, and ‘R’ is 200, making the total 271.” They finally gave up, saying, “We do not know how many of these Initials he was given!”"
+                    "1": "Die Juden von Medina gingen zum Propheten und sagten: „Dein Koran ist mit A.L.M. abgezeichnet und diese Initialen bestimmen die Lebensdauer deiner Religion. Da ‚A‘ 1, ‚L‘ 30 und ‚M‘ 40 ist, bedeutet dies, dass deine Religion nur 71 Jahre überleben wird.“ Muhammad sagte: „Wir haben auch A.L.M.S.“ Sie sagten: „Das ‚A‘ ist 1, das ‚L‘ ist 30, das ‚M‘ ist 40 und das ‚S‘ ist 90. Das ergibt insgesamt 161. Hast du noch etwas anderes?“ Der Prophet sagte: „Ja, A.L.M.R.“ Sie sagten: „Das ist länger und schwerer; das ‚A‘ ist 1, ‚L‘ ist 30, ‚M‘ ist 40 und ‚R‘ ist 200, was insgesamt 271 ergibt.“ Schließlich gaben sie auf und sagten: „Wir wissen nicht, wie viele dieser Initialen er bekommen hat!“"
                 },
                 "ref": [
-                    "Al-Suyuty’s Famous Reference ITQAAN"
+                    "Al-Suyutys bekannte Referenz ITQAAN"
                 ]
             }
         },
         "titles": {
             "3": "Anhang 26",
-            "4": "The Three Messengers of Islam",
-            "6": "Perpetual and Verifiable Evidence"
+            "4": "Die Drei Botschafter des Islam",
+            "6": "Immerwährende und überprüfbare Beweise"
         }
     },
     {
         "page": 491,
         "text": {
-            "1": "[4] As pointed out in Appendix 2, the name of God’s Messenger of the Covenant is introduced to the computer age through mathematical coding. If the name was specified in the Quran, as is the case with past messengers, millions of people would have named their children “Rashad Khalifa.” Thus, the root word “Rashada” is mentioned in the Quran 19 times (Appendix 2).",
-            "2": "[5] “Abraham” is mentioned in 25 suras, “Muhammad” is mentioned in 4 suras, and “Rashada” occurs in 9 suras. The total of these suras is 25 + 4 + 9 = 38 = 19x2 (INDEX TO THE WORDS OF QURAN, Abdul Baqi).",
-            "3": "[6] If we add the numbers of the suras where Abraham, Muhammad, and Rashada occur, plus the number of occurrences per sura, the total comes to 1083, 19x19x3 (Table 2)."
+            "1": "[4] Wie in Anhang 2 dargelegt, wurde der Name von Gottes Botschafter des Bundes durch mathematische Verschlüsselung in das Computerzeitalter eingeführt. Wenn der Name im Koran angegeben wäre, wie es bei früheren Gesandten der Fall war, hätten Millionen von Menschen ihre Kinder „Rashad Khalifa“ genannt. Somit wird das Wurzelwort „Rashada“ im Koran 19 Mal erwähnt (Anhang 2).",
+            "2": "[5] „Abraham“ wird in 25 Suren erwähnt, „Muhammad“ wird in 4 Suren erwähnt und „Rashada“ kommt in 9 Suren vor. Die Gesamtzahl dieser Suren beträgt 25 + 4 + 9 = 38 = 19x2 (INDEX ZU DEN WORTEN DES QURAN, Abdul Baqi).",
+            "3": "[6] Wenn wir die Anzahl der Suren, in denen Abraham, Muhammad und Rashada vorkommen, und die Anzahl der Vorkommen pro Sure addieren, ergibt sich eine Gesamtzahl von 1083, 19x19x3 (Tabelle 2)."
         },
         "picture": {},
         "table": {
             "4": {
-                "ref": "Table 2: The Suras and Occurrences of Abraham, Muhammad, and Rashada.",
+                "ref": "Tabelle 2: Die Suren und Vorkommen von Abraham, Muhammad und Rashada.",
                 "title": [
-                    "Sura No.",
+                    "Sure Nr.",
                     "Abraham",
                     "Muhammad",
                     "Rashada"
@@ -7464,11 +7464,11 @@
                     "",
                     " ",
                     "",
-                    "* “Rashada” occurs 19 times",
+                    "* „Rashada“ kommt 19 Mal vor",
                     "",
                     " ",
                     "",
-                    "*Total is 19x19x3, the 3 messengers",
+                    "*Gesamt ist 19x19x3, die 3 Botschafter",
                     "",
                     " ",
                     ""
@@ -7481,16 +7481,16 @@
     {
         "page": 492,
         "text": {
-            "1": "[7] If we take all the suras where Abraham, Muhammad, and the root word “Rashada” are mentioned, and add the sura numbers, plus the number of the first verse in each sura where each of the three words is mentioned, the total comes to 2793, 19x147 (Table 3).",
-            "3": "[8] The sum of all sura numbers where the three words occur, without repetition, plus the sum of all the verse numbers, without repetition, add up to 6479, 19x341. The suras are 2, 3, 4, 6, 7, 9, 11, 12, 14, 15, 16, 18, 19, 21, 22, 26, 29, 33, 37, 38, 40, 42, 43, 47, 48, 49, 51, 53, 57, 60, 72, and 87. The sum of these numbers is 991 (see Table 3). The verses where the three words are mentioned, without repetition, are 2, 4, 6, 7, 10, 13, 14, 16, 17, 19, 21, 24, 26, 29, 31, 33, 35, 37, 38, 40, 41, 43, 45, 46, 51, 54, 58, 60, 62, 65, 66, 67, 68, 69, 70, 74, 75, 76, 78, 83, 84, 87, 95, 97, 104, 109, 114, 120, 123, 124, 125, 126, 127, 130, 132, 133, 135, 136, 140, 144, 146, 161, 163, 186, 256, 258, and 260. The sum of these numbers is 5488, and: 5488 + 991 = 6479 = 19x341.",
-            "4": "[9] If we add the sura number, plus the verse number, plus the number of verses where Abraham, Muhammad, and Rashada occur, we get a grand total that equals 7505, 19x395 (Table 4)."
+            "1": "[7] Wenn wir alle Suren nehmen, in denen Abraham, Muhammad und der Wortstamm \"Rashada\" erwähnt werden, und die Nummern der Suren plus die Nummer des ersten Verses in jeder Sure, in der jedes der drei Wörter erwähnt wird, addieren, ergibt sich eine Gesamtzahl von 2793, 19x147 (Tabelle 3).",
+            "3": "[8] Die Summe der Nummern aller Suren, in denen die drei Wörter vorkommen, ohne Wiederholung, plus die Summe aller Versnummern, ohne Wiederholung, ergibt 6479, 19x341. Die Suren sind 2, 3, 4, 6, 7, 9, 11, 12, 14, 15, 16, 18, 19, 21, 22, 26, 29, 33, 37, 38, 40, 42, 43, 47, 48, 49, 51, 53, 57, 60, 72 und 87. Die Summe dieser Zahlen beträgt 991 (siehe Tabelle 3). Die Verse, in denen die drei Wörter ohne Wiederholung vorkommen, sind 2, 4, 6, 7, 10, 13, 14, 16, 17, 19, 21, 24, 26, 29, 31, 33, 35, 37, 38, 40, 41, 43, 45, 46, 51, 54, 58, 60, 62, 65, 66, 67, 68, 69, 70, 74, 75, 76, 78, 83, 84, 87, 95, 97, 104, 109, 114, 120, 123, 124, 125, 126, 127, 130, 132, 133, 135, 136, 140, 144, 146, 161, 163, 186, 256, 258 und 260. Die Summe dieser Zahlen ist 5488, und: 5488 + 991 = 6479 = 19x341. ",
+            "4": "[9] Wenn wir die Nummer der Sure plus die Nummer des Verses plus die Anzahl der Verse, in denen Abraham, Muhammad und Rashada vorkommen, addieren, erhalten wir eine Gesamtsumme von 7505, 19 x 395 (Tabelle 4)."
         },
         "picture": {},
         "table": {
             "2": {
-                "ref": "Table 3: The Suras & First Verse Where Abraham, Muhammad, & Rashada Occur.",
+                "ref": "Tabelle 3: Die Suren und die ersten Verse, in denen Abraham, Muhammad und Rashada vorkommen. ",
                 "title": [
-                    "Sura No.",
+                    "Sure Nr.",
                     "Abraham",
                     "Muhammad",
                     "Rashada"
@@ -7635,7 +7635,7 @@
                     "",
                     "",
                     "",
-                    "* Verse 21:51 cannot be added twice"
+                    "* Vers 21:51 kann nicht zweimal hinzugefügt werden"
                 ]
             }
         },
@@ -7645,18 +7645,18 @@
     {
         "page": 493,
         "text": {
-            "2": "Thus, it is mathematically coded into the Quran that Abraham, Muhammad, and Rashad are the three messengers of Islam (Submission)."
+            "2": "So ist es im Koran mathematisch codiert, dass Abraham, Muhammad und Raschad die drei Botschafter des Islam (Ergebenheit) sind."
         },
         "picture": {},
         "table": {
             "1": {
-                "ref": "Table 4: The Suras, Verses, and Occurrences of ‘Abraham,” “Muhammad,” and “Rashada.”\n Verse Where the 3 Words are Mentioned",
+                "ref": "Tabelle 4: Die Suren, Verse und Vorkommen von „Abraham“, „Muhammad“ und „Rashada“. \nVerse, in denen die 3 Wörter erwähnt werden",
                 "title": [
-                    "Sura No.",
+                    "Sure Nr.",
                     "Abraham",
                     "Muhammad",
                     "Rashada",
-                    "No of Verses"
+                    "Anzahl der Verse"
                 ],
                 "values": [
                     "2  ",
@@ -7838,21 +7838,21 @@
     {
         "page": 494,
         "text": {
-            "1": "[10] As shown in Table 4, the 19 occurrences of the root word “Rashada” are in verses 186, 256, 6, 146, 78, 87, 97, 10, 17, 24, 66, 51, 29, 38, 7, 2, 10, 14, and 21. These are 38 digits, 19x2.",
-            "2": "[11] Table 4 shows that the sum of the verse numbers where we see the 19 occurrences of the root word “Rashada” is 1145. By adding this total of verse numbers (1145), to the gematrical value of the name “Rashad” (505), plus the gematrical value of the name “Khalifa” (725), we get 1145 + 505 + 725 = 2375, 19x125.",
-            "3": "[12] If we write down these numbers next to each other, i.e., the total of verse numbers (1145), followed by the gematrical value of the name “Rashad” (505), followed by the gematrical value of the name “Khalifa” (725), we also get a number that is a multiple of 19: 1145505725 = 19x60289775.",
-            "8": "Most people are outraged upon hearing this question. “What do you mean, ‘Who is your god?’ ” they ask. “My god is the Creator of the heavens and the earth.” And most of these people will be shocked to find out that their proclamation that their god is the Creator of the heavens and the earth is no more than lip service, and that they are in fact destined for Hell (12:106).",
-            "10": "Your god can be your children (7:190), your spouse (9:24), your business (18:35), or your ego (25:43). This is why we note that one of the most important and most repeated commandments in the Quran is:",
-            "12": "To put this commandment into practice, we must establish certain habits whereby we guarantee that God occupies our minds more than anything else. The Quran helps us establish such soul saving habits:"
+            "1": "[10] Wie aus Tabelle 4 hervorgeht, kommen die 19 Vorkommen des Wortstamms „Rashada“ in den Versen 186, 256, 6, 146, 78, 87, 97, 10, 17, 24, 66, 51, 29, 38, 7, 2, 10, 14 und 21 vor. Dies sind 38 Ziffern, 19x2.",
+            "2": "[11] Tabelle 4 zeigt, dass die Summe der Versnummern, in denen der Wortstamm „Rashada“ 19 Mal vorkommt, 1145 beträgt. Wenn wir diese Summe der Versnummern (1145) zum gematrischen Wert des Namens „Rashad“ (505) plus dem gematrischen Wert des Namens „Khalifa“ (725) addieren, erhalten wir 1145 + 505 + 725 = 2375, 19x125.",
+            "3": "[12] Wenn wir diese Zahlen nebeneinander aufschreiben, also die Summe der Versnummern (1145), gefolgt von dem gematrischen Wert des Namens „Rashad“ (505), gefolgt von dem gematrischen Wert des Namens „Khalifa“ (725), erhalten wir ebenfalls eine Zahl, die ein Vielfaches von 19 ist: 1145505725 = 19x60289775.",
+            "8": "Die meisten Menschen sind empört, wenn sie diese Frage hören. „Was meinst du mit ‚Wer ist dein gott?‘“, fragen sie. „Mein gott ist der Schöpfer des Himmels und der Erde.“ Und die meisten dieser Menschen werden schockiert sein, wenn sie erfahren, dass ihre Behauptung, ihr gott sei der Schöpfer des Himmels und der Erde, nicht mehr als ein Lippenbekenntnis ist und dass sie in Wirklichkeit für die Hölle bestimmt sind (12:106).",
+            "10": "Dein gott können deine Kinder (7:190), dein Ehepartner (9:24), dein Geschäft (18:35) oder dein Ego (25:43) sein. Deshalb stellen wir fest, dass eines der wichtigsten und am häufigsten wiederholten Gebote im Koran lautet:",
+            "12": "Um dieses Gebot in die Praxis umzusetzen, müssen wir uns bestimmte Gewohnheiten aneignen, die gewährleisten, dass Gott unsere Gedanken mehr als alles andere beschäftigt. Der Koran hilft uns, solche seelenrettenden Gewohnheiten zu entwickeln:"
         },
         "picture": {},
         "table": {},
         "evidence": {
             "4": {
                 "lines": {
-                    "1": "Sum of Verse Numbers Where the 19 “Rashada” Occur.........................= 1145",
-                    "2": "Gematrical Value of the Name “Rashad” ................................................= 505",
-                    "3": "Gematrical Value of the Name “Khalifa” ................................................= 725"
+                    "1": "Summe der Versnummern, in denen die 19 „Rashada“ vorkommen.......................= 1145",
+                    "2": "Gematrischer Wert des Namens „Rashad“ ................................................= 505",
+                    "3": "Gematrischer Wert des Namens „Khalifa“ ................................................= 725"
                 },
                 "ref": []
             },
@@ -7865,13 +7865,13 @@
             },
             "9": {
                 "lines": {
-                    "1": "Your god is whoever or whatever occupies your mind most of the time."
+                    "1": "Ihr gott ist derjenige oder dasjenige, womit sie sich die meiste Zeit beschäftigen."
                 },
                 "ref": []
             },
             "11": {
                 "lines": {
-                    "1": "O you who believe, you shall remember God frequently; glorify Him day and night."
+                    "1": "O ihr, die ihr glaubt, ihr sollt Gott häufig gedenken und Ihn Tag und Nacht preisen. "
                 },
                 "ref": [
                     "33:41"
