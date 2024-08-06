@@ -527,6 +527,7 @@ const Pages = ({
                                                     return (
                                                         <div
                                                             key={`last-title-${suraNumber}-${verseNumber}`}
+                                                            dir={direction}
                                                             className={`mx-1 py-1 px-2 text-neutral-800 rounded bg-gradient-to-r from-cyan-300 to-sky-500 text-base md:text-lg lg:text-xl xl:text-2xl besmele`}>
                                                             {hasGODinit}
                                                         </div>
