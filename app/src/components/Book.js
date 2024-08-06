@@ -23,6 +23,7 @@ const Book = ({ onChangeTheme, colors, theme, translationApplication, introducti
     const restoreAppText = useRef(null);
     const restoreIntroText = useRef(null);
     const endReferenceToRestore = useRef(null);
+    const appxReferenceToJump = useRef(null);
     const beginingReferenceToRestore = useRef(null);
     const [pages, setPages] = useState([]);
     const [selectedApp, setSelectedApp] = useState(1);
@@ -85,7 +86,14 @@ const Book = ({ onChangeTheme, colors, theme, translationApplication, introducti
 
     const handleMagnifyConfirm = (reference) => {
         magnifyConfirm.current = true;
-        handleClickReference(reference);
+        const refType = reference.split(":")[0];
+        const refKey = reference.split(":")[1];
+        if (refType === "appx") {
+            appxReferenceToJump.current = refKey;
+            handleClickAppReference(refKey.split("-")[0], 'jumpAppendix');
+        } else {
+            handleClickReference(reference);
+        }
     };
 
     const handleCloseModal = () => {
@@ -113,13 +121,16 @@ const Book = ({ onChangeTheme, colors, theme, translationApplication, introducti
         setAction(actionType);
         if (actionType !== 'previous' && (parseInt(newPage) === 397 || (parseInt(newPage) !== parseInt(currentPage)))) {
             setPageHistory(prevHistory => {
-                const lastElement = prevHistory[prevHistory.length - 1];
+                let lastElement = prevHistory[prevHistory.length - 1];
                 if (lastElement && lastElement.page === parseInt(currentPage) && (parseInt(currentPage) !== 397)) {
                     lastElement.sura = sura;
                     lastElement.verse = verse;
                     lastElement.actionType = actionType;
                     return [...prevHistory.slice(0, prevHistory.length - 1), lastElement];
                 } else {
+                    if (lastElement && parseInt(newPage) === 397 && actionType === 'jumpAppendix' && lastElement.appReference !== null && lastElement.appReference === appReference) {
+                        return prevHistory;
+                    }
                     return [...prevHistory, {
                         page: parseInt(currentPage),
                         sura: selectedSura,
@@ -153,7 +164,7 @@ const Book = ({ onChangeTheme, colors, theme, translationApplication, introducti
                 setSelectedAppendix(parseInt(selectedApp) + 1);
             }
         } else {
-            updatePage(parseInt(newPage), null, null, 'next', selectedApp);
+            updatePage(parseInt(newPage), null, null, 'next');
         }
         restoreIntroText.current = false;
     };
@@ -268,11 +279,11 @@ const Book = ({ onChangeTheme, colors, theme, translationApplication, introducti
         magnifyConfirm.current = false;
     };
 
-    const handleClickAppReference = (inp) => {
+    const handleClickAppReference = (inp, actionType = 'openAppendix') => {
         const number = parseInt(inp);
         if (number > 0 && number < 39) {
             setSelectedApp(number);
-            updatePage(397, null, null, 'openAppendix', number);
+            updatePage(397, null, null, actionType, number);
         }
     };
 
@@ -402,7 +413,7 @@ const Book = ({ onChangeTheme, colors, theme, translationApplication, introducti
             return part.split(/(\d+)/).map((segment, index) => {
                 if (/\d+/.test(segment)) {
                     return (
-                        <span key={index} className="cursor-pointer text-sky-500" onClick={() => handleClickAppReference(segment)}>
+                        <span key={index} className="cursor-pointer text-nowrap text-sky-500" onClick={() => handleClickAppReference(segment)}>
                             {segment}
                         </span>
                     );
@@ -449,7 +460,7 @@ const Book = ({ onChangeTheme, colors, theme, translationApplication, introducti
                     let oldscripture = false
                     //TODO: give outer references for old scriptures
                     if (reference && !reference.match(/\d+/)) {
-                        if (checkOldScripture(reference)){
+                        if (checkOldScripture(reference)) {
                             oldscripture = true;
                             pushedOld = true;
                         } else if (reference.toLowerCase().includes(translationApplication.quran.toLocaleLowerCase(lang))) {
@@ -745,6 +756,7 @@ const Book = ({ onChangeTheme, colors, theme, translationApplication, introducti
                 selected={selectedApp}
                 restoreAppText={restoreAppText}
                 refToRestore={endReferenceToRestore}
+                refToJump={appxReferenceToJump}
                 direction={direction}
             />;
         }
@@ -820,7 +832,7 @@ const Book = ({ onChangeTheme, colors, theme, translationApplication, introducti
                                         onChange={(e) => setSelectedAppendix(e.target.value)}
                                         onFocus={() => setSelectOpen(true)}
                                         onBlur={() => setSelectOpen(false)}
-                                        className={`flex w-12 lg:w-14 pt-0.5 md:pt-1 whitespace-pre-line rounded ${colors[theme]["app-background"]} ${colors[theme]["page-text"]} text-2xl pr-0.5 text-right focus:outline-none focus:ring-2 focus:border-sky-500 focus:ring-sky-500`}
+                                        className={`flex w-12 lg:w-14 pt-0.5 md:pt-1 whitespace-pre-line rounded ${colors[theme]["app-background"]} ${colors[theme]["page-text"]} text-2xl text-right focus:outline-none focus:ring-2 focus:border-sky-500 focus:ring-sky-500`}
                                     >
                                         {appendices.map((appendix, index) => (
                                             <option key={index} value={appendix.number}>
@@ -870,6 +882,7 @@ const Book = ({ onChangeTheme, colors, theme, translationApplication, introducti
                     currentPage={currentPage}
                     quran={translation ? translation : quranData}
                     map={map}
+                    appendices={appendicesContent}
                     onClose={handleCloseSearch}
                     onConfirm={handleMagnifyConfirm}
                     direction={direction}

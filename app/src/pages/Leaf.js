@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import defaultQuran from '../assets/qurantft.json'; // Import the default Quran data
+import { mapQuran } from '../utils/Mapper';
 
 const Leaf = () => {
     const { lang = process.env.REACT_APP_DEFAULT_LANG || 'en', params } = useParams();
@@ -11,23 +12,7 @@ const Leaf = () => {
     useEffect(() => {
         // Function to process and set Quran data
         const processQuranData = (quranData) => {
-            let qm = {};
-            Object.values(quranData).forEach((value) => {
-                Object.entries(value.sura).forEach(([sura, content]) => {
-                    if (!qm[sura]) {
-                        qm[sura] = {};
-                    }
-
-                    Object.entries(content.verses).forEach(([verse, text]) => {
-                        qm[sura][verse] = text;
-                    });
-
-                    Object.entries(content.titles).forEach(([title, text]) => {
-                        qm[sura]["t" + title] = text;
-                    });
-                });
-            });
-            setQuranmap(qm);
+            setQuranmap(mapQuran(quranData));
         };
 
         if (lang && lang !== 'en') {

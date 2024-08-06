@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useRef, useCallback } from 'react';
+import { mapAppendices } from '../utils/Mapper';
 
-const Apps = ({ colors, theme, translationApplication, parseReferences, appendices, selected, restoreAppText, refToRestore, direction }) => {
+const Apps = ({ colors, theme, translationApplication, parseReferences, appendices, selected, restoreAppText, refToRestore, refToJump, direction }) => {
 
     const lang = localStorage.getItem("lang");
     const containerRef = useRef(null);
@@ -14,59 +15,7 @@ const Apps = ({ colors, theme, translationApplication, parseReferences, appendic
     const [isRefsReady, setIsRefsReady] = useState(false);
 
     const mapAppendicesData = useCallback((appendices) => {
-        const appendixMap = {};
-        let currentAppendixNum = 1;
-        let globalContentOrder = 1;
-
-        appendices.forEach(page => {
-            if (page.page < 397) {
-                return;
-            }
-            let allContentItems = [];
-            Object.entries(page.titles || {}).forEach(([key, title]) => {
-                allContentItems.push({
-                    type: 'title',
-                    content: title,
-                    key: parseInt(key)
-                });
-            });
-
-            const collectContent = (type, data) => {
-                Object.entries(data || {}).forEach(([key, value]) => {
-                    if (value) {
-                        allContentItems.push({ type, content: value, key: parseInt(key) });
-                    }
-
-                });
-            };
-            collectContent('text', page.text);
-            collectContent('evidence', page.evidence);
-            collectContent('table', page.table);
-            collectContent('picture', page.picture);
-
-            allContentItems.sort((a, b) => a.key - b.key);
-            allContentItems.forEach(item => {
-                item.order = globalContentOrder++;
-                if (item.type === 'title') {
-                    const appx = translationApplication ? translationApplication.appendix : "Appendix";
-                    const match = item.content.match(new RegExp(`${appx}\\s*(\\d+)`));
-                    if (/\d+/.test(item.content) && match) {
-                        currentAppendixNum = match[1];
-                    }
-                }
-                if (!appendixMap[currentAppendixNum]) {
-                    appendixMap[currentAppendixNum] = { content: [] };
-                }
-
-                appendixMap[currentAppendixNum].content.push(item);
-            });
-        });
-
-        Object.values(appendixMap).forEach(appendix => {
-            appendix.content.sort((a, b) => a.order - b.order);
-        });
-
-        return appendixMap;
+        return mapAppendices(appendices, translationApplication);
     }, [translationApplication]);
 
     useEffect(() => {
@@ -79,15 +28,17 @@ const Apps = ({ colors, theme, translationApplication, parseReferences, appendic
             setTimeout(() => {
                 if (restoreAppText.current && refToRestore.current && textRef.current[refToRestore.current]) {
                     textRef.current[refToRestore.current].scrollIntoView({ behavior: 'smooth', block: 'center' });
+                    restoreAppText.current = null;
+                } else if (refToJump.current && textRef.current[refToJump.current]) {
+                    textRef.current[refToJump.current].scrollIntoView({ behavior: 'smooth', block: 'center' });
                 } else {
                     if (appendixRef.current && appendixRef.current[`appendix-${selected}`] && isRefsReady) {
                         appendixRef.current[`appendix-${selected}`].scrollIntoView({ behavior: 'smooth' });
                     }
                 }
             }, 266);
-
         }
-    }, [selected, restoreAppText, refToRestore, isRefsReady, textRef]);
+    }, [selected, restoreAppText, refToRestore, refToJump, isRefsReady, textRef]);
 
     const handleRefsReady = () => {
         setIsRefsReady(true);
@@ -158,11 +109,10 @@ const Apps = ({ colors, theme, translationApplication, parseReferences, appendic
                 );
             case 'text':
                 return (
-
                     <div
                         lang={lang}
                         dir={direction}
-                        key={`text-${index}`}
+                        key={`app-${appno}-${item.type}-${item.order}`}
                         ref={(el) => textRef.current[appno + "-" + index] = el}
                         onClick={(e) => handleClick(e, appno, index)}
                         className={`rounded ${colors[theme]["text-background"]} ${colors[theme]["app-text"]} p-0.5 mb-1 flex w-full text-justify hyphens-auto`}>
@@ -175,7 +125,7 @@ const Apps = ({ colors, theme, translationApplication, parseReferences, appendic
                 return (
                     <div
                         dir={direction}
-                        key={`evidence-${index}`}
+                        key={`app-${appno}-${item.type}-${item.order}`}
                         ref={(el) => textRef.current[appno + "-" + index] = el}
                         onClick={(e) => handleClick(e, appno, index)}
                         className={`${colors[theme]["base-background"]} ${colors[theme]["table-title-text"]} rounded  text-base md:text-lg p-3 border my-3 ${colors[theme]["border"]}`}>
@@ -243,7 +193,7 @@ const Apps = ({ colors, theme, translationApplication, parseReferences, appendic
                     </div>
                 );
             case 'table':
-                return renderTable(item.content, appno, `table-${index}`);
+                return renderTable(item.content, appno, `${index}-${item.order}`);
             default:
                 return (
                     <div key={`unknown-${index}`} className={`${colors[theme]["log-text"]} flex flex-1 items-center justify-center w-full`}>
@@ -263,9 +213,9 @@ const Apps = ({ colors, theme, translationApplication, parseReferences, appendic
                 if (currentGroup.length > 0) {
                     groups.push(currentGroup);
                 }
-                currentGroup = [renderContentItem(selected, item, `${item.type}-${index}`)];
+                currentGroup = [renderContentItem(selected, item, `${item.type}-${item.key}-${item.order}`)];
             } else {
-                currentGroup.push(renderContentItem(selected, item, `${item.type}-${index}`));
+                currentGroup.push(renderContentItem(selected, item, `${item.type}-${item.key}-${item.order}`));
             }
         });
         if (currentGroup.length > 0) {
