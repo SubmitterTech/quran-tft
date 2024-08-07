@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import languages from '../assets/languages.json';
 import { getRandom } from '../utils/Generator';
+import { adjustReference } from '../utils/Mapper';
 
 const Jump = ({ onChangeLanguage, suraNames, onChangeTheme, colors, theme, translationApplication, currentPage, quran, onClose, onConfirm, onMagnify, direction }) => {
     const [suraNumber, setSuraNumber] = useState("0");
@@ -413,10 +414,10 @@ const Jump = ({ onChangeLanguage, suraNames, onChangeTheme, colors, theme, trans
                                                             return (
                                                                 <div key={index} className="flex justify-between w-full mt-1">
                                                                     <div className="w-full flex justify-between mr-0.5">
-                                                                        <span className="text-left font-bold justify-self-center text-sky-500">{match[1]}</span>
-                                                                        <span className="text-right text-nowrap">{`(${match[2]})`}</span>
+                                                                        <span className={`${direction === 'rtl' ? "text-right" : "text-left"} font-bold justify-self-center text-sky-500`}>{match[1]}</span>
+                                                                        <span className={`${direction === 'rtl' ? "text-left" : "text-right"} text-nowrap`}>{`(${match[2]})`}</span>
                                                                     </div>
-                                                                    <span className="w-5/12 text-right text-nowrap">{match[3]}</span>
+                                                                    <span className={`${direction === 'rtl' ? "text-left" : "text-right"} w-5/12 text-nowrap`}>{adjustReference(match[3])}</span>
                                                                 </div>
                                                             );
                                                         } else {
@@ -427,8 +428,8 @@ const Jump = ({ onChangeLanguage, suraNames, onChangeTheme, colors, theme, trans
 
                                                             return (
                                                                 <div key={index} className="flex justify-between w-full">
-                                                                    <span className="text-left flex-1 font-bold text-sky-500">{namePart}</span>
-                                                                    <span className="text-right flex-1">{pageInfoPart}</span>
+                                                                    <span className={`${direction === 'rtl' ? "text-right" : "text-left"} flex-1 font-bold text-sky-500`}>{namePart}</span>
+                                                                    <span className={`${direction === 'rtl' ? "text-left" : "text-right"} flex-1`}>{adjustReference(pageInfoPart)}</span>
                                                                 </div>
                                                             );
                                                         }

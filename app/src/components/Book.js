@@ -7,6 +7,7 @@ import Jump from '../components/Jump';
 import Magnify from '../components/Magnify';
 import Splash from '../components/Splash';
 import Intro from '../components/Intro';
+import { adjustReference } from '../utils/Mapper';
 import '../assets/css/Book.css';
 
 const Book = ({ onChangeTheme, colors, theme, translationApplication, introductionContent, quranData, map, appendicesContent, translation, onChangeLanguage, direction }) => {
@@ -408,14 +409,6 @@ const Book = ({ onChangeTheme, colors, theme, translationApplication, introducti
         const intro = translationApplication.intro;
         const appendixRegex = new RegExp(`${app}`, 'g');
         const introRegex = new RegExp(`${intro}`, 'gi');
-
-        const adjustReference = (ref) => {
-            const reverseRegex = /(\d+-\d+:\d+)/g;
-            if (ref.includes("-") && ref.match(reverseRegex)) {
-                return ref.trim().split('-').reverse().join('-');
-            }
-            return ref;
-        }
 
         const replaceAppendixNumbers = (part) => {
             return part.split(/(\d+)/).map((segment, index) => {

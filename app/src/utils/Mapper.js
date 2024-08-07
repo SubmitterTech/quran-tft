@@ -74,3 +74,11 @@ export const mapQuran = (quran) => {
     });
     return qm;
 };
+
+export const adjustReference = (ref) => {
+    const reverseRegex = /(\d+-\d+:\d+)/g;
+    if (ref.includes("-") && ref.match(reverseRegex)) {
+        return ref.trim().split('-').reverse().join('-');
+    }
+    return ref;
+}
