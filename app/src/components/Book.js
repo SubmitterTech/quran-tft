@@ -462,13 +462,13 @@ const Book = ({ onChangeTheme, colors, theme, translationApplication, introducti
 
                     if (oldscripture) {
                         elements.push(
-                            <span key={index} dir={"ltr"} className="text-nowrap " >
+                            <span key={index} dir={"ltr"} className="text-nowrap text-right ml-0.5" >
                                 {match[0]}
                             </span>
                         );
                     } else {
                         elements.push(
-                            <span key={index} dir={"ltr"} className="cursor-pointer text-nowrap text-sky-500" onClick={() => controller ? controller(match[0]) : handleClickReference(match[0])}>
+                            <span key={index} dir={"ltr"} className="cursor-pointer text-nowrap text-right ml-0.5 text-sky-500" onClick={() => controller ? controller(match[0]) : handleClickReference(match[0])}>
                                 {match[0]}
                             </span>
                         );
