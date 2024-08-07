@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import languages from '../assets/languages.json';
 import { getRandom } from '../utils/Generator';
 import { adjustReference } from '../utils/Mapper';
+import { ThemePicker } from '../utils/Colors';
 
 const Jump = ({ onChangeLanguage, suraNames, onChangeTheme, colors, theme, translationApplication, currentPage, quran, onClose, onConfirm, onMagnify, direction }) => {
     const [suraNumber, setSuraNumber] = useState("0");
@@ -184,40 +185,6 @@ const Jump = ({ onChangeLanguage, suraNames, onChangeTheme, colors, theme, trans
         onClose();
     };
 
-    const ThemePicker = ({ onChangeTheme }) => {
-        const themes = {
-            light: "#fafafa",
-            dark: "#262626",
-            indigo: "#312e81",
-            green: "#115e59",
-            sky: "#075985",
-        };
-
-        return (
-            <div className={`flex space-x-2 w-full h-full`}>
-                {Object.entries(themes).map(([localTheme, color]) => (
-                    <label key={localTheme} className="flex cursor-pointer flex-1 items-stretch">
-                        <input
-                            type="radio"
-                            name="theme"
-                            value={localTheme}
-                            onChange={(e) => onChangeTheme(e.target.value)}
-                            className="hidden"
-                        />
-                        <span
-                            className={`flex items-center justify-center rounded flex-1 ${localTheme === theme ? `border-2 ${colors[theme]["matching-border"]}` : "border border-gray-400"} h-20`}
-                            style={{ backgroundColor: color }}>
-                            {localTheme === theme &&
-                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" className={`${colors[theme]["matching-text"]} w-9 h-9`}>
-                                    <path fillRule="evenodd" d="M19.916 4.626a.75.75 0 0 1 .208 1.04l-9 13.5a.75.75 0 0 1-1.154.114l-6-6a.75.75 0 0 1 1.06-1.06l5.353 5.353 8.493-12.74a.75.75 0 0 1 1.04-.207Z" clipRule="evenodd" />
-                                </svg>}
-                        </span>
-                    </label>
-                ))}
-            </div>
-        );
-    };
-
     function formatDate(timestamp) {
         if (/^\d+$/.test(String(timestamp).trim())) {
             const date = new Date(parseInt(timestamp, 10));
@@ -336,10 +303,13 @@ const Jump = ({ onChangeLanguage, suraNames, onChangeTheme, colors, theme, trans
                                         ))}
                                     </div>
                                 ) : showThemes ? (
-                                    <div className={`flex flex-col items-center justify-center h-36 m-2 `}>
+                                    <div className={`flex flex-col items-center justify-center h-40 m-2 `}>
                                         <div className={`flex flex-col justify-center ${colors[theme]["notes-background"]} rounded h-full w-full p-2`}>
                                             <div>
-                                                <ThemePicker onChangeTheme={onChangeTheme} />
+                                                <ThemePicker 
+                                                theme={theme}
+                                                colors={colors}
+                                                onChangeTheme={onChangeTheme} />
                                             </div>
                                         </div>
                                     </div>
