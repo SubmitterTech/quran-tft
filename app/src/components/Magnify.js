@@ -393,7 +393,7 @@ const Magnify = ({ colors, theme, translationApplication, quran, map, appendices
                     key={index}
                     className={`rounded p-2  ${colors[theme]["text-background"]}`}
                     onClick={() => handleConfirm(`${suraNumber}:${verseNumber}`)}>
-                    <span className="text-sky-500">{suraNumber}:{verseNumber}</span> {text}
+                    <span className={`text-sky-500 ${direction === 'rtl' && "ml-1" }`}>{suraNumber}:{verseNumber}</span>{text}
                 </div>
             ));
         }
@@ -566,6 +566,8 @@ const Magnify = ({ colors, theme, translationApplication, quran, map, appendices
                                 {Object.entries(loadedMap).map(([exp, themeorref], index) => (
                                     <div
                                         key={index + exp}
+                                        lang={lang}
+                                        dir={direction}
                                         id={`theme-container-${index}-${searchTerm}`}
                                         className={`rounded ${colors[theme]["base-background"]} ${themeorref.length === 0 ? "brightness-75" : ""}`}>
                                         <div
