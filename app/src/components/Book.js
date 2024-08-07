@@ -403,11 +403,19 @@ const Book = ({ onChangeTheme, colors, theme, translationApplication, introducti
     };
 
     const parseReferencesRTL = (text, controller = null) => {
-        const verseRegex = /(\d+-\d+:\d+|\d+:\d+(?:-\d+)?)/g;
+        const verseRegex = /(\d+:\d+-\d+|\d+-\d+:\d+|\d+:\d+)/g;
         const app = translation ? translationApplication.appendix : translationApplication.appendix + "?";
         const intro = translationApplication.intro;
         const appendixRegex = new RegExp(`${app}`, 'g');
         const introRegex = new RegExp(`${intro}`, 'gi');
+
+        const adjustReference = (ref) => {
+            const reverseRegex = /(\d+-\d+:\d+)/g;
+            if (ref.includes("-") && ref.match(reverseRegex)) {
+                return ref.trim().split('-').reverse().join('-');
+            }
+            return ref;
+        }
 
         const replaceAppendixNumbers = (part) => {
             return part.split(/(\d+)/).map((segment, index) => {
@@ -430,30 +438,12 @@ const Book = ({ onChangeTheme, colors, theme, translationApplication, introducti
 
         const result = splitted.map((part, i) => {
 
-            if (part.match(appendixRegex)) {
-                processingAppendix = true;
-                return part;
-            }
-
-            if (processingAppendix) {
-                if (part.match(/\d+/)) {
-                    if (part.includes('.')) {
-                        processingAppendix = false;
-                    }
-                    return replaceAppendixNumbers(part);
-                } else if (['&', translationApplication.and].includes(part.trim())) {
-                    return part;
-                } else {
-                    processingAppendix = false;
-                }
-            }
 
             if (part.match(verseRegex)) {
-                part = part.trim().split('-').reverse().join('-');
+                part = adjustReference(part)
                 const matches = [...part.matchAll(verseRegex)];
                 let lastIndex = 0;
                 const elements = [];
-
                 matches.forEach((match, index) => {
                     elements.push(part.slice(lastIndex, match.index));
                     const reference = splitted[i - 1] ? ((splitted[i - 2] && !splitted[i - 2].match(/\d+/) ? splitted[i - 2].trim() : " ") + "" + splitted[i - 1].trim()) : null
@@ -471,10 +461,14 @@ const Book = ({ onChangeTheme, colors, theme, translationApplication, introducti
                     }
 
                     if (oldscripture) {
-                        elements.push(match[0]);
+                        elements.push(
+                            <span key={index} dir={"ltr"} className="text-nowrap " >
+                                {match[0]}
+                            </span>
+                        );
                     } else {
                         elements.push(
-                            <span key={index} dir={direction} className="cursor-pointer text-sky-500" onClick={() => controller ? controller(match[0]) : handleClickReference(match[0])}>
+                            <span key={index} dir={"ltr"} className="cursor-pointer text-nowrap text-sky-500" onClick={() => controller ? controller(match[0]) : handleClickReference(match[0])}>
                                 {match[0]}
                             </span>
                         );
@@ -484,6 +478,24 @@ const Book = ({ onChangeTheme, colors, theme, translationApplication, introducti
 
                 elements.push(part.slice(lastIndex));
                 return elements;
+            }
+
+            if (part.match(appendixRegex)) {
+                processingAppendix = true;
+                return part;
+            }
+
+            if (processingAppendix) {
+                if (part.match(/\d+/)) {
+                    if (part.includes('.')) {
+                        processingAppendix = false;
+                    }
+                    return replaceAppendixNumbers(part);
+                } else if (['&', translationApplication.and].includes(part.trim())) {
+                    return part;
+                } else {
+                    processingAppendix = false;
+                }
             }
 
             if (introRegex.test(part)) {
