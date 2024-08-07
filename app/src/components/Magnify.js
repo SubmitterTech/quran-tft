@@ -393,7 +393,7 @@ const Magnify = ({ colors, theme, translationApplication, quran, map, appendices
                     key={index}
                     className={`rounded p-2  ${colors[theme]["text-background"]}`}
                     onClick={() => handleConfirm(`${suraNumber}:${verseNumber}`)}>
-                    <span className={`text-sky-500 ${direction === 'rtl' && "ml-1" }`}>{suraNumber}:{verseNumber}</span>{text}
+                    <span className={`text-sky-500 ${direction === 'rtl' ? "ml-1": "mr-1" }`}>{suraNumber}:{verseNumber}</span>{text}
                 </div>
             ));
         }
