@@ -8,11 +8,11 @@ const Magnify = ({ colors, theme, translationApplication, quran, map, appendices
     //const [exactMatch, setExactMatch] = useState(false);
     const [caseSensitive, setCaseSensitive] = useState(() => {
         const saved = localStorage.getItem("case");
-        return saved !== null ? JSON.parse(saved) : false;
+        return (saved !== null && direction !== 'rtl' ) ? JSON.parse(saved) : false;
     });
     const [normalize, setNormalize] = useState(() => {
         const saved = localStorage.getItem("norm");
-        return saved !== null ? JSON.parse(saved) : true;
+        return (saved !== null && direction !== 'rtl' ) ? JSON.parse(saved) : direction !== 'rtl';
     });
     const [optionsVisible, setOptionsVisible] = useState(false);
 
