@@ -154,7 +154,7 @@ export const colorThemes = {
 export const ThemePicker = ({ theme, colors, onChangeTheme }) => {
     
     return (
-        <div className={`grid grid-flow-dense grid-cols-3 gap-2 gap-y-3 w-full h-full`}>
+        <div className={`grid grid-flow-dense grid-cols-3 gap-4 w-full h-full`}>
             {Object.entries(colors).map(([localTheme]) => (
                 <label key={localTheme} className="flex cursor-pointer flex-1 items-stretch">
                     <input
@@ -165,7 +165,7 @@ export const ThemePicker = ({ theme, colors, onChangeTheme }) => {
                         className="hidden"
                     />
                     <span
-                        className={`flex items-center justify-center rounded flex-1 ${colors[localTheme]["text-background"]} ${localTheme === theme ? `border-2 ${colors[theme]["matching-border"]}` : "border border-gray-400"} h-16`}>
+                        className={`flex items-center justify-center rounded flex-1 ${colors[localTheme]["text-background"]} ${localTheme === theme ? `border-2 ${colors[theme]["matching-border"]}` : "border border-gray-400"} h-20`}>
                         {localTheme === theme &&
                             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" className={`${colors[theme]["matching-text"]} w-9 h-9`}>
                                 <path fillRule="evenodd" d="M19.916 4.626a.75.75 0 0 1 .208 1.04l-9 13.5a.75.75 0 0 1-1.154.114l-6-6a.75.75 0 0 1 1.06-1.06l5.353 5.353 8.493-12.74a.75.75 0 0 1 1.04-.207Z" clipRule="evenodd" />

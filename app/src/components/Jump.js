@@ -252,7 +252,7 @@ const Jump = ({ onChangeLanguage, suraNames, onChangeTheme, colors, theme, trans
                                             <path strokeLinecap="round" strokeLinejoin="round" d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607z" />
                                         </svg>
                                     </button>
-                                    <div className={`flex items-center ml-3 ${colors[theme]["matching-text"]} text-xl`}>
+                                    <div className={`flex items-center ml-3 font-semibold ${colors[theme]["matching-text"]} text-xl`}>
                                         {translationApplication.search}<span className={`${colors[theme]["text"]}`}>{"..."}</span>
                                     </div>
                                 </div>
@@ -303,8 +303,8 @@ const Jump = ({ onChangeLanguage, suraNames, onChangeTheme, colors, theme, trans
                                         ))}
                                     </div>
                                 ) : showThemes ? (
-                                    <div className={`flex flex-col items-center justify-center h-40 m-2 `}>
-                                        <div className={`flex flex-col justify-center ${colors[theme]["notes-background"]} rounded h-full w-full p-2`}>
+                                    <div className={`flex flex-col items-center justify-center h-48 m-2`}>
+                                        <div className={`flex flex-col justify-center ${colors[theme]["notes-background"]} rounded h-full w-full px-2`}>
                                             <div>
                                                 <ThemePicker 
                                                 theme={theme}
