@@ -7,6 +7,7 @@ import Jump from '../components/Jump';
 import Magnify from '../components/Magnify';
 import Splash from '../components/Splash';
 import Intro from '../components/Intro';
+import Isbn from '../components/Isbn';
 import { adjustReference } from '../utils/Mapper';
 import '../assets/css/Book.css';
 
@@ -65,6 +66,9 @@ const Book = ({ onChangeTheme, colors, theme, translationApplication, introducti
             let pgs = [];
             Object.values(introductionContent).forEach((item) => {
                 pgs.push(item.page)
+                if(item.page === 1) {
+                    pgs.push(2)
+                }
                 if (item.page === 22) {
                     for (let i = 23; i <= 397; i++) {
                         pgs.push(i);
@@ -152,7 +156,7 @@ const Book = ({ onChangeTheme, colors, theme, translationApplication, introducti
         let newPage = parseInt(currentPage) > 396 ? parseInt(currentPage) : parseInt(currentPage) + 1;
 
         // Skip specified pages
-        const skipPages = [2, 3, 4, 8, 9, 10, 12];
+        const skipPages = [3, 4, 8, 9, 10, 12];
         while (skipPages.includes(newPage)) {
             newPage++;
         }
@@ -572,7 +576,14 @@ const Book = ({ onChangeTheme, colors, theme, translationApplication, introducti
                 direction={direction} />;
         }
 
-        if (parseInt(currentPage) > 1 && parseInt(currentPage) <= 21) {
+        if (parseInt(currentPage) === 2) {
+            return <Isbn
+                colors={colors}
+                theme={theme}
+                translationApplication={translationApplication} />;
+        }
+
+        if (parseInt(currentPage) > 2 && parseInt(currentPage) <= 21) {
             return <Intro
                 colors={colors}
                 theme={theme}
