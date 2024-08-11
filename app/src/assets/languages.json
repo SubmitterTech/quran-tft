@@ -25,13 +25,13 @@
     },
     "de": {
         "name": "Deutsch Übersetzung",
-        "comp": 64.52,
+        "comp": 66.69,
         "dir": "ltr",
         "nums": "0 1 2 3 4 5 6 7 8 9"
     },
     "ru": {
         "name": "Русский Перевод",
-        "comp": 34.14,
+        "comp": 33.42,
         "dir": "ltr",
         "nums": "0 1 2 3 4 5 6 7 8 9"
     },
