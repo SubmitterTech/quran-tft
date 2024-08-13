@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { useParams, useLocation } from 'react-router-dom';
 import Cover from '../components/Cover';
 import Book from '../components/Book';
 import { colorThemes } from '../utils/Colors';
@@ -11,19 +12,21 @@ import map from '../assets/map.json';
 import languages from '../assets/languages.json';
 
 function Root() {
+    const { language, id } = useParams();
+    const location = useLocation();
+    const isSearch = location.pathname.endsWith('/search');
+    const isAppendix = location.pathname.match(/\/appendix\/\d+$/) !== null;
+
     const colors = colorThemes;
-    const [showCover, setShowCover] = useState(localStorage.getItem("qurantft-pn") ? false : (process.env.REACT_APP_DEFAULT_LANG ? false : true));
+    const [showCover, setShowCover] = useState(localStorage.getItem("qurantft-pn") ? false : ((isSearch || isAppendix) ? false : process.env.REACT_APP_DEFAULT_LANG ? false : true));
     const [coverData, setCoverData] = useState(cover);
-    const [lang, setLang] = useState(localStorage.getItem("lang") ? localStorage.getItem("lang") : process.env.REACT_APP_DEFAULT_LANG || "en");
+    const [lang, setLang] = useState(language ? language : localStorage.getItem("lang") ? localStorage.getItem("lang") : process.env.REACT_APP_DEFAULT_LANG || "en");
 
     const [translation, setTranslation] = useState(null);
     const [translationApplication, setTranslationApplication] = useState(application);
     const [translationIntro, setTranslationIntro] = useState(introductionContent);
     const [translationAppx, setTranslationAppx] = useState(appendicesContent);
     const [translationMap, setTranslationMap] = useState(map);
-
-
-
     const [theme, setTheme] = useState(localStorage.getItem("theme") ? localStorage.getItem("theme") : "sky");
 
     const onChangeTheme = (theme) => {
@@ -116,6 +119,9 @@ function Root() {
         <div className={`Root select-none flex flex-col h-screen`}>
             {showCover && <Cover onCoverSeen={hideCover} coverData={coverData} lang={lang} onChangeLanguage={setLang} />}
             {!showCover && <Book
+                incomingSearch={isSearch ? isSearch : false}
+                incomingAppendix={isAppendix ? isAppendix : false}
+                incomingAppendixNumber={id ? (id > 0 && id < 39) ? id : 1 : 1}
                 onChangeTheme={onChangeTheme}
                 colors={colors} theme={theme}
                 translationApplication={translationApplication}
@@ -125,7 +131,7 @@ function Root() {
                 appendicesContent={translationAppx}
                 translation={translation}
                 onChangeLanguage={setLang}
-                direction={languages[lang]["dir"]}
+                direction={languages[lang] ? languages[lang]["dir"] : languages["en"]["dir"]}
             />}
         </div>
     );

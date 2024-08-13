@@ -11,7 +11,7 @@ import Isbn from '../components/Isbn';
 import { adjustReference } from '../utils/Mapper';
 import '../assets/css/Book.css';
 
-const Book = ({ onChangeTheme, colors, theme, translationApplication, introductionContent, quranData, map, appendicesContent, translation, onChangeLanguage, direction }) => {
+const Book = ({ incomingSearch = false, incomingAppendix = false, incomingAppendixNumber = 1,onChangeTheme, colors, theme, translationApplication, introductionContent, quranData, map, appendicesContent, translation, onChangeLanguage, direction }) => {
     const lang = localStorage.getItem("lang")
     const [selectOpen, setSelectOpen] = useState(false);
     const magnifyConfirm = useRef(false);
@@ -21,14 +21,14 @@ const Book = ({ onChangeTheme, colors, theme, translationApplication, introducti
     const [selectedSura, setSelectedSura] = useState(null);
     const [selectedVerse, setSelectedVerse] = useState(null);
     const [action, setAction] = useState(null);
-    const [isSearchOpen, setSearchOpen] = useState(false);
+    const [isSearchOpen, setSearchOpen] = useState(incomingSearch);
     const restoreAppText = useRef(null);
     const restoreIntroText = useRef(null);
     const endReferenceToRestore = useRef(null);
     const appxReferenceToJump = useRef(null);
     const beginingReferenceToRestore = useRef(null);
     const [pages, setPages] = useState([]);
-    const [selectedApp, setSelectedApp] = useState(1);
+    const [selectedApp, setSelectedApp] = useState(incomingAppendixNumber);
     const [backButtonPressedOnce, setBackButtonPressedOnce] = useState(false);
     const [remainingTime, setRemainingTime] = useState(0);
     const progressPercentage = (remainingTime / 19000) * 100;
@@ -55,6 +55,12 @@ const Book = ({ onChangeTheme, colors, theme, translationApplication, introducti
 
         return newAppendices;
     }
+
+    useEffect(() => {
+        if (incomingAppendix) {
+            setCurrentPage(397);
+        }
+    }, [incomingAppendix]);
 
     useEffect(() => {
         if (appendicesContent) {

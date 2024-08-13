@@ -7,8 +7,13 @@ function App() {
     <Router basename={process.env.PUBLIC_URL}>
       <Routes>
         <Route path="/" element={<Root />} />
+        <Route path="/:language/appendix/:id" element={<Root />} />
+        <Route path="/:language/search" element={<Root />} />
+        <Route path="/appendix/:id" element={<Root />} />
+        <Route path="/search" element={<Root />} />
         <Route path="/:lang/:params" element={<Leaf />} />
         <Route path="/:params" element={<Leaf />} />
+        <Route path="*" element={<Leaf />} />
       </Routes>
     </Router>
   );
