@@ -4,15 +4,15 @@ import { mapAppendices, mapQuran } from '../utils/Mapper';
 const Magnify = ({ colors, theme, translationApplication, quran, map, appendices, onClose, onConfirm, direction }) => {
     const lang = localStorage.getItem("lang")
 
-    const [searchTerm, setSearchTerm] = useState("");
+    const [searchTerm, setSearchTerm] = useState(localStorage.getItem("st") ? localStorage.getItem("st") : "");
     //const [exactMatch, setExactMatch] = useState(false);
     const [caseSensitive, setCaseSensitive] = useState(() => {
         const saved = localStorage.getItem("case");
-        return (saved !== null && direction !== 'rtl' ) ? JSON.parse(saved) : false;
+        return (saved !== null && direction !== 'rtl') ? JSON.parse(saved) : false;
     });
     const [normalize, setNormalize] = useState(() => {
         const saved = localStorage.getItem("norm");
-        return (saved !== null && direction !== 'rtl' ) ? JSON.parse(saved) : direction !== 'rtl';
+        return (saved !== null && direction !== 'rtl') ? JSON.parse(saved) : direction !== 'rtl';
     });
     const [optionsVisible, setOptionsVisible] = useState(false);
 
@@ -77,12 +77,6 @@ const Magnify = ({ colors, theme, translationApplication, quran, map, appendices
             localStorage.setItem("st", searchTerm)
         }
     }, [searchTerm]);
-
-    useEffect(() => {
-        if (localStorage.getItem("st")) {
-            setSearchTerm(localStorage.getItem("st"));
-        }
-    }, []);
 
     useEffect(() => {
         localStorage.setItem("case", JSON.stringify(caseSensitive));
@@ -393,7 +387,7 @@ const Magnify = ({ colors, theme, translationApplication, quran, map, appendices
                     key={index}
                     className={`rounded p-2  ${colors[theme]["text-background"]}`}
                     onClick={() => handleConfirm(`${suraNumber}:${verseNumber}`)}>
-                    <span className={`text-sky-500 ${direction === 'rtl' ? "ml-1": "mr-1" }`}>{suraNumber}:{verseNumber}</span>{text}
+                    <span className={`text-sky-500 ${direction === 'rtl' ? "ml-1" : "mr-1"}`}>{suraNumber}:{verseNumber}</span>{text}
                 </div>
             ));
         }
