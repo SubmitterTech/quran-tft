@@ -37,7 +37,13 @@ const Leaf = () => {
         let vl = {};
         let tl = {};
         if (params && params.match(/^\d+:/)) {
-            params.split(";").forEach((param) => {
+            let formula;
+            if (params.includes(";")) {
+                formula = params.split(";");
+            } else if (params.includes("&")) {
+                formula = params.split("&");
+            }
+            formula.forEach((param) => {
                 const trimmedParam = param.trim();
                 if (!trimmedParam) {
                     return;
