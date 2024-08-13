@@ -40,7 +40,7 @@ const Leaf = () => {
             let formula;
             if (params.includes(";")) {
                 formula = params.split(";");
-            } else if (params.includes("&")) {
+            } else { 
                 formula = params.split("&");
             }
             formula.forEach((param) => {
