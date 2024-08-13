@@ -95,8 +95,8 @@ const Leaf = () => {
     }, [params, quranmap]);
 
     return (
-        <div className="select-text fixed w-screen h-screen bg-gradient-to-r from-sky-500 to-cyan-500 pl-2 pb-2 flex flex-col justify-center items-center">
-            <div className="text-base h-12 w-12 md:h-20 md:w-20 lg:h-24 lg:w-24 absolute bottom-5 z-10">
+        <div className="select-text fixed w-screen h-screen bg-gradient-to-r from-sky-500 to-cyan-500 pl-1 pb-2 flex flex-col justify-center items-center">
+            <div className="text-base h-10 w-10 md:h-12 md:w-12 lg:h-14 lg:w-14 absolute bottom-5 ">
                 <Link to="/">
                     <img
                         src="/logo512.png"
@@ -107,23 +107,23 @@ const Leaf = () => {
                 </Link>
             </div>
             {uf ? (
-                <div className="text-neutral-100 text-3xl md:text-6xl ">
+                <div className="text-neutral-50 text-3xl md:text-6xl ">
                     {loc.pathname + " ?"}
                 </div>
             ) : (
-                <div className="w-full md:text-xl lg:w-3/4 lg:text-2xl flex flex-col overflow-auto pr-2 pb-12 md:pb-20 lg:pb-24 z-20">
+                <div className="w-full md:text-xl lg:w-3/4 lg:text-2xl flex flex-col overflow-auto pr-1 mb-10 md:mb-12 lg:mb-14 ">
                     {Object.entries(verseList).map(([key, text]) => (
-                        <div key={key} className="text-neutral-100 text-justify hyphens-auto px-1.5 ">
+                        <div key={key} className="text-neutral-100 text-justify hyphens-auto px-1 ">
                             {titleList[key] && (
                                 <div
                                     key={key + "title"}
-                                    className={`rounded-t whitespace-pre-line bg-gradient-to-r from-sky-500 via-blue-900/80 to-cyan-500 text-center py-2 px-2.5`}>
+                                    className={`rounded-t whitespace-pre-line bg-gradient-to-r from-sky-500 via-blue-900/90 to-cyan-500 text-center py-2 px-2.5`}>
                                     {titleList[key]}
                                 </div>
                             )}
                             <div
                                 key={key + "verse"}
-                                className={`${titleList[key] ? "rounded-b" : "rounded"} shadow-lg bg-neutral-900/95 text-justify hyphens-auto py-1.5 px-2 mb-2`}>
+                                className={`rounded shadow-md bg-neutral-900/95 text-justify hyphens-auto py-1.5 px-2 mb-2`}>
                                 <span className="text-sky-500">{key}</span> {text}
                             </div>
                         </div>
