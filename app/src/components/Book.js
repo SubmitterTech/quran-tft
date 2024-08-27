@@ -8,10 +8,10 @@ import Magnify from '../components/Magnify';
 import Splash from '../components/Splash';
 import Intro from '../components/Intro';
 import Isbn from '../components/Isbn';
-import { adjustReference } from '../utils/Mapper';
+import { adjustReference, generateReferenceMap, transformAppendices, findPageNumber, extractReferenceDetails } from '../utils/Mapper';
 import '../assets/css/Book.css';
 
-const Book = ({ incomingSearch = false, incomingAppendix = false, incomingAppendixNumber = 1,onChangeTheme, colors, theme, translationApplication, introductionContent, quranData, map, appendicesContent, translation, onChangeLanguage, direction }) => {
+const Book = ({ incomingSearch = false, incomingAppendix = false, incomingAppendixNumber = 1, onChangeTheme, colors, theme, translationApplication, introductionContent, quranData, map, appendicesContent, translation, onChangeLanguage, direction }) => {
     const lang = localStorage.getItem("lang")
     const [selectOpen, setSelectOpen] = useState(false);
     const magnifyConfirm = useRef(false);
@@ -32,29 +32,13 @@ const Book = ({ incomingSearch = false, incomingAppendix = false, incomingAppend
     const [backButtonPressedOnce, setBackButtonPressedOnce] = useState(false);
     const [remainingTime, setRemainingTime] = useState(0);
     const progressPercentage = (remainingTime / 19000) * 100;
+    const referenceMap = generateReferenceMap(quranData);
 
     let path = useRef({});
 
     const [appendices, setAppendices] = useState(
         Array.from({ length: 38 }, (_, i) => ({ number: i + 1, title: "" }))
     );
-
-    function transformAppendices(appc) {
-        const lines = appc[1].evidence["2"].lines;
-
-        const newAppendices = Object.entries(lines).map(([key, value]) => {
-
-            const match = value.match(/^(\d+)\.\s*(.+)/);
-            if (match && key > 1) {
-                const elements = value.split(".").filter(element => element);
-
-                return { number: parseInt(elements[0]), title: elements[1].trim() };
-            }
-            return null;
-        }).filter(Boolean);
-
-        return newAppendices;
-    }
 
     useEffect(() => {
         if (incomingAppendix) {
@@ -72,7 +56,7 @@ const Book = ({ incomingSearch = false, incomingAppendix = false, incomingAppend
             let pgs = [];
             Object.values(introductionContent).forEach((item) => {
                 pgs.push(item.page)
-                if(item.page === 1) {
+                if (item.page === 1) {
                     pgs.push(2)
                 }
                 if (item.page === 22) {
@@ -205,30 +189,6 @@ const Book = ({ incomingSearch = false, incomingAppendix = false, incomingAppend
         }
     }, [currentPage, pageHistory, updatePage]);
 
-    const createReferenceMap = () => {
-        const referenceMap = {};
-
-        Object.entries(quranData).forEach(([pageNumber, value]) => {
-            // Ensure that pageValues is an array
-            const pageValues = Array.isArray(value.page) ? value.page : [value.page];
-            const suraVersePattern = /\d+:\d+-?(\d+)?/g;
-            let matches = [];
-
-            pageValues.forEach(pageValue => {
-                const match = pageValue.match(suraVersePattern);
-                if (match) {
-                    matches = matches.concat(match);
-                }
-            });
-
-            referenceMap[pageNumber] = matches;
-        });
-
-        return referenceMap;
-    };
-
-    const referenceMap = createReferenceMap();
-
     const checkOldScripture = (reference) => {
         return (
             reference.includes(translationApplication.acts) ||
@@ -246,42 +206,24 @@ const Book = ({ incomingSearch = false, incomingAppendix = false, incomingAppend
     }
 
     const handleClickReference = (reference) => {
-        if (reference.toLowerCase().includes("introduction") || reference.toLowerCase().includes("intro")) {
+        const lowerRef = reference.toLowerCase();
+
+        if (lowerRef.includes("introduction") || lowerRef.includes("intro")) {
             updatePage(13, null, null, currentPage === 397 ? 'fromAppendix' : 'relationClick', currentPage === 397 ? selectedApp : null);
             return;
         }
-        // Parse the reference to extract sura and verse information
-        let [sura, verses] = reference.split(':');
-        let verseStart, verseEnd;
-        if (verses.includes('-')) {
-            [verseStart, verseEnd] = verses.split('-').map(Number);
-        } else {
-            verseStart = verseEnd = parseInt(verses);
-        }
 
-        // Iterate over the referenceMap to find the correct page number
-        let foundPageNumber = null;
-        Object.entries(referenceMap).forEach(([pageNumber, suraVersesArray]) => {
-            if (foundPageNumber) return; // Skip further iterations if page is already found
-
-            suraVersesArray.forEach(suraVerses => {
-                let [suraMap, verseRange] = suraVerses.split(':');
-                let [verseStartMap, verseEndMap] = verseRange.includes('-') ? verseRange.split('-').map(Number) : [parseInt(verseRange), parseInt(verseRange)];
-
-                if (suraMap === sura && !(verseEnd < verseStartMap || verseStart > verseEndMap)) {
-                    foundPageNumber = pageNumber;
-                }
-            });
-        });
+        const foundPageNumber = findPageNumber(referenceMap, reference);
 
         if (foundPageNumber) {
+            const { sura, verseStart } = extractReferenceDetails(reference);
             let act = magnifyConfirm.current === true ? 'navigate' : 'relationClick';
             if (parseInt(currentPage) < 23) {
                 act = 'fromIntro';
             } else if (parseInt(currentPage) > 396) {
                 act = 'fromAppendix';
             }
-            updatePage(foundPageNumber, sura, verseStart + '', act, currentPage === 397 ? selectedApp : null);
+            updatePage(foundPageNumber, sura, verseStart.toString(), act, currentPage === 397 ? selectedApp : null);
         } else {
             Toast.show({
                 text: translationApplication.refNotFound,
@@ -539,6 +481,7 @@ const Book = ({ incomingSearch = false, incomingAppendix = false, incomingAppend
                     setSearchOpen(false);
                     await Toast.show({
                         text: translationApplication.exitToast,
+                        duration: 'long'
                     });
                     setTimeout(() => setBackButtonPressedOnce(false), 2000);
                 } else {

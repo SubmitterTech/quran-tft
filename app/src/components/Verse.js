@@ -1,7 +1,7 @@
 import React, { useCallback, useEffect, useState, useRef } from 'react';
 import { useSpring, animated } from '@react-spring/web';
 import { useDrag } from '@use-gesture/react';
-import { Clipboard } from '@capacitor/clipboard';
+import { smartCopy } from '../utils/Device';
 
 const Verse = ({ besmele,
     colors,
@@ -52,63 +52,6 @@ const Verse = ({ besmele,
         };
     }, [currentVerseKey, hasAsterisk]);
 
-    const copyToClipboard = (key, x, y) => {
-        const verseKey = `${key} ${verseText}`;
-        let accumulatedText = verseKey;
-        if (hasTitle && parseInt(key.split(":")[1]) !== 1) {
-            accumulatedText = `${hasTitle}\n${accumulatedText}`;
-        }
-
-        function normalizeText(text) {
-            // Remove all non-ASCII characters
-            text = text.replace(/[^\u0020-\u007E]/g, '');
-            // Convert to lowercase
-            text = text.toLowerCase();
-            // Normalize to remove diacritics
-            text = text.normalize("NFD").replace(/[\u0300-\u036f]/g, '');
-            // Remove all characters except for a-z and 0-9
-            text = text.replace(/[^a-z0-9]/g, '');
-            return text;
-        }
-
-        // Update the current verse copy before checking for notes
-        accumulatedCopiesRef.current = {
-            ...accumulatedCopiesRef.current,
-            [key]: accumulatedText
-        };
-
-        if (hasNotes) {
-            // Normalize and check the whole current text for notes
-            let currentText = Object.values(accumulatedCopiesRef.current).join("\n\n");
-            let sourcetext = normalizeText(currentText);
-            let notestext = normalizeText(hasNotes);
-
-            if (!sourcetext.includes(notestext)) {
-                accumulatedCopiesRef.current[key] += `\n\n${hasNotes}`;
-            }
-        }
-
-        let textToCopy = "";
-        Object.values(accumulatedCopiesRef.current).forEach((txt) => {
-            textToCopy += txt + "\n\n";
-        });
-
-        const writeToClipboard = async () => {
-            try {
-                await Clipboard.write({
-                    string: textToCopy
-                });
-                let keys = Object.keys(accumulatedCopiesRef.current).join(", ");
-                setTooltip({ visible: true, x, y, keys: keys });
-                setTimeout(() => setTooltip({ ...tooltip, visible: false }), 2400);
-            } catch (err) {
-                console.error('Failed to copy text: ', err);
-            }
-        };
-
-        writeToClipboard();
-    };
-
     const handleBookmark = (verseKey) => {
         let bms = {};
         if (isMarked) {
@@ -125,7 +68,7 @@ const Verse = ({ besmele,
 
     const handleCopy = () => {
         const clip = `[${currentVerseKey}]`;
-        copyToClipboard(clip);
+        smartCopy(clip, accumulatedCopiesRef, verseText, hasTitle, hasNotes, tooltip, setTooltip);
         if (copyTimerRef.current) {
             clearTimeout(copyTimerRef.current);
         }

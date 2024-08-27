@@ -81,4 +81,86 @@ export const adjustReference = (ref) => {
         return ref.trim().split('-').reverse().join('-');
     }
     return ref;
-}
+};
+
+export const generateReferenceMap = (quran) => {
+    const referenceMap = {};
+
+    Object.entries(quran).forEach(([pageNumber, value]) => {
+        // Ensure that pageValues is an array
+        const pageValues = Array.isArray(value.page) ? value.page : [value.page];
+        const suraVersePattern = /\d+:\d+-?(\d+)?/g;
+        let matches = [];
+
+        pageValues.forEach(pageValue => {
+            const match = pageValue.match(suraVersePattern);
+            if (match) {
+                matches = matches.concat(match);
+            }
+        });
+
+        referenceMap[pageNumber] = matches;
+    });
+
+    return referenceMap;
+};
+
+export const transformAppendices = (appc) => {
+    const lines = appc[1].evidence["2"].lines;
+
+    const newAppendices = Object.entries(lines).map(([key, value]) => {
+
+        const match = value.match(/^(\d+)\.\s*(.+)/);
+        if (match && key > 1) {
+            const elements = value.split(".").filter(element => element);
+
+            return { number: parseInt(elements[0]), title: elements[1].trim() };
+        }
+        return null;
+    }).filter(Boolean);
+
+    return newAppendices;
+};
+
+export const extractReferenceDetails = (reference) => {
+    let [sura, verses] = reference.split(':');
+    let verseStart, verseEnd;
+
+    if (verses.includes('-')) {
+        [verseStart, verseEnd] = verses.split('-').map(Number);
+    } else {
+        verseStart = verseEnd = parseInt(verses);
+    }
+
+    return { sura, verseStart, verseEnd };
+};
+
+export const isVerseInRange = (verseStart, verseEnd, verseStartMap, verseEndMap) => {
+    return !(verseEnd < verseStartMap || verseStart > verseEndMap);
+};
+
+export const findPageNumberInSuraVerses = (sura, verseStart, verseEnd, suraVersesArray) => {
+    for (const suraVerses of suraVersesArray) {
+        const [suraMap, verseRange] = suraVerses.split(':');
+        const [verseStartMap, verseEndMap] = verseRange.includes('-') 
+            ? verseRange.split('-').map(Number) 
+            : [parseInt(verseRange), parseInt(verseRange)];
+
+        if (suraMap === sura && isVerseInRange(verseStart, verseEnd, verseStartMap, verseEndMap)) {
+            return true;
+        }
+    }
+    return false;
+};
+
+export const findPageNumber = (referenceMap, reference) => {
+    const { sura, verseStart, verseEnd } = extractReferenceDetails(reference);
+
+    for (const [pageNumber, suraVersesArray] of Object.entries(referenceMap)) {
+        if (findPageNumberInSuraVerses(sura, verseStart, verseEnd, suraVersesArray)) {
+            return pageNumber;
+        }
+    }
+
+    return null;
+};
