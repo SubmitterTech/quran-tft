@@ -6,6 +6,7 @@
     "loading": "Chargement...",
     "unrecognizedData": "Données structurées non reconnues ou impossible d'analyser les données...",
     "refNotFound": "Référence introuvable dans le livre",
+    "shareNotSupported": "Le partage n'est pas pris en charge sur cet appareil",
     "exitToast": "Appuyez à nouveau pour quitter",
     "appendices": "Annexes",
     "appendix": "Annexe",

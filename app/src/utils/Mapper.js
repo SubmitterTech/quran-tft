@@ -164,3 +164,58 @@ export const findPageNumber = (referenceMap, reference) => {
 
     return null;
 };
+
+export const generateFormula = (list) => {
+    const sortedList = list.sort((a, b) => {
+        const [suraA, verseA] = a.split(':').map(Number);
+        const [suraB, verseB] = b.split(':').map(Number);
+    
+        if (suraA !== suraB) {
+            return suraA - suraB;
+        } else {
+            return verseA - verseB;
+        }
+    });
+
+
+    const grouped = {};
+    sortedList.forEach(item => {
+        const [sura, verse] = item.split(':').map(Number);
+        if (!grouped[sura]) {
+            grouped[sura] = [];
+        }
+        grouped[sura].push(verse);
+    });
+
+    const formula = Object.entries(grouped).map(([sura, verses]) => {
+        verses.sort((a, b) => a - b);
+
+        const ranges = [];
+        let start = verses[0];
+        let end = verses[0];
+
+        for (let i = 1; i < verses.length; i++) {
+            if (verses[i] === end + 1) {
+                end = verses[i];
+            } else {
+                if (start === end) {
+                    ranges.push(`${start}`);
+                } else {
+                    ranges.push(`${start}-${end}`);
+                }
+                start = verses[i];
+                end = verses[i];
+            }
+        }
+        
+        if (start === end) {
+            ranges.push(`${start}`);
+        } else {
+            ranges.push(`${start}-${end}`);
+        }
+
+        return `${sura}:${ranges.join(",")}`;
+    }).join("&");
+
+    return formula;
+};

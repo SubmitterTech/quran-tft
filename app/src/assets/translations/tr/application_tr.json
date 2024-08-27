@@ -6,6 +6,7 @@
     "loading": "Yükleniyor...",
     "unrecognizedData": "Tanınmayan yapılandırılmış veriler veya veriler ayrıştırılamadı...",
     "refNotFound": "Referans kitapta bulunamadı",
+    "shareNotSupported": "Paylaşım bu cihazda desteklenmiyor",
     "exitToast": "Çıkmak için tekrar geri tuşuna basın",
     "appendices": "Ekler",
     "appendix": "Ek",

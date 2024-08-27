@@ -6,6 +6,7 @@
     "loading": "Loading...",
     "unrecognizedData": "Unrecognized structured data or could not parse the data...",
     "refNotFound": "Reference not found in the book",
+    "shareNotSupported": "Sharing is not supported on this device",
     "exitToast": "Press back again to exit",
     "appendices": "Appendices",
     "appendix": "Appendix",

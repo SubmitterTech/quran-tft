@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useRef, useCallback } from 'react';
 import { App } from '@capacitor/app';
 import { Toast } from '@capacitor/toast';
+import { Share } from '@capacitor/share';
 import { Toaster, toast } from 'react-hot-toast';
 import Pages from '../components/Pages';
 import Apps from '../components/Apps';
@@ -9,7 +10,7 @@ import Magnify from '../components/Magnify';
 import Splash from '../components/Splash';
 import Intro from '../components/Intro';
 import Isbn from '../components/Isbn';
-import { adjustReference, generateReferenceMap, transformAppendices, findPageNumber, extractReferenceDetails, mapQuran } from '../utils/Mapper';
+import { adjustReference, generateReferenceMap, transformAppendices, findPageNumber, extractReferenceDetails, mapQuran, generateFormula } from '../utils/Mapper';
 import { listCopy } from '../utils/Device';
 import '../assets/css/Book.css';
 
@@ -536,9 +537,27 @@ const Book = ({ incomingSearch = false, incomingAppendix = false, incomingAppend
         setMultiSelect(false);
     };
 
-    const handleShare = () => {
-        console.log(selectedVerseList)
-        setMultiSelect(false);
+    const handleShare = async () => {
+        try {
+            const canShare = await Share.canShare();
+
+            if (canShare.value) {
+                await Share.share({
+                    title: translationApplication.bsml,
+                    url: 'https://qurantft.com/' + lang + '/' + generateFormula(selectedVerseList),
+                    dialogTitle: translationApplication.bsml,
+                });
+            } else {
+                toast.error(translationApplication.shareNotSupported, {
+                    duration: 5000,
+                });
+                console.error('Sharing is not supported on this device.');
+            }
+        } catch (error) {
+            console.error('Error checking share capability:', error);
+        } finally {
+            setMultiSelect(false);
+        }
     };
 
     const renderBookContent = () => {

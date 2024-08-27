@@ -6,6 +6,7 @@
     "loading": "wird geladen... ",
     "unrecognizedData": "Unerkannte strukturierte Daten oder die Daten konnten nicht analysiert werden",
     "refNotFound": "Referenz im Buch nicht gefunden",
+    "shareNotSupported": "Freigabe wird auf diesem Gerät nicht unterstützt",
     "exitToast": "Drücken sie erneut die Zurück-Taste, um den Vorgang zu beenden",
     "appendices": "Anhänge",
     "appendix": "Anhang",
