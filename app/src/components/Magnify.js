@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useCallback, useRef } from 'react';
 import { mapAppendices, mapQuran } from '../utils/Mapper';
 
-const Magnify = ({ colors, theme, translationApplication, quran, map, appendices, onClose, onConfirm, direction }) => {
+const Magnify = ({ colors, theme, translationApplication, quran, map, appendices, onClose, onConfirm, direction, multiSelect, setMultiSelect, selectedVerseList, setSelectedVerseList }) => {
     const lang = localStorage.getItem("lang")
 
     const [searchTerm, setSearchTerm] = useState(localStorage.getItem("st") ? localStorage.getItem("st") : "");
@@ -15,6 +15,7 @@ const Magnify = ({ colors, theme, translationApplication, quran, map, appendices
         return (saved !== null && direction !== 'rtl') ? JSON.parse(saved) : direction !== 'rtl';
     });
     const [optionsVisible, setOptionsVisible] = useState(false);
+
 
     const [titlesVisible, setTitlesVisible] = useState(false);
     const [versesVisible, setVersesVisible] = useState(true);
@@ -31,6 +32,7 @@ const Magnify = ({ colors, theme, translationApplication, quran, map, appendices
     const [loadedNotes, setLoadedNotes] = useState([]);
     const [loadedMap, setLoadedMap] = useState([]);
     const [loadedAppendices, setLoadedAppendices] = useState([]);
+
 
     const batchSize = 19;
     const observerTitles = useRef();
@@ -330,10 +332,29 @@ const Magnify = ({ colors, theme, translationApplication, quran, map, appendices
 
     }, [searchResultTitles, searchResultVerses, searchResultNotes, searchResultAppendices]);
 
-    const handleConfirm = (key) => {
-        if (onConfirm) {
-            onConfirm(key);
-            onClose();
+    useEffect(() => {
+        if (!multiSelect) {
+            setSelectedVerseList([]);
+        }
+
+    }, [multiSelect, setSelectedVerseList]);
+
+    const handleConfirm = (key, type = null) => {
+        if (multiSelect && type) {
+            if (type === 'verse') {
+                setSelectedVerseList((prevList) => {
+                    if (prevList.includes(key)) {
+                        return prevList.filter(verse => verse !== key);
+                    } else {
+                        return [...prevList, key];
+                    }
+                });
+            }
+        } else {
+            if (onConfirm) {
+                onConfirm(key);
+                onClose();
+            }
         }
     };
 
@@ -448,12 +469,12 @@ const Magnify = ({ colors, theme, translationApplication, quran, map, appendices
                 {searchTerm.length > 1 &&
                     <div
                         dir={direction}
-                        className={`flex flex-col lg:grid lg:grid-cols-2 lg:grid-flow-row lg:px-1 gap-0.5 w-full overflow-auto mb-12 md:mb-14 lg:mb-16 flex-1`}>
+                        className={`flex flex-col lg:grid lg:grid-cols-2 lg:grid-flow-row lg:px-1 gap-1 w-full overflow-auto py-0.5 mb-12 md:mb-14 lg:mb-16 flex-1`}>
 
-                        <div className={`${loadedTitles.length > 0 ? titlesVisible ? `flex-1 p-1 mx-1 lg:mx-0 border ${colors[theme]["text-background"]}` : `h-10 p-1 mx-1 lg:mx-0 border ${colors[theme]["base-background"]}` : "hidden"} ${loadedVerses.length > 0 ? "" : "lg:col-span-2"} transition-all duration-100 ease-linear  overflow-auto rounded ${colors[theme]["verse-border"]} `}>
+                        <div className={`${loadedTitles.length > 0 ? titlesVisible ? `flex-1 mx-1 lg:mx-0 ring-1 ${colors[theme]["text-background"]}` : `h-10 p-1 mx-1 lg:mx-0 ring-1 ${colors[theme]["base-background"]}` : "hidden"} ${loadedVerses.length > 0 ? "" : "lg:col-span-2"} transition-all duration-100 ease-linear  overflow-auto rounded ${colors[theme]["ring"]} `}>
                             <div
                                 onClick={() => setTitlesVisible(!titlesVisible)}
-                                className={`${loadedTitles.length > 0 ? "opacity-100" : "opacity-0 h-0"} ${titlesVisible ? "sticky -top-1 text-base md:text-lg p-2 justify-center" : " h-full justify-between px-2 text-xl md:text-2xl"} transition-all duration-100 ease-linear flex items-center text-center backdrop-blur-xl ${colors[theme]["page-text"]}`}>
+                                className={`${loadedTitles.length > 0 ? "opacity-100" : "opacity-0 h-0"} ${titlesVisible ? `sticky top-0 text-base md:text-lg mb-1.5 p-2 justify-center rounded-t` : " h-full justify-between px-2 text-xl md:text-2xl"} transition-all duration-100 ease-linear flex items-center text-center backdrop-blur-xl drop-shadow-md ${colors[theme]["page-text"]}`}>
                                 <div className={`${titlesVisible ? "" : "flex justify-between w-full"}`}>{translationApplication.titles}{` `}<span className={`${colors[theme]["matching-text"]}`}>{searchResultTitles.length}</span></div>
                             </div>
                             <div className={`text-sm md:text-base w-full ${colors[theme]["text"]} `}>
@@ -464,7 +485,7 @@ const Magnify = ({ colors, theme, translationApplication, quran, map, appendices
                                                 <div
                                                     ref={index === loadedTitles.length - 1 ? lastTitleElementRef : null}
                                                     key={`${result.suraNumber}-${result.titleNumber}-${index}`}
-                                                    className={`p-2 rounded  ${colors[theme]["base-background"]} cursor-pointer ml-0.5 mr-0.5 md:mr-1.5`}
+                                                    className={`p-2 rounded  ${colors[theme]["base-background"]} cursor-pointer mx-1.5 md:mr-2`}
                                                     onClick={() => handleConfirm(`${result.suraNumber}:${result.titleNumber}`)}>
                                                     <span className="text-sky-500">{result.suraNumber}:{result.titleNumber}</span> {lightWords(result.titleText, searchTerm)}
                                                 </div>
@@ -474,11 +495,23 @@ const Magnify = ({ colors, theme, translationApplication, quran, map, appendices
                             </div>
                         </div>
 
-                        <div className={`${loadedVerses.length > 0 ? versesVisible ? "flex-1 p-1 mx-1 lg:mx-0 border" : "h-10 p-1 mx-1 lg:mx-0 border" : "hidden"} ${loadedTitles.length > 0 ? "" : "lg:col-span-2"} transition-all duration-100 ease-linear overflow-auto rounded ${colors[theme]["verse-border"]} ${colors[theme]["base-background"]}`}>
-                            <div
-                                onClick={() => setVersesVisible(!versesVisible)}
-                                className={`${loadedVerses.length > 0 ? "opacity-100" : "opacity-0 h-0"} ${versesVisible ? "sticky -top-1 text-base md:text-lg p-2 justify-center" : " h-full justify-between px-2 text-xl md:text-2xl"} transition-all duration-100 ease-linear flex items-center text-center backdrop-blur-xl ${colors[theme]["page-text"]}`}>
-                                <div className={`${versesVisible ? "" : "flex justify-between w-full"}`}>{translationApplication.verses}{` `}<span className={`${colors[theme]["matching-text"]}`}>{searchResultVerses.length}</span></div>
+                        <div className={`${loadedVerses.length > 0 ? versesVisible ? " flex-1 mx-1 lg:mx-0 ring-1 " : "h-10 mx-1 lg:mx-0 ring-1 " : "hidden"} ${loadedTitles.length > 0 ? "" : " lg:col-span-2"} transition-all duration-100 ease-linear overflow-auto rounded ${colors[theme]["ring"]} ${colors[theme]["base-background"]}`}>
+                            <div className={`${loadedVerses.length > 0 ? "opacity-100" : "opacity-0 h-0"} ${versesVisible ? "sticky top-0 text-base md:text-lg mb-1.5 justify-between rounded-t backdrop-blur-xl" : " space-x-5 h-full justify-between text-xl md:text-2xl"} transition-all duration-100 ease-linear flex items-center text-center shadow-md ${colors[theme]["page-text"]}`}>
+                                <div
+                                    onClick={() => setVersesVisible(!versesVisible)}
+                                    className={`${versesVisible ? "flex items-center justify-center space-x-2 w-full h-10 p-2 pl-20" : "flex justify-between w-full items-center"} p-2 h-10`}>
+                                    <div>{translationApplication.verses}{` `}</div><div className={`${colors[theme]["matching-text"]}`}>{searchResultVerses.length}</div>
+                                </div>
+                                {versesVisible &&
+                                    <div
+                                        onClick={() => setMultiSelect(!multiSelect)}
+                                        style={{ animation: 'animate-scale 0.3s ease-in-out' }}
+                                        className={` cursor-pointer right-1 top-0 p-1 ml-3 transition-all duration-100 ease-linear ${multiSelect ? `${colors[theme]["text"]} ` : `${colors[theme]["passive-text"]}`}`}>
+                                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className={`w-8 h-8 `}>
+                                            <path strokeLinecap="round" strokeLinejoin="round" d="M3.75 12h16.5m-16.5 3.75h16.5M3.75 19.5h16.5M5.625 4.5h12.75a1.875 1.875 0 0 1 0 3.75H5.625a1.875 1.875 0 0 1 0-3.75Z" />
+                                        </svg>
+                                    </div>
+                                }
                             </div>
                             <div
                                 lang={lang}
@@ -488,21 +521,22 @@ const Magnify = ({ colors, theme, translationApplication, quran, map, appendices
                                         loadedVerses.map((result, index) => (
                                             <div
                                                 ref={index === loadedVerses.length - 1 ? lastVerseElementRef : null}
-                                                key={`${result.suraNumber}-${result.verseNumber}-${index}`}
-                                                className={` p-1.5 rounded  ${colors[theme]["text-background"]} cursor-pointer ml-0.5 mr-0.5 md:mr-1.5`}
-                                                onClick={() => handleConfirm(`${result.suraNumber}:${result.verseNumber}`)}>
+                                                key={`verse-${result.suraNumber}:${result.verseNumber}-index`}
+                                                className={`p-1.5 rounded ${colors[theme]["text-background"]} cursor-pointer mx-1.5 md:mr-2 ${(multiSelect && selectedVerseList.includes(`${result.suraNumber}:${result.verseNumber}`)) ? `ring-1 ${colors[theme]["matching-ring"]}` : ''}`}
+                                                onClick={() => handleConfirm(`${result.suraNumber}:${result.verseNumber}`, 'verse')}>
                                                 <span className="text-sky-500">{result.suraNumber}:{result.verseNumber}</span> {lightWords(result.verseText, searchTerm)}
                                             </div>
                                         ))
                                     )}
                                 </div>
                             </div>
+
                         </div>
 
-                        <div className={`${loadedNotes.length > 0 ? notesVisible ? "flex-1 p-1 mx-1 lg:mx-0 border" : "h-10 p-1 mx-1 lg:mx-0 border" : "hidden"} ${loadedAppendices.length > 0 ? "" : "lg:col-span-2"} transition-all duration-100 ease-linear  overflow-auto rounded ${colors[theme]["verse-border"]} ${colors[theme]["base-background"]}`}>
+                        <div className={`${loadedNotes.length > 0 ? notesVisible ? "flex-1 mx-1 lg:mx-0 ring-1" : "h-10 p-1 mx-1 lg:mx-0 ring-1" : "hidden"} ${loadedAppendices.length > 0 ? "" : "lg:col-span-2"} transition-all duration-100 ease-linear  overflow-auto rounded ${colors[theme]["ring"]} ${colors[theme]["base-background"]}`}>
                             <div
                                 onClick={() => setNotesVisible(!notesVisible)}
-                                className={`${loadedNotes.length > 0 ? "opacity-100" : "opacity-0 "} ${notesVisible ? "sticky -top-1 text-base md:text-lg p-2 justify-center" : " h-full justify-between px-2 text-xl md:text-2xl"} transition-all duration-100 ease-linear flex items-center text-center backdrop-blur-xl ${colors[theme]["page-text"]}`}>
+                                className={`${loadedNotes.length > 0 ? "opacity-100" : "opacity-0 "} ${notesVisible ? "sticky top-0 text-base md:text-lg mb-1.5 p-2 justify-center rounded-t" : " h-full justify-between px-2 text-xl md:text-2xl"} transition-all duration-100 ease-linear flex items-center text-center drop-shadow-md backdrop-blur-xl ${colors[theme]["page-text"]}`}>
                                 <div className={`${notesVisible ? "" : "flex justify-between w-full"}`}>{translationApplication.notes}{` `}<span className={`${colors[theme]["matching-text"]}`}>{searchResultNotes.length}</span></div>
                             </div>
                             <div
@@ -514,7 +548,7 @@ const Magnify = ({ colors, theme, translationApplication, quran, map, appendices
                                             <div
                                                 ref={index === loadedNotes.length - 1 ? lastNoteElementRef : null}
                                                 key={`${result.suraNumber}-${result.verseNumber}-${index}`}
-                                                className={` p-1.5 rounded  ${colors[theme]["notes-background"]} cursor-pointer ml-0.5 mr-0.5 md:mr-1.5`}
+                                                className={` p-1.5 rounded  ${colors[theme]["notes-background"]} cursor-pointer mx-1.5 md:mr-2`}
                                                 onClick={() => handleConfirm(`${result.suraNumber}:${result.verseNumber}`)}>
                                                 {lightWords(result.note, searchTerm)}
                                             </div>
@@ -525,10 +559,10 @@ const Magnify = ({ colors, theme, translationApplication, quran, map, appendices
 
                         </div>
 
-                        <div className={`${loadedAppendices.length > 0 ? appendicesVisible ? "flex-1 p-1 mx-1 lg:mx-0 border" : "h-10 p-1 mx-1 lg:mx-0 border" : "hidden"} ${loadedNotes.length > 0 ? "" : "lg:col-span-2"} transition-all duration-100 ease-linear  overflow-auto rounded ${colors[theme]["verse-border"]} ${colors[theme]["base-background"]}`}>
+                        <div className={`${loadedAppendices.length > 0 ? appendicesVisible ? "flex-1 mx-1 lg:mx-0 ring-1" : "h-10 p-1 mx-1 lg:mx-0 ring-1" : "hidden"} ${loadedNotes.length > 0 ? "" : "lg:col-span-2"} transition-all duration-100 ease-linear  overflow-auto rounded ${colors[theme]["ring"]} ${colors[theme]["base-background"]}`}>
                             <div
                                 onClick={() => setAppendicesVisible(!appendicesVisible)}
-                                className={`${loadedAppendices.length > 0 ? "opacity-100" : "opacity-0 "} ${appendicesVisible ? "sticky -top-1 text-base md:text-lg p-2 justify-center" : " h-full justify-between px-2 text-xl md:text-2xl"} transition-all duration-100 ease-linear flex items-center text-center backdrop-blur-xl ${colors[theme]["page-text"]}`}>
+                                className={`${loadedAppendices.length > 0 ? "opacity-100" : "opacity-0 "} ${appendicesVisible ? "sticky top-0 text-base md:text-lg mb-1.5 p-2 justify-center rounded-t" : " h-full justify-between px-2 text-xl md:text-2xl"} transition-all duration-100 ease-linear flex items-center text-center drop-shadow-md backdrop-blur-xl ${colors[theme]["page-text"]}`}>
                                 <div className={`${appendicesVisible ? "" : "flex justify-between w-full"}`}>{translationApplication.appendices}{` `}<span className={`${colors[theme]["matching-text"]}`}>{searchResultAppendices.length}</span></div>
                             </div>
                             <div
@@ -540,7 +574,7 @@ const Magnify = ({ colors, theme, translationApplication, quran, map, appendices
                                             <div
                                                 ref={index === loadedAppendices.length - 1 ? lastAppendixElementRef : null}
                                                 key={`${result.appx}-${result.key}-${index}`}
-                                                className={` p-1.5 rounded  ${colors[theme]["text-background"]} cursor-pointer ml-0.5 mr-0.5 md:mr-1.5`}
+                                                className={` p-1.5 rounded  ${colors[theme]["text-background"]} cursor-pointer mx-1.5 md:mr-2`}
                                                 onClick={() => handleConfirm(`appx:${result.appx}-${result.key}`)}
                                             >
                                                 {lightWords(result.appendixText, searchTerm)}

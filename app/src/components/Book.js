@@ -17,11 +17,11 @@ const Book = ({ incomingSearch = false, incomingAppendix = false, incomingAppend
     const magnifyConfirm = useRef(false);
     const [currentPage, setCurrentPage] = useState(parseInt(localStorage.getItem("qurantft-pn")) ? parseInt(localStorage.getItem("qurantft-pn")) : 1);
     const [pageHistory, setPageHistory] = useState([]);
-    const [isModalOpen, setModalOpen] = useState(false);
+    const [isJumpOpen, setJumpOpen] = useState(false);
     const [selectedSura, setSelectedSura] = useState(null);
     const [selectedVerse, setSelectedVerse] = useState(null);
     const [action, setAction] = useState(null);
-    const [isSearchOpen, setSearchOpen] = useState(incomingSearch);
+    const [isMagnifyOpen, setMagnifyOpen] = useState(incomingSearch);
     const restoreAppText = useRef(null);
     const restoreIntroText = useRef(null);
     const endReferenceToRestore = useRef(null);
@@ -33,6 +33,9 @@ const Book = ({ incomingSearch = false, incomingAppendix = false, incomingAppend
     const [remainingTime, setRemainingTime] = useState(0);
     const progressPercentage = (remainingTime / 19000) * 100;
     const referenceMap = generateReferenceMap(quranData);
+
+    const [multiSelect, setMultiSelect] = useState(false);
+    const [selectedVerseList, setSelectedVerseList] = useState([]);
 
     let path = useRef({});
 
@@ -92,18 +95,23 @@ const Book = ({ incomingSearch = false, incomingAppendix = false, incomingAppend
     };
 
     const handleCloseModal = () => {
-        setModalOpen(false);
+        setJumpOpen(false);
     };
 
     const handleCloseSearch = () => {
-        setSearchOpen(false);
-        setModalOpen(false);
+        setSelectedVerseList([]);
+        setMultiSelect(false);
+        setMagnifyOpen(false);
+        setJumpOpen(false);
     };
 
     const handleTogglePage = () => {
-        setModalOpen(!isModalOpen);
-        if (isSearchOpen) {
-            setSearchOpen(false);
+        if (!isJumpOpen) {
+            setMultiSelect(false);
+        }
+        setJumpOpen(!isJumpOpen);
+        if (isMagnifyOpen) {
+            setMagnifyOpen(false);
         }
     };
 
@@ -473,12 +481,12 @@ const Book = ({ incomingSearch = false, incomingAppendix = false, incomingAppend
             const listener = await App.addListener('backButton', async () => {
                 if (!backButtonPressedOnce) {
                     setBackButtonPressedOnce(true);
-                    if (isModalOpen) {
-                        setModalOpen(false);
+                    if (isJumpOpen) {
+                        setJumpOpen(false);
                     } else {
                         prevPage();
                     }
-                    setSearchOpen(false);
+                    setMagnifyOpen(false);
                     await Toast.show({
                         text: translationApplication.exitToast,
                         duration: 'long'
@@ -507,11 +515,21 @@ const Book = ({ incomingSearch = false, incomingAppendix = false, incomingAppend
                 removeListener();
             }
         };
-    }, [backButtonPressedOnce, isModalOpen, translationApplication, prevPage]);
+    }, [backButtonPressedOnce, isJumpOpen, translationApplication, prevPage]);
 
     const onMagnify = () => {
-        setSearchOpen(true);
-        setModalOpen(false);
+        setMagnifyOpen(true);
+        setJumpOpen(false);
+    };
+
+    const handleCopy = () => {
+        console.log(selectedVerseList)
+        setMultiSelect(false);
+    };
+
+    const handleShare = () => {
+        console.log(selectedVerseList)
+        setMultiSelect(false);
     };
 
     const renderBookContent = () => {
@@ -739,24 +757,35 @@ const Book = ({ incomingSearch = false, incomingAppendix = false, incomingAppend
                     <div className={`relative flex w-full items-center justify-between`}>
                         <div className={`absolute h-0.5 left-0 -top-0.5 ${colors[theme]["matching"]}`} style={{ width: `${progressPercentage}%` }}></div>
 
-                        <button onClick={direction === 'rtl' ? nextPage : prevPage}
-                            disabled={direction === 'rtl' ? (isModalOpen || (selectedApp === 38 && currentPage === 397) || isSearchOpen) : (isModalOpen || currentPage === 1 || isSearchOpen)}
-                            className={`w-1/2 h-full ${colors[theme]["app-text"]} px-2 ${direction === 'rtl' ? 'ml-2' : 'mr-2'} flex items-center justify-center transition-all duration-500 ease-linear ${direction === 'rtl' ? (isModalOpen || (selectedApp === 38 && currentPage === 397) || isSearchOpen) ? "opacity-0" : "opacity-100" : (isModalOpen || currentPage === 1 || isSearchOpen) ? "opacity-0" : "opacity-100"}`}>
-                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className={`w-7 h-7 lg:w-12 lg:h-12`}>
-                                <path strokeLinecap="round" strokeLinejoin="round" d="M9 15L3 9m0 0l6-6M3 9h12a6 6 0 010 12h-3" />
-                            </svg>
-                            {direction !== 'rtl' && pageHistory.length > 0 && (
-                                <div className={`bg-transparent absolute translate-y-3 -translate-x-3 text-xs lg:translate-y-4 lg:-translate-x-4 lg:text-base ${colors[theme]["matching-text"]} flex items-center justify-center px-2 py-1 rounded-full`}>
-                                    {pageHistory.length}
-                                </div>
-                            )}
-                        </button>
+                        <div className={`w-1/2 h-full `}>
+                            {multiSelect ?
+                                (<button onClick={handleShare}
+                                    disabled={selectedVerseList.length === 0}
+                                    className={`${colors[theme]["passive-text"]} flex items-center w-full h-full justify-end`}>
+                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className={`w-7 h-7 lg:w-10 lg:h-10 ${selectedVerseList.length > 0 ? `${colors[theme]["text"]}` : ``}`}>
+                                        <path strokeLinecap="round" strokeLinejoin="round" d="M7.217 10.907a2.25 2.25 0 1 0 0 2.186m0-2.186c.18.324.283.696.283 1.093s-.103.77-.283 1.093m0-2.186 9.566-5.314m-9.566 7.5 9.566 5.314m0 0a2.25 2.25 0 1 0 3.935 2.186 2.25 2.25 0 0 0-3.935-2.186Zm0-12.814a2.25 2.25 0 1 0 3.933-2.185 2.25 2.25 0 0 0-3.933 2.185Z" />
+                                    </svg>
+                                </button>)
+                                :
+                                (<button onClick={direction === 'rtl' ? nextPage : prevPage}
+                                    disabled={direction === 'rtl' ? (isJumpOpen || (selectedApp === 38 && currentPage === 397) || isMagnifyOpen) : (isJumpOpen || currentPage === 1 || isMagnifyOpen)}
+                                    className={`w-1/2 h-full ${colors[theme]["app-text"]} px-2 ${direction === 'rtl' ? 'ml-2' : 'mr-2'} flex items-center justify-center ${direction === 'rtl' ? (isJumpOpen || (selectedApp === 38 && currentPage === 397) || isMagnifyOpen) ? "opacity-0" : "opacity-100" : (isJumpOpen || currentPage === 1 || isMagnifyOpen) ? "opacity-0" : "opacity-100"}`}>
+                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className={`w-7 h-7 lg:w-12 lg:h-12`}>
+                                        <path strokeLinecap="round" strokeLinejoin="round" d="M9 15L3 9m0 0l6-6M3 9h12a6 6 0 010 12h-3" />
+                                    </svg>
+                                    {direction !== 'rtl' && pageHistory.length > 0 && (
+                                        <div className={`bg-transparent absolute translate-y-3 -translate-x-3 text-xs lg:translate-y-4 lg:-translate-x-4 lg:text-base ${colors[theme]["matching-text"]} flex items-center justify-center px-2 py-1 rounded-full`}>
+                                            {pageHistory.length}
+                                        </div>
+                                    )}
+                                </button>)}
+                        </div>
 
                         <div
                             dir={direction}
                             className={`w-full flex items-center ${colors[theme]["page-text"]} justify-center p-0.5`}>
                             {
-                                isModalOpen ?
+                                isJumpOpen ?
 
                                     (<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" className={`w-11 h-11 lg:w-14 lg:h-14 transition-all duration-1000 ease-linear ${colors[theme]["text"]}`} onClick={() => handleTogglePage()}>
                                         <path fillRule="evenodd" d="M3 6a3 3 0 0 1 3-3h2.25a3 3 0 0 1 3 3v2.25a3 3 0 0 1-3 3H6a3 3 0 0 1-3-3V6Zm9.75 0a3 3 0 0 1 3-3H18a3 3 0 0 1 3 3v2.25a3 3 0 0 1-3 3h-2.25a3 3 0 0 1-3-3V6ZM3 15.75a3 3 0 0 1 3-3h2.25a3 3 0 0 1 3 3V18a3 3 0 0 1-3 3H6a3 3 0 0 1-3-3v-2.25Zm9.75 0a3 3 0 0 1 3-3H18a3 3 0 0 1 3 3V18a3 3 0 0 1-3 3h-2.25a3 3 0 0 1-3-3v-2.25Z" clipRule="evenodd" />
@@ -766,8 +795,8 @@ const Book = ({ incomingSearch = false, incomingAppendix = false, incomingAppend
                                     </svg>)
                             }
 
-                            {!isSearchOpen && (parseInt(currentPage) < 397 ?
-                                (<div className={`text-sm lg:text-lg flex transition-all duration-300 ease-linear ${isModalOpen ? "opacity-0 w-0" : "opacity-100 ml-3 p-1 "}`}>
+                            {!isMagnifyOpen && (parseInt(currentPage) < 397 ?
+                                (<div className={`text-sm lg:text-lg flex transition-all duration-300 ease-linear ${isJumpOpen ? "opacity-0 w-0" : "opacity-100 ml-3 p-1 "}`}>
                                     <div className={`font-bold text-center flex items-center justify-center ${colors[theme]["page-text"]}`}>
                                         {translationApplication?.page}
                                     </div>
@@ -785,7 +814,7 @@ const Book = ({ incomingSearch = false, incomingAppendix = false, incomingAppend
                                 </div>) :
                                 (<div
                                     onClick={() => document.getElementById('appselect').click()}
-                                    className={`text-2xl lg:text-3xl xl:text-4xl flex transition-all duration-300 ease-linear ${isModalOpen ? "opacity-0 w-0" : "opacity-100 ml-3 p-1 "}`}>
+                                    className={`text-2xl lg:text-3xl xl:text-4xl flex transition-all duration-300 ease-linear ${isJumpOpen ? "opacity-0 w-0" : "opacity-100 ml-3 p-1 "}`}>
                                     <div
                                         className={`text-center flex items-center justify-center ${colors[theme]["page-text"]}`}>
                                         {translationApplication?.appendix}
@@ -807,24 +836,38 @@ const Book = ({ incomingSearch = false, incomingAppendix = false, incomingAppend
                                     </select>
                                 </div>))}
                         </div>
-
-                        <button onClick={direction === 'rtl' ? prevPage : nextPage}
-                            disabled={direction === 'rtl' ? (isModalOpen || currentPage === 1 || isSearchOpen) : (isModalOpen || (selectedApp === 38 && currentPage === 397) || isSearchOpen)}
-                            className={`w-1/2 h-full ${colors[theme]["app-text"]} px-2 ${direction === 'rtl' ? 'mr-2' : 'ml-2'} flex items-center justify-center transition-all duration-500 ease-linear ${direction === 'rtl' ? (isModalOpen || currentPage === 1 || isSearchOpen) ? "opacity-0" : "opacity-100" : (isModalOpen || (selectedApp === 38 && currentPage === 397) || isSearchOpen) ? "opacity-0" : "opacity-100"}`}>
-                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className={`w-7 h-7 lg:w-12 lg:h-12`}>
-                                <path strokeLinecap="round" strokeLinejoin="round" d="M15 15l6-6m0 0l-6-6m6 6H9a6 6 0 000 12h3" />
-                            </svg>
-                            {direction === 'rtl' && pageHistory.length > 0 && (
-                                <div className={`bg-transparent absolute translate-y-3 translate-x-3 text-xs lg:translate-y-4 lg:translate-x-4 lg:text-base ${colors[theme]["matching-text"]} flex items-center justify-center px-2 py-1 rounded-full`}>
-                                    {pageHistory.length}
-                                </div>
-                            )}
-                        </button>
-
+                        <div className={`w-1/2 h-full `}>
+                            {multiSelect ?
+                                (<button onClick={handleCopy}
+                                    disabled={selectedVerseList.length === 0}
+                                    className={`${colors[theme]["passive-text"]} flex items-center w-full h-full justify-start`}>
+                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className={`w-8 h-8 lg:w-11 lg:h-11 ${selectedVerseList.length > 0 ? `${colors[theme]["text"]}` : ``}`}>
+                                        <path strokeLinecap="round" strokeLinejoin="round" d="M9 12h3.75M9 15h3.75M9 18h3.75m3 .75H18a2.25 2.25 0 0 0 2.25-2.25V6.108c0-1.135-.845-2.098-1.976-2.192a48.424 48.424 0 0 0-1.123-.08m-5.801 0c-.065.21-.1.433-.1.664 0 .414.336.75.75.75h4.5a.75.75 0 0 0 .75-.75 2.25 2.25 0 0 0-.1-.664m-5.8 0A2.251 2.251 0 0 1 13.5 2.25H15c1.012 0 1.867.668 2.15 1.586m-5.8 0c-.376.023-.75.05-1.124.08C9.095 4.01 8.25 4.973 8.25 6.108V8.25m0 0H4.875c-.621 0-1.125.504-1.125 1.125v11.25c0 .621.504 1.125 1.125 1.125h9.75c.621 0 1.125-.504 1.125-1.125V9.375c0-.621-.504-1.125-1.125-1.125H8.25ZM6.75 12h.008v.008H6.75V12Zm0 3h.008v.008H6.75V15Zm0 3h.008v.008H6.75V18Z" />
+                                    </svg>
+                                    {selectedVerseList.length > 0 && (
+                                        <div className={`bg-transparent absolute translate-y-4 translate-x-5 text-xs lg:translate-y-5 lg:translate-x-6 lg:text-sm ${colors[theme]["matching-text"]} flex items-center justify-center px-2 py-1 rounded-full`}>
+                                            {selectedVerseList.length}
+                                        </div>
+                                    )}
+                                </button>)
+                                :
+                                (<button onClick={direction === 'rtl' ? prevPage : nextPage}
+                                    disabled={direction === 'rtl' ? (isJumpOpen || currentPage === 1 || isMagnifyOpen) : (isJumpOpen || (selectedApp === 38 && currentPage === 397) || isMagnifyOpen)}
+                                    className={`w-full h-full ${colors[theme]["app-text"]} px-2 ${direction === 'rtl' ? 'mr-2' : 'ml-2'} flex items-center justify-center ${direction === 'rtl' ? (isJumpOpen || currentPage === 1 || isMagnifyOpen) ? "opacity-0" : "opacity-100" : (isJumpOpen || (selectedApp === 38 && currentPage === 397) || isMagnifyOpen) ? "opacity-0" : "opacity-100"} `}>
+                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className={`w-7 h-7 lg:w-12 lg:h-12`}>
+                                        <path strokeLinecap="round" strokeLinejoin="round" d="M15 15l6-6m0 0l-6-6m6 6H9a6 6 0 000 12h3" />
+                                    </svg>
+                                    {direction === 'rtl' && pageHistory.length > 0 && (
+                                        <div className={`bg-transparent absolute translate-y-3 translate-x-3 text-xs lg:translate-y-4 lg:translate-x-4 lg:text-base ${colors[theme]["matching-text"]} flex items-center justify-center px-2 py-1 rounded-full`}>
+                                            {pageHistory.length}
+                                        </div>
+                                    )}
+                                </button>)}
+                        </div>
                     </div>
                 </div>
             </div>
-            {isModalOpen &&
+            {isJumpOpen &&
                 <Jump
                     onChangeLanguage={onChangeLanguage}
                     suraNames={introductionContent[introductionContent.length - 1].evidence["2"].lines}
@@ -839,7 +882,7 @@ const Book = ({ incomingSearch = false, incomingAppendix = false, incomingAppend
                     direction={direction}
                 />
             }
-            {isSearchOpen &&
+            {isMagnifyOpen &&
                 <Magnify
                     colors={colors}
                     theme={theme}
@@ -851,6 +894,10 @@ const Book = ({ incomingSearch = false, incomingAppendix = false, incomingAppend
                     onClose={handleCloseSearch}
                     onConfirm={handleMagnifyConfirm}
                     direction={direction}
+                    multiSelect={multiSelect}
+                    setMultiSelect={setMultiSelect}
+                    selectedVerseList={selectedVerseList}
+                    setSelectedVerseList={setSelectedVerseList}
                 />
             }
         </div>
