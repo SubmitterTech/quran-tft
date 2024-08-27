@@ -84,7 +84,7 @@ const Pages = ({
     const forceScroll = useCallback((key) => {
         if (verseRefs.current[key]) {
             setTimeout(() => {
-                verseRefs.current[key].scrollIntoView({ behavior: 'smooth', block: 'center' });
+                verseRefs.current[key]?.scrollIntoView({ behavior: 'smooth', block: 'center' });
                 setNotify(true);
                 clearTimeout(notifyTimeoutRef.current);
                 notifyTimeoutRef.current = setTimeout(() => {
@@ -294,7 +294,7 @@ const Pages = ({
         });
 
         if (matchingNoteIndex !== undefined) {
-            noteRefs.current[matchingNoteIndex[matchingNoteIndex.length - 1]].scrollIntoView({ behavior: 'smooth', block: 'center' });
+            noteRefs.current[matchingNoteIndex[matchingNoteIndex.length - 1]]?.scrollIntoView({ behavior: 'smooth', block: 'center' });
         }
 
     }, [noteReferencesMap]);
