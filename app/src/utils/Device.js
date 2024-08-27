@@ -23,7 +23,19 @@ export const setInitialLanguage = async () => {
   }
 };
 
-export const smartCopy = (key, accumulatedCopiesRef, verseText, hasTitle = null, hasNotes = null, tooltip = null, setTooltip = null) => {
+const writeToClipboard = async (text) => {
+  try {
+    await Clipboard.write({
+      string: text
+    });
+    return true;
+  } catch (err) {
+    console.error('Failed to copy text: ', err);
+    return false;
+  }
+};
+
+export const smartCopy = async (key, accumulatedCopiesRef, verseText, hasTitle = null, hasNotes = null) => {
   const verseKey = `${key} ${verseText}`;
   let accumulatedText = verseKey;
   if (hasTitle && parseInt(key.split(":")[1]) !== 1) {
@@ -64,22 +76,33 @@ export const smartCopy = (key, accumulatedCopiesRef, verseText, hasTitle = null,
     textToCopy += txt + "\n\n";
   });
 
-  const writeToClipboard = async () => {
-    try {
-      await Clipboard.write({
-        string: textToCopy
-      });
-      if (tooltip && setTooltip) {
-        let keys = Object.keys(accumulatedCopiesRef.current).join(", ");
-        setTooltip({ visible: true, keys: keys });
-        setTimeout(() => setTooltip({ ...tooltip, visible: false }), 2400);
-      }
-      return true;
-    } catch (err) {
-      console.error('Failed to copy text: ', err);
-      return false;
-    }
-  };
+  return await writeToClipboard(textToCopy);
+};
 
-  writeToClipboard();
+export const listCopy = async (list, quranmap) => {
+  const sortedList = list.sort((a, b) => {
+    const [suraA, verseA] = a.split(':').map(Number);
+    const [suraB, verseB] = b.split(':').map(Number);
+
+    if (suraA !== suraB) {
+      return suraA - suraB;
+    } else {
+      return verseA - verseB;
+    }
+  });
+
+  let textToCopy = sortedList.map((key) => {
+    const [sura, verse] = key.split(':');
+    let text = "";
+
+    if (quranmap[sura] && quranmap[sura][`t${verse}`]) {
+      text += `${quranmap[sura][`t${verse}`]}\n`;
+    }
+
+    text += `[${key}] ${quranmap[sura][verse]}`;
+
+    return text;
+  }).join("\n\n");
+
+  return await writeToClipboard(textToCopy);
 };

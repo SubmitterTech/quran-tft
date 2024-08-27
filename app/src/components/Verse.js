@@ -2,6 +2,7 @@ import React, { useCallback, useEffect, useState, useRef } from 'react';
 import { useSpring, animated } from '@react-spring/web';
 import { useDrag } from '@use-gesture/react';
 import { smartCopy } from '../utils/Device';
+import { toast } from 'react-hot-toast';
 
 const Verse = ({ besmele,
     colors,
@@ -30,12 +31,10 @@ const Verse = ({ besmele,
     direction
 }) => {
     const currentVerseKey = `${suraNumber}:${verseNumber}`;
-    const tooltipRef = useRef();
     const [mode, setMode] = useState("idle");
     const [cn, setCn] = useState(verseClassName);
     const [text, setText] = useState(verseText);
     const [relatedVerses, setRelatedVerses] = useState([]);
-    const [tooltip, setTooltip] = useState({ visible: false, x: 0, y: 0, keys: [] });
     const lang = localStorage.getItem("lang");
     const [isMarked, setMarked] = useState(false);
     const [swipeDistance, setSwipeDistance] = useState(0);
@@ -66,9 +65,15 @@ const Verse = ({ besmele,
         setMarked(!isMarked);
     };
 
-    const handleCopy = () => {
+    const handleCopy = async () => {
         const clip = `[${currentVerseKey}]`;
-        smartCopy(clip, accumulatedCopiesRef, verseText, hasTitle, hasNotes, tooltip, setTooltip);
+        const s = await smartCopy(clip, accumulatedCopiesRef, verseText, hasTitle, hasNotes);
+        if (s) {
+            const textToShow = Object.keys(accumulatedCopiesRef.current).join(", ") + ` ` + translationApplication.copied
+            toast.success(textToShow, {
+                duration: 3000,
+            });
+        }
         if (copyTimerRef.current) {
             clearTimeout(copyTimerRef.current);
         }
@@ -579,15 +584,6 @@ const Verse = ({ besmele,
                             ))}
                         </div>
                     </div>
-                    {tooltip.visible && (
-                        <div
-                            ref={tooltipRef}
-                            className={`fixed px-3 py-1.5 md:py-2 md:px-4 rounded ${colors[theme]["base-background"]} ${colors[theme]["matching-text"]} text-base shadow-xl`}
-                            style={{ right: 0, top: 0 }}
-                        >
-                            {tooltip.keys}{` `}{translationApplication.copied}
-                        </div>
-                    )}
                 </div>
             </animated.div>
             {mode !== "reading" && <div

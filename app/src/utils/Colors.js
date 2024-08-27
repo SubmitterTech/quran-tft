@@ -25,6 +25,8 @@ export const colorThemes = {
         "matching-ring": "ring-rose-500",
         "matching": "bg-rose-500",
         "matching-conic": "bg-[conic-gradient(#f43f5e_20deg,transparent_180deg)]", // rose-500
+        "toast-background": "#f5f5f5",
+        "toast-text": "#f43f5e",
     },
     "dark": {
         "text-background": "bg-neutral-800",
@@ -52,6 +54,8 @@ export const colorThemes = {
         "matching-ring": "ring-green-500",
         "matching": "bg-green-500",
         "matching-conic": "bg-[conic-gradient(#22c55e_20deg,transparent_180deg)]", // green-500
+        "toast-background": "#171717",
+        "toast-text": "#22c55e",
     },
     "indigo": {
         "text-background": "bg-indigo-900",
@@ -79,6 +83,8 @@ export const colorThemes = {
         "matching-ring": "ring-lime-400",
         "matching": "bg-lime-400",
         "matching-conic": "bg-[conic-gradient(#a3e635_20deg,transparent_180deg)]", // lime-400
+        "toast-background": "#262626",
+        "toast-text": "#a3e635",
     },
     "green": {
         "text-background": "bg-teal-800",
@@ -133,6 +139,8 @@ export const colorThemes = {
         "matching-ring": "ring-green-500",
         "matching": "bg-green-500",
         "matching-conic": "bg-[conic-gradient(#22c55e_20deg,transparent_180deg)]", // green-500
+        "toast-background": "#171717",
+        "toast-text": "#22c55e",
     },
     "sky": {
         "text-background": "bg-sky-800",
@@ -140,8 +148,8 @@ export const colorThemes = {
         "notes-background": "bg-neutral-700",
         "base-background": "bg-neutral-800",
         "verse-detail-background": "bg-neutral-800",
-        "encrypted-background": "bg-neutral-800/90",
-        "relation-background": "bg-neutral-800/90",
+        "encrypted-background": "bg-neutral-700/90",
+        "relation-background": "bg-neutral-700/90",
         "table-title-text": "text-neutral-300",
         "border": "border-sky-100",
         "text": "text-neutral-100",
@@ -160,6 +168,8 @@ export const colorThemes = {
         "matching-ring": "ring-amber-300",
         "matching": "bg-amber-400",
         "matching-conic": "bg-[conic-gradient(#fbbf24_20deg,transparent_180deg)]", // amber-300
+        "toast-background": "#262626",
+        "toast-text": "#fbbf24",
     }
 };
 

@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useRef, useCallback } from 'react';
 import { App } from '@capacitor/app';
 import { Toast } from '@capacitor/toast';
+import { Toaster, toast } from 'react-hot-toast';
 import Pages from '../components/Pages';
 import Apps from '../components/Apps';
 import Jump from '../components/Jump';
@@ -8,7 +9,8 @@ import Magnify from '../components/Magnify';
 import Splash from '../components/Splash';
 import Intro from '../components/Intro';
 import Isbn from '../components/Isbn';
-import { adjustReference, generateReferenceMap, transformAppendices, findPageNumber, extractReferenceDetails } from '../utils/Mapper';
+import { adjustReference, generateReferenceMap, transformAppendices, findPageNumber, extractReferenceDetails, mapQuran } from '../utils/Mapper';
+import { listCopy } from '../utils/Device';
 import '../assets/css/Book.css';
 
 const Book = ({ incomingSearch = false, incomingAppendix = false, incomingAppendixNumber = 1, onChangeTheme, colors, theme, translationApplication, introductionContent, quranData, map, appendicesContent, translation, onChangeLanguage, direction }) => {
@@ -33,7 +35,7 @@ const Book = ({ incomingSearch = false, incomingAppendix = false, incomingAppend
     const [remainingTime, setRemainingTime] = useState(0);
     const progressPercentage = (remainingTime / 19000) * 100;
     const referenceMap = generateReferenceMap(quranData);
-
+    const quranmap = mapQuran(translation ? translation : quranData);
     const [multiSelect, setMultiSelect] = useState(false);
     const [selectedVerseList, setSelectedVerseList] = useState([]);
 
@@ -522,8 +524,15 @@ const Book = ({ incomingSearch = false, incomingAppendix = false, incomingAppend
         setJumpOpen(false);
     };
 
-    const handleCopy = () => {
-        console.log(selectedVerseList)
+    const handleCopy = async () => {
+        const copied = await listCopy(selectedVerseList, quranmap);
+
+        if (copied) {
+            const textToShow = Object.values(selectedVerseList).join(", ");
+            toast.success(textToShow + ` ` + translationApplication.copied, {
+                duration: 4000,
+            });
+        }
         setMultiSelect(false);
     };
 
@@ -749,6 +758,35 @@ const Book = ({ incomingSearch = false, incomingAppendix = false, incomingAppend
         <div
             className={`fixed flex w-full flex-col justify-start h-screen ${colors[theme]["app-background"]} overflow-y-hidden`}
             style={{ paddingTop: 'calc(env(safe-area-inset-top) * 0.76)', paddingBottom: 'calc(env(safe-area-inset-bottom) * 0.57)' }}>
+            <Toaster position="top-center" reverseOrder={false}
+                toastOptions={{
+                    success: {
+                        style: {
+                            background: colors[theme]["toast-background"],
+                            color: colors[theme]["toast-text"],
+                            borderRadius: '4px',
+                            padding: '7px',
+                            boxShadow: '0px 4px 6px rgba(0, 0, 0, 0.1)',
+                        },
+                        iconTheme: {
+                            primary: colors[theme]["toast-text"],
+                            secondary: colors[theme]["toast-background"],
+                        },
+                    },
+                    error: {
+                        style: {
+                            background: colors[theme]["toast-background"],
+                            color: colors[theme]["toast-text"],
+                            borderRadius: '4px',
+                            padding: '7px',
+                            boxShadow: '0px 4px 6px rgba(0, 0, 0, 0.1)',
+                        },
+                        iconTheme: {
+                            primary: colors[theme]["toast-text"],
+                            secondary: colors[theme]["toast-background"],
+                        },
+                    },
+                }} />
             {renderBookContent()}
             <div>
                 <div className={`h-12 md:h-14`}></div>
