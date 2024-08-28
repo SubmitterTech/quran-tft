@@ -499,14 +499,17 @@ const Magnify = ({ colors, theme, translationApplication, quran, map, appendices
                             <div className={`${loadedVerses.length > 0 ? "opacity-100" : "opacity-0 h-0"} ${versesVisible ? "sticky top-0 text-base md:text-lg mb-1.5 justify-between rounded-t backdrop-blur-xl" : " space-x-5 h-full justify-between text-xl md:text-2xl"} transition-all duration-100 ease-linear flex items-center text-center shadow-md ${colors[theme]["page-text"]}`}>
                                 <div
                                     onClick={() => setVersesVisible(!versesVisible)}
-                                    className={`${versesVisible ? "flex items-center justify-center space-x-2 w-full h-10 p-2 pl-20" : "flex justify-between w-full items-center"} p-2 h-10`}>
-                                    <div>{translationApplication.verses}{` `}</div><div className={`${colors[theme]["matching-text"]}`}>{searchResultVerses.length}</div>
+                                    className={`${versesVisible ? `${direction === 'rtl' ? `pr-14` : `pl-10`}` : ``} flex items-center w-full p-2 h-10`}>
+                                    <div dir={direction} className={`w-full flex items-center ${versesVisible ? `justify-center space-x-5` : `justify-between`}`}>
+                                        <div className={`${direction === 'rtl' ? `pl-5` : ``}`}>{translationApplication.verses}{` `}</div>
+                                        <div className={`${colors[theme]["matching-text"]}`}>{searchResultVerses.length}</div>
+                                    </div>
                                 </div>
                                 {versesVisible &&
                                     <div
                                         onClick={() => setMultiSelect(!multiSelect)}
                                         style={{ animation: 'animate-scale 0.3s ease-in-out' }}
-                                        className={` cursor-pointer right-1 top-0 p-1 ml-3 transition-all duration-100 ease-linear ${multiSelect ? `${colors[theme]["text"]} ` : `${colors[theme]["passive-text"]}`}`}>
+                                        className={` ${direction === 'rtl' ? `mr-3` : `ml-3`} cursor-pointer right-1 top-0 p-1 transition-all duration-100 ease-linear ${multiSelect ? `${selectedVerseList.length > 0 ? `${colors[theme]["matching-text"]}` : `${colors[theme]["text"]}`}` : `${colors[theme]["passive-text"]}`}`}>
                                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className={`w-8 h-8 `}>
                                             <path strokeLinecap="round" strokeLinejoin="round" d="M3.75 12h16.5m-16.5 3.75h16.5M3.75 19.5h16.5M5.625 4.5h12.75a1.875 1.875 0 0 1 0 3.75H5.625a1.875 1.875 0 0 1 0-3.75Z" />
                                         </svg>
