@@ -39,6 +39,7 @@ const Book = ({ incomingSearch = false, incomingAppendix = false, incomingAppend
     const quranmap = mapQuran(translation ? translation : quranData);
     const [multiSelect, setMultiSelect] = useState(false);
     const [selectedVerseList, setSelectedVerseList] = useState([]);
+    const [updatePageTriggered, setUpdatePageTriggered] = useState(false);
 
     let path = useRef({});
 
@@ -124,6 +125,7 @@ const Book = ({ incomingSearch = false, incomingAppendix = false, incomingAppend
     };
 
     const updatePage = useCallback((newPage, sura = null, verse = null, actionType = 'navigate', appReference = null) => {
+        setUpdatePageTriggered(pt => !pt);
         setAction(actionType);
         if (actionType !== 'previous' && (parseInt(newPage) === 397 || (parseInt(newPage) !== parseInt(currentPage)))) {
             setPageHistory(prevHistory => {
@@ -690,6 +692,7 @@ const Book = ({ incomingSearch = false, incomingAppendix = false, incomingAppend
                 path={path}
                 setRemainingTime={setRemainingTime}
                 direction={direction}
+                upt={updatePageTriggered}
             />;
         }
 
@@ -770,6 +773,7 @@ const Book = ({ incomingSearch = false, incomingAppendix = false, incomingAppend
                 refToRestore={endReferenceToRestore}
                 refToJump={appxReferenceToJump}
                 direction={direction}
+                upt={updatePageTriggered}
             />;
         }
     };

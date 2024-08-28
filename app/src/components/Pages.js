@@ -19,7 +19,8 @@ const Pages = ({
     handleTogglePage,
     path,
     setRemainingTime,
-    direction
+    direction,
+    upt
 }) => {
     const lang = localStorage.getItem("lang")
     const [pageData, setPageData] = useState(null);
@@ -82,6 +83,7 @@ const Pages = ({
     }, [stickyRef, selectedPage]);
 
     const forceScroll = useCallback((key) => {
+        void upt;
         if (verseRefs.current[key]) {
             setTimeout(() => {
                 verseRefs.current[key]?.scrollIntoView({ behavior: 'smooth', block: 'center' });
@@ -94,7 +96,7 @@ const Pages = ({
                 return () => clearTimeout(notifyTimeoutRef.current);
             }, 150);
         }
-    }, []);
+    }, [upt]);
 
     useEffect(() => {
         setPageData(quranData[selectedPage]);

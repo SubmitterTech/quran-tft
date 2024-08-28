@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef, useCallback } from 'react';
 import { mapAppendices } from '../utils/Mapper';
 
-const Apps = ({ colors, theme, translationApplication, parseReferences, appendices, selected, restoreAppText, refToRestore, refToJump, direction }) => {
+const Apps = ({ colors, theme, translationApplication, parseReferences, appendices, selected, restoreAppText, refToRestore, refToJump, direction, upt }) => {
 
     const lang = localStorage.getItem("lang");
     const containerRef = useRef(null);
@@ -38,7 +38,7 @@ const Apps = ({ colors, theme, translationApplication, parseReferences, appendic
                 }
             }, 266);
         }
-    }, [selected, restoreAppText, refToRestore, refToJump, isRefsReady, textRef]);
+    }, [selected, restoreAppText, refToRestore, refToJump, isRefsReady, textRef, upt]);
 
     const handleRefsReady = () => {
         setIsRefsReady(true);
