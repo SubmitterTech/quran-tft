@@ -62,7 +62,7 @@ const Apps = ({ colors, theme, translationApplication, parseReferences, appendic
 
         return (
             <div key={key} className={`${colors[theme]["table-title-text"]}`}>
-                <div className={` my-4 overflow-x-scroll`}>
+                <div className={` my-4 overflow-x-auto`}>
                     <div className={`${colors[theme]["base-background"]} w-full rounded text-sm py-2 px-1 text-center `}>
                         {tableRef}
                     </div>
@@ -116,7 +116,7 @@ const Apps = ({ colors, theme, translationApplication, parseReferences, appendic
                         ref={(el) => textRef.current[appno + "-" + index] = el}
                         onClick={(e) => handleClick(e, appno, index)}
                         className={`rounded ${colors[theme]["text-background"]} ${colors[theme]["app-text"]} p-0.5 mb-1 flex w-full text-justify hyphens-auto`}>
-                        <div className={`overflow-x-scroll`}>
+                        <div className={`overflow-x-auto`}>
                             <p className={`px-1 break-words`}>{parseReferences(item.content)}</p>
                         </div>
                     </div>
