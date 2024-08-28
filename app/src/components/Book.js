@@ -486,14 +486,15 @@ const Book = ({ incomingSearch = false, incomingAppendix = false, incomingAppend
                     setBackButtonPressedOnce(true);
                     if (isJumpOpen) {
                         setJumpOpen(false);
+                    } else if (isMagnifyOpen) {
+                        handleCloseSearch();
                     } else {
                         prevPage();
+                        await Toast.show({
+                            text: translationApplication.exitToast,
+                            duration: 'long'
+                        });
                     }
-                    setMagnifyOpen(false);
-                    await Toast.show({
-                        text: translationApplication.exitToast,
-                        duration: 'long'
-                    });
                     setTimeout(() => setBackButtonPressedOnce(false), 2000);
                 } else {
                     App.exitApp();
@@ -518,7 +519,7 @@ const Book = ({ incomingSearch = false, incomingAppendix = false, incomingAppend
                 removeListener();
             }
         };
-    }, [backButtonPressedOnce, isJumpOpen, translationApplication, prevPage]);
+    }, [backButtonPressedOnce, isJumpOpen, isMagnifyOpen, translationApplication, prevPage]);
 
     const onMagnify = () => {
         setMagnifyOpen(true);
