@@ -192,9 +192,9 @@ const Magnify = ({ colors, theme, translationApplication, quran, map, appendices
         for (const appx in appsmap) {
             const appxContent = appsmap[appx].content;
             Object.values(appxContent)
-                .filter(element => element.type === "text")
+                .filter(element => (element.type === "text" || element.type === "title"))
                 .forEach(element => {
-                    const appendixText = element.content;
+                    const appendixText = element.content.toString();
                     const key = element.type + "-" + element.key + "-" + element.order;
                     let processedAppendixText = normalize ? normalizeText(appendixText) : appendixText;
                     processedAppendixText = caseSensitive ? processedAppendixText : processedAppendixText.toLocaleUpperCase(lang);
@@ -587,7 +587,7 @@ const Magnify = ({ colors, theme, translationApplication, quran, map, appendices
                                                 className={` p-1.5 rounded  ${colors[theme]["text-background"]} cursor-pointer mx-1.5 md:mr-2`}
                                                 onClick={() => handleConfirm(`appx:${result.appx}-${result.key}`)}
                                             >
-                                                {lightWords(result.appendixText, searchTerm)}
+                                                <span className="text-sky-500">{translationApplication.appendix}-{result.appx}</span> {lightWords(result.appendixText, searchTerm)}
                                             </div>
                                         )))
                                     }
