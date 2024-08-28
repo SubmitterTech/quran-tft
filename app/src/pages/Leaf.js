@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useParams, useLocation, Link } from 'react-router-dom';
 import defaultQuran from '../assets/qurantft.json';
+import languages from '../assets/languages.json';
 import { mapQuran } from '../utils/Mapper';
 
 const Leaf = () => {
@@ -10,6 +11,8 @@ const Leaf = () => {
     const [titleList, setTitleList] = useState({});
     const [uf, setUf] = useState(false);
     const loc = useLocation();
+    const [direction, setDirection] = useState('ltr');
+
     useEffect(() => {
         // Function to process and set Quran data
         const processQuranData = (quranData) => {
@@ -21,6 +24,7 @@ const Leaf = () => {
             import(`../assets/translations/${lang}/quran_${lang}.json`)
                 .then(translatedQuran => {
                     processQuranData(translatedQuran.default);
+                    setDirection(languages[lang] ? languages[lang]["dir"] : 'ltr');
                 })
                 .catch(error => {
                     console.error("Error loading the translated Quran: ", error);
@@ -40,7 +44,7 @@ const Leaf = () => {
             let formula;
             if (params.includes(";")) {
                 formula = params.split(";");
-            } else { 
+            } else {
                 formula = params.split("&");
             }
             formula.forEach((param) => {
@@ -101,7 +105,7 @@ const Leaf = () => {
     }, [params, quranmap]);
 
     return (
-        <div className="select-text fixed w-screen h-screen bg-gradient-to-r from-sky-500 to-cyan-500 pl-1 pb-2 flex flex-col justify-center items-center">
+        <div className="select-text fixed w-screen h-full bg-gradient-to-r from-sky-500 to-cyan-500 pl-1 pb-2 flex flex-col justify-center items-center">
             <div className="text-base h-10 w-10 md:h-12 md:w-12 lg:h-14 lg:w-14 absolute bottom-5 ">
                 <Link to="/">
                     <img
@@ -117,13 +121,13 @@ const Leaf = () => {
                     {loc.pathname + " ?"}
                 </div>
             ) : (
-                <div className="w-full md:text-xl lg:w-3/4 lg:text-2xl flex flex-col overflow-auto pr-1 mb-10 md:mb-12 lg:mb-14 ">
+                <div className="w-full md:text-xl lg:w-3/4 lg:text-2xl flex flex-col overflow-auto pr-1 mb-10 md:mb-12 lg:mb-14 mt-2.5">
                     {Object.entries(verseList).map(([key, text]) => (
-                        <div key={key} className="text-neutral-100 text-justify hyphens-auto px-1 ">
+                        <div dir={direction} key={key} className="text-neutral-100 text-justify hyphens-auto px-1 ">
                             {titleList[key] && (
                                 <div
                                     key={key + "title"}
-                                    className={`rounded-t whitespace-pre-line bg-gradient-to-r from-sky-500 via-blue-900/90 to-cyan-500 text-center py-2 px-2.5`}>
+                                    className={`rounded-t whitespace-pre-line bg-gradient-to-r from-transparent via-blue-600/50 to-transparent text-center italic font-semibold py-1.5 px-2.5`}>
                                     {titleList[key]}
                                 </div>
                             )}
