@@ -2,25 +2,36 @@ import React, { useEffect, useState } from 'react';
 import { useParams, useLocation, Link } from 'react-router-dom';
 import defaultQuran from '../assets/qurantft.json';
 import languages from '../assets/languages.json';
-import { mapQuran } from '../utils/Mapper';
+import application from '../assets/application.json';
+import { mapQuranWithNotes } from '../utils/Mapper';
 
 const Leaf = () => {
     const { lang = process.env.REACT_APP_DEFAULT_LANG || 'en', params } = useParams();
     const [quranmap, setQuranmap] = useState({});
     const [verseList, setVerseList] = useState({});
     const [titleList, setTitleList] = useState({});
+    const [noteList, setNoteList] = useState({});
     const [uf, setUf] = useState(false);
     const loc = useLocation();
     const [direction, setDirection] = useState('ltr');
+    const [translation, setTranslation] = useState(application);
+    const [noteToggles, setNoteToggles] = useState({});
+
+    const toggleNote = (noteKey) => {
+        setNoteToggles((prevToggles) => ({
+            ...prevToggles,
+            [noteKey]: !prevToggles[noteKey],
+        }));
+    };
 
     useEffect(() => {
         // Function to process and set Quran data
         const processQuranData = (quranData) => {
-            setQuranmap(mapQuran(quranData));
+            setQuranmap(mapQuranWithNotes(quranData));
         };
 
         if (lang && lang !== 'en') {
-            // Dynamically load the translated Quran for the specified language
+            // Dynamically load the translated Quran and Application data for the specified language
             import(`../assets/translations/${lang}/quran_${lang}.json`)
                 .then(translatedQuran => {
                     processQuranData(translatedQuran.default);
@@ -31,15 +42,39 @@ const Leaf = () => {
                     // Fallback to default Quran in case of error
                     processQuranData(defaultQuran);
                 });
+            import(`../assets/translations/${lang}/application_${lang}.json`)
+                .then(translatedApplication => {
+                    setTranslation(translatedApplication);
+                })
+                .catch(error => {
+                    console.error("Error loading the translated Application data: ", error);
+                    // Fallback to default Application data in case of error
+                    setTranslation(application);
+                });
         } else {
             // Use the default Quran data
             processQuranData(defaultQuran);
+            setTranslation(application);
         }
     }, [lang]);
 
     useEffect(() => {
         let vl = {};
         let tl = {};
+        let nl = {};
+
+        function addVerseToCollection(key, surah, verse) {
+            if (quranmap && quranmap[surah]) {
+                vl[key] = quranmap[surah][verse];
+                if (quranmap[surah]["t" + verse]) {
+                    tl[key] = quranmap[surah]["t" + verse];
+                }
+                if (quranmap[surah]["n" + verse]) {
+                    nl[key] = quranmap[surah]["n" + verse];
+                }
+            }
+        }
+
         if (params && params.match(/^\d+:/)) {
             let formula;
             if (params.includes(";")) {
@@ -89,15 +124,7 @@ const Leaf = () => {
 
             setVerseList(vl);
             setTitleList(tl);
-
-            function addVerseToCollection(key, surah, verse) {
-                if (quranmap && quranmap[surah]) {
-                    vl[key] = quranmap[surah][verse];
-                    if (quranmap[surah]["t" + verse]) {
-                        tl[key] = quranmap[surah]["t" + verse];
-                    }
-                }
-            }
+            setNoteList(nl);
         } else {
             setUf(true);
         }
@@ -133,9 +160,18 @@ const Leaf = () => {
                             )}
                             <div
                                 key={key + "verse"}
-                                className={`rounded shadow-md bg-neutral-900/95 text-justify hyphens-auto py-1.5 px-2 mb-2`}>
+                                className={` bg-neutral-900/95 text-justify hyphens-auto py-1.5 px-2 ${noteList[key] ? `rounded-t shadow-t-md` : `shadow-md rounded mb-2`}`}>
                                 <span className="text-sky-500">{key}</span> {text}
                             </div>
+                            {noteList[key] && (
+                                <div
+                                    key={key + "note"}
+                                    onClick={() => toggleNote(key + "note")}
+                                    className={`whitespace-pre-line bg-green-900/95 hyphens-auto rounded-b py-1.5 px-2.5 mb-2 cursor-pointer transition-all duration-500 ease-linear ${noteToggles[key + "note"] ? 'max-h-[1000px] text-justify overflow-y-auto' : 'max-h-10 text-center'}`}
+                                >
+                                    {noteToggles[key + "note"] ? noteList[key] : translation.notes}
+                                </div>
+                            )}
                         </div>
                     ))}
                 </div>
