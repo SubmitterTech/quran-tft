@@ -15,6 +15,7 @@ const Magnify = ({ colors, theme, translationApplication, quran, map, appendices
         return (saved !== null && direction !== 'rtl') ? JSON.parse(saved) : direction !== 'rtl';
     });
     const [optionsVisible, setOptionsVisible] = useState(false);
+    const selectedVerseSet = new Set(selectedVerseList);
 
 
     const [titlesVisible, setTitlesVisible] = useState(false);
@@ -520,17 +521,23 @@ const Magnify = ({ colors, theme, translationApplication, quran, map, appendices
                                 lang={lang}
                                 className={`text-sm md:text-base text-justify hyphens-auto w-full ${colors[theme]["text"]} ${loadedVerses.length > 0 ? "max-h-full" : "h-0"}`}>
                                 <div className={`w-full flex flex-col space-y-1.5`}>
-                                    {versesVisible && (
-                                        loadedVerses.map((result, index) => (
-                                            <div
-                                                ref={index === loadedVerses.length - 1 ? lastVerseElementRef : null}
-                                                key={`verse-${result.suraNumber}:${result.verseNumber}-index`}
-                                                className={`p-1.5 rounded ${colors[theme]["text-background"]} cursor-pointer mx-1.5 md:mr-2 ${(multiSelect && selectedVerseList.includes(`${result.suraNumber}:${result.verseNumber}`)) ? `ring-1 ${colors[theme]["matching-ring"]}` : ''}`}
-                                                onClick={() => handleConfirm(`${result.suraNumber}:${result.verseNumber}`, 'verse')}>
-                                                <span className="text-sky-500">{result.suraNumber}:{result.verseNumber}</span> {lightWords(result.verseText, searchTerm)}
-                                            </div>
-                                        ))
-                                    )}
+                                    {versesVisible &&
+                                        (
+                                            loadedVerses.map((result, index) => {
+                                                const isSelected = multiSelect && selectedVerseSet.has(`${result.suraNumber}:${result.verseNumber}`);
+
+                                                return (
+                                                    <div
+                                                        ref={index === loadedVerses.length - 1 ? lastVerseElementRef : null}
+                                                        key={`verse-${result.suraNumber}:${result.verseNumber}-index`}
+                                                        className={`p-1.5 rounded ${colors[theme]["text-background"]} cursor-pointer mx-1.5 md:mr-2 ${isSelected ? `ring-1 ${colors[theme]["matching-ring"]}` : ''}`}
+                                                        onClick={() => handleConfirm(`${result.suraNumber}:${result.verseNumber}`, 'verse')}>
+                                                        <span className="text-sky-500">{result.suraNumber}:{result.verseNumber}</span> {lightWords(result.verseText, searchTerm)}
+                                                    </div>
+                                                );
+                                            })
+                                        )
+                                    }
                                 </div>
                             </div>
 
