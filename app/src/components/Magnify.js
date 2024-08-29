@@ -490,7 +490,7 @@ const Magnify = ({ colors, theme, translationApplication, quran, map, appendices
                                 <div className={`${titlesVisible ? "" : "flex justify-between w-full"}`}>{translationApplication.titles}{` `}<span className={`${colors[theme]["matching-text"]}`}>{searchResultTitles.length}</span></div>
                             </div>
                             <div className={`text-sm md:text-base w-full ${colors[theme]["text"]} `}>
-                                <div className={`w-full flex flex-col space-y-1.5 pb-1.5`}>
+                                <div className={`w-full flex flex-col space-y-1.5 ${titlesVisible ? `pb-1.5`: ``}`}>
                                     {titlesVisible &&
                                         (
                                             loadedTitles.map((result, index) => (
@@ -531,7 +531,7 @@ const Magnify = ({ colors, theme, translationApplication, quran, map, appendices
                             <div
                                 lang={lang}
                                 className={`text-sm md:text-base text-justify hyphens-auto w-full ${colors[theme]["text"]} ${loadedVerses.length > 0 ? "max-h-full" : "h-0"}`}>
-                                <div className={`w-full flex flex-col space-y-1.5 pb-1.5`}>
+                                <div className={`w-full flex flex-col space-y-1.5 ${versesVisible ? `pb-1.5`: ``}`}>
                                     {versesVisible &&
                                         (
                                             loadedVerses.map((result, index) => {
@@ -563,7 +563,7 @@ const Magnify = ({ colors, theme, translationApplication, quran, map, appendices
                             <div
                                 lang={lang}
                                 className={`text-sm md:text-base text-justify hyphens-auto w-full ${colors[theme]["text"]} transition-all duration-100 ease-linear ${loadedNotes.length > 0 ? "max-h-full" : "h-0"}`}>
-                                <div className={`w-full flex flex-col space-y-1.5 pb-1.5`}>
+                                <div className={`w-full flex flex-col space-y-1.5 ${notesVisible ? `pb-1.5`: ``}`}>
                                     {notesVisible &&
                                         (loadedNotes.map((result, index) => (
                                             <div
@@ -589,7 +589,7 @@ const Magnify = ({ colors, theme, translationApplication, quran, map, appendices
                             <div
                                 lang={lang}
                                 className={`text-sm md:text-base text-justify hyphens-auto w-full ${colors[theme]["text"]} transition-all duration-100 ease-linear ${loadedAppendices.length > 0 ? "max-h-full" : "h-0"}`}>
-                                <div className={`w-full flex flex-col space-y-1.5 pb-1.5 ${appendicesVisible ? "mb-10" : ""}`}>
+                                <div className={`w-full flex flex-col space-y-1.5 ${appendicesVisible ? "mb-10 pb-1.5" : ""}`}>
                                     {appendicesVisible &&
                                         (loadedAppendices.map((result, index) => (
                                             <div
