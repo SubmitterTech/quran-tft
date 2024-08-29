@@ -44,6 +44,7 @@ const Magnify = ({ colors, theme, translationApplication, quran, map, appendices
     const inputRef = useRef(null);
 
     const [openTheme, setOpenTheme] = useState(null);
+    const [openSubTheme, setOpenSubTheme] = useState({});
 
     const [quranmap, setQuranmap] = useState({});
     const [appsmap, setAppsmap] = useState({});
@@ -68,6 +69,16 @@ const Magnify = ({ colors, theme, translationApplication, quran, map, appendices
             }, 76);
         }
     }
+
+    const handleSubThemeClick = (parentIndex, subIndex) => {
+        setOpenSubTheme(prevState => ({
+            ...prevState,
+            [parentIndex]: {
+                ...prevState[parentIndex],
+                [subIndex]: !prevState[parentIndex]?.[subIndex],
+            }
+        }));
+    };
 
     useEffect(() => {
         if (inputRef.current) {
@@ -617,9 +628,15 @@ const Magnify = ({ colors, theme, translationApplication, quran, map, appendices
                                             <div className={`flex flex-col space-y-1.5 p-1`}>
                                                 {typeof themeorref === 'object' ?
                                                     Object.entries(themeorref).map(([innerTheme, ref]) => (
-                                                        <div key={innerTheme} className={`p-1 ${colors[theme]["app-background"]} rounded  `}>
-                                                            <div className={`p-1`}>{innerTheme}</div>
-                                                            <div className={`p-0.5 rounded ${colors[theme]["base-background"]} flex flex-col space-y-1`}>{renderref(ref)}</div>
+                                                        <div key={innerTheme} className={`p-1 ${colors[theme]["app-background"]} rounded`}>
+                                                            <div
+                                                                onClick={() => handleSubThemeClick(index + "-" + searchTerm, innerTheme)}
+                                                                className={`p-1 cursor-pointer`}>
+                                                                {innerTheme}
+                                                            </div>
+                                                            {openSubTheme[index + "-" + searchTerm]?.[innerTheme] && (
+                                                                <div className={`p-0.5 rounded ${colors[theme]["base-background"]} flex flex-col space-y-1`}>{renderref(ref)}</div>
+                                                            )}
                                                         </div>
                                                     ))
                                                     :
