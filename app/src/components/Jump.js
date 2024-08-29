@@ -280,9 +280,9 @@ const Jump = ({ onChangeLanguage, suraNames, onChangeTheme, colors, theme, trans
                         <div className={`w-full`}>
                             {showBookmarks ?
                                 (
-                                    <div className={`h-48 m-2 px-1 py-1 text-base rounded ${colors[theme]["relation-background"]} overflow-y-auto overflow-x-hidden`}>
+                                    <div className={`md:h-64 lg:h-96 h-48 m-2 px-1 py-1 text-base rounded ${colors[theme]["relation-background"]} overflow-y-auto overflow-x-hidden`}>
                                         {Object.entries(localStorage.getItem("bookmarks") ? JSON.parse(localStorage.getItem("bookmarks")) : {}).reverse().map(([key, val]) => (
-                                            <div key={key} className={`bookmark-entry flex py-2 space-x-2 border-b ${colors[theme]["verse-border"]} mb-1.5`}>
+                                            <div key={key} className={`bookmark-entry flex py-1 space-x-1 border-b ${colors[theme]["verse-border"]} mb-1.5`}>
                                                 <div className={`w-full ${colors[theme]["page-text"]} flex items-center justify-center`}>
                                                     <input
                                                         type="text"
@@ -291,7 +291,7 @@ const Jump = ({ onChangeLanguage, suraNames, onChangeTheme, colors, theme, trans
                                                         onBlur={(e) => {
                                                             updateBookmark(key, e.target.value);
                                                         }}
-                                                        className={`w-full rounded text-lg p-2.5 ${colors[theme]["text"]} ${colors[theme]["relation-background"]} text-center focus:outline-none focus:ring-2 focus:border-sky-500 focus:ring-sky-500`}
+                                                        className={`w-full rounded text-lg p-2.5 ${colors[theme]["text"]} bg-transparent/20 text-center focus:outline-none focus:ring-2 focus:border-sky-500 focus:ring-sky-500`}
                                                     />
                                                 </div>
                                                 <div
