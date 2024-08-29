@@ -486,7 +486,7 @@ const Magnify = ({ colors, theme, translationApplication, quran, map, appendices
                         <div className={`${loadedTitles.length > 0 ? titlesVisible ? `flex-1 mx-1 lg:mx-0 ring-1 ${colors[theme]["text-background"]}` : `h-10 p-1 mx-1 lg:mx-0 ring-1 ${colors[theme]["base-background"]}` : "hidden"} ${loadedVerses.length > 0 ? "" : "lg:col-span-2"} transition-all duration-100 ease-linear  overflow-auto rounded ${colors[theme]["ring"]} `}>
                             <div
                                 onClick={() => setTitlesVisible(!titlesVisible)}
-                                className={`${loadedTitles.length > 0 ? "opacity-100" : "opacity-0 h-0"} ${titlesVisible ? `sticky top-0 text-base md:text-lg mb-1.5 p-2 justify-center rounded-t` : " h-full justify-between px-2 text-xl md:text-2xl"} transition-all duration-100 ease-linear flex items-center text-center backdrop-blur-xl drop-shadow-md ${colors[theme]["page-text"]}`}>
+                                className={`${loadedTitles.length > 0 ? "opacity-100" : "opacity-0 h-0"} ${titlesVisible ? `sticky top-0 text-base md:text-lg mb-1.5 p-2 justify-center rounded-t drop-shadow-md backdrop-blur-xl` : ` h-full justify-between px-2 text-xl md:text-2xl`} transition-all duration-100 ease-linear flex items-center text-center ${colors[theme]["page-text"]}`}>
                                 <div className={`${titlesVisible ? "" : "flex justify-between w-full"}`}>{translationApplication.titles}{` `}<span className={`${colors[theme]["matching-text"]}`}>{searchResultTitles.length}</span></div>
                             </div>
                             <div className={`text-sm md:text-base w-full ${colors[theme]["text"]} `}>
@@ -508,11 +508,11 @@ const Magnify = ({ colors, theme, translationApplication, quran, map, appendices
                         </div>
 
                         <div className={`${loadedVerses.length > 0 ? versesVisible ? " flex-1 mx-1 lg:mx-0 ring-1 " : "h-10 mx-1 lg:mx-0 ring-1 " : "hidden"} ${loadedTitles.length > 0 ? "" : " lg:col-span-2"} transition-all duration-100 ease-linear overflow-auto rounded ${colors[theme]["ring"]} ${colors[theme]["base-background"]}`}>
-                            <div className={`${loadedVerses.length > 0 ? "opacity-100" : "opacity-0 h-0"} ${versesVisible ? "sticky top-0 text-base md:text-lg mb-1.5 justify-between rounded-t backdrop-blur-xl" : " space-x-5 h-full justify-between text-xl md:text-2xl"} transition-all duration-100 ease-linear flex items-center text-center shadow-md ${colors[theme]["page-text"]}`}>
+                            <div className={`${loadedVerses.length > 0 ? "opacity-100" : "opacity-0 h-0"} ${versesVisible ? `sticky top-0 text-base md:text-lg mb-1.5 justify-between rounded-t drop-shadow-md backdrop-blur-xl` : ` h-full justify-between text-xl md:text-2xl`} transition-all duration-100 ease-linear flex items-center text-center ${colors[theme]["page-text"]}`}>
                                 <div
                                     onClick={() => setVersesVisible(!versesVisible)}
-                                    className={`${versesVisible ? `${direction === 'rtl' ? `pr-14` : `pl-10`}` : ``} flex items-center w-full p-2 h-10`}>
-                                    <div dir={direction} className={`w-full flex items-center ${versesVisible ? `justify-center space-x-5` : `justify-between`}`}>
+                                    className={`${versesVisible ? `${direction === 'rtl' ? `pr-14` : `pl-10`}` : ``} flex items-center w-full p-3 h-10`}>
+                                    <div dir={direction} className={`w-full flex items-center ${versesVisible ? `justify-center space-x-2` : `justify-between`}`}>
                                         <div className={`${direction === 'rtl' ? `pl-5` : ``}`}>{translationApplication.verses}{` `}</div>
                                         <div className={`${colors[theme]["matching-text"]}`}>{searchResultVerses.length}</div>
                                     </div>
@@ -557,7 +557,7 @@ const Magnify = ({ colors, theme, translationApplication, quran, map, appendices
                         <div className={`${loadedNotes.length > 0 ? notesVisible ? "flex-1 mx-1 lg:mx-0 ring-1" : "h-10 p-1 mx-1 lg:mx-0 ring-1" : "hidden"} ${loadedAppendices.length > 0 ? "" : "lg:col-span-2"} transition-all duration-100 ease-linear  overflow-auto rounded ${colors[theme]["ring"]} ${colors[theme]["base-background"]}`}>
                             <div
                                 onClick={() => setNotesVisible(!notesVisible)}
-                                className={`${loadedNotes.length > 0 ? "opacity-100" : "opacity-0 "} ${notesVisible ? "sticky top-0 text-base md:text-lg mb-1.5 p-2 justify-center rounded-t" : " h-full justify-between px-2 text-xl md:text-2xl"} transition-all duration-100 ease-linear flex items-center text-center drop-shadow-md backdrop-blur-xl ${colors[theme]["page-text"]}`}>
+                                className={`${loadedNotes.length > 0 ? "opacity-100" : "opacity-0 "} ${notesVisible ? `sticky top-0 text-base md:text-lg mb-1.5 p-2 justify-center rounded-t drop-shadow-md backdrop-blur-xl` : ` h-full justify-between px-2 text-xl md:text-2xl`} transition-all duration-100 ease-linear flex items-center text-center ${colors[theme]["page-text"]}`}>
                                 <div className={`${notesVisible ? "" : "flex justify-between w-full"}`}>{translationApplication.notes}{` `}<span className={`${colors[theme]["matching-text"]}`}>{searchResultNotes.length}</span></div>
                             </div>
                             <div
@@ -583,7 +583,7 @@ const Magnify = ({ colors, theme, translationApplication, quran, map, appendices
                         <div className={`${loadedAppendices.length > 0 ? appendicesVisible ? "flex-1 mx-1 lg:mx-0 ring-1" : "h-10 p-1 mx-1 lg:mx-0 ring-1" : "hidden"} ${loadedNotes.length > 0 ? "" : "lg:col-span-2"} transition-all duration-100 ease-linear  overflow-auto rounded ${colors[theme]["ring"]} ${colors[theme]["base-background"]}`}>
                             <div
                                 onClick={() => setAppendicesVisible(!appendicesVisible)}
-                                className={`${loadedAppendices.length > 0 ? "opacity-100" : "opacity-0 "} ${appendicesVisible ? "sticky top-0 text-base md:text-lg mb-1.5 p-2 justify-center rounded-t" : " h-full justify-between px-2 text-xl md:text-2xl"} transition-all duration-100 ease-linear flex items-center text-center drop-shadow-md backdrop-blur-xl ${colors[theme]["page-text"]}`}>
+                                className={`${loadedAppendices.length > 0 ? "opacity-100" : "opacity-0 "} ${appendicesVisible ? `sticky top-0 text-base md:text-lg mb-1.5 p-2 justify-center rounded-t drop-shadow-md backdrop-blur-xl` : ` h-full justify-between px-2 text-xl md:text-2xl`} transition-all duration-100 ease-linear flex items-center text-center ${colors[theme]["page-text"]}`}>
                                 <div className={`${appendicesVisible ? "" : "flex justify-between w-full"}`}>{translationApplication.appendices}{` `}<span className={`${colors[theme]["matching-text"]}`}>{searchResultAppendices.length}</span></div>
                             </div>
                             <div
