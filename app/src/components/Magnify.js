@@ -535,13 +535,12 @@ const Magnify = ({ colors, theme, translationApplication, quran, map, appendices
                                     {versesVisible &&
                                         (
                                             loadedVerses.map((result, index) => {
-                                                const isSelected = multiSelect && selectedVerseSet.has(`${result.suraNumber}:${result.verseNumber}`);
-
+                                                const hasRing = multiSelect ? selectedVerseSet.has(`${result.suraNumber}:${result.verseNumber}`) ? `ring-1 ${colors[theme]["matching-ring"]}` : "" : "" ;
                                                 return (
                                                     <div
                                                         ref={index === loadedVerses.length - 1 ? lastVerseElementRef : null}
                                                         key={`verse-${result.suraNumber}:${result.verseNumber}-index`}
-                                                        className={`p-1.5 rounded ${colors[theme]["text-background"]} cursor-pointer mx-1.5 md:mr-2 ${isSelected ? `ring-1 ${colors[theme]["matching-ring"]}` : ''}`}
+                                                        className={`p-1.5 rounded ${colors[theme]["text-background"]} cursor-pointer mx-1.5 md:mr-2 ${hasRing}`}
                                                         onClick={() => handleConfirm(`${result.suraNumber}:${result.verseNumber}`, 'verse')}>
                                                         <span className="text-sky-500">{result.suraNumber}:{result.verseNumber}</span> {lightWords(result.verseText, searchTerm)}
                                                     </div>
