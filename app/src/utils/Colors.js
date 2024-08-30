@@ -112,6 +112,8 @@ export const colorThemes = {
         "matching-ring": "ring-orange-500",
         "matching": "bg-orange-500",
         "matching-conic": "bg-[conic-gradient(#f97316_20deg,transparent_180deg)]", // orange-500
+        "toast-background": "#171717",
+        "toast-text": "#f97316",
     },
     "brown": {
         "text-background": "bg-yellow-900",
