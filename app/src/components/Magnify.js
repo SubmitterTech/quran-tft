@@ -610,7 +610,10 @@ const Magnify = ({ colors, theme, translationApplication, quran, map, appendices
                     </div>
                 }
                 {searchTerm.length === 1 &&
-                    <div className={`w-full h-full px-1 mb-12 lg:mb-14 xl:mb-16 z-0 overflow-y-scroll`}>
+                    <div className={`w-full h-full px-1 z-0 overflow-y-scroll`}
+                        style={{
+                            marginBottom: `calc(env(safe-area-inset-bottom) * 0.57 + ${window.innerWidth >= 1024 ? '4.2rem' : '3.2rem'})`
+                        }}>
                         <div className={`text-lg md:text-2xl w-full p-0.5 ${colors[theme]["text"]} transition-all duration-100 ease-linear overflow-y-auto`}>
                             <div className={` w-full flex flex-col space-y-1.5 transition-all duration-200 ease-linear `}>
                                 {Object.entries(loadedMap).map(([exp, themeorref], index) => (
