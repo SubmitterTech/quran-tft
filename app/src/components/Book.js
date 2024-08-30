@@ -782,13 +782,18 @@ const Book = ({ incomingSearch = false, incomingAppendix = false, incomingAppend
         <div
             className={`fixed flex w-full flex-col justify-start h-screen ${colors[theme]["app-background"]} overflow-y-hidden`}
             style={{ paddingTop: 'calc(env(safe-area-inset-top) * 0.76)', paddingBottom: 'calc(env(safe-area-inset-bottom) * 0.57)' }}>
-            <Toaster position="top-center" reverseOrder={false}
+            <Toaster
+                position="top-center"
+                reverseOrder={false}
+                containerStyle={{
+                    marginTop: 'calc(env(safe-area-inset-top) + 2rem)',
+                }}
                 toastOptions={{
                     success: {
                         style: {
                             background: colors[theme]["toast-background"],
                             color: colors[theme]["toast-text"],
-                            borderRadius: '4px',
+                            borderRadius: '5px',
                             padding: '7px',
                             boxShadow: '0px 4px 6px rgba(0, 0, 0, 0.1)',
                         },
@@ -801,7 +806,7 @@ const Book = ({ incomingSearch = false, incomingAppendix = false, incomingAppend
                         style: {
                             background: colors[theme]["toast-background"],
                             color: colors[theme]["toast-text"],
-                            borderRadius: '4px',
+                            borderRadius: '5px',
                             padding: '7px',
                             boxShadow: '0px 4px 6px rgba(0, 0, 0, 0.1)',
                         },
@@ -813,7 +818,7 @@ const Book = ({ incomingSearch = false, incomingAppendix = false, incomingAppend
                 }} />
             {renderBookContent()}
             <div>
-                <div className={`h-12 md:h-14`}></div>
+                <div className={`h-12 lg:h-14`}></div>
                 <div className={`w-full flex z-40 ${colors[theme]["app-background"]} fixed bottom-0`}
                     style={{ paddingBottom: 'calc(env(safe-area-inset-bottom) * 0.57)' }}>
                     <div className={`relative flex w-full items-center justify-between`}>
