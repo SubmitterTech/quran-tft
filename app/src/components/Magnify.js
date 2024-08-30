@@ -481,8 +481,10 @@ const Magnify = ({ colors, theme, translationApplication, quran, map, appendices
                 {searchTerm.length > 1 &&
                     <div
                         dir={direction}
-                        className={`flex flex-col lg:grid lg:grid-cols-2 lg:grid-flow-row lg:px-1 gap-1 w-full overflow-auto py-0.5 mb-12 md:mb-14 lg:mb-16 flex-1`}>
-
+                        className={`flex flex-col lg:grid lg:grid-cols-2 lg:grid-flow-row lg:px-1 gap-1 w-full overflow-auto py-0.5 flex-1`}
+                        style={{
+                            marginBottom: `calc(env(safe-area-inset-bottom) * 0.57 + ${window.innerWidth >= 1024 ? '4rem' : '3rem'})`
+                        }}>
                         <div className={`${loadedTitles.length > 0 ? titlesVisible ? `flex-1 mx-1 lg:mx-0 ring-1 ${colors[theme]["text-background"]}` : `h-10 p-1 mx-1 lg:mx-0 ring-1 ${colors[theme]["base-background"]}` : "hidden"} ${loadedVerses.length > 0 ? "" : "lg:col-span-2"} transition-all duration-100 ease-linear  overflow-auto rounded ${colors[theme]["ring"]} `}>
                             <div
                                 onClick={() => setTitlesVisible(!titlesVisible)}
@@ -490,7 +492,7 @@ const Magnify = ({ colors, theme, translationApplication, quran, map, appendices
                                 <div className={`${titlesVisible ? "" : "flex justify-between w-full"}`}>{translationApplication.titles}{` `}<span className={`${colors[theme]["matching-text"]}`}>{searchResultTitles.length}</span></div>
                             </div>
                             <div className={`text-sm md:text-base w-full ${colors[theme]["text"]} `}>
-                                <div className={`w-full flex flex-col space-y-1.5 ${titlesVisible ? `pb-1.5`: ``}`}>
+                                <div className={`w-full flex flex-col space-y-1.5 ${titlesVisible ? `pb-1.5` : ``}`}>
                                     {titlesVisible &&
                                         (
                                             loadedTitles.map((result, index) => (
@@ -531,11 +533,11 @@ const Magnify = ({ colors, theme, translationApplication, quran, map, appendices
                             <div
                                 lang={lang}
                                 className={`text-sm md:text-base text-justify hyphens-auto w-full ${colors[theme]["text"]} ${loadedVerses.length > 0 ? "max-h-full" : "h-0"}`}>
-                                <div className={`w-full flex flex-col space-y-1.5 ${versesVisible ? `pb-1.5`: ``}`}>
+                                <div className={`w-full flex flex-col space-y-1.5 ${versesVisible ? `pb-1.5` : ``}`}>
                                     {versesVisible &&
                                         (
                                             loadedVerses.map((result, index) => {
-                                                const hasRing = multiSelect ? selectedVerseSet.has(`${result.suraNumber}:${result.verseNumber}`) ? `ring-1 ${colors[theme]["matching-ring"]}` : "" : "" ;
+                                                const hasRing = multiSelect ? selectedVerseSet.has(`${result.suraNumber}:${result.verseNumber}`) ? `ring-1 ${colors[theme]["matching-ring"]}` : "" : "";
                                                 return (
                                                     <div
                                                         ref={index === loadedVerses.length - 1 ? lastVerseElementRef : null}
@@ -562,7 +564,7 @@ const Magnify = ({ colors, theme, translationApplication, quran, map, appendices
                             <div
                                 lang={lang}
                                 className={`text-sm md:text-base text-justify hyphens-auto w-full ${colors[theme]["text"]} transition-all duration-100 ease-linear ${loadedNotes.length > 0 ? "max-h-full" : "h-0"}`}>
-                                <div className={`w-full flex flex-col space-y-1.5 ${notesVisible ? `pb-1.5`: ``}`}>
+                                <div className={`w-full flex flex-col space-y-1.5 ${notesVisible ? `pb-1.5` : ``}`}>
                                     {notesVisible &&
                                         (loadedNotes.map((result, index) => (
                                             <div
