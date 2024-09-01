@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef, useCallback } from 'react';
+import React, { useState, useEffect, useRef, useCallback, useMemo } from 'react';
 import { App } from '@capacitor/app';
 import { Toast } from '@capacitor/toast';
 import { Share } from '@capacitor/share';
@@ -30,6 +30,7 @@ const Book = ({ incomingSearch = false, incomingAppendix = false, incomingAppend
     const endReferenceToRestore = useRef(null);
     const appxReferenceToJump = useRef(null);
     const beginingReferenceToRestore = useRef(null);
+    const beginingReferenceToJump = useRef(null);
     const [pages, setPages] = useState([]);
     const [selectedApp, setSelectedApp] = useState(incomingAppendixNumber);
     const [backButtonPressedOnce, setBackButtonPressedOnce] = useState(false);
@@ -40,6 +41,8 @@ const Book = ({ incomingSearch = false, incomingAppendix = false, incomingAppend
     const [multiSelect, setMultiSelect] = useState(false);
     const [selectedVerseList, setSelectedVerseList] = useState([]);
     const [updatePageTriggered, setUpdatePageTriggered] = useState(false);
+
+    const skipPages = useMemo(() => [3, 4, 8, 9, 10, 12], []);
 
     let path = useRef({});
 
@@ -90,9 +93,15 @@ const Book = ({ incomingSearch = false, incomingAppendix = false, incomingAppend
         magnifyConfirm.current = true;
         const refType = reference.split(":")[0];
         const refKey = reference.split(":")[1];
+        beginingReferenceToJump.current = null;
         if (refType === "appx") {
             appxReferenceToJump.current = refKey;
             handleClickAppReference(refKey.split("-")[0], 'jumpAppendix');
+        } else if (refType === "intro") {
+            const [page, part, no] = refKey.split("-");
+            const refer = part + "-" + no;
+            beginingReferenceToJump.current = "intro-" + refer;
+            updatePage(parseInt(page), null, null, 'jumpIntroduction', null);
         } else {
             handleClickReference(reference);
         }
@@ -159,7 +168,6 @@ const Book = ({ incomingSearch = false, incomingAppendix = false, incomingAppend
         let newPage = parseInt(currentPage) > 396 ? parseInt(currentPage) : parseInt(currentPage) + 1;
 
         // Skip specified pages
-        const skipPages = [3, 4, 8, 9, 10, 12];
         while (skipPages.includes(newPage)) {
             newPage++;
         }
@@ -175,6 +183,7 @@ const Book = ({ incomingSearch = false, incomingAppendix = false, incomingAppend
             updatePage(parseInt(newPage), null, null, 'next');
         }
         restoreIntroText.current = false;
+        beginingReferenceToJump.current = null;
     };
 
     const prevPage = useCallback(() => {
@@ -196,11 +205,13 @@ const Book = ({ incomingSearch = false, incomingAppendix = false, incomingAppend
                 }
             }
         } else {
-            // Default back navigation without history
-            let newPage = parseInt(currentPage) > 1 ? parseInt(currentPage) - 1 : parseInt(currentPage);
+            let newPage = parseInt(currentPage);
+            do {
+                newPage = newPage > 1 ? newPage - 1 : newPage;
+            } while (skipPages.includes(newPage) && newPage > 1);
             updatePage(newPage, null, null, 'previous');
         }
-    }, [currentPage, pageHistory, updatePage]);
+    }, [currentPage, pageHistory, skipPages, updatePage]);
 
     const checkOldScripture = (reference) => {
         return (
@@ -591,7 +602,10 @@ const Book = ({ incomingSearch = false, incomingAppendix = false, incomingAppend
                 currentPage={currentPage}
                 restoreIntroText={restoreIntroText}
                 refToRestore={beginingReferenceToRestore}
-                direction={direction} />;
+                refToJump={beginingReferenceToJump}
+                direction={direction}
+                upt={updatePageTriggered}
+            />;
         }
 
         if (parseInt(currentPage) === 22) {
@@ -958,6 +972,7 @@ const Book = ({ incomingSearch = false, incomingAppendix = false, incomingAppend
                     quran={translation ? translation : quranData}
                     map={map}
                     appendices={appendicesContent}
+                    introduction={introductionContent}
                     onClose={handleCloseSearch}
                     onConfirm={handleMagnifyConfirm}
                     direction={direction}

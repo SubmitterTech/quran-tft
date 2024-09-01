@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useCallback, useRef } from 'react';
 import { mapAppendices, mapQuran } from '../utils/Mapper';
 
-const Magnify = ({ colors, theme, translationApplication, quran, map, appendices, onClose, onConfirm, direction, multiSelect, setMultiSelect, selectedVerseList, setSelectedVerseList }) => {
+const Magnify = ({ colors, theme, translationApplication, quran, map, appendices, introduction, onClose, onConfirm, direction, multiSelect, setMultiSelect, selectedVerseList, setSelectedVerseList }) => {
     const lang = localStorage.getItem("lang")
 
     const [searchTerm, setSearchTerm] = useState(localStorage.getItem("st") ? localStorage.getItem("st") : "");
@@ -200,6 +200,30 @@ const Magnify = ({ colors, theme, translationApplication, quran, map, appendices
             }
         }
 
+        for (const section in introduction) {
+
+            const introContent = (introduction[section].page !== 1 && introduction[section].page !== 22) ? introduction[section] : null;
+            if (introContent) {
+                let page = 0;
+                Object.entries(introContent)
+                    .forEach(([type, content]) => {
+                        page = type === "page" ? content : page;
+                        Object.entries(content).forEach(([order, value]) => {
+                            const appx = 0;
+                            const introText = value.toString();
+                            const key = page + "-" + type + "-" + order;
+                            let precessedIntroText = normalize ? normalizeText(introText) : introText;
+                            precessedIntroText = caseSensitive ? precessedIntroText : precessedIntroText.toLocaleUpperCase(lang);
+
+                            if (keywords.every(keyword => precessedIntroText.includes(keyword))) {
+                                appendicesResults.push({ appx, key, introText });
+                            }
+
+                        });
+                    });
+            }
+        }
+
         for (const appx in appsmap) {
             const appxContent = appsmap[appx].content;
             Object.values(appxContent)
@@ -221,7 +245,7 @@ const Magnify = ({ colors, theme, translationApplication, quran, map, appendices
         setSearchResultNotes(notesResults);
         setSearchResultAppendices(appendicesResults);
 
-    }, [quran, appsmap, caseSensitive, normalize, lang]);
+    }, [quran, introduction, appsmap, caseSensitive, normalize, lang]);
 
     const performSearchSingleLetter = useCallback((term) => {
         const capitalizedTerm = term.toLocaleUpperCase(lang);
@@ -592,16 +616,33 @@ const Magnify = ({ colors, theme, translationApplication, quran, map, appendices
                                 className={`text-sm md:text-base text-justify hyphens-auto w-full ${colors[theme]["text"]} transition-all duration-100 ease-linear ${loadedAppendices.length > 0 ? "max-h-full" : "h-0"}`}>
                                 <div className={`w-full flex flex-col space-y-1.5 ${appendicesVisible ? "mb-10 pb-1.5" : ""}`}>
                                     {appendicesVisible &&
-                                        (loadedAppendices.map((result, index) => (
-                                            <div
-                                                ref={index === loadedAppendices.length - 1 ? lastAppendixElementRef : null}
-                                                key={`${result.appx}-${result.key}-${index}`}
-                                                className={` p-1.5 rounded  ${colors[theme]["text-background"]} cursor-pointer mx-1.5 md:mr-2`}
-                                                onClick={() => handleConfirm(`appx:${result.appx}-${result.key}`)}
-                                            >
-                                                <span className="text-sky-500">{translationApplication.appendix}-{result.appx}</span> {lightWords(result.appendixText, searchTerm)}
-                                            </div>
-                                        )))
+                                        loadedAppendices.map((result, index) => {
+                                            const isIntro = result.appx === 0;
+                                            return (
+                                                <div
+                                                    ref={index === loadedAppendices.length - 1 ? lastAppendixElementRef : null}
+                                                    key={`${result.appx}-${result.key}-${index}`}
+                                                    className={`p-1.5 rounded ${colors[theme]["text-background"]} cursor-pointer mx-1.5 md:mr-2`}
+                                                    onClick={() => {
+                                                        if (isIntro) {
+                                                            handleConfirm(`intro:${result.key}`);
+                                                        } else {
+                                                            handleConfirm(`appx:${result.appx}-${result.key}`);
+                                                        }
+                                                    }}
+                                                >
+                                                    {isIntro ? (
+                                                        <>
+                                                            <span className="text-sky-500">{translationApplication.intro}</span> {lightWords(result.introText, searchTerm)}
+                                                        </>
+                                                    ) : (
+                                                        <>
+                                                            <span className="text-sky-500">{translationApplication.appendix}-{result.appx}</span> {lightWords(result.appendixText, searchTerm)}
+                                                        </>
+                                                    )}
+                                                </div>
+                                            );
+                                        })
                                     }
                                 </div>
                             </div>

@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 
-const Intro = ({ colors, theme, translationApplication, parseReferences, introduction, currentPage, restoreIntroText, refToRestore, direction }) => {
+const Intro = ({ colors, theme, translationApplication, parseReferences, introduction, currentPage, restoreIntroText, refToRestore, refToJump, direction, upt }) => {
 
     const lang = localStorage.getItem("lang");
     const images = require.context('../assets/pictures/', false, /\.jpg$/);
@@ -15,6 +15,8 @@ const Intro = ({ colors, theme, translationApplication, parseReferences, introdu
             setTimeout(() => {
                 if (restoreIntroText.current && refToRestore.current && textRememberRef.current[refToRestore.current]) {
                     textRememberRef.current[refToRestore.current].scrollIntoView({ behavior: 'smooth', block: 'center' });
+                } else if (refToJump && textRememberRef.current[refToJump.current]) {
+                    textRememberRef.current[refToJump.current].scrollIntoView({ behavior: 'smooth', block: 'center' });
                 } else {
                     if (introRef && isRefsReady) {
                         introRef.current.scrollIntoView({ behavior: 'smooth' });
@@ -22,7 +24,7 @@ const Intro = ({ colors, theme, translationApplication, parseReferences, introdu
                 }
             }, 38);
         }
-    }, [currentPage, restoreIntroText, refToRestore, isRefsReady, textRememberRef]);
+    }, [currentPage, restoreIntroText, refToRestore, refToJump, isRefsReady, textRememberRef, upt]);
 
     const handleRefsReady = () => {
         setIsRefsReady(true);
@@ -54,7 +56,7 @@ const Intro = ({ colors, theme, translationApplication, parseReferences, introdu
         }
 
         Object.entries(currentPageData.titles).forEach(([key, value]) => {
-            introContent.push({ type: 'title', content: value, order: parseInt(key) });
+            introContent.push({ type: 'titles', content: value, order: parseInt(key) });
         });
 
         Object.entries(currentPageData.text).forEach(([key, value]) => {
@@ -74,7 +76,7 @@ const Intro = ({ colors, theme, translationApplication, parseReferences, introdu
         introContent.sort((a, b) => a.order - b.order);
 
         const renderContent = introContent.map((item, index) => {
-            if (item.type === 'title') {
+            if (item.type === 'titles') {
                 const bsml = translationApplication.bsml.toLocaleLowerCase(lang);
                 const hasBesmele = item.content.toLocaleLowerCase(lang).search(bsml) !== -1;
 
@@ -82,6 +84,7 @@ const Intro = ({ colors, theme, translationApplication, parseReferences, introdu
                     <div
                         key={`title-${index}`}
                         dir={direction}
+                        ref={(el) => textRememberRef.current["intro-" + item.type + "-" + item.order] = el}
                         className={hasBesmele ? `select-none w-full my-1.5 py-1.5 px-2.5 text-neutral-900 rounded text-base md:text-lg lg:text-xl bg-gradient-to-r from-cyan-300 to-sky-500 besmele` : `select-text w-full flex items-center justify-center text-center p-2 font-semibold ${colors[theme]["app-text"]}  whitespace-pre-line ${item.order === 0 ? "text-3xl font-bold" : " text-lg"}`}>
                         <h2>{item.content}</h2>
                     </div>
@@ -92,8 +95,8 @@ const Intro = ({ colors, theme, translationApplication, parseReferences, introdu
                         lang={lang}
                         dir={direction}
                         key={`text-${index}`}
-                        ref={(el) => textRememberRef.current["intro-" + index] = el}
-                        onClick={(e) => handleRefClick(e, index)}
+                        ref={(el) => textRememberRef.current["intro-" + item.type + "-" + item.order] = el}
+                        onClick={(e) => handleRefClick(e, item.type + "-" + item.order)}
                         className={`select-text rounded ${colors[theme]["text-background"]} ${colors[theme]["app-text"]} p-1 mb-1 flex w-full justify-center hyphens-auto `}>
                         <p className={`px-0.5 md:px-1`}>{parseReferences(item.content)}</p>
                     </div>
@@ -230,8 +233,8 @@ const Intro = ({ colors, theme, translationApplication, parseReferences, introdu
                         key={`evidence-${index}`}
                         lang={lang}
                         dir={direction}
-                        ref={(el) => textRememberRef.current["intro-" + index] = el}
-                        onClick={(e) => handleRefClick(e, index)}
+                        ref={(el) => textRememberRef.current["intro-" + item.type + "-" + item.order] = el}
+                        onClick={(e) => handleRefClick(e, item.type + "-" + item.order)}
                         className={`${colors[theme]["base-background"]} ${colors[theme]["table-title-text"]} rounded  text-base md:text-xl p-3 border my-1.5 ${colors[theme]["border"]}`}>
                         {Object.entries(item.content.lines).map(([lineKey, lineValue]) => (
                             <p className={` whitespace-pre-wrap my-1`} key={lineKey}>{parseReferences(lineValue)}</p>
