@@ -359,12 +359,12 @@ const Verse = ({ besmele,
 
             let regex;
             try {
-                const namesofGOD = "(?<![\\u0600-\\u06FF])(الله|لله|ولله|والله|بالله)(?![\\u0600-\\u06FF])";
+                const namesofGOD = "(?<![\\u0600-\\u06FF])(الله|لله|ولله|والله|بالله|فلله)(?![\\u0600-\\u06FF])";
                 regex = new RegExp(namesofGOD, 'g');
                 regex.test("");
             } catch (e) {
                 console.error("Regex not supported in this environment: ", e.message);
-                const namesofGOD = "(الله|لله|ولله|والله|بالله)";
+                const namesofGOD = "(فلله|الله|لله|ولله|والله|بالله)";
                 regex = new RegExp(namesofGOD, 'g');
             }
 
