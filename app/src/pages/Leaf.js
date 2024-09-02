@@ -92,7 +92,7 @@ const Leaf = () => {
                 if (versesString === undefined || versesString.trim() === "") {
                     if (quranmap && quranmap[surah]) {
                         Object.keys(quranmap[surah]).forEach((verseKey) => {
-                            if (!verseKey.startsWith("t")) {
+                            if (!verseKey.startsWith("t") && !verseKey.startsWith("n")) {
                                 const key = `${surah}:${verseKey}`;
                                 addVerseToCollection(key, surah, verseKey);
                             }
@@ -167,7 +167,7 @@ const Leaf = () => {
                                 <div
                                     key={key + "note"}
                                     onClick={() => toggleNote(key + "note")}
-                                    className={`whitespace-pre-line bg-green-900/95 hyphens-auto rounded-b py-1.5 px-2.5 mb-2 cursor-pointer transition-all duration-500 ease-linear ${noteToggles[key + "note"] ? 'max-h-[1000px] text-justify overflow-y-auto' : 'max-h-10 text-center'}`}
+                                    className={`whitespace-pre-line bg-green-700/95 hyphens-auto rounded-b py-1.5 px-2.5 mb-2 cursor-pointer transition-all duration-500 ease-linear ${noteToggles[key + "note"] ? 'max-h-[1000px] text-justify overflow-y-auto' : 'max-h-10 text-center'}`}
                                 >
                                     {noteToggles[key + "note"] ? noteList[key] : translation.notes}
                                 </div>
