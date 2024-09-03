@@ -240,14 +240,14 @@ const Book = ({ incomingSearch = false, incomingAppendix = false, incomingAppend
         const foundPageNumber = findPageNumber(referenceMap, reference);
 
         if (foundPageNumber) {
-            const { sura, verseStart } = extractReferenceDetails(reference);
+            const { sura, verseStart, verseEnd } = extractReferenceDetails(reference);
             let act = magnifyConfirm.current === true ? 'navigate' : 'relationClick';
             if (parseInt(currentPage) < 23) {
                 act = 'fromIntro';
             } else if (parseInt(currentPage) > 396) {
                 act = 'fromAppendix';
             }
-            updatePage(foundPageNumber, sura, verseStart.toString(), act, currentPage === 397 ? selectedApp : null);
+            updatePage(foundPageNumber, sura, verseStart !== verseEnd ? verseStart + "-" + verseEnd : verseStart.toString(), act, currentPage === 397 ? selectedApp : null);
         } else {
             Toast.show({
                 text: translationApplication.refNotFound,

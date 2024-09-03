@@ -82,8 +82,24 @@ const Pages = ({
         }
     }, [stickyRef, selectedPage]);
 
-    const forceScroll = useCallback((key) => {
+    const forceScroll = useCallback((part) => {
         void upt;
+        let key = part;
+        let range;
+        if (part.includes("-")) {
+            let parts = part.split("-");
+            key = parts[0];
+            range = parts[1];
+
+            let [sura, startVerse] = key.split(":");
+            let endVerse = parseInt(range, 10);
+            for (let i = parseInt(startVerse, 10); i <= endVerse; i++) {
+                notifyRange.current[`${sura}:${i}`] = true;
+            }
+        } else {
+            notifyRange.current[part] = true;
+        }
+
         if (verseRefs.current[key]) {
             setTimeout(() => {
                 verseRefs.current[key]?.scrollIntoView({ behavior: 'smooth', block: 'center' });
@@ -119,7 +135,7 @@ const Pages = ({
     }, [quranData, selectedPage, selectedSura, selectedVerse, translation]);
 
     useEffect(() => {
-        const verseKey = `${parseInt(selectedSura)}:${parseInt(selectedVerse)}`;
+        const verseKey = `${selectedSura}:${selectedVerse}`;
         if (selectedPage && selectedPage !== currentPageRef.current) {
             if (!selectedVerse) {
                 setTimeout(() => {
@@ -214,24 +230,7 @@ const Pages = ({
 
     const clickReferenceController = (part) => {
         handleClickReference(part);
-
-        let key = part;
-        let range;
-        if (part.includes("-")) {
-            let parts = part.split("-");
-            key = parts[0];
-            range = parts[1];
-
-            let [sura, startVerse] = key.split(":");
-            let endVerse = parseInt(range, 10);
-            for (let i = parseInt(startVerse, 10); i <= endVerse; i++) {
-                notifyRange.current[`${sura}:${i}`] = true;
-            }
-        } else {
-            notifyRange.current[part] = true;
-        }
-
-        forceScroll(key);
+        forceScroll(part);
     };
 
     const parseNoteReferences = (notes) => {
