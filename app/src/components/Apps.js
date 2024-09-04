@@ -102,7 +102,7 @@ const Apps = ({ colors, theme, translationApplication, parseReferences, appendic
                     <div
                         key={`app-${appno}-${item.type}-${item.order}`}
                         dir={direction}
-                        className={`sticky top-0 flex items-center justify-center text-center p-2 font-semibold ${colors[theme]["app-text"]} ${colors[theme]["app-background"]} `}
+                        className={`${isAppendixTitle ? `px-2 pb-1 pt-2.5 ${colors[theme]["page-text"]}` : `sticky top-10 px-2 pb-1 pt-2 ${colors[theme]["app-text"]}`} flex items-center justify-center text-center  font-semibold  ${colors[theme]["app-background"]} `}
                         ref={isAppendixTitle ? (el) => appendixRef.current[`appendix-${item.content.match(/\d+/)[0]}`] = el : (el) => textRef.current[appno + "-" + index] = el}>
                         {item.content}
                     </div>
@@ -115,7 +115,7 @@ const Apps = ({ colors, theme, translationApplication, parseReferences, appendic
                         key={`app-${appno}-${item.type}-${item.order}`}
                         ref={(el) => textRef.current[appno + "-" + index] = el}
                         onClick={(e) => handleClick(e, appno, index)}
-                        className={`rounded ${colors[theme]["text-background"]} ${colors[theme]["app-text"]} p-0.5 mb-1 flex w-full text-justify hyphens-auto`}>
+                        className={`rounded ${colors[theme]["text-background"]} ${colors[theme]["text"]} p-0.5 mb-1 flex w-full text-justify hyphens-auto`}>
                         <div className={`overflow-x-auto`}>
                             <p className={`px-1 break-words`}>{parseReferences(item.content)}</p>
                         </div>
@@ -223,9 +223,9 @@ const Apps = ({ colors, theme, translationApplication, parseReferences, appendic
         }
 
         return (
-            <div className={`px-1`} key={selected} ref={() => handleRefsReady()}>
+            <div className={``} key={selected} ref={() => handleRefsReady()}>
                 {groups.map((group, groupIndex) => (
-                    <div key={`group-${groupIndex}`} className="group">
+                    <div key={`group-${groupIndex}`} className={`${groupIndex === 0 ? `main-group sticky -top-0.5 z-10 shadow-md` : `group px-1`}`}>
                         {group.map((element) => element)}
                     </div>
                 ))}
@@ -236,7 +236,7 @@ const Apps = ({ colors, theme, translationApplication, parseReferences, appendic
 
     return (
         <div
-            className={`h-screen w-screen relative overflow-y-auto pb-10 md:pb-14 ${colors[theme]["app-text"]} text-lg md:text-xl lg:text-2xl select-text`}>
+            className={`h-full w-screen relative overflow-y-auto pb-10 md:pb-14 ${colors[theme]["app-text"]} text-lg md:text-xl lg:text-2xl select-text`}>
             <div ref={containerRef}>
                 {renderAppendices()}
                 {!isRefsReady &&
