@@ -16,7 +16,6 @@ import '../assets/css/Book.css';
 
 const Book = ({ incomingSearch = false, incomingAppendix = false, incomingAppendixNumber = 1, onChangeTheme, colors, theme, translationApplication, introductionContent, quranData, map, appendicesContent, translation, onChangeLanguage, direction }) => {
     const lang = localStorage.getItem("lang")
-    const [selectOpen, setSelectOpen] = useState(false);
     const magnifyConfirm = useRef(false);
     const [currentPage, setCurrentPage] = useState(parseInt(localStorage.getItem("qurantft-pn")) ? parseInt(localStorage.getItem("qurantft-pn")) : 1);
     const [pageHistory, setPageHistory] = useState([]);
@@ -794,7 +793,7 @@ const Book = ({ incomingSearch = false, incomingAppendix = false, incomingAppend
 
     return (
         <div
-            className={`fixed flex w-full flex-col justify-start h-screen ${colors[theme]["app-background"]} overflow-y-hidden`}
+            className={`fixed w-full h-full flex flex-col justify-start ${colors[theme]["app-background"]} overflow-y-hidden`}
             style={{ paddingTop: 'calc(env(safe-area-inset-top) * 0.76)', paddingBottom: 'calc(env(safe-area-inset-bottom) * 0.57)' }}>
             <Toaster
                 position="top-center"
@@ -838,7 +837,7 @@ const Book = ({ incomingSearch = false, incomingAppendix = false, incomingAppend
                     <div className={`relative flex w-full items-center justify-between`}>
                         <div className={`absolute h-0.5 left-0 -top-0.5 ${colors[theme]["matching"]}`} style={{ width: `${progressPercentage}%` }}></div>
 
-                        <div className={`w-1/2 h-full `}>
+                        <div className={`w-1/2 h-full`}>
                             {multiSelect ?
                                 (<button onClick={handleShare}
                                     disabled={selectedVerseList.length === 0}
@@ -850,7 +849,7 @@ const Book = ({ incomingSearch = false, incomingAppendix = false, incomingAppend
                                 :
                                 (<button onClick={direction === 'rtl' ? nextPage : prevPage}
                                     disabled={direction === 'rtl' ? (isJumpOpen || (selectedApp === 38 && currentPage === 397) || isMagnifyOpen) : (isJumpOpen || currentPage === 1 || isMagnifyOpen)}
-                                    className={`w-full h-full ${colors[theme]["app-text"]} px-2 ${direction === 'rtl' ? 'ml-2' : 'mr-2'} flex items-center justify-center ${direction === 'rtl' ? (isJumpOpen || (selectedApp === 38 && currentPage === 397) || isMagnifyOpen) ? "opacity-0" : "opacity-100" : (isJumpOpen || currentPage === 1 || isMagnifyOpen) ? "opacity-0" : "opacity-100"}`}>
+                                    className={`w-full h-full ${colors[theme]["app-text"]} px-2 ${direction === 'rtl' ? 'ml-1' : 'mr-2'} flex items-center justify-center ${direction === 'rtl' ? (isJumpOpen || (selectedApp === 38 && currentPage === 397) || isMagnifyOpen) ? "opacity-0" : "opacity-100" : (isJumpOpen || currentPage === 1 || isMagnifyOpen) ? "opacity-0" : "opacity-100"}`}>
                                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className={`w-7 h-7 lg:w-12 lg:h-12`}>
                                         <path strokeLinecap="round" strokeLinejoin="round" d="M9 15L3 9m0 0l6-6M3 9h12a6 6 0 010 12h-3" />
                                     </svg>
@@ -865,59 +864,73 @@ const Book = ({ incomingSearch = false, incomingAppendix = false, incomingAppend
                         <div
                             dir={direction}
                             className={`w-full flex items-center ${colors[theme]["page-text"]} justify-center p-0.5`}>
-                            {
-                                isJumpOpen ?
+                            <div className={`menu-icon flex items-center justify-center self-center`}>
+                                {
+                                    isJumpOpen ?
 
-                                    (<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" className={`w-11 h-11 lg:w-14 lg:h-14 transition-all duration-1000 ease-linear ${colors[theme]["text"]}`} onClick={() => handleTogglePage()}>
-                                        <path fillRule="evenodd" d="M3 6a3 3 0 0 1 3-3h2.25a3 3 0 0 1 3 3v2.25a3 3 0 0 1-3 3H6a3 3 0 0 1-3-3V6Zm9.75 0a3 3 0 0 1 3-3H18a3 3 0 0 1 3 3v2.25a3 3 0 0 1-3 3h-2.25a3 3 0 0 1-3-3V6ZM3 15.75a3 3 0 0 1 3-3h2.25a3 3 0 0 1 3 3V18a3 3 0 0 1-3 3H6a3 3 0 0 1-3-3v-2.25Zm9.75 0a3 3 0 0 1 3-3H18a3 3 0 0 1 3 3V18a3 3 0 0 1-3 3h-2.25a3 3 0 0 1-3-3v-2.25Z" clipRule="evenodd" />
-                                    </svg>) :
-                                    (<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className={`w-11 h-11 lg:w-14 lg:h-14 transition-all duration-1000 ease-linear `} onClick={() => handleTogglePage()}>
-                                        <path strokeLinecap="round" strokeLinejoin="round" d="M3.75 6A2.25 2.25 0 0 1 6 3.75h2.25A2.25 2.25 0 0 1 10.5 6v2.25a2.25 2.25 0 0 1-2.25 2.25H6a2.25 2.25 0 0 1-2.25-2.25V6ZM3.75 15.75A2.25 2.25 0 0 1 6 13.5h2.25a2.25 2.25 0 0 1 2.25 2.25V18a2.25 2.25 0 0 1-2.25 2.25H6A2.25 2.25 0 0 1 3.75 18v-2.25ZM13.5 6a2.25 2.25 0 0 1 2.25-2.25H18A2.25 2.25 0 0 1 20.25 6v2.25A2.25 2.25 0 0 1 18 10.5h-2.25a2.25 2.25 0 0 1-2.25-2.25V6ZM13.5 15.75a2.25 2.25 0 0 1 2.25-2.25H18a2.25 2.25 0 0 1 2.25 2.25V18A2.25 2.25 0 0 1 18 20.25h-2.25A2.25 2.25 0 0 1 13.5 18v-2.25Z" />
-                                    </svg>)
-                            }
-
+                                        (<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" className={`w-11 h-11 lg:w-14 lg:h-14 ${colors[theme]["text"]}`} onClick={() => handleTogglePage()}>
+                                            <path fillRule="evenodd" d="M3 6a3 3 0 0 1 3-3h2.25a3 3 0 0 1 3 3v2.25a3 3 0 0 1-3 3H6a3 3 0 0 1-3-3V6Zm9.75 0a3 3 0 0 1 3-3H18a3 3 0 0 1 3 3v2.25a3 3 0 0 1-3 3h-2.25a3 3 0 0 1-3-3V6ZM3 15.75a3 3 0 0 1 3-3h2.25a3 3 0 0 1 3 3V18a3 3 0 0 1-3 3H6a3 3 0 0 1-3-3v-2.25Zm9.75 0a3 3 0 0 1 3-3H18a3 3 0 0 1 3 3V18a3 3 0 0 1-3 3h-2.25a3 3 0 0 1-3-3v-2.25Z" clipRule="evenodd" />
+                                        </svg>) :
+                                        (<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className={`w-11 h-11 lg:w-14 lg:h-14 `} onClick={() => handleTogglePage()}>
+                                            <path strokeLinecap="round" strokeLinejoin="round" d="M3.75 6A2.25 2.25 0 0 1 6 3.75h2.25A2.25 2.25 0 0 1 10.5 6v2.25a2.25 2.25 0 0 1-2.25 2.25H6a2.25 2.25 0 0 1-2.25-2.25V6ZM3.75 15.75A2.25 2.25 0 0 1 6 13.5h2.25a2.25 2.25 0 0 1 2.25 2.25V18a2.25 2.25 0 0 1-2.25 2.25H6A2.25 2.25 0 0 1 3.75 18v-2.25ZM13.5 6a2.25 2.25 0 0 1 2.25-2.25H18A2.25 2.25 0 0 1 20.25 6v2.25A2.25 2.25 0 0 1 18 10.5h-2.25a2.25 2.25 0 0 1-2.25-2.25V6ZM13.5 15.75a2.25 2.25 0 0 1 2.25-2.25H18a2.25 2.25 0 0 1 2.25 2.25V18A2.25 2.25 0 0 1 18 20.25h-2.25A2.25 2.25 0 0 1 13.5 18v-2.25Z" />
+                                        </svg>)
+                                }
+                            </div>
                             {!isMagnifyOpen && (parseInt(currentPage) < 397 ?
-                                (<div className={`text-sm lg:text-lg flex transition-all duration-300 ease-linear ${isJumpOpen ? "opacity-0 w-0" : "opacity-100 ml-3 p-1 "}`}>
-                                    <div className={`font-bold text-center flex items-center justify-center ${colors[theme]["page-text"]}`}>
-                                        {translationApplication?.page}
+                                (
+                                    <div className={` relative h-11 lg:h-14 ${isJumpOpen ? `w-0` : `${direction === 'rtl' ? 'mr-2.5' : 'ml-2.5'} w-10`} transition-all duration-200 ease-out `}>
+                                        <div
+                                            className={` absolute top-0 h-full w-full pt-3.5 lg:pt-4 text-xl lg:text-2xl xl:text-3xl ${colors[theme]["app-text"]} flex items-center justify-start ${isJumpOpen ? `hidden` : `w-20`}`}
+                                            onClick={() => document.getElementById('pageselect').click()}>
+                                            {currentPage}
+                                            <svg xmlns="http://www.w3.org/2000/svg" className={`w-4 h-4  ${direction === 'rtl' ? `mr-0.5 -ml-2` : ` ml-0.5 -mr-2`}`} fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 9l-7 7-7-7" />
+                                            </svg>
+                                        </div>
+                                        {<div dir={direction} className={`text-xs absolute top-0.5 lg:top-1 ${direction === 'rtl' ? `right-0.5` : ` left-0.5`} ${colors[theme]["page-text"]} brightness-80 ${isJumpOpen ? `hidden` : ``}`}>{translationApplication?.page}</div>}
+                                        <select
+                                            id="pageselect"
+                                            name="pageselect"
+                                            value={currentPage}
+                                            onChange={(e) => setCurrentPage(parseInt(e.target.value))}
+                                            className={`inset-0 opacity-0 w-20 h-full text-3xl ${isJumpOpen ? `hidden` : ``} bg-transparent focus:outline-none focus:ring-2 focus:border-sky-500 focus:ring-sky-500`}
+                                        >
+                                            {pages.map((page, index) => (
+                                                <option key={index} value={page}>
+                                                    {page}
+                                                </option>
+                                            ))}
+                                        </select>
                                     </div>
-                                    <select
-                                        value={currentPage}
-                                        onChange={(e) => setCurrentPage(parseInt(e.target.value))}
-                                        className={`flex rounded ${colors[theme]["app-background"]} ${colors[theme]["page-text"]} text-base py-2 pr-0.5 text-right focus:outline-none focus:ring-2 focus:border-sky-500 focus:ring-sky-500`}
-                                    >
-                                        {pages.map((page, index) => (
-                                            <option key={index} value={page}>
-                                                {page}
-                                            </option>
-                                        ))}
-                                    </select>
-                                </div>) :
-                                (<div
-                                    onClick={() => document.getElementById('appselect').click()}
-                                    className={`text-2xl lg:text-3xl xl:text-4xl flex transition-all duration-300 ease-linear ${isJumpOpen ? "opacity-0 w-0" : "opacity-100 ml-3 p-1 "}`}>
-                                    <div
-                                        className={`text-center flex items-center justify-center ${colors[theme]["page-text"]}`}>
-                                        {translationApplication?.appendix}
+                                ) : (
+                                    <div className={` relative h-11 lg:h-14 ${isJumpOpen ? `w-0` : `${direction === 'rtl' ? 'mr-2.5' : 'ml-2.5'} w-10`} transition-all duration-200 ease-out `}>
+
+                                        <div
+                                            className={` absolute top-0 h-full w-full pt-2.5 lg:pt-3 text-2xl lg:text-3xl xl:text-4xl ${colors[theme]["app-text"]} flex items-center justify-start ${isJumpOpen ? `hidden` : `w-20`}`}
+                                            onClick={() => document.getElementById('appselect').click()}>
+                                            {selectedApp}
+                                            <svg xmlns="http://www.w3.org/2000/svg" className={`w-4 h-4  ${direction === 'rtl' ? `mr-0.5 -ml-2` : ` ml-0.5 -mr-2`}`} fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 9l-7 7-7-7" />
+                                            </svg>
+                                        </div>
+                                        {<div dir={direction} className={`text-xs absolute top-0.5 lg:top-1 ${direction === 'rtl' ? `right-0.5` : ` left-0.5`} ${colors[theme]["page-text"]} brightness-80 ${isJumpOpen ? `hidden` : ``}`}>{translationApplication?.appendix}</div>}
+                                        <select
+                                            id="appselect"
+                                            name="appselect"
+                                            value={selectedApp}
+                                            onChange={(e) => setSelectedAppendix(e.target.value)}
+                                            className={`inset-0 opacity-0 w-20 h-full text-3xl ${isJumpOpen ? `hidden` : ``} bg-transparent focus:outline-none focus:ring-2 focus:border-sky-500 focus:ring-sky-500`}
+                                        >
+                                            {appendices.map((appendix, index) => (
+                                                <option key={index} value={appendix.number}>
+                                                    {`${appendix.number} ${appendix.title}`}
+                                                </option>
+                                            ))}
+                                        </select>
                                     </div>
-                                    <select
-                                        id="appselect"
-                                        name="appselect"
-                                        value={selectedApp}
-                                        onChange={(e) => setSelectedAppendix(e.target.value)}
-                                        onFocus={() => setSelectOpen(true)}
-                                        onBlur={() => setSelectOpen(false)}
-                                        className={`flex w-12 lg:w-14 pt-0.5 md:pt-1 whitespace-pre-line rounded ${colors[theme]["app-background"]} ${colors[theme]["page-text"]} text-2xl text-right focus:outline-none focus:ring-2 focus:border-sky-500 focus:ring-sky-500`}
-                                    >
-                                        {appendices.map((appendix, index) => (
-                                            <option key={index} value={appendix.number}>
-                                                {selectOpen ? `${appendix.number}\t${appendix.title}` : appendix.number}
-                                            </option>
-                                        ))}
-                                    </select>
-                                </div>))}
+                                ))}
                         </div>
-                        <div className={`w-1/2 h-full `}>
+                        <div className={`w-1/2 h-full`}>
                             {multiSelect ?
                                 (<button onClick={handleCopy}
                                     disabled={selectedVerseList.length === 0}
@@ -934,7 +947,7 @@ const Book = ({ incomingSearch = false, incomingAppendix = false, incomingAppend
                                 :
                                 (<button onClick={direction === 'rtl' ? prevPage : nextPage}
                                     disabled={direction === 'rtl' ? (isJumpOpen || currentPage === 1 || isMagnifyOpen) : (isJumpOpen || (selectedApp === 38 && currentPage === 397) || isMagnifyOpen)}
-                                    className={`w-full h-full ${colors[theme]["app-text"]} px-2 ${direction === 'rtl' ? 'mr-2' : 'ml-2'} flex items-center justify-center ${direction === 'rtl' ? (isJumpOpen || currentPage === 1 || isMagnifyOpen) ? "opacity-0" : "opacity-100" : (isJumpOpen || (selectedApp === 38 && currentPage === 397) || isMagnifyOpen) ? "opacity-0" : "opacity-100"} `}>
+                                    className={`w-full h-full ${colors[theme]["app-text"]} px-2 ${direction === 'rtl' ? 'mr-2' : 'ml-1'} flex items-center justify-center ${direction === 'rtl' ? (isJumpOpen || currentPage === 1 || isMagnifyOpen) ? "opacity-0" : "opacity-100" : (isJumpOpen || (selectedApp === 38 && currentPage === 397) || isMagnifyOpen) ? "opacity-0" : "opacity-100"} `}>
                                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className={`w-7 h-7 lg:w-12 lg:h-12`}>
                                         <path strokeLinecap="round" strokeLinejoin="round" d="M15 15l6-6m0 0l-6-6m6 6H9a6 6 0 000 12h3" />
                                     </svg>
