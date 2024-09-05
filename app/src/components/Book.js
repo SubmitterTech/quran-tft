@@ -10,7 +10,7 @@ import Magnify from '../components/Magnify';
 import Splash from '../components/Splash';
 import Intro from '../components/Intro';
 import Isbn from '../components/Isbn';
-import { adjustReference, generateReferenceMap, transformAppendices, findPageNumber, extractReferenceDetails, mapQuran, generateFormula } from '../utils/Mapper';
+import { adjustReference, generateReferenceMap, transformAppendices, findPageNumber, extractReferenceDetails, mapQuranWithNotes, generateFormula } from '../utils/Mapper';
 import { listCopy } from '../utils/Device';
 import '../assets/css/Book.css';
 
@@ -36,7 +36,7 @@ const Book = ({ incomingSearch = false, incomingAppendix = false, incomingAppend
     const [remainingTime, setRemainingTime] = useState(0);
     const progressPercentage = (remainingTime / 19000) * 100;
     const referenceMap = generateReferenceMap(quranData);
-    const quranmap = mapQuran(translation ? translation : quranData);
+    const quranmap = mapQuranWithNotes(translation ? translation : quranData);
     const [multiSelect, setMultiSelect] = useState(false);
     const [selectedVerseList, setSelectedVerseList] = useState([]);
     const [updatePageTriggered, setUpdatePageTriggered] = useState(false);

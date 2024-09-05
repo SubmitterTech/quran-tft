@@ -101,6 +101,10 @@ export const listCopy = async (list, quranmap) => {
 
     text += `[${key}] ${quranmap[sura][verse]}`;
 
+    if (quranmap[sura] && quranmap[sura][`n${verse}`]) {
+      text += `\n\n${quranmap[sura][`n${verse}`]}`;
+    }
+
     return text;
   }).join("\n\n");
 
