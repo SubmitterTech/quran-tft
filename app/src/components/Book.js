@@ -49,6 +49,25 @@ const Book = ({ incomingSearch = false, incomingAppendix = false, incomingAppend
         Array.from({ length: 38 }, (_, i) => ({ number: i + 1, title: "" }))
     );
 
+    const toRoman = (num) => {
+        const romanNumerals = {
+            xl: 40,
+            x: 10,
+            ix: 9,
+            v: 5,
+            iv: 4,
+            i: 1,
+        };
+        let result = '';
+        for (let key in romanNumerals) {
+            while (num >= romanNumerals[key]) {
+                result += key;
+                num -= romanNumerals[key];
+            }
+        }
+        return result;
+    };
+
     useEffect(() => {
         if (incomingAppendix) {
             setCurrentPage(397);
@@ -64,13 +83,15 @@ const Book = ({ incomingSearch = false, incomingAppendix = false, incomingAppend
         if (introductionContent) {
             let pgs = [];
             Object.values(introductionContent).forEach((item) => {
-                pgs.push(item.page)
+                if (item.page <= 22) {
+                    pgs.push({ page: toRoman(item.page), value: item.page });
+                }
                 if (item.page === 1) {
-                    pgs.push(2)
+                    pgs.push({ page: toRoman(2), value: 2 });
                 }
                 if (item.page === 22) {
-                    for (let i = 23; i <= 397; i++) {
-                        pgs.push(i);
+                    for (let i = 23; i < 397; i++) {
+                        pgs.push({ page: i - 22, value: i });
                     }
                 }
             });
@@ -166,7 +187,6 @@ const Book = ({ incomingSearch = false, incomingAppendix = false, incomingAppend
     const nextPage = () => {
         let newPage = parseInt(currentPage) > 396 ? parseInt(currentPage) : parseInt(currentPage) + 1;
 
-        // Skip specified pages
         while (skipPages.includes(newPage)) {
             newPage++;
         }
@@ -876,13 +896,37 @@ const Book = ({ incomingSearch = false, incomingAppendix = false, incomingAppend
                                         </svg>)
                                 }
                             </div>
-                            {!isMagnifyOpen && (parseInt(currentPage) < 397 ?
-                                (
-                                    <div className={` relative h-11 lg:h-14 ${isJumpOpen ? `w-0` : `${direction === 'rtl' ? 'mr-2.5' : 'ml-2.5'} w-10`} transition-all duration-200 ease-out `}>
+                            {!isMagnifyOpen &&
+                                (parseInt(currentPage) < 23 ? (
+                                    <div className={` relative h-11 lg:h-14 ${isJumpOpen ? `w-0` : `${direction === 'rtl' ? 'mr-2.5' : 'ml-2.5'} w-12 lg:w-16 `} transition-all duration-200 ease-out `}>
+                                        <div
+                                            className={` absolute -top-1 h-full w-full text-3xl lg:text-4xl ${colors[theme]["app-text"]} flex items-center justify-start ${isJumpOpen ? `hidden` : `w-20`}`}
+                                            onClick={() => document.getElementById('pageselect').click()}>
+                                            {pages.find((p) => p.value === currentPage)?.page || currentPage}
+                                            <svg xmlns="http://www.w3.org/2000/svg" className={`w-4 h-4  ${direction === 'rtl' ? `mr-0.5 -ml-2` : ` ml-0.5 -mr-2`}`} fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 9l-7 7-7-7" />
+                                            </svg>
+                                        </div>
+                                        <select
+                                            id="pageselect"
+                                            name="pageselect"
+                                            value={currentPage}
+                                            onChange={(e) => setCurrentPage(parseInt(e.target.value))}
+                                            className={`inset-0 opacity-0 w-20 h-full text-3xl ${isJumpOpen ? `hidden` : ``} bg-transparent focus:outline-none focus:ring-2 focus:border-sky-500 focus:ring-sky-500`}
+                                        >
+                                            {pages.map(({ page, value }, index) => (
+                                                <option key={index} value={value}>
+                                                    {page}
+                                                </option>
+                                            ))}
+                                        </select>
+                                    </div>
+                                ) : parseInt(currentPage) < 397 ? (
+                                    <div className={` relative h-11 lg:h-14 ${isJumpOpen ? `w-0` : `${direction === 'rtl' ? 'mr-2.5' : 'ml-2.5'} w-12 lg:w-16`} transition-all duration-200 ease-out `}>
                                         <div
                                             className={` absolute top-0 h-full w-full pt-3.5 lg:pt-4 text-xl lg:text-2xl xl:text-3xl ${colors[theme]["app-text"]} flex items-center justify-start ${isJumpOpen ? `hidden` : `w-20`}`}
                                             onClick={() => document.getElementById('pageselect').click()}>
-                                            {currentPage}
+                                            {pages.find((p) => p.value === currentPage)?.page || currentPage}
                                             <svg xmlns="http://www.w3.org/2000/svg" className={`w-4 h-4  ${direction === 'rtl' ? `mr-0.5 -ml-2` : ` ml-0.5 -mr-2`}`} fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 9l-7 7-7-7" />
                                             </svg>
@@ -895,16 +939,15 @@ const Book = ({ incomingSearch = false, incomingAppendix = false, incomingAppend
                                             onChange={(e) => setCurrentPage(parseInt(e.target.value))}
                                             className={`inset-0 opacity-0 w-20 h-full text-3xl ${isJumpOpen ? `hidden` : ``} bg-transparent focus:outline-none focus:ring-2 focus:border-sky-500 focus:ring-sky-500`}
                                         >
-                                            {pages.map((page, index) => (
-                                                <option key={index} value={page}>
+                                            {pages.map(({ page, value }, index) => (
+                                                <option key={index} value={value}>
                                                     {page}
                                                 </option>
                                             ))}
                                         </select>
                                     </div>
                                 ) : (
-                                    <div className={` relative h-11 lg:h-14 ${isJumpOpen ? `w-0` : `${direction === 'rtl' ? 'mr-2.5' : 'ml-2.5'} w-10`} transition-all duration-200 ease-out `}>
-
+                                    <div className={` relative h-11 lg:h-14 ${isJumpOpen ? `w-0` : `${direction === 'rtl' ? 'mr-2.5' : 'ml-2.5'} w-12`} transition-all duration-200 ease-out `}>
                                         <div
                                             className={` absolute top-0 h-full w-full pt-2.5 lg:pt-3 text-2xl lg:text-3xl xl:text-4xl ${colors[theme]["app-text"]} flex items-center justify-start ${isJumpOpen ? `hidden` : `w-20`}`}
                                             onClick={() => document.getElementById('appselect').click()}>
