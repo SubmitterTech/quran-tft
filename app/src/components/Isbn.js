@@ -37,8 +37,8 @@ const Isbn = ({ colors, theme, translationApplication }) => {
     }, [imgPaths]);
 
     return (
-        <div
-            className={`h-screen w-screen relative pb-10 md:pb-14 ${colors[theme]["app-text"]} text-lg md:text-xl lg:text-2xl select-text`}>
+        <div className={`h-screen w-screen relative ${colors[theme]["app-text"]} text-lg md:text-xl lg:text-2xl select-text`}
+            style={{ paddingBottom: 'calc((env(safe-area-inset-bottom) * 1.90) + 4rem)' }}>
             <div className={`flex flex-col flex-1 lg:grid lg:grid-flow-dense lg:grid-cols-2 p-0.5 pb-1.5 h-full overflow-y-auto `}>
                 {loading ? (
                     <div className={`absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 flex ${colors[theme]["page-text"]} select-none`}>
