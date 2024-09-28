@@ -672,18 +672,23 @@ const Magnify = ({ colors, theme, translationApplication, quran, map, appendices
                                         {openTheme === (index + "-" + searchTerm) && (
                                             <div className={`flex flex-col space-y-1.5 p-1`}>
                                                 {typeof themeorref === 'object' ?
-                                                    Object.entries(themeorref).map(([innerTheme, ref]) => (
-                                                        <div key={innerTheme} className={`p-1 ${colors[theme]["app-background"]} rounded`}>
-                                                            <div
-                                                                onClick={() => handleSubThemeClick(index + "-" + searchTerm, innerTheme)}
-                                                                className={`p-1 cursor-pointer`}>
-                                                                {innerTheme}
+                                                    Object.entries(themeorref).map(([innerTheme, ref]) => {
+                                                        if (innerTheme === '') {
+                                                            innerTheme = exp;
+                                                        }
+                                                        return (
+                                                            <div key={innerTheme} className={`p-1 ${colors[theme]["notes-background"]} rounded`}>
+                                                                <div
+                                                                    onClick={() => handleSubThemeClick(index + "-" + searchTerm, innerTheme)}
+                                                                    className={`p-1 cursor-pointer`}>
+                                                                    {innerTheme}
+                                                                </div>
+                                                                {openSubTheme[index + "-" + searchTerm]?.[innerTheme] && (
+                                                                    <div className={`p-0.5 rounded ${colors[theme]["base-background"]} flex flex-col space-y-1`}>{renderref(ref)}</div>
+                                                                )}
                                                             </div>
-                                                            {openSubTheme[index + "-" + searchTerm]?.[innerTheme] && (
-                                                                <div className={`p-0.5 rounded ${colors[theme]["base-background"]} flex flex-col space-y-1`}>{renderref(ref)}</div>
-                                                            )}
-                                                        </div>
-                                                    ))
+                                                        )
+                                                    })
                                                     :
                                                     <div className={`rounded ${colors[theme]["base-background"]} flex flex-col space-y-1`}>{renderref(themeorref)}</div>
                                                 }
