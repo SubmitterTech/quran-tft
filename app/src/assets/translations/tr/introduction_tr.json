@@ -73,12 +73,9 @@
             "5": {
                 "lines": {
                     "1": "Tanrı’nın Antlaşma Elçisi ",
-                    "2": "İşte, önümde yolu hazırlaması için elçimi gönderiyorum;",
-                    "3": "aradığınız Rab ve arzu ettiğiniz antlaşma elçisi ansızın tapınağa gelecektir.",
-                    "4": "Evet, o geliyor diyor Her Şeye Egemen Rab.",
-                    "5": "Fakat onun geldiği güne kim dayanacak?",
-                    "6": "Ve o göründüğünde kim ayakta durabilir?",
-                    "7": "Çünkü o bir arıtıcının ateşi gibidir… oturup arındıracak..."
+                    "2": "İşte, önümde yolu hazırlaması için elçimi gönderiyorum; aradığınız Rab ve arzu ettiğiniz antlaşma elçisi ansızın tapınağa gelecektir.",
+                    "3": "Evet, o geliyor diyor Her Şeye Egemen Rab. Fakat onun geldiği güne kim dayanacak? Ve o göründüğünde kim ayakta durabilir?",
+                    "4": "Çünkü o bir arıtıcının ateşi gibidir… oturup arındıracak...."
                 },
                 "ref": [
                     "Malaki 3:1-3"
@@ -140,9 +137,7 @@
                 ]
             }
         },
-        "titles": {
-            "1": "ÖNSÖZ"
-        }
+        "titles": {}
     },
     {
         "page": 13,
@@ -397,16 +392,11 @@
         "evidence": {
             "2": {
                 "lines": {
-                    "1": "Şüphesiz, iman edenlerden,",
-                    "2": "Yahudilerden,",
-                    "3": "Hristiyanlardan",
-                    "4": "ve başka dine dönmüş olanlardan;",
-                    "5": "her kim",
-                    "6": "(1) Tanrı’ya iman eder ve",
-                    "7": "(2) Son Gün’e iman eder ve",
-                    "8": "(3) doğru bir hayat sürerse,",
-                    "9": "mükâfatlarını Rablerinden alacaklardır;",
-                    "10": "onların korkacakları hiçbir şey yoktur, onlar üzülmeyecekler de."
+                    "1": "Şüphesiz, iman edenlerden, Yahudilerden, Hristiyanlardan, ve başka dine dönmüş olanlardan; her kim",
+                    "3": "(1) Tanrı’ya iman eder,",
+                    "4": "(2) Son Gün’e iman eder, ve",
+                    "5": "(3) doğru bir hayat sürerse,",
+                    "6": "mükâfatlarını Rablerinden alacaklardır; onların korkacakları hiçbir şey yoktur, onlar üzülmeyecekler de."
                 },
                 "ref": [
                     "2:62",
