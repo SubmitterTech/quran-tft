@@ -25,25 +25,25 @@
     },
     "de": {
         "name": "Deutsch Übersetzung",
-        "comp": 68.98,
+        "comp": 73.81,
         "dir": "ltr",
         "nums": "0 1 2 3 4 5 6 7 8 9"
     },
     "ru": {
         "name": "Русский Перевод",
-        "comp": 33.42,
+        "comp": 59.79,
         "dir": "ltr",
         "nums": "0 1 2 3 4 5 6 7 8 9"
     },
     "az": {
         "name": "Azərbaycan Tərcüməsi",
-        "comp": 1.63,
+        "comp": 4.64,
         "dir": "ltr",
         "nums": "0 1 2 3 4 5 6 7 8 9"
     },
     "sv": {
         "name": "Svensk översättning",
-        "comp": 0.09,
+        "comp": 0,
         "dir": "ltr",
         "nums": "0 1 2 3 4 5 6 7 8 9"
     },
@@ -73,7 +73,7 @@
     },
     "nl": {
         "name": "Dutch Vertaling",
-        "comp": 0,
+        "comp": 4.93,
         "dir": "ltr",
         "nums": "0 1 2 3 4 5 6 7 8 9"
     }
