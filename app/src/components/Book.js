@@ -14,7 +14,7 @@ import { adjustReference, generateReferenceMap, transformAppendices, findPageNum
 import { listCopy } from '../utils/Device';
 import '../assets/css/Book.css';
 
-const Book = ({ incomingSearch = false, incomingAppendix = false, incomingAppendixNumber = 1, onChangeTheme, colors, theme, translationApplication, introductionContent, quranData, map, appendicesContent, translation, onChangeLanguage, direction }) => {
+const Book = React.memo(({ incomingSearch = false, incomingAppendix = false, incomingAppendixNumber = 1, onChangeTheme, colors, theme, translationApplication, introductionContent, quranData, map, appendicesContent, translation, onChangeLanguage, direction }) => {
     const lang = localStorage.getItem("lang")
     const magnifyConfirm = useRef(false);
     const [currentPage, setCurrentPage] = useState(parseInt(localStorage.getItem("qurantft-pn")) ? parseInt(localStorage.getItem("qurantft-pn")) : 1);
@@ -30,13 +30,15 @@ const Book = ({ incomingSearch = false, incomingAppendix = false, incomingAppend
     const appxReferenceToJump = useRef(null);
     const beginingReferenceToRestore = useRef(null);
     const beginingReferenceToJump = useRef(null);
+
+    const referenceMap = useMemo(() => generateReferenceMap(quranData), [quranData]);
+    const quranmap = useMemo(() => mapQuranWithNotes(translation || quranData), [translation, quranData]);
+
     const [pages, setPages] = useState([]);
     const [selectedApp, setSelectedApp] = useState(incomingAppendixNumber);
     const [backButtonPressedOnce, setBackButtonPressedOnce] = useState(false);
     const [remainingTime, setRemainingTime] = useState(0);
     const progressPercentage = (remainingTime / 19000) * 100;
-    const referenceMap = generateReferenceMap(quranData);
-    const quranmap = mapQuranWithNotes(translation ? translation : quranData);
     const [multiSelect, setMultiSelect] = useState(false);
     const [selectedVerseList, setSelectedVerseList] = useState([]);
     const [updatePageTriggered, setUpdatePageTriggered] = useState(false);
@@ -105,10 +107,6 @@ const Book = ({ incomingSearch = false, incomingAppendix = false, incomingAppend
         }
     }, [currentPage]);
 
-    const handleJump = async (page, suraNumber, verseNumber) => {
-        updatePage(parseInt(page), suraNumber, verseNumber);
-    };
-
     const handleMagnifyConfirm = (reference) => {
         magnifyConfirm.current = true;
         const refType = reference.split(":")[0];
@@ -125,10 +123,6 @@ const Book = ({ incomingSearch = false, incomingAppendix = false, incomingAppend
         } else {
             handleClickReference(reference);
         }
-    };
-
-    const handleCloseModal = () => {
-        setJumpOpen(false);
     };
 
     const handleCloseSearch = () => {
@@ -553,11 +547,6 @@ const Book = ({ incomingSearch = false, incomingAppendix = false, incomingAppend
         };
     }, [backButtonPressedOnce, isJumpOpen, isMagnifyOpen, translationApplication, prevPage]);
 
-    const onMagnify = () => {
-        setMagnifyOpen(true);
-        setJumpOpen(false);
-    };
-
     const handleCopy = async () => {
         const copied = await listCopy(selectedVerseList, quranmap);
 
@@ -592,6 +581,19 @@ const Book = ({ incomingSearch = false, incomingAppendix = false, incomingAppend
             setMultiSelect(false);
         }
     };
+
+    const onCloseJump = useCallback(() => {
+        setJumpOpen(false);
+    }, []);
+
+    const onConfirmJump = useCallback(async (page, suraNumber, verseNumber) => {
+        updatePage(parseInt(page), suraNumber, verseNumber);
+    }, [updatePage]);
+
+    const onMagnify = useCallback(() => {
+        setMagnifyOpen(true);
+        setJumpOpen(false);
+    }, []);
 
     const renderBookContent = () => {
 
@@ -1013,8 +1015,8 @@ const Book = ({ incomingSearch = false, incomingAppendix = false, incomingAppend
                     translationApplication={translationApplication}
                     currentPage={currentPage}
                     quran={translation ? translation : quranData}
-                    onClose={handleCloseModal}
-                    onConfirm={handleJump}
+                    onClose={onCloseJump}
+                    onConfirm={onConfirmJump}
                     onMagnify={onMagnify}
                     direction={direction}
                 />
@@ -1040,6 +1042,6 @@ const Book = ({ incomingSearch = false, incomingAppendix = false, incomingAppend
             }
         </div>
     );
-};
+});
 
 export default Book;

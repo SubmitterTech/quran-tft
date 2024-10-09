@@ -1,19 +1,32 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect, useRef, useMemo, useCallback } from 'react';
 import languages from '../assets/languages.json';
 import { getRandom } from '../utils/Generator';
 import { adjustReference } from '../utils/Mapper';
 import { ThemePicker } from '../utils/Colors';
 
-const Jump = ({ onChangeLanguage, suraNames, onChangeTheme, colors, theme, translationApplication, currentPage, quran, onClose, onConfirm, onMagnify, direction }) => {
+const languageDisabilityThreshold = 60;
+
+function formatDate(timestamp) {
+    if (/^\d+$/.test(String(timestamp).trim())) {
+        const date = new Date(parseInt(timestamp, 10));
+        const day = date.getDate().toString().padStart(2, '0');
+        const month = (date.getMonth() + 1).toString().padStart(2, '0');
+        const year = date.getFullYear();
+        const hours = date.getHours().toString().padStart(2, '0');
+        const minutes = date.getMinutes().toString().padStart(2, '0');
+        const seconds = date.getSeconds().toString().padStart(2, '0');
+        return `${day}/${month}/${year} ${hours}:${minutes}:${seconds}`;
+    } else {
+        return timestamp;
+    }
+}
+
+const Jump = React.memo(({ onChangeLanguage, suraNames, onChangeTheme, colors, theme, translationApplication, currentPage, quran, onClose, onConfirm, onMagnify, direction }) => {
     const [suraNumber, setSuraNumber] = useState("0");
     const [verseNumber, setVerseNumber] = useState("0");
     const [selectedPage, setSelectedPage] = useState(currentPage);
-    const [pageTitles, setPageTitles] = useState({});
-    const [versesInSuras, setVersesInSuras] = useState({});
-    const [pageForSuraVerse, setPageForSuraVerse] = useState({});
     const [showThemes, setShowThemes] = useState(false);
     const [showBookmarks, setShowBookmarks] = useState(false);
-    const [suraNameMap, setSuraNameMap] = useState({});
     const [lightOpen, setLightOpen] = useState(false);
 
     const [isShufflingSura, setIsShufflingSura] = useState(false);
@@ -24,26 +37,26 @@ const Jump = ({ onChangeLanguage, suraNames, onChangeTheme, colors, theme, trans
     const [lastClickedBookmarkKey, setLastClickedBookmarkKey] = useState(null);
     const [isBookmarkHighlighted, setIsBookmarkHighlighted] = useState(false);
 
-    const languageDisabilityThreshold = 60;
-
-    useEffect(() => {
-        let themap = {}
+    // Compute suraNameMap using useMemo
+    const suraNameMap = useMemo(() => {
+        const themap = {};
         if (suraNames) {
             Object.entries(suraNames).forEach(([key, value]) => {
                 if (key > 0) {
-                    const vals = value.split(".").filter(e => e.trim())
+                    const vals = value.split('.').filter((e) => e.trim());
                     if (vals.length > 5) {
-                        themap[key] = vals[1].trim() + "." + vals[2] + ". (" + vals[3].trim() + ")"
+                        themap[key] = `${vals[1].trim()}.${vals[2]}. (${vals[3].trim()})`;
                     } else {
-                        themap[key] = vals[1].trim() + " (" + vals[2].trim() + ")"
+                        themap[key] = `${vals[1].trim()} (${vals[2].trim()})`;
                     }
                 }
             });
         }
-        setSuraNameMap(themap);
+        return themap;
     }, [suraNames]);
 
-    useEffect(() => {
+    // Compute other derived data using useMemo
+    const { pageTitles, versesInSuras, pageForSuraVerse, surasInPagesMap } = useMemo(() => {
         const surasInPagesMap = {};
         const versesInSurasMap = {};
         const pageForSuraVerseMap = {};
@@ -52,8 +65,8 @@ const Jump = ({ onChangeLanguage, suraNames, onChangeTheme, colors, theme, trans
         Object.entries(quran).forEach(([page, data]) => {
             surasInPagesMap[page] = Object.keys(data.sura);
             data.page.forEach((info) => {
-                if (info.includes(":")) {
-                    newPageTitles[page] = info.split("&");
+                if (info.includes(':')) {
+                    newPageTitles[page] = info.split('&');
                 }
             });
 
@@ -61,7 +74,7 @@ const Jump = ({ onChangeLanguage, suraNames, onChangeTheme, colors, theme, trans
                 versesInSurasMap[sura] = versesInSurasMap[sura] || [];
                 pageForSuraVerseMap[sura] = pageForSuraVerseMap[sura] || {};
 
-                Object.keys(suraData.verses).forEach(verse => {
+                Object.keys(suraData.verses).forEach((verse) => {
                     if (!versesInSurasMap[sura].includes(verse)) {
                         versesInSurasMap[sura].push(verse);
                     }
@@ -70,25 +83,33 @@ const Jump = ({ onChangeLanguage, suraNames, onChangeTheme, colors, theme, trans
             });
         });
 
-        setPageTitles(newPageTitles);
-        setVersesInSuras(versesInSurasMap);
-        setPageForSuraVerse(pageForSuraVerseMap);
+        return {
+            pageTitles: newPageTitles,
+            versesInSuras: versesInSurasMap,
+            pageForSuraVerse: pageForSuraVerseMap,
+            surasInPagesMap,
+        };
+    }, [quran]);
+
+    // Initialize suraNumber and verseNumber based on currentPage
+    useEffect(() => {
         setSelectedPage(currentPage);
 
-        if (surasInPagesMap[currentPage] && pageForSuraVerseMap) {
-            setSuraNumber(surasInPagesMap[currentPage][0]);
+        if (surasInPagesMap[currentPage] && pageForSuraVerse) {
+            const initialSura = surasInPagesMap[currentPage][0];
+            setSuraNumber(initialSura);
 
-            for (const [key, value] of Object.entries(pageForSuraVerseMap[surasInPagesMap[currentPage][0]])) {
-                if (parseInt(value) === parseInt(currentPage)) {
-                    setVerseNumber(key)
-                    return;
+            const versesForSura = pageForSuraVerse[initialSura];
+            for (const [verseKey, pageValue] of Object.entries(versesForSura)) {
+                if (parseInt(pageValue) === parseInt(currentPage)) {
+                    setVerseNumber(verseKey);
+                    break;
                 }
-
             }
         }
+    }, [currentPage, surasInPagesMap, pageForSuraVerse]);
 
-    }, [currentPage, quran]);
-
+    // Load last clicked bookmark on initial render
     useEffect(() => {
         const savedBookmarkKey = sessionStorage.getItem('qurantft-lcb');
         if (savedBookmarkKey) {
@@ -112,33 +133,32 @@ const Jump = ({ onChangeLanguage, suraNames, onChangeTheme, colors, theme, trans
         }
     }, [lastClickedBookmarkKey, bookmarksContainerRef, showBookmarks]);
 
-    const shuffleSuraVerse = () => {
+    const shuffleSuraVerse = useCallback(() => {
         const randomVerse = getRandom();
-
         let verseIndex = randomVerse;
         let ns = 0;
         let nv = 0;
         for (const s of Object.keys(versesInSuras)) {
-            if ((verseIndex - versesInSuras[s].length) <= 0) {
-                ns = parseInt(s);
+            if (verseIndex - versesInSuras[s].length <= 0) {
+                ns = parseInt(s, 10);
                 nv = verseIndex;
-                break
+                break;
             } else {
                 verseIndex -= versesInSuras[s].length;
             }
         }
 
         setIsShufflingSura(true);
-        setSuraNumber(0);
-        setVerseNumber(0);
+        setSuraNumber('0');
+        setVerseNumber('0');
         setLightOpen(false);
         setTimeout(() => {
-            setSuraNumber(ns);
+            setSuraNumber(ns.toString());
             setIsShufflingSura(false);
             setTimeout(() => {
                 setIsShufflingVerse(true);
                 setTimeout(() => {
-                    setVerseNumber(nv);
+                    setVerseNumber(nv.toString());
                     setIsShufflingVerse(false);
 
                     if (pageForSuraVerse[ns] && pageForSuraVerse[ns][nv]) {
@@ -148,95 +168,91 @@ const Jump = ({ onChangeLanguage, suraNames, onChangeTheme, colors, theme, trans
                 }, 209);
             }, 76);
         }, 209);
-    };
+    }, [versesInSuras, pageForSuraVerse]);
 
-    const handleSuraChange = (e) => {
-        const newSuraNumber = e.target.value;
-        setSuraNumber(newSuraNumber);
+    const handleSuraChange = useCallback(
+        (e) => {
+            const newSuraNumber = e.target.value;
+            setSuraNumber(newSuraNumber);
 
-        const firstVerseOfSura = versesInSuras[newSuraNumber][0];
-        if (firstVerseOfSura && pageForSuraVerse[newSuraNumber][firstVerseOfSura]) {
-            setSelectedPage(pageForSuraVerse[newSuraNumber][firstVerseOfSura]);
-            setVerseNumber(0);
-        }
-    };
+            const firstVerseOfSura = versesInSuras[newSuraNumber][0];
+            if (firstVerseOfSura && pageForSuraVerse[newSuraNumber][firstVerseOfSura]) {
+                setSelectedPage(pageForSuraVerse[newSuraNumber][firstVerseOfSura]);
+                setVerseNumber('0');
+            }
+        },
+        [versesInSuras, pageForSuraVerse]
+    );
 
-    const handleVerseChange = (e) => {
-        setLightOpen(true);
-        const newVerseNumber = e.target.value;
-        setVerseNumber(newVerseNumber);
+    const handleVerseChange = useCallback(
+        (e) => {
+            setLightOpen(true);
+            const newVerseNumber = e.target.value;
+            setVerseNumber(newVerseNumber);
 
-        if (pageForSuraVerse[suraNumber] && pageForSuraVerse[suraNumber][newVerseNumber]) {
-            setSelectedPage(pageForSuraVerse[suraNumber][newVerseNumber]);
-        }
-    };
+            if (pageForSuraVerse[suraNumber] && pageForSuraVerse[suraNumber][newVerseNumber]) {
+                setSelectedPage(pageForSuraVerse[suraNumber][newVerseNumber]);
+            }
+        },
+        [suraNumber, pageForSuraVerse]
+    );
 
-    const handleSubmit = () => {
-        onConfirm(selectedPage, suraNumber, verseNumber ? verseNumber : "1");
+    const handleSubmit = useCallback(() => {
+        onConfirm(selectedPage, suraNumber, verseNumber || '1');
         onClose();
-    };
+    }, [onConfirm, onClose, selectedPage, suraNumber, verseNumber]);
 
-    const handleMarkJump = (key) => {
-        const [sno, vno] = key.trim().split(":");
-        if (pageForSuraVerse[sno] && pageForSuraVerse[sno][vno]) {
-            onConfirm(pageForSuraVerse[sno][vno], sno, vno);
-        }
-        setLastClickedBookmarkKey(key);
-        sessionStorage.setItem('qurantft-lcb', key);
-        setShowBookmarks(false);
+    const handleMarkJump = useCallback(
+        (key) => {
+            const [sno, vno] = key.trim().split(':');
+            if (pageForSuraVerse[sno] && pageForSuraVerse[sno][vno]) {
+                onConfirm(pageForSuraVerse[sno][vno], sno, vno);
+            }
+            setLastClickedBookmarkKey(key);
+            sessionStorage.setItem('qurantft-lcb', key);
+            setShowBookmarks(false);
+            onClose();
+        },
+        [pageForSuraVerse, onConfirm, onClose]
+    );
+
+    const goIntro = useCallback(() => {
+        onConfirm('13');
         onClose();
-    };
+    }, [onConfirm, onClose]);
 
-    const goIntro = () => {
-        onConfirm("13");
+    const goApps = useCallback(() => {
+        onConfirm('396');
         onClose();
-    };
+    }, [onConfirm, onClose]);
 
-    const goApps = () => {
-        onConfirm("396");
-        onClose();
-    };
-
-    const toggleThemeView = () => {
+    const toggleThemeView = useCallback(() => {
         if (!showThemes) {
             setShowBookmarks(false);
         }
-        setShowThemes(!showThemes);
-    };
+        setShowThemes((prev) => !prev);
+    }, [showThemes]);
 
-    const toggleBookmark = () => {
+    const toggleBookmark = useCallback(() => {
         if (!showBookmarks) {
             setShowThemes(false);
         }
-        setShowBookmarks(!showBookmarks);
-    };
+        setShowBookmarks((prev) => !prev);
+    }, [showBookmarks]);
 
-    const handleLanguageChange = (e) => {
-        onChangeLanguage(e.target.value);
-        onClose();
-    };
+    const handleLanguageChange = useCallback(
+        (e) => {
+            onChangeLanguage(e.target.value);
+            onClose();
+        },
+        [onChangeLanguage, onClose]
+    );
 
-    function formatDate(timestamp) {
-        if (/^\d+$/.test(String(timestamp).trim())) {
-            const date = new Date(parseInt(timestamp, 10));
-            const day = date.getDate().toString().padStart(2, '0');
-            const month = (date.getMonth() + 1).toString().padStart(2, '0');
-            const year = date.getFullYear();
-            const hours = date.getHours().toString().padStart(2, '0');
-            const minutes = date.getMinutes().toString().padStart(2, '0');
-            const seconds = date.getSeconds().toString().padStart(2, '0');
-            return `${day}/${month}/${year} ${hours}:${minutes}:${seconds}`;
-        } else {
-            return timestamp;
-        }
-    }
-
-    const updateBookmark = (key, val) => {
-        const bookmarks = JSON.parse(localStorage.getItem("bookmarks") || '{}');
+    const updateBookmark = useCallback((key, val) => {
+        const bookmarks = JSON.parse(localStorage.getItem('bookmarks') || '{}');
         bookmarks[key] = val;
-        localStorage.setItem("bookmarks", JSON.stringify(bookmarks));
-    };
-
+        localStorage.setItem('bookmarks', JSON.stringify(bookmarks));
+    }, []);
 
     return (
         <div className={`w-screen h-full fixed left-0 top-0 inset-0 z-10 outline-none focus:outline-none `} id="jump-screen">
@@ -514,6 +530,6 @@ const Jump = ({ onChangeLanguage, suraNames, onChangeTheme, colors, theme, trans
             </div>
         </div>
     );
-}
+});
 
 export default Jump;
