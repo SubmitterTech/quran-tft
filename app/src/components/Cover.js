@@ -8,6 +8,7 @@ const Cover = ({ onCoverSeen, coverData, lang, onChangeLanguage }) => {
     const [lineHeight, setLineHeight] = useState(0);
     const [lineMargin, setLineMargin] = useState(0);
     const direction = languages[lang]["dir"] ? languages[lang]["dir"] : "ltr";
+    const languageDisabilityThreshold = 60;
 
     useEffect(() => {
         if (parentRef.current) {
@@ -77,7 +78,7 @@ const Cover = ({ onCoverSeen, coverData, lang, onChangeLanguage }) => {
                         {Object.keys(languages).map((key) => {
                             if (key) {
                                 const isSelectedLanguage = lang === key;
-                                const isLanguageDisabled = languages[key]["comp"] < 60;
+                                const isLanguageDisabled = languages[key]["comp"] < languageDisabilityThreshold;
 
                                 const languageClass = isLanguageDisabled
                                     ? "bg-neutral-500 cursor-not-allowed opacity-50"

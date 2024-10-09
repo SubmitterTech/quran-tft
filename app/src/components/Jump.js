@@ -24,6 +24,8 @@ const Jump = ({ onChangeLanguage, suraNames, onChangeTheme, colors, theme, trans
     const [lastClickedBookmarkKey, setLastClickedBookmarkKey] = useState(null);
     const [isBookmarkHighlighted, setIsBookmarkHighlighted] = useState(false);
 
+    const languageDisabilityThreshold = 60;
+
     useEffect(() => {
         let themap = {}
         if (suraNames) {
@@ -257,7 +259,7 @@ const Jump = ({ onChangeLanguage, suraNames, onChangeTheme, colors, theme, trans
                         value={localStorage.getItem("lang")}
                         className={`w-full m-2 text-center rounded px-4 py-2 border border-neutral-400/40 text-lg brightness-80 bg-neutral-500/30 ${colors[theme]["page-text"]} focus:outline-none focus:ring-2 focus:border-sky-500 focus:ring-sky-500`}>
                         {Object.keys(languages).map((key) => {
-                            if (key && languages[key]["comp"] >= 60) {
+                            if (key && languages[key]["comp"] >= languageDisabilityThreshold) {
                                 return (
                                     <option dir={languages[key]["dir"]} key={key} value={key}>
                                         {languages[key]["name"]}
