@@ -1,3 +1,5 @@
+import { memo } from 'react';
+
 export const colorThemes = {
     "light": {
         "text-background": "bg-neutral-50",
@@ -27,6 +29,7 @@ export const colorThemes = {
         "matching-conic": "bg-[conic-gradient(#f43f5e_20deg,transparent_180deg)]", // rose-500
         "toast-background": "#f5f5f5",
         "toast-text": "#f43f5e",
+        "status-bar-background": "#d4d4d4", //bg-neutral-300
     },
     "dark": {
         "text-background": "bg-neutral-800",
@@ -56,6 +59,7 @@ export const colorThemes = {
         "matching-conic": "bg-[conic-gradient(#22c55e_20deg,transparent_180deg)]", // green-500
         "toast-background": "#171717",
         "toast-text": "#22c55e",
+        "status-bar-background": "#0a0a0a", //bg-neutral-950
     },
     "indigo": {
         "text-background": "bg-indigo-900",
@@ -85,6 +89,7 @@ export const colorThemes = {
         "matching-conic": "bg-[conic-gradient(#a3e635_20deg,transparent_180deg)]", // lime-400
         "toast-background": "#262626",
         "toast-text": "#a3e635",
+        "status-bar-background": "#1e1b4b", //bg-indigo-950
     },
     "green": {
         "text-background": "bg-teal-800",
@@ -114,6 +119,7 @@ export const colorThemes = {
         "matching-conic": "bg-[conic-gradient(#f97316_20deg,transparent_180deg)]", // orange-500
         "toast-background": "#171717",
         "toast-text": "#f97316",
+        "status-bar-background": "#042f2e", //bg-teal-950
     },
     "brown": {
         "text-background": "bg-yellow-900",
@@ -143,6 +149,7 @@ export const colorThemes = {
         "matching-conic": "bg-[conic-gradient(#22c55e_20deg,transparent_180deg)]", // green-500
         "toast-background": "#171717",
         "toast-text": "#22c55e",
+        "status-bar-background": "#422006", //bg-yellow-950
     },
     "sky": {
         "text-background": "bg-sky-800",
@@ -172,11 +179,11 @@ export const colorThemes = {
         "matching-conic": "bg-[conic-gradient(#fbbf24_20deg,transparent_180deg)]", // amber-300
         "toast-background": "#262626",
         "toast-text": "#fbbf24",
+        "status-bar-background": "#082f49", //bg-sky-950
     }
 };
 
-export const ThemePicker = ({ theme, colors, onChangeTheme }) => {
-    
+export const ThemePicker = memo(({ theme, colors, onChangeTheme }) => {
     return (
         <div className={`grid grid-flow-dense grid-cols-3 gap-4 w-full h-full`}>
             {Object.entries(colors).map(([localTheme]) => (
@@ -199,5 +206,4 @@ export const ThemePicker = ({ theme, colors, onChangeTheme }) => {
             ))}
         </div>
     );
-};
-
+});

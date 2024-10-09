@@ -1,5 +1,8 @@
 import { Device } from '@capacitor/device';
 import { Clipboard } from '@capacitor/clipboard';
+import { StatusBar, Style } from '@capacitor/status-bar';
+
+let hasStatusBarPromise = null;
 
 export const getDeviceLanguage = async () => {
   const info = await Device.getLanguageCode();
@@ -20,6 +23,28 @@ export const setInitialLanguage = async () => {
     const fallbackLang = process.env.REACT_APP_DEFAULT_LANG || "en";
     localStorage.setItem("lang", fallbackLang);
     return fallbackLang;
+  }
+};
+
+export const setStatusBarStyle = async (theme, bgc) => {
+  const st = theme === 'light' ? Style.Light : Style.Dark;
+
+  if (hasStatusBarPromise === null) {
+    hasStatusBarPromise = (async () => {
+      try {
+        await StatusBar.getInfo();
+        return true;
+      } catch (error) {
+        return false;
+      }
+    })();
+  }
+
+  const hasStatusBar = await hasStatusBarPromise;
+
+  if (hasStatusBar) {
+    await StatusBar.setStyle({ style: st });
+    await StatusBar.setBackgroundColor({ color: bgc });
   }
 };
 

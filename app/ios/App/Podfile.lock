@@ -10,6 +10,8 @@ PODS:
     - Capacitor
   - CapacitorShare (6.0.2):
     - Capacitor
+  - CapacitorStatusBar (6.0.1):
+    - Capacitor
   - CapacitorToast (6.0.2):
     - Capacitor
 
@@ -20,6 +22,7 @@ DEPENDENCIES:
   - "CapacitorCordova (from `../../node_modules/@capacitor/ios`)"
   - "CapacitorDevice (from `../../node_modules/@capacitor/device`)"
   - "CapacitorShare (from `../../node_modules/@capacitor/share`)"
+  - "CapacitorStatusBar (from `../../node_modules/@capacitor/status-bar`)"
   - "CapacitorToast (from `../../node_modules/@capacitor/toast`)"
 
 EXTERNAL SOURCES:
@@ -35,6 +38,8 @@ EXTERNAL SOURCES:
     :path: "../../node_modules/@capacitor/device"
   CapacitorShare:
     :path: "../../node_modules/@capacitor/share"
+  CapacitorStatusBar:
+    :path: "../../node_modules/@capacitor/status-bar"
   CapacitorToast:
     :path: "../../node_modules/@capacitor/toast"
 
@@ -45,8 +50,9 @@ SPEC CHECKSUMS:
   CapacitorCordova: f48c89f96c319101cd2f0ce8a2b7449b5fb8b3dd
   CapacitorDevice: 7097a1deb4224b77fd13a6e60a355d0062a5d772
   CapacitorShare: 591ae4693d85686ceb590db8e8b44aa014ec6490
+  CapacitorStatusBar: b81d4fb5d4e0064c712018071b3ab4b810b39a63
   CapacitorToast: cfd82cd5afdc3f027ad4a8859f909ae4a327f3c3
 
-PODFILE CHECKSUM: 3c25774d72dfffb6a5cf879834bd0972ec2cb6d1
+PODFILE CHECKSUM: 13f843d2fdfeb31c47fc42f7248e71d65820900d
 
 COCOAPODS: 1.15.2

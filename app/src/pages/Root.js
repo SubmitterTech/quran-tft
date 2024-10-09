@@ -1,8 +1,9 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback, useMemo } from 'react';
 import { useParams, useLocation } from 'react-router-dom';
 import Cover from '../components/Cover';
 import Book from '../components/Book';
 import { colorThemes } from '../utils/Colors';
+import { setStatusBarStyle } from '../utils/Device';
 import introductionContent from '../assets/introduction.json';
 import quranData from '../assets/qurantft.json';
 import appendicesContent from '../assets/appendices.json';
@@ -17,7 +18,7 @@ function Root() {
     const isSearch = location.pathname.endsWith('/search');
     const isAppendix = location.pathname.match(/\/appendix\/\d+$/) !== null;
 
-    const colors = colorThemes;
+    const colors = useMemo(() => colorThemes, []);
     const [showCover, setShowCover] = useState(localStorage.getItem("qurantft-pn") ? false : ((isSearch || isAppendix) ? false : process.env.REACT_APP_DEFAULT_LANG ? false : true));
     const [coverData, setCoverData] = useState(cover);
     const [lang, setLang] = useState(language ? language : localStorage.getItem("lang") ? localStorage.getItem("lang") : process.env.REACT_APP_DEFAULT_LANG || "en");
@@ -29,27 +30,21 @@ function Root() {
     const [translationMap, setTranslationMap] = useState(map);
     const [theme, setTheme] = useState(localStorage.getItem("theme") ? localStorage.getItem("theme") : "sky");
 
-    const onChangeTheme = (theme) => {
-        setTheme(theme);
-        localStorage.setItem("theme", theme)
-    };
-
     useEffect(() => {
-        if (!lang.toLowerCase().includes("en")) {
-            loadTranslation(lang);
+        setStatusBarStyle(theme, colors[theme]['status-bar-background']).catch((error) => {
+            console.error('Failed to update status bar style:', error);
+        });
+    }, [theme, colors]);
 
-        } else {
-            setTranslation(null);
-            setTranslationApplication(application);
-            setTranslationIntro(introductionContent);
-            setTranslationAppx(appendicesContent);
-            setTranslationMap(map);
-            setCoverData(cover);
-        }
-        localStorage.setItem("lang", lang)
-    }, [lang]);
+    const onChangeTheme = useCallback((theme) => {
+        setTheme(theme);
+        setStatusBarStyle(theme, colors[theme]['status-bar-background']).catch((error) => {
+            console.error('Failed to update status bar style:', error);
+        });
+        localStorage.setItem("theme", theme);
+    }, [colors]);
 
-    const loadTranslation = async (language) => {
+    const loadTranslation = useCallback(async (language) => {
         try {
             const translatedQuran = await import(`../assets/translations/${language}/quran_${language}.json`)
                 .catch(() => null);
@@ -109,7 +104,23 @@ function Root() {
         } catch (error) {
             console.error('Error loading translation:', error);
         }
-    };
+    }, []);
+
+    useEffect(() => {
+        if (!lang.toLowerCase().includes("en")) {
+            loadTranslation(lang);
+
+        } else {
+            setTranslation(null);
+            setTranslationApplication(application);
+            setTranslationIntro(introductionContent);
+            setTranslationAppx(appendicesContent);
+            setTranslationMap(map);
+            setCoverData(cover);
+        }
+        localStorage.setItem("lang", lang)
+    }, [lang, loadTranslation]);
+
 
     const hideCover = () => {
         setShowCover(false);
