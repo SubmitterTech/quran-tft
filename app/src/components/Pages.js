@@ -1,7 +1,41 @@
 import React, { useState, useEffect, useRef, useCallback, useMemo, useLayoutEffect } from 'react';
 import Verse from '../components/Verse';
 
-const Pages = ({
+const formatHitCount = (count) => {
+    const factor = 19;
+    if (count % factor === 0) {
+        return `${count} (${factor} x ${count / factor})`;
+    }
+    return count;
+};
+
+const parseNoteReferences = (notes) => {
+    const noteRefsMap = {};
+    let lastValidRef = null;
+    const referencePattern = /\d+:\d+(-\d+)?(,\d+)?/g;
+    notes.forEach((note, index) => {
+        const matches = note.match(referencePattern);
+        if (matches) {
+            lastValidRef = matches[0];
+            matches.forEach((match) => {
+                const key = match.trim();
+                if (!noteRefsMap[key]) {
+                    noteRefsMap[key] = [];
+                }
+                if (!noteRefsMap[key].includes(index)) {
+                    noteRefsMap[key].push(index);
+                }
+            });
+        } else {
+            if (lastValidRef) {
+                noteRefsMap[lastValidRef].push(index);
+            }
+        }
+    });
+    return noteRefsMap;
+};
+
+const Pages = React.memo(({
     colors,
     theme,
     translationApplication,
@@ -23,31 +57,62 @@ const Pages = ({
     upt
 }) => {
     const lang = localStorage.getItem("lang")
-    const [pageData, setPageData] = useState(null);
-    const [notesData, setNotesData] = useState(null);
-    const [showExplanation, setShowExplanation] = useState({ GODnamefrequency: false, GODnamesum: false });
-    const [pageTitle, setPageTitle] = useState([]);
-    const [pageGWC, setPageGWC] = useState({ "0:0": quranData[(parseInt(selectedPage) - 1) + ""]?.notes ? parseInt(quranData[(parseInt(selectedPage) - 1) + ""].notes.cumulativefrequencyofthewordGOD) : 0 });
+
+    // Refs
     const verseRefs = useRef({});
     const topRef = useRef(null);
     const noteRefs = useRef({});
-
     const accumulatedCopiesRef = useRef({});
     const copyTimerRef = useRef();
-
-    const [notify, setNotify] = useState(false);
     const notifyTimeoutRef = useRef();
     const notifyRange = useRef({});
-    const [focusedNoteIndices, setFocusedNoteIndices] = useState([false, false, false, false, false, false, false, false, false, false]);
-
     const stickyRef = useRef(null);
+    const currentPageRef = useRef(selectedPage);
+    const scrollTimeout = useRef(null);
+
+    // State
+    const [notify, setNotify] = useState(false);
+    const [focusedNoteIndices, setFocusedNoteIndices] = useState(Array(10).fill(false));
     const [stickyHeight, setStickyHeight] = useState(0);
     const [isScrolling, setIsScrolling] = useState(false);
-    const currentPageRef = useRef(selectedPage);
+    const [showExplanation, setShowExplanation] = useState({
+        GODnamefrequency: false,
+        GODnamesum: false,
+    });
+
+    const pageData = useMemo(() => quranData[selectedPage], [quranData, selectedPage]);
+
+    const notesData = useMemo(
+        () => (translation ? translation[selectedPage].notes : quranData[selectedPage].notes),
+        [translation, quranData, selectedPage]
+    );
+
+    const pageGWC = useMemo(
+        () => ({
+            '0:0': quranData[`${parseInt(selectedPage) - 1}`]?.notes
+                ? parseInt(quranData[`${parseInt(selectedPage) - 1}`].notes.cumulativefrequencyofthewordGOD)
+                : 0,
+        }),
+        [quranData, selectedPage]
+    );
+
+    const pageTitle = useMemo(() => {
+        if (!quranData[selectedPage]) return [];
+        const newPageTitles = [];
+        const pageDataContent = translation ? translation[selectedPage].page : quranData[selectedPage].page;
+        pageDataContent.forEach((pi) => {
+            if (/\d+:\d+/.test(pi)) {
+                if (pi.includes('&')) {
+                    pi.split('&').forEach((part) => newPageTitles.push(part.trim()));
+                } else {
+                    newPageTitles.push(pi);
+                }
+            }
+        });
+        return newPageTitles;
+    }, [quranData, selectedPage, translation]);
+
     const besmele = quranData["23"]["sura"]["1"]["encrypted"]["1"];
-
-    let scrollTimeout = useRef(null);
-
 
     const updateFocusedNoteIndices = (index, value) => {
         setFocusedNoteIndices(prev => {
@@ -57,7 +122,7 @@ const Pages = ({
         });
     };
 
-    const handleScroll = () => {
+    const handleScroll = useCallback(() => {
         if (!isScrolling) setIsScrolling(true);
 
         clearTimeout(scrollTimeout.current);
@@ -65,7 +130,7 @@ const Pages = ({
         scrollTimeout.current = setTimeout(() => {
             setIsScrolling(false);
         }, 400);
-    };
+    }, [isScrolling]);
 
     useLayoutEffect(() => {
         if (stickyRef.current) {
@@ -113,26 +178,6 @@ const Pages = ({
             }, 150);
         }
     }, [upt]);
-
-    useEffect(() => {
-        setPageData(quranData[selectedPage]);
-        setNotesData(translation ? translation[selectedPage].notes : quranData[selectedPage].notes)
-        setPageGWC({ "0:0": quranData[(parseInt(selectedPage) - 1) + ""]?.notes ? parseInt(quranData[(parseInt(selectedPage) - 1) + ""].notes.cumulativefrequencyofthewordGOD) : 0 });
-        if (quranData[selectedPage]) {
-            const newPageTitles = [];
-            const pageData = translation ? translation[selectedPage].page : quranData[selectedPage].page
-            pageData.forEach((pi) => {
-                if (/\d+:\d+/.test(pi)) {
-                    if (pi.includes("&")) {
-                        pi.split("&").forEach(part => newPageTitles.push(part.trim()));
-                    } else {
-                        newPageTitles.push(pi);
-                    }
-                }
-            });
-            setPageTitle(newPageTitles);
-        }
-    }, [quranData, selectedPage, selectedSura, selectedVerse, translation]);
 
     useEffect(() => {
         const verseKey = `${selectedSura}:${selectedVerse}`;
@@ -225,40 +270,11 @@ const Pages = ({
         return newPageGWC;
     };
 
-
     const updatedPageGWC = calculatePageGWC();
 
     const clickReferenceController = (part) => {
         handleClickReference(part);
         forceScroll(part);
-    };
-
-    const parseNoteReferences = (notes) => {
-        const noteRefsMap = {};
-        let lastValidRef = null;
-        const referencePattern = /\d+:\d+(-\d+)?(,\d+)?/g;
-        notes.forEach((note, index) => {
-            // Extract all references in the note
-            const matches = note.match(referencePattern);
-            if (matches) {
-                lastValidRef = matches[0];
-                matches.forEach(match => {
-                    const key = match.trim();
-                    if (!noteRefsMap[key]) {
-                        noteRefsMap[key] = [];
-                    }
-                    if (!noteRefsMap[key].includes(index)) {
-                        noteRefsMap[key].push(index);
-                    }
-                });
-            } else {
-                // If no reference is found and there's a last valid reference, associate this note with it
-                if (lastValidRef) {
-                    noteRefsMap[lastValidRef].push(index);
-                }
-            }
-        });
-        return noteRefsMap;
     };
 
     const noteReferencesMap = useMemo(() => {
@@ -365,14 +381,6 @@ const Pages = ({
 
     const handlePageTitleClicked = () => {
         handleTogglePage();
-    };
-
-    const formatHitCount = (count) => {
-        const factor = 19;
-        if (count % factor === 0) {
-            return `${count} (${factor} x ${count / factor})`;
-        }
-        return count;
     };
 
     const handleVerseClick = (hasAsterisk, key) => {
@@ -636,6 +644,6 @@ const Pages = ({
             }
         </div>
     );
-};
+});
 
 export default Pages;
