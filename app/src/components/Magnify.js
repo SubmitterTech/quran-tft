@@ -264,7 +264,7 @@ const Magnify = ({ colors, theme, translationApplication, quran, map, appendices
         }
     }, [searchTerm, performSearch, performSearchSingleLetter]);
 
-    const lightWords = (text, term) => {
+    const lightWords = useCallback((text, term) => {
         const highlightText = (originalText, keyword) => {
             let processedText = originalText;
             processedText = normalize ? normalizeText(processedText) : processedText;
@@ -283,7 +283,7 @@ const Magnify = ({ colors, theme, translationApplication, quran, map, appendices
                     parts.push(originalText.substring(currentIndex, matchIndex));
                 }
 
-                parts.push(<span className={`font-bold ${colors[theme]["matching-text"]}`}>{matchText}</span>);
+                parts.push(<span key={matchIndex} className={`font-bold ${colors[theme]["matching-text"]}`}>{matchText}</span>);
                 currentIndex = matchIndex + matchText.length;
             }
 
@@ -305,7 +305,7 @@ const Magnify = ({ colors, theme, translationApplication, quran, map, appendices
         });
 
         return highlightedText;
-    };
+    }, [caseSensitive, colors, lang, normalize, theme]);
 
     const lastTitleElementRef = useCallback(node => {
         if (observerTitles.current) observerTitles.current.disconnect();
@@ -372,27 +372,28 @@ const Magnify = ({ colors, theme, translationApplication, quran, map, appendices
         if (!multiSelect) {
             setSelectedVerseList([]);
         }
-
     }, [multiSelect, setSelectedVerseList]);
 
-    const handleConfirm = (key, type = null) => {
-        if (multiSelect && type) {
-            if (type === 'verse') {
-                setSelectedVerseList((prevList) => {
-                    if (prevList.includes(key)) {
-                        return prevList.filter(verse => verse !== key);
-                    } else {
-                        return [...prevList, key];
-                    }
-                });
+    const handleConfirm = useCallback((key, type = null) => {
+        return () => {
+            if (multiSelect && type) {
+                if (type === 'verse') {
+                    setSelectedVerseList((prevList) => {
+                        if (prevList.includes(key)) {
+                            return prevList.filter((verse) => verse !== key);
+                        } else {
+                            return [...prevList, key];
+                        }
+                    });
+                }
+            } else {
+                if (onConfirm) {
+                    onConfirm(key);
+                    onClose();
+                }
             }
-        } else {
-            if (onConfirm) {
-                onConfirm(key);
-                onClose();
-            }
-        }
-    };
+        };
+    }, [multiSelect, onConfirm, onClose, setSelectedVerseList]);
 
     const renderref = (ref) => {
         if (ref) {
@@ -443,7 +444,7 @@ const Magnify = ({ colors, theme, translationApplication, quran, map, appendices
                 <div
                     key={index}
                     className={`rounded p-2  ${colors[theme]["text-background"]}`}
-                    onClick={() => handleConfirm(`${suraNumber}:${verseNumber}`)}>
+                    onClick={handleConfirm(`${suraNumber}:${verseNumber}`)}>
                     <span className={`text-sky-500 ${direction === 'rtl' ? "ml-1" : "mr-1"}`}>{suraNumber}:{verseNumber}</span>{text}
                 </div>
             ));
@@ -524,7 +525,7 @@ const Magnify = ({ colors, theme, translationApplication, quran, map, appendices
                                                     ref={index === loadedTitles.length - 1 ? lastTitleElementRef : null}
                                                     key={`${result.suraNumber}-${result.titleNumber}-${index}`}
                                                     className={`p-2 rounded  ${colors[theme]["base-background"]} cursor-pointer mx-1.5 md:mr-2`}
-                                                    onClick={() => handleConfirm(`${result.suraNumber}:${result.titleNumber}`)}>
+                                                    onClick={handleConfirm(`${result.suraNumber}:${result.titleNumber}`)}>
                                                     <span className="text-sky-500">{result.suraNumber}:{result.titleNumber}</span> {lightWords(result.titleText, searchTerm)}
                                                 </div>
                                             ))
@@ -567,7 +568,7 @@ const Magnify = ({ colors, theme, translationApplication, quran, map, appendices
                                                         ref={index === loadedVerses.length - 1 ? lastVerseElementRef : null}
                                                         key={`verse-${result.suraNumber}:${result.verseNumber}-index`}
                                                         className={`p-1.5 rounded ${colors[theme]["text-background"]} cursor-pointer mx-1.5 md:mr-2 ${hasRing}`}
-                                                        onClick={() => handleConfirm(`${result.suraNumber}:${result.verseNumber}`, 'verse')}>
+                                                        onClick={handleConfirm(`${result.suraNumber}:${result.verseNumber}`, 'verse')}>
                                                         <span className="text-sky-500">{result.suraNumber}:{result.verseNumber}</span> {lightWords(result.verseText, searchTerm)}
                                                     </div>
                                                 );
@@ -595,7 +596,7 @@ const Magnify = ({ colors, theme, translationApplication, quran, map, appendices
                                                 ref={index === loadedNotes.length - 1 ? lastNoteElementRef : null}
                                                 key={`${result.suraNumber}-${result.verseNumber}-${index}`}
                                                 className={` p-1.5 rounded  ${colors[theme]["notes-background"]} cursor-pointer mx-1.5 md:mr-2`}
-                                                onClick={() => handleConfirm(`${result.suraNumber}:${result.verseNumber}`)}>
+                                                onClick={handleConfirm(`${result.suraNumber}:${result.verseNumber}`)}>
                                                 {lightWords(result.note, searchTerm)}
                                             </div>
                                         )))
@@ -618,18 +619,13 @@ const Magnify = ({ colors, theme, translationApplication, quran, map, appendices
                                     {appendicesVisible &&
                                         loadedAppendices.map((result, index) => {
                                             const isIntro = result.appx === 0;
+                                            const confirmKey = isIntro ? `intro:${result.key}` : `appx:${result.appx}-${result.key}`
                                             return (
                                                 <div
                                                     ref={index === loadedAppendices.length - 1 ? lastAppendixElementRef : null}
                                                     key={`${result.appx}-${result.key}-${index}`}
                                                     className={`p-1.5 rounded ${colors[theme]["text-background"]} cursor-pointer mx-1.5 md:mr-2`}
-                                                    onClick={() => {
-                                                        if (isIntro) {
-                                                            handleConfirm(`intro:${result.key}`);
-                                                        } else {
-                                                            handleConfirm(`appx:${result.appx}-${result.key}`);
-                                                        }
-                                                    }}
+                                                    onClick={handleConfirm(confirmKey)}
                                                 >
                                                     {isIntro ? (
                                                         <>
