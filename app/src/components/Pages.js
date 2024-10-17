@@ -162,7 +162,12 @@ const Pages = React.memo(({
                 notifyRange.current[`${sura}:${i}`] = true;
             }
         } else {
-            notifyRange.current[part] = true;
+            // If incoming part has the verse number 0 make it to 1 to properly notify
+            let index = key.indexOf(':');
+            if (index !== -1 && key[index + 1] === '0') {
+                key = key.slice(0, index + 1) + '1';
+            }
+            notifyRange.current[key] = true;
         }
 
         if (verseRefs.current[key]) {
@@ -536,6 +541,7 @@ const Pages = React.memo(({
                                                     return (
                                                         <div
                                                             key={`last-title-${suraNumber}-${verseNumber}`}
+                                                            ref={(el) => verseRefs.current[`${suraNumber}:${0}`] = el}
                                                             dir={direction}
                                                             className={`mx-1 py-1 px-2 text-neutral-800 rounded bg-gradient-to-r from-cyan-300 to-sky-500 text-base md:text-lg lg:text-xl xl:text-2xl besmele`}>
                                                             {hasGODinit}
