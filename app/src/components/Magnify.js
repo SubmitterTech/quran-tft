@@ -264,48 +264,47 @@ const Magnify = ({ colors, theme, translationApplication, quran, map, appendices
         }
     }, [searchTerm, performSearch, performSearchSingleLetter]);
 
-    const lightWords = useCallback((text, term) => {
-        const highlightText = (originalText, keyword) => {
-            let processedText = originalText;
-            processedText = normalize ? normalizeText(processedText) : processedText;
-            processedText = caseSensitive ? processedText : processedText.toLocaleUpperCase(lang);
-            const escapedKeyword = removePunctuations(keyword);
-            const regex = new RegExp(escapedKeyword, caseSensitive ? 'g' : 'gi');
-            let match;
-            const parts = [];
-            let currentIndex = 0;
+    const highlightText = useCallback((originalText, keyword) => {
+        let processedText = originalText;
+        processedText = normalize ? normalizeText(processedText) : processedText;
+        processedText = caseSensitive ? processedText : processedText.toLocaleUpperCase(lang);
+        const escapedKeyword = removePunctuations(keyword);
+        const regex = new RegExp(escapedKeyword, caseSensitive ? 'g' : 'gi');
+        let match;
+        const parts = [];
+        let currentIndex = 0;
 
-            while ((match = regex.exec(processedText)) !== null) {
-                const matchIndex = match.index;
-                const matchText = originalText.substr(matchIndex, match[0].length);
+        while ((match = regex.exec(processedText)) !== null) {
+            const matchIndex = match.index;
+            const matchText = originalText.substr(matchIndex, match[0].length);
 
-                if (matchIndex > currentIndex) {
-                    parts.push(originalText.substring(currentIndex, matchIndex));
-                }
-
-                parts.push(<span key={matchIndex} className={`font-bold ${colors[theme]["matching-text"]}`}>{matchText}</span>);
-                currentIndex = matchIndex + matchText.length;
+            if (matchIndex > currentIndex) {
+                parts.push(originalText.substring(currentIndex, matchIndex));
             }
+            parts.push(<span className={`font-bold ${colors[theme]["matching-text"]}`}>{matchText}</span>);
+            currentIndex = matchIndex + matchText.length;
+        }
 
-            if (currentIndex < originalText.length) {
-                parts.push(originalText.substring(currentIndex));
-            }
+        if (currentIndex < originalText.length) {
+            parts.push(originalText.substring(currentIndex));
+        }
 
-            return parts;
-        };
+        return parts;
+    }, [caseSensitive, normalize, lang, colors, theme]);
 
-        let processedTerm = term;
+    const lightWords = useCallback((text) => {
+        let processedTerm = searchTerm;
         processedTerm = normalize ? normalizeText(processedTerm) : processedTerm;
         processedTerm = caseSensitive ? processedTerm : processedTerm.toLocaleUpperCase(lang);
         const keywords = processedTerm.split(' ').filter(keyword => keyword.trim() !== '');
         let highlightedText = [text];
 
-        keywords.forEach(keyword => {
+        keywords.forEach((keyword) => {
             highlightedText = highlightedText.flatMap(part => typeof part === 'string' ? highlightText(part, keyword) : part);
         });
 
         return highlightedText;
-    }, [caseSensitive, colors, lang, normalize, theme]);
+    }, [searchTerm, caseSensitive, lang, normalize, highlightText]);
 
     const lastTitleElementRef = useCallback(node => {
         if (observerTitles.current) observerTitles.current.disconnect();
@@ -526,7 +525,7 @@ const Magnify = ({ colors, theme, translationApplication, quran, map, appendices
                                                     key={`${result.suraNumber}-${result.titleNumber}-${index}`}
                                                     className={`p-2 rounded  ${colors[theme]["base-background"]} cursor-pointer mx-1.5 md:mr-2`}
                                                     onClick={handleConfirm(`${result.suraNumber}:${result.titleNumber}`)}>
-                                                    <span className="text-sky-500">{result.suraNumber}:{result.titleNumber}</span> {lightWords(result.titleText, searchTerm)}
+                                                    <span className="text-sky-500">{result.suraNumber}:{result.titleNumber}</span> {lightWords(result.titleText)}
                                                 </div>
                                             ))
                                         )}
@@ -569,7 +568,7 @@ const Magnify = ({ colors, theme, translationApplication, quran, map, appendices
                                                         key={`verse-${result.suraNumber}:${result.verseNumber}-index`}
                                                         className={`p-1.5 rounded ${colors[theme]["text-background"]} cursor-pointer mx-1.5 md:mr-2 ${hasRing}`}
                                                         onClick={handleConfirm(`${result.suraNumber}:${result.verseNumber}`, 'verse')}>
-                                                        <span className="text-sky-500">{result.suraNumber}:{result.verseNumber}</span> {lightWords(result.verseText, searchTerm)}
+                                                        <span className="text-sky-500">{result.suraNumber}:{result.verseNumber}</span> {lightWords(result.verseText)}
                                                     </div>
                                                 );
                                             })
@@ -597,7 +596,7 @@ const Magnify = ({ colors, theme, translationApplication, quran, map, appendices
                                                 key={`${result.suraNumber}-${result.verseNumber}-${index}`}
                                                 className={` p-1.5 rounded  ${colors[theme]["notes-background"]} cursor-pointer mx-1.5 md:mr-2`}
                                                 onClick={handleConfirm(`${result.suraNumber}:${result.verseNumber}`)}>
-                                                {lightWords(result.note, searchTerm)}
+                                                {lightWords(result.note)}
                                             </div>
                                         )))
                                     }
@@ -629,11 +628,11 @@ const Magnify = ({ colors, theme, translationApplication, quran, map, appendices
                                                 >
                                                     {isIntro ? (
                                                         <>
-                                                            <span className="text-sky-500">{translationApplication.intro}</span> {lightWords(result.introText, searchTerm)}
+                                                            <span className="text-sky-500">{translationApplication.intro}</span> {lightWords(result.introText)}
                                                         </>
                                                     ) : (
                                                         <>
-                                                            <span className="text-sky-500">{translationApplication.appendix}-{result.appx}</span> {lightWords(result.appendixText, searchTerm)}
+                                                            <span className="text-sky-500">{translationApplication.appendix}-{result.appx}</span> {lightWords(result.appendixText)}
                                                         </>
                                                     )}
                                                 </div>
