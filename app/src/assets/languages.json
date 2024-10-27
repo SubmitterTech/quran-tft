@@ -25,13 +25,13 @@
     },
     "de": {
         "name": "Deutsch Übersetzung",
-        "comp": 75.13,
+        "comp": 75.59,
         "dir": "ltr",
         "nums": "0 1 2 3 4 5 6 7 8 9"
     },
     "ru": {
         "name": "Русский Перевод",
-        "comp": 63.18,
+        "comp": 63.25,
         "dir": "ltr",
         "nums": "0 1 2 3 4 5 6 7 8 9"
     },
@@ -73,7 +73,7 @@
     },
     "nl": {
         "name": "Dutch Vertaling",
-        "comp": 4.93,
+        "comp": 6.56,
         "dir": "ltr",
         "nums": "0 1 2 3 4 5 6 7 8 9"
     }
