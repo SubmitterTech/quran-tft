@@ -3,23 +3,9 @@ import languages from '../assets/languages.json';
 import { getRandom } from '../utils/Generator';
 import { adjustReference } from '../utils/Mapper';
 import { ThemePicker } from '../utils/Colors';
+import Bookmarks from '../utils/Bookmarks';
 
 const languageDisabilityThreshold = 60;
-
-function formatDate(timestamp) {
-    if (/^\d+$/.test(String(timestamp).trim())) {
-        const date = new Date(parseInt(timestamp, 10));
-        const day = date.getDate().toString().padStart(2, '0');
-        const month = (date.getMonth() + 1).toString().padStart(2, '0');
-        const year = date.getFullYear();
-        const hours = date.getHours().toString().padStart(2, '0');
-        const minutes = date.getMinutes().toString().padStart(2, '0');
-        const seconds = date.getSeconds().toString().padStart(2, '0');
-        return `${day}/${month}/${year} ${hours}:${minutes}:${seconds}`;
-    } else {
-        return timestamp;
-    }
-}
 
 const Jump = React.memo(({ onChangeLanguage, suraNames, onChangeTheme, colors, theme, translationApplication, currentPage, quran, onClose, onConfirm, onMagnify, direction }) => {
     const [suraNumber, setSuraNumber] = useState("0");
@@ -34,8 +20,58 @@ const Jump = React.memo(({ onChangeLanguage, suraNames, onChangeTheme, colors, t
 
     const bookmarksContainerRef = useRef(null);
     const bookmarkItemRefs = useRef({});
+    const [bookmarksList, setBookmarksList] = useState([]);
     const [lastClickedBookmarkKey, setLastClickedBookmarkKey] = useState(null);
     const [isBookmarkHighlighted, setIsBookmarkHighlighted] = useState(false);
+
+    const updateBookmark = useCallback((key, val) => {
+        Bookmarks.set(key, val);
+    }, []);
+
+    useEffect(() => {
+        const updateBookmarksList = () => {
+            const allBookmarks = Bookmarks.all();
+            setBookmarksList(Object.entries(allBookmarks).reverse());
+        };
+
+        updateBookmarksList();
+
+        const handleStorageEvent = (event) => {
+            if (event.key === 'bookmarks') {
+                updateBookmarksList();
+            }
+        };
+
+        window.addEventListener('storage', handleStorageEvent);
+
+        return () => {
+            window.removeEventListener('storage', handleStorageEvent);
+        };
+    }, []);
+
+    // Load last clicked bookmark on initial render
+    useEffect(() => {
+        const savedBookmarkKey = sessionStorage.getItem('qurantft-lcb');
+        if (savedBookmarkKey) {
+            setLastClickedBookmarkKey(savedBookmarkKey);
+            setIsBookmarkHighlighted(true);
+        }
+    }, []);
+
+    useEffect(() => {
+        if (showBookmarks && bookmarksContainerRef.current && lastClickedBookmarkKey && bookmarkItemRefs.current[lastClickedBookmarkKey]) {
+            bookmarkItemRefs.current[lastClickedBookmarkKey].scrollIntoView({
+                behavior: 'smooth',
+                block: 'center',
+            });
+            const highlightTimer = setTimeout(() => {
+                setIsBookmarkHighlighted(false);
+                setLastClickedBookmarkKey(null);
+                sessionStorage.removeItem('qurantft-lcb');
+            }, 3800);
+            return () => clearTimeout(highlightTimer);
+        }
+    }, [lastClickedBookmarkKey, bookmarksContainerRef, showBookmarks]);
 
     // Compute suraNameMap using useMemo
     const suraNameMap = useMemo(() => {
@@ -108,30 +144,6 @@ const Jump = React.memo(({ onChangeLanguage, suraNames, onChangeTheme, colors, t
             }
         }
     }, [currentPage, surasInPagesMap, pageForSuraVerse]);
-
-    // Load last clicked bookmark on initial render
-    useEffect(() => {
-        const savedBookmarkKey = sessionStorage.getItem('qurantft-lcb');
-        if (savedBookmarkKey) {
-            setLastClickedBookmarkKey(savedBookmarkKey);
-            setIsBookmarkHighlighted(true);
-        }
-    }, []);
-
-    useEffect(() => {
-        if (showBookmarks && bookmarksContainerRef.current && lastClickedBookmarkKey && bookmarkItemRefs.current[lastClickedBookmarkKey]) {
-            bookmarkItemRefs.current[lastClickedBookmarkKey].scrollIntoView({
-                behavior: 'smooth',
-                block: 'center',
-            });
-            const highlightTimer = setTimeout(() => {
-                setIsBookmarkHighlighted(false);
-                setLastClickedBookmarkKey(null);
-                sessionStorage.removeItem('qurantft-lcb');
-            }, 3800);
-            return () => clearTimeout(highlightTimer);
-        }
-    }, [lastClickedBookmarkKey, bookmarksContainerRef, showBookmarks]);
 
     const shuffleSuraVerse = useCallback(() => {
         const randomVerse = getRandom();
@@ -248,12 +260,6 @@ const Jump = React.memo(({ onChangeLanguage, suraNames, onChangeTheme, colors, t
         [onChangeLanguage, onClose]
     );
 
-    const updateBookmark = useCallback((key, val) => {
-        const bookmarks = JSON.parse(localStorage.getItem('bookmarks') || '{}');
-        bookmarks[key] = val;
-        localStorage.setItem('bookmarks', JSON.stringify(bookmarks));
-    }, []);
-
     return (
         <div className={`w-screen h-full fixed left-0 top-0 inset-0 z-10 outline-none focus:outline-none `} id="jump-screen">
             <div className={` w-full h-full backdrop-blur-xl flex items-center justify-center `}>
@@ -330,7 +336,7 @@ const Jump = React.memo(({ onChangeLanguage, suraNames, onChangeTheme, colors, t
                                     <div
                                         ref={bookmarksContainerRef}
                                         className={`md:h-80 lg:h-96 h-72 m-2 px-1 py-1 text-base rounded ${colors[theme]["relation-background"]} overflow-y-auto overflow-x-hidden`}>
-                                        {Object.entries(localStorage.getItem("bookmarks") ? JSON.parse(localStorage.getItem("bookmarks")) : {}).reverse().map(([key, val]) => (
+                                        {bookmarksList.map(([key, val]) => (
                                             <div key={key}
                                                 ref={(el) => (bookmarkItemRefs.current[key] = el)}
                                                 className={`bookmark-entry flex py-1 space-x-1 mb-1.5 border-b ${lastClickedBookmarkKey === key && isBookmarkHighlighted
@@ -340,7 +346,7 @@ const Jump = React.memo(({ onChangeLanguage, suraNames, onChangeTheme, colors, t
                                                     <input
                                                         type="text"
                                                         dir={direction}
-                                                        defaultValue={formatDate(val)}
+                                                        defaultValue={Bookmarks.format(val)}
                                                         onBlur={(e) => {
                                                             updateBookmark(key, e.target.value);
                                                         }}

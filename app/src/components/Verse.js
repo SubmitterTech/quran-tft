@@ -2,6 +2,7 @@ import React, { useCallback, useEffect, useState, useRef } from 'react';
 import { useSpring, animated } from '@react-spring/web';
 import { useDrag } from '@use-gesture/react';
 import { smartCopy } from '../utils/Device';
+import Bookmarks from '../utils/Bookmarks';
 import { toast } from 'react-hot-toast';
 
 const Verse = ({ besmele,
@@ -36,34 +37,40 @@ const Verse = ({ besmele,
     const [text, setText] = useState(verseText);
     const [relatedVerses, setRelatedVerses] = useState([]);
     const lang = localStorage.getItem("lang");
-    const [isMarked, setMarked] = useState(false);
+    const [bookmark, setBookmark] = useState(null);
     const [swipeDistance, setSwipeDistance] = useState(0);
     const timerRef = useRef();
 
     const [{ x }, api] = useSpring(() => ({ x: 0 }));
 
     useEffect(() => {
-        setMarked(localStorage.getItem("bookmarks") ? (JSON.parse(localStorage.getItem("bookmarks")))[currentVerseKey] : false)
+        setBookmark(Bookmarks.get(currentVerseKey));
+
+        const handleBookmarkChange = (nbm) => {
+            setBookmark(nbm);
+        };
+
+        Bookmarks.subscribe(currentVerseKey, handleBookmarkChange);
+
         if (hasAsterisk) {
             setMode("light");
         } else {
             setMode("idle");
         };
+
+        return () => {
+            Bookmarks.unsubscribe(currentVerseKey, handleBookmarkChange);
+        };
     }, [currentVerseKey, hasAsterisk]);
 
-    const handleBookmark = (verseKey) => {
-        let bms = {};
-        if (isMarked) {
-            bms = localStorage.getItem("bookmarks") ? JSON.parse(localStorage.getItem("bookmarks")) : {};
-            delete bms[verseKey];
-            localStorage.setItem("bookmarks", JSON.stringify(bms));
+    const handleBookmark = useCallback(() => {
+        if (bookmark) {
+            Bookmarks.remove(currentVerseKey);
         } else {
-            bms = localStorage.getItem("bookmarks") ? JSON.parse(localStorage.getItem("bookmarks")) : {};
-            bms[verseKey] = Date.now();
-            localStorage.setItem("bookmarks", JSON.stringify(bms));
+            const formattedDate = Bookmarks.format(Date.now());
+            Bookmarks.set(currentVerseKey, formattedDate);
         }
-        setMarked(!isMarked);
-    };
+    }, [bookmark, currentVerseKey]);
 
     const handleCopy = async () => {
         const clip = `[${currentVerseKey}]`;
@@ -105,7 +112,7 @@ const Verse = ({ besmele,
     const handleActions = () => {
         if (!isScrolling && Math.abs(swipeDistance) > 100) {
             if (swipeDistance > 100) {
-                handleBookmark(currentVerseKey);
+                handleBookmark();
             } else if (swipeDistance < -100) {
                 handleCopy();
             }
@@ -125,7 +132,7 @@ const Verse = ({ besmele,
         if (!down) {
             if (Math.abs(deltaX) > 100) {
                 if (deltaX > 0) {
-                    handleBookmark(currentVerseKey);
+                    handleBookmark();
                 } else {
                     handleCopy();
                 }
@@ -411,19 +418,19 @@ const Verse = ({ besmele,
             setCn(verseClassName + " " + colors[theme]["verse-detail-background"] + " flex-col ring-1 " + colors[theme]["ring"]);
             setText(highlighted);
         } else if (mode === "light") {
-            let bcn = `${colors[theme]["text-background"]} ${isMarked ? `border-l-2 ${colors[theme]["matching-border"]}` : ''}`;
+            let bcn = `${colors[theme]["text-background"]} ${bookmark ? `border-l-2 ${colors[theme]["matching-border"]}` : ''}`;
             if (encryptedText.includes(besmele)) {
-                bcn = `bg-gradient-to-r from-cyan-300 to-sky-500 text-neutral-800 ${isMarked ? `border-l-2 ${colors[theme]["matching-border"]}` : ''}`
+                bcn = `bg-gradient-to-r from-cyan-300 to-sky-500 text-neutral-800 ${bookmark ? `border-l-2 ${colors[theme]["matching-border"]}` : ''}`
             }
             setCn(verseClassName + " " + bcn);
         } else if (mode === "idle") {
-            let bcn = `${colors[theme]["text-background"]} ${isMarked ? `border-l-2 ${colors[theme]["matching-border"]}` : ''}`;
+            let bcn = `${colors[theme]["text-background"]} ${bookmark ? `border-l-2 ${colors[theme]["matching-border"]}` : ''}`;
             if (encryptedText.includes(besmele)) {
-                bcn = `bg-gradient-to-r from-cyan-300 to-sky-500 text-neutral-800 ${isMarked ? `border-l-2 ${colors[theme]["matching-border"]}` : ''}`
+                bcn = `bg-gradient-to-r from-cyan-300 to-sky-500 text-neutral-800 ${bookmark ? `border-l-2 ${colors[theme]["matching-border"]}` : ''}`
             }
             setCn(verseClassName + " " + bcn);
         }
-    }, [mode, verseClassName, verseText, lightGODwords, colors, theme, encryptedText, besmele, isMarked]);
+    }, [mode, verseClassName, verseText, lightGODwords, colors, theme, encryptedText, besmele, bookmark]);
 
 
     const handleClick = () => {
@@ -451,14 +458,17 @@ const Verse = ({ besmele,
     return (
         <div className={`relative`}>
             <div className={`absolute w-full flex h-full justify-between px-2.5`}>
-                <div className={`flex h-full w-full px-2 justify-start items-start ${isMarked ? `${colors[theme]["matching-text"]}` : `${colors[theme]["text"]}`}`}>
-                    {isMarked ? (<svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24" strokeWidth={1.5} className={`w-8 h-8 transition-colors duration-500`} style={{ opacity: Math.abs(swipeDistance) / 120 }}>
-                        <path fillRule="evenodd" d="M6 3a3 3 0 0 0-3 3v12a3 3 0 0 0 3 3h12a3 3 0 0 0 3-3V6a3 3 0 0 0-3-3H6Zm1.5 1.5a.75.75 0 0 0-.75.75V16.5a.75.75 0 0 0 1.085.67L12 15.089l4.165 2.083a.75.75 0 0 0 1.085-.671V5.25a.75.75 0 0 0-.75-.75h-9Z" clipRule="evenodd" />
-                    </svg>
+                <div className={`flex h-full w-full px-2 justify-start items-start ${bookmark ? `${colors[theme]["matching-text"]}` : `${colors[theme]["text"]}`}`}>
+                    {bookmark ?
+                        (<svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24" strokeWidth={1.5} className={`w-8 h-8 transition-colors duration-500`} style={{ opacity: Math.abs(swipeDistance) / 120 }}>
+                            <path fillRule="evenodd" d="M6 3a3 3 0 0 0-3 3v12a3 3 0 0 0 3 3h12a3 3 0 0 0 3-3V6a3 3 0 0 0-3-3H6Zm1.5 1.5a.75.75 0 0 0-.75.75V16.5a.75.75 0 0 0 1.085.67L12 15.089l4.165 2.083a.75.75 0 0 0 1.085-.671V5.25a.75.75 0 0 0-.75-.75h-9Z" clipRule="evenodd" />
+                        </svg>
 
-                    ) : (<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className={`w-8 h-8 transition-colors duration-500`} style={{ opacity: Math.abs(swipeDistance) / 120 }}>
-                        <path strokeLinecap="round" strokeLinejoin="round" d="M16.5 3.75V16.5L12 14.25 7.5 16.5V3.75m9 0H18A2.25 2.25 0 0 1 20.25 6v12A2.25 2.25 0 0 1 18 20.25H6A2.25 2.25 0 0 1 3.75 18V6A2.25 2.25 0 0 1 6 3.75h1.5m9 0h-9" />
-                    </svg>)}
+                        ) :
+                        (<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className={`w-8 h-8 transition-colors duration-500`} style={{ opacity: Math.abs(swipeDistance) / 120 }}>
+                            <path strokeLinecap="round" strokeLinejoin="round" d="M16.5 3.75V16.5L12 14.25 7.5 16.5V3.75m9 0H18A2.25 2.25 0 0 1 20.25 6v12A2.25 2.25 0 0 1 18 20.25H6A2.25 2.25 0 0 1 3.75 18V6A2.25 2.25 0 0 1 6 3.75h1.5m9 0h-9" />
+                        </svg>
+                        )}
                 </div>
                 <div className={`flex h-full w-full justify-end items-start px-2 ${Math.abs(swipeDistance) > 100 ? `${colors[theme]["matching-text"]}` : `${colors[theme]["page-text"]}`}`}>
                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className={`w-8 h-8 transition-colors duration-300`} style={{ opacity: Math.abs(swipeDistance) / 140 }}>
@@ -558,6 +568,18 @@ const Verse = ({ besmele,
                                 )
                             )
                         }
+                    </div>
+                    <div className={`w-full flex ${(mode === "reading" && bookmark) ? "p-0.5 mt-2 -mb-1" : "h-0"} `}>
+                        <div className={`${(mode === "reading" && bookmark) ? " select-text ease-linear duration-300 " : "h-0 "} w-full transition-all  rounded ${colors[theme]["encrypted-background"]} `} >
+                            <div className={`${(mode === "reading" && bookmark) ? `px-0.5 pt-1 -pb-1 ${direction === "rtl" ? "float-right" : "float-left"}` : "hidden"}`}>
+                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className={`${(mode === "reading" && bookmark) ? `w-8 h-7 opacity-50` : "hidden"}`} >
+                                    <path strokeLinecap="round" strokeLinejoin="round" d="M16.5 3.75V16.5L12 14.25 7.5 16.5V3.75m9 0H18A2.25 2.25 0 0 1 20.25 6v12A2.25 2.25 0 0 1 18 20.25H6A2.25 2.25 0 0 1 3.75 18V6A2.25 2.25 0 0 1 6 3.75h1.5m9 0h-9" />
+                                </svg>
+                            </div>
+                            <div className={`${(mode === "reading" && bookmark) ? ` p-1 text-start ${colors[theme]["matching-text"]}` : "h-0 "}`} dir={direction} >
+                                {mode === "reading" && Bookmarks.format(bookmark)}
+                            </div>
+                        </div>
                     </div>
                     <div className={`w-full flex flex-col flex-1  ${mode === "reading" ? "p-0.5 mt-2" : "h-0"} `}>
                         <div className={`${mode === "reading" ? " select-text ease-linear mb-2 duration-300" : "h-0 "} w-full transition-all  rounded ${colors[theme]["encrypted-background"]} `} >
