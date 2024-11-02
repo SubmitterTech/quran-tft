@@ -3,6 +3,34 @@ import { Clipboard } from '@capacitor/clipboard';
 import { StatusBar, Style } from '@capacitor/status-bar';
 
 let hasStatusBarPromise = null;
+let isNativePlatform = false;
+
+export const initPlatform = async () => {
+  const info = await Device.getInfo();
+  isNativePlatform = (info.platform === 'ios' || info.platform === 'android');
+};
+
+export const isNative = () => {
+  return isNativePlatform;
+};
+
+export const supportsUnicodeRegex = () => {
+  try {
+    new RegExp("\\p{L}", "u");
+    return true;
+  } catch (e) {
+    return false;
+  }
+};
+
+export const supportsLookAhead = () => {
+  try {
+    new RegExp("(?<=test)test");
+    return true;
+  } catch (e) {
+    return false;
+  }
+};
 
 export const getDeviceLanguage = async () => {
   const info = await Device.getLanguageCode();

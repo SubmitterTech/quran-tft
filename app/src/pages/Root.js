@@ -3,7 +3,7 @@ import { useParams, useLocation } from 'react-router-dom';
 import Cover from '../components/Cover';
 import Book from '../components/Book';
 import { colorThemes } from '../utils/Colors';
-import { setStatusBarStyle } from '../utils/Device';
+import { setStatusBarStyle, initPlatform } from '../utils/Device';
 import introductionContent from '../assets/introduction.json';
 import quranData from '../assets/qurantft.json';
 import appendicesContent from '../assets/appendices.json';
@@ -29,6 +29,13 @@ function Root() {
     const [translationAppx, setTranslationAppx] = useState(appendicesContent);
     const [translationMap, setTranslationMap] = useState(map);
     const [theme, setTheme] = useState(localStorage.getItem("theme") ? localStorage.getItem("theme") : "sky");
+
+    useEffect(() => {
+        const initialize = async () => {
+            await initPlatform();
+        };
+        initialize();
+    }, []);
 
     useEffect(() => {
         setStatusBarStyle(theme, colors[theme]['status-bar-background']).catch((error) => {

@@ -589,6 +589,7 @@ const Pages = React.memo(({
                                 isScrolling={isScrolling}
                                 setRemainingTime={setRemainingTime}
                                 direction={direction}
+                                parseReferences={parseReferences}
                             />
                         </div>
                     );

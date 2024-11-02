@@ -11,7 +11,7 @@ import Splash from '../components/Splash';
 import Intro from '../components/Intro';
 import Isbn from '../components/Isbn';
 import { adjustReference, generateReferenceMap, transformAppendices, findPageNumber, extractReferenceDetails, mapQuranWithNotes, generateFormula } from '../utils/Mapper';
-import { listCopy } from '../utils/Device';
+import { listCopy, supportsLookAhead, isNative } from '../utils/Device';
 import '../assets/css/Book.css';
 
 const Book = React.memo(({ incomingSearch = false, incomingAppendix = false, incomingAppendixNumber = 1, onChangeTheme, colors, theme, translationApplication, introductionContent, quranData, map, appendicesContent, translation, onChangeLanguage, direction }) => {
@@ -262,9 +262,15 @@ const Book = React.memo(({ incomingSearch = false, incomingAppendix = false, inc
             }
             updatePage(foundPageNumber, sura, verseStart !== verseEnd ? verseStart + "-" + verseEnd : verseStart.toString(), act, currentPage === 397 ? selectedApp : null);
         } else {
-            Toast.show({
-                text: translationApplication.refNotFound,
-            });
+            if (isNative()) {
+                Toast.show({
+                    text: translationApplication.refNotFound,
+                });
+            } else {
+                toast.error(translationApplication.refNotFound, {
+                    duration: 4000,
+                });
+            }
         }
         magnifyConfirm.current = false;
     };
@@ -278,11 +284,14 @@ const Book = React.memo(({ incomingSearch = false, incomingAppendix = false, inc
     };
 
     const parseReferences = (text, controller = null) => {
+        if (text === null || text === undefined) {
+            return text;
+        }
         return direction === 'rtl' ? parseReferencesRTL(text, controller) : parseReferencesLTR(text, controller);
     };
 
     const parseReferencesLTR = (text, controller = null) => {
-        const verseRegex = /(\d+:\d+(?:-\d+)?)/g;
+        const verseRegex = supportsLookAhead() ? /(?<!\d:)\b(\d+:\d+(?:-\d+)?)\b(?!:\d)/g : /(\d+:\d+(?:-\d+)?)/g;
         const app = translation ? translationApplication.appendix : translationApplication.appendix + "?";
         const intro = translationApplication.intro;
         const appendixRegex = new RegExp(`${app}`, 'g');
@@ -393,7 +402,7 @@ const Book = React.memo(({ incomingSearch = false, incomingAppendix = false, inc
     };
 
     const parseReferencesRTL = (text, controller = null) => {
-        const verseRegex = /(\d+:\d+-\d+|\d+-\d+:\d+|\d+:\d+)/g;
+        const verseRegex = supportsLookAhead() ? /(?<!\d:)\b(\d+:\d+-\d+|\d+-\d+:\d+|\d+:\d+)\b(?!:\d)/g : /(\d+:\d+-\d+|\d+-\d+:\d+|\d+:\d+)/g;
         const app = translation ? translationApplication.appendix : translationApplication.appendix + "?";
         const intro = translationApplication.intro;
         const appendixRegex = new RegExp(`${app}`, 'g');

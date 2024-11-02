@@ -1,7 +1,7 @@
 import React, { useCallback, useEffect, useState, useRef } from 'react';
 import { useSpring, animated } from '@react-spring/web';
 import { useDrag } from '@use-gesture/react';
-import { smartCopy } from '../utils/Device';
+import { smartCopy, supportsUnicodeRegex, supportsLookAhead } from '../utils/Device';
 import Bookmarks from '../utils/Bookmarks';
 import { toast } from 'react-hot-toast';
 
@@ -29,7 +29,8 @@ const Verse = ({ besmele,
     path,
     isScrolling,
     setRemainingTime,
-    direction
+    direction,
+    parseReferences
 }) => {
     const currentVerseKey = `${suraNumber}:${verseNumber}`;
     const [mode, setMode] = useState("idle");
@@ -298,16 +299,6 @@ const Verse = ({ besmele,
         const gw = translationApplication ? translationApplication.gw : "GOD";
 
         if (direction === 'rtl') {
-            // Function to check regex support
-            const supportsUnicodeRegex = () => {
-                try {
-                    new RegExp("\\p{L}", "u");
-                    return true;
-                } catch (e) {
-                    return false;
-                }
-            };
-
             try {
                 const regex = supportsUnicodeRegex()
                     ? new RegExp(`(?<!\\p{L})(${gw})(?!\\p{L})`, 'gu') // Enhanced with Unicode properties for RTL
@@ -577,7 +568,7 @@ const Verse = ({ besmele,
                                 </svg>
                             </div>
                             <div className={`${(mode === "reading" && bookmark) ? ` p-1 text-start ${colors[theme]["matching-text"]}` : "h-0 "}`} dir={direction} >
-                                {mode === "reading" && Bookmarks.format(bookmark)}
+                                {mode === "reading" && supportsLookAhead() ? parseReferences(Bookmarks.format(bookmark)) : Bookmarks.format(bookmark)}
                             </div>
                         </div>
                     </div>
