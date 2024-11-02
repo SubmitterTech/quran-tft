@@ -937,7 +937,7 @@ const Book = React.memo(({ incomingSearch = false, incomingAppendix = false, inc
                                         <div
                                             className={` absolute top-0 h-full w-full pt-3.5 lg:pt-4 text-xl lg:text-2xl xl:text-3xl ${colors[theme]["app-text"]} flex items-center justify-start ${isJumpOpen ? `hidden` : `w-20`}`}
                                             onClick={() => document.getElementById('pageselect').click()}>
-                                            {pages.find((p) => p.value === currentPage)?.page || currentPage}
+                                            {pages.find((p) => parseInt(p.value) === parseInt(currentPage))?.page || (parseInt(currentPage) - 22)}
                                             <svg xmlns="http://www.w3.org/2000/svg" className={`w-4 h-4  ${direction === 'rtl' ? `mr-0.5 -ml-2` : ` ml-0.5 -mr-2`}`} fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 9l-7 7-7-7" />
                                             </svg>
