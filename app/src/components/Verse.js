@@ -53,7 +53,7 @@ const Verse = ({ besmele,
 
         Bookmarks.subscribe(currentVerseKey, handleBookmarkChange);
 
-        if (hasAsterisk) {
+        if (hasAsterisk && path.current[currentVerseKey] === undefined) {
             setMode("light");
         } else {
             setMode("idle");
@@ -433,7 +433,7 @@ const Verse = ({ besmele,
             setMode("reading");
             grapFocus(suraNumber, verseNumber);
         } else if (mode === "reading") {
-            if (hasAsterisk) {
+            if (hasAsterisk && path.current[currentVerseKey] === undefined) {
                 setMode("light");
             } else {
                 setMode("idle");
