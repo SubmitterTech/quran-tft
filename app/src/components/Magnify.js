@@ -182,7 +182,10 @@ const Magnify = ({ colors, theme, translationApplication, quran, map, appendices
                             const match = note.match(/\*+\d+:\d+/g);
 
                             if (match && match.length > 0) {
-                                const cleanedRef = match[0].replace(/^\*+/, '');
+                                let cleanedRef = match[0].replace(/^\*+/, '');
+                                if (match[1] && match[1] === '*9:127') {
+                                    cleanedRef = match[1].replace(/^\*+/, '');
+                                }
                                 const ref = cleanedRef.split(":");
                                 const suraNumberRef = ref[0];
                                 const verseNumberRef = ref[1];
