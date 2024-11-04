@@ -62,7 +62,7 @@ const Verse = ({ besmele,
         return () => {
             Bookmarks.unsubscribe(currentVerseKey, handleBookmarkChange);
         };
-    }, [currentVerseKey, hasAsterisk]);
+    }, [currentVerseKey, hasAsterisk, path]);
 
     const handleBookmark = useCallback(() => {
         if (bookmark) {
