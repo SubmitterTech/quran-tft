@@ -292,7 +292,7 @@ const Book = React.memo(({ incomingSearch = false, incomingAppendix = false, inc
 
     const parseReferencesLTR = (text, controller = null) => {
         const verseRegex = supportsLookAhead() ? /(?<!\d:)\b(\d+:\d+(?:-\d+)?)\b(?!:\d)/g : /(\d+:\d+(?:-\d+)?)/g;
-        const app = translation ? translationApplication.appendix : translationApplication.appendix + "?";
+        const app = translation ? translationApplication.appendix + "|" + translationApplication.appendices : translationApplication.appendix + "?";
         const intro = translationApplication.intro;
         const appendixRegex = new RegExp(`${app}`, 'g');
         const introRegex = new RegExp(`${intro}`, 'g');
