@@ -28,12 +28,12 @@ const Jump = React.memo(({ onChangeLanguage, suraNames, onChangeTheme, colors, t
         Bookmarks.set(key, val);
     }, []);
 
-    useEffect(() => {
-        const updateBookmarksList = () => {
-            const allBookmarks = Bookmarks.all();
-            setBookmarksList(Object.entries(allBookmarks).reverse());
-        };
+    const updateBookmarksList = () => {
+        const allBookmarks = Bookmarks.all();
+        setBookmarksList(Object.entries(allBookmarks).reverse());
+    };
 
+    useEffect(() => {
         updateBookmarksList();
 
         const handleStorageEvent = (event) => {
@@ -248,6 +248,7 @@ const Jump = React.memo(({ onChangeLanguage, suraNames, onChangeTheme, colors, t
     const toggleBookmark = useCallback(() => {
         if (!showBookmarks) {
             setShowThemes(false);
+            updateBookmarksList();
         }
         setShowBookmarks((prev) => !prev);
     }, [showBookmarks]);
