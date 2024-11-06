@@ -291,7 +291,12 @@ const Book = React.memo(({ incomingSearch = false, incomingAppendix = false, inc
     };
 
     const parseReferencesLTR = (text, controller = null) => {
-        const verseRegex = supportsLookAhead() ? /(?<!\d:)\b(\d+:\d+(?:-\d+)?)\b(?!:\d)/g : /(\d+:\d+(?:-\d+)?)/g;
+        const versePattern = '(?<!\\d:)\\b(\\d+:\\d+(?:-\\d+)?)\\b(?!:\\d)';
+        const fallbackPattern = '(\\d+:\\d+(?:-\\d+)?)';
+
+        const verseRegex = supportsLookAhead()
+            ? new RegExp(`${versePattern}`, 'g')
+            : new RegExp(`${fallbackPattern}`, 'g');
         const app = translation ? translationApplication.appendix + "|" + translationApplication.appendices : translationApplication.appendix + "?";
         const intro = translationApplication.intro;
         const appendixRegex = new RegExp(`${app}`, 'g');
@@ -402,7 +407,12 @@ const Book = React.memo(({ incomingSearch = false, incomingAppendix = false, inc
     };
 
     const parseReferencesRTL = (text, controller = null) => {
-        const verseRegex = supportsLookAhead() ? /(?<!\d:)\b(\d+:\d+-\d+|\d+-\d+:\d+|\d+:\d+)\b(?!:\d)/g : /(\d+:\d+-\d+|\d+-\d+:\d+|\d+:\d+)/g;
+        const versePattern = '(?<!\\d:)\b(\\d+:\\d+-\\d+|\\d+-\\d+:\\d+|\\d+:\\d+)\b(?!:\\d)';
+        const fallbackPattern = '(\\d+:\\d+-\\d+|\\d+-\\d+:\\d+|\\d+:\\d+)';
+
+        const verseRegex = supportsLookAhead()
+            ? new RegExp(`${versePattern}`, 'g')
+            : new RegExp(`${fallbackPattern}`, 'g');
         const app = translation ? translationApplication.appendix : translationApplication.appendix + "?";
         const intro = translationApplication.intro;
         const appendixRegex = new RegExp(`${app}`, 'g');
