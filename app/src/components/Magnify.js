@@ -122,9 +122,14 @@ const Magnify = ({ colors, theme, translationApplication, quran, map, appendices
         let processedTerm = normalize ? normalizeText(term) : term;
         processedTerm = caseSensitive ? processedTerm : processedTerm.toLocaleUpperCase(lang);
 
-        const keywords = processedTerm.split(/\s+/)
-            .map(keyword => /\d+/.test(keyword) ? keyword.replace(/[;,]+/g, '') : keyword)
-            .filter(keyword => keyword.trim() !== '');
+        // Split the search term by '|' to get OR terms
+        const orTerms = processedTerm.split('|').map(term => term.trim()).filter(term => term !== '');
+
+        const keywordGroups = orTerms.map(term => {
+            return term.split(/\s+/)
+                .map(keyword => /\d+/.test(keyword) ? keyword.replace(/[;,]+/g, '') : keyword)
+                .filter(keyword => keyword.trim() !== '');
+        });
         const titleResults = [];
         const verseResults = [];
         const notesResults = [];
@@ -139,26 +144,28 @@ const Magnify = ({ colors, theme, translationApplication, quran, map, appendices
                     let processedVerseText = normalize ? normalizeText(verseText) : verseText;
                     processedVerseText = caseSensitive ? processedVerseText : processedVerseText.toLocaleUpperCase(lang);
 
-                    if (keywords.every(keyword => processedVerseText.includes(keyword)) ||
-                        keywords.some(keyword => {
-                            if (/\d+/.test(keyword) && (keyword.includes(':') || keyword.includes('-'))) {
-                                if (keyword.includes(':')) {
-                                    const [keywordSura, keywordVerse] = keyword.split(':');
-                                    if (keywordVerse.includes('-')) {
-                                        const [startVerse, endVerse] = keywordVerse.split('-').map(Number);
-                                        const verseNum = Number(verseNumber);
-                                        return keywordSura === suraNumber && verseNum >= startVerse && verseNum <= endVerse;
+                    if (keywordGroups.some(keywords => {
+                        return keywords.every(keyword => processedVerseText.includes(keyword)) ||
+                            keywords.some(keyword => {
+                                if (/\d+/.test(keyword) && (keyword.includes(':') || keyword.includes('-'))) {
+                                    if (keyword.includes(':')) {
+                                        const [keywordSura, keywordVerse] = keyword.split(':');
+                                        if (keywordVerse.includes('-')) {
+                                            const [startVerse, endVerse] = keywordVerse.split('-').map(Number);
+                                            const verseNum = Number(verseNumber);
+                                            return keywordSura === suraNumber && verseNum >= startVerse && verseNum <= endVerse;
+                                        } else {
+                                            return (keywordSura === suraNumber && keywordVerse === verseNumber) ||
+                                                (keywordSura === suraNumber && keywordVerse === '') ||
+                                                (keywordSura === '' && keywordVerse === verseNumber);
+                                        }
                                     } else {
-                                        return (keywordSura === suraNumber && keywordVerse === verseNumber) ||
-                                            (keywordSura === suraNumber && keywordVerse === '') ||
-                                            (keywordSura === '' && keywordVerse === verseNumber);
+                                        return keyword === suraNumber || keyword === verseNumber;
                                     }
-                                } else {
-                                    return keyword === suraNumber || keyword === verseNumber;
                                 }
-                            }
-                            return false; // Ensure that non-numeric keywords do not trigger numeric checks
-                        })) {
+                                return false; // Ensure that non-numeric keywords do not trigger numeric checks
+                            });
+                    })) {
                         verseResults.push({ suraNumber, verseNumber, verseText });
                     }
                 }
@@ -168,7 +175,7 @@ const Magnify = ({ colors, theme, translationApplication, quran, map, appendices
                     let processedTitleText = normalize ? normalizeText(titleText) : titleText;
                     processedTitleText = caseSensitive ? processedTitleText : processedTitleText.toLocaleUpperCase(lang);
 
-                    if (keywords.every(keyword => processedTitleText.includes(keyword))) {
+                    if (keywordGroups.some(keywords => keywords.every(keyword => processedTitleText.includes(keyword)))) {
                         titleResults.push({ suraNumber, titleNumber, titleText });
                     }
                 }
@@ -178,7 +185,7 @@ const Magnify = ({ colors, theme, translationApplication, quran, map, appendices
                         let processedNote = normalize ? normalizeText(note) : note;
                         processedNote = caseSensitive ? processedNote : processedNote.toLocaleUpperCase(lang);
 
-                        if (keywords.every(keyword => processedNote.includes(keyword))) {
+                        if (keywordGroups.some(keywords => keywords.every(keyword => processedNote.includes(keyword)))) {
                             const match = note.match(/\*+\d+:\d+/g);
 
                             if (match && match.length > 0) {
@@ -204,7 +211,6 @@ const Magnify = ({ colors, theme, translationApplication, quran, map, appendices
         }
 
         for (const section in introduction) {
-
             const introContent = (introduction[section].page !== 1 && introduction[section].page !== 22) ? introduction[section] : null;
             if (introContent) {
                 let page = 0;
@@ -215,13 +221,12 @@ const Magnify = ({ colors, theme, translationApplication, quran, map, appendices
                             const appx = 0;
                             const introText = value.toString();
                             const key = page + "-" + type + "-" + order;
-                            let precessedIntroText = normalize ? normalizeText(introText) : introText;
-                            precessedIntroText = caseSensitive ? precessedIntroText : precessedIntroText.toLocaleUpperCase(lang);
+                            let processedIntroText = normalize ? normalizeText(introText) : introText;
+                            processedIntroText = caseSensitive ? processedIntroText : processedIntroText.toLocaleUpperCase(lang);
 
-                            if (keywords.every(keyword => precessedIntroText.includes(keyword))) {
+                            if (keywordGroups.some(keywords => keywords.every(keyword => processedIntroText.includes(keyword)))) {
                                 appendicesResults.push({ appx, key, introText });
                             }
-
                         });
                     });
             }
@@ -237,7 +242,7 @@ const Magnify = ({ colors, theme, translationApplication, quran, map, appendices
                     let processedAppendixText = normalize ? normalizeText(appendixText) : appendixText;
                     processedAppendixText = caseSensitive ? processedAppendixText : processedAppendixText.toLocaleUpperCase(lang);
 
-                    if (keywords.every(keyword => processedAppendixText.includes(keyword))) {
+                    if (keywordGroups.some(keywords => keywords.every(keyword => processedAppendixText.includes(keyword)))) {
                         appendicesResults.push({ appx, key, appendixText });
                     }
                 });
