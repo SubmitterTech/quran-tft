@@ -51,26 +51,42 @@ def sort_dictionary(data):
         return sorted_dict
     return data
 
-
-def extract_chapter(s):
-    """ Extract the chapter number as an integer from a scripture reference. """
-    match = re.match(r"(\d+)", s)
-    if match:
-        return int(match.group(1))
-    return 0  # Default to zero if no number is found
-
+def extract_chapter_verse_pairs(s):
+    """Extract all (chapter, verse) pairs as integers from a scripture reference."""
+    s = s.strip()
+    refs = re.split(r'[;,]', s)
+    chapter_verse_pairs = []
+    for ref in refs:
+        ref = ref.strip()
+        # Handle ranges like '4:11-12' or '9:23-24'
+        match = re.match(r'(\d+):(\d+)(?:-(\d+))?', ref)
+        if match:
+            chapter = int(match.group(1))
+            verse_start = int(match.group(2))
+            verse_end = int(match.group(3)) if match.group(3) else verse_start
+            chapter_verse_pairs.append((chapter, verse_start))
+        else:
+            # Handle single chapters or verses without ranges
+            match = re.match(r'(\d+)(?::(\d+))?', ref)
+            if match:
+                chapter = int(match.group(1))
+                verse = int(match.group(2)) if match.group(2) else 0
+                chapter_verse_pairs.append((chapter, verse))
+    return chapter_verse_pairs
 
 def custom_sort_key(s):
-    """ Sort keys by chapter number extracted from each reference. """
-    parts = s.split(';')
-    return [extract_chapter(part.strip()) for part in parts]
-
+    """Generate a sorting key based on the earliest (chapter, verse) in the reference."""
+    chapter_verse_pairs = extract_chapter_verse_pairs(s)
+    if chapter_verse_pairs:
+        return min(chapter_verse_pairs)
+    else:
+        return (float('inf'), float('inf'))
 
 def concatenate_and_sort(values):
-    """ Concatenate and sort scripture references by their chapter number. """
-    concatenated_result = "; ".join(sorted(values, key=custom_sort_key))
+    """Concatenate and sort scripture references by their chapter and verse numbers."""
+    sorted_values = sorted(values, key=custom_sort_key)
+    concatenated_result = "; ".join(sorted_values)
     return concatenated_result
-
 
 def reconstruct_dictionary(transformed_data):
     reconstructed_dict = {}
