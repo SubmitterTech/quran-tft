@@ -525,7 +525,9 @@ const Pages = React.memo(({
                                                 const surano = finalParts[0].trim();
                                                 const suranames = finalParts[1].trim();
                                                 return (
-                                                    <div className={`${titleClassName} flex flex-col space-y-1.5`}>
+                                                    <div 
+                                                    dir={direction}
+                                                    className={`${titleClassName} flex flex-col space-y-1.5`}>
                                                         <div className={`w-full flex justify-center not-italic text-sky-500`}>{surano}</div>
                                                         <div className={`w-full flex justify-center`}>
                                                             {suranames}
@@ -555,6 +557,7 @@ const Pages = React.memo(({
                                     : (
                                         <div
                                             key={`${"title:" + suraNumber + ":" + verseNumber}`}
+                                            dir={direction}
                                             className={`${titleClassName} ${hasTitleAsterisk ? " cursor-pointer text-sky-500 border border-neutral-500/50 p-2 md:p-3" : "p-0.5 md:p-2"}`}
                                             onClick={() => hasTitleAsterisk && handleTitleClick(noteReference)}>
                                             {title}
