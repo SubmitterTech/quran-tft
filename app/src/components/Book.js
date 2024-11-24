@@ -23,6 +23,7 @@ const Book = React.memo(({ incomingSearch = false, incomingAppendix = false, inc
     const [selectedSura, setSelectedSura] = useState(null);
     const [selectedVerse, setSelectedVerse] = useState(null);
     const [action, setAction] = useState(null);
+
     const [isMagnifyOpen, setMagnifyOpen] = useState(incomingSearch);
     const restoreAppText = useRef(null);
     const restoreIntroText = useRef(null);
@@ -30,6 +31,7 @@ const Book = React.memo(({ incomingSearch = false, incomingAppendix = false, inc
     const appxReferenceToJump = useRef(null);
     const beginingReferenceToRestore = useRef(null);
     const beginingReferenceToJump = useRef(null);
+    const lastPosition = useRef(null);
 
     const referenceMap = useMemo(() => generateReferenceMap(quranData), [quranData]);
     const quranmap = useMemo(() => mapQuranWithNotes(translation || quranData), [translation, quranData]);
@@ -107,21 +109,21 @@ const Book = React.memo(({ incomingSearch = false, incomingAppendix = false, inc
         }
     }, [currentPage]);
 
-    const handleMagnifyConfirm = (reference) => {
+    const handleMagnifyConfirm = (reference, from = null) => {
         magnifyConfirm.current = true;
         const refType = reference.split(":")[0];
         const refKey = reference.split(":")[1];
         beginingReferenceToJump.current = null;
         if (refType === "appx") {
             appxReferenceToJump.current = refKey;
-            handleClickAppReference(refKey.split("-")[0], 'jumpAppendix');
+            handleClickAppReference(refKey.split("-")[0], from, 'jumpAppendix');
         } else if (refType === "intro") {
             const [page, part, no] = refKey.split("-");
             const refer = part + "-" + no;
             beginingReferenceToJump.current = "intro-" + refer;
-            updatePage(parseInt(page), null, null, 'jumpIntroduction', null);
+            updatePage(parseInt(page), null, null, 'jumpIntroduction', null, 'search');
         } else {
-            handleClickReference(reference);
+            handleClickReference(reference, from);
         }
     };
 
@@ -143,31 +145,47 @@ const Book = React.memo(({ incomingSearch = false, incomingAppendix = false, inc
     };
 
     const setSelectedAppendix = (number) => {
-        updatePage(397, null, null, 'openAppendix', parseInt(number));
+        updatePage(397, null, null, 'openAppendix', parseInt(number), 'navigation');
         setSelectedApp(parseInt(number));
     };
 
-    const updatePage = useCallback((newPage, sura = null, verse = null, actionType = 'navigate', appReference = null) => {
+    const updatePage = useCallback((newPage, sura = null, verse = null, actionType = 'navigate', position = null, from = null) => {
         setUpdatePageTriggered(pt => !pt);
         setAction(actionType);
+        lastPosition.current = from;
         if (actionType !== 'previous' && (parseInt(newPage) === 397 || (parseInt(newPage) !== parseInt(currentPage)))) {
-            setPageHistory(prevHistory => {
-                let lastElement = prevHistory[prevHistory.length - 1];
-                if (lastElement && lastElement.page === parseInt(currentPage) && (parseInt(currentPage) !== 397)) {
-                    lastElement.sura = sura;
-                    lastElement.verse = verse;
-                    lastElement.actionType = actionType;
-                    return [...prevHistory.slice(0, prevHistory.length - 1), lastElement];
+            setPageHistory(previous => {
+                let last = previous[previous.length - 1];
+                if (last && last.page === parseInt(currentPage) && (parseInt(currentPage) !== 397)) {
+                    last.sura = sura;
+                    last.verse = verse;
+                    last.actionType = actionType;
+                    last.position = position;
+                    last.from = from;
+                    return [...previous.slice(0, previous.length - 1), last];
                 } else {
-                    if (lastElement && parseInt(newPage) === 397 && actionType === 'jumpAppendix' && lastElement.appReference !== null && lastElement.appReference === appReference) {
-                        return prevHistory;
+                    if (last && parseInt(newPage) === 397 && actionType === 'jumpAppendix' && last.position !== null && last.position === position) {
+                        return previous;
                     }
-                    return [...prevHistory, {
+
+                    if (from !== null && from.includes('notes')) {
+                        return [...previous, {
+                            page: parseInt(currentPage),
+                            sura: null,
+                            verse: null,
+                            actionType,
+                            position,
+                            from
+                        }];
+                    }
+
+                    return [...previous, {
                         page: parseInt(currentPage),
                         sura: selectedSura,
                         verse: selectedVerse,
                         actionType,
-                        appReference
+                        position,
+                        from
                     }];
                 }
             });
@@ -186,14 +204,14 @@ const Book = React.memo(({ incomingSearch = false, incomingAppendix = false, inc
         }
         if (newPage === 397) {
             if (parseInt(currentPage) === 396) {
-                updatePage(parseInt(newPage), null, null, 'next', 1);
+                updatePage(parseInt(newPage), null, null, 'next', 1, 'navigation');
                 return setSelectedApp(parseInt(1));
             }
             if (selectedApp && selectedApp !== 38) {
                 setSelectedAppendix(parseInt(selectedApp) + 1);
             }
         } else {
-            updatePage(parseInt(newPage), null, null, 'next');
+            updatePage(parseInt(newPage), null, null, 'next', null, 'navigation');
         }
         restoreIntroText.current = false;
         beginingReferenceToJump.current = null;
@@ -209,12 +227,14 @@ const Book = React.memo(({ incomingSearch = false, incomingAppendix = false, inc
             setSelectedSura(lastHistoryItem.sura);
             setSelectedVerse(lastHistoryItem.verse);
 
+            lastPosition.current = lastHistoryItem.from;
+
             restoreAppText.current = (lastHistoryItem.actionType === 'fromAppendix' || lastHistoryItem.actionType === 'openAppendix');
             restoreIntroText.current = (lastHistoryItem.actionType === 'fromIntro' || lastHistoryItem.actionType === 'openAppendix');
 
             if (lastHistoryItem.page === 397) {
                 if (pageHistory[pageHistory.length - 1]) {
-                    setSelectedApp(parseInt(pageHistory[pageHistory.length - 1].appReference));
+                    setSelectedApp(parseInt(pageHistory[pageHistory.length - 1].position));
                 }
             }
         } else {
@@ -222,7 +242,7 @@ const Book = React.memo(({ incomingSearch = false, incomingAppendix = false, inc
             do {
                 newPage = newPage > 1 ? newPage - 1 : newPage;
             } while (skipPages.includes(newPage) && newPage > 1);
-            updatePage(newPage, null, null, 'previous');
+            updatePage(newPage, null, null, 'previous', null, 'navigation');
         }
     }, [currentPage, pageHistory, skipPages, updatePage]);
 
@@ -242,11 +262,11 @@ const Book = React.memo(({ incomingSearch = false, incomingAppendix = false, inc
         )
     }
 
-    const handleClickReference = (reference) => {
+    const handleClickReference = (reference, from = null) => {
         const lowerRef = reference.toLowerCase();
 
         if (lowerRef.includes("introduction") || lowerRef.includes("intro")) {
-            updatePage(13, null, null, currentPage === 397 ? 'fromAppendix' : 'relationClick', currentPage === 397 ? selectedApp : null);
+            updatePage(13, null, null, currentPage === 397 ? 'fromAppendix' : 'relationClick', currentPage === 397 ? selectedApp : null, from);
             return;
         }
 
@@ -260,7 +280,7 @@ const Book = React.memo(({ incomingSearch = false, incomingAppendix = false, inc
             } else if (parseInt(currentPage) > 396) {
                 act = 'fromAppendix';
             }
-            updatePage(foundPageNumber, sura, verseStart !== verseEnd ? verseStart + "-" + verseEnd : verseStart.toString(), act, currentPage === 397 ? selectedApp : null);
+            updatePage(foundPageNumber, sura, verseStart !== verseEnd ? verseStart + "-" + verseEnd : verseStart.toString(), act, currentPage === 397 ? selectedApp : null, from);
         } else {
             if (isNative()) {
                 Toast.show({
@@ -275,22 +295,22 @@ const Book = React.memo(({ incomingSearch = false, incomingAppendix = false, inc
         magnifyConfirm.current = false;
     };
 
-    const handleClickAppReference = (inp, actionType = 'openAppendix') => {
+    const handleClickAppReference = (inp, from = null, actionType = 'openAppendix') => {
         const number = parseInt(inp);
         if (number > 0 && number < 39) {
             setSelectedApp(number);
-            updatePage(397, null, null, actionType, number);
+            updatePage(397, null, null, actionType, number, from);
         }
     };
 
-    const parseReferences = (text, controller = null) => {
+    const parseReferences = (text, from = null, controller = null) => {
         if (text === null || text === undefined) {
             return text;
         }
-        return direction === 'rtl' ? parseReferencesRTL(text, controller) : parseReferencesLTR(text, controller);
+        return direction === 'rtl' ? parseReferencesRTL(text, from, controller) : parseReferencesLTR(text, from, controller);
     };
 
-    const parseReferencesLTR = (text, controller = null) => {
+    const parseReferencesLTR = (text, from = null, controller = null) => {
         const versePattern = '(?<!\\d:)\\b(\\d+:\\d+(?:-\\d+)?)\\b(?!:\\d)';
         const fallbackPattern = '(\\d+:\\d+(?:-\\d+)?)';
 
@@ -302,12 +322,11 @@ const Book = React.memo(({ incomingSearch = false, incomingAppendix = false, inc
         const appendixRegex = new RegExp(`${app}`, 'g');
         const introRegex = new RegExp(`${intro}`, 'g');
 
-
         const replaceAppendixNumbers = (part) => {
             return part.split(/(\d+)/).map((segment, index) => {
                 if (/\d+/.test(segment)) {
                     return (
-                        <span key={index} className="cursor-pointer text-sky-500" onClick={() => handleClickAppReference(segment)}>
+                        <span key={index} className="cursor-pointer text-sky-500" onClick={() => handleClickAppReference(segment, from)}>
                             {segment}
                         </span>
                     );
@@ -343,7 +362,6 @@ const Book = React.memo(({ incomingSearch = false, incomingAppendix = false, inc
             }
 
             if (part.match(verseRegex)) {
-
                 const matches = [...part.matchAll(verseRegex)];
                 let lastIndex = 0;
                 const elements = [];
@@ -368,12 +386,11 @@ const Book = React.memo(({ incomingSearch = false, incomingAppendix = false, inc
                         elements.push(match[0]);
                     } else {
                         elements.push(
-                            <span key={index} className="cursor-pointer text-sky-500" onClick={() => controller ? controller(match[0]) : handleClickReference(match[0])}>
+                            <span key={index} className="cursor-pointer text-sky-500" onClick={() => controller ? controller(match[0], from) : handleClickReference(match[0], from)}>
                                 {match[0]}
                             </span>
                         );
                     }
-
 
                     lastIndex = match.index + match[0].length;
                 });
@@ -390,7 +407,7 @@ const Book = React.memo(({ incomingSearch = false, incomingAppendix = false, inc
 
                     if (index < segments.length - 1) {
                         elements.push(
-                            <span key={index} className={`cursor-pointer text-sky-500`} onClick={() => handleClickReference("Introduction")}>
+                            <span key={index} className={`cursor-pointer text-sky-500`} onClick={() => handleClickReference("Introduction", from)}>
                                 {translationApplication?.intro}
                             </span>
                         );
@@ -406,7 +423,7 @@ const Book = React.memo(({ incomingSearch = false, incomingAppendix = false, inc
         return result;
     };
 
-    const parseReferencesRTL = (text, controller = null) => {
+    const parseReferencesRTL = (text, from = null, controller = null) => {
         const versePattern = '(?<!\\d:)\b(\\d+:\\d+-\\d+|\\d+-\\d+:\\d+|\\d+:\\d+)\b(?!:\\d)';
         const fallbackPattern = '(\\d+:\\d+-\\d+|\\d+-\\d+:\\d+|\\d+:\\d+)';
 
@@ -422,7 +439,7 @@ const Book = React.memo(({ incomingSearch = false, incomingAppendix = false, inc
             return part.split(/(\d+)/).map((segment, index) => {
                 if (/\d+/.test(segment)) {
                     return (
-                        <span key={index} className="cursor-pointer text-nowrap text-sky-500" onClick={() => handleClickAppReference(segment)}>
+                        <span key={index} className="cursor-pointer text-nowrap text-sky-500" onClick={() => handleClickAppReference(segment, from)}>
                             {segment}
                         </span>
                     );
@@ -438,8 +455,6 @@ const Book = React.memo(({ incomingSearch = false, incomingAppendix = false, inc
         let pushedOld = false;
 
         const result = splitted.map((part, i) => {
-
-
             if (part.match(verseRegex)) {
                 part = adjustReference(part)
                 const matches = [...part.matchAll(verseRegex)];
@@ -463,13 +478,13 @@ const Book = React.memo(({ incomingSearch = false, incomingAppendix = false, inc
 
                     if (oldscripture) {
                         elements.push(
-                            <span key={index} dir={"ltr"} className="text-nowrap text-right ml-0.5" >
+                            <span key={index} dir={"ltr"} className="text-nowrap text-right ml-0.5">
                                 {match[0]}
                             </span>
                         );
                     } else {
                         elements.push(
-                            <span key={index} dir={"ltr"} className="cursor-pointer text-nowrap text-right ml-0.5 text-sky-500" onClick={() => controller ? controller(match[0]) : handleClickReference(match[0])}>
+                            <span key={index} dir={"ltr"} className="cursor-pointer text-nowrap text-right ml-0.5 text-sky-500" onClick={() => controller ? controller(match[0], from) : handleClickReference(match[0], from)}>
                                 {match[0]}
                             </span>
                         );
@@ -507,7 +522,7 @@ const Book = React.memo(({ incomingSearch = false, incomingAppendix = false, inc
 
                     if (index < segments.length - 1) {
                         elements.push(
-                            <span key={index} dir={direction} className={`cursor-pointer text-sky-500`} onClick={() => handleClickReference("Introduction")}>
+                            <span key={index} dir={direction} className={`cursor-pointer text-sky-500`} onClick={() => handleClickReference("Introduction", from)}>
                                 {translationApplication?.intro}
                             </span>
                         );
@@ -606,7 +621,7 @@ const Book = React.memo(({ incomingSearch = false, incomingAppendix = false, inc
     }, []);
 
     const onConfirmJump = useCallback(async (page, suraNumber, verseNumber) => {
-        updatePage(parseInt(page), suraNumber, verseNumber);
+        updatePage(parseInt(page), suraNumber, verseNumber, 'navigate', null, 'jump');
     }, [updatePage]);
 
     const onMagnify = useCallback(() => {
@@ -690,7 +705,7 @@ const Book = React.memo(({ incomingSearch = false, incomingAppendix = false, inc
                 } else {
                     return (
                         <div
-                            onClick={() => updatePage(parseInt(page) + 22, no, 1)}
+                            onClick={() => updatePage(parseInt(page) + 22, no, 1, 'navigate', null, 'suralist')}
                             key={`each-key-${key}`}
                             className={`flex w-full justify-between mb-2`}>
                             <div className={`font-semibold rounded m-0.5 ${colors[theme]["text-background"]} w-1/6 text-lg flex items-center justify-center`}>
@@ -735,6 +750,7 @@ const Book = React.memo(({ incomingSearch = false, incomingAppendix = false, inc
                 quranData={quranData}
                 translation={translation}
                 actionType={action}
+                from={lastPosition}
                 parseReferences={parseReferences}
                 selectedPage={currentPage}
                 selectedSura={selectedSura}
@@ -778,7 +794,7 @@ const Book = React.memo(({ incomingSearch = false, incomingAppendix = false, inc
 
             const handleAppClick = (no) => {
                 setSelectedApp(no)
-                updatePage(397, null, null, 'openAppendix', no);
+                updatePage(397, null, null, 'openAppendix', no, 'appencideslist');
             };
 
             const content = cpd.evidence["2"].lines;

@@ -43,6 +43,7 @@ const Pages = React.memo(({
     quranData,
     translation,
     actionType,
+    from,
     parseReferences,
     selectedPage,
     selectedSura,
@@ -188,11 +189,19 @@ const Pages = React.memo(({
         const verseKey = `${selectedSura}:${selectedVerse}`;
         if (selectedPage && selectedPage !== currentPageRef.current) {
             if (!selectedVerse) {
-                setTimeout(() => {
-                    if (topRef.current) {
-                        topRef.current.scrollIntoView({ behavior: 'smooth', block: 'start' });
-                    }
-                }, 78);
+                if (from.current && from.current.includes('notes')) {
+                    setTimeout(() => {
+                        const index = from.current.split(':')[1];
+                        updateFocusedNoteIndices(index, true);
+                        noteRefs.current[index]?.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                    }, 50);
+                } else {
+                    setTimeout(() => {
+                        if (topRef.current) {
+                            topRef.current.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                        }
+                    }, 78);
+                }
             } else {
                 setTimeout(() => {
                     forceScroll(verseKey);
@@ -204,9 +213,17 @@ const Pages = React.memo(({
                 setTimeout(() => {
                     forceScroll(verseKey);
                 }, 50);
+            } else {
+                if (from.current && from.current.includes('notes')) {
+                    setTimeout(() => {
+                        const index = from.current.split(':')[1];
+                        updateFocusedNoteIndices(index, true);
+                        noteRefs.current[index]?.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                    }, 50);
+                }
             }
         }
-    }, [selectedPage, selectedSura, selectedVerse, actionType, forceScroll]);
+    }, [selectedPage, selectedSura, selectedVerse, actionType, from, forceScroll]);
 
     const parsePageVerses = () => {
         let sortedVerses = [];
@@ -277,8 +294,8 @@ const Pages = React.memo(({
 
     const updatedPageGWC = calculatePageGWC();
 
-    const clickReferenceController = (part) => {
-        handleClickReference(part);
+    const clickReferenceController = (part, from = null) => {
+        handleClickReference(part, from);
         forceScroll(part);
     };
 
@@ -525,9 +542,9 @@ const Pages = React.memo(({
                                                 const surano = finalParts[0].trim();
                                                 const suranames = finalParts[1].trim();
                                                 return (
-                                                    <div 
-                                                    dir={direction}
-                                                    className={`${titleClassName} flex flex-col space-y-1.5`}>
+                                                    <div
+                                                        dir={direction}
+                                                        className={`${titleClassName} flex flex-col space-y-1.5`}>
                                                         <div className={`w-full flex justify-center not-italic text-sky-500`}>{surano}</div>
                                                         <div className={`w-full flex justify-center`}>
                                                             {suranames}
@@ -639,9 +656,8 @@ const Pages = React.memo(({
                             ref={(el) => noteRefs.current[index] = el}
                             key={"notes:" + index}
                             lang={lang}
-                            dir={direction}
-                        >
-                            {parseReferences(note, clickReferenceController)}
+                            dir={direction}>
+                            {parseReferences(note, 'notes:' + index, clickReferenceController)}
                         </div>
                     ))}
                     {notesData.tables && notesData.tables.map((table, index) => (

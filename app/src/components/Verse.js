@@ -168,10 +168,10 @@ const Verse = ({ besmele,
         api.start({ x: 0 });
     };
 
-    const onRelatedVerseClick = (verseKey) => {
+    const onRelatedVerseClick = (verseKey, from = null) => {
         if (!path.current[currentVerseKey]) { path.current[currentVerseKey] = {} }
         path.current[currentVerseKey][verseKey] = true;
-        handleClickReference(verseKey);
+        handleClickReference(verseKey, from);
     };
 
     const findRelatedVerses = useCallback(() => {
@@ -568,7 +568,7 @@ const Verse = ({ besmele,
                                 </svg>
                             </div>
                             <div className={`${(mode === "reading" && bookmark) ? ` p-1 text-start ${colors[theme]["matching-text"]}` : "h-0 "}`} dir={direction} >
-                                {mode === "reading" && supportsLookAhead() ? parseReferences(Bookmarks.format(bookmark)) : Bookmarks.format(bookmark)}
+                                {mode === "reading" && supportsLookAhead() ? parseReferences(Bookmarks.format(bookmark), null, currentVerseKey + '-bookmarknote') : Bookmarks.format(bookmark)}
                             </div>
                         </div>
                     </div>
@@ -587,7 +587,7 @@ const Verse = ({ besmele,
                                             <button
                                                 className={` p-2 rounded my-1 mr-2  text-sky-500 ${(path.current && path.current[currentVerseKey] && path.current[currentVerseKey][verseKey]) ? `${colors[theme]["relation-background"]} brightness-75` : `${colors[theme]["base-background"]} shadow-lg`}`}
                                                 key={Date.now() + '_' + themeKey.replace(' ', '') + '_' + verseKey}
-                                                onClick={() => onRelatedVerseClick(verseKey)}
+                                                onClick={() => onRelatedVerseClick(verseKey, 'map_' + currentVerseKey)}
                                             >
                                                 {verseKey}
                                             </button>

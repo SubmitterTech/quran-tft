@@ -81,7 +81,7 @@ const Apps = ({ colors, theme, translationApplication, parseReferences, appendic
                                         <td key={`cell-${rowIndex}-${cellIndex}`}
                                             ref={(el) => textRef.current[appno + "-" + key + "-" + row + rowIndex] = el}
                                             onClick={(e) => handleClick(e, appno, key + "-" + row + rowIndex)}
-                                            className={`border-2 ${colors[theme]["border"]} p-2 text-center break-words`}>{parseReferences(cell)}</td>
+                                            className={`border-2 ${colors[theme]["border"]} p-2 text-center break-words`}>{parseReferences(cell, appno + "-" + key + "-" + row + rowIndex)}</td>
                                     ))}
                                 </tr>
                             ))}
@@ -117,7 +117,7 @@ const Apps = ({ colors, theme, translationApplication, parseReferences, appendic
                         onClick={(e) => handleClick(e, appno, index)}
                         className={`rounded ${colors[theme]["text-background"]} ${colors[theme]["text"]} p-0.5 mb-1 flex w-full text-justify hyphens-auto`}>
                         <div className={`overflow-x-auto`}>
-                            <p className={`px-1 break-words`}>{parseReferences(item.content)}</p>
+                            <p className={`px-1 break-words`}>{parseReferences(item.content, appno + "-" + index)}</p>
                         </div>
                     </div>
                 );
@@ -130,10 +130,10 @@ const Apps = ({ colors, theme, translationApplication, parseReferences, appendic
                         onClick={(e) => handleClick(e, appno, index)}
                         className={`${colors[theme]["base-background"]} ${colors[theme]["table-title-text"]} rounded  text-base md:text-lg p-3 border my-3 ${colors[theme]["border"]}`}>
                         {Object.entries(item.content.lines).map(([lineKey, lineValue]) => (
-                            <p key={`${lineKey}`} className={`whitespace-pre-wrap my-1`}>{parseReferences(lineValue)}</p>
+                            <p key={`${lineKey}`} className={`whitespace-pre-wrap my-1`}>{parseReferences(lineValue, appno + "-" + index)}</p>
                         ))}
                         {item.content.ref.length > 0 && (
-                            <p>{parseReferences("[" + item.content.ref.join(', ') + "]")}</p>
+                            <p>{parseReferences("[" + item.content.ref.join(', ') + "]", appno + "-" + index)}</p>
                         )}
                     </div>
                 );
@@ -172,7 +172,7 @@ const Apps = ({ colors, theme, translationApplication, parseReferences, appendic
                             {item.content.text && Object.entries(item.content.text).map(([pickey, text]) => (
                                 <div key={pickey} className={`rounded  flex flex-wrap md:flex-nowrap justify-between`}>
                                     <img src={images(`./${pickey}.jpg`)} alt={imageUrl} className={`object-contain`} />
-                                    <div lang={lang} className={`p-2 text-justify hyphens-auto break-words`}>{parseReferences(text)}</div>
+                                    <div lang={lang} className={`p-2 text-justify hyphens-auto break-words`}>{parseReferences(text, 'picture-22-special')}</div>
                                 </div>
 
                             ))}

@@ -98,7 +98,7 @@ const Intro = ({ colors, theme, translationApplication, parseReferences, introdu
                         ref={(el) => textRememberRef.current["intro-" + item.type + "-" + item.order] = el}
                         onClick={(e) => handleRefClick(e, item.type + "-" + item.order)}
                         className={`select-text rounded ${colors[theme]["text-background"]} ${colors[theme]["app-text"]} p-1 mb-1 flex w-full justify-center hyphens-auto `}>
-                        <p className={`px-0.5 md:px-1`}>{parseReferences(item.content)}</p>
+                        <p className={`px-0.5 md:px-1`}>{parseReferences(item.content, "intro-" + item.type + "-" + item.order)}</p>
                     </div>
                 );
             } else if (item.type === 'evidence') {
@@ -237,10 +237,10 @@ const Intro = ({ colors, theme, translationApplication, parseReferences, introdu
                         onClick={(e) => handleRefClick(e, item.type + "-" + item.order)}
                         className={`${colors[theme]["base-background"]} ${colors[theme]["table-title-text"]} rounded  text-base md:text-xl p-3 border my-1.5 ${colors[theme]["border"]}`}>
                         {Object.entries(item.content.lines).map(([lineKey, lineValue]) => (
-                            <p className={` whitespace-pre-wrap my-1`} key={lineKey}>{parseReferences(lineValue)}</p>
+                            <p className={` whitespace-pre-wrap my-1`} key={lineKey}>{parseReferences(lineValue, "intro-" + item.type + "-" + item.order)}</p>
                         ))}
                         {item.content.ref.length > 0 && (
-                            <p>{parseReferences("[" + item.content.ref.join(', ') + "]")}</p>
+                            <p>{parseReferences("[" + item.content.ref.join(', ') + "]", "intro-" + item.type + "-" + item.order)}</p>
                         )}
                     </div>
                 );
