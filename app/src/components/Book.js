@@ -427,7 +427,7 @@ const Book = React.memo(({ incomingSearch = false, incomingAppendix = false, inc
         const versePattern = '(?<!\\d:)\b(\\d+:\\d+-\\d+|\\d+-\\d+:\\d+|\\d+:\\d+)\b(?!:\\d)';
         const fallbackPattern = '(\\d+:\\d+-\\d+|\\d+-\\d+:\\d+|\\d+:\\d+)';
 
-        const verseRegex = supportsLookAhead()
+        const verseRegex = false //supportsLookAhead() DISABLE lookahead for RTL
             ? new RegExp(`${versePattern}`, 'g')
             : new RegExp(`${fallbackPattern}`, 'g');
         const app = translation ? translationApplication.appendix : translationApplication.appendix + "?";
