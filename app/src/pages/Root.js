@@ -2,7 +2,7 @@ import React, { useState, useEffect, useCallback, useMemo } from 'react';
 import { useParams, useLocation } from 'react-router-dom';
 import Cover from '../components/Cover';
 import Book from '../components/Book';
-import { colorThemes } from '../utils/Colors';
+import { colorThemes } from '../utils/Theme';
 import { setStatusBarStyle, initPlatform } from '../utils/Device';
 import introductionContent from '../assets/introduction.json';
 import quranData from '../assets/qurantft.json';
@@ -29,6 +29,7 @@ function Root() {
     const [translationAppx, setTranslationAppx] = useState(appendicesContent);
     const [translationMap, setTranslationMap] = useState(map);
     const [theme, setTheme] = useState(localStorage.getItem("theme") ? localStorage.getItem("theme") : "sky");
+    const [font, setFont] = useState(localStorage.getItem("qurantft-font") ? localStorage.getItem("qurantft-font") : "font-sans");
 
     useEffect(() => {
         const initialize = async () => {
@@ -37,13 +38,18 @@ function Root() {
         initialize();
     }, []);
 
+    const onChangeFont = useCallback((f) => {
+        setFont(f);
+        localStorage.setItem("qurantft-font", f);
+    }, []);
+
     useEffect(() => {
         setStatusBarStyle(theme, colors[theme]['status-bar-background']).catch((error) => {
             console.error('Failed to update status bar style:', error);
         });
     }, [theme, colors]);
 
-    const onChangeTheme = useCallback((theme) => {
+    const onChangeColor = useCallback((theme) => {
         setTheme(theme);
         setStatusBarStyle(theme, colors[theme]['status-bar-background']).catch((error) => {
             console.error('Failed to update status bar style:', error);
@@ -134,13 +140,15 @@ function Root() {
     };
 
     return (
-        <div className={`Root select-none flex flex-col h-screen`}>
+        <div className={`Root select-none flex flex-col h-screen ${font}`}>
             {showCover && <Cover onCoverSeen={hideCover} coverData={coverData} lang={lang} onChangeLanguage={setLang} />}
             {!showCover && <Book
                 incomingSearch={isSearch ? isSearch : false}
                 incomingAppendix={isAppendix ? isAppendix : false}
                 incomingAppendixNumber={id ? (id > 0 && id < 39) ? id : 1 : 1}
-                onChangeTheme={onChangeTheme}
+                onChangeFont={onChangeFont}
+                font={font}
+                onChangeColor={onChangeColor}
                 colors={colors} theme={theme}
                 translationApplication={translationApplication}
                 introductionContent={translationIntro}

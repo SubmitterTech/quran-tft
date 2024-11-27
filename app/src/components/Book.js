@@ -14,7 +14,7 @@ import { adjustReference, generateReferenceMap, transformAppendices, findPageNum
 import { listCopy, supportsLookAhead, isNative } from '../utils/Device';
 import '../assets/css/Book.css';
 
-const Book = React.memo(({ incomingSearch = false, incomingAppendix = false, incomingAppendixNumber = 1, onChangeTheme, colors, theme, translationApplication, introductionContent, quranData, map, appendicesContent, translation, onChangeLanguage, direction }) => {
+const Book = React.memo(({ incomingSearch = false, incomingAppendix = false, incomingAppendixNumber = 1, onChangeFont, font, onChangeColor, colors, theme, translationApplication, introductionContent, quranData, map, appendicesContent, translation, onChangeLanguage, direction }) => {
     const lang = localStorage.getItem("lang")
     const magnifyConfirm = useRef(false);
     const [currentPage, setCurrentPage] = useState(parseInt(localStorage.getItem("qurantft-pn")) ? parseInt(localStorage.getItem("qurantft-pn")) : 1);
@@ -1045,7 +1045,9 @@ const Book = React.memo(({ incomingSearch = false, incomingAppendix = false, inc
                 <Jump
                     onChangeLanguage={onChangeLanguage}
                     suraNames={introductionContent[introductionContent.length - 1].evidence["2"].lines}
-                    onChangeTheme={onChangeTheme}
+                    onChangeFont={onChangeFont}
+                    font={font}
+                    onChangeColor={onChangeColor}
                     colors={colors} theme={theme}
                     translationApplication={translationApplication}
                     currentPage={currentPage}

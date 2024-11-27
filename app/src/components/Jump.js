@@ -2,12 +2,12 @@ import React, { useState, useEffect, useRef, useMemo, useCallback } from 'react'
 import languages from '../assets/languages.json';
 import { getRandom } from '../utils/Generator';
 import { adjustReference } from '../utils/Mapper';
-import { ThemePicker } from '../utils/Colors';
+import { ColorPicker, FontPicker } from '../utils/Theme';
 import Bookmarks from '../utils/Bookmarks';
 
 const languageDisabilityThreshold = 60;
 
-const Jump = React.memo(({ onChangeLanguage, suraNames, onChangeTheme, colors, theme, translationApplication, currentPage, quran, onClose, onConfirm, onMagnify, direction }) => {
+const Jump = React.memo(({ onChangeLanguage, suraNames, onChangeFont, font, onChangeColor, colors, theme, translationApplication, currentPage, quran, onClose, onConfirm, onMagnify, direction }) => {
     const [suraNumber, setSuraNumber] = useState("0");
     const [verseNumber, setVerseNumber] = useState("0");
     const [selectedPage, setSelectedPage] = useState(currentPage);
@@ -364,12 +364,25 @@ const Jump = React.memo(({ onChangeLanguage, suraNames, onChangeTheme, colors, t
                                     </div>
                                 ) : showThemes ? (
                                     <div className={`flex flex-col items-center justify-center h-48 m-2`}>
-                                        <div className={`flex flex-col justify-center ${colors[theme]["notes-background"]} rounded h-full w-full px-2`}>
-                                            <div>
-                                                <ThemePicker
-                                                    theme={theme}
-                                                    colors={colors}
-                                                    onChangeTheme={onChangeTheme} />
+                                        <div className={`flex items-center h-full w-full space-x-2`}>
+                                            <div className={`flex flex-col justify-center ${colors[theme]["notes-background"]} rounded h-full w-full px-2`}>
+                                                <div>
+                                                    <ColorPicker
+                                                        theme={theme}
+                                                        colors={colors}
+                                                        onChangeColor={onChangeColor} />
+                                                </div>
+                                            </div>
+                                            <div className={`flex flex-col justify-center ${colors[theme]["notes-background"]} rounded h-full w-1/4 px-2`}>
+                                                <div>
+                                                    <FontPicker
+                                                        theme={theme}
+                                                        colors={colors}
+                                                        languages={languages}
+                                                        lang={localStorage.getItem("lang")}
+                                                        font={font}
+                                                        onChangeFont={onChangeFont} />
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
@@ -527,7 +540,7 @@ const Jump = React.memo(({ onChangeLanguage, suraNames, onChangeTheme, colors, t
                                             )}
                                     </div>
                                     <div className={`flex ${colors[theme]["page-text"]} text-sm items-center justify-center pb-1`}>
-                                        {translationApplication?.color}
+                                        {translationApplication?.theme}
                                     </div>
                                 </button>
                             </div>

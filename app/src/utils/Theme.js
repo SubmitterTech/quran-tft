@@ -183,7 +183,7 @@ export const colorThemes = {
     }
 };
 
-export const ThemePicker = memo(({ theme, colors, onChangeTheme }) => {
+export const ColorPicker = memo(({ theme, colors, onChangeColor }) => {
     return (
         <div className={`grid grid-flow-dense grid-cols-3 gap-4 w-full h-full`}>
             {Object.entries(colors).map(([localTheme]) => (
@@ -192,7 +192,7 @@ export const ThemePicker = memo(({ theme, colors, onChangeTheme }) => {
                         type="radio"
                         name="theme"
                         value={localTheme}
-                        onChange={(e) => onChangeTheme(e.target.value)}
+                        onChange={(e) => onChangeColor(e.target.value)}
                         className="hidden"
                     />
                     <span
@@ -204,6 +204,47 @@ export const ThemePicker = memo(({ theme, colors, onChangeTheme }) => {
                     </span>
                 </label>
             ))}
+        </div>
+    );
+});
+
+export const FontPicker = memo(({ theme, colors, languages, lang, font, onChangeFont }) => {
+    return (
+        <div className={`flex flex-col space-y-4 w-full h-full text-lg`}>
+
+            <label key={`sans`} className="flex cursor-pointer flex-1 items-stretch font-sans">
+                <input
+                    type="radio"
+                    name="theme"
+                    value={`font-sans`}
+                    onChange={(e) => onChangeFont(e.target.value)}
+                    className="hidden"
+                />
+                <div
+                    className={`flex flex-col items-center justify-center rounded flex-1 ${colors[theme]["text-background"]} ${colors[theme]["text"]} ${`font-sans` === font ? `border-2 ${colors[theme]["matching-border"]}` : "border border-gray-400"} h-20`}>
+
+                    <div>{`Q`}</div>
+                    <div className={` -mt-2`}>{`ق`}</div>
+                    <div className={`text-sm`}>{`57`}</div>
+                </div>
+            </label>
+
+            <label key={`serif`} className="flex cursor-pointer flex-1 items-stretch font-serif">
+                <input
+                    type="radio"
+                    name="theme"
+                    value={`font-serif`}
+                    onChange={(e) => onChangeFont(e.target.value)}
+                    className="hidden"
+                />
+                <div
+                    className={`flex flex-col items-center justify-center rounded flex-1  ${colors[theme]["text-background"]} ${colors[theme]["text"]} ${`font-serif` === font ? `border-2 ${colors[theme]["matching-border"]}` : "border border-gray-400"} h-20`}>
+                    <div>{`Q`}</div>
+                    <div className={` -mt-1.5`}>{`ق`}</div>
+                    <div className={`text-sm -mt-0.5`}>{`57`}</div>
+                </div>
+            </label>
+
         </div>
     );
 });
