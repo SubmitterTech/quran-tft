@@ -333,7 +333,8 @@ const Pages = React.memo(({
         });
 
         if (matchingNoteIndex !== undefined) {
-            noteRefs.current[matchingNoteIndex[matchingNoteIndex.length - 1]]?.scrollIntoView({ behavior: 'smooth', block: 'center' });
+            const jumpIndex = matchingNoteIndex.length > 3 ? 0 : matchingNoteIndex.length - 1;
+            noteRefs.current[matchingNoteIndex[jumpIndex]]?.scrollIntoView({ behavior: 'smooth', block: 'center' });
         }
 
     }, [noteReferencesMap]);
