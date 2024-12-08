@@ -563,7 +563,7 @@ const Pages = React.memo(({
                                                             key={`last-title-${suraNumber}-${verseNumber}`}
                                                             ref={(el) => verseRefs.current[`${suraNumber}:${0}`] = el}
                                                             dir={direction}
-                                                            className={`mx-1 py-1 px-2 text-neutral-800 rounded bg-gradient-to-r from-cyan-300 to-sky-500 text-base md:text-lg lg:text-xl xl:text-2xl besmele`}>
+                                                            className={`mx-1 py-1 px-2 text-neutral-800 rounded bg-gradient-to-r ${direction === 'rtl' ? ` from-sky-500 to-cyan-300`: ` from-cyan-300 to-sky-500`} text-base md:text-lg lg:text-xl xl:text-2xl besmele`}>
                                                             {hasGODinit}
                                                         </div>
                                                     );

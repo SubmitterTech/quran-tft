@@ -41,7 +41,7 @@ const Verse = ({ besmele,
     const [bookmark, setBookmark] = useState(null);
     const [swipeDistance, setSwipeDistance] = useState(0);
     const timerRef = useRef();
-
+    const hasBesmele = encryptedText.includes(besmele);
     const [{ x }, api] = useSpring(() => ({ x: 0 }));
 
     useEffect(() => {
@@ -410,18 +410,18 @@ const Verse = ({ besmele,
             setText(highlighted);
         } else if (mode === "light") {
             let bcn = `${colors[theme]["text-background"]} ${bookmark ? `border-l-2 ${colors[theme]["matching-border"]}` : ''}`;
-            if (encryptedText.includes(besmele)) {
-                bcn = `bg-gradient-to-r from-cyan-300 to-sky-500 text-neutral-800 ${bookmark ? `border-l-2 ${colors[theme]["matching-border"]}` : ''}`
+            if (hasBesmele) {
+                bcn = `bg-gradient-to-r ${direction === 'rtl' ? ` from-sky-500 to-cyan-300` : ` from-cyan-300 to-sky-500`} text-neutral-800 ${bookmark ? `border-l-2 ${colors[theme]["matching-border"]}` : ''}`
             }
             setCn(verseClassName + " " + bcn);
         } else if (mode === "idle") {
             let bcn = `${colors[theme]["text-background"]} ${bookmark ? `border-l-2 ${colors[theme]["matching-border"]}` : ''}`;
-            if (encryptedText.includes(besmele)) {
-                bcn = `bg-gradient-to-r from-cyan-300 to-sky-500 text-neutral-800 ${bookmark ? `border-l-2 ${colors[theme]["matching-border"]}` : ''}`
+            if (hasBesmele) {
+                bcn = `bg-gradient-to-r ${direction === 'rtl' ? ` from-sky-500 to-cyan-300` : ` from-cyan-300 to-sky-500`} text-neutral-800 ${bookmark ? `border-l-2 ${colors[theme]["matching-border"]}` : ''}`
             }
             setCn(verseClassName + " " + bcn);
         }
-    }, [mode, verseClassName, verseText, lightGODwords, colors, theme, encryptedText, besmele, bookmark]);
+    }, [mode, verseClassName, verseText, lightGODwords, colors, theme, encryptedText, hasBesmele, bookmark, direction]);
 
 
     const handleClick = () => {
@@ -550,7 +550,7 @@ const Verse = ({ besmele,
                                     text.map((element, index) => (
                                         <React.Fragment key={index}>
                                             {index === 0 && typeof element === 'string' && (
-                                                <span className={mode === "light" ? encryptedText.includes(besmele) ? `text-rose-500 font-semibold` : `${colors[theme]["matching-text"]} font-semibold` : `brightness-150`}>
+                                                <span className={mode === "light" ? hasBesmele ? `text-rose-600 font-semibold` : `${colors[theme]["matching-text"]} font-semibold` : `brightness-150`}>
                                                     {`${verseNumber}. `}
                                                 </span>
                                             )}
@@ -572,11 +572,11 @@ const Verse = ({ besmele,
                                         return (
                                             <React.Fragment key={index}>
                                                 {index === 0 && (
-                                                    <span className={mode === "light" ? encryptedText.includes(besmele) ? `text-rose-500 font-semibold ` : `${colors[theme]["matching-text"]} font-semibold ` : `brightness-150`}>
+                                                    <span className={mode === "light" ? `${colors[theme]["matching-text"]} font-semibold ` : `brightness-150`}>
                                                         {`${verseNumber}. `}
                                                     </span>
                                                 )}
-                                                <span className={isTitle ? `text-center w-full ${colors[theme]["app-background"]} block py-1.5 md:py-2 transform italic font-semibold ${index === middleIndex ? 'scale-x-[1.035]' : ''}` : ``}>
+                                                <span className={isTitle ? `text-center w-full block py-1.5 md:py-2 transform italic font-semibold ${colors[theme]["app-background"]} ${mode === `reading` ? `scale-x-[1.03]` : `scale-x-[1.033] `}` : ``}>
                                                     {line}
                                                 </span>
                                             </React.Fragment>
@@ -584,7 +584,7 @@ const Verse = ({ besmele,
                                     })
                                 ) : (
                                     <span className={`relative`}>
-                                        <span className={mode === "light" ? encryptedText.includes(besmele) ? `text-rose-500 font-semibold relative` : `${colors[theme]["matching-text"]} font-semibold relative` : `relative brightness-150`}>
+                                        <span className={mode === "light" ? hasBesmele ? `text-rose-600 font-semibold relative` : `${colors[theme]["matching-text"]} font-semibold relative` : `relative brightness-150`}>
                                             {`${verseNumber}. `}
                                         </span>
                                         <span>
