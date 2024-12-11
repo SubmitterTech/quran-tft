@@ -2,6 +2,7 @@ import React, { useState, useEffect, useRef, useMemo, useCallback } from 'react'
 import languages from '../assets/languages.json';
 import { getRandom } from '../utils/Generator';
 import { adjustReference } from '../utils/Mapper';
+import { isNative } from '../utils/Device';
 import { ColorPicker, FontPicker } from '../utils/Theme';
 import Bookmarks from '../utils/Bookmarks';
 
@@ -14,6 +15,7 @@ const Jump = React.memo(({ onChangeLanguage, suraNames, onChangeFont, font, onCh
     const [showThemes, setShowThemes] = useState(false);
     const [showBookmarks, setShowBookmarks] = useState(false);
     const [lightOpen, setLightOpen] = useState(false);
+    const isMobile = isNative() | false;
 
     const [isShufflingSura, setIsShufflingSura] = useState(false);
     const [isShufflingVerse, setIsShufflingVerse] = useState(false);
@@ -112,7 +114,8 @@ const Jump = React.memo(({ onChangeLanguage, suraNames, onChangeFont, font, onCh
 
                 Object.keys(suraData.verses).forEach((verse) => {
                     if (!versesInSurasMap[sura].includes(verse)) {
-                        versesInSurasMap[sura].push(verse);
+                        const hasTitle = parseInt(verse) !== 1 ? suraData.titles[verse] ? suraData.titles[verse] : null : null;
+                        versesInSurasMap[sura].push([verse, hasTitle]);
                     }
                     pageForSuraVerseMap[sura][verse] = page;
                 });
@@ -402,14 +405,18 @@ const Jump = React.memo(({ onChangeLanguage, suraNames, onChangeFont, font, onCh
                                                     <select
                                                         id="sura"
                                                         name="sura"
+                                                        dir={isMobile ? `ltr` : direction}
                                                         onChange={handleSuraChange}
                                                         value={suraNumber}
                                                         className={`inset-0 opacity-0 text-3xl w-3/4 p-3 rounded ${colors[theme]["text"]} ${colors[theme]["notes-background"]} focus:ring-2 focus:outline-none focus:ring-sky-500  `}
                                                     >
                                                         <option key="0" value="0" disabled>{translationApplication?.sura}</option>
-                                                        {Object.entries(suraNameMap).map(([sura, sname]) => (
-                                                            <option key={sura} value={sura}>{sura}{`\t`}{sname}</option>
-                                                        ))}
+                                                        {Object.entries(suraNameMap).map(([sura, sname]) => {
+                                                            const line = direction === 'rtl' ? (isMobile ? sname + `\t` + sura : sura + `\t` + sname) : sura + `\t` + sname;
+                                                            return (
+                                                                <option key={sura} value={sura}>{line}</option>
+                                                            )
+                                                        })}
                                                     </select>
                                                 </div>
 
@@ -430,13 +437,17 @@ const Jump = React.memo(({ onChangeLanguage, suraNames, onChangeFont, font, onCh
                                                     <select
                                                         id="verse"
                                                         name="verse"
+                                                        dir={isMobile ? `ltr` : direction}
                                                         onChange={handleVerseChange}
                                                         value={verseNumber}
                                                         className={`inset-0 opacity-0 text-3xl w-3/4 p-3 rounded ${colors[theme]["text"]} ${colors[theme]["notes-background"]} focus:ring-2 focus:outline-none focus:ring-sky-500`}>
                                                         <option key="0" value="0" disabled>{translationApplication?.verse}</option>
-                                                        {suraNumber && versesInSuras[suraNumber] && versesInSuras[suraNumber].map(verse => (
-                                                            <option key={verse} value={verse}>{verse}</option>
-                                                        ))}
+                                                        {suraNumber && versesInSuras[suraNumber] && versesInSuras[suraNumber].map(([verse, iftitle]) => {
+                                                            const line = direction === 'rtl' ? (isMobile ? ((iftitle ? iftitle + `\t` : ``) + verse) : (verse + (iftitle ? `\t` + iftitle : ``))) : (verse + (iftitle ? `\t` + iftitle : ``));
+                                                            return (
+                                                                <option key={verse} value={verse}>{line}</option>
+                                                            )
+                                                        })}
                                                     </select>
                                                 </div>
                                             </div>
