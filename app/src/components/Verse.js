@@ -1,9 +1,8 @@
-import React, { useCallback, useEffect, useState, useRef } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import { useSpring, animated } from '@react-spring/web';
 import { useDrag } from '@use-gesture/react';
-import { smartCopy, supportsUnicodeRegex, supportsLookAhead } from '../utils/Device';
+import { supportsUnicodeRegex, supportsLookAhead } from '../utils/Device';
 import Bookmarks from '../utils/Bookmarks';
-import { toast } from 'react-hot-toast';
 
 const Verse = ({ besmele,
     colors,
@@ -22,15 +21,13 @@ const Verse = ({ besmele,
     grapFocus,
     pageGWC,
     handleClickReference,
-    accumulatedCopiesRef,
-    copyTimerRef,
     hasTitle,
     hasNotes,
     path,
     isScrolling,
-    setRemainingTime,
     direction,
-    parseReferences
+    parseReferences,
+    startCopyTimer
 }) => {
     const currentVerseKey = `${suraNumber}:${verseNumber}`;
     const [mode, setMode] = useState("idle");
@@ -40,7 +37,6 @@ const Verse = ({ besmele,
     const lang = localStorage.getItem("lang");
     const [bookmark, setBookmark] = useState(null);
     const [swipeDistance, setSwipeDistance] = useState(0);
-    const timerRef = useRef();
     const hasBesmele = encryptedText.includes(besmele);
     const [{ x }, api] = useSpring(() => ({ x: 0 }));
 
@@ -74,41 +70,8 @@ const Verse = ({ besmele,
     }, [bookmark, currentVerseKey]);
 
     const handleCopy = async () => {
-        const clip = `[${currentVerseKey}]`;
-        const s = await smartCopy(clip, accumulatedCopiesRef, verseText, hasTitle, hasNotes);
-        if (s) {
-            const textToShow = Object.keys(accumulatedCopiesRef.current).join(", ") + ` ` + translationApplication.copied
-            toast.success(textToShow, {
-                duration: 3000,
-            });
-        }
-        if (copyTimerRef.current) {
-            clearTimeout(copyTimerRef.current);
-        }
-        copyTimerRef.current = setTimeout(() => {
-            accumulatedCopiesRef.current = {};
-            setRemainingTime(0);
-        }, 19000);
-
-        let startTime = Date.now();
-        let endTime = startTime + 19000;
-
-        // Clear the previous animation frame
-        if (timerRef.current) {
-            cancelAnimationFrame(timerRef.current);
-        }
-
-        const updateRemainingTime = () => {
-            let now = Date.now();
-            let remaining = Math.max(endTime - now, 0);
-            setRemainingTime(remaining);
-            if (remaining > 0) {
-                timerRef.current = requestAnimationFrame(updateRemainingTime);
-            }
-        };
-        updateRemainingTime();
+        startCopyTimer(currentVerseKey, verseText, hasTitle, hasNotes, translationApplication);
     };
-
 
     const handleActions = () => {
         if (!isScrolling && Math.abs(swipeDistance) > 100) {

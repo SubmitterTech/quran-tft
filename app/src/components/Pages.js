@@ -53,7 +53,7 @@ const Pages = React.memo(({
     handleClickReference,
     handleTogglePage,
     path,
-    setRemainingTime,
+    startCopyTimer,
     direction,
     upt
 }) => {
@@ -63,8 +63,6 @@ const Pages = React.memo(({
     const verseRefs = useRef({});
     const topRef = useRef(null);
     const noteRefs = useRef({});
-    const accumulatedCopiesRef = useRef({});
-    const copyTimerRef = useRef();
     const notifyTimeoutRef = useRef();
     const notifyRange = useRef({});
     const stickyRef = useRef(null);
@@ -365,7 +363,6 @@ const Pages = React.memo(({
         }
     }, [showExplanation]);
 
-
     if (!pageData) return <div className={`${colors[theme]["text"]} flex flex-1 items-center justify-center w-full `}>Loading...</div>;
 
     const openExplanation = (key) => {
@@ -563,7 +560,7 @@ const Pages = React.memo(({
                                                             key={`last-title-${suraNumber}-${verseNumber}`}
                                                             ref={(el) => verseRefs.current[`${suraNumber}:${0}`] = el}
                                                             dir={direction}
-                                                            className={`mx-1 py-1 px-2 text-neutral-800 rounded bg-gradient-to-r ${direction === 'rtl' ? ` from-sky-500 to-cyan-300`: ` from-cyan-300 to-sky-500`} text-base md:text-lg lg:text-xl xl:text-2xl besmele`}>
+                                                            className={`mx-1 py-1 px-2 text-neutral-800 rounded bg-gradient-to-r ${direction === 'rtl' ? ` from-sky-500 to-cyan-300` : ` from-cyan-300 to-sky-500`} text-base md:text-lg lg:text-xl xl:text-2xl besmele`}>
                                                             {hasGODinit}
                                                         </div>
                                                     );
@@ -602,15 +599,13 @@ const Pages = React.memo(({
                                 grapFocus={grapFocus}
                                 pageGWC={updatedPageGWC}
                                 handleClickReference={clickReferenceController}
-                                accumulatedCopiesRef={accumulatedCopiesRef}
-                                copyTimerRef={copyTimerRef}
                                 hasTitle={title}
                                 hasNotes={notes}
                                 path={path}
                                 isScrolling={isScrolling}
-                                setRemainingTime={setRemainingTime}
                                 direction={direction}
                                 parseReferences={parseReferences}
+                                startCopyTimer={startCopyTimer}
                             />
                         </div>
                     );

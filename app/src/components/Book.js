@@ -11,7 +11,7 @@ import Splash from '../components/Splash';
 import Intro from '../components/Intro';
 import Isbn from '../components/Isbn';
 import { adjustReference, generateReferenceMap, transformAppendices, findPageNumber, extractReferenceDetails, mapQuranWithNotes, generateFormula } from '../utils/Mapper';
-import { listCopy, supportsLookAhead, isNative } from '../utils/Device';
+import { listCopy, smartCopy, supportsLookAhead, isNative } from '../utils/Device';
 import '../assets/css/Book.css';
 
 const Book = React.memo(({ incomingSearch = false, incomingAppendix = false, incomingAppendixNumber = 1, onChangeFont, font, onChangeColor, colors, theme, translationApplication, introductionContent, quranData, map, appendicesContent, translation, onChangeLanguage, direction }) => {
@@ -39,11 +39,16 @@ const Book = React.memo(({ incomingSearch = false, incomingAppendix = false, inc
     const [pages, setPages] = useState([]);
     const [selectedApp, setSelectedApp] = useState(incomingAppendixNumber);
     const [backButtonPressedOnce, setBackButtonPressedOnce] = useState(false);
-    const [remainingTime, setRemainingTime] = useState(0);
-    const progressPercentage = (remainingTime / 19000) * 100;
+
     const [multiSelect, setMultiSelect] = useState(false);
     const [selectedVerseList, setSelectedVerseList] = useState([]);
     const [updatePageTriggered, setUpdatePageTriggered] = useState(false);
+
+    const accumulatedCopiesRef = useRef({});
+    const copyTimerRef = useRef(null);
+    const timerRef = useRef(null);
+    const [remainingTime, setRemainingTime] = useState(0);
+    const progressPercentage = (remainingTime / 20000) * 100;
 
     const skipPages = useMemo(() => [3, 4, 8, 9, 10, 12], []);
 
@@ -629,6 +634,51 @@ const Book = React.memo(({ incomingSearch = false, incomingAppendix = false, inc
         setJumpOpen(false);
     }, []);
 
+    const startCopyTimer = useCallback((currentVerseKey, verseText, hasTitle, hasNotes, translationApplication) => {
+        const handleAccumulatedCopy = async () => {
+            const clip = `[${currentVerseKey}]`;
+            const s = await smartCopy(clip, accumulatedCopiesRef, verseText, hasTitle, hasNotes);
+            if (s) {
+                const textToShow = Object.keys(accumulatedCopiesRef.current).join(", ") + ` ` + translationApplication.copied
+                toast.success(textToShow, { duration: 3000 });
+            }
+
+            // Clear existing timer
+            if (copyTimerRef.current) clearTimeout(copyTimerRef.current);
+
+            // Start a new timeout
+            copyTimerRef.current = setTimeout(() => {
+                accumulatedCopiesRef.current = {};
+                setRemainingTime(0);
+            }, 19000);
+
+            let startTime = Date.now();
+            let endTime = startTime + 19999;
+
+            // Cancel any previous animation frame
+            if (timerRef.current) cancelAnimationFrame(timerRef.current);
+
+            const updateRemainingTime = () => {
+                let now = Date.now();
+                let remaining = Math.max(endTime - now, 0);
+                setRemainingTime(remaining);
+                if (remaining > 0) {
+                    timerRef.current = requestAnimationFrame(updateRemainingTime);
+                }
+            };
+            updateRemainingTime();
+        };
+
+        handleAccumulatedCopy();
+    }, [accumulatedCopiesRef, copyTimerRef, timerRef]);
+
+    const stopCopyTimer = useCallback(() => {
+        accumulatedCopiesRef.current = {};
+        setRemainingTime(0);
+        if (copyTimerRef.current) clearTimeout(copyTimerRef.current);
+        if (timerRef.current) cancelAnimationFrame(timerRef.current);
+    }, []);
+
     const renderBookContent = () => {
 
         if (parseInt(currentPage) === 1) {
@@ -760,7 +810,7 @@ const Book = React.memo(({ incomingSearch = false, incomingAppendix = false, inc
                 handleClickReference={handleClickReference}
                 handleTogglePage={handleTogglePage}
                 path={path}
-                setRemainingTime={setRemainingTime}
+                startCopyTimer={startCopyTimer}
                 direction={direction}
                 upt={updatePageTriggered}
             />;
@@ -893,7 +943,18 @@ const Book = React.memo(({ incomingSearch = false, incomingAppendix = false, inc
                     style={{ paddingBottom: 'calc(env(safe-area-inset-bottom) * 0.57)' }}>
                     <div className={`relative flex w-full items-center justify-between`}>
                         <div className={`absolute h-0.5 left-0 -top-0.5 ${colors[theme]["matching"]}`} style={{ width: `${progressPercentage}%` }}></div>
-
+                        {progressPercentage > 0 &&
+                            <div className={`absolute pb-1 left-1/2 -translate-x-1/2 -top-14 ${colors[theme]["app-background"]} rounded flex flex-col justify-center shadow-md shadow-cyan-300/30`}>
+                                <button className={`flex justify-center ${colors[theme]["text"]}`} onClick={stopCopyTimer}>
+                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className={`w-12 h-12`}>
+                                        <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
+                                    </svg>
+                                </button>
+                                <div className={`absolute bottom-0 w-full flex items-center justify-center text-xs ${colors[theme]["matching-text"]}`}>
+                                    <div>{parseInt(remainingTime / 1000)}</div>
+                                </div>
+                            </div>
+                        }
                         <div className={`w-1/2 h-full`}>
                             {multiSelect ?
                                 (<button onClick={handleShare}
