@@ -48,7 +48,7 @@ const Book = React.memo(({ incomingSearch = false, incomingAppendix = false, inc
     const copyTimerRef = useRef(null);
     const timerRef = useRef(null);
     const [remainingTime, setRemainingTime] = useState(0);
-    const progressPercentage = (remainingTime / 20000) * 100;
+    const progressPercentage = remainingTime ? (remainingTime / 20000) * 100 : 0;
 
     const skipPages = useMemo(() => [3, 4, 8, 9, 10, 12], []);
 
