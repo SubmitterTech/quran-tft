@@ -191,7 +191,7 @@ const Jump = React.memo(({ onChangeLanguage, suraNames, onChangeFont, font, onCh
             setSuraNumber(newSuraNumber);
             setVerseNumber('0');
             setLightOpen(false);
-            const firstVerseOfSura = versesInSuras[newSuraNumber][0];
+            const firstVerseOfSura = versesInSuras[newSuraNumber][0][0];
             if (firstVerseOfSura && pageForSuraVerse[newSuraNumber][firstVerseOfSura]) {
                 setSelectedPage(pageForSuraVerse[newSuraNumber][firstVerseOfSura]);
             }
@@ -213,7 +213,7 @@ const Jump = React.memo(({ onChangeLanguage, suraNames, onChangeFont, font, onCh
     );
 
     const handleSubmit = useCallback(() => {
-        onConfirm(selectedPage, suraNumber, verseNumber || '1');
+        onConfirm(selectedPage, suraNumber, verseNumber ? verseNumber !== '0' ? verseNumber : '1' :'1');
         onClose();
     }, [onConfirm, onClose, selectedPage, suraNumber, verseNumber]);
 
