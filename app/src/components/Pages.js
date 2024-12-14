@@ -643,7 +643,7 @@ const Pages = React.memo(({
             </div>
             {
                 notesData.data.length > 0 &&
-                <div dir={direction} className={`${colors[theme]["base-background"]} mx-0.5 my-3 rounded p-1 text-lg lg:text-xl xl:text-2xl text-justify ${colors[theme]["app-text"]} flex flex-col space-y-1 whitespace-pre-line`}>
+                <div dir={direction} className={`${colors[theme]["base-background"]} mx-0.5 my-3 rounded p-1 text-lg lg:text-xl xl:text-2xl text-justify ${colors[theme]["app-text"]} flex flex-col space-y-1 whitespace-pre-line break-words`}>
                     <h3 className={`p-1`}>{translationApplication?.notes}:</h3>
 
                     {notesData.data.map((note, index) => (
