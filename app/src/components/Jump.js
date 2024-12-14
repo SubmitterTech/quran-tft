@@ -189,11 +189,11 @@ const Jump = React.memo(({ onChangeLanguage, suraNames, onChangeFont, font, onCh
         (e) => {
             const newSuraNumber = e.target.value;
             setSuraNumber(newSuraNumber);
-
+            setVerseNumber('0');
+            setLightOpen(false);
             const firstVerseOfSura = versesInSuras[newSuraNumber][0];
             if (firstVerseOfSura && pageForSuraVerse[newSuraNumber][firstVerseOfSura]) {
                 setSelectedPage(pageForSuraVerse[newSuraNumber][firstVerseOfSura]);
-                setVerseNumber('0');
             }
         },
         [versesInSuras, pageForSuraVerse]
