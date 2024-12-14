@@ -25,7 +25,7 @@
     },
     "de": {
         "name": "Deutsch Übersetzung",
-        "comp": 78.43,
+        "comp": 80.12,
         "dir": "ltr",
         "nums": "0 1 2 3 4 5 6 7 8 9"
     },
@@ -37,7 +37,7 @@
     },
     "az": {
         "name": "Azərbaycan Tərcüməsi",
-        "comp": 5.01,
+        "comp": 5.71,
         "dir": "ltr",
         "nums": "0 1 2 3 4 5 6 7 8 9"
     },
@@ -73,7 +73,7 @@
     },
     "nl": {
         "name": "Dutch Vertaling",
-        "comp": 15.63,
+        "comp": 15.94,
         "dir": "ltr",
         "nums": "0 1 2 3 4 5 6 7 8 9"
     }
