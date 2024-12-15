@@ -157,7 +157,7 @@ function Root() {
                 appendicesContent={translationAppx}
                 translation={translation}
                 onChangeLanguage={setLang}
-                direction={languages[lang] ? languages[lang]["dir"] : languages["en"]["dir"]}
+                direction={(languages[lang] && languages[lang]["dir"]) ? languages[lang]["dir"] : 'ltr'}
             />}
         </div>
     );
