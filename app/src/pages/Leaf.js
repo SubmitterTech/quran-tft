@@ -35,7 +35,7 @@ const Leaf = () => {
             import(`../assets/translations/${lang}/quran_${lang}.json`)
                 .then(translatedQuran => {
                     processQuranData(translatedQuran.default);
-                    setDirection(languages[lang] ? languages[lang]["dir"] : 'ltr');
+                    setDirection((languages[lang] && languages[lang]["dir"]) ? languages[lang]["dir"] : 'ltr');
                 })
                 .catch(error => {
                     console.error("Error loading the translated Quran: ", error);

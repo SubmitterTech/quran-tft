@@ -7,7 +7,7 @@ const Cover = ({ onCoverSeen, coverData, lang, onChangeLanguage }) => {
     const parentRef = useRef(null);
     const [lineHeight, setLineHeight] = useState(0);
     const [lineMargin, setLineMargin] = useState(0);
-    const direction = languages[lang]["dir"] ? languages[lang]["dir"] : "ltr";
+    const direction = (languages[lang] && languages[lang]["dir"]) ? languages[lang]["dir"] : 'ltr';
     const languageDisabilityThreshold = 60;
 
     useEffect(() => {
