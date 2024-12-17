@@ -538,7 +538,13 @@ const Pages = React.memo(({
                                                 const concatenated = parts.join(' ');
                                                 const finalParts = concatenated.split(':');
                                                 const surano = finalParts[0].trim();
-                                                const suranames = finalParts[1].trim();
+                                                let suranames = finalParts[1].trim();
+                                                if (parseInt(suraNumber) === 9) {
+                                                    const names = suranames.split(' ');
+                                                    const sn = names.slice(0, 2).join(' ');
+                                                    const nobes = names.slice(2).join(' ');
+                                                    suranames = sn + '\n' + nobes;
+                                                }
                                                 return (
                                                     <div
                                                         dir={direction}
