@@ -74,6 +74,7 @@ const Pages = React.memo(({
     const [focusedNoteIndices, setFocusedNoteIndices] = useState(Array(10).fill(false));
     const [stickyHeight, setStickyHeight] = useState(0);
     const [isScrolling, setIsScrolling] = useState(false);
+    const [besmeleClicked, setBesmeleClicked] = useState(false);
     const [showExplanation, setShowExplanation] = useState({
         GODnamefrequency: false,
         GODnamesum: false,
@@ -112,6 +113,10 @@ const Pages = React.memo(({
     }, [quranData, selectedPage, translation]);
 
     const besmele = quranData["23"]["sura"]["1"]["encrypted"]["1"];
+
+    const handleBesmeleClick = useCallback(() => {
+        setBesmeleClicked(b => !b);
+    }, []);
 
     const updateFocusedNoteIndices = (index, value) => {
         setFocusedNoteIndices(prev => {
@@ -562,12 +567,20 @@ const Pages = React.memo(({
                                                 const gw = translationApplication.gw.toLocaleLowerCase(lang);
                                                 if (hasGODinit.toLowerCase().search(gw) !== -1) {
                                                     return (
-                                                        <div
-                                                            key={`last-title-${suraNumber}-${verseNumber}`}
+                                                        <div key={`last-title-${suraNumber}-${verseNumber}`}
                                                             ref={(el) => verseRefs.current[`${suraNumber}:${0}`] = el}
                                                             dir={direction}
-                                                            className={`mx-1 py-1 px-2 text-neutral-800 rounded bg-gradient-to-r ${direction === 'rtl' ? ` from-sky-500 to-cyan-300` : ` from-cyan-300 to-sky-500`} text-base md:text-lg lg:text-xl xl:text-2xl besmele`}>
-                                                            {hasGODinit}
+                                                            className={`cursor-pointer`}
+                                                            onClick={handleBesmeleClick}>
+                                                            <div
+                                                                className={`mx-1 py-1 px-2 text-neutral-800 rounded bg-gradient-to-r ${besmeleClicked ? ` font-semibold transition-all duration-200` : ``} ${direction === 'rtl' ? ` from-sky-500 to-cyan-300` : ` from-cyan-300 to-sky-500`} text-base md:text-lg lg:text-xl xl:text-2xl besmele`}>
+                                                                {besmeleClicked ? '0. ' + hasGODinit : hasGODinit}
+                                                            </div>
+                                                            <div className={`flex items-center justify-center transition-all duration-200 ${besmeleClicked ? `py-1 px-2 mx-1` : `h-0`}`}>
+                                                                <div className={`transition-all duration-500 text-lg md:text-xl lg:text-xl xl:text-3xl ${besmeleClicked ? `opacity-100` : ` opacity-0`}`}>
+                                                                    {besmeleClicked ? besmele : null}
+                                                                </div>
+                                                            </div>
                                                         </div>
                                                     );
                                                 }
