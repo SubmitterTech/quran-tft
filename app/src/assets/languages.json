@@ -17,21 +17,27 @@
         "dir": "rtl",
         "nums": "۰ ۱ ۲ ۳ ۴ ۵ ۶ ۷ ۸ ۹"
     },
-    "fr": {
-        "name": "Traduction française",
-        "comp": 79.81,
-        "dir": "ltr",
-        "nums": "0 1 2 3 4 5 6 7 8 9"
-    },
     "de": {
         "name": "Deutsch Übersetzung",
         "comp": 80.12,
         "dir": "ltr",
         "nums": "0 1 2 3 4 5 6 7 8 9"
     },
+    "fr": {
+        "name": "Traduction française",
+        "comp": 79.81,
+        "dir": "ltr",
+        "nums": "0 1 2 3 4 5 6 7 8 9"
+    },
     "ru": {
         "name": "Русский Перевод",
         "comp": 63.25,
+        "dir": "ltr",
+        "nums": "0 1 2 3 4 5 6 7 8 9"
+    },
+    "nl": {
+        "name": "Dutch Vertaling",
+        "comp": 15.94,
         "dir": "ltr",
         "nums": "0 1 2 3 4 5 6 7 8 9"
     },
@@ -68,12 +74,6 @@
     "zh": {
         "name": "中文 翻译",
         "comp": 0,
-        "dir": "ltr",
-        "nums": "0 1 2 3 4 5 6 7 8 9"
-    },
-    "nl": {
-        "name": "Dutch Vertaling",
-        "comp": 15.94,
         "dir": "ltr",
         "nums": "0 1 2 3 4 5 6 7 8 9"
     }
