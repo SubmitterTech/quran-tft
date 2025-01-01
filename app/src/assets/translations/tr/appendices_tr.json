@@ -509,8 +509,8 @@
             "4": "Bu başlangıçlar, Sure 10, 11, 12, 14 ve 15’te bulunur. Bu surelerde bu harflerin toplam geçişleri sırasıyla 2489 (19x131), 2489 (19x131), 2375 (19x125), 1197 (19x63) ve 912 (19x48)’dir (Tablo 5).",
             "6": "Bu başlangıçlar tek bir surenin, Sure 13’ün başında yer alır ve bu dört harfin toplam geçişi 1482 veya 19x78’dir. “A” harfi 605 kez, “L” harfi 480 kez, “M” harfi 260 kez ve “R” harfi 137 kez geçer.",
             "8": "Sadece tek bir sure, Sure 7 bu başlangıçlarla başlar ve “A” harfi bu surede 2529 kez, “L” 1530 kez, “M” 1164 kez ve “S” (Sad) 97 kez geçer. Böylece, bu dört harfin bu suredeki toplam geçişi 2529 + 1530 + 1164 + 97 = 5320 = 19x280’dir.",
-            "9": "Buradaki önemli bir gözlem, “S” (Sad) harfini içeren iç içe geçmeli ilişkidir. Bu başlangıç ayrıca Sure 19 ve 38’de de yer alır. Sure 7’deki kardeş harflerini tamamlayarak 19’un katı olan bir toplam verirken, bu harfin sıklığı ayrıca Sure 19 ve 38’deki kardeş harflerini tamamlayıp 19’un bir katını verir (bkz. Sayfa 348).",
-            "10": "İlaveten, Kuranî Başlangıç “S” (Sad), Sure 19’daki diğer Kuranî Başlangıç olan “K.H.Y.‘A.” (Kef He Ya ‘Ayn) ile ilişki içine girerek 19’un katı olan başka bir toplam verir (bkz: Sayfa 351). Bu “S” (Sad) harfine özgü olmayan iç içe geçmeli ilişki, Kuran’ın sayısal kodunun girift olmasına katkıda bulunur."
+            "9": "Buradaki önemli bir gözlem, “S” (Sad) harfini içeren iç içe geçmeli ilişkidir. Bu başlangıç ayrıca Sure 19 ve 38’de de yer alır. Sure 7’deki kardeş harflerini tamamlayarak 19’un katı olan bir toplam verirken, bu harfin sıklığı ayrıca Sure 19 ve 38’deki kardeş harflerini tamamlayıp 19’un bir katını verir (bkz. Sayfa 380).",
+            "10": "İlaveten, Kuranî Başlangıç “S” (Sad), Sure 19’daki diğer Kuranî Başlangıç olan “K.H.Y.‘A.” (Kef He Ya ‘Ayn) ile ilişki içine girerek 19’un katı olan başka bir toplam verir (bkz: Sayfa 383). Bu “S” (Sad) harfine özgü olmayan iç içe geçmeli ilişki, Kuran’ın sayısal kodunun girift olmasına katkıda bulunur."
         },
         "picture": {},
         "table": {
@@ -1788,7 +1788,7 @@
         "picture": {},
         "table": {
             "12": {
-                "ref": "Tablo 20: Neden “19!”",
+                "ref": "Tablo 20: Neden “19! (Harf)”",
                 "title": [
                     "İbranice",
                     "Arapça",
@@ -2514,7 +2514,7 @@
     {
         "page": 420,
         "text": {
-            "1": "Kuran’daki her bir ayetin numarasını yazalım, önüne de her bir sure için bu suredeki ayet sayısını yazalım. Böylelikle, yedi ayetten oluşan Sure 1, 7 1234567 sayısı ile temsil edilecektir. Burada yaptığımız şey, ayet sayılarını yan yana yazarak uzun sayılar oluşturmaktır. Sure 2’yi temsil eden sayıyı bulmak için bu suredeki ayet sayısı olan 286, ardından her bir ayetin numarasını yan yana yazılmış şekilde yazarsınız. Böylelikle, Sure 2’yi temsil eden sayı şu şekilde gözükür: 286 12345…284285286. İlk iki sureyi temsil eden iki sayı şunlardır:",
+            "1": "Kuran’daki her bir ayetin numarasını yazalım, önüne de her bir sure için bu suredeki ayet sayısını yazalım. Böylelikle, yedi ayetten oluşan Sure 1, 7 1234567 sayısı ile temsil edilecektir. Burada yaptığımız şey, ayet sayılarını yan yana yazarak uzun sayılar oluşturmaktır. Sure 2’yi temsil eden sayıyı bulmak için bu suredeki ayet sayısı olan 286, ardından her bir ayetin numarasını yan yana yazılmış şekilde yazarsınız. Böylelikle, Sure 2’yi temsil eden sayı şu şekilde gözükür: 286 12345…..284285286. İlk iki sureyi temsil eden iki sayı şunlardır:",
             "2": "7 1 2 3 4 5 6 7 & 286 1 2 3 4 5.....284 285 286.",
             "3": "İlk iki sureyi temsil eden bir sayı oluşturmak için bu iki sayıyı bir araya getirirsek, şu sayıyı alırız:",
             "4": "7 1 2 3 4 5 6 7 2 8 6 1 2 3 4 5.....284 285 286.",
@@ -2523,7 +2523,7 @@
             "9": "1 2 3 4 5 6 7 7 & 1 2 3 4 5.....284 285 286 286.",
             "10": "İlk iki sureyi temsil eden bir sayı oluşturmak için bu iki sayıyı bir araya getirirsek, şu şekilde gözüken bir sayı elde ederiz:",
             "11": "1 2 3 4 5 6 7 7 1 2 3 4 5.....284 285 286 286.",
-            "12": "Sure başına düşen ayetlerin toplam sayısını her bir surenin sonuna koyduğumuzdan, numaralı ayetlerin toplam sayısını (6324) da Kuran’ın sonuna koymak zorundayız. Bu nedenle, son sureyi temsil eden son sayıları (123456 6) Kuran’daki numaralı ayetlerin toplam sayısı takip eder.",
+            "12": "Sure başına düşen ayetlerin toplam sayısını her bir surenin sonuna koyduğumuzdan, numaralı ayetlerin toplam sayısını (6234) da Kuran’ın sonuna koymak zorundayız. Bu nedenle, son sureyi temsil eden son sayıları (123456 6) Kuran’daki numaralı ayetlerin toplam sayısı (6234) takip eder.",
             "13": "1 2 3 4 5 6 6 & 6234 > > > 1 2 3 4 5 6 6 6234.",
             "14": "Tüm surelerin tüm ayetlerini bir araya getirdiğimiz zaman, 12696 basamaktan oluşan ve 19’un bir katı olan uzun bir sayı meydana gelir."
         },
@@ -2599,7 +2599,7 @@
         "page": 422,
         "text": {
             "1": "Şimdi, her suredeki her ayetin numarasını, ardından her sure için ayet numaralarının toplamını yazalım. Sure 1, 7 ayetten oluşmaktadır ve ayet numaralarının toplamı 1 + 2 + 3 + 4 + 5 + 6 + 7 = 28’dir. Böylelikle, Sure 1’i temsil eden sayı şu şekilde gözükür: 1234567 28.",
-            "2": "Sure 2 için ayet numaralarının toplamı 41041’dir (1 + 2 + 3 + ... + 286). Böylelikle, Sure 2’yi temsil eden sayı şu şekilde gözükür: 12345…284 285 286 41041.",
+            "2": "Sure 2 için ayet numaralarının toplamı 41041’dir (1 + 2 + 3 + ... + 286). Böylelikle, Sure 2’yi temsil eden sayı şu şekilde gözükür: 12345...284 285 286 41041.",
             "3": "6 ayetten oluşan son sureyi temsil eden sayı şu şekilde gözükür: 123456 21 çünkü 1 + 2 + 3 + 4 + 5 + 6 = 21.",
             "4": "Tüm Kuran’ı temsil eden bütün sayı 12836 basamaktan oluşmaktadır ve 19’un bir katıdır. Şu şekilde gözükür.",
             "7": "Dikkat çekici bir şekilde, eğer yukarıda gösterilen “Beşinci Sayıyı” alıp ayet numaraları ile ayet numaralarının toplamını tersine çevirirsek, yani ayet numaralarının toplamını alıp surenin başına koyarsak, ortaya çıkan uzun sayı hâlâ 19’un bir katıdır.",
@@ -2826,7 +2826,7 @@
             },
             "6": {
                 "lines": {
-                    "1": "Biz Peygamberlerle antlaşma yaptığımızda ve seninle (Ey Muhammed), Nuh ile, İbrahim ile, Musa ile ve Meryemoğlu İsa ile, onlarla sağlam bir antlaşma yaptık. (33:7) (Muhammad Marmaduke Pickthall’a göre)"
+                    "1": "Biz Peygamberlerle antlaşma yaptığımızda ve seninle (Ey Muhammed), Nuh ile, İbrahim ile, Musa ile ve Meryemoğlu İsa ile, onlarla sağlam bir antlaşma yaptık. (Muhammad Marmaduke Pickthall’a göre)"
                 },
                 "ref": [
                     "33:7"
@@ -3865,7 +3865,7 @@
         "page": 452,
         "text": {
             "1": "Namazın İbrahim aracılığıyla önceden tesis edilmiş olduğunun kanıtı 8:35, 9:54, 16:123 & 21:73 ayetlerinde bulunmaktadır. İslam’daki (Teslimiyet’teki) bu en önemli görev öylesine ciddi bir şekilde tahrif edildi ki, iletişim duaları (Namaz) Müslümanların büyük çoğunluğu için putperest bir pratiğe dönüştü. Kuran, iletişim dualarımızın yalnızca Tanrı’ya adanmasını emretmesine rağmen (20:14, 39:3, 39:45), bugünkü Müslümanlar namazları sırasında “Muhammed ve ailesi” ile “İbrahim ve ailesi”ni anmayı ısrarla sürdürüyorlar. Bu, namazları boş ve geçersiz kılar (39:65).",
-            "4": "[1] Sure 1, Kendisi ile iletişim kurmamız (Salat) için Tanrı’nın bize armağanıdır. Sure numarası ve ayet sayısını yan yana yazıp 17 elde edersiniz, bu da günlük beş vakit namazın ünite sayılarının toplamıdır.",
+            "4": "[1] Sure 1, Kendisi ile iletişim kurmamız (Salat) için Tanrı’nın bize armağanıdır. Sure numarası ve ayet sayısını yan yana yazıp 17 elde edersiniz, bu da günlük 5 vakit namazın ünite sayılarının toplamıdır.",
             "6": "[2] Sure numarasını, ardından suredeki her ayetin numarasını yazalım. Şunu elde ederiz:",
             "7": "1 1 2 3 4 5 6 7. Bu sayı 19’un katıdır.",
             "8": "[3] Şimdi de her ayetin numarasını, o ayet içindeki harf sayısı ile değiştirelim. Şunu elde ederiz:",
@@ -3927,7 +3927,7 @@
         "text": {
             "1": "1 7 1 19 2 60 40 1 30 30 5 1 30 200 8 40 50 1 30 200 8 10 40 2 17 ... 50",
             "2": "Bu sayı sure numarasıyla başlar, ardından suredeki ayet sayısı, ardından ayet numarası, ardından bu ayetteki harf sayısı, ardından bu ayetteki her bir harfin sayısal değeri, ardından bir sonraki ayetin numarası, ardından bu ayetteki harf sayısı, ardından bu ayetteki her bir harfin sayısal değeri gelir ve surenin sonuna kadar böyle devam eder. Böylelikle, en son bileşen 50 olur, “N”nin (son harf) değeridir.",
-            "3": "[7] Buraya çok uzun sayıları yazamadığımdan dolayı, her ayetin numarası, ardından ayetteki harf sayısı, ardından ayetteki her bir harfin sayısal değerinden oluşan uzun sayının yerine [*] yazalım. Eğer sure numarasının ardından o surenin ayet sayısını yazarsak 17 elde ederiz, günlük beş vakit namazın ünite (Rekât) sayısı. 17’nin yanına ilk namazın numarasını (1), ardından 2 olan Rekât sayısını yazın, sonra iki tane [*]; ardından ikinci namazın numarasını (2), ardından ikinci namazın Rekât sayısını (4), ardından dört tane [*] yazın ve bu şekilde devam edin. Sadece elde edilen uzun sayı 19’un katı değil, aynı zamanda onu oluşturan basamak sayısı da 4636’dır (19x244)… Lütfen şuna dikkat edin, Sure 1’in herhangi bir temsili, sonucu etkilemeden [*]’ın yerini alabilir; hepsi de 19’un katlarını verir. Örneğin “Anahtar”ın kısa bir sunumu, Sure numarası (1), onu takiben ayet sayısı (7), ardından Sure 1’deki harflerin toplam sayısı (139), ardından tüm surenin toplam sayısal değerinden (10143) oluşur. Ortaya çıkan sayı (1713910143) da [*] işaretini temsil edebilir.",
+            "3": "[7] Buraya çok uzun sayıları yazamadığımdan dolayı, her ayetin numarası, ardından ayetteki harf sayısı, ardından ayetteki her bir harfin sayısal değerinden oluşan uzun sayının yerine [*] yazalım. Eğer sure numarasının ardından o surenin ayet sayısını yazarsak 17 elde ederiz, günlük 5 vakit namazın ünite (Rekât) sayısı. 17’nin yanına ilk namazın numarasını (1), ardından 2 olan Rekât sayısını yazın, sonra iki tane [*]; ardından ikinci namazın numarasını (2), ardından ikinci namazın Rekât sayısını (4), ardından dört tane [*] yazın ve bu şekilde devam edin. Sadece elde edilen uzun sayı 19’un katı değil, aynı zamanda onu oluşturan basamak sayısı da 4636’dır (19x244)… Lütfen şuna dikkat edin, Sure 1’in herhangi bir temsili, sonucu etkilemeden [*]’ın yerini alabilir; hepsi de 19’un katlarını verir. Örneğin “Anahtar”ın kısa bir sunumu, Sure numarası (1), onu takiben ayet sayısı (7), ardından Sure 1’deki harflerin toplam sayısı (139), ardından tüm surenin toplam sayısal değerinden (10143) oluşur. Ortaya çıkan sayı (1713910143) da [*] işaretini temsil edebilir.",
             "4": "1712[*][*]24[*][*][*][*]34[*][*][*][*]43[*][*][*]54[*][*][*][*]",
             "6": "[8] Cuma namazı iki hutbe ve iki Rekâttan oluştuğu için (toplamı hâlâ 4 ünite), diğer günlerdeki 17 tane ile karşılaştırıldığında, Cuma günü sadece 15 tane “Anahtar” okuruz. Abdullah Arık şunu keşfetti: [7]’deki uzun sayıda yer alan 17’yi 15 ile değiştirirsek ve öğle namazından iki “Anahtar”ı çıkarırsak hâlâ 19’un katını elde ederiz. Bu, öğle vaktindeki 2 “Anahtar”lı Cuma Namazını doğrular. Aşağıda gösterilen uzun sayı, Cuma gününün 5 namazını temsil eder; bu, 19’un katıdır. ",
             "7": "1512[*] [*]24[*] [*]34[*] [*] [*] [*]43[*] [*] [*] [*]54[*] [*] [*] [*]",
@@ -4047,7 +4047,7 @@
         },
         "evidence": {},
         "titles": {
-            "5": "GÜNLÜK BEŞ VAKİT NAMAZIN DOĞRULANMASI,",
+            "5": "GÜNLÜK 5 VAKİT NAMAZIN DOĞRULANMASI,",
             "6": "EĞİLME (Rükû),",
             "7": "SECDE (Sücûd) ve TEŞEHHÜT SAYISI"
         }
@@ -4756,7 +4756,7 @@
         "picture": {
             "2": {
                 "no": "25",
-                "text": "Tercümesi: Ali’ye soruldu: “Neden evde duruyorsun?” Dedi ki “Kuran’a bir şeyler eklendi ve Kuran eski haline getirilinceye kadar namaz hariç gündelik giysilerimi asla giymeyeceğime söz verdim.”"
+                "text": "Tercümesi: Ali’ye soruldu: “Neden evde duruyorsun?” Dedi ki “Kuran’a bir şeyler eklendi ve Kuran eski haline getirilinceye kadar namaz hariç gündelik giysilerimi asla giymeyeceğime söz verdim.” [ İlave 1 ]"
             }
         },
         "evidence": {},
@@ -7129,7 +7129,7 @@
     {
         "page": 488,
         "text": {
-            "4": "Tanrı’nın Antlaşma Elçisi olarak bana yüklenen görevler arasında dünyanın sonunu açığa çıkarmak da var (Sayfa 383). 18:7-8 ve 69:13-15’ten bu dünyanın sona ereceğini öğreniyoruz. Yeni bir yeryüzü ve yeni gökler, mevcut göklerin ve yeryüzünün yerini alacaktır (14:48).",
+            "4": "Tanrı’nın Antlaşma Elçisi olarak bana yüklenen görevler arasında dünyanın sonunu açığa çıkarmak da var (Sayfa 415). 18:7-8 ve 69:13-15’ten bu dünyanın sona ereceğini öğreniyoruz. Yeni bir yeryüzü ve yeni gökler, mevcut göklerin ve yeryüzünün yerini alacaktır (14:48).",
             "6": "Kuran birçok işaret sağlar ve dünyanın sonunun açığa çıkması için tüm araçların verildiğini ifade eder (47:18). Kuran’da verilen işaretler şunlardır:",
             "7": "1. Ay’ın yarılması: Bu, Haziran 1969’da Ay’a inip Ay’ın kaya parçalarını getirdiğimizde zaten gerçekleşti. Artık dünyadaki insanlar Ay’ın parçalarına bakmak için birçok müze, üniversite ve gözlemevine gidebilirler.",
             "8": "2. Kuran’ın 19-temelli matematiksel kodunun keşfi (74:30-37): 1969-1974’te yerine getirildi.",
@@ -8213,13 +8213,13 @@
         "evidence": {
             "2": {
                 "lines": {
-                    "1": "9 127 11 123 13 43 15 99 17 111 25 77 27 29 Her sure numarasını o suredeki ayetlerin sayısı takip eder. Bu uzun sayı 19 x 48037427533385052195322409091’e eşittir."
+                    "1": "9 127 11 123 13 43 15 99 17 111 25 77 27 29 Her sure numarasını o suredeki ayetlerin sayısı takip eder. Bu uzun sayı 19 x 48037427533385052195322409091’e eşittir. [Şekil 1]"
                 },
                 "ref": []
             },
             "3": {
                 "lines": {
-                    "1": "9 1234567890123… …27 1234567890 ... 789 Sure numarasını, Sure 9’dan Sure 27’nin 29. Ayetine kadar olan ayet numaralarındaki son rakam takip eder."
+                    "1": "9 1234567890123… …27 1234567890 ... 789 Sure numarasını, Sure 9’dan Sure 27’nin 29. Ayetine kadar olan ayet numaralarındaki son rakam takip eder. [Şekil 2]"
                 },
                 "ref": []
             }
