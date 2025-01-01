@@ -566,7 +566,7 @@ const Verse = ({ besmele,
                                 </svg>
                             </div>
                             <div className={`${(mode === "reading" && bookmark) ? ` p-1 text-start ${colors[theme]["matching-text"]}` : "h-0 "}`} dir={direction} >
-                                {mode === "reading" && supportsLookAhead() ? parseReferences(Bookmarks.format(bookmark), currentVerseKey + '-bookmarknote') : Bookmarks.format(bookmark)}
+                                {mode === "reading" && (supportsLookAhead() ? parseReferences(Bookmarks.format(bookmark), currentVerseKey + '-bookmarknote') : Bookmarks.format(bookmark))}
                             </div>
                         </div>
                     </div>
