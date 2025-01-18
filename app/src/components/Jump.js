@@ -8,7 +8,7 @@ import Bookmarks from '../utils/Bookmarks';
 
 const languageDisabilityThreshold = 60;
 
-const Jump = React.memo(({ onChangeLanguage, suraNames, onChangeFont, font, onChangeColor, colors, theme, translationApplication, currentPage, quran, onClose, onConfirm, onMagnify, direction }) => {
+const Jump = React.memo(({ onChangeLanguage, suraNames, onChangeFont, font, onChangeColor, colors, theme, translationApplication, currentPage, quran, onClose, onConfirm, onMagnify, direction, isMagnifyVisited }) => {
     const [suraNumber, setSuraNumber] = useState("0");
     const [verseNumber, setVerseNumber] = useState("0");
     const [selectedPage, setSelectedPage] = useState(currentPage);
@@ -259,9 +259,12 @@ const Jump = React.memo(({ onChangeLanguage, suraNames, onChangeFont, font, onCh
     const handleLanguageChange = useCallback(
         (e) => {
             onChangeLanguage(e.target.value);
-            onClose();
+
+            if(!isMagnifyVisited) {
+                onClose();
+            }
         },
-        [onChangeLanguage, onClose]
+        [onChangeLanguage, onClose, isMagnifyVisited]
     );
 
     return (

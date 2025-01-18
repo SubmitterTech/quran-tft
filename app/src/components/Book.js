@@ -25,6 +25,7 @@ const Book = React.memo(({ incomingSearch = false, incomingAppendix = false, inc
     const [action, setAction] = useState(null);
 
     const [isMagnifyOpen, setMagnifyOpen] = useState(incomingSearch);
+    const [isMagnifyVisited, setMagnifyVisited] = useState(false);
     const restoreAppText = useRef(null);
     const restoreIntroText = useRef(null);
     const endReferenceToRestore = useRef(null);
@@ -145,7 +146,10 @@ const Book = React.memo(({ incomingSearch = false, incomingAppendix = false, inc
         }
         setJumpOpen(!isJumpOpen);
         if (isMagnifyOpen) {
+            setMagnifyVisited(true);
             setMagnifyOpen(false);
+        } else {
+            setMagnifyVisited(false);
         }
     };
 
@@ -1117,6 +1121,7 @@ const Book = React.memo(({ incomingSearch = false, incomingAppendix = false, inc
                     onConfirm={onConfirmJump}
                     onMagnify={onMagnify}
                     direction={direction}
+                    isMagnifyVisited={isMagnifyVisited}
                 />
             }
             {isMagnifyOpen &&
