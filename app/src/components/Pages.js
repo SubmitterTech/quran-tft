@@ -4,10 +4,18 @@ import Verse from '../components/Verse';
 const formatHitCount = (count) => {
     const factor = 19;
     if (count % factor === 0) {
-        return `${count} (${factor} x ${count / factor})`;
+      return (
+        <span dir="ltr">
+          {count} (
+          <span className="text-nowrap">
+            {factor} x {count / factor}
+          </span>
+          )
+        </span>
+      );
     }
-    return count;
-};
+    return <span dir="ltr">{count}</span>;
+  };
 
 const parseNoteReferences = (notes) => {
     const noteRefsMap = {};
