@@ -49,11 +49,8 @@ const Apps = ({ colors, theme, translationApplication, parseReferences, appendic
     }, [refToRestore]);
 
     const renderTable = useCallback((tableData, appno, key) => {
-
         const tableRef = tableData.ref;
         const { title: columnHeaders, values } = tableData;
-
-        // Calculating rows based on column count
         const columnCount = columnHeaders.length;
         const rows = [];
         for (let i = 0; i < values.length; i += columnCount) {
@@ -69,22 +66,117 @@ const Apps = ({ colors, theme, translationApplication, parseReferences, appendic
                     <table className={`table-auto w-full text-base md:text-lg ${colors[theme]["base-background"]} border-collapse border-2 ${colors[theme]["border"]}`}>
                         <thead>
                             <tr>
-                                {columnHeaders.map((header, index) => (
-                                    <th key={index} className={`border ${colors[theme]["border"]} p-2 break-words`}>{header}</th>
-                                ))}
+                                {(() => {
+                                    let pending = 0;
+                                    const mergedHeaders = [];
+                                    // Process the header cells (table titles) with the merging rule.
+                                    for (let i = 0; i < columnHeaders.length; i++) {
+                                        if (columnHeaders[i] !== "") {
+                                            // A non-empty cell: add any pending merge count from previous empty cells.
+                                            const colspan = 1 + pending;
+                                            pending = 0;
+                                            mergedHeaders.push({
+                                                content: columnHeaders[i],
+                                                colspan,
+                                                cellIndex: i,
+                                            });
+                                        } else {
+                                            // An empty header cell.
+                                            // If a non-empty cell follows, accumulate pending.
+                                            if (i + 1 < columnHeaders.length && columnHeaders[i + 1].trim() !== "") {
+                                                pending++;
+                                            } else {
+                                                // No valid non-empty neighbor to the right: merge immediately with the previous non-empty header cell.
+                                                if (mergedHeaders.length > 0) {
+                                                    mergedHeaders[mergedHeaders.length - 1].colspan++;
+                                                } else {
+                                                    // In case the very first header cell is empty.
+                                                    pending++;
+                                                }
+                                            }
+                                        }
+                                    }
+                                    // If all header cells are empty, create one cell spanning all columns.
+                                    if (mergedHeaders.length === 0) {
+                                        mergedHeaders.push({
+                                            content: "",
+                                            colspan: columnHeaders.length,
+                                            cellIndex: 0,
+                                        });
+                                    }
+                                    return mergedHeaders.map((header, index) => (
+                                        <th key={`header-${index}`}
+                                            colSpan={header.colspan}
+                                            className={`border ${colors[theme]["border"]} p-2 text-balance`}>
+                                            {header.content}
+                                        </th>
+                                    ));
+                                })()}
                             </tr>
                         </thead>
                         <tbody>
-                            {rows.map((row, rowIndex) => (
-                                <tr key={`row-${rowIndex}`}>
-                                    {row.map((cell, cellIndex) => (
-                                        <td key={`cell-${rowIndex}-${cellIndex}`}
-                                            ref={(el) => textRef.current[appno + "-" + key + "-" + row + rowIndex] = el}
-                                            onClick={(e) => handleClick(e, appno, key + "-" + row + rowIndex)}
-                                            className={`border-2 ${colors[theme]["border"]} p-2 text-center break-words`}>{parseReferences(cell, appno + "-" + key + "-" + row + rowIndex)}</td>
-                                    ))}
-                                </tr>
-                            ))}
+                            {rows.map((row, rowIndex) => {
+                                // Process the row into a set of cells that include colspan values.
+                                // The idea: as we iterate over the row, if a cell is non-empty, render it
+                                // with any accumulated pending merges from previous empty cells.
+                                // If a cell is empty and a non-empty cell follows, we “accumulate” a pending count;
+                                // otherwise, if no non-empty cell follows, merge it immediately into the previous cell.
+                                let pending = 0;
+                                const renderedCells = [];
+
+                                for (let i = 0; i < row.length; i++) {
+                                    if (row[i] !== "") {
+                                        // This is a non-empty cell.
+                                        // Add any pending empty cells to its colspan.
+                                        const colspan = 1 + pending;
+                                        pending = 0;
+                                        renderedCells.push({
+                                            content: row[i],
+                                            colspan,
+                                            // Store the original cell index for key/ref purposes.
+                                            cellIndex: i,
+                                        });
+                                    } else {
+                                        // The cell is empty.
+                                        // Check if the next cell exists and is non-empty.
+                                        if (i + 1 < row.length && row[i + 1].trim() !== "") {
+                                            // Defer merging with the next non-empty cell.
+                                            pending++;
+                                        } else {
+                                            // No valid non-empty neighbor to the right: merge immediately with the previous non-empty cell.
+                                            if (renderedCells.length > 0) {
+                                                renderedCells[renderedCells.length - 1].colspan++;
+                                            } else {
+                                                // In case this is the first cell (and it's empty), we accumulate pending;
+                                                // when the next non-empty cell is found, it will inherit the colspan.
+                                                pending++;
+                                            }
+                                        }
+                                    }
+                                }
+
+                                // If the entire row is empty, then render one empty cell spanning all columns.
+                                if (renderedCells.length === 0) {
+                                    renderedCells.push({
+                                        content: "",
+                                        colspan: columnCount,
+                                        cellIndex: 0,
+                                    });
+                                }
+                                return (
+                                    <tr key={`row-${rowIndex}`}>
+                                        {renderedCells.map((cell, renderedIndex) => (
+                                            <td key={`cell-${rowIndex}-${renderedIndex}`}
+                                                colSpan={cell.colspan}
+                                                ref={(el) => (textRef.current[`${appno}-${key}-${rowIndex}-${cell.cellIndex}`] = el)}
+                                                onClick={(e) => handleClick(e, appno, `${key}-${rowIndex}-${cell.cellIndex}`)}
+                                                className={`text-center p-2 ${/^\s+$/.test(cell.content) ? `` : `border ${colors[theme]["border"]} border-opacity-25 `} ${((cell.cellIndex === 0 && row.length > 3) || (cell.cellIndex === row.length - 1 && row.length > 3) || (cell.content.includes('x') && /\d+ x/.test(cell.content))) ? ` text-nowrap ` : ` break-words `} `}>
+                                                {parseReferences(cell.content, `${appno}-${key}-${rowIndex}-${cell.cellIndex}`)}
+                                            </td>
+                                        ))}
+                                    </tr>
+                                );
+                            })}
                         </tbody>
                     </table>
                 </div>
@@ -130,7 +222,7 @@ const Apps = ({ colors, theme, translationApplication, parseReferences, appendic
                         onClick={(e) => handleClick(e, appno, index)}
                         className={`${colors[theme]["base-background"]} ${colors[theme]["table-title-text"]} rounded  text-base md:text-lg p-3 border my-3 ${colors[theme]["border"]}`}>
                         {Object.entries(item.content.lines).map(([lineKey, lineValue]) => (
-                            <p key={`${lineKey}`} className={`whitespace-pre-wrap my-1`}>{parseReferences(lineValue, appno + "-" + index)}</p>
+                            <p key={`${lineKey}`} className={`whitespace-pre-wrap text-justify my-2`}>{parseReferences(lineValue, appno + "-" + index)}</p>
                         ))}
                         {item.content.ref.length > 0 && (
                             <p>{parseReferences("[" + item.content.ref.join(', ') + "]", appno + "-" + index)}</p>
