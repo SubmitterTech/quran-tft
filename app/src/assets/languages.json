@@ -19,37 +19,37 @@
     },
     "de": {
         "name": "Deutsch Übersetzung",
-        "comp": 80.28,
+        "comp": 80.45,
         "dir": "ltr",
         "nums": "0 1 2 3 4 5 6 7 8 9"
     },
     "fr": {
         "name": "Traduction française",
-        "comp": 79.81,
+        "comp": 79.98,
         "dir": "ltr",
         "nums": "0 1 2 3 4 5 6 7 8 9"
     },
     "ru": {
         "name": "Русский Перевод",
-        "comp": 63.25,
+        "comp": 53.62,
         "dir": "ltr",
         "nums": "0 1 2 3 4 5 6 7 8 9"
     },
     "nl": {
         "name": "Dutch Vertaling",
-        "comp": 17.12,
+        "comp": 10.38,
         "dir": "ltr",
         "nums": "0 1 2 3 4 5 6 7 8 9"
     },
     "az": {
         "name": "Azərbaycan Tərcüməsi",
-        "comp": 5.71,
+        "comp": 5.63,
         "dir": "ltr",
         "nums": "0 1 2 3 4 5 6 7 8 9"
     },
     "ku": {
         "name": "Wergera Kurdî",
-        "comp": 0.98,
+        "comp": 0.97,
         "dir": "ltr",
         "nums": "0 1 2 3 4 5 6 7 8 9"
     },
