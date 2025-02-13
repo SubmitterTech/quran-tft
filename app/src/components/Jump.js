@@ -384,8 +384,6 @@ const Jump = React.memo(({ onChangeLanguage, suraNames, onChangeFont, font, onCh
                                                     <FontPicker
                                                         theme={theme}
                                                         colors={colors}
-                                                        languages={languages}
-                                                        lang={localStorage.getItem("lang")}
                                                         font={font}
                                                         onChangeFont={onChangeFont} />
                                                 </div>

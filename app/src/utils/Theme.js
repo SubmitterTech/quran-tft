@@ -208,28 +208,27 @@ export const ColorPicker = memo(({ theme, colors, onChangeColor }) => {
     );
 });
 
-export const FontPicker = memo(({ theme, colors, languages, lang, font, onChangeFont }) => {
+export const FontPicker = memo(({ theme, colors, font, onChangeFont }) => {
     return (
         <div className={`flex flex-col space-y-4 w-full h-full text-lg`}>
 
-            <label key={`sans`} className="flex cursor-pointer flex-1 items-stretch font-sans">
+            <label key={`sans`} className="flex cursor-pointer flex-1 items-stretch ">
                 <input
                     type="radio"
                     name="theme"
-                    value={`font-sans`}
+                    value={`font-normal`}
                     onChange={(e) => onChangeFont(e.target.value)}
                     className="hidden"
                 />
                 <div
-                    className={`flex flex-col items-center justify-center rounded flex-1 ${colors[theme]["text-background"]} ${colors[theme]["text"]} ${`font-sans` === font ? `border-2 ${colors[theme]["matching-border"]}` : "border border-gray-400"} h-20`}>
-
-                    <div>{`Q`}</div>
-                    <div className={` -mt-2`}>{`ق`}</div>
-                    <div className={`text-sm`}>{`57`}</div>
+                    className={`flex flex-col items-center justify-center rounded flex-1 ${colors[theme]["text-background"]} ${colors[theme]["text"]} ${`font-normal` === font ? `border-2 ${colors[theme]["matching-border"]}` : "border border-gray-400"} h-20`}>
+                    <div style={{ fontFamily: 'sans-serif' }}>{`Q`}</div>
+                    <div style={{ fontFamily: 'ui-sans-serif, system-ui, sans-serif' }} className={`text-xl -mt-2 !font-normal`}>{`ق`}</div>
+                    <div style={{ fontFamily: 'sans-serif' }} className={`text-base `}>{`57`}</div>
                 </div>
             </label>
 
-            <label key={`serif`} className="flex cursor-pointer flex-1 items-stretch font-serif">
+            <label key={`serif`} className="flex cursor-pointer flex-1 items-stretch ">
                 <input
                     type="radio"
                     name="theme"
@@ -238,10 +237,10 @@ export const FontPicker = memo(({ theme, colors, languages, lang, font, onChange
                     className="hidden"
                 />
                 <div
-                    className={`flex flex-col items-center justify-center rounded flex-1  ${colors[theme]["text-background"]} ${colors[theme]["text"]} ${`font-serif` === font ? `border-2 ${colors[theme]["matching-border"]}` : "border border-gray-400"} h-20`}>
-                    <div>{`Q`}</div>
-                    <div className={` -mt-1.5`}>{`ق`}</div>
-                    <div className={`text-sm -mt-0.5`}>{`57`}</div>
+                    className={`flex flex-col items-center justify-center rounded flex-1 ${colors[theme]["text-background"]} ${colors[theme]["text"]} ${`font-serif` === font ? `border-2 ${colors[theme]["matching-border"]}` : "border border-gray-400"} h-20`}>
+                    <div style={{ fontFamily: 'serif' }}>{`Q`}</div>
+                    <div style={{ fontFamily: 'serif' }} className={`text-xl -mt-1.5 `}>{`ق`}</div>
+                    <div style={{ fontFamily: 'serif' }} className={`text-base -mt-0.5 `}>{`57`}</div>
                 </div>
             </label>
 
