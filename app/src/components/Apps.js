@@ -1,5 +1,7 @@
 import React, { useState, useEffect, useRef, useCallback } from 'react';
 import { mapAppendices } from '../utils/Mapper';
+import Picture10 from '../specials/Picture10';
+import Picture22 from '../specials/Picture22';
 
 const Apps = ({ colors, theme, translationApplication, parseReferences, appendices, selected, restoreAppText, refToRestore, refToJump, direction, upt }) => {
 
@@ -231,46 +233,35 @@ const Apps = ({ colors, theme, translationApplication, parseReferences, appendic
                 );
             case 'picture':
                 if (!item.content.no) return;
-                const imageUrl = images(`./${parseInt(item.content.no)}.jpg`);
+                const no = parseInt(item.content.no);
+                const imageUrl = images(`./${no}.jpg`);
+
                 // SPECIAL RENDER FOR PICTURE 10
-                if (parseInt(item.content.no) === 10) {
+                if (no === 10) {
                     return (
-                        <div key={`picture10-${index}`} className={`flex flex-col flex-1 items-center justify-center w-full px-1`}>
-                            <div className={`flex p-1 overflow-y-auto`}>
-                                <div className={` flex flex-col justify-between `}>
-                                    {item.content.data.slice(0, 4).map((word) => (
-                                        <div key={word} className={`p-1.5 whitespace-nowrap text-right`}>{word}</div>
-                                    ))}
-                                </div>
-                                <img src={imageUrl} alt={imageUrl} className={`object-contain `} />
-                                <div className={` flex flex-col justify-between`}>
-                                    {item.content.data.slice(4, 8).map((word) => (
-                                        <div key={word} className={`p-1.5 flex-1 whitespace-pre text-left`}>{word}</div>
-                                    ))}
-                                </div>
-                            </div>
-                            {item.content.text && (
-                                <div className={`${colors[theme]["log-text"]} w-full text-base flex justify-center`}>
-                                    <div className={`p-2`}>{item.content.text}</div>
-                                </div>
-                            )}
-                        </div>
+                        <Picture10
+                            item={item}
+                            imageUrl={imageUrl}
+                            colors={colors}
+                            theme={theme}
+                        />
                     );
                 }
                 // SPECIAL RENDER FOR PICTURE 22
                 if (parseInt(item.content.no) === 22) {
                     return (
-                        <div key={`picture-22-special`} className={`flex flex-col space-y-1.5 flex-1 items-center justify-center w-full px-1 mb-2`}>
-                            {item.content.text && Object.entries(item.content.text).map(([pickey, text]) => (
-                                <div key={pickey} className={`rounded  flex flex-wrap md:flex-nowrap justify-between`}>
-                                    <img src={images(`./${pickey}.jpg`)} alt={imageUrl} className={`object-contain`} />
-                                    <div lang={lang} className={`p-2 text-justify hyphens-auto break-words`}>{parseReferences(text, 'picture-22-special')}</div>
-                                </div>
-
-                            ))}
-                        </div>
+                        <Picture22
+                            item={item}
+                            lang={lang}
+                            direction={direction}
+                            colors={colors}
+                            theme={theme}
+                            parseReferences={parseReferences}
+                            textRef={textRef}
+                            appno={appno}
+                            handleClick={handleClick}
+                        />
                     );
-
                 }
                 return (
                     <div key={`picture-${index}`} className={`flex flex-col flex-1 items-center justify-center w-full px-1 mb-2`}>

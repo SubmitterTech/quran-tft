@@ -16,18 +16,18 @@ export const mapAppendices = (appendices, translationApplication) => {
             });
         });
 
-        const collectContent = (type, data) => {
+        const collectContent = (type, data, pageno) => {
             Object.entries(data || {}).forEach(([key, value]) => {
                 if (value) {
-                    allContentItems.push({ type, content: value, key: parseInt(key) });
+                    allContentItems.push({ type, content: value, key: parseInt(key) , page: pageno});
                 }
 
             });
         };
-        collectContent('text', page.text);
-        collectContent('evidence', page.evidence);
-        collectContent('table', page.table);
-        collectContent('picture', page.picture);
+        collectContent('text', page.text, page.page);
+        collectContent('evidence', page.evidence, page.page);
+        collectContent('table', page.table, page.page);
+        collectContent('picture', page.picture, page.page);
 
         allContentItems.sort((a, b) => a.key - b.key);
         allContentItems.forEach(item => {
