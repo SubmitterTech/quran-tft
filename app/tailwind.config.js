@@ -4,6 +4,9 @@ module.exports = {
     "./src/**/*.{js,jsx,ts,tsx}",
   ],
   theme: {
+    fontFamily: {
+      serif: ['Lora', 'Times New Roman', 'Times', 'serif'],
+    },
     extend: {
       animation: {
         rotate: 'rotate 0.95s linear infinite',
@@ -18,4 +21,3 @@ module.exports = {
   },
   plugins: [],
 }
-
