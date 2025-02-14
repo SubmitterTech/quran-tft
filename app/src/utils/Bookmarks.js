@@ -9,6 +9,21 @@ const parseJSON = (value) => {
     }
 };
 
+const format = (timestamp) => {
+    if (/^\d+$/.test(String(timestamp).trim())) {
+        const date = new Date(parseInt(timestamp, 10));
+        const day = date.getDate().toString().padStart(2, '0');
+        const month = (date.getMonth() + 1).toString().padStart(2, '0');
+        const year = date.getFullYear();
+        const hours = date.getHours().toString().padStart(2, '0');
+        const minutes = date.getMinutes().toString().padStart(2, '0');
+        const seconds = date.getSeconds().toString().padStart(2, '0');
+        return `${day}/${month}/${year} ${hours}:${minutes}:${seconds}`;
+    } else {
+        return timestamp;
+    }
+}
+
 let bookmarks = parseJSON(localStorage.getItem(bookmarksKey)) || {};
 
 const subscribers = {};
@@ -40,6 +55,9 @@ const get = (verseKey) => {
 };
 
 const set = (verseKey, value) => {
+    if (value === null) {
+        value = format(Date.now());
+    }
     bookmarks[verseKey] = value;
     localStorage.setItem(bookmarksKey, JSON.stringify(bookmarks));
     notifySubscribers(verseKey);
@@ -55,20 +73,6 @@ const all = () => {
     return { ...bookmarks };
 };
 
-const format = (timestamp) => {
-    if (/^\d+$/.test(String(timestamp).trim())) {
-        const date = new Date(parseInt(timestamp, 10));
-        const day = date.getDate().toString().padStart(2, '0');
-        const month = (date.getMonth() + 1).toString().padStart(2, '0');
-        const year = date.getFullYear();
-        const hours = date.getHours().toString().padStart(2, '0');
-        const minutes = date.getMinutes().toString().padStart(2, '0');
-        const seconds = date.getSeconds().toString().padStart(2, '0');
-        return `${day}/${month}/${year} ${hours}:${minutes}:${seconds}`;
-    } else {
-        return timestamp;
-    }
-}
 
 // Handle storage events (for cross-tab synchronization)
 window.addEventListener('storage', (event) => {

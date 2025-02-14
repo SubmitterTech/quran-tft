@@ -64,8 +64,7 @@ const Verse = ({ besmele,
         if (bookmark) {
             Bookmarks.remove(currentVerseKey);
         } else {
-            const formattedDate = Bookmarks.format(Date.now());
-            Bookmarks.set(currentVerseKey, formattedDate);
+            Bookmarks.set(currentVerseKey, null);
         }
     }, [bookmark, currentVerseKey]);
 
