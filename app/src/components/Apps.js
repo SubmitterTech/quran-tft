@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useRef, useCallback } from 'react';
 import { mapAppendices } from '../utils/Mapper';
+import Picture4and5 from '../specials/Picture4and5';
 import Picture10 from '../specials/Picture10';
 import Picture22 from '../specials/Picture22';
 
@@ -236,6 +237,18 @@ const Apps = ({ colors, theme, translationApplication, parseReferences, appendic
                 const no = parseInt(item.content.no);
                 const imageUrl = images(`./${no}.jpg`);
 
+                // SPECIAL RENDER FOR PICTURE 4 and 5
+                if (no === 4) {
+                    return (
+                        <Picture4and5
+                            item={item}
+                            colors={colors}
+                            theme={theme}
+                        />
+                    );
+                }
+                if (no === 5) return;
+ 
                 // SPECIAL RENDER FOR PICTURE 10
                 if (no === 10) {
                     return (
