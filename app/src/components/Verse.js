@@ -571,7 +571,7 @@ const Verse = ({ besmele,
                     </div>
                     <div className={`w-full flex flex-col flex-1  ${mode === "reading" ? "p-0.5 mt-2" : "h-0"} `}>
                         <div className={`${mode === "reading" ? " select-text ease-linear mb-2 duration-300" : "h-0 "} w-full transition-all  rounded ${colors[theme]["encrypted-background"]} `} >
-                            <p className={` p-2 text-start `} dir="rtl" >
+                            <p className={` p-2 text-start cursor-auto`} dir="rtl" >
                                 {mode === "reading" && lightAllahwords(encryptedText)}
                             </p>
                         </div>
