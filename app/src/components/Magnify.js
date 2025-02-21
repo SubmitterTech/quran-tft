@@ -2,9 +2,9 @@ import React, { useState, useEffect, useCallback, useRef } from 'react';
 import { mapAppendices, mapQuran } from '../utils/Mapper';
 
 const Magnify = ({ colors, theme, translationApplication, quran, map, appendices, introduction, onClose, onConfirm, direction, multiSelect, setMultiSelect, selectedVerseList, setSelectedVerseList }) => {
-    const lang = localStorage.getItem("lang")
+    const lang = localStorage.getItem("lang");
 
-    const [searchTerm, setSearchTerm] = useState(localStorage.getItem("st") ? localStorage.getItem("st") : "");
+    const [searchTerm, setSearchTerm] = useState(localStorage.getItem("qurantft-magnify-st") || "");
     //const [exactMatch, setExactMatch] = useState(false);
     const [caseSensitive, setCaseSensitive] = useState(() => {
         const saved = localStorage.getItem("case");
@@ -16,7 +16,6 @@ const Magnify = ({ colors, theme, translationApplication, quran, map, appendices
     });
     const [optionsVisible, setOptionsVisible] = useState(false);
     const selectedVerseSet = new Set(selectedVerseList);
-
 
     const [titlesVisible, setTitlesVisible] = useState(false);
     const [versesVisible, setVersesVisible] = useState(true);
@@ -48,6 +47,17 @@ const Magnify = ({ colors, theme, translationApplication, quran, map, appendices
 
     const [quranmap, setQuranmap] = useState({});
     const [appsmap, setAppsmap] = useState({});
+
+    const lastSelection = useRef(localStorage.getItem("qurantft-magnify-ls") || "");
+    const hasConsumedLastSelection = useRef(false);
+    const saveLastSelection = useRef(false);
+    const [notify, setNotify] = useState(null);
+    const loadingElementsTimer = useRef(null);
+
+    const titlesReferences = useRef({});
+    const versesReferences = useRef({});
+    const notesReferences = useRef({});
+    const appendicesReferences = useRef({});
 
     useEffect(() => {
         setQuranmap(mapQuran(quran));
@@ -81,14 +91,14 @@ const Magnify = ({ colors, theme, translationApplication, quran, map, appendices
     };
 
     useEffect(() => {
-        if (inputRef.current) {
+        if (inputRef.current && lastSelection.current === "") {
             inputRef.current.focus();
         }
     }, []);
 
     useEffect(() => {
         if (searchTerm !== "") {
-            localStorage.setItem("st", searchTerm)
+            localStorage.setItem("qurantft-magnify-st", searchTerm)
         }
     }, [searchTerm]);
 
@@ -107,6 +117,7 @@ const Magnify = ({ colors, theme, translationApplication, quran, map, appendices
     const removePunctuations = (text) => {
         return text.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
     };
+
     const performSearch = useCallback((term) => {
         if (!term) {
             return;
@@ -218,7 +229,7 @@ const Magnify = ({ colors, theme, translationApplication, quran, map, appendices
                     .forEach(([type, content]) => {
                         page = type === "page" ? content : page;
                         Object.entries(content).forEach(([order, value]) => {
-                            const appx = 0;
+                            const appx = '0';
                             const introText = value.toString();
                             const key = page + "-" + type + "-" + order;
                             let processedIntroText = normalize ? normalizeText(introText) : introText;
@@ -366,25 +377,130 @@ const Magnify = ({ colors, theme, translationApplication, quran, map, appendices
         if (node) observerAppendices.current.observe(node);
     }, [searchResultAppendices, loadedAppendices]);
 
-
-    useEffect(() => {
-        setLoadedTitles(searchResultTitles.slice(0, batchSize));
-        setLoadedVerses(searchResultVerses.slice(0, batchSize));
-        setLoadedNotes(searchResultNotes.slice(0, batchSize));
-        setLoadedAppendices(searchResultAppendices.slice(0, batchSize));
-
-    }, [searchResultTitles, searchResultVerses, searchResultNotes, searchResultAppendices]);
-
     useEffect(() => {
         if (!multiSelect) {
             setSelectedVerseList([]);
         }
     }, [multiSelect, setSelectedVerseList]);
 
-    const handleConfirm = useCallback((key, type = null) => {
+    useEffect(() => {
+        const titleLoad = searchResultTitles.slice(0, batchSize);
+        const verseLoad = searchResultVerses.slice(0, batchSize);
+        const notesLoad = searchResultNotes.slice(0, batchSize);
+        const appendicesLoad = searchResultAppendices.slice(0, batchSize);
+
+        setLoadedTitles(titleLoad);
+        setLoadedVerses(verseLoad);
+        setLoadedNotes(notesLoad);
+        setLoadedAppendices(appendicesLoad);
+
+        if (lastSelection.current && lastSelection.current !== "") {
+            const [typeofselection, key] = lastSelection.current.split('_');
+            if (loadingElementsTimer.current) return;
+
+            let setLoadedData, searchResultData, initialLoad, references, extractor;
+            switch (typeofselection) {
+                case "title":
+                    setLoadedData = setLoadedTitles;
+                    searchResultData = searchResultTitles;
+                    initialLoad = titleLoad;
+                    references = titlesReferences;
+                    extractor = (item) => `${item.suraNumber}:${item.titleNumber}`;
+                    setTitlesVisible(true);
+                    setVersesVisible(false);
+                    setNotesVisible(false);
+                    setAppendicesVisible(false);
+                    break;
+                case "verse":
+                    setLoadedData = setLoadedVerses;
+                    searchResultData = searchResultVerses;
+                    initialLoad = verseLoad;
+                    references = versesReferences;
+                    extractor = (item) => `${item.suraNumber}:${item.verseNumber}`;
+                    setTitlesVisible(false);
+                    setVersesVisible(true);
+                    setNotesVisible(false);
+                    setAppendicesVisible(false);
+                    break;
+                case "footnote":
+                    setLoadedData = setLoadedNotes;
+                    searchResultData = searchResultNotes;
+                    initialLoad = notesLoad;
+                    references = notesReferences;
+                    extractor = (item) => `${item.suraNumber}:${item.verseNumber}`;
+                    setTitlesVisible(false);
+                    setVersesVisible(false);
+                    setNotesVisible(true);
+                    setAppendicesVisible(false);
+                    break;
+                case "appendix":
+                    setLoadedData = setLoadedAppendices;
+                    searchResultData = searchResultAppendices;
+                    initialLoad = appendicesLoad;
+                    references = appendicesReferences;
+                    extractor = (item) => item.appx === 0 ? `intro:${item.key}` : `appx:${item.appx}-${item.key}`;
+                    setTitlesVisible(false);
+                    setVersesVisible(false);
+                    setNotesVisible(false);
+                    setAppendicesVisible(true);
+                    break;
+                default:
+                    return;
+            }
+
+            if (!hasConsumedLastSelection.current && searchResultData.length > 0) {
+                loadingElementsTimer.current = setTimeout(() => {
+                    const isLoaded = initialLoad.some((item) => extractor(item) === key);
+
+                    if (!isLoaded) {
+                        let newLoad = initialLoad;
+
+                        while (!newLoad.some((item) => extractor(item) === key) && newLoad.length < searchResultData.length) {
+                            newLoad = [
+                                ...newLoad,
+                                ...searchResultData.slice(newLoad.length, newLoad.length + batchSize)
+                            ];
+                            setLoadedData(newLoad);
+                        }
+                    }
+
+                    setTimeout(() => {
+                        references.current[key].scrollIntoView({ behavior: 'smooth', block: 'center' });
+                        setNotify(typeofselection + `_` + key);
+                        setTimeout(() => {
+                            setNotify(null);
+                        }, 5350);
+                    }, 190);
+
+                    lastSelection.current = "";
+                    hasConsumedLastSelection.current = true;
+                    loadingElementsTimer.current = null;
+                }, 19);
+            }
+        }
+
+    }, [searchResultTitles, searchResultVerses, searchResultNotes, searchResultAppendices]);
+
+    useEffect(() => {
         return () => {
-            if (multiSelect && type) {
-                if (type === 'verse') {
+            if (hasConsumedLastSelection.current && !saveLastSelection.current) {
+                localStorage.removeItem("qurantft-magnify-ls");
+            }
+        }
+    }, []);
+
+    const handleClose = useCallback(() => {
+        if (lastSelection.current && lastSelection.current !== "") {
+            saveLastSelection.current = true;
+            localStorage.setItem("qurantft-magnify-ls", lastSelection.current);
+        }
+        onClose && onClose();
+    }, [onClose]);
+
+    const handleConfirm = useCallback((key, typeofselection = null) => {
+        return () => {
+            if (multiSelect) {
+                if (typeofselection && typeofselection === 'verse') {
                     setSelectedVerseList((prevList) => {
                         if (prevList.includes(key)) {
                             return prevList.filter((verse) => verse !== key);
@@ -395,12 +511,14 @@ const Magnify = ({ colors, theme, translationApplication, quran, map, appendices
                 }
             } else {
                 if (onConfirm) {
+                    lastSelection.current = typeofselection + '_' + key;
+                    saveLastSelection.current = true;
                     onConfirm(key);
-                    onClose();
+                    handleClose();
                 }
             }
         };
-    }, [multiSelect, onConfirm, onClose, setSelectedVerseList]);
+    }, [multiSelect, onConfirm, handleClose, setSelectedVerseList]);
 
     const renderref = (ref) => {
         if (ref) {
@@ -492,10 +610,10 @@ const Magnify = ({ colors, theme, translationApplication, quran, map, appendices
                             onClick={() => {
                                 if (searchTerm.length > 0) {
                                     setSearchTerm("");
-                                    localStorage.removeItem("st");
+                                    localStorage.removeItem("qurantft-magnify-st");
                                     inputRef.current && inputRef.current.focus();
                                 } else {
-                                    onClose();
+                                    handleClose();
                                 }
                             }}>
                             {searchTerm.length === 0 ?
@@ -520,22 +638,31 @@ const Magnify = ({ colors, theme, translationApplication, quran, map, appendices
                         <div className={`${loadedTitles.length > 0 ? titlesVisible ? `flex-1 mx-1 lg:mx-0 ring-1 ${colors[theme]["text-background"]}` : `h-10 p-1 mx-1 lg:mx-0 ring-1 ${colors[theme]["base-background"]}` : "hidden"} ${loadedVerses.length > 0 ? "" : "lg:col-span-2"} transition-all duration-100 ease-linear  overflow-auto rounded ${colors[theme]["ring"]} `}>
                             <div
                                 onClick={() => setTitlesVisible(!titlesVisible)}
-                                className={`${loadedTitles.length > 0 ? "opacity-100" : "opacity-0 h-0"} ${titlesVisible ? `sticky top-0 text-base md:text-lg mb-1.5 p-2 justify-center rounded-t drop-shadow-md backdrop-blur-xl` : ` h-full justify-between px-2 text-xl md:text-2xl`} transition-all duration-100 ease-linear flex items-center text-center ${colors[theme]["page-text"]}`}>
+                                className={`${loadedTitles.length > 0 ? "opacity-100" : "opacity-0 h-0"} ${titlesVisible ? `sticky z-40 top-0 text-base md:text-lg mb-1.5 p-2 justify-center rounded-t drop-shadow-md backdrop-blur-xl` : ` h-full justify-between px-2 text-xl md:text-2xl`} transition-all duration-100 ease-linear flex items-center text-center ${colors[theme]["page-text"]}`}>
                                 <div className={`${titlesVisible ? "" : "flex justify-between w-full"}`}>{translationApplication.titles}{` `}<span className={`${colors[theme]["matching-text"]}`}>{searchResultTitles.length}</span></div>
                             </div>
                             <div className={`text-sm md:text-base w-full ${colors[theme]["text"]} `}>
                                 <div className={`w-full flex flex-col space-y-1.5 ${titlesVisible ? `pb-1.5` : ``}`}>
                                     {titlesVisible &&
                                         (
-                                            loadedTitles.map((result, index) => (
-                                                <div
-                                                    ref={index === loadedTitles.length - 1 ? lastTitleElementRef : null}
-                                                    key={`${result.suraNumber}-${result.titleNumber}-${index}`}
-                                                    className={`p-2 rounded  ${colors[theme]["base-background"]} cursor-pointer mx-1.5 md:mr-2`}
-                                                    onClick={handleConfirm(`${result.suraNumber}:${result.titleNumber}`)}>
-                                                    <span className="text-sky-500">{result.suraNumber}:{result.titleNumber}</span> {lightWords(result.titleText)}
-                                                </div>
-                                            ))
+                                            loadedTitles.map((result, index) => {
+                                                const thekey = `${result.suraNumber}:${result.titleNumber}`;
+                                                const pulsate = notify === `title_${thekey}` ? `animate-pulse` : ``;
+                                                return (
+                                                    <div
+                                                        ref={(node) => {
+                                                            titlesReferences.current[thekey] = node;
+                                                            if (index === loadedTitles.length - 1) {
+                                                                lastTitleElementRef(node);
+                                                            }
+                                                        }}
+                                                        key={`title-${thekey}-${index}`}
+                                                        className={`py-2 px-5 rounded relative ${colors[theme]["app-background"]} cursor-pointer mx-1.5 md:mr-2 whitespace-pre-line text-center ${pulsate}`}
+                                                        onClick={handleConfirm(thekey, `title`)}>
+                                                        <span className="text-sky-500 absolute top-1 left-1 text-xs">{result.suraNumber}:{result.titleNumber}</span> {lightWords(result.titleText)}
+                                                    </div>
+                                                );
+                                            })
                                         )}
                                 </div>
                             </div>
@@ -569,12 +696,19 @@ const Magnify = ({ colors, theme, translationApplication, quran, map, appendices
                                     {versesVisible &&
                                         (
                                             loadedVerses.map((result, index) => {
-                                                const hasRing = multiSelect ? selectedVerseSet.has(`${result.suraNumber}:${result.verseNumber}`) ? `ring-1 ${colors[theme]["matching-ring"]}` : "" : "";
+                                                const thekey = `${result.suraNumber}:${result.verseNumber}`;
+                                                const pulsate = notify === `verse_${thekey}` ? `animate-pulse` : ``;
+                                                const hasring = multiSelect ? selectedVerseSet.has(thekey) ? `ring-1 ${colors[theme]["matching-ring"]}` : `` : ``;
                                                 return (
                                                     <div
-                                                        ref={index === loadedVerses.length - 1 ? lastVerseElementRef : null}
-                                                        key={`verse-${result.suraNumber}:${result.verseNumber}-index`}
-                                                        className={`p-1.5 rounded ${colors[theme]["text-background"]} cursor-pointer mx-1.5 md:mr-2 ${hasRing}`}
+                                                        ref={(node) => {
+                                                            versesReferences.current[thekey] = node;
+                                                            if (index === loadedVerses.length - 1) {
+                                                                lastVerseElementRef(node);
+                                                            }
+                                                        }}
+                                                        key={`verse-${thekey}-index`}
+                                                        className={`p-1.5 rounded ${colors[theme]["text-background"]} cursor-pointer mx-1.5 md:mr-2 ${hasring} ${pulsate}`}
                                                         onClick={handleConfirm(`${result.suraNumber}:${result.verseNumber}`, 'verse')}>
                                                         <span className="text-sky-500">{result.suraNumber}:{result.verseNumber}</span> {lightWords(result.verseText)}
                                                     </div>
@@ -598,15 +732,24 @@ const Magnify = ({ colors, theme, translationApplication, quran, map, appendices
                                 className={`text-sm md:text-base text-justify hyphens-auto w-full ${colors[theme]["text"]} transition-all duration-100 ease-linear ${loadedNotes.length > 0 ? "max-h-full" : "h-0"}`}>
                                 <div className={`w-full flex flex-col space-y-1.5 ${notesVisible ? `pb-1.5` : ``}`}>
                                     {notesVisible &&
-                                        (loadedNotes.map((result, index) => (
-                                            <div
-                                                ref={index === loadedNotes.length - 1 ? lastNoteElementRef : null}
-                                                key={`${result.suraNumber}-${result.verseNumber}-${index}`}
-                                                className={` p-1.5 rounded  ${colors[theme]["notes-background"]} cursor-pointer mx-1.5 md:mr-2`}
-                                                onClick={handleConfirm(`${result.suraNumber}:${result.verseNumber}`)}>
-                                                {lightWords(result.note)}
-                                            </div>
-                                        )))
+                                        (loadedNotes.map((result, index) => {
+                                            const thekey = `${result.suraNumber}:${result.verseNumber}`;
+                                            const pulsate = notify === `footnote_${thekey}` ? `animate-pulse` : ``;
+                                            return (
+                                                <div
+                                                    ref={(node) => {
+                                                        notesReferences.current[thekey] = node;
+                                                        if (index === loadedNotes.length - 1) {
+                                                            lastNoteElementRef(node);
+                                                        }
+                                                    }}
+                                                    key={`footnote-${thekey}-${index}`}
+                                                    className={` p-1.5 rounded  ${colors[theme]["notes-background"]} cursor-pointer mx-1.5 md:mr-2 ${pulsate}`}
+                                                    onClick={handleConfirm(`${result.suraNumber}:${result.verseNumber}`, `footnote`)}>
+                                                    {lightWords(result.note)}
+                                                </div>
+                                            );
+                                        }))
                                     }
                                 </div>
                             </div>
@@ -625,14 +768,21 @@ const Magnify = ({ colors, theme, translationApplication, quran, map, appendices
                                 <div className={`w-full flex flex-col space-y-1.5 ${appendicesVisible ? "mb-10 pb-1.5" : ""}`}>
                                     {appendicesVisible &&
                                         loadedAppendices.map((result, index) => {
-                                            const isIntro = result.appx === 0;
+                                            const isIntro = result.appx === '0';
                                             const confirmKey = isIntro ? `intro:${result.key}` : `appx:${result.appx}-${result.key}`
+
+                                            const pulsate = notify === `appendix_${confirmKey}` ? `animate-pulse` : ``;
                                             return (
                                                 <div
-                                                    ref={index === loadedAppendices.length - 1 ? lastAppendixElementRef : null}
-                                                    key={`${result.appx}-${result.key}-${index}`}
-                                                    className={`p-1.5 rounded ${colors[theme]["text-background"]} cursor-pointer mx-1.5 md:mr-2`}
-                                                    onClick={handleConfirm(confirmKey)}
+                                                    ref={(node) => {
+                                                        appendicesReferences.current[confirmKey] = node;
+                                                        if (index === loadedAppendices.length - 1) {
+                                                            lastAppendixElementRef(node);
+                                                        }
+                                                    }}
+                                                    key={`appendix-${confirmKey}-${index}`}
+                                                    className={`p-1.5 rounded ${colors[theme]["text-background"]} cursor-pointer mx-1.5 md:mr-2 ${pulsate}`}
+                                                    onClick={handleConfirm(confirmKey, `appendix`)}
                                                 >
                                                     {isIntro ? (
                                                         <>

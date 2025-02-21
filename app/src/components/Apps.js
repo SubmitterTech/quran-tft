@@ -16,6 +16,7 @@ const Apps = ({ colors, theme, translationApplication, parseReferences, appendic
     const textRef = useRef({});
 
     const [isRefsReady, setIsRefsReady] = useState(false);
+    const [notify, setNotify] = useState(null);
 
     const mapAppendicesData = useCallback((appendices) => {
         return mapAppendices(appendices, translationApplication);
@@ -34,6 +35,10 @@ const Apps = ({ colors, theme, translationApplication, parseReferences, appendic
                     restoreAppText.current = null;
                 } else if (refToJump.current && textRef.current[refToJump.current]) {
                     textRef.current[refToJump.current].scrollIntoView({ behavior: 'smooth', block: 'center' });
+                    setNotify(refToJump.current);
+                    setTimeout(() => {
+                        setNotify(null);
+                    }, 5350);
                 } else {
                     if (appendixRef.current && appendixRef.current[`appendix-${selected}`] && isRefsReady) {
                         appendixRef.current[`appendix-${selected}`].scrollIntoView({ behavior: 'smooth' });
@@ -190,19 +195,22 @@ const Apps = ({ colors, theme, translationApplication, parseReferences, appendic
     const renderContentItem = (appno, item, index) => {
         switch (item.type) {
             case 'title':
+
                 const appx = translationApplication ? translationApplication.appendix : "Appendix";
                 const isAppendixTitle = new RegExp(appx + "\\s*(\\d+)", "i").test(item.content);
+                const pulsateTitle = notify === `${appno}-${index}` ? `animate-pulse` : ``;
 
                 return (
                     <div
                         key={`app-${appno}-${item.type}-${item.order}`}
                         dir={direction}
-                        className={`${isAppendixTitle ? `px-2 pb-1 pt-2.5 ${colors[theme]["page-text"]}` : `sticky top-10 px-2 pb-1 pt-2 ${colors[theme]["app-text"]}`} flex items-center justify-center text-center  font-semibold  ${colors[theme]["app-background"]} `}
+                        className={`${isAppendixTitle ? `px-2 pb-1 pt-2.5 ${colors[theme]["page-text"]}` : `${pulsateTitle} sticky top-10 px-2 pb-1 pt-2 ${colors[theme]["app-text"]}`} flex items-center justify-center text-center  font-semibold  ${colors[theme]["app-background"]} `}
                         ref={isAppendixTitle ? (el) => appendixRef.current[`appendix-${item.content.match(/\d+/)[0]}`] = el : (el) => textRef.current[appno + "-" + index] = el}>
                         {item.content}
                     </div>
                 );
             case 'text':
+                const pulsate = notify === `${appno}-${index}` ? `animate-pulse` : ``;
                 return (
                     <div
                         lang={lang}
@@ -210,7 +218,7 @@ const Apps = ({ colors, theme, translationApplication, parseReferences, appendic
                         key={`app-${appno}-${item.type}-${item.order}`}
                         ref={(el) => textRef.current[appno + "-" + index] = el}
                         onClick={(e) => handleClick(e, appno, index)}
-                        className={`rounded ${colors[theme]["text-background"]} ${colors[theme]["text"]} p-0.5 mb-1 flex w-full text-justify hyphens-auto`}>
+                        className={`rounded ${colors[theme]["text-background"]} ${colors[theme]["text"]} p-0.5 mb-1 flex w-full text-justify hyphens-auto ${pulsate}`}>
                         <div className={`overflow-x-auto`}>
                             <p className={`px-1 break-words`}>{parseReferences(item.content, appno + "-" + index)}</p>
                         </div>

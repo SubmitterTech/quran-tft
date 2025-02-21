@@ -9,6 +9,7 @@ const Intro = ({ colors, theme, translationApplication, parseReferences, introdu
     const introRef = useRef(null);
     const [isRefsReady, setIsRefsReady] = useState(false);
     const textRememberRef = useRef({});
+    const [notify, setNotify] = useState(null);
 
     useEffect(() => {
         if (currentPage && isRefsReady) {
@@ -17,6 +18,10 @@ const Intro = ({ colors, theme, translationApplication, parseReferences, introdu
                     textRememberRef.current[refToRestore.current].scrollIntoView({ behavior: 'smooth', block: 'center' });
                 } else if (refToJump && textRememberRef.current[refToJump.current]) {
                     textRememberRef.current[refToJump.current].scrollIntoView({ behavior: 'smooth', block: 'center' });
+                    setNotify(refToJump.current);
+                    setTimeout(() => {
+                        setNotify(null);
+                    }, 5350);
                 } else {
                     if (introRef && isRefsReady) {
                         introRef.current.scrollIntoView({ behavior: 'smooth' });
@@ -75,17 +80,18 @@ const Intro = ({ colors, theme, translationApplication, parseReferences, introdu
             if (item.type === 'titles') {
                 const bsml = translationApplication.bsml.toLocaleLowerCase(lang);
                 const hasBesmele = item.content.toLocaleLowerCase(lang).search(bsml) !== -1;
-
+                const pulsate = notify === `intro-${item.type}-${item.order}` ? `animate-pulse` : ``;
                 return (
                     <div
                         key={`title-${index}`}
                         dir={direction}
                         ref={(el) => textRememberRef.current["intro-" + item.type + "-" + item.order] = el}
-                        className={hasBesmele ? `select-none w-full my-1.5 py-1.5 px-2.5 text-neutral-900 rounded text-base md:text-lg lg:text-xl bg-gradient-to-r ${direction === 'rtl' ? ` from-sky-500 to-cyan-300` : ` from-cyan-300 to-sky-500`} besmele` : `select-text w-full flex items-center justify-center text-center p-2 font-semibold ${colors[theme]["app-text"]}  whitespace-pre-line ${item.order === 0 ? "text-3xl font-bold" : " text-lg"}`}>
+                        className={hasBesmele ? `select-none w-full my-1.5 py-1.5 px-2.5 text-neutral-900 rounded text-base md:text-lg lg:text-xl bg-gradient-to-r ${direction === 'rtl' ? ` from-sky-500 to-cyan-300` : ` from-cyan-300 to-sky-500`} besmele` : `${pulsate} select-text w-full flex items-center justify-center text-center p-2 font-semibold ${colors[theme]["app-text"]}  whitespace-pre-line ${item.order === 0 ? "text-3xl font-bold" : " text-lg"}`}>
                         <h2>{item.content}</h2>
                     </div>
                 );
             } else if (item.type === 'text') {
+                const pulsate = notify === `intro-${item.type}-${item.order}` ? `animate-pulse` : ``;
                 return (
                     <div
                         lang={lang}
@@ -93,7 +99,7 @@ const Intro = ({ colors, theme, translationApplication, parseReferences, introdu
                         key={`text-${index}`}
                         ref={(el) => textRememberRef.current["intro-" + item.type + "-" + item.order] = el}
                         onClick={(e) => handleRefClick(e, item.type + "-" + item.order)}
-                        className={`select-text rounded ${colors[theme]["text-background"]} ${colors[theme]["app-text"]} p-1 mb-1 flex w-full justify-center hyphens-auto `}>
+                        className={`select-text rounded ${colors[theme]["text-background"]} ${colors[theme]["app-text"]} p-1 mb-1 flex w-full justify-center hyphens-auto ${pulsate}`}>
                         <p className={`px-0.5 md:px-1`}>{parseReferences(item.content, "intro-" + item.type + "-" + item.order)}</p>
                     </div>
                 );
