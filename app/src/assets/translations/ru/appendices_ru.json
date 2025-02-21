@@ -12,45 +12,45 @@
         "evidence": {
             "2": {
                 "lines": {
-                    "1": "Appendix Page",
-                    "2": "1. One of the Great Miracles [74:35] .... 375",
-                    "3": "2. God’s Messenger of the Covenant [3:81] .... 404",
-                    "4": "3. We Made the Quran Easy [54:17] .... 416",
-                    "5": "4. Why Was the Quran Revealed in Arabic? .... 417",
-                    "6": "5. Heaven and Hell .... 418",
-                    "7": "6. Greatness of God .... 419",
-                    "8": "7. Why Were We Created? .... 420",
-                    "9": "8. The Myth of Intercession .... 422",
-                    "10": "9. Abraham: Original Messenger of Islam .... 423",
-                    "11": "10. God’s Usage of the Plural Tense .... 424",
-                    "12": "11. The Day of Resurrection .... 425",
-                    "13": "12. Role of the Prophet Muhammad .... 426",
-                    "14": "13. The First Pillar of Islam .... 427",
-                    "15": "14. Predestination .... 428",
-                    "16": "15. Religious Duties: Gift from God .... 429",
-                    "17": "16. Dietary Prohibition .... 435",
-                    "18": "17. Death .... 435",
-                    "19": "18. Quran is All You Need .... 437",
-                    "20": "19. Hadith and Sunna: Satanic Innovations .... 437",
-                    "21": "20. Quran: Unlike Any Other Book .... 438",
-                    "22": "21. Satan: Fallen Angel .... 439",
-                    "23": "22. Jesus .... 439",
-                    "24": "23. Chronological Order of Revelation .... 442",
-                    "25": "24. Two False Verses Removed from the Quran .... 443",
-                    "26": "25. End of the World .... 466",
-                    "27": "26. The Three Messengers of Islam .... 468",
-                    "28": "27. Who Is Your God? .... 472",
-                    "29": "28. Muhammad Wrote God’s Revelations With His Own Hand.... 473",
-                    "30": "29. The Missing Basmalah .... 474",
-                    "31": "30. Polygamy .... 477",
-                    "32": "31. Evolution: A Divinely Guided Process .... 478",
-                    "33": "32. The Crucial Age of 40 .... 479",
-                    "34": "33. Why Did God Send a Messenger Now? .... 480",
-                    "35": "34. Virginity/Chastity: A Trait of the True Believers .... 483",
-                    "36": "35. Drugs & Alcohol .... 483",
-                    "37": "36. What Price A Great Nation .... 484",
-                    "38": "37. Criminal Justice in Islam .... 485",
-                    "39": "38. The Creator’s Signature .... 486"
+                    "1": "Приложение Страница",
+                    "2": "1. Одно из великих чудес [74:35] .... 375",
+                    "3": "2. Мы сделали Коран лёгким [3:81] .... 404",
+                    "4": "3. Мы сделали Коран лёгким [54:17] .... 416",
+                    "5": "4. Почему Коран был низведён на арабском языке? .... 417",
+                    "6": "5.Рай и Ад .... 418",
+                    "7": "6. Величие Бога .... 419",
+                    "8": "7. Почему мы были созданы? .... 420",
+                    "9": "8. Миф о заступничестве .... 422",
+                    "10": "9. Авраам (Ибрагим) – первый посланник Ислама .... 423",
+                    "11": "10. Употребление Богом множественного числа .... 424",
+                    "12": "11. День Воскресения .... 425",
+                    "13": "12.Роль Пророка Мухаммеда .... 426",
+                    "14": "13. Первый столп Ислама (Покорности) .... 427",
+                    "15": "14. Предопределение .... 428",
+                    "16": "15.. Религиозные обязанности – дар Бога .... 429",
+                    "17": "16. Пищевые запреты .... 435",
+                    "18": "17. Cмерть .... 435",
+                    "19": "18. Коран – это всё, что необходимо для спасения .... 437",
+                    "20": "19. Хадис и Сунна – сатанинские нововведения .... 437",
+                    "21": "20. Коран не похож ни на какую другую книгу .... 438",
+                    "22": "21. Cатана – падший ангел .... 439",
+                    "23": "22. Иисус (Иса) .... 439",
+                    "24": "23. Хронологическая последовательность откровения .... 442",
+                    "25": "24. Два ложных стиха удалены из Корана .... 443",
+                    "26": "25.Конец света .... 466",
+                    "27": "26.Три посланника Ислама .... 468",
+                    "28": "27. Кто ваш Бог? .... 472",
+                    "29": "28.Мухаммед собственноручно записал Божье откровение .... 473",
+                    "30": "29. Отсутствующая Басмала .... 474",
+                    "31": "30. Многожёнство .... 477",
+                    "32": "31. Эволюция – божественно управляемый процесс .... 478",
+                    "33": "32. Решающий 40-летний возраст .... 479",
+                    "34": "33. Почему Бог отправил посланника сейчас? .... 480",
+                    "35": "34. Девственность/целомудрие – качество истинных верующих .... 483",
+                    "36": "35. Наркотики и алкоголь .... 483",
+                    "37": "36. Цена великого народа .... 484",
+                    "38": "37. Уголовное правосудие в Исламе .... 485",
+                    "39": "38. Подпись Творца .... 486"
                 },
                 "ref": []
             }
@@ -78,7 +78,7 @@
             }
         },
         "titles": {
-            "0": "Appendix 1",
+            "0": "Приложение 1",
             "1": "One of the Great Miracles [74:35]",
             "3": " Легко понять, но невозможно сымитировать"
         }
@@ -2306,7 +2306,7 @@
                     "",
                     "",
                     "",
-                    "507 + 1592 + 29 + 2128 = 19 x 112"
+                    "507 + 1592 + 29 = 2128 = 19 x 112"
                 ]
             }
         },
@@ -2342,7 +2342,7 @@
         "page": 418,
         "text": {
             "1": "The numbers which are mentioned only once in the Quran are: 11, 19, 20, 50, 60, 80, 99, 300, 2000, 3000, 5000, 50000, and 100000.",
-            "2": "All the numbers mentioned in the Quran, with repetitions, occur 285 times, and this numberis a multiple of 19; 285 = 19 x 15.",
+            "2": "All the numbers mentioned in the Quran, with repetitions, occur 285 times, and this number is a multiple of 19; 285 = 19 x 15.",
             "3": "The numbering system of the Quran’s suras and verses has been perfectly preserved. Only a few unauthorized and easily detectable printings deviate from the standard system that is divinely guarded.",
             "4": "When we add the numbers of all suras, plus the number of verses in every sura, plus the sum of verse numbers, the Grand total for the whole Quran comes to 346199, 19 x 19 x 959. Table 25 is an abbreviated presentation of these data. Thus, the slightest alteration of a single sura or verse would have destroyed this system. As shown in Table 16, if we consider only the 29 initialed suras, these same data produce a Grand Total which is also a multiple of 19. It follows that the data for the un-initialed suras are also divisible by 19.",
             "7": "Table 26 is an abbreviated presentation of the same data related to the 85 un-initialed suras.",
@@ -2889,7 +2889,7 @@
             }
         },
         "titles": {
-            "0": "Appendix 2",
+            "0": "Приложение 2",
             "1": "God’s Messenger of the Covenant"
         }
     },
