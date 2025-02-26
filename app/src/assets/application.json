@@ -41,5 +41,8 @@
     "deuteronomy": "Deuteronomy",
     "peter": "Peter",
     "genesis": "Genesis",
-    "quran": "Quran"
+    "quran": "Quran",
+    "returnToJumped": "Return to the jumped location",
+    "includeSearch": "Include search screen to the history",
+    "keepDetailsOpen": "Keep verse details open when using the map"
 }
