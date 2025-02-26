@@ -12,6 +12,7 @@ import Intro from '../components/Intro';
 import Isbn from '../components/Isbn';
 import { adjustReference, generateReferenceMap, transformAppendices, findPageNumber, extractReferenceDetails, mapQuranWithNotes, generateFormula } from '../utils/Mapper';
 import { listCopy, smartCopy, supportsLookAhead, isNative } from '../utils/Device';
+import LongPressable from '../hooks/LongPressable';
 import '../assets/css/Book.css';
 
 const Book = React.memo(({ incomingSearch = false, incomingAppendix = false, incomingAppendixNumber = 1, onChangeFont, font, onChangeColor, colors, theme, translationApplication, introductionContent, quranData, map, appendicesContent, translation, onChangeLanguage, direction }) => {
@@ -33,6 +34,10 @@ const Book = React.memo(({ incomingSearch = false, incomingAppendix = false, inc
     const beginingReferenceToRestore = useRef(null);
     const beginingReferenceToJump = useRef(null);
     const lastPosition = useRef(null);
+
+    const [isPrevSettingsOpen, setPrevSettingsOpen] = useState(false);
+    const [prevSettingsOpenningProgress, setPrevSettingsOpenningProgress] = useState(0);
+
 
     const referenceMap = useMemo(() => generateReferenceMap(quranData), [quranData]);
     const quranmap = useMemo(() => mapQuranWithNotes(translation || quranData), [translation, quranData]);
@@ -140,7 +145,7 @@ const Book = React.memo(({ incomingSearch = false, incomingAppendix = false, inc
         setJumpOpen(false);
     };
 
-    const handleTogglePage = () => {
+    const handleToggleJump = () => {
         if (!isJumpOpen) {
             setMultiSelect(false);
         }
@@ -151,6 +156,7 @@ const Book = React.memo(({ incomingSearch = false, incomingAppendix = false, inc
         } else {
             setMagnifyVisited(false);
         }
+        setPrevSettingsOpen(false);
     };
 
     const setSelectedAppendix = (number) => {
@@ -159,6 +165,7 @@ const Book = React.memo(({ incomingSearch = false, incomingAppendix = false, inc
     };
 
     const updatePage = useCallback((newPage, sura = null, verse = null, actionType = 'navigate', position = null, from = null) => {
+        setPrevSettingsOpen(false);
         setUpdatePageTriggered(pt => !pt);
         setAction(actionType);
         lastPosition.current = from;
@@ -254,6 +261,59 @@ const Book = React.memo(({ incomingSearch = false, incomingAppendix = false, inc
             updatePage(newPage, null, null, 'previous', null, 'navigation');
         }
     }, [currentPage, pageHistory, skipPages, updatePage]);
+
+    const longPressHandler = () => {
+        setPrevSettingsOpenningProgress(1);
+    };
+
+    const longPressCancelled = () => {
+        const duration = 285;
+        const startTime = Date.now();
+        const initialProgress = prevSettingsOpenningProgress;
+
+        const animate = () => {
+            const elapsed = Date.now() - startTime;
+            const progress = Math.max(initialProgress * (1 - elapsed / duration), 0);
+            setPrevSettingsOpenningProgress(progress);
+            if (elapsed < duration) {
+                requestAnimationFrame(animate);
+            } else {
+                setPrevSettingsOpenningProgress(0);
+                setPrevSettingsOpen(false);
+            }
+        };
+
+        requestAnimationFrame(animate);
+    };
+
+    const handleTimerUpdate = (progress, elapsed) => {
+        if (elapsed >= 285) {
+            setPrevSettingsOpen(true);
+            setPrevSettingsOpenningProgress(progress);
+        }
+    };
+
+    const handleNavigationButton = (whichone) => {
+        if (isPrevSettingsOpen) {
+            setPrevSettingsOpen(false);
+        } else {
+            if (whichone === 'left') {
+                if (direction === 'rtl') {
+                    nextPage();
+                } else {
+                    prevPage();
+                }
+            } else if (whichone === 'right') {
+                if (direction === 'rtl') {
+                    prevPage();
+                } else {
+                    nextPage();
+                }
+            } else {
+                console.error("UNKNOWN action from navigation buttons");
+            }
+        }
+    };
 
     const checkOldScripture = (reference) => {
         return (
@@ -552,12 +612,14 @@ const Book = React.memo(({ incomingSearch = false, incomingAppendix = false, inc
         const addBackButtonListener = async () => {
             const listener = await App.addListener('backButton', async () => {
                 if (!backButtonPressedOnce) {
-                    setBackButtonPressedOnce(true);
                     if (isJumpOpen) {
                         setJumpOpen(false);
                     } else if (isMagnifyOpen) {
                         handleCloseSearch();
+                    } else if (isPrevSettingsOpen) {
+                        setPrevSettingsOpen(false);
                     } else {
+                        setBackButtonPressedOnce(true);
                         prevPage();
                         await Toast.show({
                             text: translationApplication.exitToast,
@@ -588,7 +650,7 @@ const Book = React.memo(({ incomingSearch = false, incomingAppendix = false, inc
                 removeListener();
             }
         };
-    }, [backButtonPressedOnce, isJumpOpen, isMagnifyOpen, translationApplication, prevPage]);
+    }, [backButtonPressedOnce, isJumpOpen, isMagnifyOpen, isPrevSettingsOpen, translationApplication, prevPage]);
 
     const handleCopy = async () => {
         const copied = await listCopy(selectedVerseList, quranmap);
@@ -812,7 +874,7 @@ const Book = React.memo(({ incomingSearch = false, incomingAppendix = false, inc
                 setSelectedSura={setSelectedSura}
                 setSelectedVerse={setSelectedVerse}
                 handleClickReference={handleClickReference}
-                handleTogglePage={handleTogglePage}
+                handleToggleJump={handleToggleJump}
                 path={path}
                 startCopyTimer={startCopyTimer}
                 direction={direction}
@@ -969,18 +1031,27 @@ const Book = React.memo(({ incomingSearch = false, incomingAppendix = false, inc
                                     </svg>
                                 </button>)
                                 :
-                                (<button onClick={direction === 'rtl' ? nextPage : prevPage}
-                                    disabled={direction === 'rtl' ? (isJumpOpen || (selectedApp === 38 && currentPage === 397) || isMagnifyOpen) : (isJumpOpen || currentPage === 1 || isMagnifyOpen)}
-                                    className={`w-full h-full ${colors[theme]["app-text"]} px-2 ${direction === 'rtl' ? 'ml-1' : 'mr-2'} flex items-center justify-center ${direction === 'rtl' ? (isJumpOpen || (selectedApp === 38 && currentPage === 397) || isMagnifyOpen) ? "opacity-0" : "opacity-100" : (isJumpOpen || currentPage === 1 || isMagnifyOpen) ? "opacity-0" : "opacity-100"}`}>
-                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className={`w-7 h-7 lg:w-12 lg:h-12`}>
-                                        <path strokeLinecap="round" strokeLinejoin="round" d="M9 15L3 9m0 0l6-6M3 9h12a6 6 0 010 12h-3" />
-                                    </svg>
-                                    {direction !== 'rtl' && pageHistory.length > 0 && (
-                                        <div className={`bg-transparent absolute translate-y-3 -translate-x-3 text-xs lg:translate-y-4 lg:-translate-x-4 lg:text-base ${colors[theme]["matching-text"]} flex items-center justify-center px-2 py-1 rounded-full`}>
-                                            {pageHistory.length}
-                                        </div>
-                                    )}
-                                </button>)}
+                                (
+                                    <LongPressable
+                                        onTap={() => handleNavigationButton('left')}
+                                        onLongPress={direction === 'rtl' ? null : longPressHandler}
+                                        onTimerUpdate={direction === 'rtl' ? null : handleTimerUpdate}
+                                        onCancel={longPressCancelled}>
+                                        <button
+                                            //onClick={direction === 'rtl' ? nextPage : prevPage}
+                                            disabled={direction === 'rtl' ? (isJumpOpen || (selectedApp === 38 && currentPage === 397) || isMagnifyOpen) : (isJumpOpen || currentPage === 1 || isMagnifyOpen)}
+                                            className={`w-full h-full ${colors[theme]["app-text"]} px-2 ${direction === 'rtl' ? 'ml-1' : 'mr-2'} flex items-center justify-center ${direction === 'rtl' ? (isJumpOpen || (selectedApp === 38 && currentPage === 397) || isMagnifyOpen) ? "opacity-0" : "opacity-100" : (isJumpOpen || currentPage === 1 || isMagnifyOpen) ? "opacity-0" : "opacity-100"}`}>
+                                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className={`w-7 h-7 lg:w-12 lg:h-12`}>
+                                                <path strokeLinecap="round" strokeLinejoin="round" d="M9 15L3 9m0 0l6-6M3 9h12a6 6 0 010 12h-3" />
+                                            </svg>
+                                            {direction !== 'rtl' && pageHistory.length > 0 && (
+                                                <div className={`bg-transparent absolute translate-y-3 -translate-x-3 text-xs lg:translate-y-4 lg:-translate-x-4 lg:text-base ${colors[theme]["matching-text"]} flex items-center justify-center px-2 py-1 rounded-full`}>
+                                                    {pageHistory.length}
+                                                </div>
+                                            )}
+                                        </button>
+                                    </LongPressable>
+                                )}
                         </div>
 
                         <div
@@ -990,10 +1061,10 @@ const Book = React.memo(({ incomingSearch = false, incomingAppendix = false, inc
                                 {
                                     isJumpOpen ?
 
-                                        (<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" className={`w-11 h-11 lg:w-14 lg:h-14 ${colors[theme]["text"]}`} onClick={() => handleTogglePage()}>
+                                        (<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" className={`w-11 h-11 lg:w-14 lg:h-14 ${colors[theme]["text"]}`} onClick={() => handleToggleJump()}>
                                             <path fillRule="evenodd" d="M3 6a3 3 0 0 1 3-3h2.25a3 3 0 0 1 3 3v2.25a3 3 0 0 1-3 3H6a3 3 0 0 1-3-3V6Zm9.75 0a3 3 0 0 1 3-3H18a3 3 0 0 1 3 3v2.25a3 3 0 0 1-3 3h-2.25a3 3 0 0 1-3-3V6ZM3 15.75a3 3 0 0 1 3-3h2.25a3 3 0 0 1 3 3V18a3 3 0 0 1-3 3H6a3 3 0 0 1-3-3v-2.25Zm9.75 0a3 3 0 0 1 3-3H18a3 3 0 0 1 3 3V18a3 3 0 0 1-3 3h-2.25a3 3 0 0 1-3-3v-2.25Z" clipRule="evenodd" />
                                         </svg>) :
-                                        (<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className={`w-11 h-11 lg:w-14 lg:h-14 `} onClick={() => handleTogglePage()}>
+                                        (<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className={`w-11 h-11 lg:w-14 lg:h-14 `} onClick={() => handleToggleJump()}>
                                             <path strokeLinecap="round" strokeLinejoin="round" d="M3.75 6A2.25 2.25 0 0 1 6 3.75h2.25A2.25 2.25 0 0 1 10.5 6v2.25a2.25 2.25 0 0 1-2.25 2.25H6a2.25 2.25 0 0 1-2.25-2.25V6ZM3.75 15.75A2.25 2.25 0 0 1 6 13.5h2.25a2.25 2.25 0 0 1 2.25 2.25V18a2.25 2.25 0 0 1-2.25 2.25H6A2.25 2.25 0 0 1 3.75 18v-2.25ZM13.5 6a2.25 2.25 0 0 1 2.25-2.25H18A2.25 2.25 0 0 1 20.25 6v2.25A2.25 2.25 0 0 1 18 10.5h-2.25a2.25 2.25 0 0 1-2.25-2.25V6ZM13.5 15.75a2.25 2.25 0 0 1 2.25-2.25H18a2.25 2.25 0 0 1 2.25 2.25V18A2.25 2.25 0 0 1 18 20.25h-2.25A2.25 2.25 0 0 1 13.5 18v-2.25Z" />
                                         </svg>)
                                 }
@@ -1013,7 +1084,10 @@ const Book = React.memo(({ incomingSearch = false, incomingAppendix = false, inc
                                             id="pageselect"
                                             name="pageselect"
                                             value={currentPage}
-                                            onChange={(e) => setCurrentPage(parseInt(e.target.value))}
+                                            onChange={(e) => {
+                                                setPrevSettingsOpen(false);
+                                                setCurrentPage(parseInt(e.target.value));
+                                            }}
                                             className={`inset-0 opacity-0 w-20 h-full text-3xl ${isJumpOpen ? `hidden` : ``} bg-transparent focus:outline-none focus:ring-2 focus:border-sky-500 focus:ring-sky-500`}
                                         >
                                             {pages.map(({ page, value }, index) => (
@@ -1038,7 +1112,10 @@ const Book = React.memo(({ incomingSearch = false, incomingAppendix = false, inc
                                             id="pageselect"
                                             name="pageselect"
                                             value={currentPage}
-                                            onChange={(e) => setCurrentPage(parseInt(e.target.value))}
+                                            onChange={(e) => {
+                                                setPrevSettingsOpen(false);
+                                                setCurrentPage(parseInt(e.target.value));
+                                            }}
                                             className={`inset-0 opacity-0 w-20 h-full text-3xl ${isJumpOpen ? `hidden` : ``} bg-transparent focus:outline-none focus:ring-2 focus:border-sky-500 focus:ring-sky-500`}
                                         >
                                             {pages.map(({ page, value }, index) => (
@@ -1063,7 +1140,10 @@ const Book = React.memo(({ incomingSearch = false, incomingAppendix = false, inc
                                             id="appselect"
                                             name="appselect"
                                             value={selectedApp}
-                                            onChange={(e) => setSelectedAppendix(e.target.value)}
+                                            onChange={(e) => {
+                                                setPrevSettingsOpen(false);
+                                                setSelectedAppendix(e.target.value);
+                                            }}
                                             className={`inset-0 opacity-0 w-20 h-full text-3xl ${isJumpOpen ? `hidden` : ``} bg-transparent focus:outline-none focus:ring-2 focus:border-sky-500 focus:ring-sky-500`}
                                         >
                                             {appendices.map((appendix, index) => (
@@ -1090,18 +1170,26 @@ const Book = React.memo(({ incomingSearch = false, incomingAppendix = false, inc
                                     )}
                                 </button>)
                                 :
-                                (<button onClick={direction === 'rtl' ? prevPage : nextPage}
-                                    disabled={direction === 'rtl' ? (isJumpOpen || currentPage === 1 || isMagnifyOpen) : (isJumpOpen || (selectedApp === 38 && currentPage === 397) || isMagnifyOpen)}
-                                    className={`w-full h-full ${colors[theme]["app-text"]} px-2 ${direction === 'rtl' ? 'mr-2' : 'ml-1'} flex items-center justify-center ${direction === 'rtl' ? (isJumpOpen || currentPage === 1 || isMagnifyOpen) ? "opacity-0" : "opacity-100" : (isJumpOpen || (selectedApp === 38 && currentPage === 397) || isMagnifyOpen) ? "opacity-0" : "opacity-100"} `}>
-                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className={`w-7 h-7 lg:w-12 lg:h-12`}>
-                                        <path strokeLinecap="round" strokeLinejoin="round" d="M15 15l6-6m0 0l-6-6m6 6H9a6 6 0 000 12h3" />
-                                    </svg>
-                                    {direction === 'rtl' && pageHistory.length > 0 && (
-                                        <div className={`bg-transparent absolute translate-y-3 translate-x-3 text-xs lg:translate-y-4 lg:translate-x-4 lg:text-base ${colors[theme]["matching-text"]} flex items-center justify-center px-2 py-1 rounded-full`}>
-                                            {pageHistory.length}
-                                        </div>
-                                    )}
-                                </button>)}
+                                (
+                                    <LongPressable
+                                        onTap={() => handleNavigationButton('right')}
+                                        onLongPress={direction === 'rtl' ? longPressHandler : null}
+                                        onTimerUpdate={direction === 'rtl' ? handleTimerUpdate : null}
+                                        onCancel={longPressCancelled}>
+                                        <button
+                                            disabled={direction === 'rtl' ? (isJumpOpen || currentPage === 1 || isMagnifyOpen) : (isJumpOpen || (selectedApp === 38 && currentPage === 397) || isMagnifyOpen)}
+                                            className={`w-full h-full ${colors[theme]["app-text"]} px-2 ${direction === 'rtl' ? 'mr-2' : 'ml-1'} flex items-center justify-center ${direction === 'rtl' ? (isJumpOpen || currentPage === 1 || isMagnifyOpen) ? "opacity-0" : "opacity-100" : (isJumpOpen || (selectedApp === 38 && currentPage === 397) || isMagnifyOpen) ? "opacity-0" : "opacity-100"} `}>
+                                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className={`w-7 h-7 lg:w-12 lg:h-12`}>
+                                                <path strokeLinecap="round" strokeLinejoin="round" d="M15 15l6-6m0 0l-6-6m6 6H9a6 6 0 000 12h3" />
+                                            </svg>
+                                            {direction === 'rtl' && pageHistory.length > 0 && (
+                                                <div className={`bg-transparent absolute translate-y-3 translate-x-3 text-xs lg:translate-y-4 lg:translate-x-4 lg:text-base ${colors[theme]["matching-text"]} flex items-center justify-center px-2 py-1 rounded-full`}>
+                                                    {pageHistory.length}
+                                                </div>
+                                            )}
+                                        </button>
+                                    </LongPressable>
+                                )}
                         </div>
                     </div>
                 </div>
@@ -1142,6 +1230,24 @@ const Book = React.memo(({ incomingSearch = false, incomingAppendix = false, inc
                     selectedVerseList={selectedVerseList}
                     setSelectedVerseList={setSelectedVerseList}
                 />
+            }
+            {isPrevSettingsOpen &&
+                <div className={`w-screen h-full fixed left-0 top-0 inset-0 z-20 outline-none focus:outline-none`}>
+                    <div
+                        style={{ opacity: prevSettingsOpenningProgress }}
+
+                        className={`w-full h-full backdrop-blur flex items-center justify-center`}>
+                        <div 
+                        onClick={() => setPrevSettingsOpen(false)}
+                        
+                        className={`w-32 h-32 flex items-center justify-center transition-all duration-300 ease-linear ${prevSettingsOpenningProgress < 0.95 ? " " : " rotate-180 "} ${prevSettingsOpenningProgress === 1 ? colors[theme]["matching-text"] : colors[theme]["log-text"]}`}>
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className={`w-full h-full `}>
+                                <path strokeLinecap="round" strokeLinejoin="round" d="M10.343 3.94c.09-.542.56-.94 1.11-.94h1.093c.55 0 1.02.398 1.11.94l.149.894c.07.424.384.764.78.93.398.164.855.142 1.205-.108l.737-.527a1.125 1.125 0 0 1 1.45.12l.773.774c.39.389.44 1.002.12 1.45l-.527.737c-.25.35-.272.806-.107 1.204.165.397.505.71.93.78l.893.15c.543.09.94.559.94 1.109v1.094c0 .55-.397 1.02-.94 1.11l-.894.149c-.424.07-.764.383-.929.78-.165.398-.143.854.107 1.204l.527.738c.32.447.269 1.06-.12 1.45l-.774.773a1.125 1.125 0 0 1-1.449.12l-.738-.527c-.35-.25-.806-.272-1.203-.107-.398.165-.71.505-.781.929l-.149.894c-.09.542-.56.94-1.11.94h-1.094c-.55 0-1.019-.398-1.11-.94l-.148-.894c-.071-.424-.384-.764-.781-.93-.398-.164-.854-.142-1.204.108l-.738.527c-.447.32-1.06.269-1.45-.12l-.773-.774a1.125 1.125 0 0 1-.12-1.45l.527-.737c.25-.35.272-.806.108-1.204-.165-.397-.506-.71-.93-.78l-.894-.15c-.542-.09-.94-.56-.94-1.109v-1.094c0-.55.398-1.02.94-1.11l.894-.149c.424-.07.765-.383.93-.78.165-.398.143-.854-.108-1.204l-.526-.738a1.125 1.125 0 0 1 .12-1.45l.773-.773a1.125 1.125 0 0 1 1.45-.12l.737.527c.35.25.807.272 1.204.107.397-.165.71-.505.78-.929l.15-.894Z" />
+                                <path strokeLinecap="round" strokeLinejoin="round" d="M15 12a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z" />
+                            </svg>
+                        </div>
+                    </div>
+                </div>
             }
         </div>
     );
