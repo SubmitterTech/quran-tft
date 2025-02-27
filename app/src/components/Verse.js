@@ -27,10 +27,11 @@ const Verse = ({ besmele,
     isScrolling,
     direction,
     parseReferences,
-    startCopyTimer
+    startCopyTimer,
+    kvdo
 }) => {
     const currentVerseKey = `${suraNumber}:${verseNumber}`;
-    const [mode, setMode] = useState("idle");
+    const [mode, setMode] = useState((hasAsterisk && path.current[currentVerseKey] === undefined) ? 'light' : 'idle');
     const [cn, setCn] = useState(verseClassName);
     const [text, setText] = useState(verseText);
     const [relatedVerses, setRelatedVerses] = useState([]);
@@ -41,6 +42,12 @@ const Verse = ({ besmele,
     const [{ x }, api] = useSpring(() => ({ x: 0 }));
 
     useEffect(() => {
+        if (kvdo) {
+            setMode("reading");
+        }
+    }, [kvdo]);
+
+    useEffect(() => {
         setBookmark(Bookmarks.get(currentVerseKey));
 
         const handleBookmarkChange = (nbm) => {
@@ -48,17 +55,10 @@ const Verse = ({ besmele,
         };
 
         Bookmarks.subscribe(currentVerseKey, handleBookmarkChange);
-
-        if (hasAsterisk && path.current[currentVerseKey] === undefined) {
-            setMode("light");
-        } else {
-            setMode("idle");
-        };
-
         return () => {
             Bookmarks.unsubscribe(currentVerseKey, handleBookmarkChange);
         };
-    }, [currentVerseKey, hasAsterisk, path]);
+    }, [currentVerseKey]);
 
     const handleBookmark = useCallback(() => {
         if (bookmark) {

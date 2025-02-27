@@ -38,6 +38,16 @@ const Book = React.memo(({ incomingSearch = false, incomingAppendix = false, inc
     const [isPrevSettingsOpen, setPrevSettingsOpen] = useState(false);
     const [prevSettingsOpenningProgress, setPrevSettingsOpenningProgress] = useState(0);
 
+    //prevButton Settings
+    const [rememberHistory, setRememberHistory] = useState(() => {
+        const saved = localStorage.getItem("qurantft-rh");
+        return (saved !== null ) ? JSON.parse(saved) : true;
+    });
+
+    const [keepVerseDetailsOpen, setKeepVerseDetailsOpen] = useState(() => {
+        const saved = localStorage.getItem("qurantft-kvdo");
+        return (saved !== null ) ? JSON.parse(saved) : false;
+    });
 
     const referenceMap = useMemo(() => generateReferenceMap(quranData), [quranData]);
     const quranmap = useMemo(() => mapQuranWithNotes(translation || quranData), [translation, quranData]);
@@ -120,6 +130,14 @@ const Book = React.memo(({ incomingSearch = false, incomingAppendix = false, inc
         }
     }, [currentPage]);
 
+    useEffect(() => {
+        localStorage.setItem("qurantft-rh", JSON.stringify(rememberHistory));
+    }, [rememberHistory]);
+
+    useEffect(() => {
+        localStorage.setItem("qurantft-kvdo", JSON.stringify(keepVerseDetailsOpen));
+    }, [keepVerseDetailsOpen]);
+
     const handleMagnifyConfirm = (reference, from = null) => {
         magnifyConfirm.current = true;
         const refType = reference.split(":")[0];
@@ -132,7 +150,7 @@ const Book = React.memo(({ incomingSearch = false, incomingAppendix = false, inc
             const [page, part, no] = refKey.split("-");
             const refer = part + "-" + no;
             beginingReferenceToJump.current = "intro-" + refer;
-            updatePage(parseInt(page), null, null, 'jumpIntroduction', null, 'search');
+            updatePage(parseInt(page), null, null, 'jumpIntroduction', null, 'magnify');
         } else {
             handleClickReference(reference, from);
         }
@@ -234,7 +252,7 @@ const Book = React.memo(({ incomingSearch = false, incomingAppendix = false, inc
     };
 
     const prevPage = useCallback(() => {
-        if (pageHistory.length > 0) {
+        if (pageHistory.length > 0 && rememberHistory) {
             const lastHistoryItem = pageHistory.pop();
             setPageHistory([...pageHistory]);
 
@@ -260,7 +278,7 @@ const Book = React.memo(({ incomingSearch = false, incomingAppendix = false, inc
             } while (skipPages.includes(newPage) && newPage > 1);
             updatePage(newPage, null, null, 'previous', null, 'navigation');
         }
-    }, [currentPage, pageHistory, skipPages, updatePage]);
+    }, [currentPage, pageHistory, skipPages, rememberHistory, updatePage]);
 
     const longPressHandler = () => {
         setPrevSettingsOpenningProgress(1);
@@ -879,6 +897,7 @@ const Book = React.memo(({ incomingSearch = false, incomingAppendix = false, inc
                 startCopyTimer={startCopyTimer}
                 direction={direction}
                 upt={updatePageTriggered}
+                kvdo={keepVerseDetailsOpen && rememberHistory}
             />;
         }
 
@@ -1038,13 +1057,12 @@ const Book = React.memo(({ incomingSearch = false, incomingAppendix = false, inc
                                         onTimerUpdate={direction === 'rtl' ? null : handleTimerUpdate}
                                         onCancel={longPressCancelled}>
                                         <button
-                                            //onClick={direction === 'rtl' ? nextPage : prevPage}
                                             disabled={direction === 'rtl' ? (isJumpOpen || (selectedApp === 38 && currentPage === 397) || isMagnifyOpen) : (isJumpOpen || currentPage === 1 || isMagnifyOpen)}
                                             className={`w-full h-full ${colors[theme]["app-text"]} px-2 ${direction === 'rtl' ? 'ml-1' : 'mr-2'} flex items-center justify-center ${direction === 'rtl' ? (isJumpOpen || (selectedApp === 38 && currentPage === 397) || isMagnifyOpen) ? "opacity-0" : "opacity-100" : (isJumpOpen || currentPage === 1 || isMagnifyOpen) ? "opacity-0" : "opacity-100"}`}>
                                             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className={`w-7 h-7 lg:w-12 lg:h-12`}>
                                                 <path strokeLinecap="round" strokeLinejoin="round" d="M9 15L3 9m0 0l6-6M3 9h12a6 6 0 010 12h-3" />
                                             </svg>
-                                            {direction !== 'rtl' && pageHistory.length > 0 && (
+                                            {direction !== 'rtl' && pageHistory.length > 0 && rememberHistory && (
                                                 <div className={`bg-transparent absolute translate-y-3 -translate-x-3 text-xs lg:translate-y-4 lg:-translate-x-4 lg:text-base ${colors[theme]["matching-text"]} flex items-center justify-center px-2 py-1 rounded-full`}>
                                                     {pageHistory.length}
                                                 </div>
@@ -1182,7 +1200,7 @@ const Book = React.memo(({ incomingSearch = false, incomingAppendix = false, inc
                                             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className={`w-7 h-7 lg:w-12 lg:h-12`}>
                                                 <path strokeLinecap="round" strokeLinejoin="round" d="M15 15l6-6m0 0l-6-6m6 6H9a6 6 0 000 12h3" />
                                             </svg>
-                                            {direction === 'rtl' && pageHistory.length > 0 && (
+                                            {direction === 'rtl' && pageHistory.length > 0 && rememberHistory && (
                                                 <div className={`bg-transparent absolute translate-y-3 translate-x-3 text-xs lg:translate-y-4 lg:translate-x-4 lg:text-base ${colors[theme]["matching-text"]} flex items-center justify-center px-2 py-1 rounded-full`}>
                                                     {pageHistory.length}
                                                 </div>
@@ -1235,17 +1253,63 @@ const Book = React.memo(({ incomingSearch = false, incomingAppendix = false, inc
                 <div className={`w-screen h-full fixed left-0 top-0 inset-0 z-20 outline-none focus:outline-none`}>
                     <div
                         style={{ opacity: prevSettingsOpenningProgress }}
-
-                        className={`w-full h-full backdrop-blur flex items-center justify-center`}>
-                        <div 
-                        onClick={() => setPrevSettingsOpen(false)}
-                        
-                        className={`w-32 h-32 flex items-center justify-center transition-all duration-300 ease-linear ${prevSettingsOpenningProgress < 0.95 ? " " : " rotate-180 "} ${prevSettingsOpenningProgress === 1 ? colors[theme]["matching-text"] : colors[theme]["log-text"]}`}>
-                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className={`w-full h-full `}>
-                                <path strokeLinecap="round" strokeLinejoin="round" d="M10.343 3.94c.09-.542.56-.94 1.11-.94h1.093c.55 0 1.02.398 1.11.94l.149.894c.07.424.384.764.78.93.398.164.855.142 1.205-.108l.737-.527a1.125 1.125 0 0 1 1.45.12l.773.774c.39.389.44 1.002.12 1.45l-.527.737c-.25.35-.272.806-.107 1.204.165.397.505.71.93.78l.893.15c.543.09.94.559.94 1.109v1.094c0 .55-.397 1.02-.94 1.11l-.894.149c-.424.07-.764.383-.929.78-.165.398-.143.854.107 1.204l.527.738c.32.447.269 1.06-.12 1.45l-.774.773a1.125 1.125 0 0 1-1.449.12l-.738-.527c-.35-.25-.806-.272-1.203-.107-.398.165-.71.505-.781.929l-.149.894c-.09.542-.56.94-1.11.94h-1.094c-.55 0-1.019-.398-1.11-.94l-.148-.894c-.071-.424-.384-.764-.781-.93-.398-.164-.854-.142-1.204.108l-.738.527c-.447.32-1.06.269-1.45-.12l-.773-.774a1.125 1.125 0 0 1-.12-1.45l.527-.737c.25-.35.272-.806.108-1.204-.165-.397-.506-.71-.93-.78l-.894-.15c-.542-.09-.94-.56-.94-1.109v-1.094c0-.55.398-1.02.94-1.11l.894-.149c.424-.07.765-.383.93-.78.165-.398.143-.854-.108-1.204l-.526-.738a1.125 1.125 0 0 1 .12-1.45l.773-.773a1.125 1.125 0 0 1 1.45-.12l.737.527c.35.25.807.272 1.204.107.397-.165.71-.505.78-.929l.15-.894Z" />
-                                <path strokeLinecap="round" strokeLinejoin="round" d="M15 12a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z" />
-                            </svg>
-                        </div>
+                        className={`w-full h-full backdrop-blur flex items-center justify-center relative`}>
+                        <div
+                            onClick={() => setPrevSettingsOpen(false)}
+                            className={` w-full h-full absolute left-0 top-0`}></div>
+                        {prevSettingsOpenningProgress !== 1 ? (
+                            <div className={`flex items-center justify-center transition-all duration-300 ease-linear ${prevSettingsOpenningProgress < 0.57 ? " " : " rotate-180 "} ${prevSettingsOpenningProgress >= 0.57 ? colors[theme]["matching-text"] : colors[theme]["log-text"]}`}>
+                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className={`w-24 h-24 `}>
+                                    <path strokeLinecap="round" strokeLinejoin="round" d="M10.343 3.94c.09-.542.56-.94 1.11-.94h1.093c.55 0 1.02.398 1.11.94l.149.894c.07.424.384.764.78.93.398.164.855.142 1.205-.108l.737-.527a1.125 1.125 0 0 1 1.45.12l.773.774c.39.389.44 1.002.12 1.45l-.527.737c-.25.35-.272.806-.107 1.204.165.397.505.71.93.78l.893.15c.543.09.94.559.94 1.109v1.094c0 .55-.397 1.02-.94 1.11l-.894.149c-.424.07-.764.383-.929.78-.165.398-.143.854.107 1.204l.527.738c.32.447.269 1.06-.12 1.45l-.774.773a1.125 1.125 0 0 1-1.449.12l-.738-.527c-.35-.25-.806-.272-1.203-.107-.398.165-.71.505-.781.929l-.149.894c-.09.542-.56.94-1.11.94h-1.094c-.55 0-1.019-.398-1.11-.94l-.148-.894c-.071-.424-.384-.764-.781-.93-.398-.164-.854-.142-1.204.108l-.738.527c-.447.32-1.06.269-1.45-.12l-.773-.774a1.125 1.125 0 0 1-.12-1.45l.527-.737c.25-.35.272-.806.108-1.204-.165-.397-.506-.71-.93-.78l-.894-.15c-.542-.09-.94-.56-.94-1.109v-1.094c0-.55.398-1.02.94-1.11l.894-.149c.424-.07.765-.383.93-.78.165-.398.143-.854-.108-1.204l-.526-.738a1.125 1.125 0 0 1 .12-1.45l.773-.773a1.125 1.125 0 0 1 1.45-.12l.737.527c.35.25.807.272 1.204.107.397-.165.71-.505.78-.929l.15-.894Z" />
+                                    <path strokeLinecap="round" strokeLinejoin="round" d="M15 12a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z" />
+                                </svg>
+                            </div>)
+                            :
+                            (<div
+                                style={{ animation: 'animate-scale 0.2s ease-in-out' }}
+                                className={`mx-3 z-40 ${colors[theme]["app-background"]} flex items-center justify-center rounded shadow-lg`}>
+                                <div className={`rounded px-1 py-1.5 border ${colors[theme]["border"]}`}
+                                    style={{ top: `calc(3.3rem + env(safe-area-inset-top) * 0.76)` }}>
+                                    <div className={`flex flex-col text-lg md:text-xl`}>
+                                        <label dir={direction} className={`flex items-center justify-between md:justify-end space-x-2 p-3 cursor-pointer `}>
+                                            <span className={`${rememberHistory ? colors[theme]["text"] : colors[theme]["page-text"]}`}>{translationApplication?.returnToJumped}</span>
+                                            <div>
+                                                <label className='flex cursor-pointer select-none items-center'>
+                                                    <div className='relative'>
+                                                        <input
+                                                            type='checkbox'
+                                                            checked={rememberHistory}
+                                                            onChange={(e) => setRememberHistory(e.target.checked)}
+                                                            className='sr-only'
+                                                        />
+                                                        <div className={`box block h-8 w-14 rounded-full ${rememberHistory ? colors[theme]["text-background"] : colors[theme]["base-background"]}`}></div>
+                                                        <div className={`absolute left-1 top-1 flex h-6 w-6 items-center justify-center rounded-full ${rememberHistory ? colors[theme]["matching"] : colors[theme]["notes-background"]} transition ${rememberHistory ? 'translate-x-full' : ''}`}></div>
+                                                    </div>
+                                                </label>
+                                            </div>
+                                        </label>
+                                        <div className={`border-b ${colors[theme]["verse-border"]} mx-2 mt-2`} ></div>
+                                        <label dir={direction} className={`flex items-center justify-between md:justify-end space-x-2 p-3 cursor-pointer `}>
+                                            <span className={`text-base ${(keepVerseDetailsOpen && rememberHistory) ? colors[theme]["text"] : colors[theme]["page-text"]}`}>{translationApplication?.keepDetailsOpen}</span>
+                                            <div>
+                                                <label className='flex cursor-pointer select-none items-center'>
+                                                    <div className='relative'>
+                                                        <input
+                                                            type='checkbox'
+                                                            disabled={!rememberHistory}
+                                                            checked={keepVerseDetailsOpen}
+                                                            onChange={(e) => setKeepVerseDetailsOpen(e.target.checked)}
+                                                            className='sr-only'
+                                                        />
+                                                        <div className={`box block h-8 w-14 rounded-full ${(keepVerseDetailsOpen && rememberHistory)? colors[theme]["text-background"] : colors[theme]["base-background"]}`}></div>
+                                                        <div className={`absolute left-1 top-1 flex h-6 w-6 items-center justify-center rounded-full ${(keepVerseDetailsOpen && rememberHistory) ? colors[theme]["matching"] : colors[theme]["notes-background"]} transition ${keepVerseDetailsOpen ? 'translate-x-full' : ''}`}></div>
+                                                    </div>
+                                                </label>
+                                            </div>
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>)}
                     </div>
                 </div>
             }

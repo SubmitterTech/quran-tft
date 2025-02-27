@@ -63,9 +63,10 @@ const Pages = React.memo(({
     path,
     startCopyTimer,
     direction,
-    upt
+    upt,
+    kvdo
 }) => {
-    const lang = localStorage.getItem("lang")
+    const lang = localStorage.getItem("lang");
 
     // Refs
     const verseRefs = useRef({});
@@ -78,6 +79,8 @@ const Pages = React.memo(({
     const scrollTimeout = useRef(null);
 
     // State
+    const [kvdoPerVerse, setkvdoPerVerse] = useState(kvdo);
+
     const [notify, setNotify] = useState(false);
     const [focusedNoteIndices, setFocusedNoteIndices] = useState(Array(10).fill(false));
     const [stickyHeight, setStickyHeight] = useState(0);
@@ -182,9 +185,10 @@ const Pages = React.memo(({
             notifyRange.current[key] = true;
         }
 
+        setkvdoPerVerse(kvdo && path.current[key] !== undefined);
         if (verseRefs.current[key]) {
             setTimeout(() => {
-                verseRefs.current[key]?.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                verseRefs.current[key]?.scrollIntoView({ behavior: 'smooth', block: (kvdo && path.current[key] !== undefined) ? 'start' : 'center' });
                 setNotify(true);
                 clearTimeout(notifyTimeoutRef.current);
                 notifyTimeoutRef.current = setTimeout(() => {
@@ -192,9 +196,9 @@ const Pages = React.memo(({
                     notifyRange.current = {};
                 }, 4450);
                 return () => clearTimeout(notifyTimeoutRef.current);
-            }, 150);
+            }, 190);
         }
-    }, [upt]);
+    }, [upt, kvdo, path]);
 
     useEffect(() => {
         const verseKey = `${selectedSura}:${selectedVerse}`;
@@ -633,6 +637,7 @@ const Pages = React.memo(({
                                 direction={direction}
                                 parseReferences={parseReferences}
                                 startCopyTimer={startCopyTimer}
+                                kvdo={(kvdoPerVerse && (parseInt(selectedSura) === parseInt(suraNumber) && parseInt(selectedVerse) === parseInt(verseNumber)))}
                             />
                         </div>
                     );
