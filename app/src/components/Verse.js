@@ -145,12 +145,29 @@ const Verse = ({ besmele,
                 if (verses && verses.includes(',')) {
                     verses.split(',').forEach(verseRange => {
                         if (verseRange) {
-                            const individualKey = `${sura}:${verseRange.trim()}`;
-                            if (individualKey !== currentVerseKey) {
-                                const themeRelated = related.get(theme) || [];
-                                if (!themeRelated.includes(individualKey)) {
-                                    themeRelated.push(individualKey);
-                                    related.set(theme, themeRelated);
+                            if (verseRange.includes('-')) {
+                                const [start, end] = verseRange.split('-');
+                                for (let verse = parseInt(start.trim()); verse <= parseInt(end.trim()); verse++) {
+
+                                    const individualKey = `${sura}:${verse}`;
+
+                                    if (individualKey !== currentVerseKey) {
+                                        const themeRelated = related.get(theme) || [];
+
+                                        if (!themeRelated.includes(individualKey)) {
+                                            themeRelated.push(individualKey);
+                                            related.set(theme, themeRelated);
+                                        }
+                                    }
+                                }
+                            } else {
+                                const individualKey = `${sura}:${verseRange.trim()}`;
+                                if (individualKey !== currentVerseKey) {
+                                    const themeRelated = related.get(theme) || [];
+                                    if (!themeRelated.includes(individualKey)) {
+                                        themeRelated.push(individualKey);
+                                        related.set(theme, themeRelated);
+                                    }
                                 }
                             }
                         }
@@ -246,7 +263,6 @@ const Verse = ({ besmele,
                 }
             });
         });
-
         return related;
     }, [currentVerseKey, relationalData]);
 
