@@ -41,5 +41,8 @@
     "deuteronomy": "Deutéronome",
     "peter": "Pierre",
     "genesis": "Genèse",
-    "quran": "Coran"
+    "quran": "Coran",
+    "returnToJumped": "Retour à l'emplacement du saut",
+    "includeSearch": "Inclure l'écran de recherche dans l'historique",
+    "keepDetailsOpen": "Gardez les détails du verset ouverts lorsque vous utilisez la carte"
 }

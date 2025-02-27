@@ -41,5 +41,8 @@
     "deuteronomy": "تثنیه",
     "peter": "پيتر",
     "genesis": "پیدایش",
-    "quran": "قرآن"
+    "quran": "قرآن",
+    "returnToJumped": "برگشت به محل پریده شده",
+    "includeSearch": "شامل تاریخچه صفحه جستجو",
+    "keepDetailsOpen": "هنگام استفاده از نقشه جزئیات آیه را باز نگه دار"
 }
