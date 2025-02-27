@@ -1271,7 +1271,7 @@ const Book = React.memo(({ incomingSearch = false, incomingAppendix = false, inc
                                 <div className={`rounded px-1 py-1.5 border ${colors[theme]["border"]}`}
                                     style={{ top: `calc(3.3rem + env(safe-area-inset-top) * 0.76)` }}>
                                     <div className={`flex flex-col text-lg md:text-xl`}>
-                                        <label dir={direction} className={`flex items-center justify-between md:justify-end space-x-2 p-3 cursor-pointer `}>
+                                        <label dir={direction} className={`flex items-center justify-between md:justify-end p-3 cursor-pointer  ${direction === 'rtl' ? ``:`space-x-4 `}`}>
                                             <span className={`${rememberHistory ? colors[theme]["text"] : colors[theme]["page-text"]}`}>{translationApplication?.returnToJumped}</span>
                                             <div>
                                                 <label className='flex cursor-pointer select-none items-center'>
@@ -1289,8 +1289,8 @@ const Book = React.memo(({ incomingSearch = false, incomingAppendix = false, inc
                                             </div>
                                         </label>
                                         <div className={`border-b ${colors[theme]["verse-border"]} mx-2 mt-2`} ></div>
-                                        <label dir={direction} className={`flex items-center justify-between md:justify-end space-x-2 p-3 cursor-pointer `}>
-                                            <span className={`text-base ${(keepVerseDetailsOpen && rememberHistory) ? colors[theme]["text"] : colors[theme]["page-text"]}`}>{translationApplication?.keepDetailsOpen}</span>
+                                        <label dir={direction} className={`flex items-center justify-between md:justify-end p-2.5 cursor-pointer ${direction === 'rtl' ? ``:`space-x-4 `}`}>
+                                            <span className={`text-base ${direction === 'rtl' ? `pl-4`:` `} break-words ${rememberHistory ? `` : ` brightness-50`} ${(keepVerseDetailsOpen && rememberHistory) ? colors[theme]["text"] : colors[theme]["page-text"]}`}>{translationApplication?.keepDetailsOpen}</span>
                                             <div>
                                                 <label className='flex cursor-pointer select-none items-center'>
                                                     <div className='relative'>
