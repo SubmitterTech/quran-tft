@@ -59,7 +59,7 @@ const Pages = React.memo(({
     setSelectedSura,
     setSelectedVerse,
     handleClickReference,
-    handleTogglePage,
+    handleToggleJump,
     path,
     startCopyTimer,
     direction,
@@ -417,7 +417,7 @@ const Pages = React.memo(({
     };
 
     const handlePageTitleClicked = () => {
-        handleTogglePage();
+        handleToggleJump();
     };
 
     const handleVerseClick = (hasAsterisk, key) => {
