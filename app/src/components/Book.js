@@ -27,6 +27,7 @@ const Book = React.memo(({ incomingSearch = false, incomingAppendix = false, inc
 
     const [isMagnifyOpen, setMagnifyOpen] = useState(incomingSearch);
     const [isMagnifyVisited, setMagnifyVisited] = useState(false);
+    const [shouldMagnifyRemembered, setShouldMagnifyRemembered] = useState(false);
     const restoreAppText = useRef(null);
     const restoreIntroText = useRef(null);
     const endReferenceToRestore = useRef(null);
@@ -41,12 +42,17 @@ const Book = React.memo(({ incomingSearch = false, incomingAppendix = false, inc
     //prevButton Settings
     const [rememberHistory, setRememberHistory] = useState(() => {
         const saved = localStorage.getItem("qurantft-rh");
-        return (saved !== null ) ? JSON.parse(saved) : true;
+        return (saved !== null) ? JSON.parse(saved) : true;
     });
 
     const [keepVerseDetailsOpen, setKeepVerseDetailsOpen] = useState(() => {
         const saved = localStorage.getItem("qurantft-kvdo");
-        return (saved !== null ) ? JSON.parse(saved) : false;
+        return (saved !== null) ? JSON.parse(saved) : false;
+    });
+
+    const [includeSearchScreen, setIncludeSearchScreen] = useState(() => {
+        const saved = localStorage.getItem("qurantft-iss");
+        return (saved !== null) ? JSON.parse(saved) : false;
     });
 
     const referenceMap = useMemo(() => generateReferenceMap(quranData), [quranData]);
@@ -138,7 +144,12 @@ const Book = React.memo(({ incomingSearch = false, incomingAppendix = false, inc
         localStorage.setItem("qurantft-kvdo", JSON.stringify(keepVerseDetailsOpen));
     }, [keepVerseDetailsOpen]);
 
+    useEffect(() => {
+        localStorage.setItem("qurantft-iss", JSON.stringify(includeSearchScreen));
+    }, [includeSearchScreen]);
+
     const handleMagnifyConfirm = (reference, from = null) => {
+        from = 'magnify'
         magnifyConfirm.current = true;
         const refType = reference.split(":")[0];
         const refKey = reference.split(":")[1];
@@ -150,7 +161,7 @@ const Book = React.memo(({ incomingSearch = false, incomingAppendix = false, inc
             const [page, part, no] = refKey.split("-");
             const refer = part + "-" + no;
             beginingReferenceToJump.current = "intro-" + refer;
-            updatePage(parseInt(page), null, null, 'jumpIntroduction', null, 'magnify');
+            updatePage(parseInt(page), null, null, 'jumpIntroduction', null, from);
         } else {
             handleClickReference(reference, from);
         }
@@ -190,6 +201,7 @@ const Book = React.memo(({ incomingSearch = false, incomingAppendix = false, inc
         if (actionType !== 'previous' && (parseInt(newPage) === 397 || (parseInt(newPage) !== parseInt(currentPage)))) {
             setPageHistory(previous => {
                 let last = previous[previous.length - 1];
+
                 if (last && last.page === parseInt(currentPage) && (parseInt(currentPage) !== 397)) {
                     last.sura = sura;
                     last.verse = verse;
@@ -198,6 +210,7 @@ const Book = React.memo(({ incomingSearch = false, incomingAppendix = false, inc
                     last.from = from;
                     return [...previous.slice(0, previous.length - 1), last];
                 } else {
+
                     if (last && parseInt(newPage) === 397 && actionType === 'jumpAppendix' && last.position !== null && last.position === position) {
                         return previous;
                     }
@@ -211,6 +224,10 @@ const Book = React.memo(({ incomingSearch = false, incomingAppendix = false, inc
                             position,
                             from
                         }];
+                    }
+
+                    if(from !== null && from.includes('magnify') && rememberHistory && includeSearchScreen) {
+                        setShouldMagnifyRemembered(true);
                     }
 
                     return [...previous, {
@@ -256,7 +273,6 @@ const Book = React.memo(({ incomingSearch = false, incomingAppendix = false, inc
             const lastHistoryItem = pageHistory.pop();
             setPageHistory([...pageHistory]);
 
-            // Restore the page, sura, and verse from the history
             setCurrentPage(lastHistoryItem.page);
             setSelectedSura(lastHistoryItem.sura);
             setSelectedVerse(lastHistoryItem.verse);
@@ -270,6 +286,13 @@ const Book = React.memo(({ incomingSearch = false, incomingAppendix = false, inc
                 if (pageHistory[pageHistory.length - 1]) {
                     setSelectedApp(parseInt(pageHistory[pageHistory.length - 1].position));
                 }
+            }
+
+            if(includeSearchScreen && shouldMagnifyRemembered && lastHistoryItem.from.includes('magnify')) {
+                setTimeout(() => {
+                    setShouldMagnifyRemembered(false);
+                    setMagnifyOpen(true);
+                }, 19);
             }
         } else {
             let newPage = parseInt(currentPage);
@@ -1271,7 +1294,7 @@ const Book = React.memo(({ incomingSearch = false, incomingAppendix = false, inc
                                 <div className={`rounded px-1 py-1.5 border ${colors[theme]["border"]}`}
                                     style={{ top: `calc(3.3rem + env(safe-area-inset-top) * 0.76)` }}>
                                     <div className={`flex flex-col text-lg md:text-xl`}>
-                                        <label dir={direction} className={`flex items-center justify-between md:justify-end p-3 cursor-pointer  ${direction === 'rtl' ? ``:`space-x-4 `}`}>
+                                        <label dir={direction} className={`flex items-center justify-between md:justify-end p-3 cursor-pointer  ${direction === 'rtl' ? `` : `space-x-4 `}`}>
                                             <span className={`${rememberHistory ? colors[theme]["text"] : colors[theme]["page-text"]}`}>{translationApplication?.returnToJumped}</span>
                                             <div>
                                                 <label className='flex cursor-pointer select-none items-center'>
@@ -1289,8 +1312,8 @@ const Book = React.memo(({ incomingSearch = false, incomingAppendix = false, inc
                                             </div>
                                         </label>
                                         <div className={`border-b ${colors[theme]["verse-border"]} mx-2 mt-2`} ></div>
-                                        <label dir={direction} className={`flex items-center justify-between md:justify-end p-2.5 cursor-pointer ${direction === 'rtl' ? ``:`space-x-4 `}`}>
-                                            <span className={`text-base ${direction === 'rtl' ? `pl-4`:` `} break-words ${rememberHistory ? `` : ` brightness-50`} ${(keepVerseDetailsOpen && rememberHistory) ? colors[theme]["text"] : colors[theme]["page-text"]}`}>{translationApplication?.keepDetailsOpen}</span>
+                                        <label dir={direction} className={`flex items-center justify-between md:justify-end p-2.5 cursor-pointer ${direction === 'rtl' ? `` : `space-x-4 `}`}>
+                                            <span className={`text-base ${direction === 'rtl' ? `pl-4` : ` `} break-words ${rememberHistory ? `` : ` brightness-50`} ${(keepVerseDetailsOpen && rememberHistory) ? colors[theme]["text"] : colors[theme]["page-text"]}`}>{translationApplication?.keepDetailsOpen}</span>
                                             <div>
                                                 <label className='flex cursor-pointer select-none items-center'>
                                                     <div className='relative'>
@@ -1301,8 +1324,27 @@ const Book = React.memo(({ incomingSearch = false, incomingAppendix = false, inc
                                                             onChange={(e) => setKeepVerseDetailsOpen(e.target.checked)}
                                                             className='sr-only'
                                                         />
-                                                        <div className={`box block h-8 w-14 rounded-full ${(keepVerseDetailsOpen && rememberHistory)? colors[theme]["text-background"] : colors[theme]["base-background"]}`}></div>
+                                                        <div className={`box block h-8 w-14 rounded-full ${(keepVerseDetailsOpen && rememberHistory) ? colors[theme]["text-background"] : colors[theme]["base-background"]}`}></div>
                                                         <div className={`absolute left-1 top-1 flex h-6 w-6 items-center justify-center rounded-full ${(keepVerseDetailsOpen && rememberHistory) ? colors[theme]["matching"] : colors[theme]["notes-background"]} transition ${keepVerseDetailsOpen ? 'translate-x-full' : ''}`}></div>
+                                                    </div>
+                                                </label>
+                                            </div>
+                                        </label>
+                                        <div className={`border-b ${colors[theme]["verse-border"]} mx-2 mt-2`} ></div>
+                                        <label dir={direction} className={`flex items-center justify-between md:justify-end p-2.5 cursor-pointer ${direction === 'rtl' ? `` : `space-x-4 `}`}>
+                                            <span className={`text-base ${direction === 'rtl' ? `pl-4` : ` `} break-words ${rememberHistory ? `` : ` brightness-50`} ${(includeSearchScreen && rememberHistory) ? colors[theme]["text"] : colors[theme]["page-text"]}`}>{translationApplication?.includeSearch}</span>
+                                            <div>
+                                                <label className='flex cursor-pointer select-none items-center'>
+                                                    <div className='relative'>
+                                                        <input
+                                                            type='checkbox'
+                                                            disabled={!rememberHistory}
+                                                            checked={includeSearchScreen}
+                                                            onChange={(e) => setIncludeSearchScreen(e.target.checked)}
+                                                            className='sr-only'
+                                                        />
+                                                        <div className={`box block h-8 w-14 rounded-full ${(includeSearchScreen && rememberHistory) ? colors[theme]["text-background"] : colors[theme]["base-background"]}`}></div>
+                                                        <div className={`absolute left-1 top-1 flex h-6 w-6 items-center justify-center rounded-full ${(includeSearchScreen && rememberHistory) ? colors[theme]["matching"] : colors[theme]["notes-background"]} transition ${includeSearchScreen ? 'translate-x-full' : ''}`}></div>
                                                     </div>
                                                 </label>
                                             </div>
