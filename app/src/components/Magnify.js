@@ -465,11 +465,13 @@ const Magnify = ({ colors, theme, translationApplication, quran, map, appendices
                     }
 
                     setTimeout(() => {
-                        references.current[key].scrollIntoView({ behavior: 'smooth', block: 'center' });
-                        setNotify(typeofselection + `_` + key);
-                        setTimeout(() => {
-                            setNotify(null);
-                        }, 5350);
+                        if (references.current[key]) {
+                            references.current[key].scrollIntoView({ behavior: 'smooth', block: 'center' });
+                            setNotify(typeofselection + `_` + key);
+                            setTimeout(() => {
+                                setNotify(null);
+                            }, 5350);
+                        }
                     }, 190);
 
                     lastSelection.current = "";
