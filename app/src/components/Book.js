@@ -245,7 +245,7 @@ const Book = React.memo(({ incomingSearch = false, incomingAppendix = false, inc
         setSelectedSura(sura);
         setSelectedVerse(verse);
         setCurrentPage(newPage);
-    }, [currentPage, selectedSura, selectedVerse]);
+    }, [currentPage, selectedSura, selectedVerse, rememberHistory, includeSearchScreen]);
 
     const nextPage = () => {
         let newPage = parseInt(currentPage) > 396 ? parseInt(currentPage) : parseInt(currentPage) + 1;
@@ -301,7 +301,7 @@ const Book = React.memo(({ incomingSearch = false, incomingAppendix = false, inc
             } while (skipPages.includes(newPage) && newPage > 1);
             updatePage(newPage, null, null, 'previous', null, 'navigation');
         }
-    }, [currentPage, pageHistory, skipPages, rememberHistory, updatePage]);
+    }, [currentPage, pageHistory, skipPages, rememberHistory, includeSearchScreen, shouldMagnifyRemembered, updatePage]);
 
     const longPressHandler = () => {
         setPrevSettingsOpenningProgress(1);
