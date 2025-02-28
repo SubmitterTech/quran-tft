@@ -19,7 +19,7 @@ export const mapAppendices = (appendices, translationApplication) => {
         const collectContent = (type, data, pageno) => {
             Object.entries(data || {}).forEach(([key, value]) => {
                 if (value) {
-                    allContentItems.push({ type, content: value, key: parseInt(key) , page: pageno});
+                    allContentItems.push({ type, content: value, key: parseInt(key), page: pageno });
                 }
 
             });
@@ -103,7 +103,12 @@ export const mapQuranWithNotes = (quran) => {
         // Map notes at the page level
         if (value.notes && value.notes.data) {
             value.notes.data.forEach(note => {
-                const noteKey = note.match(/^\*(\d+):(\d+)/); // Match notes with "sura:verse" format
+                let noteKey = note.match(/^\*(\d+):(\d+)/); // Match notes with "sura:verse" format
+
+                // HACK the result for a special case
+                if (note.includes('9:127')) {
+                    noteKey[2] = '127';
+                }
 
                 if (noteKey) {
                     const [, noteSura, noteVerse] = noteKey;
