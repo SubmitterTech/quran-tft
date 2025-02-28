@@ -29,7 +29,7 @@ function Root() {
     const [translationAppx, setTranslationAppx] = useState(appendicesContent);
     const [translationMap, setTranslationMap] = useState(map);
     const [theme, setTheme] = useState(localStorage.getItem("theme") ? localStorage.getItem("theme") : "sky");
-    const [font, setFont] = useState(localStorage.getItem("qurantft-font") ? localStorage.getItem("qurantft-font") : "font-sans");
+    const [font, setFont] = useState(localStorage.getItem("qurantft-font") ? localStorage.getItem("qurantft-font") : "font-normal");
 
     useEffect(() => {
         const initialize = async () => {
