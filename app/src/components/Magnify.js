@@ -315,7 +315,7 @@ const Magnify = ({ colors, theme, translationApplication, quran, map, appendices
         let processedTerm = searchTerm;
         processedTerm = normalize ? normalizeText(processedTerm) : processedTerm;
         processedTerm = caseSensitive ? processedTerm : processedTerm.toLocaleUpperCase(lang);
-        const keywords = processedTerm.split(' ').filter(keyword => keyword.trim() !== '');
+        const keywords = processedTerm.split(' ').filter(keyword => (keyword.trim() !== '' && keyword.trim() !== '|'));
         let highlightedText = [text];
 
         keywords.forEach((keyword) => {
