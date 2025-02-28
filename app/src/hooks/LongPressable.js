@@ -106,7 +106,7 @@ const LongPressable = ({
 };
 
 LongPressable.propTypes = {
-  onLongPress: PropTypes.func.isRequired,
+  onLongPress: PropTypes.func,
   onTap: PropTypes.func,
   onCancel: PropTypes.func,
   longPressTime: PropTypes.number,
