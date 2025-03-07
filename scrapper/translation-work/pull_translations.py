@@ -1,10 +1,23 @@
+import ctypes
+import os
+
+# Path to your Homebrew ICU 76 libraries (adjust if using Apple Silicon)
+icu_lib_path = "/usr/local/opt/icu4c@76/lib"
+
+# Explicitly load the necessary ICU libraries into the global namespace.
+# This forces the dynamic linker to use these libraries instead of the system ICU.
+for lib_name in ["libicuuc.76.dylib", "libicui18n.76.dylib", "libicudata.76.dylib"]:
+    lib_path = os.path.join(icu_lib_path, lib_name)
+    print(f"Loading ICU library: {lib_path}")
+    ctypes.CDLL(lib_path, mode=ctypes.RTLD_GLOBAL)
+
 from transifex.api import transifex_api
 import requests
 import json
 import os
 import re
 import subprocess
-from pyuca import Collator
+from icu import Collator, Locale
 
 # Determine the directory where this script is located.
 script_dir = os.path.dirname(os.path.abspath(__file__))
@@ -26,8 +39,8 @@ resource_slugs = [
     'introductionjson',
     'quranjson',
     'applicationjson',
-    'mapjson',
-    'appendicesjson'
+    'appendicesjson',
+    'mapjson'
 ]
 
 def load_supported_languages(filename=None):
@@ -53,22 +66,25 @@ project = organization.fetch('projects').get(slug=project_slug)
 # Base path for saving translations (relative to script_dir)
 base_path = os.path.normpath(os.path.join(script_dir, "../../app/src/assets/translations"))
 
-# Create a global Collator instance.
-collator = Collator()
 
-def get_sort_key_func():
+def get_sort_key_func(language_code):
     """
-    Returns a sort key function using pyuca.
+    Returns a sort key function using PyICU's Collator for the specified language code.
     """
-    def pyuca_sort_key(s):
-        return collator.sort_key(str(s))
-    return pyuca_sort_key
+    collator = Collator.createInstance(Locale(language_code))
+    def icu_sort_key(s):
+        # Get the sort key for the given string
+        return collator.getSortKey(str(s))
+    return icu_sort_key
 
-def sort_dictionary(data):
+def sort_dictionary(data, language_code):
+    """
+    Recursively sort a dictionary by keys using the ICU-based sort key function for the specified language.
+    """
     if isinstance(data, dict):
-        sort_key_func = get_sort_key_func()
+        sort_key_func = get_sort_key_func(language_code)
         sorted_items = sorted(data.items(), key=lambda item: sort_key_func(item[0]))
-        return {k: sort_dictionary(v) for k, v in sorted_items}
+        return {k: sort_dictionary(v, language_code) for k, v in sorted_items}
     return data
 
 def extract_chapter_verse_pairs(s):
@@ -108,7 +124,7 @@ def concatenate_and_sort(values):
     concatenated_result = "; ".join(sorted_values)
     return concatenated_result
 
-def reconstruct_dictionary(transformed_data):
+def reconstruct_dictionary(transformed_data, language_code):
     reconstructed_dict = {}
 
     for key, path in transformed_data.items():
@@ -156,7 +172,7 @@ def reconstruct_dictionary(transformed_data):
                     current_level[part] = {"": current_value}
                 current_level = current_level[part]
 
-    return sort_dictionary(reconstructed_dict)
+    return sort_dictionary(reconstructed_dict, language_code)
 
 updated_languages = set()  # Keep track of languages with changes
 
@@ -211,7 +227,7 @@ for language_code in language_codes:
 
             if resource_slug == 'mapjson':
                 transformed_data = translated_content
-                reconstructed_dict = reconstruct_dictionary(transformed_data)
+                reconstructed_dict = reconstruct_dictionary(transformed_data, language_code)
                 with open(output_path, 'w', encoding='utf-8') as new_file:
                     json.dump(reconstructed_dict, new_file, ensure_ascii=False, indent=4)
             else:
