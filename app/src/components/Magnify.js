@@ -491,6 +491,17 @@ const Magnify = ({ colors, theme, translationApplication, quran, map, appendices
         }
     }, []);
 
+    const handleSelectAll = useCallback(() => {
+        if (multiSelect && selectedVerseList.length === 0) {
+            let list = [];
+            searchResultVerses.forEach((item) => {
+                const key = `${item.suraNumber}:${item.verseNumber}`;
+                list.push(key);
+            });
+            setSelectedVerseList(list);
+        }
+    }, [multiSelect, selectedVerseList, setSelectedVerseList, searchResultVerses]);
+
     const handleClose = useCallback(() => {
         if (lastSelection.current && lastSelection.current !== "") {
             saveLastSelection.current = true;
@@ -595,7 +606,7 @@ const Magnify = ({ colors, theme, translationApplication, quran, map, appendices
                             value={searchTerm}
                             onChange={(e) => setSearchTerm(e.target.value)}
                             onFocus={() => { setOptionsVisible(false) }}
-                            className={`w-full p-2 rounded ${colors[theme]["app-background"]} ${colors[theme]["page-text"]} focus:outline-none focus:ring-2 ${colors[theme]["focus-ring"]} ${colors[theme]["focus-text"]}`}
+                            className={`w-full p-2 rounded ${colors[theme]["app-background"]} ${colors[theme]["page-text"]} ring-1 ${theme === 'light' ? `ring-black/10` : `ring-white/10`} focus:outline-none focus:ring-2 ${colors[theme]["focus-ring"]} ${colors[theme]["focus-text"]}`}
                         />
                         <button
                             className={`flex items-center justify-center transition-all duration-300 ease-linear ${optionsVisible ? " -rotate-180 " : " rotate-0"} ${optionsVisible ? colors[theme]["matching-text"] : colors[theme]["log-text"]}`}
@@ -672,9 +683,19 @@ const Magnify = ({ colors, theme, translationApplication, quran, map, appendices
 
                         <div className={`${loadedVerses.length > 0 ? versesVisible ? " flex-1 mx-1 lg:mx-0 ring-1 " : "h-10 mx-1 lg:mx-0 ring-1 " : "hidden"} ${loadedTitles.length > 0 ? "" : " lg:col-span-2"} transition-all duration-100 ease-linear overflow-auto rounded ${colors[theme]["ring"]} ${colors[theme]["base-background"]}`}>
                             <div className={`${loadedVerses.length > 0 ? "opacity-100" : "opacity-0 h-0"} ${versesVisible ? `sticky top-0 text-base md:text-lg mb-1.5 justify-between rounded-t drop-shadow-md backdrop-blur-xl` : ` h-full justify-between text-xl md:text-2xl`} transition-all duration-100 ease-linear flex items-center text-center ${colors[theme]["page-text"]}`}>
+                                {versesVisible &&
+                                    <div
+                                        onClick={() => handleSelectAll()}
+                                        disabled={!multiSelect || selectedVerseList.length !== 0}
+                                        className={` ${direction === 'rtl' ? `ml-3 mr-0.5` : `mr-3 ml-0.5`} cursor-pointer mt-0.5 p-1 transition-all duration-100 ease-linear ${colors[theme]["text"]} ${(multiSelect && selectedVerseList.length === 0) ? `opacity-100` : `opacity-0`}`}>
+                                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" className={`w-8 h-7 `}>
+                                            <path strokeLinecap="round" strokeLinejoin="round" d="M10.125 2.25h-4.5c-.621 0-1.125.504-1.125 1.125v17.25c0 .621.504 1.125 1.125 1.125h12.75c.621 0 1.125-.504 1.125-1.125v-9M10.125 2.25h.375a9 9 0 0 1 9 9v.375M10.125 2.25A3.375 3.375 0 0 1 13.5 5.625v1.5c0 .621.504 1.125 1.125 1.125h1.5a3.375 3.375 0 0 1 3.375 3.375M9 15l2.25 2.25L15 12" />
+                                        </svg>
+                                    </div>
+                                }
                                 <div
                                     onClick={() => setVersesVisible(!versesVisible)}
-                                    className={`${versesVisible ? `${direction === 'rtl' ? `pr-14` : `pl-10`}` : ``} flex items-center w-full p-3 h-10`}>
+                                    className={`flex items-center w-full p-3 h-10`}>
                                     <div dir={direction} className={`w-full flex items-center ${versesVisible ? `justify-center space-x-2` : `justify-between`}`}>
                                         <div className={`${direction === 'rtl' ? `pl-5` : ``}`}>{translationApplication.verses}{` `}</div>
                                         <div className={`${colors[theme]["matching-text"]}`}>{searchResultVerses.length}</div>
@@ -684,7 +705,7 @@ const Magnify = ({ colors, theme, translationApplication, quran, map, appendices
                                     <div
                                         onClick={() => setMultiSelect(!multiSelect)}
                                         style={{ animation: 'animate-scale 0.3s ease-in-out' }}
-                                        className={` ${direction === 'rtl' ? `mr-3` : `ml-3`} cursor-pointer right-1 top-0 p-1 transition-all duration-100 ease-linear ${multiSelect ? `${selectedVerseList.length > 0 ? `${colors[theme]["matching-text"]}` : `${colors[theme]["text"]}`}` : `${colors[theme]["passive-text"]}`}`}>
+                                        className={` ${direction === 'rtl' ? `ml-0.5 mr-3` : `mr-0.5 ml-3`} cursor-pointer mt-0.5 p-1 transition-all duration-100 ease-linear ${multiSelect ? `${selectedVerseList.length > 0 ? `${colors[theme]["matching-text"]}` : `${colors[theme]["text"]}`}` : `${colors[theme]["passive-text"]}`}`}>
                                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className={`w-8 h-8 `}>
                                             <path strokeLinecap="round" strokeLinejoin="round" d="M3.75 12h16.5m-16.5 3.75h16.5M3.75 19.5h16.5M5.625 4.5h12.75a1.875 1.875 0 0 1 0 3.75H5.625a1.875 1.875 0 0 1 0-3.75Z" />
                                         </svg>
