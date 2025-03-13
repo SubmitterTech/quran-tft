@@ -247,9 +247,9 @@ const Magnify = ({ colors, theme, translationApplication, quran, map, appendices
         for (const appx in appsmap) {
             const appxContent = appsmap[appx].content;
             Object.values(appxContent)
-                .filter(element => (element.type === "text" || element.type === "title"))
+                .filter(element => (element.type === "text" || element.type === "title" || (element.type === "table" && element.content.ref && element.content.ref.trim() !== "")))
                 .forEach(element => {
-                    const appendixText = element.content.toString();
+                    const appendixText = element.type === 'table' ? element.content.ref.toString() : element.content.toString();
                     const key = element.type + "-" + element.key + "-" + element.order;
                     let processedAppendixText = normalize ? normalizeText(appendixText) : appendixText;
                     processedAppendixText = caseSensitive ? processedAppendixText : processedAppendixText.toLocaleUpperCase(lang);
@@ -498,7 +498,7 @@ const Magnify = ({ colors, theme, translationApplication, quran, map, appendices
                                 setNotify(null);
                             }, 5350);
                         }
-                    }, 190);
+                    }, 266);
 
                     lastSelection.current = "";
                     hasConsumedLastSelection.current = true;

@@ -64,11 +64,14 @@ const Apps = ({ colors, theme, translationApplication, parseReferences, appendic
         for (let i = 0; i < values.length; i += columnCount) {
             rows.push(values.slice(i, i + columnCount));
         }
+        const pulsate = notify === `${appno}-${key}` ? `animate-pulse` : ``;
 
         return (
-            <div key={key} className={`${colors[theme]["table-title-text"]}`}>
+            <div key={key} className={`${colors[theme]["table-title-text"]} ${pulsate}`}>
                 <div className={` my-4 overflow-x-auto`}>
-                    <div className={`${colors[theme]["base-background"]} w-full rounded text-sm py-2 px-1 text-center `}>
+                    <div
+                        ref={(el) => (textRef.current[`${appno}-${key}`] = el)}
+                        className={`${colors[theme]["base-background"]} w-full rounded text-sm py-2 px-1 text-center `}>
                         {tableRef}
                     </div>
                     <table className={`table-auto w-full text-base md:text-lg ${colors[theme]["base-background"]} border-collapse border-2 ${colors[theme]["border"]}`}>
@@ -190,7 +193,7 @@ const Apps = ({ colors, theme, translationApplication, parseReferences, appendic
                 </div>
             </div>
         );
-    }, [colors, theme, parseReferences, handleClick]);
+    }, [colors, theme, parseReferences, notify, handleClick]);
 
     const renderContentItem = (appno, item, index) => {
         switch (item.type) {
@@ -256,7 +259,7 @@ const Apps = ({ colors, theme, translationApplication, parseReferences, appendic
                     );
                 }
                 if (no === 5) return;
- 
+
                 // SPECIAL RENDER FOR PICTURE 10
                 if (no === 10) {
                     return (
@@ -297,7 +300,7 @@ const Apps = ({ colors, theme, translationApplication, parseReferences, appendic
                     </div>
                 );
             case 'table':
-                return renderTable(item.content, appno, `${index}-${item.order}`);
+                return renderTable(item.content, appno, index);
             default:
                 return (
                     <div key={`unknown-${index}`} className={`${colors[theme]["log-text"]} flex flex-1 items-center justify-center w-full`}>
