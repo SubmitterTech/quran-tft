@@ -286,8 +286,8 @@ const Magnify = ({ colors, theme, translationApplication, quran, map, appendices
     const highlightText = useCallback((originalText, keyword) => {
         let processedText = originalText;
         processedText = normalize ? normalizeText(processedText) : processedText;
-        processedText = caseSensitive ? processedText : processedText.toLocaleUpperCase(lang);
-        const escapedKeyword = removePunctuations(keyword);
+        //processedText = caseSensitive ? processedText : processedText.toLocaleUpperCase(lang);
+        const escapedKeyword = normalize ? removePunctuations(keyword) : keyword;
         const regex = new RegExp(escapedKeyword, caseSensitive ? 'g' : 'gi');
         let match;
         const parts = [];
@@ -309,12 +309,12 @@ const Magnify = ({ colors, theme, translationApplication, quran, map, appendices
         }
 
         return parts;
-    }, [caseSensitive, normalize, lang, colors, theme]);
+    }, [caseSensitive, normalize, colors, theme]);
 
     const lightWords = useCallback((text) => {
         let processedTerm = searchTerm;
         processedTerm = normalize ? normalizeText(processedTerm) : processedTerm;
-        processedTerm = caseSensitive ? processedTerm : processedTerm.toLocaleUpperCase(lang);
+        //processedTerm = caseSensitive ? processedTerm : processedTerm.toLocaleUpperCase(lang);
         const keywords = processedTerm.split(' ').filter(keyword => (keyword.trim() !== '' && keyword.trim() !== '|'));
         let highlightedText = [text];
 
@@ -323,7 +323,7 @@ const Magnify = ({ colors, theme, translationApplication, quran, map, appendices
         });
 
         return highlightedText;
-    }, [searchTerm, caseSensitive, lang, normalize, highlightText]);
+    }, [searchTerm, normalize, highlightText]);
 
     const lastTitleElementRef = useCallback(node => {
         if (observerTitles.current) observerTitles.current.disconnect();
