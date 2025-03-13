@@ -835,7 +835,7 @@ const Magnify = ({ colors, theme, translationApplication, quran, map, appendices
                         style={{
                             marginBottom: `calc(env(safe-area-inset-bottom) * 0.57 + ${window.innerWidth >= 1024 ? '4.2rem' : '3.2rem'})`
                         }}>
-                        <div className={`text-lg md:text-2xl w-full p-0.5 ${colors[theme]["text"]} transition-all duration-100 ease-linear overflow-y-auto`}>
+                        <div className={`text-lg md:text-2xl w-full p-0.5 ${colors[theme]["text"]} transition-all duration-100 ease-linear `}>
                             <div className={` w-full flex flex-col space-y-1.5 transition-all duration-200 ease-linear `}>
                                 {Object.entries(loadedMap).map(([exp, themeorref], index) => (
                                     <div
@@ -843,10 +843,10 @@ const Magnify = ({ colors, theme, translationApplication, quran, map, appendices
                                         lang={lang}
                                         dir={direction}
                                         id={`theme-container-${index}-${searchTerm}`}
-                                        className={`rounded ${colors[theme]["base-background"]} ${themeorref.length === 0 ? "brightness-75" : ""}`}>
+                                        className={`rounded ${colors[theme]["base-background"]} ${themeorref.length === 0 ? "brightness-75" : ""} `}>
                                         <div
                                             onClick={() => handleThemeClick(index + "-" + searchTerm)}
-                                            className={`rounded p-2`}>
+                                            className={`rounded p-2 ${colors[theme]["base-background"]} ${openTheme === (index + "-" + searchTerm) ? `sticky top-0 z-20` : ``}`}>
                                             {exp}
                                         </div>
                                         {openTheme === (index + "-" + searchTerm) && (
@@ -860,7 +860,7 @@ const Magnify = ({ colors, theme, translationApplication, quran, map, appendices
                                                             <div key={innerTheme} className={`p-1 ${colors[theme]["notes-background"]} rounded`}>
                                                                 <div
                                                                     onClick={() => handleSubThemeClick(index + "-" + searchTerm, innerTheme)}
-                                                                    className={`p-1 cursor-pointer`}>
+                                                                    className={`p-1 cursor-pointer ${colors[theme]["notes-background"]} ${openSubTheme[index + "-" + searchTerm]?.[innerTheme] ? "sticky top-11 " : ""}`}>
                                                                     {innerTheme}
                                                                 </div>
                                                                 {openSubTheme[index + "-" + searchTerm]?.[innerTheme] && (
