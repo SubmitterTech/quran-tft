@@ -58,6 +58,7 @@ const Magnify = ({ colors, theme, translationApplication, quran, map, appendices
     const versesReferences = useRef({});
     const notesReferences = useRef({});
     const appendicesReferences = useRef({});
+    const singleReferences = useRef({});
 
     useEffect(() => {
         setQuranmap(mapQuran(quran));
@@ -445,14 +446,35 @@ const Magnify = ({ colors, theme, translationApplication, quran, map, appendices
                     setAppendicesVisible(true);
                     break;
                 default:
-                    setTitlesVisible(false);
-                    setVersesVisible(true);
-                    setNotesVisible(false);
-                    setAppendicesVisible(false);
-                    return;
+                    const data = JSON.parse(typeofselection);
+
+                    if (data && typeof data === 'object') {
+                        const sskey = Object.keys(data)[0];
+                        setOpenTheme(sskey);
+                        setOpenSubTheme(data);
+                    } else {
+                        setOpenTheme(data);
+                    }
+
+                    if (loadingElementsTimer.current === null) {
+                        loadingElementsTimer.current = setTimeout(() => {
+                            setTimeout(() => {
+                                const ref = singleReferences.current[key];
+                                if (ref) {
+                                    ref.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                                    setNotify(`single_${key}`);
+                                    setTimeout(() => setNotify(null), 5350);
+                                }
+                            }, 190);
+                            lastSelection.current = "";
+                            hasConsumedLastSelection.current = true;
+                            loadingElementsTimer.current = null;
+                        }, 19);
+                    }
+                    break;
             }
 
-            if (!hasConsumedLastSelection.current && searchResultData.length > 0) {
+            if (!hasConsumedLastSelection.current && searchTerm?.length > 1 && searchResultData?.length > 0) {
                 loadingElementsTimer.current = setTimeout(() => {
                     const isLoaded = initialLoad.some((item) => extractor(item) === key);
 
@@ -485,7 +507,7 @@ const Magnify = ({ colors, theme, translationApplication, quran, map, appendices
             }
         }
 
-    }, [searchResultTitles, searchResultVerses, searchResultNotes, searchResultAppendices]);
+    }, [searchResultTitles, searchResultVerses, searchResultNotes, searchResultAppendices, searchTerm]);
 
     useEffect(() => {
         return () => {
@@ -537,7 +559,7 @@ const Magnify = ({ colors, theme, translationApplication, quran, map, appendices
         };
     }, [multiSelect, onConfirm, handleClose, setSelectedVerseList]);
 
-    const renderref = (ref) => {
+    const renderref = (ref, tree = null, from = null) => {
         if (ref) {
             const verseResults = [];
             ref.split(";").forEach(refPart => {
@@ -582,14 +604,25 @@ const Magnify = ({ colors, theme, translationApplication, quran, map, appendices
                 }
             });
 
-            return verseResults.map(({ suraNumber, verseNumber, text }, index) => (
-                <div
-                    key={index}
-                    className={`rounded p-2  ${colors[theme]["text-background"]}`}
-                    onClick={handleConfirm(`${suraNumber}:${verseNumber}`)}>
-                    <span className={`text-sky-500 ${direction === 'rtl' ? "ml-1" : "mr-1"}`}>{suraNumber}:{verseNumber}</span>{text}
-                </div>
-            ));
+            if (tree && typeof tree === 'object') {
+                const passontree = {};
+                passontree[from] = tree[from];
+                tree = passontree;
+            }
+
+            return verseResults.map(({ suraNumber, verseNumber, text }, index) => {
+                const thekey = `${suraNumber}:${verseNumber}`;
+                const pulsate = notify === `single_${thekey}` ? `animate-pulse` : ``;
+                return (
+                    <div
+                        key={index}
+                        ref={(node) => { singleReferences.current[thekey] = node; }}
+                        className={`rounded p-2  ${colors[theme]["text-background"]} ${pulsate}`}
+                        onClick={handleConfirm(`${suraNumber}:${verseNumber}`, JSON.stringify(tree))}>
+                        <span className={`text-sky-500 ${direction === 'rtl' ? "ml-1" : "mr-1"}`}>{suraNumber}:{verseNumber}</span>{text}
+                    </div>
+                )
+            });
         }
         return null;
     };
@@ -864,13 +897,13 @@ const Magnify = ({ colors, theme, translationApplication, quran, map, appendices
                                                                     {innerTheme}
                                                                 </div>
                                                                 {openSubTheme[index + "-" + searchTerm]?.[innerTheme] && (
-                                                                    <div className={`p-0.5 rounded ${colors[theme]["base-background"]} flex flex-col space-y-1`}>{renderref(ref)}</div>
+                                                                    <div className={`p-0.5 rounded ${colors[theme]["base-background"]} flex flex-col space-y-1`}>{renderref(ref, openSubTheme, index + "-" + searchTerm)}</div>
                                                                 )}
                                                             </div>
                                                         )
                                                     })
                                                     :
-                                                    <div className={`rounded ${colors[theme]["base-background"]} flex flex-col space-y-1`}>{renderref(themeorref)}</div>
+                                                    <div className={`rounded ${colors[theme]["base-background"]} flex flex-col space-y-1`}>{renderref(themeorref, openTheme, null)}</div>
                                                 }
                                             </div>
                                         )}
