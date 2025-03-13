@@ -122,7 +122,7 @@ const Magnify = ({ colors, theme, translationApplication, quran, map, appendices
         if (!term) {
             return;
         }
-        if (term.length < 2) {
+        if (term.length < 2 && !/^\d$/.test(term)) {
             setSearchResultTitles([]);
             setSearchResultVerses([]);
             setSearchResultNotes([]);
@@ -275,9 +275,9 @@ const Magnify = ({ colors, theme, translationApplication, quran, map, appendices
 
     useEffect(() => {
         if (searchTerm) {
-            if (searchTerm.length > 1) {
+            if (searchTerm.length > 1 || (searchTerm.length === 1 && /^\d$/.test(searchTerm))) {
                 performSearch(searchTerm);
-            } else if (searchTerm.length === 1) {
+            } else if (searchTerm.length === 1 && !/^\d$/.test(searchTerm)) {
                 performSearchSingleLetter(searchTerm);
             }
         }
@@ -445,6 +445,10 @@ const Magnify = ({ colors, theme, translationApplication, quran, map, appendices
                     setAppendicesVisible(true);
                     break;
                 default:
+                    setTitlesVisible(false);
+                    setVersesVisible(true);
+                    setNotesVisible(false);
+                    setAppendicesVisible(false);
                     return;
             }
 
@@ -641,7 +645,7 @@ const Magnify = ({ colors, theme, translationApplication, quran, map, appendices
                         </button>
                     </div>
                 </div>
-                {searchTerm.length > 1 &&
+                {(searchTerm.length > 1 || (searchTerm.length === 1 && /^\d$/.test(searchTerm))) &&
                     <div
                         dir={direction}
                         className={`flex flex-col lg:grid lg:grid-cols-2 lg:grid-flow-row lg:px-1 gap-1 w-full overflow-auto py-0.5 flex-1`}
@@ -826,7 +830,7 @@ const Magnify = ({ colors, theme, translationApplication, quran, map, appendices
                         </div>
                     </div>
                 }
-                {searchTerm.length === 1 &&
+                {(searchTerm.length === 1 && !/^\d$/.test(searchTerm)) &&
                     <div className={`w-full h-full px-1 z-0 overflow-y-scroll`}
                         style={{
                             marginBottom: `calc(env(safe-area-inset-bottom) * 0.57 + ${window.innerWidth >= 1024 ? '4.2rem' : '3.2rem'})`
