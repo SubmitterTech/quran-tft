@@ -44,5 +44,8 @@
     "quran": "Koran",
     "returnToJumped": "Rückkehr zur gesprungenen Stelle",
     "includeSearch": "Suchmaske in den Verlauf einbinden",
-    "keepDetailsOpen": "Versdetails offen halten, wenn die Map genutzt wird"
+    "keepDetailsOpen": "Versdetails offen halten, wenn die Map genutzt wird",
+    "thesuraorder": "Die Surenordnung",
+    "tsoa": "Alphabetisch",
+    "tsoc": "Chronologisch"
 }

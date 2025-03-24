@@ -44,5 +44,8 @@
     "quran": "Kuran",
     "returnToJumped": "Atlanan yere geri dön",
     "includeSearch": "Geçmişe arama ekranını ekle",
-    "keepDetailsOpen": "Haritayı kullanırken ayet ayrıntılarını açık tut"
+    "keepDetailsOpen": "Haritayı kullanırken ayet ayrıntılarını açık tut",
+    "thesuraorder": "Sure Sıralaması",
+    "tsoa": "Alfabetik",
+    "tsoc": "Kronolojik"
 }
