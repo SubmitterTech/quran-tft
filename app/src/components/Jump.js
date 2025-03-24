@@ -5,8 +5,17 @@ import { adjustReference } from '../utils/Mapper';
 import { isNative } from '../utils/Device';
 import { ColorPicker, FontPicker } from '../utils/Theme';
 import Bookmarks from '../utils/Bookmarks';
+import LongPressable from '../hooks/LongPressable';
 
 const languageDisabilityThreshold = 60;
+const chronologicalOrder = [
+    "96", "68", "73", "74", "1", "111", "81", "87", "92", "89", "93", "94", "103", "100", "108", "102", "107", "109", "105",
+    "113", "114", "112", "53", "80", "97", "91", "85", "95", "106", "101", "75", "104", "77", "50", "90", "86", "54", "38",
+    "7", "72", "36", "25", "35", "19", "20", "56", "26", "27", "28", "17", "10", "11", "12", "15", "6", "37", "31",
+    "34", "39", "40", "41", "42", "43", "44", "45", "46", "51", "88", "18", "16", "71", "14", "21", "23", "32", "52",
+    "67", "69", "70", "78", "79", "82", "84", "30", "29", "83", "2", "8", "3", "33", "60", "4", "99", "57", "47",
+    "13", "55", "76", "65", "98", "59", "24", "22", "63", "58", "49", "66", "64", "61", "62", "48", "5", "9", "110"
+];
 
 const Jump = React.memo(({ onChangeLanguage, suraNames, onChangeFont, font, onChangeColor, colors, theme, translationApplication, currentPage, quran, onClose, onConfirm, onMagnify, direction, isMagnifyVisited }) => {
     const [suraNumber, setSuraNumber] = useState("0");
@@ -16,6 +25,18 @@ const Jump = React.memo(({ onChangeLanguage, suraNames, onChangeFont, font, onCh
     const [showBookmarks, setShowBookmarks] = useState(false);
     const [lightOpen, setLightOpen] = useState(false);
     const isMobile = isNative() | false;
+
+    const [lang, setLang] = useState(localStorage.getItem("lang"));
+
+    const [isSuraSettingsOpen, setSuraSettingsOpen] = useState(false);
+    const [suraSettingsOpenningProgress, setSuraSettingsOpenningProgress] = useState(0);
+
+    const [order, setOrder] = useState(() => {
+        const saved = localStorage.getItem("qurantft-jump-so");
+        return (saved !== null) ? saved : 'quran';
+    });
+
+    const suraSelectRef = useRef(null);
 
     const [isShufflingSura, setIsShufflingSura] = useState(false);
     const [isShufflingVerse, setIsShufflingVerse] = useState(false);
@@ -61,6 +82,10 @@ const Jump = React.memo(({ onChangeLanguage, suraNames, onChangeFont, font, onCh
     }, []);
 
     useEffect(() => {
+        localStorage.setItem("qurantft-jump-so", order);
+    }, [order]);
+
+    useEffect(() => {
         if (showBookmarks && bookmarksContainerRef.current && lastClickedBookmarkKey && bookmarkItemRefs.current[lastClickedBookmarkKey]) {
             bookmarkItemRefs.current[lastClickedBookmarkKey].scrollIntoView({
                 behavior: 'smooth',
@@ -92,6 +117,62 @@ const Jump = React.memo(({ onChangeLanguage, suraNames, onChangeFont, font, onCh
         }
         return themap;
     }, [suraNames]);
+
+    const extractKey = (text) => {
+        const match = text.match(/\(([^)]+)\)/);
+        let extracted = match ? match[1] : text;
+
+        if (direction === 'rtl') {
+            // For RTL, if the extracted text starts with Arabic "AL" (i.e. "ال"),
+            // remove the first two characters.
+            if (extracted.startsWith("ال")) {
+                extracted = extracted.slice(2);
+            }
+        } else {
+            // For non-RTL (LTR), if the extracted text has a "-" as the third character,
+            // remove the first three characters.
+            if (extracted.length >= 3 && extracted[2] === '-') {
+                extracted = extracted.slice(3);
+            }
+        }
+
+        return extracted;
+    };
+
+    const getSortedEntries = () => {
+        const entries = Object.entries(suraNameMap);
+        if (order === 'alphabetical') {
+            entries.sort((a, b) => extractKey(a[1]).localeCompare(extractKey(b[1]), lang));
+        } else if (order === 'chronological' && chronologicalOrder.length > 0) {
+            entries.sort(
+                (a, b) => chronologicalOrder.indexOf(a[0]) - chronologicalOrder.indexOf(b[0])
+            );
+        }
+        return entries;
+    };
+
+    const buildAlphabeticalDisplayText = (sura, sname) => {
+        const match = sname.match(/\(([^)]+)\)/);
+        if (match) {
+            const parenContent = match[1];
+            const remainingName = sname.replace(match[0], '').trim();
+            return `${parenContent}\t-\t${remainingName}\t-\t${sura}\t`;
+        }
+        return `${sura}\t${sname}`;
+    };
+
+    const buildNormalDisplayText = (sura, sname) => {
+        return direction === 'rtl'
+            ? (isMobile ? `${sname}\t${sura}` : `${sura}\t${sname}`)
+            : `${sura}\t${sname}`;
+    };
+
+    const buildChronologicalDisplayText = (sura, sname) => {
+        const index = chronologicalOrder.indexOf(sura);
+        const orderNo = index === -1 ? '?' : index + 1;
+        // Format: "(order no). (sura name) (sura number)"
+        return `${orderNo}. ${sname} ${sura}`;
+    };
 
     // Compute other derived data using useMemo
     const { pageTitles, versesInSuras, pageForSuraVerse, surasInPagesMap } = useMemo(() => {
@@ -213,7 +294,7 @@ const Jump = React.memo(({ onChangeLanguage, suraNames, onChangeFont, font, onCh
     );
 
     const handleSubmit = useCallback(() => {
-        onConfirm(selectedPage, suraNumber, verseNumber ? verseNumber !== '0' ? verseNumber : '1' :'1');
+        onConfirm(selectedPage, suraNumber, verseNumber ? verseNumber !== '0' ? verseNumber : '1' : '1');
         onClose();
     }, [onConfirm, onClose, selectedPage, suraNumber, verseNumber]);
 
@@ -256,16 +337,50 @@ const Jump = React.memo(({ onChangeLanguage, suraNames, onChangeFont, font, onCh
         setShowBookmarks((prev) => !prev);
     }, [showBookmarks]);
 
-    const handleLanguageChange = useCallback(
-        (e) => {
-            onChangeLanguage(e.target.value);
+    const handleLanguageChange = useCallback((e) => {
 
-            if(!isMagnifyVisited) {
-                onClose();
+        setLang(e.target.value);
+        onChangeLanguage(e.target.value);
+
+        if (!isMagnifyVisited) {
+            onClose();
+        }
+    }, [onChangeLanguage, onClose, isMagnifyVisited]);
+
+    const handleSuraSelectClick = (e) => {
+        if (suraSelectRef.current) {
+            //suraSelectRef.current.focus(e);
+            //suraSelectRef.current.click(e);
+            suraSelectRef.current.showPicker(e);
+        }
+    };
+
+    const longPressCancelled = () => {
+        const duration = 285;
+        const startTime = Date.now();
+        const initialProgress = suraSettingsOpenningProgress;
+
+        const animate = () => {
+            const elapsed = Date.now() - startTime;
+            const progress = Math.max(initialProgress * (1 - elapsed / duration), 0);
+            setSuraSettingsOpenningProgress(progress);
+            if (elapsed < duration) {
+                requestAnimationFrame(animate);
+            } else {
+                setSuraSettingsOpenningProgress(0);
+                setSuraSettingsOpen(false);
             }
-        },
-        [onChangeLanguage, onClose, isMagnifyVisited]
-    );
+        };
+
+        requestAnimationFrame(animate);
+    };
+
+    const handleTimerUpdate = (progress, elapsed) => {
+        if (elapsed >= 285) {
+            setSuraSettingsOpen(true);
+            setSuraSettingsOpenningProgress(progress);
+        }
+    };
 
     return (
         <div className={`w-screen h-full fixed left-0 top-0 inset-0 z-10 outline-none focus:outline-none `} id="jump-screen">
@@ -280,7 +395,7 @@ const Jump = React.memo(({ onChangeLanguage, suraNames, onChangeFont, font, onCh
                         id="languagepicker"
                         name="langpick"
                         onChange={handleLanguageChange}
-                        value={localStorage.getItem("lang")}
+                        value={lang}
                         className={`w-full m-2 text-center rounded px-4 py-2 border border-neutral-400/40 text-lg brightness-80 bg-neutral-500/30 ${colors[theme]["page-text"]} focus:outline-none focus:ring-2 focus:border-sky-500 focus:ring-sky-500`}>
                         {Object.keys(languages).map((key) => {
                             if (key && languages[key]["comp"] >= languageDisabilityThreshold) {
@@ -392,30 +507,55 @@ const Jump = React.memo(({ onChangeLanguage, suraNames, onChangeFont, font, onCh
                                                 <div className={`relative w-full flex justify-end`}>
                                                     <div
                                                         style={isShufflingSura ? { animation: 'animate-scale 0.2s ease-in-out' } : {}}
-                                                        className={`text-3xl w-3/4 p-3 absolute shadow-md text-center rounded flex items-center justify-center ${colors[theme]["text"]} ${colors[theme]["notes-background"]}`}
-                                                        onClick={() => document.getElementById('sura').click()}
-                                                    >
-                                                        {parseInt(suraNumber) !== 0 ? suraNumber : translationApplication?.sura}
+                                                        className={`z-40 text-3xl w-3/4 absolute shadow-md text-center rounded flex items-center justify-center ${colors[theme]["text"]} ${colors[theme]["notes-background"]}`}>
+                                                        <LongPressable
+                                                            onTap={() => { handleSuraSelectClick() }}
+                                                            onLongPress={() => { setSuraSettingsOpenningProgress(1) }}
+                                                            onTimerUpdate={handleTimerUpdate}
+                                                            onCancel={longPressCancelled}>
+                                                            <div className={`p-3 cursor-pointer`}>
+
+                                                                {parseInt(suraNumber) !== 0 ? suraNumber : translationApplication?.sura}
+
+                                                            </div>
+                                                            {parseInt(suraNumber) !== 0 && <div className={`text-xs absolute bottom-0.5 right-1 ${colors[theme]["page-text"]} brightness-75 z-50`}>{translationApplication?.sura}</div>}
+
+                                                        </LongPressable>
                                                     </div>
-                                                    {parseInt(suraNumber) !== 0 && <div className={`text-xs absolute bottom-0.5 right-1 ${colors[theme]["page-text"]} brightness-75`}>{translationApplication?.sura}</div>}
                                                     <select
+                                                        ref={suraSelectRef}
                                                         id="sura"
                                                         name="sura"
                                                         dir={isMobile ? `ltr` : direction}
                                                         onChange={handleSuraChange}
                                                         value={suraNumber}
-                                                        className={`inset-0 opacity-0 text-3xl w-3/4 p-3 rounded ${colors[theme]["text"]} ${colors[theme]["notes-background"]} focus:ring-2 focus:outline-none focus:ring-sky-500  `}
-                                                    >
-                                                        <option key="0" value="0" disabled>{translationApplication?.sura}</option>
-                                                        {Object.entries(suraNameMap).map(([sura, sname]) => {
-                                                            const line = direction === 'rtl' ? (isMobile ? sname + `\t` + sura : sura + `\t` + sname) : sura + `\t` + sname;
+                                                        className={`z-30 inset-0 opacity-0 text-3xl w-3/4 p-3 rounded ${colors[theme]["text"]} ${colors[theme]["notes-background"]} focus:ring-2 focus:outline-none focus:ring-sky-500  `}>
+                                                        <option key="0" value="0" disabled>
+                                                            {(() => {
+                                                                if (order === 'alphabetical') {
+                                                                    return translationApplication?.sura + ` (${translationApplication?.tsoa})`;
+                                                                } else if (order === 'chronological') {
+                                                                    return translationApplication?.sura + ` (${translationApplication?.tsoc})`;
+                                                                } else {
+                                                                    return translationApplication?.sura;
+                                                                }
+                                                            })()}
+                                                        </option>
+                                                        {getSortedEntries().map(([sura, sname]) => {
+                                                            const displayText =
+                                                                order === "alphabetical"
+                                                                    ? buildAlphabeticalDisplayText(sura, sname)
+                                                                    : order === "chronological"
+                                                                        ? buildChronologicalDisplayText(sura, sname)
+                                                                        : buildNormalDisplayText(sura, sname);
                                                             return (
-                                                                <option key={sura} value={sura}>{line}</option>
-                                                            )
+                                                                <option key={sura} value={sura}>
+                                                                    {displayText}
+                                                                </option>
+                                                            );
                                                         })}
                                                     </select>
                                                 </div>
-
                                                 <div className={`relative w-1/3 flex items-center justify-center cursor-pointer ${colors[theme]["text"]}`} onClick={shuffleSuraVerse} >
                                                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className={`w-11 h-11 p-0.5`}>
                                                         <path strokeLinecap="round" strokeLinejoin="round" d="M3 7.5 7.5 3m0 0L12 7.5M7.5 3v13.5m13.5 0L16.5 21m0 0L12 16.5m4.5 4.5V7.5" />
@@ -436,7 +576,7 @@ const Jump = React.memo(({ onChangeLanguage, suraNames, onChangeFont, font, onCh
                                                         dir={isMobile ? `ltr` : direction}
                                                         onChange={handleVerseChange}
                                                         value={verseNumber}
-                                                        className={`inset-0 opacity-0 text-3xl w-3/4 p-3 rounded ${colors[theme]["text"]} ${colors[theme]["notes-background"]} focus:ring-2 focus:outline-none focus:ring-sky-500`}>
+                                                        className={` cursor-pointer inset-0 opacity-0 text-3xl w-3/4 p-3 rounded ${colors[theme]["text"]} ${colors[theme]["notes-background"]} focus:ring-2 focus:outline-none focus:ring-sky-500`}>
                                                         <option key="0" value="0" disabled>{translationApplication?.verse}</option>
                                                         {suraNumber && versesInSuras[suraNumber] && versesInSuras[suraNumber].map(([verse, iftitle]) => {
                                                             const line = direction === 'rtl' ? (isMobile ? ((iftitle ? iftitle + `\t` : ``) + verse) : (verse + (iftitle ? `\t` + iftitle : ``))) : (verse + (iftitle ? `\t` + iftitle : ``));
@@ -550,6 +690,101 @@ const Jump = React.memo(({ onChangeLanguage, suraNames, onChangeFont, font, onCh
                                         {translationApplication?.theme}
                                     </div>
                                 </button>
+                            </div>
+                        }
+                        {isSuraSettingsOpen &&
+                            <div className={`fixed top-2 bottom-2 left-4 right-4 z-20`}>
+                                <div
+                                    style={{ opacity: suraSettingsOpenningProgress }}
+                                    className={`h-full w-full relative flex`}>
+
+                                    <div
+                                        onClick={() => setSuraSettingsOpen(false)}
+                                        className={`absolute -left-0.5 -top-0.5 -bottom-0.5 -right-0.5 ${colors[theme]['app-background']} `}>
+                                    </div>
+
+                                    <div className={`w-full`}>
+                                        <div
+                                            onClick={() => setSuraSettingsOpen(false)}
+                                            className={`absolute top-0 left-1/4 -translate-x-1/2 flex items-center  justify-center transition-all duration-300 ease-linear ${suraSettingsOpenningProgress < 0.57 ? " " : " rotate-180 "} ${suraSettingsOpenningProgress >= 0.57 ? colors[theme]["matching-text"] : colors[theme]["log-text"]}`}>
+                                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className={`w-20 h-20`}>
+                                                <path strokeLinecap="round" strokeLinejoin="round" d="M10.343 3.94c.09-.542.56-.94 1.11-.94h1.093c.55 0 1.02.398 1.11.94l.149.894c.07.424.384.764.78.93.398.164.855.142 1.205-.108l.737-.527a1.125 1.125 0 0 1 1.45.12l.773.774c.39.389.44 1.002.12 1.45l-.527.737c-.25.35-.272.806-.107 1.204.165.397.505.71.93.78l.893.15c.543.09.94.559.94 1.109v1.094c0 .55-.397 1.02-.94 1.11l-.894.149c-.424.07-.764.383-.929.78-.165.398-.143.854.107 1.204l.527.738c.32.447.269 1.06-.12 1.45l-.774.773a1.125 1.125 0 0 1-1.449.12l-.738-.527c-.35-.25-.806-.272-1.203-.107-.398.165-.71.505-.781.929l-.149.894c-.09.542-.56.94-1.11.94h-1.094c-.55 0-1.019-.398-1.11-.94l-.148-.894c-.071-.424-.384-.764-.781-.93-.398-.164-.854-.142-1.204.108l-.738.527c-.447.32-1.06.269-1.45-.12l-.773-.774a1.125 1.125 0 0 1-.12-1.45l.527-.737c.25-.35.272-.806.108-1.204-.165-.397-.506-.71-.93-.78l-.894-.15c-.542-.09-.94-.56-.94-1.109v-1.094c0-.55.398-1.02.94-1.11l.894-.149c.424-.07.765-.383.93-.78.165-.398.143-.854-.108-1.204l-.526-.738a1.125 1.125 0 0 1 .12-1.45l.773-.773a1.125 1.125 0 0 1 1.45-.12l.737.527c.35.25.807.272 1.204.107.397-.165.71-.505.78-.929l.15-.894Z" />
+                                                <path strokeLinecap="round" strokeLinejoin="round" d="M15 12a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z" />
+                                            </svg>
+                                        </div>
+                                    </div>
+
+                                    <div className={`w-full h-full z-30`}>
+
+                                        {suraSettingsOpenningProgress === 1 &&
+                                            <div
+                                                className={`${colors[theme]['text-background']} shadow-lg rounded p-1.5 md:p-2 h-full w-full flex justify-center flex-col`}
+                                                style={{ animation: 'animate-scale 0.19s ease-in-out' }}>
+                                                <div className={`p-3 text-xl md:text-2xl font-semibold text-center mb-3 ${colors[theme]['app-text']} text-nowrap`}>
+                                                    {translationApplication?.thesuraorder}
+                                                </div>
+                                                <div className={`rounded w-full flex flex-col p-1.5 ${colors[theme]['app-background']}`}>
+                                                    <div className={`flex flex-col text-base md:text-xl space-y-1`}>
+                                                        <label dir={direction} className={`flex items-center justify-between md:justify-end pt-3.5 px-1 pb-2 cursor-pointer  ${direction === 'rtl' ? `` : `md:space-x-3 space-x-1`}`}>
+                                                            <span className={`${order === 'quran' ? colors[theme]["text"] : `${colors[theme]["page-text"]} brightness-75`}`}>{translationApplication?.quran}</span>
+
+                                                            <div>
+                                                                <label className='flex cursor-pointer select-none items-center'>
+                                                                    <div className='relative'>
+                                                                        <input
+                                                                            type='checkbox'
+                                                                            checked={order === 'quran'}
+                                                                            onChange={() => { setOrder('quran') }}
+                                                                            className='sr-only'
+                                                                        />
+                                                                        <div className={`box block h-8 w-14 rounded-full ${order === 'quran' ? colors[theme]["text-background"] : colors[theme]["base-background"]}`}></div>
+                                                                        <div className={`absolute left-1 top-1 flex h-6 w-6 items-center justify-center rounded-full ${order === 'quran' ? colors[theme]["matching"] : colors[theme]["notes-background"]} transition ${order === 'quran' ? 'translate-x-full' : ''}`}></div>
+                                                                    </div>
+                                                                </label>
+                                                            </div>
+                                                        </label>
+                                                        <div className={`border-b ${colors[theme]["verse-border"]} mt-2`} ></div>
+                                                        <label dir={direction} className={`flex items-center justify-between md:justify-end pt-3.5 px-1 pb-2 cursor-pointer  ${direction === 'rtl' ? `` : `md:space-x-3 space-x-1`}`}>
+                                                            <span className={`${order === 'chronological' ? colors[theme]["text"] : `${colors[theme]["page-text"]} brightness-75`}`}>{translationApplication?.tsoc}</span>
+                                                            <div>
+                                                                <label className='flex cursor-pointer select-none items-center'>
+                                                                    <div className='relative'>
+                                                                        <input
+                                                                            type='checkbox'
+                                                                            checked={order === 'chronological'}
+                                                                            onChange={() => { setOrder('chronological') }}
+                                                                            className='sr-only'
+                                                                        />
+                                                                        <div className={`box block h-8 w-14 rounded-full ${order === 'chronological' ? colors[theme]["text-background"] : colors[theme]["base-background"]}`}></div>
+                                                                        <div className={`absolute left-1 top-1 flex h-6 w-6 items-center justify-center rounded-full ${order === 'chronological' ? colors[theme]["matching"] : colors[theme]["notes-background"]} transition ${order === 'chronological' ? 'translate-x-full' : ''}`}></div>
+                                                                    </div>
+                                                                </label>
+                                                            </div>
+                                                        </label>
+                                                        <div className={`border-b ${colors[theme]["verse-border"]} mt-2`} ></div>
+                                                        <label dir={direction} className={`flex items-center justify-between md:justify-end pt-3.5 px-1 pb-2 cursor-pointer  ${direction === 'rtl' ? `` : `md:space-x-3 space-x-1`}`}>
+                                                            <span className={`${order === 'alphabetical' ? colors[theme]["text"] : `${colors[theme]["page-text"]} brightness-75`}`}>{translationApplication?.tsoa}</span>
+                                                            <div>
+                                                                <label className='flex cursor-pointer select-none items-center'>
+                                                                    <div className='relative'>
+                                                                        <input
+                                                                            type='checkbox'
+                                                                            checked={order === 'alphabetical'}
+                                                                            onChange={() => { setOrder('alphabetical') }}
+                                                                            className='sr-only'
+                                                                        />
+                                                                        <div className={`box block h-8 w-14 rounded-full ${order === 'alphabetical' ? colors[theme]["text-background"] : colors[theme]["base-background"]}`}></div>
+                                                                        <div className={`absolute left-1 top-1 flex h-6 w-6 items-center justify-center rounded-full ${order === 'alphabetical' ? colors[theme]["matching"] : colors[theme]["notes-background"]} transition ${order === 'alphabetical' ? 'translate-x-full' : ''}`}></div>
+                                                                    </div>
+                                                                </label>
+                                                            </div>
+                                                        </label>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        }
+                                    </div>
+                                </div>
                             </div>
                         }
                     </div>

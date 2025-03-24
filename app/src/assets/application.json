@@ -44,5 +44,8 @@
     "quran": "Quran",
     "returnToJumped": "Return to the jumped location",
     "includeSearch": "Include search screen to the history",
-    "keepDetailsOpen": "Keep verse details open when using the map"
+    "keepDetailsOpen": "Keep verse details open when using the map",
+    "thesuraorder": "The Sura Order",
+    "tsoa": "Alphabetical",
+    "tsoc": "Chronological"
 }
