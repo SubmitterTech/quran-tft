@@ -1,4 +1,5 @@
 const bookmarksKey = 'bookmarks';
+const timestampRegex = /^(\d{2}\/\d{2}\/\d{4})\s*(\d{2}:\d{2}:\d{2})$/;
 
 const parseJSON = (value) => {
     try {
@@ -22,43 +23,75 @@ const format = (timestamp) => {
     } else {
         return timestamp;
     }
-}
+};
 
 let bookmarks = parseJSON(localStorage.getItem(bookmarksKey)) || {};
+
+let needsMigration = false;
+
+Object.keys(bookmarks).forEach(key => {
+    const histEntry = bookmarks[key];
+
+    if (histEntry && typeof histEntry === 'object' && histEntry.timestamp) {
+        return;
+    }
+
+    const trimmedValue = typeof histEntry === 'string' ? histEntry.trim() : '';
+
+    if (timestampRegex.test(trimmedValue)) {
+        bookmarks[key] = { value: null, timestamp: trimmedValue };
+    } else {
+        bookmarks[key] = { value: histEntry, timestamp: format(Date.now()) };
+    }
+    needsMigration = true;
+});
+
+if (needsMigration) {
+    localStorage.setItem(bookmarksKey, JSON.stringify(bookmarks));
+}
 
 const subscribers = {};
 
 const subscribe = (verseKey, callback) => {
-    if (!subscribers[verseKey]) {
-        subscribers[verseKey] = [];
-    }
+    if (!subscribers[verseKey]) subscribers[verseKey] = [];
     subscribers[verseKey].push(callback);
 };
 
 const unsubscribe = (verseKey, callback) => {
     if (subscribers[verseKey]) {
-        subscribers[verseKey] = subscribers[verseKey].filter((cb) => cb !== callback);
-        if (subscribers[verseKey].length === 0) {
-            delete subscribers[verseKey];
-        }
+        subscribers[verseKey] = subscribers[verseKey].filter(cb => cb !== callback);
+        if (subscribers[verseKey].length === 0) delete subscribers[verseKey];
     }
 };
 
 const notifySubscribers = (verseKey) => {
     if (subscribers[verseKey]) {
-        subscribers[verseKey].forEach((callback) => callback(bookmarks[verseKey]));
+        subscribers[verseKey].forEach(callback => callback(bookmarks[verseKey]));
     }
 };
 
 const get = (verseKey) => {
-    return bookmarks.hasOwnProperty(verseKey) ? bookmarks[verseKey] : null;
+    if (bookmarks.hasOwnProperty(verseKey)) {
+        const bookmark = bookmarks[verseKey];
+        return bookmark.value !== null ? bookmark.value : format(bookmark.timestamp);
+    }
+    return null;
 };
 
 const set = (verseKey, value) => {
-    if (value === null) {
-        value = format(Date.now());
+    const trimmedValue = value ? value.trim() : '';
+    const currentTimestamp = format(Date.now());
+    let normalizedValue = trimmedValue.replace(timestampRegex, "$1 $2");
+    if (bookmarks[verseKey]) {
+        if (normalizedValue === bookmarks[verseKey].timestamp) {
+            bookmarks[verseKey] = { value: null, timestamp: currentTimestamp };
+        } else {
+            bookmarks[verseKey] = { value: value || null, timestamp: currentTimestamp };
+        }
+    } else {
+        bookmarks[verseKey] = { value: value || null, timestamp: currentTimestamp };
     }
-    bookmarks[verseKey] = value;
+
     localStorage.setItem(bookmarksKey, JSON.stringify(bookmarks));
     notifySubscribers(verseKey);
 };
@@ -70,18 +103,17 @@ const remove = (verseKey) => {
 };
 
 const all = () => {
-    return { ...bookmarks };
+    const result = {};
+    Object.entries(bookmarks).forEach(([key, bookmark]) => {
+        result[key] = bookmark.value !== null ? bookmark.value : bookmark.timestamp;
+    });
+    return result;
 };
 
-
-// Handle storage events (for cross-tab synchronization)
 window.addEventListener('storage', (event) => {
     if (event.key === bookmarksKey) {
         bookmarks = parseJSON(event.newValue) || {};
-        // Notify all subscribers
-        Object.keys(subscribers).forEach((verseKey) => {
-            notifySubscribers(verseKey);
-        });
+        Object.keys(subscribers).forEach(verseKey => notifySubscribers(verseKey));
     }
 });
 
