@@ -47,5 +47,8 @@
     "keepDetailsOpen": "Versdetails offen halten, wenn die Map genutzt wird",
     "thesuraorder": "Die Surenordnung",
     "tsoa": "Alphabetisch",
-    "tsoc": "Chronologisch"
+    "tsoc": "Chronologisch",
+    "bmdd": "Sie haben eine Notiz auf diesem Lesezeichen!",
+    "delete": "Löschen",
+    "keep": "Behalten"
 }

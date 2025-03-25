@@ -47,5 +47,8 @@
     "keepDetailsOpen": "Gardez les détails du verset ouverts lorsque vous utilisez la carte",
     "thesuraorder": "L'ordre des sourates",
     "tsoa": "Alphabétique",
-    "tsoc": "Chronologique"
+    "tsoc": "Chronologique",
+    "bmdd": "Vous avez une note sur ce signet !",
+    "delete": "Supprimer",
+    "keep": "Conserver"
 }

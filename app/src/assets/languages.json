@@ -19,13 +19,13 @@
     },
     "de": {
         "name": "Deutsch Übersetzung",
-        "comp": 81.9,
+        "comp": 81.93,
         "dir": "ltr",
         "nums": "0 1 2 3 4 5 6 7 8 9"
     },
     "fr": {
         "name": "Traduction française",
-        "comp": 79.98,
+        "comp": 79.99,
         "dir": "ltr",
         "nums": "0 1 2 3 4 5 6 7 8 9"
     },
@@ -37,7 +37,7 @@
     },
     "nl": {
         "name": "Dutch Vertaling",
-        "comp": 10.91,
+        "comp": 10.92,
         "dir": "ltr",
         "nums": "0 1 2 3 4 5 6 7 8 9"
     },
