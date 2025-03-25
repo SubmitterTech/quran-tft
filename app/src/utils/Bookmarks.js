@@ -73,7 +73,7 @@ const notifySubscribers = (verseKey) => {
 const get = (verseKey) => {
     if (bookmarks.hasOwnProperty(verseKey)) {
         const bookmark = bookmarks[verseKey];
-        return bookmark.value !== null ? bookmark.value : format(bookmark.timestamp);
+        return bookmark.value !== null ? bookmark.value : bookmark.timestamp;
     }
     return null;
 };
@@ -96,7 +96,17 @@ const set = (verseKey, value) => {
     notifySubscribers(verseKey);
 };
 
-const remove = (verseKey) => {
+const remove = async (verseKey) => {
+    const bookmark = bookmarks[verseKey];
+    if (bookmark && bookmark.value) {
+        const confirmed = await new Promise((resolve) => {
+            const event = new CustomEvent('bookmarks:confirm-delete', {
+                detail: { data: { key: verseKey, value: bookmark.value }, resolve }
+            });
+            window.dispatchEvent(event);
+        });
+        if (!confirmed) return;
+    }
     delete bookmarks[verseKey];
     localStorage.setItem(bookmarksKey, JSON.stringify(bookmarks));
     notifySubscribers(verseKey);

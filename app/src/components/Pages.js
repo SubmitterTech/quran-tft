@@ -4,18 +4,18 @@ import Verse from '../components/Verse';
 const formatHitCount = (count) => {
     const factor = 19;
     if (count % factor === 0) {
-      return (
-        <span dir="ltr">
-          {count} (
-          <span className="text-nowrap">
-            {factor} x {count / factor}
-          </span>
-          )
-        </span>
-      );
+        return (
+            <span dir="ltr">
+                {count} (
+                <span className="text-nowrap">
+                    {factor} x {count / factor}
+                </span>
+                )
+            </span>
+        );
     }
     return <span dir="ltr">{count}</span>;
-  };
+};
 
 const parseNoteReferences = (notes) => {
     const noteRefsMap = {};
@@ -124,6 +124,9 @@ const Pages = React.memo(({
     }, [quranData, selectedPage, translation]);
 
     const besmele = quranData["23"]["sura"]["1"]["encrypted"]["1"];
+
+    const [deleteConfirmResolver, setDeleteConfirmResolver] = useState(null);
+    const resolverRef = useRef(null);
 
     const handleBesmeleClick = useCallback(() => {
         setBesmeleClicked(b => !b);
@@ -380,7 +383,35 @@ const Pages = React.memo(({
         }
     }, [showExplanation]);
 
-    if (!pageData) return <div className={`${colors[theme]["text"]} flex flex-1 items-center justify-center w-full `}>Loading...</div>;
+    useEffect(() => {
+        resolverRef.current = deleteConfirmResolver;
+    }, [deleteConfirmResolver]);
+
+    useEffect(() => {
+        const handleDeleteConfirmRequest = (event) => {
+            setDeleteConfirmResolver({
+                resolve: event.detail.resolve,
+                data: event.detail.data
+            });
+        };
+
+        const handleNavigationClick = () => {
+            if (resolverRef.current) {
+                resolverRef.current.resolve(false);
+                setDeleteConfirmResolver(null);
+            }
+        };
+
+        window.addEventListener('bookmarks:confirm-delete', handleDeleteConfirmRequest);
+        window.addEventListener('navigation:click', handleNavigationClick);
+
+        return () => {
+            window.removeEventListener('bookmarks:confirm-delete', handleDeleteConfirmRequest);
+            window.removeEventListener('navigation:click', handleNavigationClick);
+        };
+    }, []);
+
+    if (!pageData) return <div className={`${colors[theme]["text"]} flex flex-1 items-center justify-center w-full `}>{translationApplication?.loading}</div>;
 
     const openExplanation = (key) => {
         setShowExplanation(prev => ({ ...prev, [key]: true }));
@@ -429,6 +460,7 @@ const Pages = React.memo(({
             setSelectedVerse(verse);
         }
     }
+
     const grapFocus = (sura, verse) => {
         const verseKey = `${parseInt(sura)}:${parseInt(verse)}`;
         setTimeout(() => {
@@ -436,6 +468,20 @@ const Pages = React.memo(({
                 verseRefs.current[verseKey].scrollIntoView({ behavior: 'smooth', block: 'start' });
             }
         }, 400)
+    };
+
+    const handleConfirm = () => {
+        if (deleteConfirmResolver) {
+            deleteConfirmResolver.resolve(true);
+            setDeleteConfirmResolver(null);
+        }
+    };
+
+    const handleCancel = () => {
+        if (deleteConfirmResolver) {
+            deleteConfirmResolver.resolve(false);
+            setDeleteConfirmResolver(null);
+        }
     };
 
     return (
@@ -696,6 +742,64 @@ const Pages = React.memo(({
                     ))}
                 </div>
             }
+            {deleteConfirmResolver && (
+                <div className="fixed inset-0 z-40 flex items-center justify-center backdrop-blur">
+                    <div
+                        onClick={handleCancel}
+                        className={` w-full h-full absolute left-0 top-0`}></div>
+                    <div
+                        style={{ animation: 'animate-scale 0.2s ease-in-out' }}
+                        className={`z-50 mx-4 ${colors[theme]["app-background"]} ${colors[theme]["app-text"]} rounded shadow-lg`}>
+                        <div className={`p-2 flex flex-col w-full h-full space-y-2`}>
+
+                            <div className={`w-full p-1 rounded ${colors[theme]["verse-detail-background"]} flex flex-col space-y-2`}>
+                                <div className={`p-3 text-lg md:text-xl w-full text-center font-semibold`}>
+                                    {translationApplication?.bmdd}
+                                </div>
+                                <div className={`text-lg md:text-xl w-full overflow-y-auto max-h-96`}>
+                                    <div className={`px-0.5 pt-1 -pb-1 ${direction === "rtl" ? "float-right" : "float-left"}`}>
+                                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className={`w-8 h-7 opacity-50`} >
+                                            <path strokeLinecap="round" strokeLinejoin="round" d="M16.5 3.75V16.5L12 14.25 7.5 16.5V3.75m9 0H18A2.25 2.25 0 0 1 20.25 6v12A2.25 2.25 0 0 1 18 20.25H6A2.25 2.25 0 0 1 3.75 18V6A2.25 2.25 0 0 1 6 3.75h1.5m9 0h-9" />
+                                        </svg>
+                                    </div>
+                                    <div className={`w-full text-lg rounded p-1 text-start ${colors[theme]["matching-text"]} ${colors[theme]["encrypted-background"]}`}>
+                                        {`${deleteConfirmResolver.data.value}`}
+                                    </div>
+                                </div>
+                            </div>
+                            <div className="flex justify-between space-x-2">
+                                <button
+                                    onClick={handleConfirm}
+                                    className={`flex flex-col w-full max-w-24 items-center justify-between pt-2 rounded  ${colors[theme]["text-background"]}`}>
+                                    <div className={`flex justify-center`}>
+                                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" className="w-12 h-12">
+                                            <path stroke-linecap="round" stroke-linejoin="round" d="m3 3 1.664 1.664M21 21l-1.5-1.5m-5.485-1.242L12 17.25 4.5 21V8.742m.164-4.078a2.15 2.15 0 0 1 1.743-1.342 48.507 48.507 0 0 1 11.186 0c1.1.128 1.907 1.077 1.907 2.185V19.5M4.664 4.664 19.5 19.5" />
+                                        </svg>
+                                    </div>
+                                    <div className={`flex ${colors[theme]["page-text"]} text-xs items-center justify-center pb-1`}>
+                                        {translationApplication?.delete}
+                                    </div>
+                                </button>
+                                <div className={` opacity-70 ${colors[theme]["page-text"]} h-20 w-full text-lg md:text-xl flex items-center justify-center text-center `}>
+                                    {`${deleteConfirmResolver.data.key}`}
+                                </div>
+                                <button
+                                    onClick={handleCancel}
+                                    className={`flex flex-col w-full max-w-24 items-center justify-between pt-1 rounded  ${colors[theme]["text-background"]}`}>
+                                    <div className={`flex justify-center`}>
+                                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className={`w-14 h-14`} >
+                                            <path strokeLinecap="round" strokeLinejoin="round" d="M16.5 3.75V16.5L12 14.25 7.5 16.5V3.75m9 0H18A2.25 2.25 0 0 1 20.25 6v12A2.25 2.25 0 0 1 18 20.25H6A2.25 2.25 0 0 1 3.75 18V6A2.25 2.25 0 0 1 6 3.75h1.5m9 0h-9" />
+                                        </svg>
+                                    </div>
+                                    <div className={`flex ${colors[theme]["page-text"]} text-xs items-center justify-center pb-1`}>
+                                        {translationApplication?.keep}
+                                    </div>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            )}
         </div>
     );
 });

@@ -51,7 +51,7 @@ const Verse = ({ besmele,
         setBookmark(Bookmarks.get(currentVerseKey));
 
         const handleBookmarkChange = (nbm) => {
-            setBookmark(nbm);
+            setBookmark(nbm ? nbm.value !== null ? nbm.value : nbm.timestamp : null);
         };
 
         Bookmarks.subscribe(currentVerseKey, handleBookmarkChange);
@@ -60,9 +60,9 @@ const Verse = ({ besmele,
         };
     }, [currentVerseKey]);
 
-    const handleBookmark = useCallback(() => {
+    const handleBookmark = useCallback(async () => {
         if (bookmark) {
-            Bookmarks.remove(currentVerseKey);
+            await Bookmarks.remove(currentVerseKey);
         } else {
             Bookmarks.set(currentVerseKey, null);
         }
@@ -581,7 +581,7 @@ const Verse = ({ besmele,
                                 </svg>
                             </div>
                             <div className={`${(mode === "reading" && bookmark) ? ` p-1 text-start ${colors[theme]["matching-text"]}` : "h-0 "}`} dir={direction} >
-                                {mode === "reading" && (supportsLookAhead() ? parseReferences(Bookmarks.format(bookmark), currentVerseKey + '-bookmarknote') : Bookmarks.format(bookmark))}
+                                {mode === "reading" && (supportsLookAhead() ? parseReferences(bookmark, currentVerseKey + '-bookmarknote') : Bookmarks.format(bookmark))}
                             </div>
                         </div>
                     </div>

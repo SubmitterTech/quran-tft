@@ -175,6 +175,7 @@ const Book = React.memo(({ incomingSearch = false, incomingAppendix = false, inc
     };
 
     const handleToggleJump = () => {
+        window.dispatchEvent(new CustomEvent('navigation:click'));
         if (!isJumpOpen) {
             setMultiSelect(false);
         }
@@ -226,7 +227,7 @@ const Book = React.memo(({ incomingSearch = false, incomingAppendix = false, inc
                         }];
                     }
 
-                    if(from !== null && from.includes('magnify') && rememberHistory && includeSearchScreen) {
+                    if (from !== null && from.includes('magnify') && rememberHistory && includeSearchScreen) {
                         setShouldMagnifyRemembered(true);
                     }
 
@@ -288,7 +289,7 @@ const Book = React.memo(({ incomingSearch = false, incomingAppendix = false, inc
                 }
             }
 
-            if(includeSearchScreen && shouldMagnifyRemembered && lastHistoryItem.from.includes('magnify')) {
+            if (includeSearchScreen && shouldMagnifyRemembered && lastHistoryItem.from.includes('magnify')) {
                 setTimeout(() => {
                     setShouldMagnifyRemembered(false);
                     setMagnifyOpen(true);
@@ -331,10 +332,13 @@ const Book = React.memo(({ incomingSearch = false, incomingAppendix = false, inc
         if (elapsed >= 285) {
             setPrevSettingsOpen(true);
             setPrevSettingsOpenningProgress(progress);
+        } else {
+            window.dispatchEvent(new CustomEvent('navigation:click'));
         }
     };
 
     const handleNavigationButton = (whichone) => {
+        window.dispatchEvent(new CustomEvent('navigation:click'));
         if (isPrevSettingsOpen) {
             setPrevSettingsOpen(false);
         } else {
@@ -653,6 +657,7 @@ const Book = React.memo(({ incomingSearch = false, incomingAppendix = false, inc
         const addBackButtonListener = async () => {
             const listener = await App.addListener('backButton', async () => {
                 if (!backButtonPressedOnce) {
+                    window.dispatchEvent(new CustomEvent('navigation:click'));
                     if (isJumpOpen) {
                         setJumpOpen(false);
                     } else if (isMagnifyOpen) {
@@ -1156,6 +1161,7 @@ const Book = React.memo(({ incomingSearch = false, incomingAppendix = false, inc
                                             onChange={(e) => {
                                                 setPrevSettingsOpen(false);
                                                 setCurrentPage(parseInt(e.target.value));
+                                                window.dispatchEvent(new CustomEvent('navigation:click'));
                                             }}
                                             className={`inset-0 opacity-0 w-20 h-full text-3xl ${isJumpOpen ? `hidden` : ``} bg-transparent focus:outline-none focus:ring-2 focus:border-sky-500 focus:ring-sky-500`}
                                         >

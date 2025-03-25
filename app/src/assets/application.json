@@ -47,5 +47,8 @@
     "keepDetailsOpen": "Keep verse details open when using the map",
     "thesuraorder": "The Sura Order",
     "tsoa": "Alphabetical",
-    "tsoc": "Chronological"
+    "tsoc": "Chronological",
+    "bmdd": "You have a note on this bookmark!",
+    "delete": "Delete",
+    "keep": "Keep"
 }
