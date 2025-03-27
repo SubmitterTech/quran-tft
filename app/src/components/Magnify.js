@@ -310,7 +310,7 @@ const Magnify = ({ colors, theme, translationApplication, quran, map, appendices
         }
 
         return parts;
-    }, [caseSensitive, normalize, colors, theme]);
+    }, [caseSensitive, normalize, lang, colors, theme]);
 
     const lightWords = useCallback((text) => {
         let processedTerm = searchTerm;
@@ -324,7 +324,7 @@ const Magnify = ({ colors, theme, translationApplication, quran, map, appendices
         });
 
         return highlightedText;
-    }, [searchTerm, normalize, highlightText]);
+    }, [searchTerm, caseSensitive, lang, highlightText]);
 
     const lastTitleElementRef = useCallback(node => {
         if (observerTitles.current) observerTitles.current.disconnect();
