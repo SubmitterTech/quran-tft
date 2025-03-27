@@ -2,7 +2,7 @@ import React, { useState, useEffect, useRef, useMemo, useCallback } from 'react'
 import languages from '../assets/languages.json';
 import { getRandom } from '../utils/Generator';
 import { adjustReference } from '../utils/Mapper';
-import { isNative } from '../utils/Device';
+import { isNative, which } from '../utils/Device';
 import { ColorPicker, FontPicker } from '../utils/Theme';
 import Bookmarks from '../utils/Bookmarks';
 import LongPressable from '../hooks/LongPressable';
@@ -25,6 +25,7 @@ const Jump = React.memo(({ onChangeLanguage, suraNames, onChangeFont, font, onCh
     const [showBookmarks, setShowBookmarks] = useState(false);
     const [lightOpen, setLightOpen] = useState(false);
     const isMobile = isNative() | false;
+    const platform = which() || 'web';
 
     const [lang, setLang] = useState(localStorage.getItem("lang"));
 
@@ -349,8 +350,6 @@ const Jump = React.memo(({ onChangeLanguage, suraNames, onChangeFont, font, onCh
 
     const handleSuraSelectClick = (e) => {
         if (suraSelectRef.current) {
-            //suraSelectRef.current.focus(e);
-            //suraSelectRef.current.click(e);
             suraSelectRef.current.showPicker(e);
         }
     };
@@ -507,16 +506,14 @@ const Jump = React.memo(({ onChangeLanguage, suraNames, onChangeFont, font, onCh
                                                 <div className={`relative w-full flex justify-end`}>
                                                     <div
                                                         style={isShufflingSura ? { animation: 'animate-scale 0.2s ease-in-out' } : {}}
-                                                        className={`z-40 text-3xl w-3/4 absolute shadow-md text-center rounded flex items-center justify-center ${colors[theme]["text"]} ${colors[theme]["notes-background"]}`}>
+                                                        className={`z-40 ${platform === 'ios' ? `w-full absolute flex justify-end` : `w-2/3 absolute`} h-16 `}>
                                                         <LongPressable
                                                             onTap={() => { handleSuraSelectClick() }}
                                                             onLongPress={() => { setSuraSettingsOpenningProgress(1) }}
                                                             onTimerUpdate={handleTimerUpdate}
                                                             onCancel={longPressCancelled}>
-                                                            <div className={`p-3 cursor-pointer`}>
-
+                                                            <div className={`${platform === 'ios' ? `w-2/3 absolute right-0 top-0` : `w-full`} h-full flex justify-center cursor-pointer text-center shadow-md rounded ${colors[theme]["text"]} ${colors[theme]["notes-background"]} ${parseInt(suraNumber) !== 0 ? `text-3xl pt-2.5` : `text-2xl pt-3.5`}`}>
                                                                 {parseInt(suraNumber) !== 0 ? suraNumber : translationApplication?.sura}
-
                                                             </div>
                                                             {parseInt(suraNumber) !== 0 && <div className={`text-xs absolute bottom-0.5 right-1 ${colors[theme]["page-text"]} brightness-75 z-50`}>{translationApplication?.sura}</div>}
 
@@ -529,7 +526,7 @@ const Jump = React.memo(({ onChangeLanguage, suraNames, onChangeFont, font, onCh
                                                         dir={isMobile ? `ltr` : direction}
                                                         onChange={handleSuraChange}
                                                         value={suraNumber}
-                                                        className={`z-30 inset-0 opacity-0 text-3xl w-3/4 p-3 rounded ${colors[theme]["text"]} ${colors[theme]["notes-background"]} focus:ring-2 focus:outline-none focus:ring-sky-500  `}>
+                                                        className={`${platform === 'ios' ? `z-50 ` : `z-30`} w-2/3 inset-0 opacity-0 text-3xl p-3 rounded ${colors[theme]["text"]} ${colors[theme]["notes-background"]} focus:ring-2 focus:outline-none focus:ring-sky-500  `}>
                                                         <option key="0" value="0" disabled>
                                                             {(() => {
                                                                 if (order === 'alphabetical') {
@@ -564,19 +561,20 @@ const Jump = React.memo(({ onChangeLanguage, suraNames, onChangeFont, font, onCh
                                                 <div className={`relative w-full flex justify-start`}>
                                                     <div
                                                         style={isShufflingVerse ? { animation: 'animate-scale 0.2s ease-in-out' } : {}}
-                                                        className={`text-3xl w-3/4 p-3 absolute shadow-md text-center rounded flex items-center justify-center ${colors[theme]["text"]} ${colors[theme]["notes-background"]}`}
-                                                        onClick={() => document.getElementById('verse').click()}
-                                                    >
-                                                        {parseInt(verseNumber) !== 0 ? verseNumber : translationApplication?.verse}
+                                                        className={` w-2/3 h-16 absolute shadow-md rounded ${colors[theme]["text"]} ${colors[theme]["notes-background"]}`}
+                                                        onClick={() => document.getElementById('verse').click()}>
+                                                        <div className={`w-full h-full flex justify-center cursor-pointer text-center ${parseInt(suraNumber) !== 0 ? `text-3xl pt-2.5` : `text-2xl pt-3.5`}`}>
+                                                            {parseInt(verseNumber) !== 0 ? verseNumber : translationApplication?.verse}
+                                                        </div>
+                                                        {parseInt(verseNumber) !== 0 && <div className={`text-xs absolute bottom-0.5 left-1 ${colors[theme]["page-text"]} brightness-75`}>{translationApplication?.verse}</div>}
                                                     </div>
-                                                    {parseInt(verseNumber) !== 0 && <div className={`text-xs absolute bottom-0.5 left-1 ${colors[theme]["page-text"]} brightness-75`}>{translationApplication?.verse}</div>}
                                                     <select
                                                         id="verse"
                                                         name="verse"
                                                         dir={isMobile ? `ltr` : direction}
                                                         onChange={handleVerseChange}
                                                         value={verseNumber}
-                                                        className={` cursor-pointer inset-0 opacity-0 text-3xl w-3/4 p-3 rounded ${colors[theme]["text"]} ${colors[theme]["notes-background"]} focus:ring-2 focus:outline-none focus:ring-sky-500`}>
+                                                        className={` inset-0 opacity-0 text-3xl w-3/4 p-3 rounded ${colors[theme]["text"]} ${colors[theme]["notes-background"]} focus:ring-2 focus:outline-none focus:ring-sky-500`}>
                                                         <option key="0" value="0" disabled>{translationApplication?.verse}</option>
                                                         {suraNumber && versesInSuras[suraNumber] && versesInSuras[suraNumber].map(([verse, iftitle]) => {
                                                             const line = direction === 'rtl' ? (isMobile ? ((iftitle ? iftitle + `\t` : ``) + verse) : (verse + (iftitle ? `\t` + iftitle : ``))) : (verse + (iftitle ? `\t` + iftitle : ``));

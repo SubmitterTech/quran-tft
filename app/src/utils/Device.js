@@ -4,14 +4,20 @@ import { StatusBar, Style } from '@capacitor/status-bar';
 
 let hasStatusBarPromise = null;
 let isNativePlatform = false;
+let platform = 'web';
 
 export const initPlatform = async () => {
   const info = await Device.getInfo();
+  platform = info?.platform;
   isNativePlatform = (info.platform === 'ios' || info.platform === 'android');
 };
 
 export const isNative = () => {
   return isNativePlatform;
+};
+
+export const which = () => {
+  return platform;
 };
 
 export const supportsUnicodeRegex = () => {
