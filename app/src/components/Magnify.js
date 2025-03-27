@@ -286,8 +286,8 @@ const Magnify = ({ colors, theme, translationApplication, quran, map, appendices
 
     const highlightText = useCallback((originalText, keyword) => {
         let processedText = originalText;
-        processedText = normalize ? normalizeText(processedText) : processedText;
-        //processedText = caseSensitive ? processedText : processedText.toLocaleUpperCase(lang);
+        //processedText = normalize ? normalizeText(processedText) : processedText;
+        processedText = caseSensitive ? processedText : processedText.toLocaleUpperCase(lang);
         const escapedKeyword = normalize ? removePunctuations(keyword) : keyword;
         const regex = new RegExp(escapedKeyword, caseSensitive ? 'g' : 'gi');
         let match;
@@ -314,8 +314,8 @@ const Magnify = ({ colors, theme, translationApplication, quran, map, appendices
 
     const lightWords = useCallback((text) => {
         let processedTerm = searchTerm;
-        processedTerm = normalize ? normalizeText(processedTerm) : processedTerm;
-        //processedTerm = caseSensitive ? processedTerm : processedTerm.toLocaleUpperCase(lang);
+        //processedTerm = normalize ? normalizeText(processedTerm) : processedTerm;
+        processedTerm = caseSensitive ? processedTerm : processedTerm.toLocaleUpperCase(lang);
         const keywords = processedTerm.split(' ').filter(keyword => (keyword.trim() !== '' && keyword.trim() !== '|'));
         let highlightedText = [text];
 
