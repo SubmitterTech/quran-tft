@@ -25,7 +25,7 @@ const Jump = React.memo(({ onChangeLanguage, suraNames, onChangeFont, font, onCh
     const [showBookmarks, setShowBookmarks] = useState(false);
     const [lightOpen, setLightOpen] = useState(false);
     const isMobile = isNative() | false;
-    const platform = which() || 'web';
+    const showPickerNotSupported = (which() === 'ios') || !("showPicker" in HTMLSelectElement.prototype);
 
     const [lang, setLang] = useState(localStorage.getItem("lang"));
 
@@ -349,8 +349,13 @@ const Jump = React.memo(({ onChangeLanguage, suraNames, onChangeFont, font, onCh
     }, [onChangeLanguage, onClose, isMagnifyVisited]);
 
     const handleSuraSelectClick = (e) => {
-        if (suraSelectRef.current) {
-            suraSelectRef.current.showPicker(e);
+        if (showPickerNotSupported) {
+            setSuraSettingsOpen(false);
+            setSuraSettingsOpenningProgress(0);
+        } else {
+            if (suraSelectRef.current) {
+                suraSelectRef.current.showPicker(e);
+            }
         }
     };
 
@@ -504,15 +509,25 @@ const Jump = React.memo(({ onChangeLanguage, suraNames, onChangeFont, font, onCh
                                         <div>
                                             <div className={` w-full flex space-x-2 mt-2`}>
                                                 <div className={`relative w-full flex justify-end`}>
+                                                    {showPickerNotSupported &&
+                                                        <div
+                                                            style={{ opacity: ((suraSettingsOpenningProgress * 1.0 / 5) + 0.05) }}
+                                                            className={`z-40 w-1/3 absolute left-0 h-14 flex items-center justify-center ${colors[theme]['page-text']}`}>
+                                                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className={`w-full h-full`}>
+                                                                <path strokeLinecap="round" strokeLinejoin="round" d="M10.343 3.94c.09-.542.56-.94 1.11-.94h1.093c.55 0 1.02.398 1.11.94l.149.894c.07.424.384.764.78.93.398.164.855.142 1.205-.108l.737-.527a1.125 1.125 0 0 1 1.45.12l.773.774c.39.389.44 1.002.12 1.45l-.527.737c-.25.35-.272.806-.107 1.204.165.397.505.71.93.78l.893.15c.543.09.94.559.94 1.109v1.094c0 .55-.397 1.02-.94 1.11l-.894.149c-.424.07-.764.383-.929.78-.165.398-.143.854.107 1.204l.527.738c.32.447.269 1.06-.12 1.45l-.774.773a1.125 1.125 0 0 1-1.449.12l-.738-.527c-.35-.25-.806-.272-1.203-.107-.398.165-.71.505-.781.929l-.149.894c-.09.542-.56.94-1.11.94h-1.094c-.55 0-1.019-.398-1.11-.94l-.148-.894c-.071-.424-.384-.764-.781-.93-.398-.164-.854-.142-1.204.108l-.738.527c-.447.32-1.06.269-1.45-.12l-.773-.774a1.125 1.125 0 0 1-.12-1.45l.527-.737c.25-.35.272-.806.108-1.204-.165-.397-.506-.71-.93-.78l-.894-.15c-.542-.09-.94-.56-.94-1.109v-1.094c0-.55.398-1.02.94-1.11l.894-.149c.424-.07.765-.383.93-.78.165-.398.143-.854-.108-1.204l-.526-.738a1.125 1.125 0 0 1 .12-1.45l.773-.773a1.125 1.125 0 0 1 1.45-.12l.737.527c.35.25.807.272 1.204.107.397-.165.71-.505.78-.929l.15-.894Z" />
+                                                                <path strokeLinecap="round" strokeLinejoin="round" d="M15 12a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z" />
+                                                            </svg>
+                                                        </div>
+                                                    }
                                                     <div
                                                         style={isShufflingSura ? { animation: 'animate-scale 0.2s ease-in-out' } : {}}
-                                                        className={`z-40 ${platform === 'ios' ? `w-full absolute flex justify-end` : `w-2/3 absolute`} h-16 `}>
+                                                        className={`z-40 ${showPickerNotSupported ? `w-full absolute flex justify-end` : `w-2/3 absolute`} h-14 `}>
                                                         <LongPressable
                                                             onTap={() => { handleSuraSelectClick() }}
                                                             onLongPress={() => { setSuraSettingsOpenningProgress(1) }}
                                                             onTimerUpdate={handleTimerUpdate}
                                                             onCancel={longPressCancelled}>
-                                                            <div className={`${platform === 'ios' ? `w-2/3 absolute right-0 top-0` : `w-full`} h-full flex justify-center cursor-pointer text-center shadow-md rounded ${colors[theme]["text"]} ${colors[theme]["notes-background"]} ${parseInt(suraNumber) !== 0 ? `text-3xl pt-2.5` : `text-2xl pt-3.5`}`}>
+                                                            <div className={`${showPickerNotSupported ? `w-2/3 absolute right-0 top-0` : `w-full`} h-full flex justify-center cursor-pointer text-center shadow-md rounded ${colors[theme]["text"]} ${colors[theme]["notes-background"]} ${parseInt(suraNumber) !== 0 ? `text-3xl pt-2.5` : `text-2xl pt-3.5`}`}>
                                                                 {parseInt(suraNumber) !== 0 ? suraNumber : translationApplication?.sura}
                                                             </div>
                                                             {parseInt(suraNumber) !== 0 && <div className={`text-xs absolute bottom-0.5 right-1 ${colors[theme]["page-text"]} brightness-75 z-50`}>{translationApplication?.sura}</div>}
@@ -526,7 +541,7 @@ const Jump = React.memo(({ onChangeLanguage, suraNames, onChangeFont, font, onCh
                                                         dir={isMobile ? `ltr` : direction}
                                                         onChange={handleSuraChange}
                                                         value={suraNumber}
-                                                        className={`${platform === 'ios' ? `z-50 ` : `z-30`} w-2/3 inset-0 opacity-0 text-3xl p-3 rounded ${colors[theme]["text"]} ${colors[theme]["notes-background"]} focus:ring-2 focus:outline-none focus:ring-sky-500  `}>
+                                                        className={`${showPickerNotSupported ? `z-50 ` : `z-30`} w-2/3 inset-0 opacity-0 text-3xl p-3 rounded ${colors[theme]["text"]} ${colors[theme]["notes-background"]} focus:ring-2 focus:outline-none focus:ring-sky-500  `}>
                                                         <option key="0" value="0" disabled>
                                                             {(() => {
                                                                 if (order === 'alphabetical') {
@@ -561,7 +576,7 @@ const Jump = React.memo(({ onChangeLanguage, suraNames, onChangeFont, font, onCh
                                                 <div className={`relative w-full flex justify-start`}>
                                                     <div
                                                         style={isShufflingVerse ? { animation: 'animate-scale 0.2s ease-in-out' } : {}}
-                                                        className={` w-2/3 h-16 absolute shadow-md rounded ${colors[theme]["text"]} ${colors[theme]["notes-background"]}`}
+                                                        className={` w-2/3 h-14 absolute shadow-md rounded ${colors[theme]["text"]} ${colors[theme]["notes-background"]}`}
                                                         onClick={() => document.getElementById('verse').click()}>
                                                         <div className={`w-full h-full flex justify-center cursor-pointer text-center ${parseInt(suraNumber) !== 0 ? `text-3xl pt-2.5` : `text-2xl pt-3.5`}`}>
                                                             {parseInt(verseNumber) !== 0 ? verseNumber : translationApplication?.verse}
@@ -697,13 +712,13 @@ const Jump = React.memo(({ onChangeLanguage, suraNames, onChangeFont, font, onCh
                                     className={`h-full w-full relative flex`}>
 
                                     <div
-                                        onClick={() => setSuraSettingsOpen(false)}
+                                        onClick={() => { setSuraSettingsOpen(false); setSuraSettingsOpenningProgress(0); }}
                                         className={`absolute -left-0.5 -top-0.5 -bottom-0.5 -right-0.5 ${colors[theme]['app-background']} `}>
                                     </div>
 
                                     <div className={`w-full`}>
                                         <div
-                                            onClick={() => setSuraSettingsOpen(false)}
+                                            onClick={() => { setSuraSettingsOpen(false); setSuraSettingsOpenningProgress(0); }}
                                             className={`absolute top-0 left-1/4 -translate-x-1/2 flex items-center  justify-center transition-all duration-300 ease-linear ${suraSettingsOpenningProgress < 0.57 ? " " : " rotate-180 "} ${suraSettingsOpenningProgress >= 0.57 ? colors[theme]["matching-text"] : colors[theme]["log-text"]}`}>
                                             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className={`w-20 h-20`}>
                                                 <path strokeLinecap="round" strokeLinejoin="round" d="M10.343 3.94c.09-.542.56-.94 1.11-.94h1.093c.55 0 1.02.398 1.11.94l.149.894c.07.424.384.764.78.93.398.164.855.142 1.205-.108l.737-.527a1.125 1.125 0 0 1 1.45.12l.773.774c.39.389.44 1.002.12 1.45l-.527.737c-.25.35-.272.806-.107 1.204.165.397.505.71.93.78l.893.15c.543.09.94.559.94 1.109v1.094c0 .55-.397 1.02-.94 1.11l-.894.149c-.424.07-.764.383-.929.78-.165.398-.143.854.107 1.204l.527.738c.32.447.269 1.06-.12 1.45l-.774.773a1.125 1.125 0 0 1-1.449.12l-.738-.527c-.35-.25-.806-.272-1.203-.107-.398.165-.71.505-.781.929l-.149.894c-.09.542-.56.94-1.11.94h-1.094c-.55 0-1.019-.398-1.11-.94l-.148-.894c-.071-.424-.384-.764-.781-.93-.398-.164-.854-.142-1.204.108l-.738.527c-.447.32-1.06.269-1.45-.12l-.773-.774a1.125 1.125 0 0 1-.12-1.45l.527-.737c.25-.35.272-.806.108-1.204-.165-.397-.506-.71-.93-.78l-.894-.15c-.542-.09-.94-.56-.94-1.109v-1.094c0-.55.398-1.02.94-1.11l.894-.149c.424-.07.765-.383.93-.78.165-.398.143-.854-.108-1.204l-.526-.738a1.125 1.125 0 0 1 .12-1.45l.773-.773a1.125 1.125 0 0 1 1.45-.12l.737.527c.35.25.807.272 1.204.107.397-.165.71-.505.78-.929l.15-.894Z" />
