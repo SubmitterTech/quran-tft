@@ -41,7 +41,7 @@ Object.keys(bookmarks).forEach(key => {
     if (timestampRegex.test(trimmedValue)) {
         bookmarks[key] = { value: null, timestamp: trimmedValue };
     } else {
-        bookmarks[key] = { value: histEntry, timestamp: format(Date.now()) };
+        bookmarks[key] = { value: format(histEntry), timestamp: format(Date.now()) };
     }
     needsMigration = true;
 });

@@ -418,13 +418,14 @@ const Book = React.memo(({ incomingSearch = false, incomingAppendix = false, inc
     };
 
     const parseReferences = (text, from = null, controller = null) => {
-        if (text === null || text === undefined) {
+        if (text === null || text === undefined || typeof text.split !== 'function') {
             return text;
         }
         return direction === 'rtl' ? parseReferencesRTL(text, from, controller) : parseReferencesLTR(text, from, controller);
     };
 
     const parseReferencesLTR = (text, from = null, controller = null) => {
+
         const versePattern = '(?<!\\d:)\\b(\\d+:\\d+(?:-\\d+)?)\\b(?!:\\d)';
         const fallbackPattern = '(\\d+:\\d+(?:-\\d+)?)';
 
