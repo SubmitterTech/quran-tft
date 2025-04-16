@@ -1,0 +1,1 @@
+"use strict";(self.webpackChunkapp=self.webpackChunkapp||[]).push([[271],{7271:a=>{a.exports=JSON.parse('{"page":3,"quran":"CORAN","title":"LE \\nTESTAMENT \\nFINAL","version":"[Version anglaise autoris\xe9e]","translated":"Traduit de l\'original \\npar","author":"Rashad Khalifa, Ph.D.","edition":"(\xc9dition r\xe9vis\xe9e)"}')}}]);
