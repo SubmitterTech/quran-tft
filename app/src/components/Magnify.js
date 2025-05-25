@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useCallback, useRef } from 'react';
 import { mapAppendices, mapQuran } from '../utils/Mapper';
+import { isNative } from '../utils/Device';
 
 const Magnify = ({ colors, theme, translationApplication, quran, map, appendices, introduction, onClose, onConfirm, direction, multiSelect, setMultiSelect, selectedVerseList, setSelectedVerseList }) => {
     const lang = localStorage.getItem("lang");
@@ -17,10 +18,10 @@ const Magnify = ({ colors, theme, translationApplication, quran, map, appendices
     const [optionsVisible, setOptionsVisible] = useState(false);
     const selectedVerseSet = new Set(selectedVerseList);
 
-    const [titlesVisible, setTitlesVisible] = useState(false);
+    const [titlesVisible, setTitlesVisible] = useState(isNative() ? false : true);
     const [versesVisible, setVersesVisible] = useState(true);
-    const [notesVisible, setNotesVisible] = useState(false);
-    const [appendicesVisible, setAppendicesVisible] = useState(false);
+    const [notesVisible, setNotesVisible] = useState(isNative() ? false : true);
+    const [appendicesVisible, setAppendicesVisible] = useState(isNative() ? false : true);
 
     const [searchResultTitles, setSearchResultTitles] = useState([]);
     const [searchResultVerses, setSearchResultVerses] = useState([]);
