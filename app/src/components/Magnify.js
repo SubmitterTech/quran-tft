@@ -132,7 +132,13 @@ const Magnify = ({ colors, theme, translationApplication, quran, map, appendices
         }
 
         let processedTerm = normalize ? normalizeText(term) : term;
-        processedTerm = caseSensitive ? processedTerm : processedTerm.toLocaleUpperCase(lang);
+
+        if (!caseSensitive) {
+            let interprocessedTerm = processedTerm.toLocaleUpperCase(lang);
+            if (interprocessedTerm.length === term.length) {
+                processedTerm = interprocessedTerm;
+            }
+        }
 
         // Split the search term by '|' to get OR terms
         const orTerms = processedTerm.split('|').map(term => term.trim()).filter(term => term !== '');
@@ -154,7 +160,8 @@ const Magnify = ({ colors, theme, translationApplication, quran, map, appendices
                 for (const verseNumber in verses) {
                     const verseText = verses[verseNumber];
                     let processedVerseText = normalize ? normalizeText(verseText) : verseText;
-                    processedVerseText = caseSensitive ? processedVerseText : processedVerseText.toLocaleUpperCase(lang);
+                    let interprocessedVerseText = processedVerseText.toLocaleUpperCase(lang);
+                    processedVerseText = caseSensitive ? processedVerseText : interprocessedVerseText.length === processedVerseText.length ? interprocessedVerseText : processedVerseText;
 
                     if (keywordGroups.some(keywords => {
                         return keywords.every(keyword => processedVerseText.includes(keyword)) ||
@@ -185,7 +192,8 @@ const Magnify = ({ colors, theme, translationApplication, quran, map, appendices
                 for (const titleNumber in titles) {
                     const titleText = titles[titleNumber];
                     let processedTitleText = normalize ? normalizeText(titleText) : titleText;
-                    processedTitleText = caseSensitive ? processedTitleText : processedTitleText.toLocaleUpperCase(lang);
+                    let interprocessedTitleText = processedTitleText.toLocaleUpperCase(lang);
+                    processedTitleText = caseSensitive ? processedTitleText : interprocessedTitleText.length === processedTitleText.length ? interprocessedTitleText : processedTitleText;
 
                     if (keywordGroups.some(keywords => keywords.every(keyword => processedTitleText.includes(keyword)))) {
                         titleResults.push({ suraNumber, titleNumber, titleText });
@@ -234,7 +242,8 @@ const Magnify = ({ colors, theme, translationApplication, quran, map, appendices
                             const introText = value.toString();
                             const key = page + "-" + type + "-" + order;
                             let processedIntroText = normalize ? normalizeText(introText) : introText;
-                            processedIntroText = caseSensitive ? processedIntroText : processedIntroText.toLocaleUpperCase(lang);
+                            let interprocessedIntroText = processedIntroText.toLocaleUpperCase(lang);
+                            processedIntroText = caseSensitive ? processedIntroText : interprocessedIntroText.length === processedIntroText.length ? interprocessedIntroText : processedIntroText;
 
                             if (keywordGroups.some(keywords => keywords.every(keyword => processedIntroText.includes(keyword)))) {
                                 appendicesResults.push({ appx, key, introText });
@@ -252,7 +261,8 @@ const Magnify = ({ colors, theme, translationApplication, quran, map, appendices
                     const appendixText = element.type === 'table' ? element.content.ref.toString() : element.content.toString();
                     const key = element.type + "-" + element.key + "-" + element.order;
                     let processedAppendixText = normalize ? normalizeText(appendixText) : appendixText;
-                    processedAppendixText = caseSensitive ? processedAppendixText : processedAppendixText.toLocaleUpperCase(lang);
+                    let interprocessedAppendixText = processedAppendixText.toLocaleUpperCase(lang);
+                    processedAppendixText = caseSensitive ? processedAppendixText : interprocessedAppendixText.length === processedAppendixText.length ? interprocessedAppendixText : processedAppendixText;
 
                     if (keywordGroups.some(keywords => keywords.every(keyword => processedAppendixText.includes(keyword)))) {
                         appendicesResults.push({ appx, key, appendixText });
@@ -286,8 +296,12 @@ const Magnify = ({ colors, theme, translationApplication, quran, map, appendices
 
     const highlightText = useCallback((originalText, keyword) => {
         let processedText = originalText;
-        //processedText = normalize ? normalizeText(processedText) : processedText;
-        processedText = caseSensitive ? processedText : processedText.toLocaleUpperCase(lang);
+        processedText = normalize ? normalizeText(processedText) : processedText;
+
+        let interprocessedText = caseSensitive ? processedText : processedText.toLocaleUpperCase(lang);
+        if (originalText.length === interprocessedText.length) {
+            processedText = interprocessedText;
+        }
         const escapedKeyword = normalize ? removePunctuations(keyword) : keyword;
         const regex = new RegExp(escapedKeyword, caseSensitive ? 'g' : 'gi');
         let match;
@@ -315,7 +329,10 @@ const Magnify = ({ colors, theme, translationApplication, quran, map, appendices
     const lightWords = useCallback((text) => {
         let processedTerm = searchTerm;
         //processedTerm = normalize ? normalizeText(processedTerm) : processedTerm;
-        processedTerm = caseSensitive ? processedTerm : processedTerm.toLocaleUpperCase(lang);
+        let interprocessedTerm = caseSensitive ? processedTerm : processedTerm.toLocaleUpperCase(lang);
+        if (searchTerm.length === interprocessedTerm.length) {
+            processedTerm = interprocessedTerm;
+        }
         const keywords = processedTerm.split(' ').filter(keyword => (keyword.trim() !== '' && keyword.trim() !== '|'));
         let highlightedText = [text];
 
