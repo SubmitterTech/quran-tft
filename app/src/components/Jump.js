@@ -267,32 +267,27 @@ const Jump = React.memo(({ onChangeLanguage, suraNames, onChangeFont, font, onCh
         }, 209);
     }, [versesInSuras, pageForSuraVerse]);
 
-    const handleSuraChange = useCallback(
-        (e) => {
-            const newSuraNumber = e.target.value;
-            setSuraNumber(newSuraNumber);
-            setVerseNumber('0');
-            setLightOpen(false);
-            const firstVerseOfSura = versesInSuras[newSuraNumber][0][0];
-            if (firstVerseOfSura && pageForSuraVerse[newSuraNumber][firstVerseOfSura]) {
-                setSelectedPage(pageForSuraVerse[newSuraNumber][firstVerseOfSura]);
-            }
-        },
-        [versesInSuras, pageForSuraVerse]
-    );
+    const handleSuraChange = useCallback((e) => {
+        const newSuraNumber = e.target.value;
+        setSuraNumber(newSuraNumber);
+        setVerseNumber('0');
+        setLightOpen(false);
+        setSuraSettingsOpen(false);
+        const firstVerseOfSura = versesInSuras[newSuraNumber][0][0];
+        if (firstVerseOfSura && pageForSuraVerse[newSuraNumber][firstVerseOfSura]) {
+            setSelectedPage(pageForSuraVerse[newSuraNumber][firstVerseOfSura]);
+        }
+    }, [versesInSuras, pageForSuraVerse]);
 
-    const handleVerseChange = useCallback(
-        (e) => {
-            setLightOpen(true);
-            const newVerseNumber = e.target.value;
-            setVerseNumber(newVerseNumber);
+    const handleVerseChange = useCallback((e) => {
+        setLightOpen(true);
+        const newVerseNumber = e.target.value;
+        setVerseNumber(newVerseNumber);
 
-            if (pageForSuraVerse[suraNumber] && pageForSuraVerse[suraNumber][newVerseNumber]) {
-                setSelectedPage(pageForSuraVerse[suraNumber][newVerseNumber]);
-            }
-        },
-        [suraNumber, pageForSuraVerse]
-    );
+        if (pageForSuraVerse[suraNumber] && pageForSuraVerse[suraNumber][newVerseNumber]) {
+            setSelectedPage(pageForSuraVerse[suraNumber][newVerseNumber]);
+        }
+    }, [suraNumber, pageForSuraVerse]);
 
     const handleSubmit = useCallback(() => {
         onConfirm(selectedPage, suraNumber, verseNumber ? verseNumber !== '0' ? verseNumber : '1' : '1');
