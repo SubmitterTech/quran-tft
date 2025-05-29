@@ -48,6 +48,8 @@ const Jump = React.memo(({ onChangeLanguage, suraNames, onChangeFont, font, onCh
     const [lastClickedBookmarkKey, setLastClickedBookmarkKey] = useState(null);
     const [isBookmarkHighlighted, setIsBookmarkHighlighted] = useState(false);
 
+    const [bookmarkFilter, setBookmarkFilter] = useState('');
+
     const updateBookmark = useCallback((key, val) => {
         Bookmarks.set(key, val);
     }, []);
@@ -100,6 +102,11 @@ const Jump = React.memo(({ onChangeLanguage, suraNames, onChangeFont, font, onCh
             return () => clearTimeout(highlightTimer);
         }
     }, [lastClickedBookmarkKey, bookmarksContainerRef, showBookmarks]);
+
+    const filteredBookmarks = bookmarksList.filter(
+        ([key, val]) =>
+            val.toLowerCase().includes(bookmarkFilter.trim().toLowerCase())
+    );
 
     // Compute suraNameMap using useMemo
     const suraNameMap = useMemo(() => {
@@ -425,19 +432,43 @@ const Jump = React.memo(({ onChangeLanguage, suraNames, onChangeFont, font, onCh
                     <div className={`shadow-[rgba(125,211,252,0.4)_0px_2px_10px_10px] flex flex-col items-center justify-center ${colors[theme]["app-background"]} rounded  w-full `}>
                         <div className={`w-full pt-2`}>
                             <div className={`w-full flex space-x-2 px-2`}>
-                                <div
-                                    onClick={onMagnify}
-                                    dir={direction}
-                                    className={`w-3/4 flex justify-center ${colors[theme]["text"]} rounded p-2 ${colors[theme]["text-background"]} cursor-pointer`}>
-                                    <button className={`flex justify-center`} >
-                                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className={`w-14 h-14`}>
-                                            <path strokeLinecap="round" strokeLinejoin="round" d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607z" />
-                                        </svg>
-                                    </button>
-                                    <div className={`flex items-center ml-3 font-semibold ${colors[theme]["matching-text"]} text-xl`}>
-                                        {translationApplication.search}<span className={`${colors[theme]["text"]}`}>{"..."}</span>
+                                {showBookmarks ? (
+                                    <div className={`w-3/4 flex flex-col items-center justify-center ml-1.5`}>
+                                        <div className={`flex w-full space-x-2 ml-0.5 items-end ${colors[theme]["page-text"]}`}>
+                                            <input
+                                                type="text"
+                                                dir={direction}
+                                                value={bookmarkFilter}
+                                                onChange={e => setBookmarkFilter(e.target.value)}
+                                                placeholder={translationApplication.search + `...`}
+                                                className={`w-full p-2 rounded ${colors[theme]["app-background"]} ${colors[theme]["app-text"]} ring-1 ${theme === 'light' ? `ring-black/20` : `ring-white/20`} focus:outline-none focus:ring-2 ${colors[theme]["focus-ring"]} ${colors[theme]["focus-text"]}`}
+                                            />
+                                            {bookmarkFilter && bookmarkFilter.length > 0 ? (
+                                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" className="w-12 h-12">
+                                                    <path fillRule="evenodd" d="M3.792 2.938A49.069 49.069 0 0 1 12 2.25c2.797 0 5.54.236 8.209.688a1.857 1.857 0 0 1 1.541 1.836v1.044a3 3 0 0 1-.879 2.121l-6.182 6.182a1.5 1.5 0 0 0-.439 1.061v2.927a3 3 0 0 1-1.658 2.684l-1.757.878A.75.75 0 0 1 9.75 21v-5.818a1.5 1.5 0 0 0-.44-1.06L3.13 7.938a3 3 0 0 1-.879-2.121V4.774c0-.897.64-1.683 1.542-1.836Z" clipRule="evenodd" />
+                                                </svg>
+                                            ) : (
+                                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-12 h-12">
+                                                    <path strokeLinecap="round" strokeLinejoin="round" d="M12 3c2.755 0 5.455.232 8.083.678.533.09.917.556.917 1.096v1.044a2.25 2.25 0 0 1-.659 1.591l-5.432 5.432a2.25 2.25 0 0 0-.659 1.591v2.927a2.25 2.25 0 0 1-1.244 2.013L9.75 21v-6.568a2.25 2.25 0 0 0-.659-1.591L3.659 7.409A2.25 2.25 0 0 1 3 5.818V4.774c0-.54.384-1.006.917-1.096A48.32 48.32 0 0 1 12 3Z" />
+                                                </svg>
+                                            )}
+                                        </div>
+
                                     </div>
-                                </div>
+                                ) : (
+                                    <div
+                                        onClick={onMagnify}
+                                        dir={direction}
+                                        className={`w-3/4 flex justify-center ${colors[theme]["text"]} rounded p-2 ${colors[theme]["text-background"]} cursor-pointer`}>
+                                        <button className={`flex justify-center`} >
+                                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className={`w-14 h-14`}>
+                                                <path strokeLinecap="round" strokeLinejoin="round" d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607z" />
+                                            </svg>
+                                        </button>
+                                        <div className={`flex items-center ml-3 font-semibold ${colors[theme]["matching-text"]} text-xl`}>
+                                            {translationApplication.search}<span className={`${colors[theme]["text"]}`}>{"..."}</span>
+                                        </div>
+                                    </div>)}
                                 <button
                                     onClick={toggleBookmark}
                                     className={`flex flex-col w-1/3 items-center justify-between pt-2 rounded ${colors[theme]["text"]} ${colors[theme]["text-background"]}`}>
@@ -465,7 +496,7 @@ const Jump = React.memo(({ onChangeLanguage, suraNames, onChangeFont, font, onCh
                                     <div
                                         ref={bookmarksContainerRef}
                                         className={`md:h-80 lg:h-96 h-72 m-2 px-1 py-1 text-base rounded ${colors[theme]["relation-background"]} overflow-y-auto overflow-x-hidden`}>
-                                        {bookmarksList.map(([key, val]) => (
+                                        {filteredBookmarks.map(([key, val]) => (
                                             <div key={key}
                                                 ref={(el) => (bookmarkItemRefs.current[key] = el)}
                                                 className={`bookmark-entry flex py-1 space-x-1 mb-1.5 border-b ${lastClickedBookmarkKey === key && isBookmarkHighlighted
