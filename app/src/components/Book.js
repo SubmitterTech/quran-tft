@@ -10,7 +10,7 @@ import Magnify from '../components/Magnify';
 import Splash from '../components/Splash';
 import Intro from '../components/Intro';
 import Isbn from '../components/Isbn';
-import { adjustReference, generateReferenceMap, transformAppendices, findPageNumber, extractReferenceDetails, mapQuranWithNotes, generateFormula } from '../utils/Mapper';
+import { adjustReference, generateReferenceMap, transformAppendices, findPageNumber, extractReferenceDetails, mapQuranWithNotes, generateFormula, toRoman } from '../utils/Mapper';
 import { listCopy, smartCopy, supportsLookAhead, isNative } from '../utils/Device';
 import LongPressable from '../hooks/LongPressable';
 import '../assets/css/Book.css';
@@ -79,25 +79,6 @@ const Book = React.memo(({ incomingSearch = false, incomingAppendix = false, inc
     const [appendices, setAppendices] = useState(
         Array.from({ length: 38 }, (_, i) => ({ number: i + 1, title: "" }))
     );
-
-    const toRoman = (num) => {
-        const romanNumerals = {
-            xl: 40,
-            x: 10,
-            ix: 9,
-            v: 5,
-            iv: 4,
-            i: 1,
-        };
-        let result = '';
-        for (let key in romanNumerals) {
-            while (num >= romanNumerals[key]) {
-                result += key;
-                num -= romanNumerals[key];
-            }
-        }
-        return result;
-    };
 
     useEffect(() => {
         if (incomingAppendix) {

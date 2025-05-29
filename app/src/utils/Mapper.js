@@ -276,3 +276,22 @@ export const generateFormula = (list) => {
 
     return formula;
 };
+
+export const toRoman = (num) => {
+    const romanNumerals = {
+        xl: 40,
+        x: 10,
+        ix: 9,
+        v: 5,
+        iv: 4,
+        i: 1,
+    };
+    let result = '';
+    for (let key in romanNumerals) {
+        while (num >= romanNumerals[key]) {
+            result += key;
+            num -= romanNumerals[key];
+        }
+    }
+    return result;
+};
