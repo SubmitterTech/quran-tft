@@ -154,41 +154,111 @@ const Magnify = ({ colors, theme, translationApplication, quran, map, appendices
         const notesResults = [];
         const appendicesResults = [];
 
+        /**
+         * Turn a formula string like
+         *   "2:1-2, 5, 9, 12-15, 3:7"
+         *   "2:,3:"         // 2: and 3: => full Sura 2 & 3
+         *   ":12"           // all suras' verse 12
+         *   "2:5-3"         // invalid range => verse 5 only
+         * into a map:
+         *   { 2: [{1,2},{5,5},{9,9},{12,15}], 3:[{7,7}], '*':[{12,12}] }
+         */
+        function parseNumericRefs(formula) {
+            const tokens = formula
+                .split(/[,\s;]+/)      // split on comma, whitespace or semicolon
+                .filter(Boolean);
+
+            const refs = {};
+            let currentSura = null;
+
+            tokens.forEach(tok => {
+                if (tok.includes(':')) {
+                    // sura:verses or sura:
+                    let [sRaw, vRaw = ''] = tok.split(':');
+                    currentSura = sRaw === '' ? '*' : Number(sRaw);
+                    if (!refs[currentSura]) refs[currentSura] = [];
+
+                    if (!vRaw) {
+                        // e.g. "2:" or "3:" => full sura
+                        refs[currentSura].push({ start: 1, end: Infinity });
+                    } else {
+                        pushRanges(refs[currentSura], vRaw);
+                    }
+                } else {
+                    // plain number or plain range; belongs to last seen sura
+                    if (currentSura == null) return;   // no context => skip
+                    pushRanges(refs[currentSura], tok);
+                }
+            });
+
+            return refs;
+        }
+
+        function pushRanges(arr, part) {
+            const [a, b] = part.split('-').map(Number);
+            if (isNaN(a)) return;
+            if (!isNaN(b) && b >= a) {
+                arr.push({ start: a, end: b });
+            } else {
+                arr.push({ start: a, end: a });
+            }
+        }
+
+        /**
+         * Given the refs map from above, test one (sura,verse).
+         * - first checks '*' (wildcard sura),
+         * - then the exact sura number.
+         */
+        function matchesNumeric(refs, suraNumber, verseNumber) {
+            const s = Number(suraNumber), v = Number(verseNumber);
+
+            if (refs['*'] &&
+                refs['*'].some(r => v >= r.start && v <= r.end)
+            ) return true;
+
+            if (refs[s] &&
+                refs[s].some(r => v >= r.start && v <= r.end)
+            ) return true;
+
+            return false;
+        }
+
         for (const page in quran) {
             const suras = quran[page].sura;
             for (const suraNumber in suras) {
                 const verses = suras[suraNumber].verses;
                 for (const verseNumber in verses) {
                     const verseText = verses[verseNumber];
-                    let processedVerseText = normalize ? normalizeText(verseText) : verseText;
-                    let interprocessedVerseText = processedVerseText.toLocaleUpperCase(lang);
-                    processedVerseText = caseSensitive ? processedVerseText : interprocessedVerseText.length === processedVerseText.length ? interprocessedVerseText : processedVerseText;
+                    let txt = normalize
+                        ? normalizeText(verseText)
+                        : verseText;
+                    let upper = txt.toLocaleUpperCase(lang);
+                    const hay = caseSensitive
+                        ? txt
+                        : (upper.length === txt.length ? upper : txt);
 
                     if (keywordGroups.some(keywords => {
-                        return keywords.every(keyword => processedVerseText.includes(keyword)) ||
-                            keywords.some(keyword => {
-                                if (/\d+/.test(keyword) && (keyword.includes(':') || keyword.includes('-'))) {
-                                    if (keyword.includes(':')) {
-                                        const [keywordSura, keywordVerse] = keyword.split(':');
-                                        if (keywordVerse.includes('-')) {
-                                            const [startVerse, endVerse] = keywordVerse.split('-').map(Number);
-                                            const verseNum = Number(verseNumber);
-                                            return keywordSura === suraNumber && verseNum >= startVerse && verseNum <= endVerse;
-                                        } else {
-                                            return (keywordSura === suraNumber && keywordVerse === verseNumber) ||
-                                                (keywordSura === suraNumber && keywordVerse === '') ||
-                                                (keywordSura === '' && keywordVerse === verseNumber);
-                                        }
-                                    } else {
-                                        return keyword === suraNumber || keyword === verseNumber;
-                                    }
-                                }
-                                return false; // Ensure that non-numeric keywords do not trigger numeric checks
-                            });
+                        // 1) any pure-text match?
+                        if (keywords.every(k => hay.includes(k))) {
+                            return true;
+                        }
+
+                        // 2) numeric-formula match?
+                        //    collect **all** numeric tokens in this group:
+                        const numericTokens = keywords.filter(k => /\d/.test(k));
+                        if (numericTokens.length === 0) {
+                            return false;
+                        }
+
+                        // re-join them into one comma-delimited formula:
+                        const formula = numericTokens.join(',');
+                        const refs = parseNumericRefs(formula);
+                        return matchesNumeric(refs, suraNumber, verseNumber);
                     })) {
                         verseResults.push({ suraNumber, verseNumber, verseText });
                     }
                 }
+
                 const titles = suras[suraNumber].titles;
                 for (const titleNumber in titles) {
                     const titleText = titles[titleNumber];
@@ -329,7 +399,7 @@ const Magnify = ({ colors, theme, translationApplication, quran, map, appendices
 
     const lightWords = useCallback((text) => {
         let processedTerm = searchTerm;
-        //processedTerm = normalize ? normalizeText(processedTerm) : processedTerm;
+        processedTerm = normalize ? normalizeText(processedTerm) : processedTerm;
         let interprocessedTerm = caseSensitive ? processedTerm : processedTerm.toLocaleUpperCase(lang);
         if (searchTerm.length === interprocessedTerm.length) {
             processedTerm = interprocessedTerm;
@@ -342,7 +412,7 @@ const Magnify = ({ colors, theme, translationApplication, quran, map, appendices
         });
 
         return highlightedText;
-    }, [searchTerm, caseSensitive, lang, highlightText]);
+    }, [searchTerm, caseSensitive, normalize, lang, highlightText]);
 
     const lastTitleElementRef = useCallback(node => {
         if (observerTitles.current) observerTitles.current.disconnect();
