@@ -635,7 +635,7 @@ const Pages = React.memo(({
                                                                 {besmeleClicked ? '0. ' + hasGODinit : hasGODinit}
                                                             </div>
                                                             <div className={`flex items-center justify-center transition-all duration-200 ${besmeleClicked ? `py-1 px-2 mx-1` : `h-0`}`}>
-                                                                <div className={`transition-all duration-500 text-lg md:text-xl lg:text-xl xl:text-3xl ${besmeleClicked ? `opacity-100` : ` opacity-0`}`}>
+                                                                <div className={`transition-all duration-500 font-arabic text-2xl/relaxed md:text-2xl/relaxed lg:text-3xl/relaxed xl:text-4xl/relaxed ${besmeleClicked ? `opacity-100` : ` opacity-0`}`}>
                                                                     {besmeleClicked ? besmele : null}
                                                                 </div>
                                                             </div>

@@ -331,53 +331,66 @@ const Verse = ({ besmele,
     };
 
     const lightAllahwords = (text) => {
-        if (pageGWC[currentVerseKey]) {
+        if (!pageGWC[currentVerseKey]) return text;
 
-            let regex;
-            try {
-                const namesofGOD = "(?<![\\u0600-\\u06FF])(تالله|الله|لله|ولله|والله|بالله|فلله|فالله|ابالله|وتالله)(?![\\u0600-\\u06FF])";
-                regex = new RegExp(namesofGOD, 'g');
-                regex.test("");
-            } catch (e) {
-                console.error("Regex not supported in this environment: ", e.message);
-                const namesofGOD = "(تالله|الله|لله|ولله|والله|بالله|فلله|فالله|ابالله|وتالله)";
-                regex = new RegExp(namesofGOD, 'g');
-            }
+        /* Arabic combining-marks range */
+        const MARK = '[\\u0610-\\u061A\\u064B-\\u065F\\u0670\\u06D6-\\u06ED]*';
 
-            let parts = [];
-            const matches = [...text.matchAll(regex)];
-            let cursor = 0;
+        /* plain (no-diacritics) forms to highlight */
+        const RAW = [
+            'تالله', 'الله', 'لله', 'ولله', 'والله',
+            'بالله', 'فلله', 'فالله', 'ابالله', 'وتالله',
+        ];
 
-            let startIndex = pageGWC[currentVerseKey].cumulative - pageGWC[currentVerseKey].local + 1;
+        /* insert MARK after every letter; accept ٱ where the word has initial ا */
+        const withMarks = s =>
+            s.split('').map((ch, i) =>
+                (ch === 'ا' ? '[اٱ]' : ch) + MARK
+            ).join('');
 
-            matches.forEach((match, index) => {
-                parts.push(
-                    <span key={`${currentVerseKey}-text-${cursor}`} dir="rtl">
-                        {text.slice(cursor, match.index)}
-                    </span>
-                );
+        const core = RAW.map(withMarks).join('|');
 
-                let currentCount = startIndex + index;
+        /* build regex – use look-around when engine supports it */
+        let regex;
+        try {
+            regex = new RegExp(
+                `(?<![\\p{Script=Arabic}])(?:${core})(?![\\p{Script=Arabic}])`,
+                'gu'
+            );
+            regex.test(''); // triggers error on old engines
+        } catch {
+            regex = new RegExp(core, 'gu'); // fallback: no look-around
+        }
 
-                parts.push(
-                    <span key={`${currentVerseKey}-match-${index}`} className="text-sky-500" dir="rtl">
-                        {match[0]}<sub dir="ltr" className={`text-xs md:text-sm whitespace-nowrap`} > {formatHitCount(currentCount)} </sub>
-                    </span>
-                );
+        const parts = [];
+        const matches = [...text.matchAll(regex)];
+        let cursor = 0;
+        const start = pageGWC[currentVerseKey].cumulative - pageGWC[currentVerseKey].local + 1;
 
-                cursor = match.index + match[0].length;
-            });
-
+        matches.forEach((m, i) => {
             parts.push(
-                <span key={`${currentVerseKey}-remaining-${cursor}`} dir="rtl">
-                    {text.slice(cursor)}
+                <span key={`${currentVerseKey}-t-${cursor}`} dir="rtl">
+                    {text.slice(cursor, m.index)}
                 </span>
             );
+            parts.push(
+                <span key={`${currentVerseKey}-h-${i}`} className="text-sky-500" dir="rtl">
+                    {m[0]}
+                    <sub dir="ltr" className="text-xs md:text-sm whitespace-nowrap">
+                        {formatHitCount(start + i)}
+                    </sub>
+                </span>
+            );
+            cursor = m.index + m[0].length;
+        });
 
-            return parts;
-        } else {
-            return text;
-        }
+        parts.push(
+            <span key={`${currentVerseKey}-r-${cursor}`} dir="rtl">
+                {text.slice(cursor)}
+            </span>
+        );
+
+        return parts;
     };
 
     useEffect(() => {
@@ -587,7 +600,7 @@ const Verse = ({ besmele,
                     </div>
                     <div className={`w-full flex flex-col flex-1  ${mode === "reading" ? "p-0.5 mt-2" : "h-0"} `}>
                         <div className={`${mode === "reading" ? " select-text ease-linear mb-2 duration-300" : "h-0 "} w-full transition-all  rounded ${colors[theme]["encrypted-background"]} `} >
-                            <p className={` p-2 text-start cursor-auto`} dir="rtl" >
+                            <p className={` pb-1 pt-2.5 px-2 text-start cursor-auto font-arabic text-2xl/relaxed`} dir="rtl" >
                                 {mode === "reading" && lightAllahwords(encryptedText)}
                             </p>
                         </div>
