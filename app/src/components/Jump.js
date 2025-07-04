@@ -130,19 +130,22 @@ const Jump = React.memo(({ onChangeLanguage, suraNames, onChangeFont, font, onCh
     }, [suraNames]);
 
     const calculateOriginalPage = (pageno) => {
-        if (typeof pageno !== 'number' || isNaN(pageno)) {
+        if (isNaN(pageno)) {
+            return '?';
+        } else {
+            pageno = parseInt(pageno, 10);
+            if (pageno <= 22) {
+                return toRoman(pageno);
+            }
+            if (pageno === 1) {
+                return toRoman(2);
+            }
+            if (pageno > 22) {
+                return pageno - 22;
+            }
             return '?';
         }
-        if (pageno <= 22) {
-            return toRoman(pageno);
-        }
-        if (pageno === 1) {
-            return toRoman(2);
-        }
-        if (pageno > 22) {
-            return pageno - 22;
-        }
-        return '';
+
     };
 
     const extractKey = (text) => {
