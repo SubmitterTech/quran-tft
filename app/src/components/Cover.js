@@ -24,11 +24,6 @@ const Cover = ({ onCoverSeen, coverData, lang, onChangeLanguage }) => {
         setShow19(!show19);
     };
 
-    // Forward to the source
-    const openPdf = () => {
-        window.location.href = '/quran-english1667577051837.pdf';
-    };
-
     return (
         <div className="splash-screen fixed h-screen flex flex-col w-full justify-between  text-center bg-sky-950 text-neutral-200 overflow-hidden">
             <div
@@ -133,12 +128,9 @@ const Cover = ({ onCoverSeen, coverData, lang, onChangeLanguage }) => {
                 onClick={handleTap}
                 className="w-full flex flex-col space-y-3 h-1/6 justify-center pb-1">
                 <div
-                    className="text-sky-400 cursor-pointer"
-                    onClick={openPdf}
-                >
+                    className="text-sky-400">
                     <p className="whitespace-pre">{coverData.translated}</p>
                     <p className="whitespace-pre">{coverData.author}</p>
-
                 </div>
                 <p dir={direction} className="whitespace-pre">{coverData.edition + "  1992"}</p>
             </div>
