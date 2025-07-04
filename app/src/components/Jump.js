@@ -103,10 +103,13 @@ const Jump = React.memo(({ onChangeLanguage, suraNames, onChangeFont, font, onCh
         }
     }, [lastClickedBookmarkKey, bookmarksContainerRef, showBookmarks]);
 
-    const filteredBookmarks = bookmarksList.filter(
-        ([key, val]) =>
-            val.toLowerCase().includes(bookmarkFilter.trim().toLowerCase())
-    );
+    const filteredBookmarks = Array.isArray(bookmarksList)
+        ? bookmarksList.filter(
+            ([, val]) =>
+                typeof val === 'string' &&
+                val.toLowerCase().includes(bookmarkFilter.trim().toLowerCase())
+        )
+        : [];
 
     // Compute suraNameMap using useMemo
     const suraNameMap = useMemo(() => {
@@ -127,6 +130,9 @@ const Jump = React.memo(({ onChangeLanguage, suraNames, onChangeFont, font, onCh
     }, [suraNames]);
 
     const calculateOriginalPage = (pageno) => {
+        if (typeof pageno !== 'number' || isNaN(pageno)) {
+            return '?';
+        }
         if (pageno <= 22) {
             return toRoman(pageno);
         }
@@ -136,8 +142,8 @@ const Jump = React.memo(({ onChangeLanguage, suraNames, onChangeFont, font, onCh
         if (pageno > 22) {
             return pageno - 22;
         }
+        return '';
     };
-
 
     const extractKey = (text) => {
         const match = text.match(/\(([^)]+)\)/);
@@ -643,44 +649,60 @@ const Jump = React.memo(({ onChangeLanguage, suraNames, onChangeFont, font, onCh
                                                 <div
                                                     dir={direction}
                                                     className={`w-full p-1`}>
-                                                    <div className={`flex w-full ${colors[theme]["app-text"]} mb-1 text-sm justify-center items-center opacity-50`}>
-                                                        {translationApplication?.page} {calculateOriginalPage(selectedPage)}
+                                                    <div className={`flex w-full ${colors?.[theme]?.["app-text"] || ''} mb-1 text-sm justify-center items-center opacity-50`}>
+                                                        {translationApplication?.page ?? ''} {selectedPage != null ? calculateOriginalPage(selectedPage) : ''}
                                                     </div>
-                                                    {pageTitles[selectedPage] && pageTitles[selectedPage].map((title, index) => {
-                                                        // Use a regex to match the three groups: name, Latin pronunciation, and page info
-                                                        const titleRegex = /^(.*?)\s+\((.*?)\)\s+(.*)$/;
-                                                        const match = title.match(titleRegex);
+                                                    {Array.isArray(pageTitles?.[selectedPage]) &&
+                                                        pageTitles?.[selectedPage] && pageTitles[selectedPage].map((title, index) => {
+                                                            // Use a regex to match the three groups: name, Latin pronunciation, and page info
+                                                            const titleRegex = /^(.*?)\s+\((.*?)\)\s+(.*)$/;
+                                                            const match = title.match(titleRegex);
 
+                                                            // If the title matches the expected format, render the groups
+                                                            if (match) {
+                                                                const pageNum = parseInt(match[3]?.split(':')?.[0] ?? '', 10);
+                                                                const suraNum = parseInt(suraNumber ?? '', 10);
 
-
-                                                        // If the title matches the expected format, render the groups
-                                                        if (match) {
-                                                            const isMatchSelectedSura = pageTitles[selectedPage].length > 1 && parseInt(match[3].split(':')[0]) === parseInt(suraNumber);
-                                                            return (
-                                                                <div key={index} className="flex justify-between w-full mt-1">
-                                                                    <div className="w-full flex justify-between mr-0.5">
-                                                                        <span className={`${direction === 'rtl' ? "text-right" : "text-left"} font-bold justify-self-center text-sky-500`}>{match[1]}</span>
-                                                                        <span className={`${direction === 'rtl' ? "text-left" : "text-right"} text-nowrap ${isMatchSelectedSura ? `${colors[theme]["matching-text"]} ` : ``} `}>{`(${match[2]})`}</span>
+                                                                const isMatchSelectedSura =
+                                                                    Array.isArray(pageTitles[selectedPage]) &&
+                                                                    pageTitles[selectedPage].length > 1 &&
+                                                                    !isNaN(pageNum) &&
+                                                                    !isNaN(suraNum) &&
+                                                                    pageNum === suraNum;
+                                                                return (
+                                                                    <div key={index} className="flex justify-between w-full mt-1">
+                                                                        <div className="w-full flex justify-between mr-0.5">
+                                                                            <span className={`${direction === 'rtl' ? "text-right" : "text-left"} font-bold justify-self-center text-sky-500`}>{match[1]}</span>
+                                                                            <span className={`${direction === 'rtl' ? 'text-left' : 'text-right'} text-nowrap ${isMatchSelectedSura ? (colors?.[theme]?.["matching-text"] || '') : ''}`}>{`(${match[2]})`}</span>
+                                                                        </div>
+                                                                        <span className={`${direction === 'rtl' ? "text-left" : "text-right"} w-5/12 text-nowrap`}>{adjustReference(match[3])}</span>
                                                                     </div>
-                                                                    <span className={`${direction === 'rtl' ? "text-left" : "text-right"} w-5/12 text-nowrap`}>{adjustReference(match[3])}</span>
-                                                                </div>
-                                                            );
-                                                        } else {
-                                                            // If the title doesn't match the expected format, split and render
-                                                            const lastSpaceIndex = title.lastIndexOf(" ");
-                                                            const namePart = title.substring(0, lastSpaceIndex);
-                                                            const pageInfoPart = title.substring(lastSpaceIndex + 1);
+                                                                );
+                                                            } else {
+                                                                // If the title doesn't match the expected format, split and render
+                                                                const lastSpaceIndex = title.lastIndexOf(" ");
+                                                                const namePart = title.substring(0, lastSpaceIndex);
+                                                                const pageInfoPart = title.substring(lastSpaceIndex + 1);
 
-                                                            const isSingleMatchSelectedSura = pageTitles[selectedPage].length > 1 && parseInt(pageInfoPart.split(':')[0]) === parseInt(suraNumber);
+                                                                const pageNum2 = parseInt(pageInfoPart.split(':')[0] ?? '', 10);
+                                                                const suraNum2 = parseInt(suraNumber ?? '', 10);
 
-                                                            return (
-                                                                <div key={index} className="flex justify-between w-full">
-                                                                    <span className={`${direction === 'rtl' ? "text-right" : "text-left"} flex-1 font-bold ${isSingleMatchSelectedSura ? `${colors[theme]["matching-text"]} ` : `text-sky-500`}`}>{namePart}</span>
-                                                                    <span className={`${direction === 'rtl' ? "text-left" : "text-right"} flex-1`}>{adjustReference(pageInfoPart)}</span>
-                                                                </div>
-                                                            );
-                                                        }
-                                                    })}
+                                                                const isSingleMatchSelectedSura =
+                                                                    Array.isArray(pageTitles[selectedPage]) &&
+                                                                    pageTitles[selectedPage].length > 1 &&
+                                                                    !isNaN(pageNum2) &&
+                                                                    !isNaN(suraNum2) &&
+                                                                    pageNum2 === suraNum2;
+
+                                                                return (
+                                                                    <div key={index} className="flex justify-between w-full">
+                                                                        <span className={`${direction === 'rtl' ? 'text-right' : 'text-left'} flex-1 font-bold ${isSingleMatchSelectedSura ? (colors?.[theme]?.["matching-text"] || '') : 'text-sky-500'}`}>{namePart}</span>
+                                                                        <span className={`${direction === 'rtl' ? "text-left" : "text-right"} flex-1`}>{adjustReference(pageInfoPart)}</span>
+                                                                    </div>
+                                                                );
+                                                            }
+                                                        })
+                                                    }
                                                 </div>
                                             </div>
                                         </div>
