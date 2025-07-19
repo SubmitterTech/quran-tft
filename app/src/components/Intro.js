@@ -75,18 +75,20 @@ const Intro = ({ colors, theme, translationApplication, parseReferences, introdu
         }
 
         introContent.sort((a, b) => a.order - b.order);
-
+        const smallTextTheme = direction === 'rtl' ? `text-xl md:text-2xl lg:text-3xl ` : `text-base md:text-lg lg:text-xl `;
+        const textTheme = direction === 'rtl' ? `text-2xl md:text-3xl lg:text-4xl` : `text-lg md:text-xl lg:text-2xl `;
         const renderContent = introContent.map((item, index) => {
             if (item.type === 'titles') {
                 const bsml = translationApplication.bsml.toLocaleLowerCase(lang);
                 const hasBesmele = item.content.toLocaleLowerCase(lang).search(bsml) !== -1;
                 const pulsate = notify === `intro-${item.type}-${item.order}` ? `animate-pulse` : ``;
+
                 return (
                     <div
                         key={`title-${index}`}
                         dir={direction}
                         ref={(el) => textRememberRef.current["intro-" + item.type + "-" + item.order] = el}
-                        className={hasBesmele ? `select-none w-full my-1.5 py-1.5 px-2.5 text-neutral-900 rounded text-base md:text-lg lg:text-xl bg-gradient-to-r ${direction === 'rtl' ? ` from-sky-500 to-cyan-300` : ` from-cyan-300 to-sky-500`} besmele` : `${pulsate} select-text w-full flex items-center justify-center text-center p-2 font-semibold ${colors[theme]["app-text"]}  whitespace-pre-line ${item.order === 0 ? "text-3xl font-bold" : " text-lg"}`}>
+                        className={hasBesmele ? `select-none w-full my-1.5 py-1.5 px-2.5 text-neutral-900 rounded ${textTheme} bg-gradient-to-r ${direction === 'rtl' ? ` from-sky-500 to-cyan-300` : ` from-cyan-300 to-sky-500`} besmele` : `${pulsate} select-text w-full flex items-center justify-center text-center p-2 font-semibold ${colors[theme]["app-text"]}  whitespace-pre-line ${item.order === 0 ? "text-3xl font-bold" : " text-lg"}`}>
                         <h2>{item.content}</h2>
                     </div>
                 );
@@ -108,24 +110,24 @@ const Intro = ({ colors, theme, translationApplication, parseReferences, introdu
                 if (item.content.special && item.content.special.key === 1) {
                     return (
                         <Graph1
-                          item={item}
-                          lang={lang}
-                          direction={direction}
-                          colors={colors}
-                          theme={theme}
-                          translationApplication={translationApplication}
+                            item={item}
+                            lang={lang}
+                            direction={direction}
+                            colors={colors}
+                            theme={theme}
+                            translationApplication={translationApplication}
                         />
-                      );
+                    );
                 }
                 // SPECIAL RENDER FOR GRAPH 2
                 else if (item.content.special && item.content.special.key === 2) {
                     return (
                         <Graph2
-                          item={item}
-                          lang={lang}
-                          direction={direction}
+                            item={item}
+                            lang={lang}
+                            direction={direction}
                         />
-                      );
+                    );
                 }
                 return (
                     <div
@@ -134,7 +136,7 @@ const Intro = ({ colors, theme, translationApplication, parseReferences, introdu
                         dir={direction}
                         ref={(el) => textRememberRef.current["intro-" + item.type + "-" + item.order] = el}
                         onClick={(e) => handleRefClick(e, item.type + "-" + item.order)}
-                        className={`${colors[theme]["base-background"]} ${colors[theme]["table-title-text"]} rounded  text-base md:text-xl p-3 border my-1.5 ${colors[theme]["border"]}`}>
+                        className={`${colors[theme]["base-background"]} ${colors[theme]["table-title-text"]} rounded ${smallTextTheme} p-3 border my-1.5 ${colors[theme]["border"]}`}>
                         {Object.entries(item.content.lines).map(([lineKey, lineValue]) => (
                             <p className={` whitespace-pre-wrap my-1`} key={lineKey}>{parseReferences(lineValue, "intro-" + item.type + "-" + item.order)}</p>
                         ))}
@@ -174,7 +176,7 @@ const Intro = ({ colors, theme, translationApplication, parseReferences, introdu
         });
 
         return (
-            <div key={`content-${currentPage}-${lang}`} ref={() => handleRefsReady()} className={`${colors[theme]["text"]} overflow-auto flex-1 p-1 text-justify lg:text-start text-lg md:text-xl lg:text-2xl`}>
+            <div key={`content-${currentPage}-${lang}`} ref={() => handleRefsReady()} className={`${colors[theme]["text"]} overflow-auto flex-1 p-1 text-justify lg:text-start ${textTheme}`}>
                 {renderContent}
             </div>
         );

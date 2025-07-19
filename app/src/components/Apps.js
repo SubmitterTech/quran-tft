@@ -65,6 +65,7 @@ const Apps = ({ colors, theme, translationApplication, parseReferences, appendic
             rows.push(values.slice(i, i + columnCount));
         }
         const pulsate = notify === `${appno}-${key}` ? `animate-pulse` : ``;
+        const tableTextTheme = direction === 'rtl' ? `text-xl md:text-2xl lg:text-3xl ` : `text-base md:text-lg lg:text-xl `;
 
         return (
             <div key={key} className={`${colors[theme]["table-title-text"]} ${pulsate}`}>
@@ -74,7 +75,7 @@ const Apps = ({ colors, theme, translationApplication, parseReferences, appendic
                         className={`${colors[theme]["base-background"]} w-full rounded text-sm py-2 px-1 text-center `}>
                         {tableRef}
                     </div>
-                    <table className={`table-auto w-full text-base md:text-lg ${colors[theme]["base-background"]} border-collapse border-2 ${colors[theme]["border"]}`}>
+                    <table className={`table-auto w-full ${tableTextTheme} ${colors[theme]["base-background"]} border-collapse border-2 ${colors[theme]["border"]}`}>
                         <thead>
                             <tr>
                                 {(() => {
@@ -193,7 +194,7 @@ const Apps = ({ colors, theme, translationApplication, parseReferences, appendic
                 </div>
             </div>
         );
-    }, [colors, theme, parseReferences, notify, handleClick]);
+    }, [colors, theme, parseReferences, notify, direction, handleClick]);
 
     const renderContentItem = (appno, item, index) => {
         switch (item.type) {
@@ -228,13 +229,15 @@ const Apps = ({ colors, theme, translationApplication, parseReferences, appendic
                     </div>
                 );
             case 'evidence':
+                const evidenceTextTheme = direction === 'rtl' ? `text-xl md:text-2xl lg:text-3xl ` : `text-base md:text-lg lg:text-xl `;
+
                 return (
                     <div
                         dir={direction}
                         key={`app-${appno}-${item.type}-${item.order}`}
                         ref={(el) => textRef.current[appno + "-" + index] = el}
                         onClick={(e) => handleClick(e, appno, index)}
-                        className={`${colors[theme]["base-background"]} ${colors[theme]["table-title-text"]} rounded  text-base md:text-lg p-3 border my-3 ${colors[theme]["border"]}`}>
+                        className={`${colors[theme]["base-background"]} ${colors[theme]["table-title-text"]} rounded ${evidenceTextTheme} p-3 border my-3 ${colors[theme]["border"]}`}>
                         {Object.entries(item.content.lines).map(([lineKey, lineValue]) => (
                             <p key={`${lineKey}`} className={`whitespace-pre-wrap text-justify my-2`}>{parseReferences(lineValue, appno + "-" + index)}</p>
                         ))}
@@ -340,10 +343,11 @@ const Apps = ({ colors, theme, translationApplication, parseReferences, appendic
         );
     };
 
+    const textTheme = direction === 'rtl' ? `text-2xl md:text-3xl lg:text-4xl ` : `text-lg md:text-xl lg:text-2xl `;
 
     return (
         <div
-            className={`h-full w-screen relative overflow-y-auto pb-10 md:pb-14 ${colors[theme]["app-text"]} text-lg md:text-xl lg:text-2xl select-text`}>
+            className={`h-full w-screen relative overflow-y-auto pb-10 md:pb-14 ${colors[theme]["app-text"]} ${textTheme} select-text`}>
             <div ref={containerRef}>
                 {renderAppendices()}
                 {!isRefsReady &&

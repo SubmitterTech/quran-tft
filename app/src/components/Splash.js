@@ -10,10 +10,11 @@ const Splash = ({ bookContent, currentPage, colors, theme, direction }) => {
 
     const cpd = bookContent ? bookContent.find(iterator => iterator.page === currentPage) : null;
     const lines = cpd?.text.split("\n").filter(element => element.trim().length > 0) || [];
+    const textTheme = direction === 'rtl' ? `text-2xl md:text-3xl lg:text-4xl ` : `text-lg md:text-xl lg:text-2xl `;
 
     return (
-        <div className={`w-screen h-screen flex flex-col items-center justify-center text-lg ${colors[theme]["text"]}`}>
-            <div className={direction === "ltr" ? `text-left`: `text-right`}>
+        <div className={`w-screen h-screen flex flex-col items-center justify-center ${textTheme} ${colors[theme]["text"]}`}>
+            <div className={direction === "ltr" ? `text-left` : `text-right`}>
                 {lines.map((line, index) => (
                     <div
                         key={index}

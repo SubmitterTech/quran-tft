@@ -533,8 +533,10 @@ const Pages = React.memo(({
                 {sortedVerses.map(({ suraNumber, verseNumber, verseText, encryptedText, title }) => {
                     const hasAsterisk = verseText.includes('*') || (title && title.includes('*'));
                     const hasTitleAsterisk = (title && title.includes('*'));
-                    const verseClassName = `text-lg p-0.5 md:p-1 m-0.5 w-full md:text-xl lg:text-2xl flex flex-col cursor-pointer rounded  hyphens-auto text-justify `;
-                    const titleClassName = `text-lg mx-1 my-0.5 md:text-xl lg:text-2xl italic font-semibold rounded  text-center whitespace-pre-wrap `;
+                    const verseTextTheme = direction === 'rtl' ? `text-2xl md:text-3xl lg:text-4xl ` : `text-lg md:text-xl lg:text-2xl `;
+                    const titleTextTheme = direction === 'rtl' ? `text-xl md:text-2xl lg:text-3xl ` : `text-lg md:text-xl lg:text-2xl font-semibold `;
+                    const verseClassName = `${verseTextTheme} p-0.5 md:p-1 m-0.5 w-full flex flex-col cursor-pointer rounded  hyphens-auto text-justify `;
+                    const titleClassName = `${titleTextTheme} mx-1 my-0.5 italic rounded  text-center whitespace-pre-wrap `;
                     const verseKey = `${suraNumber}:${verseNumber}`;
                     const noteReference = hasAsterisk ? verseKey : null;
 
@@ -623,6 +625,7 @@ const Pages = React.memo(({
                                                 // THE FIRST SENTENCE OF FIRST SURA : BISMILLAHIRRAHMANIRRAHIM
                                                 const hasGODinit = title.split('\n').pop();
                                                 const gw = translationApplication.gw.toLocaleLowerCase(lang);
+                                                const textTheme = direction === 'rtl' ? `text-xl md:text-2xl lg:text-3xl xl:text-4xl` : `text-base md:text-lg lg:text-xl xl:text-2xl `;
                                                 if (hasGODinit.toLowerCase().search(gw) !== -1) {
                                                     return (
                                                         <div key={`last-title-${suraNumber}-${verseNumber}`}
@@ -631,11 +634,11 @@ const Pages = React.memo(({
                                                             className={`cursor-pointer`}
                                                             onClick={handleBesmeleClick}>
                                                             <div
-                                                                className={`mx-1 py-1 px-2 text-neutral-800 rounded bg-gradient-to-r ${besmeleClicked ? ` font-semibold transition-all duration-200` : ``} ${direction === 'rtl' ? ` from-sky-500 to-cyan-300` : ` from-cyan-300 to-sky-500`} text-base md:text-lg lg:text-xl xl:text-2xl besmele`}>
+                                                                className={`mx-1 py-1 px-2 text-neutral-800 rounded bg-gradient-to-r ${besmeleClicked ? ` font-semibold transition-all duration-200` : ``} ${direction === 'rtl' ? ` from-sky-500 to-cyan-300` : ` from-cyan-300 to-sky-500`} ${textTheme} besmele`}>
                                                                 {besmeleClicked ? '0. ' + hasGODinit : hasGODinit}
                                                             </div>
                                                             <div className={`flex items-center justify-center transition-all duration-200 ${besmeleClicked ? `py-1 px-2 mx-1` : `h-0`}`}>
-                                                                <div className={`transition-all duration-500 font-arabic text-2xl/relaxed md:text-2xl/relaxed lg:text-3xl/relaxed xl:text-4xl/relaxed ${besmeleClicked ? `opacity-100` : ` opacity-0`}`}>
+                                                                <div className={`transition-all duration-500 font-arabic text-2xl md:text-2xl lg:text-3xl xl:text-4xl ${besmeleClicked ? `opacity-100` : ` opacity-0`}`}>
                                                                     {besmeleClicked ? besmele : null}
                                                                 </div>
                                                             </div>
@@ -720,27 +723,33 @@ const Pages = React.memo(({
 
             </div>
             {
-                notesData.data.length > 0 &&
-                <div dir={direction} className={`${colors[theme]["base-background"]} mx-0.5 my-3 rounded p-1 text-lg lg:text-xl xl:text-2xl text-justify ${colors[theme]["app-text"]} flex flex-col space-y-1 whitespace-pre-line break-words`}>
-                    <h3 className={`p-1`}>{translationApplication?.notes}:</h3>
+                (() => {
+                    const textTheme = direction === 'rtl' ? `text-xl md:text-2xl lg:text-3xl ` : `text-lg lg:text-xl xl:text-2xl `;
 
-                    {notesData.data.map((note, index) => (
-                        <div
-                            className={`${colors[theme]["notes-background"]} hyphens-auto rounded p-2 ${colors[theme]["app-text"]} ${focusedNoteIndices[index] ? 'animate-pulse' : ''}`}
-                            ref={(el) => noteRefs.current[index] = el}
-                            key={"notes:" + index}
-                            lang={lang}
-                            dir={direction}>
-                            {parseReferences(note, 'notes:' + index, clickReferenceController)}
+                    return (
+                        notesData.data.length > 0 &&
+                        <div dir={direction} className={`${colors[theme]["base-background"]} mx-0.5 my-3 rounded p-1 ${textTheme} text-justify ${colors[theme]["app-text"]} flex flex-col space-y-1 whitespace-pre-line break-words`}>
+                            <h3 className={`p-1`}>{translationApplication?.notes}:</h3>
+
+                            {notesData.data.map((note, index) => (
+                                <div
+                                    className={`${colors[theme]["notes-background"]} hyphens-auto rounded p-2 ${colors[theme]["app-text"]} ${focusedNoteIndices[index] ? 'animate-pulse' : ''}`}
+                                    ref={(el) => noteRefs.current[index] = el}
+                                    key={"notes:" + index}
+                                    lang={lang}
+                                    dir={direction}>
+                                    {parseReferences(note, 'notes:' + index, clickReferenceController)}
+                                </div>
+                            ))}
+                            {notesData.tables && notesData.tables.map((table, index) => (
+                                <div className={`flex justify-center`}
+                                    key={index + ":" + table.title[0]} >
+                                    {renderTable(table)}
+                                </div>
+                            ))}
                         </div>
-                    ))}
-                    {notesData.tables && notesData.tables.map((table, index) => (
-                        <div className={`flex justify-center`}
-                            key={index + ":" + table.title[0]} >
-                            {renderTable(table)}
-                        </div>
-                    ))}
-                </div>
+                    );
+                })()
             }
             {deleteConfirmResolver && (
                 <div className="fixed inset-0 z-40 flex items-center justify-center backdrop-blur">
