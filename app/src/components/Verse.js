@@ -376,7 +376,7 @@ const Verse = ({ besmele,
             parts.push(
                 <span key={`${currentVerseKey}-h-${i}`} className="text-sky-500" dir="rtl">
                     {m[0]}
-                    <sub dir="ltr" className="text-xs md:text-sm whitespace-nowrap">
+                    <sub dir="ltr" className="text-sm md:text-base lg:text-lg whitespace-nowrap">
                         {formatHitCount(start + i)}
                     </sub>
                 </span>
@@ -600,7 +600,7 @@ const Verse = ({ besmele,
                     </div>
                     <div className={`w-full flex flex-col flex-1  ${mode === "reading" ? "p-0.5 mt-2" : "h-0"} `}>
                         <div className={`${mode === "reading" ? " select-text ease-linear mb-2 duration-300" : "h-0 "} w-full transition-all  rounded ${colors[theme]["encrypted-background"]} `} >
-                            <p className={` pb-1 pt-2.5 px-2 text-start cursor-auto font-arabic text-2xl/relaxed`} dir="rtl" >
+                            <p className={` pb-1 pt-2.5 px-2 text-start cursor-auto font-arabic text-3xl/relaxed md:text-4xl/relaxed lg:text-5xl/relaxed`} dir="rtl" >
                                 {mode === "reading" && lightAllahwords(encryptedText)}
                             </p>
                         </div>

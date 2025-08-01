@@ -6,7 +6,7 @@ module.exports = {
   theme: {
     fontFamily: {
       serif: ['Lora', 'Times New Roman', 'Times', 'serif'],
-      arabic: ['"Noto Naskh Arabic"', '"Noto Naskh Arabic UI"', "Arial", "sans-serif"],
+      arabic: ['"Hafs"', '"Hafs UI"', "Arial", "sans-serif"],
     },
     extend: {
       animation: {
