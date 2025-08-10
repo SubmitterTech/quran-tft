@@ -1,6 +1,8 @@
-import React, { useState, useEffect, useCallback, useRef } from 'react';
+import { useState, useEffect, useCallback, useRef } from 'react';
 import { mapAppendices, mapQuran } from '../utils/Mapper';
 import { isNative } from '../utils/Device';
+import languages from '../assets/languages.json';
+
 
 const Magnify = ({ colors, theme, translationApplication, quran, map, appendices, introduction, onClose, onConfirm, direction, multiSelect, setMultiSelect, selectedVerseList, setSelectedVerseList }) => {
     const lang = localStorage.getItem("lang");
@@ -121,34 +123,73 @@ const Magnify = ({ colors, theme, translationApplication, quran, map, appendices
     };
 
     const performSearch = useCallback((term) => {
-        if (!term) {
-            return;
+        if (!term) return;
+
+        // ---- lang-aware digit set & helpers (scoped to this call) ----
+        const langCfg = languages && languages[lang] ? languages[lang] : null;
+        const isRTL = !!(langCfg && langCfg.dir === 'rtl');
+        const langDigits = (langCfg && langCfg.nums ? langCfg.nums.split(/\s+/).filter(Boolean) : []);
+        const digitSet = new Set(langDigits); // e.g., ["۰","۱",...,"۹"] for fa
+
+        function hasAnyDigitLocal(s) {
+            if (s == null) return false;
+            if (/\d/.test(s)) return true;                // ASCII
+            for (const ch of String(s)) if (digitSet.has(ch)) return true;
+            return false;
         }
-        if (term.length < 2 && !/^\d$/.test(term)) {
-            setSearchResultTitles([]);
-            setSearchResultVerses([]);
-            setSearchResultNotes([]);
-            setSearchResultAppendices([]);
+
+        function isSingleDigitLocal(s) {
+            const str = String(s ?? '');
+            if (str.length !== 1) return false;
+            return /\d/.test(str) || digitSet.has(str);
+        }
+
+        // Normalize digits + ONLY RTL numeric separators inside numeric tokens.
+        function normalizeNumericTokenForLang(token) {
+            if (!isRTL) return token; // only enhance for RTL langs as requested
+            if (!token) return token;
+            let out = '';
+            for (const ch of token) {
+                if (digitSet.has(ch)) { out += String(langDigits.indexOf(ch)); continue; } // map FA/AR digits -> ASCII
+                // map common RTL list/separator glyphs so formulas like "۲:،۳:" work
+                if (ch === '،') { out += ','; continue; }   // Arabic comma
+                if (ch === '؛') { out += ';'; continue; }   // Arabic semicolon
+                if (ch === '：' || ch === '﹕') { out += ':'; continue; } // fullwidth/small colon (rare, but harmless)
+                if (ch === '−' || ch === '–' || ch === '—' || ch === '‐' || ch === '﹣' || ch === '－') { out += '-'; continue; } // dashes → '-'
+                out += ch;
+            }
+            return out;
+        }
+
+        // original early-exit, but recognize single localized digit too
+        if (term.length < 2 && !isSingleDigitLocal(term)) {
+            setSearchResultTitles([]); setSearchResultVerses([]); setSearchResultNotes([]); setSearchResultAppendices([]);
             return;
         }
 
+        // ---- original pre-processing (unchanged) ----
         let processedTerm = normalize ? normalizeText(term) : term;
-
         if (!caseSensitive) {
             let interprocessedTerm = processedTerm.toLocaleUpperCase(lang);
-            if (interprocessedTerm.length === term.length) {
-                processedTerm = interprocessedTerm;
-            }
+            if (interprocessedTerm.length === term.length) processedTerm = interprocessedTerm;
         }
 
-        // Split the search term by '|' to get OR terms
-        const orTerms = processedTerm.split('|').map(term => term.trim()).filter(term => term !== '');
+        // Split the search term by '|' to get OR terms (unchanged)
+        const orTerms = processedTerm.split('|').map(t => t.trim()).filter(t => t !== '');
 
+        // Keep internal commas so "۲:،۳:" stays "2:,3:" (parseNumericRefs will split later).
         const keywordGroups = orTerms.map(term => {
             return term.split(/\s+/)
-                .map(keyword => /\d+/.test(keyword) ? keyword.replace(/[;,]+/g, '') : keyword)
+                .map(keyword => {
+                    if (hasAnyDigitLocal(keyword)) {
+                        const normalized = normalizeNumericTokenForLang(keyword);
+                        return normalized; // keep internal commas/semicolons
+                    }
+                    return keyword;
+                })
                 .filter(keyword => keyword.trim() !== '');
         });
+
         const titleResults = [];
         const verseResults = [];
         const notesResults = [];
@@ -204,53 +245,33 @@ const Magnify = ({ colors, theme, translationApplication, quran, map, appendices
             }
         }
 
-        /**
-         * Given the refs map from above, test one (sura,verse).
-         * - first checks '*' (wildcard sura),
-         * - then the exact sura number.
-         */
         function matchesNumeric(refs, suraNumber, verseNumber) {
             const s = Number(suraNumber), v = Number(verseNumber);
-
-            if (refs['*'] &&
-                refs['*'].some(r => v >= r.start && v <= r.end)
-            ) return true;
-
-            if (refs[s] &&
-                refs[s].some(r => v >= r.start && v <= r.end)
-            ) return true;
-
+            if (refs['*'] && refs['*'].some(r => v >= r.start && v <= r.end)) return true;
+            if (refs[s] && refs[s].some(r => v >= r.start && v <= r.end)) return true;
             return false;
         }
 
+        // ---- original scanning (unchanged, except digit test) ----
         for (const page in quran) {
             const suras = quran[page].sura;
             for (const suraNumber in suras) {
                 const verses = suras[suraNumber].verses;
                 for (const verseNumber in verses) {
                     const verseText = verses[verseNumber];
-                    let txt = normalize
-                        ? normalizeText(verseText)
-                        : verseText;
+                    let txt = normalize ? normalizeText(verseText) : verseText;
                     let upper = txt.toLocaleUpperCase(lang);
-                    const hay = caseSensitive
-                        ? txt
-                        : (upper.length === txt.length ? upper : txt);
+                    const hay = caseSensitive ? txt : (upper.length === txt.length ? upper : txt);
 
                     if (keywordGroups.some(keywords => {
                         // 1) any pure-text match?
-                        if (keywords.every(k => hay.includes(k))) {
-                            return true;
-                        }
+                        if (keywords.every(k => hay.includes(k))) return true;
 
                         // 2) numeric-formula match?
-                        //    collect **all** numeric tokens in this group:
-                        const numericTokens = keywords.filter(k => /\d/.test(k));
-                        if (numericTokens.length === 0) {
-                            return false;
-                        }
+                        const numericTokens = keywords.filter(k => hasAnyDigitLocal(k)); // <— use lang-aware digit test
+                        if (numericTokens.length === 0) return false;
 
-                        // re-join them into one comma-delimited formula:
+                        // join tokens into formula; internal commas already preserved
                         const formula = numericTokens.join(',');
                         const refs = parseNumericRefs(formula);
                         return matchesNumeric(refs, suraNumber, verseNumber);
@@ -264,12 +285,15 @@ const Magnify = ({ colors, theme, translationApplication, quran, map, appendices
                     const titleText = titles[titleNumber];
                     let processedTitleText = normalize ? normalizeText(titleText) : titleText;
                     let interprocessedTitleText = processedTitleText.toLocaleUpperCase(lang);
-                    processedTitleText = caseSensitive ? processedTitleText : interprocessedTitleText.length === processedTitleText.length ? interprocessedTitleText : processedTitleText;
+                    processedTitleText = caseSensitive
+                        ? processedTitleText
+                        : (interprocessedTitleText.length === processedTitleText.length ? interprocessedTitleText : processedTitleText);
 
                     if (keywordGroups.some(keywords => keywords.every(keyword => processedTitleText.includes(keyword)))) {
                         titleResults.push({ suraNumber, titleNumber, titleText });
                     }
                 }
+
                 const notes = quran[page].notes.data;
                 if (notes.length > 0) {
                     Object.values(notes).forEach((note) => {
@@ -277,21 +301,19 @@ const Magnify = ({ colors, theme, translationApplication, quran, map, appendices
                         processedNote = caseSensitive ? processedNote : processedNote.toLocaleUpperCase(lang);
 
                         if (keywordGroups.some(keywords => keywords.every(keyword => processedNote.includes(keyword)))) {
-                            const match = note.match(/\*+\d+:\d+/g);
-
+                            const match = String(note).match(/\*+\d+:\d+/g);
                             if (match && match.length > 0) {
                                 let cleanedRef = match[0].replace(/^\*+/, '');
-                                if (match[1] && match[1] === '*9:127') {
-                                    cleanedRef = match[1].replace(/^\*+/, '');
-                                }
-                                const ref = cleanedRef.split(":");
+                                if (match[1] && match[1] === '*9:127') cleanedRef = match[1].replace(/^\*+/, '');
+                                const ref = cleanedRef.split(':');
                                 const suraNumberRef = ref[0];
                                 const verseNumberRef = ref[1];
 
                                 if (!notesResults.some(result =>
                                     result.suraNumber === suraNumberRef &&
                                     result.verseNumber === verseNumberRef &&
-                                    result.note.replace(/^\*+/, '') === note.replace(/^\*+/, ''))) {
+                                    result.note.replace(/^\*+/, '') === String(note).replace(/^\*+/, '')
+                                )) {
                                     notesResults.push({ suraNumber: suraNumberRef, verseNumber: verseNumberRef, note });
                                 }
                             }
@@ -305,22 +327,23 @@ const Magnify = ({ colors, theme, translationApplication, quran, map, appendices
             const introContent = (introduction[section].page !== 1 && introduction[section].page !== 22) ? introduction[section] : null;
             if (introContent) {
                 let page = 0;
-                Object.entries(introContent)
-                    .forEach(([type, content]) => {
-                        page = type === "page" ? content : page;
-                        Object.entries(content).forEach(([order, value]) => {
-                            const appx = '0';
-                            const introText = value.toString();
-                            const key = page + "-" + type + "-" + order;
-                            let processedIntroText = normalize ? normalizeText(introText) : introText;
-                            let interprocessedIntroText = processedIntroText.toLocaleUpperCase(lang);
-                            processedIntroText = caseSensitive ? processedIntroText : interprocessedIntroText.length === processedIntroText.length ? interprocessedIntroText : processedIntroText;
+                Object.entries(introContent).forEach(([type, content]) => {
+                    page = type === "page" ? content : page;
+                    Object.entries(content).forEach(([order, value]) => {
+                        const appx = '0';
+                        const introText = value.toString();
+                        const key = page + "-" + type + "-" + order;
+                        let processedIntroText = normalize ? normalizeText(introText) : introText;
+                        let interprocessedIntroText = processedIntroText.toLocaleUpperCase(lang);
+                        processedIntroText = caseSensitive
+                            ? processedIntroText
+                            : (interprocessedIntroText.length === processedIntroText.length ? interprocessedIntroText : processedIntroText);
 
-                            if (keywordGroups.some(keywords => keywords.every(keyword => processedIntroText.includes(keyword)))) {
-                                appendicesResults.push({ appx, key, introText });
-                            }
-                        });
+                        if (keywordGroups.some(keywords => keywords.every(keyword => processedIntroText.includes(keyword)))) {
+                            appendicesResults.push({ appx, key, introText });
+                        }
                     });
+                });
             }
         }
 
@@ -333,7 +356,9 @@ const Magnify = ({ colors, theme, translationApplication, quran, map, appendices
                     const key = element.type + "-" + element.key + "-" + element.order;
                     let processedAppendixText = normalize ? normalizeText(appendixText) : appendixText;
                     let interprocessedAppendixText = processedAppendixText.toLocaleUpperCase(lang);
-                    processedAppendixText = caseSensitive ? processedAppendixText : interprocessedAppendixText.length === processedAppendixText.length ? interprocessedAppendixText : processedAppendixText;
+                    processedAppendixText = caseSensitive
+                        ? processedAppendixText
+                        : (interprocessedAppendixText.length === processedAppendixText.length ? interprocessedAppendixText : processedAppendixText);
 
                     if (keywordGroups.some(keywords => keywords.every(keyword => processedAppendixText.includes(keyword)))) {
                         appendicesResults.push({ appx, key, appendixText });
@@ -347,6 +372,7 @@ const Magnify = ({ colors, theme, translationApplication, quran, map, appendices
         setSearchResultAppendices(appendicesResults);
 
     }, [quran, introduction, appsmap, caseSensitive, normalize, lang]);
+
 
     const performSearchSingleLetter = useCallback((term) => {
         const capitalizedTerm = term.toLocaleUpperCase(lang);
