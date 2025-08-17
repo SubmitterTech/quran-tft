@@ -1,18 +1,18 @@
 PODS:
-  - Capacitor (6.2.1):
+  - Capacitor (7.4.2):
     - CapacitorCordova
-  - CapacitorApp (6.0.2):
+  - CapacitorApp (7.0.2):
     - Capacitor
-  - CapacitorClipboard (6.0.2):
+  - CapacitorClipboard (7.0.2):
     - Capacitor
-  - CapacitorCordova (6.2.1)
-  - CapacitorDevice (6.0.2):
+  - CapacitorCordova (7.4.2)
+  - CapacitorDevice (7.0.2):
     - Capacitor
-  - CapacitorShare (6.0.3):
+  - CapacitorShare (7.0.2):
     - Capacitor
-  - CapacitorStatusBar (6.0.2):
+  - CapacitorStatusBar (7.0.2):
     - Capacitor
-  - CapacitorToast (6.0.3):
+  - CapacitorToast (7.0.2):
     - Capacitor
 
 DEPENDENCIES:
@@ -44,15 +44,15 @@ EXTERNAL SOURCES:
     :path: "../../node_modules/@capacitor/toast"
 
 SPEC CHECKSUMS:
-  Capacitor: c95400d761e376be9da6be5a05f226c0e865cebf
-  CapacitorApp: e1e6b7d05e444d593ca16fd6d76f2b7c48b5aea7
-  CapacitorClipboard: 4443c3cdb7c77b1533dfe3ff0f9f7756aa8579df
-  CapacitorCordova: 8d93e14982f440181be7304aa9559ca631d77fff
-  CapacitorDevice: 9efd479d71d1baad74b75df531184c3f730eaa48
-  CapacitorShare: d2a742baec21c8f3b92b361a2fbd2401cdd8288e
-  CapacitorStatusBar: b16799a26320ffa52f6c8b01737d5a95bbb8f3eb
-  CapacitorToast: 325d1815e2c2b556257909df7ef1e25eb96cd0c5
+  Capacitor: 9d9e481b79ffaeacaf7a85d6a11adec32bd33b59
+  CapacitorApp: 1f6922c9c5c8b1c538d7fbe92ebe44a81b34bed3
+  CapacitorClipboard: 7e227702976d4435a5a40df54f65e154d0dfc1f3
+  CapacitorCordova: 5e58d04631bc5094894ac106e2bf1da18a9e6151
+  CapacitorDevice: 81ae78d5d1942707caad79276badd458bf6ec603
+  CapacitorShare: be166411fa995ead2d39b104aa0aae56d8615c66
+  CapacitorStatusBar: e04d05e121d5a5979c29eb4249186a4e4a84cacb
+  CapacitorToast: 166611aea815418fc08894b77a915773e3d059d5
 
-PODFILE CHECKSUM: 13f843d2fdfeb31c47fc42f7248e71d65820900d
+PODFILE CHECKSUM: 735a0c85e56c143c16f113f6154a69feacc311eb
 
 COCOAPODS: 1.16.2

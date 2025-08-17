@@ -4,15 +4,15 @@
   "homepage": "https://qurantft.com",
   "private": false,
   "dependencies": {
-    "@capacitor/android": "6.2.1",
-    "@capacitor/app": "^6.0.0",
-    "@capacitor/clipboard": "^6.0.0",
-    "@capacitor/core": "6.2.1",
-    "@capacitor/device": "^6.0.0",
-    "@capacitor/ios": "6.2.1",
-    "@capacitor/share": "^6.0.0",
-    "@capacitor/status-bar": "^6.0.1",
-    "@capacitor/toast": "^6.0.0",
+    "@capacitor/android": "^7.0.0",
+    "@capacitor/app": "^7.0.0",
+    "@capacitor/clipboard": "^7.0.0",
+    "@capacitor/core": "^7.0.0",
+    "@capacitor/device": "^7.0.0",
+    "@capacitor/ios": "^7.0.0",
+    "@capacitor/share": "^7.0.0",
+    "@capacitor/status-bar": "^7.0.0",
+    "@capacitor/toast": "^7.0.0",
     "@react-spring/web": "^9.7.3",
     "@use-gesture/react": "^10.3.1",
     "react": "^18.2.0",
@@ -50,7 +50,7 @@
   },
   "devDependencies": {
     "@capacitor/assets": "^3.0.4",
-    "@capacitor/cli": "6.2.1",
+    "@capacitor/cli": "^7.0.0",
     "gh-pages": "^6.1.0",
     "react-scripts": "5.0.1"
   }
