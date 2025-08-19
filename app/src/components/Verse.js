@@ -333,41 +333,61 @@ const Verse = ({ besmele,
     const lightAllahwords = (text) => {
         if (!pageGWC[currentVerseKey]) return text;
 
-        /* Arabic combining-marks range */
+        const isMark = (ch) => /[\p{M}\u0640\u200D]/u.test(ch);
+        const isArabicBaseOrDigit = (ch) =>
+            /[\p{Script=Arabic}\u0660-\u0669\u06F0-\u06F9]/u.test(ch);
+
         const MARK = '[\\u0610-\\u061A\\u064B-\\u065F\\u0670\\u06D6-\\u06ED]*';
 
-        /* plain (no-diacritics) forms to highlight */
         const RAW = [
             'تالله', 'الله', 'لله', 'ولله', 'والله',
             'بالله', 'فلله', 'فالله', 'ابالله', 'وتالله',
         ];
 
-        /* insert MARK after every letter; accept ٱ where the word has initial ا */
-        const withMarks = s =>
-            s.split('').map((ch, i) =>
-                (ch === 'ا' ? '[اٱ]' : ch) + MARK
-            ).join('');
+        const withMarks = (s) =>
+            s.split('').map((ch) => (ch === 'ا' ? '[اٱ]' : ch) + MARK).join('');
 
         const core = RAW.map(withMarks).join('|');
 
-        /* build regex – use look-around when engine supports it */
         let regex;
         try {
-            regex = new RegExp(
-                `(?<![\\p{Script=Arabic}])(?:${core})(?![\\p{Script=Arabic}])`,
-                'gu'
-            );
-            regex.test(''); // triggers error on old engines
+            regex = new RegExp(core, 'gu');
+            regex.test(''); // feature test
         } catch {
-            regex = new RegExp(core, 'gu'); // fallback: no look-around
+            regex = new RegExp(core, 'g'); // very old engines
         }
 
-        const parts = [];
-        const matches = [...text.matchAll(regex)];
-        let cursor = 0;
-        const start = pageGWC[currentVerseKey].cumulative - pageGWC[currentVerseKey].local + 1;
+        // Boundary check that skips trailing/leading marks and joiners
+        const isStandaloneAt = (str, start, end) => {
+            // Move left over marks/joiners
+            let li = start - 1;
+            while (li >= 0 && isMark(str[li])) li--;
+            if (li >= 0 && isArabicBaseOrDigit(str[li])) return false;
 
-        matches.forEach((m, i) => {
+            // Move right over marks/joiners
+            let ri = end;
+            while (ri < str.length && isMark(str[ri])) ri++;
+            if (ri < str.length && isArabicBaseOrDigit(str[ri])) return false;
+
+            return true;
+        };
+
+        const matches = [...text.matchAll(regex)];
+        const filtered = [];
+        for (const m of matches) {
+            const s = m.index;
+            const e = s + m[0].length;
+            if (isStandaloneAt(text, s, e)) filtered.push(m);
+        }
+
+        if (filtered.length === 0) return text;
+
+        const parts = [];
+        let cursor = 0;
+        const startCount =
+            pageGWC[currentVerseKey].cumulative - pageGWC[currentVerseKey].local + 1;
+
+        filtered.forEach((m, i) => {
             parts.push(
                 <span key={`${currentVerseKey}-t-${cursor}`} dir="rtl">
                     {text.slice(cursor, m.index)}
@@ -377,7 +397,7 @@ const Verse = ({ besmele,
                 <span key={`${currentVerseKey}-h-${i}`} className="text-sky-500" dir="rtl">
                     {m[0]}
                     <sub dir="ltr" className="text-sm md:text-base lg:text-lg whitespace-nowrap">
-                        {formatHitCount(start + i)}
+                        {formatHitCount(startCount + i)}
                     </sub>
                 </span>
             );
