@@ -8,7 +8,7 @@ export const colorThemes = {
         "base-background": "bg-neutral-200",
         "verse-detail-background": "bg-neutral-100",
         "encrypted-background": "bg-neutral-300",
-        "relation-background": "bg-neutral-300",
+        "relation-background": "bg-neutral-400/30",
         "table-title-text": "text-neutral-700",
         "border": "border-neutral-900",
         "text": "text-neutral-900",

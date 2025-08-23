@@ -6,6 +6,7 @@ import { isNative, which } from '../utils/Device';
 import { ColorPicker, FontPicker } from '../utils/Theme';
 import Bookmarks from '../utils/Bookmarks';
 import LongPressable from '../hooks/LongPressable';
+import { toast } from 'react-hot-toast';
 
 const languageDisabilityThreshold = 60;
 const chronologicalOrder = [
@@ -32,6 +33,13 @@ const Jump = React.memo(({ onChangeLanguage, suraNames, onChangeFont, font, onCh
     const [isSuraSettingsOpen, setSuraSettingsOpen] = useState(false);
     const [suraSettingsOpenningProgress, setSuraSettingsOpenningProgress] = useState(0);
 
+    const [bmSettingsVisible, setBmSettingsVisible] = useState(false);
+    const fileInputRef = useRef(null);
+    const selectedImportFileRef = useRef(null);
+    const [backupBusy, setBackupBusy] = useState(false);
+    const [importDialog, setImportDialog] = useState({ open: false, stats: null }); // {open, stats}
+
+
     const [order, setOrder] = useState(() => {
         const saved = localStorage.getItem("qurantft-jump-so");
         return (saved !== null) ? saved : 'quran';
@@ -49,15 +57,33 @@ const Jump = React.memo(({ onChangeLanguage, suraNames, onChangeFont, font, onCh
     const [isBookmarkHighlighted, setIsBookmarkHighlighted] = useState(false);
 
     const [bookmarkFilter, setBookmarkFilter] = useState('');
+    const isImportSummaryOpenRef = useRef(!!importDialog.open);
+    const canceledMessageRef = useRef(translationApplication?.backup_importCanceled || "Import canceled");
 
     const updateBookmark = useCallback((key, val) => {
         Bookmarks.set(key, val);
     }, []);
 
-    const updateBookmarksList = () => {
+    const updateBookmarksList = useCallback(() => {
         const allBookmarks = Bookmarks.all();
         setBookmarksList(Object.entries(allBookmarks).reverse());
-    };
+    }, []);
+
+    useEffect(() => {
+        isImportSummaryOpenRef.current = !!importDialog.open;
+    }, [importDialog.open]);
+
+    useEffect(() => {
+        canceledMessageRef.current = translationApplication?.backup_importCanceled || "Import canceled";
+    }, [translationApplication]);
+
+    useEffect(() => {
+        return () => {
+            if (isImportSummaryOpenRef.current) {
+                toast.error(canceledMessageRef.current, { duration: 7000 });
+            }
+        };
+    }, []);
 
     useEffect(() => {
         updateBookmarksList();
@@ -73,7 +99,7 @@ const Jump = React.memo(({ onChangeLanguage, suraNames, onChangeFont, font, onCh
         return () => {
             window.removeEventListener('storage', handleStorageEvent);
         };
-    }, []);
+    }, [updateBookmarksList]);
 
     // Load last clicked bookmark on initial render
     useEffect(() => {
@@ -102,6 +128,13 @@ const Jump = React.memo(({ onChangeLanguage, suraNames, onChangeFont, font, onCh
             return () => clearTimeout(highlightTimer);
         }
     }, [lastClickedBookmarkKey, bookmarksContainerRef, showBookmarks]);
+
+    useEffect(() => {
+        if (!showBookmarks) {
+            setBmSettingsVisible(false);
+            setBookmarkFilter('');
+        }
+    }, [showBookmarks]);
 
     const filteredBookmarks = Array.isArray(bookmarksList)
         ? bookmarksList.filter(
@@ -360,7 +393,7 @@ const Jump = React.memo(({ onChangeLanguage, suraNames, onChangeFont, font, onCh
             updateBookmarksList();
         }
         setShowBookmarks((prev) => !prev);
-    }, [showBookmarks]);
+    }, [showBookmarks, updateBookmarksList]);
 
     const handleLanguageChange = useCallback((e) => {
 
@@ -410,6 +443,119 @@ const Jump = React.memo(({ onChangeLanguage, suraNames, onChangeFont, font, onCh
         }
     };
 
+    const onExportBookmarks = useCallback(async () => {
+        try {
+            setBackupBusy(true);
+            await Bookmarks.exportToUserFile({
+                shareTitle: translationApplication?.backup_shareTitle || 'Bookmarks backup',
+                shareText: translationApplication?.backup_shareText || 'Save this backup as JSON',
+                shareDialogTitle: translationApplication?.backup_shareDialogTitle || 'Share backup',
+                fileBaseName: translationApplication?.backup_fileBaseName || 'bookmarks',
+            });
+            toast.success(translationApplication?.backup_exportDone || 'Exported the backup');
+        } catch (e) {
+            console.error(e);
+            toast.error(translationApplication?.backup_exportFailed || 'Export failed', { duration: 7000 });
+        } finally {
+            setBackupBusy(false);
+        }
+    }, [translationApplication]);
+
+    const pickBackupFile = useCallback(async () => {
+        if (window.showOpenFilePicker) {
+            try {
+                const [handle] = await window.showOpenFilePicker({
+                    multiple: false,
+                    excludeAcceptAllOption: true,
+                    types: [{ description: 'JSON', accept: { 'application/json': ['.json'] } }],
+                });
+                return await handle.getFile();
+            } catch (err) {
+                if (err?.name === 'AbortError') {
+                    toast.error(canceledMessageRef.current, { duration: 7000 });
+                } else {
+                    toast.error(translationApplication?.backup_importFailed || 'Import failed', { duration: 7000 });
+                    console.error(err);
+                }
+                return null;
+            }
+        }
+
+        // Fallback: use the hidden input & a one-off change listener
+        return new Promise((resolve) => {
+            const input = fileInputRef.current;
+            if (!input) return resolve(null);
+
+            const onChange = (e) => {
+                input.removeEventListener('change', onChange);
+                const f = e.target.files?.[0] || null;
+                e.target.value = ''; // allow choosing the same file again
+                resolve(f);
+            };
+
+            input.addEventListener('change', onChange, { once: true });
+            input.click();
+        });
+    }, [translationApplication]);
+
+    const onClickImport = useCallback(async () => {
+        if (backupBusy) return;
+
+        const file = await pickBackupFile();
+        if (!file) return; // cancel handled above for FS Access API; fallback: silent
+
+        selectedImportFileRef.current = file;
+        try {
+            const preview = await Bookmarks.previewImportFile(file);
+            if (!preview?.ok) {
+                toast.error(preview?.error || translationApplication?.backup_invalidFile || 'Invalid backup file', { duration: 7000 });
+                return;
+            }
+            setImportDialog({ open: true, stats: preview.stats });
+        } catch (e) {
+            console.error(e);
+            toast.error(translationApplication?.backup_readError || 'Could not read the file', { duration: 7000 });
+        }
+    }, [backupBusy, pickBackupFile, translationApplication]);
+
+    // --- Confirm import (mode decided in dialog) ---
+    const confirmImport = useCallback(async () => {
+        const file = selectedImportFileRef.current;
+        if (!file) return;
+
+        setBackupBusy(true);
+        try {
+            const res = await Bookmarks.importFromUserFile(file);
+            if (!res?.ok) {
+                toast.error(translationApplication?.backup_importFailed || 'Import failed', { duration: 7000 });
+                return;
+            }
+
+            // Refresh your list quickly
+            updateBookmarksList();
+            setBmSettingsVisible(false)
+            toast.success(translationApplication?.backup_importDone || 'Import completed', { duration: 7000 });
+
+        } catch (err) {
+            console.error(err);
+            toast.error(translationApplication?.backup_importFailed || 'Import failed', { duration: 7000 });
+        } finally {
+            // close dialog & clear
+            setImportDialog({ open: false, stats: null });
+            selectedImportFileRef.current = null;
+            setBackupBusy(false);
+        }
+    }, [translationApplication, updateBookmarksList, setBmSettingsVisible]);
+
+    // --- Cancel dialog ---
+    const cancelImportDialog = useCallback(() => {
+        setImportDialog({ open: false, stats: null });
+        toast.error(canceledMessageRef.current, { duration: 7000 });
+        selectedImportFileRef.current = null;
+    }, []);
+
+
+
     return (
         <div className={`w-screen h-full fixed left-0 top-0 inset-0 z-10 outline-none focus:outline-none `} id="jump-screen">
             <div className={` w-full h-full backdrop-blur-xl `}>
@@ -441,43 +587,52 @@ const Jump = React.memo(({ onChangeLanguage, suraNames, onChangeFont, font, onCh
                     <div className={`shadow-[rgba(125,211,252,0.4)_0px_2px_10px_10px] flex flex-col items-center justify-center ${colors[theme]["app-background"]} rounded  w-full `}>
                         <div className={`w-full pt-2`}>
                             <div className={`w-full flex space-x-2 px-2`}>
-                                {showBookmarks ? (
-                                    <div className={`w-3/4 flex flex-col items-center justify-center ml-1.5`}>
-                                        <div className={`flex w-full space-x-2 ml-0.5 items-end ${colors[theme]["page-text"]}`}>
-                                            <input
-                                                type="text"
-                                                dir={direction}
-                                                value={bookmarkFilter}
-                                                onChange={e => setBookmarkFilter(e.target.value)}
-                                                placeholder={translationApplication.search + `...`}
-                                                className={`w-full p-2 rounded ${colors[theme]["app-background"]} ${colors[theme]["app-text"]} ring-1 ${theme === 'light' ? `ring-black/20` : `ring-white/20`} focus:outline-none focus:ring-2 ${colors[theme]["focus-ring"]} ${colors[theme]["focus-text"]}`}
-                                            />
-                                            {bookmarkFilter && bookmarkFilter.length > 0 ? (
-                                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" className="w-12 h-12">
-                                                    <path fillRule="evenodd" d="M3.792 2.938A49.069 49.069 0 0 1 12 2.25c2.797 0 5.54.236 8.209.688a1.857 1.857 0 0 1 1.541 1.836v1.044a3 3 0 0 1-.879 2.121l-6.182 6.182a1.5 1.5 0 0 0-.439 1.061v2.927a3 3 0 0 1-1.658 2.684l-1.757.878A.75.75 0 0 1 9.75 21v-5.818a1.5 1.5 0 0 0-.44-1.06L3.13 7.938a3 3 0 0 1-.879-2.121V4.774c0-.897.64-1.683 1.542-1.836Z" clipRule="evenodd" />
-                                                </svg>
-                                            ) : (
-                                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-12 h-12">
-                                                    <path strokeLinecap="round" strokeLinejoin="round" d="M12 3c2.755 0 5.455.232 8.083.678.533.09.917.556.917 1.096v1.044a2.25 2.25 0 0 1-.659 1.591l-5.432 5.432a2.25 2.25 0 0 0-.659 1.591v2.927a2.25 2.25 0 0 1-1.244 2.013L9.75 21v-6.568a2.25 2.25 0 0 0-.659-1.591L3.659 7.409A2.25 2.25 0 0 1 3 5.818V4.774c0-.54.384-1.006.917-1.096A48.32 48.32 0 0 1 12 3Z" />
-                                                </svg>
-                                            )}
-                                        </div>
+                                {showBookmarks ?
+                                    (
+                                        <div className={`w-3/4 flex pl-0.5 space-x-2`}>
+                                            <div className={`flex w-full items-center justify-center space-x-2 pl-1 pr-2 ${colors[theme]["page-text"]}`}>
+                                                <input
+                                                    type="text"
+                                                    dir={direction}
+                                                    value={bookmarkFilter}
+                                                    disabled={bmSettingsVisible}
+                                                    onChange={e => setBookmarkFilter(e.target.value)}
+                                                    placeholder={translationApplication.search + `...`}
+                                                    className={`w-full p-2.5 transition-opacity ease-linear duration-150 ${bmSettingsVisible ? " opacity-0" : ` opacity-100`} rounded ${colors[theme]["app-background"]} ${colors[theme]["app-text"]} ring-1 ${theme === 'light' ? `ring-black/20` : `ring-white/20`} focus:outline-none focus:ring-2 ${colors[theme]["focus-ring"]} ${colors[theme]["focus-text"]}`}
+                                                />
 
-                                    </div>
-                                ) : (
-                                    <div
-                                        onClick={onMagnify}
-                                        dir={direction}
-                                        className={`w-3/4 flex justify-center ${colors[theme]["text"]} rounded p-2 ${colors[theme]["text-background"]} cursor-pointer`}>
-                                        <button className={`flex justify-center`} >
-                                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className={`w-14 h-14`}>
-                                                <path strokeLinecap="round" strokeLinejoin="round" d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607z" />
-                                            </svg>
-                                        </button>
-                                        <div className={`flex items-center ml-3 font-semibold ${colors[theme]["matching-text"]} text-xl`}>
-                                            {translationApplication.search}<span className={`${colors[theme]["text"]}`}>{"..."}</span>
+                                            </div>
+
+                                            <div className={`flex flex-col items-center justify-center px-3.5 `}>
+                                                <button
+                                                    className={`flex items-center justify-center transition-all duration-300 ease-linear ${bmSettingsVisible ? " -rotate-180 brightness-100 opacity-100" : ` rotate-0 brightness-50 opacity-70`} ${bmSettingsVisible ? colors[theme]["matching-text"] : colors[theme]["page-text"]}`}
+                                                    onClick={() => setBmSettingsVisible(!bmSettingsVisible)}
+                                                >
+                                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className={`w-11 h-11 `}>
+                                                        <path strokeLinecap="round" strokeLinejoin="round" d="M10.343 3.94c.09-.542.56-.94 1.11-.94h1.093c.55 0 1.02.398 1.11.94l.149.894c.07.424.384.764.78.93.398.164.855.142 1.205-.108l.737-.527a1.125 1.125 0 0 1 1.45.12l.773.774c.39.389.44 1.002.12 1.45l-.527.737c-.25.35-.272.806-.107 1.204.165.397.505.71.93.78l.893.15c.543.09.94.559.94 1.109v1.094c0 .55-.397 1.02-.94 1.11l-.894.149c-.424.07-.764.383-.929.78-.165.398-.143.854.107 1.204l.527.738c.32.447.269 1.06-.12 1.45l-.774.773a1.125 1.125 0 0 1-1.449.12l-.738-.527c-.35-.25-.806-.272-1.203-.107-.398.165-.71.505-.781.929l-.149.894c-.09.542-.56.94-1.11.94h-1.094c-.55 0-1.019-.398-1.11-.94l-.148-.894c-.071-.424-.384-.764-.781-.93-.398-.164-.854-.142-1.204.108l-.738.527c-.447.32-1.06.269-1.45-.12l-.773-.774a1.125 1.125 0 0 1-.12-1.45l.527-.737c.25-.35.272-.806.108-1.204-.165-.397-.506-.71-.93-.78l-.894-.15c-.542-.09-.94-.56-.94-1.109v-1.094c0-.55.398-1.02.94-1.11l.894-.149c.424-.07.765-.383.93-.78.165-.398.143-.854-.108-1.204l-.526-.738a1.125 1.125 0 0 1 .12-1.45l.773-.773a1.125 1.125 0 0 1 1.45-.12l.737.527c.35.25.807.272 1.204.107.397-.165.71-.505.78-.929l.15-.894Z" />
+                                                        <path strokeLinecap="round" strokeLinejoin="round" d="M15 12a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z" />
+                                                    </svg>
+
+                                                </button>
+
+                                            </div>
+
                                         </div>
-                                    </div>)}
+                                    ) : (
+                                        <div
+                                            onClick={onMagnify}
+                                            dir={direction}
+                                            className={`w-3/4 flex justify-center ${colors[theme]["text"]} rounded p-2 ${colors[theme]["text-background"]} cursor-pointer`}>
+                                            <button className={`flex justify-center`} >
+                                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className={`w-14 h-14`}>
+                                                    <path strokeLinecap="round" strokeLinejoin="round" d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607z" />
+                                                </svg>
+                                            </button>
+                                            <div className={`flex items-center ml-3 font-semibold ${colors[theme]["matching-text"]} text-xl`}>
+                                                {translationApplication.search}<span className={`${colors[theme]["text"]}`}>{"..."}</span>
+                                            </div>
+                                        </div>
+                                    )}
                                 <button
                                     onClick={toggleBookmark}
                                     className={`flex flex-col w-1/3 items-center justify-between pt-2 rounded ${colors[theme]["text"]} ${colors[theme]["text-background"]}`}>
@@ -869,6 +1024,155 @@ const Jump = React.memo(({ onChangeLanguage, suraNames, onChangeFont, font, onCh
                                 </div>
                             </div>
                         }
+                        {bmSettingsVisible &&
+                            <div className={`fixed bottom-2 left-3 right-3 z-10 md:h-80 lg:h-96 h-72`}>
+                                <div className={`h-full w-full relative flex ${colors[theme]["app-background"]}`}>
+                                    <div className={`w-full h-full z-30`}>
+                                        <div className={`p-2 h-full w-full flex flex-col`}>
+                                            <div
+                                                dir={direction}
+                                                className={`text-center font-semibold mb-2 ${colors[theme]["app-text"]}`}>
+                                                {translationApplication?.options || 'Options'}
+                                            </div>
+                                            <div className={`flex flex-col w-full h-full justify-center items-center space-y-12 md:space-y-14 lg:space-y-16`}>
+                                                <div className={`flex w-full justify-center items-center space-x-8 md:space-x-10 lg:space-x-12`}>
+                                                    {bookmarksList?.length > 0 &&
+                                                        <button
+                                                            disabled={backupBusy}
+                                                            onClick={onExportBookmarks}
+                                                            className={`flex flex-col items-center justify-between rounded w-1/4 px-3 py-2 ${colors[theme]["text"]} ${colors[theme]["text-background"]} disabled:opacity-60`}>
+                                                            <div className={`flex items-center justify-center`}>
+                                                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className={`w-11 h-11`}>
+                                                                    <path strokeLinecap="round" strokeLinejoin="round" d="M3 16.5v2.25A2.25 2.25 0 0 0 5.25 21h13.5A2.25 2.25 0 0 0 21 18.75V16.5m-13.5-9L12 3m0 0 4.5 4.5M12 3v13.5" />
+                                                                </svg>
+                                                            </div>
+                                                            <div
+                                                                dir={direction}
+                                                                className={`text-sm mt-1 ${colors[theme]["page-text"]}`}>
+                                                                {translationApplication?.export || 'Export'}
+                                                            </div>
+                                                        </button>}
+                                                    <button
+                                                        disabled={backupBusy}
+                                                        onClick={onClickImport}
+                                                        className={`flex flex-col items-center justify-between rounded w-1/4 px-3 py-2 ${colors[theme]["text"]} ${colors[theme]["text-background"]} disabled:opacity-60`}>
+                                                        <div className={`flex items-center justify-center`}>
+                                                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className={`w-11 h-11`}>
+                                                                <path strokeLinecap="round" strokeLinejoin="round" d="M3 16.5v2.25A2.25 2.25 0 0 0 5.25 21h13.5A2.25 2.25 0 0 0 21 18.75V16.5M16.5 12 12 16.5m0 0L7.5 12m4.5 4.5V3" />
+                                                            </svg>
+                                                        </div>
+                                                        <div
+                                                            dir={direction}
+                                                            className={`text-sm mt-1 ${colors[theme]["page-text"]}`}>
+                                                            {translationApplication?.import || 'Import'}
+                                                        </div>
+                                                    </button>
+                                                </div>
+                                                <div
+                                                    dir={direction}
+                                                    className={`flex items-center justify-center text-xs text-justify opacity-60 mt-14 ${colors[theme]["page-text"]}`}>
+                                                    {
+                                                        bookmarksList?.length > 0
+                                                            ? (translationApplication?.backup_hint || 'Export your notes on one platform and import on another.')
+                                                            : (translationApplication?.backup_hint2 || 'Import your notes from another platform.')
+                                                    }
+                                                </div>
+                                            </div>
+                                            <input
+                                                type="file"
+                                                accept="application/json"
+                                                hidden
+                                                ref={fileInputRef}
+                                            />
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        }
+                        {importDialog.open && (
+                            <div className={`absolute inset-0 z-40 flex items-center justify-center`}>
+                                <div
+                                    onClick={cancelImportDialog}
+                                    className={`absolute inset-0 backdrop-blur-lg left-2 right-2 rounded`} />
+                                <div
+                                    className={`${colors[theme]['app-background']} rounded shadow-lg ${colors[theme]["app-text"]} border ${colors[theme]['border']} w-11/12 z-50`}
+                                    style={{ animation: 'animate-scale 0.2s ease-in-out' }}>
+                                    <div className={`p-2 flex flex-col w-full h-full space-y-2`}>
+
+                                        <div className={`w-full p-1 rounded ${colors[theme]["verse-detail-background"]} flex flex-col space-y-2`}>
+                                            <div
+                                                dir={direction}
+                                                className={`p-3 text-lg md:text-xl w-full text-center font-semibold`}>
+                                                {translationApplication?.summary || 'Summary'}
+                                            </div>
+
+                                            <div className={`grid grid-cols-2 gap-2 p-1 rounded ${colors[theme]['matching-text']} mb-3 ${colors[theme]['relation-background']}`}>
+                                                {parseInt(importDialog.stats?.added) !== 0 &&
+                                                    <div
+                                                        dir={direction}
+                                                        className={`rounded px-2 py-1 `}>
+                                                        ♦ {(translationApplication?.backup_added || 'Will add')} : {importDialog.stats?.added ?? 0}
+                                                    </div>}
+                                                {parseInt(importDialog.stats?.updatedNewer) !== 0 &&
+                                                    <div
+                                                        dir={direction}
+                                                        className={`rounded px-2 py-1 `}>
+                                                        ♦ {(translationApplication?.backup_updated || 'Will update')} : {importDialog.stats?.updatedNewer ?? 0}
+                                                    </div>}
+                                                {parseInt(importDialog.stats?.skippedOlder) !== 0 &&
+                                                    <div
+                                                        dir={direction}
+                                                        className={`rounded px-2 py-1 `}>
+                                                        ♦ {(translationApplication?.backup_keepolder || 'Keep older')} : {importDialog.stats?.skippedOlder ?? 0}
+                                                    </div>}
+                                                {parseInt(importDialog.stats?.unchanged) !== 0 &&
+                                                    <div
+                                                        dir={direction}
+                                                        className={`rounded px-2 py-1 `}>
+                                                        ♦ {(translationApplication?.backup_unchanged || 'Unchanged')} : {importDialog.stats?.unchanged ?? 0}
+                                                    </div>}
+                                            </div>
+                                        </div>
+
+                                        <div className="flex justify-between space-x-2">
+                                            <button
+                                                disabled={backupBusy}
+                                                onClick={() => confirmImport('smart')}
+                                                className={`flex flex-col w-full max-w-24 items-center justify-between pt-2 rounded  ${colors[theme]["text-background"]}`}>
+                                                <div className={`flex justify-center`}>
+                                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-12 h-12">
+                                                        <path strokeLinecap="round" strokeLinejoin="round" d="m20.25 7.5-.625 10.632a2.25 2.25 0 0 1-2.247 2.118H6.622a2.25 2.25 0 0 1-2.247-2.118L3.75 7.5m8.25 3v6.75m0 0-3-3m3 3 3-3M3.375 7.5h17.25c.621 0 1.125-.504 1.125-1.125v-1.5c0-.621-.504-1.125-1.125-1.125H3.375c-.621 0-1.125.504-1.125 1.125v1.5c0 .621.504 1.125 1.125 1.125Z" />
+                                                    </svg>
+
+                                                </div>
+                                                <div
+                                                    dir={direction}
+                                                    className={`flex ${colors[theme]["page-text"]} text-xs items-center justify-center pb-1`}>
+                                                    {translationApplication?.continue || 'Continue'}
+                                                </div>
+                                            </button>
+
+                                            <button
+                                                disabled={backupBusy}
+                                                onClick={cancelImportDialog}
+                                                className={`flex flex-col w-full max-w-24 items-center justify-between pt-1 rounded  ${colors[theme]["text-background"]}`}>
+                                                <div className={`flex justify-center`}>
+                                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-12 h-12">
+                                                        <path strokeLinecap="round" strokeLinejoin="round" d="m20.25 7.5-.625 10.632a2.25 2.25 0 0 1-2.247 2.118H6.622a2.25 2.25 0 0 1-2.247-2.118L3.75 7.5m6 4.125 2.25 2.25m0 0 2.25 2.25M12 13.875l2.25-2.25M12 13.875l-2.25 2.25M3.375 7.5h17.25c.621 0 1.125-.504 1.125-1.125v-1.5c0-.621-.504-1.125-1.125-1.125H3.375c-.621 0-1.125.504-1.125 1.125v1.5c0 .621.504 1.125 1.125 1.125Z" />
+                                                    </svg>
+                                                </div>
+                                                <div
+                                                    dir={direction}
+                                                    className={`flex ${colors[theme]["page-text"]} text-xs items-center justify-center pb-1`}>
+                                                    {translationApplication?.cancel || 'Cancel'}
+                                                </div>
+                                            </button>
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        )}
                     </div>
                 </div>
             </div>
