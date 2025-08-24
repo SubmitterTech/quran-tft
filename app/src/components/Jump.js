@@ -65,12 +65,13 @@ const Jump = React.memo(({ onChangeLanguage, suraNames, onChangeFont, font, onCh
 
     const updateBookmark = useCallback((key, val) => {
         Bookmarks.set(key, val);
+        updateBookmarksList();
     }, []);
 
-    const updateBookmarksList = useCallback(() => {
+    const updateBookmarksList = () => {
         const allBookmarks = Bookmarks.all();
         setBookmarksList(Object.entries(allBookmarks).reverse());
-    }, []);
+    };
 
     useEffect(() => {
         isImportSummaryOpenRef.current = !!importDialog.open;
@@ -102,7 +103,7 @@ const Jump = React.memo(({ onChangeLanguage, suraNames, onChangeFont, font, onCh
         return () => {
             window.removeEventListener('storage', handleStorageEvent);
         };
-    }, [updateBookmarksList]);
+    }, []);
 
     // Load last clicked bookmark on initial render
     useEffect(() => {
@@ -396,7 +397,7 @@ const Jump = React.memo(({ onChangeLanguage, suraNames, onChangeFont, font, onCh
             updateBookmarksList();
         }
         setShowBookmarks((prev) => !prev);
-    }, [showBookmarks, updateBookmarksList]);
+    }, [showBookmarks]);
 
     const handleLanguageChange = useCallback((e) => {
 
@@ -545,7 +546,7 @@ const Jump = React.memo(({ onChangeLanguage, suraNames, onChangeFont, font, onCh
             selectedImportFileRef.current = null;
             setBackupBusy(false);
         }
-    }, [translationApplication, updateBookmarksList, setBmSettingsVisible]);
+    }, [translationApplication, setBmSettingsVisible]);
 
     // --- Cancel dialog ---
     const cancelImportDialog = useCallback(() => {
