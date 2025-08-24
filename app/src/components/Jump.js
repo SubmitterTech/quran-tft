@@ -37,7 +37,10 @@ const Jump = React.memo(({ onChangeLanguage, suraNames, onChangeFont, font, onCh
     const fileInputRef = useRef(null);
     const selectedImportFileRef = useRef(null);
     const [backupBusy, setBackupBusy] = useState(false);
-    const [importDialog, setImportDialog] = useState({ open: false, stats: null }); // {open, stats}
+    const [importDialog, setImportDialog] = useState({ open: false, stats: null });
+
+    const [editingKey, setEditingKey] = useState(null);
+
 
 
     const [order, setOrder] = useState(() => {
@@ -518,7 +521,6 @@ const Jump = React.memo(({ onChangeLanguage, suraNames, onChangeFont, font, onCh
         }
     }, [backupBusy, pickBackupFile, translationApplication]);
 
-    // --- Confirm import (mode decided in dialog) ---
     const confirmImport = useCallback(async () => {
         const file = selectedImportFileRef.current;
         if (!file) return;
@@ -531,7 +533,6 @@ const Jump = React.memo(({ onChangeLanguage, suraNames, onChangeFont, font, onCh
                 return;
             }
 
-            // Refresh your list quickly
             updateBookmarksList();
             setBmSettingsVisible(false)
             toast.success(translationApplication?.backup_importDone || 'Import completed', { duration: 7000 });
@@ -540,7 +541,6 @@ const Jump = React.memo(({ onChangeLanguage, suraNames, onChangeFont, font, onCh
             console.error(err);
             toast.error(translationApplication?.backup_importFailed || 'Import failed', { duration: 7000 });
         } finally {
-            // close dialog & clear
             setImportDialog({ open: false, stats: null });
             selectedImportFileRef.current = null;
             setBackupBusy(false);
@@ -554,7 +554,62 @@ const Jump = React.memo(({ onChangeLanguage, suraNames, onChangeFont, font, onCh
         selectedImportFileRef.current = null;
     }, []);
 
+    function InlineExpandableTextareaTW({
+        value,
+        dir = "ltr",
+        theme,
+        colors,
+        collapsedHeights = "h-11 md:h-12",
+        expandedHeights = "h-64 md:h-72 lg:h-80",
+        isOpen,                 // <- controlled
+        onOpen,                 // <- called on focus
+        onClose,                // <- called on blur/commit
+        onSave,                 // (text) => void
+    }) {
+        const [buf, setBuf] = React.useState(value ?? "");
+        const taRef = React.useRef(null);
 
+        // keep internal buffer in sync if parent value changes
+        React.useEffect(() => { setBuf(value ?? ""); }, [value]);
+
+        // when opened: focus and scroll row to START (don’t force caret)
+        React.useEffect(() => {
+            if (!isOpen) return;
+            const el = taRef.current;
+            if (!el) return;
+            el.focus({ preventScroll: true });
+            const row = el.closest(".bookmark-entry") || el;
+            // wait a tick so height classes apply, then smooth scroll to START
+            requestAnimationFrame(() => {
+                row.scrollIntoView({ behavior: "smooth", block: "start" });
+            });
+        }, [isOpen]);
+
+        const commit = React.useCallback(() => {
+            onSave?.((buf ?? "").trim());
+            onClose?.();
+        }, [buf, onSave, onClose]);
+
+        return (
+            <textarea
+                ref={taRef}
+                dir={dir}
+                value={buf}
+                onChange={(e) => setBuf(e.target.value)}
+                onFocus={() => onOpen?.()}
+                onBlur={commit}
+                rows={1}
+                className={[
+                    "w-full rounded text-lg p-2.5 resize-none overflow-y-auto",
+                    colors[theme]["text"], "bg-transparent/20",
+                    "focus:outline-none focus:ring-2 focus:ring-sky-500",
+                    "transition-[height] duration-200 ease-out",
+                    isOpen ? expandedHeights : collapsedHeights,
+                    isOpen ? (dir === "rtl" ? "text-right" : "text-left") : "text-center truncate",
+                ].join(" ")}
+            />
+        );
+    }
 
     return (
         <div className={`w-screen h-full fixed left-0 top-0 inset-0 z-10 outline-none focus:outline-none `} id="jump-screen">
@@ -659,7 +714,7 @@ const Jump = React.memo(({ onChangeLanguage, suraNames, onChangeFont, font, onCh
                                 (
                                     <div
                                         ref={bookmarksContainerRef}
-                                        className={`md:h-80 lg:h-96 h-72 m-2 px-1 py-1 text-base rounded ${colors[theme]["relation-background"]} overflow-y-auto overflow-x-hidden`}>
+                                        className={`md:h-80 lg:h-96 h-72 m-2 px-1 py-1 text-base rounded ${colors[theme]["relation-background"]} overscroll-contain overflow-y-auto overflow-x-hidden`}>
                                         {filteredBookmarks.map(([key, val]) => (
                                             <div key={key}
                                                 ref={(el) => (bookmarkItemRefs.current[key] = el)}
@@ -667,19 +722,22 @@ const Jump = React.memo(({ onChangeLanguage, suraNames, onChangeFont, font, onCh
                                                     ? `${colors[theme]['matching-border']} animate-pulse`
                                                     : `${colors[theme]['verse-border']}`}`}>
                                                 <div className={`w-full ${colors[theme]["page-text"]} flex items-center justify-center`}>
-                                                    <input
-                                                        type="text"
+                                                    <InlineExpandableTextareaTW
+                                                        value={Bookmarks.format(val)}
                                                         dir={direction}
-                                                        defaultValue={Bookmarks.format(val)}
-                                                        onBlur={(e) => {
-                                                            updateBookmark(key, e.target.value);
-                                                        }}
-                                                        className={`w-full rounded text-lg p-2.5 ${colors[theme]["text"]} bg-transparent/20 text-center focus:outline-none focus:ring-2 focus:border-sky-500 focus:ring-sky-500`}
+                                                        theme={theme}
+                                                        colors={colors}
+                                                        collapsedHeights="h-11"
+                                                        expandedHeights="h-64 md:h-72 lg:h-80"
+                                                        isOpen={editingKey === key}
+                                                        onOpen={() => setEditingKey(key)}
+                                                        onClose={() => setEditingKey(null)}
+                                                        onSave={(text) => updateBookmark(key, text)}
                                                     />
                                                 </div>
                                                 <div
                                                     onClick={() => handleMarkJump(key)}
-                                                    className={`w-24 text-lg rounded px-2 ${colors[theme]["base-background"]} shadow-lg text-sky-500 flex items-center justify-center`}>
+                                                    className={`w-24 self-start text-lg rounded px-2 ${colors[theme]["base-background"]} py-2 shadow-lg text-sky-500 flex items-center justify-center`}>
                                                     {key}
                                                 </div>
                                             </div>
