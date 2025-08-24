@@ -555,62 +555,76 @@ const Jump = React.memo(({ onChangeLanguage, suraNames, onChangeFont, font, onCh
         selectedImportFileRef.current = null;
     }, []);
 
-    function InlineExpandableTextareaTW({
-        value,
-        dir = "ltr",
-        theme,
-        colors,
-        collapsedHeights = "h-11 md:h-12",
-        expandedHeights = "h-64 md:h-72 lg:h-80",
-        isOpen,                 // <- controlled
-        onOpen,                 // <- called on focus
-        onClose,                // <- called on blur/commit
-        onSave,                 // (text) => void
-    }) {
-        const [buf, setBuf] = React.useState(value ?? "");
-        const taRef = React.useRef(null);
+function InlineExpandableTextareaTW({
+  value,
+  dir = "ltr",
+  theme,
+  colors,
+  collapsedHeights = "h-11",
+  expandedHeights = "h-64 md:h-72 lg:h-80",
+  onSave,
+  isOpen,            // boolean (optional). If provided, controls open state.
+  onOpen,            // () => void (optional) called when focusing to open
+  onClose,           // () => void (optional) called on commit/close
+}) {
+  const isControlled = typeof isOpen === "boolean";
+  const [openU, setOpenU] = React.useState(false);
+  const open = isControlled ? isOpen : openU;
 
-        // keep internal buffer in sync if parent value changes
-        React.useEffect(() => { setBuf(value ?? ""); }, [value]);
+  const [buf, setBuf] = React.useState(value ?? "");
+  const taRef = React.useRef(null);
 
-        // when opened: focus and scroll row to START (don’t force caret)
-        React.useEffect(() => {
-            if (!isOpen) return;
-            const el = taRef.current;
-            if (!el) return;
-            el.focus({ preventScroll: true });
-            const row = el.closest(".bookmark-entry") || el;
-            // wait a tick so height classes apply, then smooth scroll to START
-            requestAnimationFrame(() => {
-                row.scrollIntoView({ behavior: "smooth", block: "start" });
-            });
-        }, [isOpen]);
+  // keep buffer in sync with external value
+  React.useEffect(() => { setBuf(value ?? ""); }, [value]);
 
-        const commit = React.useCallback(() => {
-            onSave?.((buf ?? "").trim());
-            onClose?.();
-        }, [buf, onSave, onClose]);
+  // when opened: ensure focus (without moving caret) and scroll row to START
+  React.useEffect(() => {
+    if (!open) return;
+    const el = taRef.current;
+    if (!el) return;
 
-        return (
-            <textarea
-                ref={taRef}
-                dir={dir}
-                value={buf}
-                onChange={(e) => setBuf(e.target.value)}
-                onFocus={() => onOpen?.()}
-                onBlur={commit}
-                rows={1}
-                className={[
-                    "w-full rounded text-lg p-2.5 resize-none overflow-y-auto",
-                    colors[theme]["text"], "bg-transparent/20",
-                    "focus:outline-none focus:ring-2 focus:ring-sky-500",
-                    "transition-[height] duration-200 ease-out",
-                    isOpen ? expandedHeights : collapsedHeights,
-                    isOpen ? (dir === "rtl" ? "text-right" : "text-left") : "text-center truncate",
-                ].join(" ")}
-            />
-        );
+    if (document.activeElement !== el) {
+      try { el.focus({ preventScroll: true }); } catch {}
     }
+    const row = el.closest(".bookmark-entry") || el;
+    setTimeout(() => {
+      requestAnimationFrame(() => {
+        row.scrollIntoView({ behavior: "smooth", block: "start" });
+      });
+    }, 190);
+  }, [open]);
+
+  const commit = React.useCallback(() => {
+    onSave?.((buf ?? "").trim());
+    if (isControlled) onClose?.();
+    else setOpenU(false);
+  }, [buf, onSave, isControlled, onClose]);
+
+  return (
+    <textarea
+      ref={taRef}
+      dir={dir}
+      value={buf}
+      onChange={(e) => setBuf(e.target.value)}
+      onFocus={() => {
+        if (!open) {
+          if (isControlled) onOpen?.();
+          else setOpenU(true);
+        }
+      }}
+      onBlur={commit}
+      rows={1}
+      className={[
+        "w-full rounded text-lg p-2.5 resize-none overflow-y-auto",
+        colors[theme]["text"], "bg-transparent/20",
+        "focus:outline-none focus:ring-2 focus:ring-sky-500",
+        "transition-[height] duration-150 ease-out",
+        open ? expandedHeights : collapsedHeights,
+        open ? (dir === "rtl" ? "text-right" : "text-left") : "text-center truncate",
+      ].join(" ")}
+    />
+  );
+}
 
     return (
         <div className={`w-screen h-full fixed left-0 top-0 inset-0 z-10 outline-none focus:outline-none `} id="jump-screen">
