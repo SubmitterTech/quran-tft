@@ -613,7 +613,7 @@ const Verse = ({ besmele,
                                     <path strokeLinecap="round" strokeLinejoin="round" d="M16.5 3.75V16.5L12 14.25 7.5 16.5V3.75m9 0H18A2.25 2.25 0 0 1 20.25 6v12A2.25 2.25 0 0 1 18 20.25H6A2.25 2.25 0 0 1 3.75 18V6A2.25 2.25 0 0 1 6 3.75h1.5m9 0h-9" />
                                 </svg>
                             </div>
-                            <div className={`${(mode === "reading" && bookmark) ? ` p-1 text-start ${colors[theme]["matching-text"]} whitespace-pre-wrap` : "h-0 "}`} dir={direction} >
+                            <div className={`${(mode === "reading" && bookmark) ? ` p-1 text-start ${colors[theme]["matching-text"]} whitespace-pre-wrap max-h-96 overflow-y-auto cursor-auto` : "h-0 "}`} dir={direction} >
                                 {mode === "reading" && (supportsLookAhead() ? parseReferences(Bookmarks.format(typeof bookmark === 'object' ? bookmark === null ? '' : bookmark.value : bookmark), currentVerseKey + '-bookmarknote') : Bookmarks.format(typeof bookmark === 'object' ? bookmark === null ? '' : bookmark.value : bookmark))}
                             </div>
                         </div>
