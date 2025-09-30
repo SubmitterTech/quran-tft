@@ -413,7 +413,7 @@ const Book = React.memo(({ incomingSearch = false, incomingAppendix = false, inc
         const verseRegex = supportsLookAhead()
             ? new RegExp(`${versePattern}`, 'g')
             : new RegExp(`${fallbackPattern}`, 'g');
-        const app = translation ? translationApplication.appendix + "|" + translationApplication.appendices : translationApplication.appendix + "?";
+        const app = translation ? translationApplication.appendix + "|" + translationApplication.appendices : translationApplication.appendix + "|Apps?";
         const intro = translationApplication.intro;
         const appendixRegex = new RegExp(`${app}`, 'g');
         const introRegex = new RegExp(`${intro}`, 'g');
