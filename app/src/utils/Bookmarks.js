@@ -53,7 +53,25 @@ const normalizeMap = (obj) => {
     let changed = false;
     Object.entries(obj || {}).forEach(([k, v]) => {
         if (v && typeof v === 'object' && 'timestamp' in v) {
-            out[k] = v;
+            // Ensure schema invariant: value must be string|null
+            const next = { ...v };
+
+            if (next.value === undefined) next.value = null; // defensive
+            if (next.value !== null && typeof next.value !== 'string') {
+                next.value = String(next.value);
+                changed = true;
+            }
+
+            // Optional: normalize timestamp spacing if someone saved "dd/mm/yyyy  HH:MM:SS"
+            if (typeof next.timestamp === 'string') {
+                const fixedTs = next.timestamp.replace(timestampRegex, '$1 $2');
+                if (fixedTs !== next.timestamp) {
+                    next.timestamp = fixedTs;
+                    changed = true;
+                }
+            }
+
+            out[k] = next;
         } else {
             const raw = typeof v === 'string' ? v.trim() : '';
             if (!raw) return;
@@ -179,7 +197,8 @@ const get = (verseKey) => {
 };
 
 const set = (verseKey, value) => {
-    const trimmedValue = value ? value.trim() : '';
+    const safeValue = (value === null || value === undefined) ? '' : String(value);
+    const trimmedValue = safeValue.trim();
     const currentTimestamp = format(Date.now());
     const normalizedValue = trimmedValue ? trimmedValue.replace(timestampRegex, "$1 $2") : '';
 
@@ -187,10 +206,10 @@ const set = (verseKey, value) => {
         if (normalizedValue === bookmarks[verseKey].timestamp) {
             bookmarks[verseKey] = { value: null, timestamp: currentTimestamp };
         } else {
-            bookmarks[verseKey] = { value: value || null, timestamp: currentTimestamp };
+            bookmarks[verseKey] = { value: trimmedValue ? safeValue : null, timestamp: currentTimestamp };
         }
     } else {
-        bookmarks[verseKey] = { value: value || null, timestamp: currentTimestamp };
+        bookmarks[verseKey] = { value: trimmedValue ? safeValue : null, timestamp: currentTimestamp };
     }
 
     persistAll().then(() => notifySubscribers(verseKey));
@@ -263,7 +282,8 @@ export const exportToUserFile = async ({
     shareDialogTitle = 'Share backup',
     fileBaseName = 'bookmarks',
 } = {}) => {
-    const payload = buildPayload(bookmarks);
+    const { map: sanitized } = normalizeMap(bookmarks || {});
+    const payload = buildPayload(sanitized);
     const content = JSON.stringify(payload, null, 2);
     const fileName = `${fileBaseName}-${Date.now()}.json`;
 

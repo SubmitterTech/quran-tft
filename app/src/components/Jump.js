@@ -1121,7 +1121,7 @@ const Jump = React.memo(({ onChangeLanguage, suraNames, onChangeFont, font, onCh
                                                             </div>
                                                             <div
                                                                 dir={direction}
-                                                                className={`text-sm mt-1 ${colors[theme]["page-text"]}`}>
+                                                                className={`text-sm mt-1 ${colors[theme]["page-text"]} text-nowrap`}>
                                                                 {translationApplication?.export || 'Export'}
                                                             </div>
                                                         </button>}
@@ -1136,7 +1136,7 @@ const Jump = React.memo(({ onChangeLanguage, suraNames, onChangeFont, font, onCh
                                                         </div>
                                                         <div
                                                             dir={direction}
-                                                            className={`text-sm mt-1 ${colors[theme]["page-text"]}`}>
+                                                            className={`text-sm mt-1 ${colors[theme]["page-text"]} text-nowrap`}>
                                                             {translationApplication?.import || 'Import'}
                                                         </div>
                                                     </button>
