@@ -30,12 +30,13 @@ const Leaf = () => {
             setQuranmap(mapQuranWithNotes(quranData));
         };
 
+        setDirection((languages[lang] && languages[lang]["dir"]) ? languages[lang]["dir"] : 'ltr');
+
         if (lang && lang !== 'en') {
             // Dynamically load the translated Quran and Application data for the specified language
             import(`../assets/translations/${lang}/quran_${lang}.json`)
                 .then(translatedQuran => {
                     processQuranData(translatedQuran.default);
-                    setDirection((languages[lang] && languages[lang]["dir"]) ? languages[lang]["dir"] : 'ltr');
                 })
                 .catch(error => {
                     console.error("Error loading the translated Quran: ", error);
@@ -44,7 +45,7 @@ const Leaf = () => {
                 });
             import(`../assets/translations/${lang}/application_${lang}.json`)
                 .then(translatedApplication => {
-                    setTranslation(translatedApplication);
+                    setTranslation(translatedApplication.default);
                 })
                 .catch(error => {
                     console.error("Error loading the translated Application data: ", error);
@@ -125,7 +126,11 @@ const Leaf = () => {
             setVerseList(vl);
             setTitleList(tl);
             setNoteList(nl);
+            setUf(false);
         } else {
+            setVerseList({});
+            setTitleList({});
+            setNoteList({});
             setUf(true);
         }
 

@@ -333,9 +333,35 @@ const Verse = ({ besmele,
     const lightAllahwords = (text) => {
         if (!pageGWC[currentVerseKey]) return text;
 
-        const isMark = (ch) => /[\p{M}\u0640\u200D]/u.test(ch);
-        const isArabicBaseOrDigit = (ch) =>
-            /[\p{Script=Arabic}\u0660-\u0669\u06F0-\u06F9]/u.test(ch);
+        // NOTE: Avoid regex literals with Unicode property escapes (e.g. \p{M}),
+        // because they can cause a SyntaxError on older JS engines at parse time.
+        // Build them dynamically and fall back to safe range-based regexes.
+        let reMark = null;
+        let reArabicBaseOrDigit = null;
+        try {
+            if (supportsUnicodeRegex()) {
+                reMark = new RegExp('[\\p{M}\\u0640\\u200D]', 'u');
+                reArabicBaseOrDigit = new RegExp('[\\p{Script=Arabic}\\u0660-\\u0669\\u06F0-\\u06F9]', 'u');
+            }
+        } catch {
+            reMark = null;
+            reArabicBaseOrDigit = null;
+        }
+
+        const fallbackMark = /[\u0640\u200D\u0610-\u061A\u064B-\u065F\u0670\u06D6-\u06ED]/;
+        const fallbackArabicBaseOrDigit = /[\u0600-\u06FF\u0660-\u0669\u06F0-\u06F9]/;
+
+        const isMark = (ch) => {
+            const s = String(ch ?? '');
+            if (!s) return false;
+            return reMark ? reMark.test(s) : fallbackMark.test(s);
+        };
+
+        const isArabicBaseOrDigit = (ch) => {
+            const s = String(ch ?? '');
+            if (!s) return false;
+            return reArabicBaseOrDigit ? reArabicBaseOrDigit.test(s) : fallbackArabicBaseOrDigit.test(s);
+        };
 
         const MARK = '[\\u0610-\\u061A\\u064B-\\u065F\\u0670\\u06D6-\\u06ED]*';
 
@@ -632,7 +658,7 @@ const Verse = ({ besmele,
                                         {verseKeys.map(verseKey => (
                                             <button
                                                 className={` p-2 rounded my-1 mr-2  text-sky-500 ${(path.current && path.current[currentVerseKey] && path.current[currentVerseKey][verseKey]) ? `${colors[theme]["relation-background"]} brightness-75` : `${colors[theme]["base-background"]} shadow-lg`}`}
-                                                key={Date.now() + '_' + themeKey.replace(' ', '') + '_' + verseKey}
+                                                key={`${currentVerseKey}|${themeKey}|${verseKey}`}
                                                 onClick={() => onRelatedVerseClick(verseKey, 'map_' + currentVerseKey)}
                                             >
                                                 {verseKey}

@@ -106,7 +106,7 @@ export const mapQuranWithNotes = (quran) => {
                 let noteKey = note.match(/^\*(\d+):(\d+)/); // Match notes with "sura:verse" format
 
                 // HACK the result for a special case
-                if (note.includes('9:127')) {
+                if (noteKey && note.includes('9:127')) {
                     noteKey[2] = '127';
                 }
 

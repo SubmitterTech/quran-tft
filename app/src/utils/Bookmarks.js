@@ -38,6 +38,22 @@ const toEpoch = (s) => {
     return new Date(yyyy, mm - 1, dd, HH, MM, SS).getTime();
 };
 
+const toEpochSafe = (entry) => {
+    const ts = entry && typeof entry === 'object' ? entry.timestamp : entry;
+    return ts ? toEpoch(ts) : 0;
+};
+
+// Deterministic, newest-first ordering for UI + stable JSON output.
+const sortByTimestampDesc = (map) => {
+    const sortedEntries = Object.entries(map || {}).sort(([ka, va], [kb, vb]) => {
+        const da = toEpochSafe(va);
+        const db = toEpochSafe(vb);
+        if (db !== da) return db - da;               // newer first
+        return String(ka).localeCompare(String(kb)); // stable order when equal
+    });
+    return Object.fromEntries(sortedEntries);
+};
+
 const latestLocalEpoch = (obj) => {
     let max = 0;
     Object.values(obj || {}).forEach((v) => {
@@ -120,7 +136,7 @@ const writeBackupFile = async (payload) => {
 };
 
 // ---------- state ----------
-let bookmarks = parseJSON(localStorage.getItem(bookmarksKey)) || {};
+let bookmarks = sortByTimestampDesc(parseJSON(localStorage.getItem(bookmarksKey)) || {});
 let subscribers = {};
 let initialized = false;
 
@@ -132,7 +148,7 @@ const reconcile = async () => {
     const localEpoch = latestLocalEpoch(local);
 
     if (!isNative()) {
-        bookmarks = local;
+        bookmarks = sortByTimestampDesc(local);
         if (localChanged) localStorage.setItem(bookmarksKey, JSON.stringify(bookmarks));
         return;
     }
@@ -145,15 +161,15 @@ const reconcile = async () => {
         : latestLocalEpoch(backupMap) || 0;
 
     if (backup && backupMap && backupEpoch > localEpoch) {
-        bookmarks = backupMap;
+        bookmarks = sortByTimestampDesc(backupMap);
         localStorage.setItem(bookmarksKey, JSON.stringify(bookmarks));
         if (backupChanged) await writeBackupFile(buildPayload(bookmarks));
     } else if (localEpoch > 0) {
-        bookmarks = local;
+        bookmarks = sortByTimestampDesc(local);
         if (localChanged) localStorage.setItem(bookmarksKey, JSON.stringify(bookmarks));
         await writeBackupFile(buildPayload(bookmarks));
     } else if (backup && backupMap) {
-        bookmarks = backupMap;
+        bookmarks = sortByTimestampDesc(backupMap);
         localStorage.setItem(bookmarksKey, JSON.stringify(bookmarks));
         if (backupChanged) await writeBackupFile(buildPayload(bookmarks));
     } else {
@@ -212,6 +228,7 @@ const set = (verseKey, value) => {
         bookmarks[verseKey] = { value: trimmedValue ? safeValue : null, timestamp: currentTimestamp };
     }
 
+    bookmarks = sortByTimestampDesc(bookmarks);
     persistAll().then(() => notifySubscribers(verseKey));
 };
 
@@ -227,6 +244,7 @@ const remove = async (verseKey) => {
         if (!confirmed) return;
     }
     delete bookmarks[verseKey];
+    bookmarks = sortByTimestampDesc(bookmarks);
     await persistAll();
     notifySubscribers(verseKey);
 };
@@ -242,7 +260,7 @@ const all = () => {
 // Cross-tab sync (web only effect; harmless on native)
 window.addEventListener('storage', (event) => {
     if (event.key === bookmarksKey) {
-        bookmarks = parseJSON(event.newValue) || {};
+        bookmarks = sortByTimestampDesc(parseJSON(event.newValue) || {});
         Object.keys(subscribers).forEach(verseKey => notifySubscribers(verseKey));
     }
 });
@@ -259,7 +277,7 @@ export const restoreFromBackup = async () => {
     const backup = await readBackupFile();
     if (backup && backup.bookmarks) {
         const { map } = normalizeMap(backup.bookmarks);
-        bookmarks = map;
+        bookmarks = sortByTimestampDesc(map);
         await persistAll();
         Object.keys(subscribers).forEach(verseKey => notifySubscribers(verseKey));
         return true;
@@ -405,11 +423,6 @@ export const previewImportFile = async (file) => {
     const incoming = bm; // already strictly validated to our exported shape
     const { map: current } = normalizeMap(bookmarks || {});
 
-    const toEpochSafe = (entry) => {
-        const ts = entry && typeof entry === 'object' ? entry.timestamp : entry;
-        return ts ? toEpoch(ts) : 0;
-    };
-
     let added = 0, updatedNewer = 0, skippedOlder = 0, unchanged = 0;
 
     for (const [k, inc] of Object.entries(incoming)) {
@@ -453,11 +466,6 @@ export const importFromUserFile = async (file) => {
         const { map: incoming } = normalizeMap(payload.bookmarks);
         const current = { ...bookmarks };
 
-        const toEpochSafe = (entry) => {
-            const ts = entry && typeof entry === 'object' ? entry.timestamp : entry;
-            return ts ? toEpoch(ts) : 0;
-        };
-
         // SMART MERGE (newest wins)
         const next = { ...current };
         let added = 0, updatedNewer = 0, skippedOlder = 0, unchanged = 0;
@@ -483,15 +491,7 @@ export const importFromUserFile = async (file) => {
             if (JSON.stringify(current[k]) !== JSON.stringify(next[k])) changedKeys.add(k);
         });
 
-        // SORT DESC by timestamp (stable tie-break by key for determinism)
-        const sortedEntries = Object.entries(next).sort(([ka, va], [kb, vb]) => {
-            const da = toEpochSafe(va);
-            const db = toEpochSafe(vb);
-            if (db !== da) return da - db;         // newer first
-            return String(ka).localeCompare(String(kb)); // stable order when equal
-        });
-
-        bookmarks = Object.fromEntries(sortedEntries);  // preserves this order in iteration
+        bookmarks = sortByTimestampDesc(next);
         await persistAll();
 
         // notify value changes (note: pure reorders won't hit this)

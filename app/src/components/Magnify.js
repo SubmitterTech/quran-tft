@@ -294,8 +294,8 @@ const Magnify = ({ colors, theme, translationApplication, quran, map, appendices
                     }
                 }
 
-                const notes = quran[page].notes.data;
-                if (notes.length > 0) {
+                const notes = quran[page].notes?.data;
+                if (notes && notes.length > 0) {
                     Object.values(notes).forEach((note) => {
                         let processedNote = normalize ? normalizeText(note) : note;
                         processedNote = caseSensitive ? processedNote : processedNote.toLocaleUpperCase(lang);
@@ -392,6 +392,8 @@ const Magnify = ({ colors, theme, translationApplication, quran, map, appendices
     }, [searchTerm, performSearch, performSearchSingleLetter]);
 
     const highlightText = useCallback((originalText, keyword) => {
+        if (!keyword || keyword.trim() === '') return [originalText];
+
         let processedText = originalText;
         processedText = normalize ? normalizeText(processedText) : processedText;
 
@@ -400,12 +402,14 @@ const Magnify = ({ colors, theme, translationApplication, quran, map, appendices
             processedText = interprocessedText;
         }
         const escapedKeyword = normalize ? removePunctuations(keyword) : keyword;
+        if (!escapedKeyword || escapedKeyword.trim() === '') return [originalText];
         const regex = new RegExp(escapedKeyword, caseSensitive ? 'g' : 'gi');
         let match;
         const parts = [];
         let currentIndex = 0;
 
         while ((match = regex.exec(processedText)) !== null) {
+            if (match[0].length === 0) { regex.lastIndex++; continue; }
             const matchIndex = match.index;
             const matchText = originalText.substr(matchIndex, match[0].length);
 
@@ -427,10 +431,10 @@ const Magnify = ({ colors, theme, translationApplication, quran, map, appendices
         let processedTerm = searchTerm;
         processedTerm = normalize ? normalizeText(processedTerm) : processedTerm;
         let interprocessedTerm = caseSensitive ? processedTerm : processedTerm.toLocaleUpperCase(lang);
-        if (searchTerm.length === interprocessedTerm.length) {
+        if (processedTerm.length === interprocessedTerm.length) {
             processedTerm = interprocessedTerm;
         }
-        const keywords = processedTerm.split(' ').filter(keyword => (keyword.trim() !== '' && keyword.trim() !== '|'));
+        const keywords = processedTerm.split(' ').filter(keyword => (keyword.trim() !== '' && keyword.trim() !== '|' && keyword.trim().length > 0));
         let highlightedText = [text];
 
         keywords.forEach((keyword) => {
@@ -560,14 +564,20 @@ const Magnify = ({ colors, theme, translationApplication, quran, map, appendices
                     setAppendicesVisible(true);
                     break;
                 default:
-                    const data = JSON.parse(typeofselection);
+                    try {
+                        const data = JSON.parse(typeofselection);
 
-                    if (data && typeof data === 'object') {
-                        const sskey = Object.keys(data)[0];
-                        setOpenTheme(sskey);
-                        setOpenSubTheme(data);
-                    } else {
-                        setOpenTheme(data);
+                        if (data && typeof data === 'object') {
+                            const sskey = Object.keys(data)[0];
+                            setOpenTheme(sskey);
+                            setOpenSubTheme(data);
+                        } else {
+                            setOpenTheme(data);
+                        }
+                    } catch (e) {
+                        lastSelection.current = "";
+                        hasConsumedLastSelection.current = true;
+                        break;
                     }
 
                     if (loadingElementsTimer.current === null) {
@@ -881,7 +891,7 @@ const Magnify = ({ colors, theme, translationApplication, quran, map, appendices
                                                                 lastVerseElementRef(node);
                                                             }
                                                         }}
-                                                        key={`verse-${thekey}-index`}
+                                                        key={`verse-${thekey}-${index}`}
                                                         className={`p-1.5 rounded ${colors[theme]["text-background"]} cursor-pointer mx-1.5 md:mr-2 ${hasring} ${pulsate}`}
                                                         onClick={handleConfirm(`${result.suraNumber}:${result.verseNumber}`, 'verse')}>
                                                         <span className="text-sky-500">{result.suraNumber}:{result.verseNumber}</span> {lightWords(result.verseText)}

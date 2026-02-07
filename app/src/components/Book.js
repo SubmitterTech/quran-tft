@@ -74,6 +74,15 @@ const Book = React.memo(({ incomingSearch = false, incomingAppendix = false, inc
 
     const skipPages = useMemo(() => [3, 4, 8, 9, 10, 12], []);
 
+    const jumpSuraNames = useMemo(() => {
+        if (!introductionContent) return null;
+        const introItems = Array.isArray(introductionContent)
+            ? introductionContent
+            : Object.values(introductionContent);
+        const last = introItems.length ? introItems[introItems.length - 1] : null;
+        return last?.evidence?.["2"]?.lines || null;
+    }, [introductionContent]);
+
     let path = useRef({});
 
     const [appendices, setAppendices] = useState(
@@ -252,8 +261,11 @@ const Book = React.memo(({ incomingSearch = false, incomingAppendix = false, inc
 
     const prevPage = useCallback(() => {
         if (pageHistory.length > 0 && rememberHistory) {
-            const lastHistoryItem = pageHistory.pop();
-            setPageHistory([...pageHistory]);
+            const lastHistoryItem = pageHistory[pageHistory.length - 1];
+            const nextHistory = pageHistory.slice(0, -1);
+            setPageHistory(nextHistory);
+
+            if (!lastHistoryItem) return;
 
             setCurrentPage(lastHistoryItem.page);
             setSelectedSura(lastHistoryItem.sura);
@@ -265,12 +277,13 @@ const Book = React.memo(({ incomingSearch = false, incomingAppendix = false, inc
             restoreIntroText.current = (lastHistoryItem.actionType === 'fromIntro' || lastHistoryItem.actionType === 'openAppendix');
 
             if (lastHistoryItem.page === 397) {
-                if (pageHistory[pageHistory.length - 1]) {
-                    setSelectedApp(parseInt(pageHistory[pageHistory.length - 1].position));
+                const prev = nextHistory[nextHistory.length - 1];
+                if (prev) {
+                    setSelectedApp(parseInt(prev.position));
                 }
             }
 
-            if (includeSearchScreen && shouldMagnifyRemembered && lastHistoryItem.from.includes('magnify')) {
+            if (includeSearchScreen && shouldMagnifyRemembered && String(lastHistoryItem.from || '').includes('magnify')) {
                 setTimeout(() => {
                     setShouldMagnifyRemembered(false);
                     setMagnifyOpen(true);
@@ -635,47 +648,46 @@ const Book = React.memo(({ incomingSearch = false, incomingAppendix = false, inc
     };
 
     useEffect(() => {
-        // Async function to add the back button listener
-        const addBackButtonListener = async () => {
-            const listener = await App.addListener('backButton', async () => {
-                if (!backButtonPressedOnce) {
-                    window.dispatchEvent(new CustomEvent('navigation:click'));
-                    if (isJumpOpen) {
-                        setJumpOpen(false);
-                    } else if (isMagnifyOpen) {
-                        handleCloseSearch();
-                    } else if (isPrevSettingsOpen) {
-                        setPrevSettingsOpen(false);
+        let cancelled = false;
+        let listenerHandle;
+
+        (async () => {
+            try {
+                listenerHandle = await App.addListener('backButton', async () => {
+                    if (!backButtonPressedOnce) {
+                        window.dispatchEvent(new CustomEvent('navigation:click'));
+                        if (isJumpOpen) {
+                            setJumpOpen(false);
+                        } else if (isMagnifyOpen) {
+                            handleCloseSearch();
+                        } else if (isPrevSettingsOpen) {
+                            setPrevSettingsOpen(false);
+                        } else {
+                            setBackButtonPressedOnce(true);
+                            prevPage();
+                            await Toast.show({
+                                text: translationApplication.exitToast,
+                                duration: 'long'
+                            });
+                        }
+                        setTimeout(() => setBackButtonPressedOnce(false), 2000);
                     } else {
-                        setBackButtonPressedOnce(true);
-                        prevPage();
-                        await Toast.show({
-                            text: translationApplication.exitToast,
-                            duration: 'long'
-                        });
+                        App.exitApp();
                     }
-                    setTimeout(() => setBackButtonPressedOnce(false), 2000);
-                } else {
-                    App.exitApp();
+                });
+
+                if (cancelled && listenerHandle) {
+                    await listenerHandle.remove();
                 }
-            });
+            } catch (error) {
+                console.error('Failed to add back button listener:', error);
+            }
+        })();
 
-            // Return a cleanup function
-            return () => {
-                listener.remove();
-            };
-        };
-
-        // Call the async function to add the listener
-        let removeListener;
-        addBackButtonListener().then(remove => {
-            removeListener = remove;
-        });
-
-        // Cleanup the listener when the component unmounts
         return () => {
-            if (removeListener) {
-                removeListener();
+            cancelled = true;
+            if (listenerHandle) {
+                listenerHandle.remove();
             }
         };
     }, [backButtonPressedOnce, isJumpOpen, isMagnifyOpen, isPrevSettingsOpen, translationApplication, prevPage]);
@@ -1226,7 +1238,7 @@ const Book = React.memo(({ incomingSearch = false, incomingAppendix = false, inc
             {isJumpOpen &&
                 <Jump
                     onChangeLanguage={onChangeLanguage}
-                    suraNames={introductionContent[introductionContent.length - 1].evidence["2"].lines}
+                    suraNames={jumpSuraNames}
                     onChangeFont={onChangeFont}
                     font={font}
                     onChangeColor={onChangeColor}

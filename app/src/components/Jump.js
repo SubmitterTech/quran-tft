@@ -25,7 +25,7 @@ const Jump = React.memo(({ onChangeLanguage, suraNames, onChangeFont, font, onCh
     const [showThemes, setShowThemes] = useState(false);
     const [showBookmarks, setShowBookmarks] = useState(false);
     const [lightOpen, setLightOpen] = useState(false);
-    const isMobile = isNative() | false;
+    const isMobile = !!isNative();
     const showPickerNotSupported = (which() === 'ios') || !("showPicker" in HTMLSelectElement.prototype);
 
     const [lang, setLang] = useState(localStorage.getItem("lang"));
