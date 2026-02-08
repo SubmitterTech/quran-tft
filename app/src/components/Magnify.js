@@ -122,6 +122,20 @@ const Magnify = ({ colors, theme, translationApplication, quran, map, appendices
         return text.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
     };
 
+    const searchFold = (text) => {
+        let t = text;
+        if ((lang === "tr" || lang === "az") && normalize) {
+            t = t.replace(/[İIıi]/g, "i");
+        }
+        if (normalize) {
+            t = t.normalize("NFD").replace(/[\u0300-\u036f]/g, "");
+        }
+        if (!caseSensitive) {
+            t = t.toLocaleUpperCase(lang);
+        }
+        return t;
+    };
+
     const performSearch = useCallback((term) => {
         if (!term) return;
 
@@ -168,11 +182,7 @@ const Magnify = ({ colors, theme, translationApplication, quran, map, appendices
         }
 
         // ---- original pre-processing (unchanged) ----
-        let processedTerm = normalize ? normalizeText(term) : term;
-        if (!caseSensitive) {
-            let interprocessedTerm = processedTerm.toLocaleUpperCase(lang);
-            if (interprocessedTerm.length === term.length) processedTerm = interprocessedTerm;
-        }
+        let processedTerm = searchFold(term);
 
         // Split the search term by '|' to get OR terms (unchanged)
         const orTerms = processedTerm.split('|').map(t => t.trim()).filter(t => t !== '');
@@ -259,9 +269,7 @@ const Magnify = ({ colors, theme, translationApplication, quran, map, appendices
                 const verses = suras[suraNumber].verses;
                 for (const verseNumber in verses) {
                     const verseText = verses[verseNumber];
-                    let txt = normalize ? normalizeText(verseText) : verseText;
-                    let upper = txt.toLocaleUpperCase(lang);
-                    const hay = caseSensitive ? txt : (upper.length === txt.length ? upper : txt);
+                    const hay = searchFold(verseText);
 
                     if (keywordGroups.some(keywords => {
                         // 1) any pure-text match?
@@ -283,11 +291,7 @@ const Magnify = ({ colors, theme, translationApplication, quran, map, appendices
                 const titles = suras[suraNumber].titles;
                 for (const titleNumber in titles) {
                     const titleText = titles[titleNumber];
-                    let processedTitleText = normalize ? normalizeText(titleText) : titleText;
-                    let interprocessedTitleText = processedTitleText.toLocaleUpperCase(lang);
-                    processedTitleText = caseSensitive
-                        ? processedTitleText
-                        : (interprocessedTitleText.length === processedTitleText.length ? interprocessedTitleText : processedTitleText);
+                    let processedTitleText = searchFold(titleText);
 
                     if (keywordGroups.some(keywords => keywords.every(keyword => processedTitleText.includes(keyword)))) {
                         titleResults.push({ suraNumber, titleNumber, titleText });
@@ -297,8 +301,7 @@ const Magnify = ({ colors, theme, translationApplication, quran, map, appendices
                 const notes = quran[page].notes?.data;
                 if (notes && notes.length > 0) {
                     Object.values(notes).forEach((note) => {
-                        let processedNote = normalize ? normalizeText(note) : note;
-                        processedNote = caseSensitive ? processedNote : processedNote.toLocaleUpperCase(lang);
+                        let processedNote = searchFold(note);
 
                         if (keywordGroups.some(keywords => keywords.every(keyword => processedNote.includes(keyword)))) {
                             const match = String(note).match(/\*+\d+:\d+/g);
@@ -333,11 +336,7 @@ const Magnify = ({ colors, theme, translationApplication, quran, map, appendices
                         const appx = '0';
                         const introText = value.toString();
                         const key = page + "-" + type + "-" + order;
-                        let processedIntroText = normalize ? normalizeText(introText) : introText;
-                        let interprocessedIntroText = processedIntroText.toLocaleUpperCase(lang);
-                        processedIntroText = caseSensitive
-                            ? processedIntroText
-                            : (interprocessedIntroText.length === processedIntroText.length ? interprocessedIntroText : processedIntroText);
+                        let processedIntroText = searchFold(introText);
 
                         if (keywordGroups.some(keywords => keywords.every(keyword => processedIntroText.includes(keyword)))) {
                             appendicesResults.push({ appx, key, introText });
@@ -354,11 +353,7 @@ const Magnify = ({ colors, theme, translationApplication, quran, map, appendices
                 .forEach(element => {
                     const appendixText = element.type === 'table' ? element.content.ref.toString() : element.content.toString();
                     const key = element.type + "-" + element.key + "-" + element.order;
-                    let processedAppendixText = normalize ? normalizeText(appendixText) : appendixText;
-                    let interprocessedAppendixText = processedAppendixText.toLocaleUpperCase(lang);
-                    processedAppendixText = caseSensitive
-                        ? processedAppendixText
-                        : (interprocessedAppendixText.length === processedAppendixText.length ? interprocessedAppendixText : processedAppendixText);
+                    let processedAppendixText = searchFold(appendixText);
 
                     if (keywordGroups.some(keywords => keywords.every(keyword => processedAppendixText.includes(keyword)))) {
                         appendicesResults.push({ appx, key, appendixText });
@@ -394,46 +389,65 @@ const Magnify = ({ colors, theme, translationApplication, quran, map, appendices
     const highlightText = useCallback((originalText, keyword) => {
         if (!keyword || keyword.trim() === '') return [originalText];
 
-        let processedText = originalText;
-        processedText = normalize ? normalizeText(processedText) : processedText;
+        const origChars = [...originalText];
+        let searchStr = "";
+        const posMap = [];
 
-        let interprocessedText = caseSensitive ? processedText : processedText.toLocaleUpperCase(lang);
-        if (originalText.length === interprocessedText.length) {
-            processedText = interprocessedText;
+        for (let i = 0; i < origChars.length; i++) {
+            let ch = origChars[i];
+            if ((lang === "tr" || lang === "az") && normalize) {
+                ch = ch.replace(/[İIıi]/g, "i");
+            }
+            if (normalize) {
+                ch = ch.normalize("NFD").replace(/[\u0300-\u036f]/g, "");
+            }
+            if (!caseSensitive) {
+                ch = ch.toLocaleUpperCase(lang);
+            }
+            for (let j = 0; j < ch.length; j++) {
+                searchStr += ch[j];
+                posMap.push(i);
+            }
         }
-        const escapedKeyword = normalize ? removePunctuations(keyword) : keyword;
+
+        let processedKeyword = keyword;
+        if ((lang === "tr" || lang === "az") && normalize) {
+            processedKeyword = processedKeyword.replace(/[İIıi]/g, "i");
+        }
+        if (normalize) {
+            processedKeyword = normalizeText(processedKeyword);
+        }
+        const escapedKeyword = normalize ? removePunctuations(processedKeyword) : processedKeyword;
         if (!escapedKeyword || escapedKeyword.trim() === '') return [originalText];
-        const regex = new RegExp(escapedKeyword, caseSensitive ? 'g' : 'gi');
+        processedKeyword = !caseSensitive ? escapedKeyword.toLocaleUpperCase(lang) : escapedKeyword;
+
+        const regex = new RegExp(processedKeyword, caseSensitive ? 'g' : 'gi');
         let match;
         const parts = [];
-        let currentIndex = 0;
+        let lastOrigEnd = 0;
 
-        while ((match = regex.exec(processedText)) !== null) {
+        while ((match = regex.exec(searchStr)) !== null) {
             if (match[0].length === 0) { regex.lastIndex++; continue; }
-            const matchIndex = match.index;
-            const matchText = originalText.substr(matchIndex, match[0].length);
+            const origStart = posMap[match.index];
+            const origEnd = posMap[match.index + match[0].length - 1] + 1;
+            const matchText = origChars.slice(origStart, origEnd).join("");
 
-            if (matchIndex > currentIndex) {
-                parts.push(originalText.substring(currentIndex, matchIndex));
+            if (origStart > lastOrigEnd) {
+                parts.push(origChars.slice(lastOrigEnd, origStart).join(""));
             }
             parts.push(<span className={`font-bold ${colors[theme]["matching-text"]}`}>{matchText}</span>);
-            currentIndex = matchIndex + matchText.length;
+            lastOrigEnd = origEnd;
         }
 
-        if (currentIndex < originalText.length) {
-            parts.push(originalText.substring(currentIndex));
+        if (lastOrigEnd < origChars.length) {
+            parts.push(origChars.slice(lastOrigEnd).join(""));
         }
 
-        return parts;
+        return parts.length > 0 ? parts : [originalText];
     }, [caseSensitive, normalize, lang, colors, theme]);
 
     const lightWords = useCallback((text) => {
-        let processedTerm = searchTerm;
-        processedTerm = normalize ? normalizeText(processedTerm) : processedTerm;
-        let interprocessedTerm = caseSensitive ? processedTerm : processedTerm.toLocaleUpperCase(lang);
-        if (processedTerm.length === interprocessedTerm.length) {
-            processedTerm = interprocessedTerm;
-        }
+        let processedTerm = searchFold(searchTerm);
         const keywords = processedTerm.split(' ').filter(keyword => (keyword.trim() !== '' && keyword.trim() !== '|' && keyword.trim().length > 0));
         let highlightedText = [text];
 

@@ -1,12 +1,12 @@
 import React, { act } from 'react';
 import { createRoot } from 'react-dom/client';
-import App from './App';
+import App from '../App';
 
-jest.mock('./pages/Root', () => function MockRoot() {
+jest.mock('../pages/Root', () => function MockRoot() {
   return <div data-testid="root-page" />;
 });
 
-jest.mock('./pages/Leaf', () => function MockLeaf() {
+jest.mock('../pages/Leaf', () => function MockLeaf() {
   return <div data-testid="leaf-page" />;
 });
 
