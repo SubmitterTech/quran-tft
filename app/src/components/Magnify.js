@@ -417,7 +417,7 @@ const Magnify = ({ colors, theme, translationApplication, quran, map, appendices
         if (normalize) {
             processedKeyword = normalizeText(processedKeyword);
         }
-        const escapedKeyword = normalize ? removePunctuations(processedKeyword) : processedKeyword;
+        const escapedKeyword = removePunctuations(processedKeyword);
         if (!escapedKeyword || escapedKeyword.trim() === '') return [originalText];
         processedKeyword = !caseSensitive ? escapedKeyword.toLocaleUpperCase(lang) : escapedKeyword;
 

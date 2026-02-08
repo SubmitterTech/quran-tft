@@ -429,6 +429,29 @@ describe("highlightText — crash guards", () => {
             highlightTextLogic("test data", "(?<invalid)", "en", true, false);
         }).not.toThrow();
     });
+
+    test("keyword '?' with normalize OFF does not crash (white screen bug)", () => {
+        expect(() => {
+            highlightTextLogic("Is this a question?", "?", "en", false, false);
+        }).not.toThrow();
+    });
+
+    test("keyword '+' with normalize OFF does not crash", () => {
+        expect(() => {
+            highlightTextLogic("1+1=2", "+", "en", false, false);
+        }).not.toThrow();
+    });
+
+    test("keyword '*' with normalize OFF does not crash", () => {
+        expect(() => {
+            highlightTextLogic("footnote *19:2", "*", "en", false, false);
+        }).not.toThrow();
+    });
+
+    test("regex special chars with normalize OFF still highlight correctly", () => {
+        const highlights = getHighlights("Is this a question?", "?", "en", false, false);
+        expect(highlights).toEqual(["?"]);
+    });
 });
 
 describe("highlightText — correct highlighting", () => {
