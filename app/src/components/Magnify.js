@@ -29,6 +29,7 @@ const Magnify = ({ colors, theme, translationApplication, quran, map, appendices
     const [searchResultVerses, setSearchResultVerses] = useState([]);
     const [searchResultNotes, setSearchResultNotes] = useState([]);
     const [searchResultAppendices, setSearchResultAppendices] = useState([]);
+    const [hitCounts, setHitCounts] = useState([]);
 
     const [loadedTitles, setLoadedTitles] = useState([]);
     const [loadedVerses, setLoadedVerses] = useState([]);
@@ -360,6 +361,20 @@ const Magnify = ({ colors, theme, translationApplication, quran, map, appendices
                     }
                 });
         }
+
+        // ---- hit count per keyword (verses only) ----
+        const verseTexts = verseResults.map(r => searchFold(r.verseText));
+        const counts = keywordGroups.map(keywords => {
+            return keywords.map(k => {
+                let total = 0;
+                for (const hay of verseTexts) {
+                    let idx = 0;
+                    while ((idx = hay.indexOf(k, idx)) !== -1) { total++; idx += k.length || 1; }
+                }
+                return total;
+            });
+        });
+        setHitCounts(counts);
 
         setSearchResultTitles(titleResults);
         setSearchResultVerses(verseResults);
@@ -772,17 +787,26 @@ const Magnify = ({ colors, theme, translationApplication, quran, map, appendices
             <div className={`fixed flex flex-col items-center justify-start faster inset-0 outline-none focus:outline-none overflow-auto `}>
                 <div className={`w-full flex p-1.5 sticky top-0 backdrop-blur-2xl z-20`} style={{ paddingTop: 'calc((env(safe-area-inset-top) * 0.76) + 0.3rem)' }}>
                     <div className={`relative w-full flex rounded  space-x-2`}>
-                        <input
-                            type="text"
-                            dir={direction}
-                            ref={inputRef}
-                            id="searchBar"
-                            placeholder={translationApplication.search + "..."}
-                            value={searchTerm}
-                            onChange={(e) => setSearchTerm(e.target.value)}
-                            onFocus={() => { setOptionsVisible(false) }}
-                            className={`w-full p-2 rounded ${colors[theme]["app-background"]} ${colors[theme]["page-text"]} ring-1 ${theme === 'light' ? `ring-black/10` : `ring-white/10`} focus:outline-none focus:ring-2 ${colors[theme]["focus-ring"]} ${colors[theme]["focus-text"]}`}
-                        />
+                        <div className={`relative w-full`}>
+                            <input
+                                type="text"
+                                dir={direction}
+                                ref={inputRef}
+                                id="searchBar"
+                                placeholder={translationApplication.search + "..."}
+                                value={searchTerm}
+                                onChange={(e) => setSearchTerm(e.target.value)}
+                                onFocus={() => { setOptionsVisible(false) }}
+                                className={`w-full p-2 rounded ${colors[theme]["app-background"]} ${colors[theme]["page-text"]} ring-1 ${theme === 'light' ? `ring-black/10` : `ring-white/10`} focus:outline-none focus:ring-2 ${colors[theme]["focus-ring"]} ${colors[theme]["focus-text"]}`}
+                            />
+                            {hitCounts.length > 0 && searchTerm.length > 1 && (
+                                <span
+                                    className={`absolute top-0.5 ${direction === 'rtl' ? 'left-1' : 'right-1'} text-xs pointer-events-none ${colors[theme]["matching-text"]}`}
+                                >
+                                    {hitCounts.map(group => group.join(' ')).join('|')}
+                                </span>
+                            )}
+                        </div>
                         <button
                             className={`flex items-center justify-center transition-all duration-300 ease-linear ${optionsVisible ? " -rotate-180 " : " rotate-0"} ${optionsVisible ? colors[theme]["matching-text"] : colors[theme]["log-text"]}`}
                             onClick={() => setOptionsVisible(!optionsVisible)}
@@ -906,7 +930,7 @@ const Magnify = ({ colors, theme, translationApplication, quran, map, appendices
                                                             }
                                                         }}
                                                         key={`verse-${thekey}-${index}`}
-                                                        className={`p-1.5 rounded ${colors[theme]["text-background"]} cursor-pointer mx-1.5 md:mr-2 ${hasring} ${pulsate}`}
+                                                        className={`p-1.5 rounded ${colors[theme]["text-background"]} cursor-pointer mx-1.5 md:mr-2 ${hasring} ${pulsate} whitespace-pre-line`}
                                                         onClick={handleConfirm(`${result.suraNumber}:${result.verseNumber}`, 'verse')}>
                                                         <span className="text-sky-500">{result.suraNumber}:{result.verseNumber}</span> {lightWords(result.verseText)}
                                                     </div>
