@@ -552,3 +552,213 @@ describe("localStorage JSON.parse safety", () => {
         expect(safeJsonParse(null, false)).toBe(null); // JSON.parse(null) → null, not throw
     });
 });
+
+// ── exactIndexOf — word-boundary exact phrase matching ──────────────────────
+
+const isWordChar = (ch) => {
+    if (!ch) return false;
+    const c = ch.charCodeAt(0);
+    if (c >= 0x30 && c <= 0x39) return true;
+    if (ch.toUpperCase() !== ch.toLowerCase()) return true;
+    if (c >= 0x0621 && c <= 0x064A) return true;
+    if (c >= 0x066E && c <= 0x06D3) return true;
+    if (c >= 0x05D0 && c <= 0x05EA) return true;
+    if (c >= 0x4E00 && c <= 0x9FFF) return true;
+    if (c >= 0x0900 && c <= 0x0DFF) return true;
+    if (c >= 0x0E00 && c <= 0x0E7F) return true;
+    return false;
+};
+
+function exactIndexOf(hay, phrase, startFrom) {
+    const phraseWords = phrase.split(/\s+/).filter(Boolean);
+    if (phraseWords.length === 0) return -1;
+
+    let pos = startFrom || 0;
+    while (pos <= hay.length - 1) {
+        const idx = hay.indexOf(phraseWords[0], pos);
+        if (idx === -1) return -1;
+
+        if (idx > 0 && isWordChar(hay[idx - 1])) { pos = idx + 1; continue; }
+
+        let cursor = idx + phraseWords[0].length;
+        let ok = true;
+        for (let w = 1; w < phraseWords.length; w++) {
+            if (cursor >= hay.length || isWordChar(hay[cursor])) { ok = false; break; }
+            while (cursor < hay.length && !isWordChar(hay[cursor])) cursor++;
+            if (hay.indexOf(phraseWords[w], cursor) !== cursor) { ok = false; break; }
+            cursor += phraseWords[w].length;
+        }
+        if (!ok) { pos = idx + 1; continue; }
+
+        if (cursor < hay.length && isWordChar(hay[cursor])) { pos = idx + 1; continue; }
+
+        return idx;
+    }
+    return -1;
+}
+
+describe("exactIndexOf — word-boundary exact phrase matching", () => {
+    test("single word: 'GOD' found at word boundary", () => {
+        expect(exactIndexOf("IN THE NAME OF GOD", "GOD", 0)).toBe(15);
+    });
+
+    test("single word: 'GOD' not found inside 'GODLY'", () => {
+        expect(exactIndexOf("GODLY PEOPLE", "GOD", 0)).toBe(-1);
+    });
+
+    test("single word: 'GOD' not found inside 'DEMIGOD'", () => {
+        expect(exactIndexOf("A DEMIGOD", "GOD", 0)).toBe(-1);
+    });
+
+    test("single word at start of string", () => {
+        expect(exactIndexOf("GOD IS GREAT", "GOD", 0)).toBe(0);
+    });
+
+    test("single word at end of string", () => {
+        expect(exactIndexOf("PRAISE GOD", "GOD", 0)).toBe(7);
+    });
+
+    test("multi-word phrase: 'MOST GRACIOUS' found", () => {
+        expect(exactIndexOf("IN THE NAME OF GOD MOST GRACIOUS", "MOST GRACIOUS", 0)).toBe(19);
+    });
+
+    test("multi-word phrase: words must be adjacent", () => {
+        expect(exactIndexOf("MOST PEOPLE ARE GRACIOUS", "MOST GRACIOUS", 0)).toBe(-1);
+    });
+
+    test("multi-word phrase with extra whitespace in haystack", () => {
+        expect(exactIndexOf("GOD  MOST   GRACIOUS", "MOST GRACIOUS", 0)).toBe(5);
+    });
+
+    test("multi-word phrase with newline in haystack", () => {
+        expect(exactIndexOf("GOD\nMOST\nGRACIOUS", "MOST GRACIOUS", 0)).toBe(4);
+    });
+
+    test("multi-word phrase with tab in haystack", () => {
+        expect(exactIndexOf("GOD\tMOST\tGRACIOUS", "MOST GRACIOUS", 0)).toBe(4);
+    });
+
+    test("phrase not at word boundary (left)", () => {
+        expect(exactIndexOf("THEMOST GRACIOUS", "MOST GRACIOUS", 0)).toBe(-1);
+    });
+
+    test("phrase not at word boundary (right)", () => {
+        expect(exactIndexOf("MOST GRACIOUSNESS", "MOST GRACIOUS", 0)).toBe(-1);
+    });
+
+    test("multiple matches: finds first from startFrom", () => {
+        expect(exactIndexOf("GOD IS GOD", "GOD", 0)).toBe(0);
+        expect(exactIndexOf("GOD IS GOD", "GOD", 1)).toBe(7);
+    });
+
+    test("empty phrase returns -1", () => {
+        expect(exactIndexOf("HELLO", "", 0)).toBe(-1);
+    });
+
+    test("empty haystack returns -1", () => {
+        expect(exactIndexOf("", "GOD", 0)).toBe(-1);
+    });
+
+    test("phrase longer than haystack returns -1", () => {
+        expect(exactIndexOf("HI", "HELLO WORLD", 0)).toBe(-1);
+    });
+
+    test("NBSP treated as whitespace boundary", () => {
+        expect(exactIndexOf("HELLO\u00A0WORLD", "HELLO", 0)).toBe(0);
+        expect(exactIndexOf("HELLO\u00A0WORLD", "WORLD", 0)).toBe(6);
+    });
+
+    test("three-word phrase", () => {
+        expect(exactIndexOf("THE MOST GRACIOUS GOD", "THE MOST GRACIOUS", 0)).toBe(0);
+    });
+
+    test("three-word phrase not at boundary", () => {
+        expect(exactIndexOf("ATHEMOST GRACIOUS GOD", "THE MOST GRACIOUS", 0)).toBe(-1);
+    });
+
+    // ── punctuation as word boundary ──
+    test("word followed by comma: 'GOD,' contains 'GOD'", () => {
+        expect(exactIndexOf("PRAISE GOD, THE ALMIGHTY", "GOD", 0)).toBe(7);
+    });
+
+    test("word followed by period: 'GOD.' contains 'GOD'", () => {
+        expect(exactIndexOf("PRAISE GOD.", "GOD", 0)).toBe(7);
+    });
+
+    test("word followed by colon: 'GOD:' contains 'GOD'", () => {
+        expect(exactIndexOf("GOD: THE CREATOR", "GOD", 0)).toBe(0);
+    });
+
+    test("word followed by semicolon", () => {
+        expect(exactIndexOf("PRAISE GOD; HE IS GREAT", "GOD", 0)).toBe(7);
+    });
+
+    test("word in parentheses: '(GOD)' contains 'GOD'", () => {
+        expect(exactIndexOf("PRAISE (GOD) ALWAYS", "GOD", 0)).toBe(8);
+    });
+
+    test("word in quotes", () => {
+        expect(exactIndexOf('HE SAID "GOD" IS GREAT', "GOD", 0)).toBe(9);
+    });
+
+    test("word preceded by dash: '-GOD' contains 'GOD'", () => {
+        expect(exactIndexOf("ALL-KNOWING GOD", "GOD", 0)).toBe(12);
+    });
+
+    test("word followed by exclamation", () => {
+        expect(exactIndexOf("OH GOD!", "GOD", 0)).toBe(3);
+    });
+
+    test("word followed by question mark", () => {
+        expect(exactIndexOf("IS IT GOD?", "GOD", 0)).toBe(6);
+    });
+
+    test("asterisk as boundary: '*GOD*' contains 'GOD'", () => {
+        expect(exactIndexOf("*GOD* IS GREAT", "GOD", 0)).toBe(1);
+    });
+
+    test("multi-word with punctuation gap: 'MOST, GRACIOUS' matches 'MOST GRACIOUS'", () => {
+        expect(exactIndexOf("THE MOST, GRACIOUS GOD", "MOST GRACIOUS", 0)).toBe(4);
+    });
+
+    test("multi-word with mixed separators: 'MOST - GRACIOUS'", () => {
+        expect(exactIndexOf("GOD MOST - GRACIOUS", "MOST GRACIOUS", 0)).toBe(4);
+    });
+
+    test("still rejects partial word: 'GODLY,' does not match 'GOD'", () => {
+        expect(exactIndexOf("GODLY, PEOPLE", "GOD", 0)).toBe(-1);
+    });
+
+    test("still rejects partial word: ',DEMIGOD' does not match 'GOD'", () => {
+        expect(exactIndexOf("A ,DEMIGOD", "GOD", 0)).toBe(-1);
+    });
+
+    // ── Unicode punctuation (smart quotes, em dash, guillemets) ──
+    test("right double quote \u201D is boundary", () => {
+        expect(exactIndexOf("SAY \u201CGOD\u201D IS GREAT", "GOD", 0)).toBe(5);
+    });
+
+    test("left double quote \u201C is boundary", () => {
+        expect(exactIndexOf("\u201CGOD\u201D IS GREAT", "GOD", 0)).toBe(1);
+    });
+
+    test("right single quote \u2019 is boundary", () => {
+        expect(exactIndexOf("THE GOD\u2019S MERCY", "GOD", 0)).toBe(4);
+    });
+
+    test("em dash \u2014 is boundary", () => {
+        expect(exactIndexOf("TRUTH\u2014GOD\u2014IS CLEAR", "GOD", 0)).toBe(6);
+    });
+
+    test("en dash \u2013 is boundary", () => {
+        expect(exactIndexOf("PAGES 5\u201310 GOD", "GOD", 0)).toBe(11);
+    });
+
+    test("guillemets \u00AB \u00BB are boundary", () => {
+        expect(exactIndexOf("\u00ABGOD\u00BB IS GREAT", "GOD", 0)).toBe(1);
+    });
+
+    test("Arabic comma \u060C is boundary", () => {
+        expect(exactIndexOf("\u0627\u0644\u0644\u0647\u060C \u0627\u0644\u0631\u062D\u0645\u0646", "\u0627\u0644\u0644\u0647", 0)).toBe(0);
+    });
+});

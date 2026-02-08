@@ -4,11 +4,68 @@ import { isNative } from '../utils/Device';
 import languages from '../assets/languages.json';
 
 
+// Word-boundary check: a character is a boundary (not part of a word) if it's
+// NOT a letter or digit. Covers whitespace, punctuation, brackets, etc.
+// Uses charCodeAt for iPhone 7 safety (no regex lookbehind).
+const isWordChar = (ch) => {
+    if (!ch) return false;
+    const c = ch.charCodeAt(0);
+    if (c >= 0x30 && c <= 0x39) return true;  // 0-9
+    if (ch.toUpperCase() !== ch.toLowerCase()) return true; // Case-paired letters
+    if (c >= 0x0621 && c <= 0x064A) return true; // Arabic letters
+    if (c >= 0x066E && c <= 0x06D3) return true; // Arabic extended
+    if (c >= 0x05D0 && c <= 0x05EA) return true; // Hebrew letters
+    if (c >= 0x4E00 && c <= 0x9FFF) return true; // CJK
+    if (c >= 0x0900 && c <= 0x0DFF) return true; // Devanagari, Bengali, etc.
+    if (c >= 0x0E00 && c <= 0x0E7F) return true; // Thai
+    return false;
+};
+const isWhitespace = (ch) => ch === ' ' || ch === '\t' || ch === '\n' || ch === '\r' || ch === '\u00A0';
+
+// Exact-match: find "phrase" in haystack, treating any whitespace run in keyword
+// as matching any whitespace/punctuation run in haystack.
+// Boundaries: string edge or any non-word character (punctuation, whitespace, etc.)
+const exactIndexOf = (hay, phrase, startFrom) => {
+    const phraseWords = phrase.split(/\s+/).filter(Boolean);
+    if (phraseWords.length === 0) return -1;
+
+    let pos = startFrom || 0;
+    while (pos <= hay.length - 1) {
+        const idx = hay.indexOf(phraseWords[0], pos);
+        if (idx === -1) return -1;
+
+        // Left boundary: must be start-of-string or non-word character
+        if (idx > 0 && isWordChar(hay[idx - 1])) { pos = idx + 1; continue; }
+
+        // Walk through remaining words, allowing non-word gaps
+        let cursor = idx + phraseWords[0].length;
+        let ok = true;
+        for (let w = 1; w < phraseWords.length; w++) {
+            // Must have at least one non-word char between words
+            if (cursor >= hay.length || isWordChar(hay[cursor])) { ok = false; break; }
+            while (cursor < hay.length && !isWordChar(hay[cursor])) cursor++;
+            // Next word must start here
+            if (hay.indexOf(phraseWords[w], cursor) !== cursor) { ok = false; break; }
+            cursor += phraseWords[w].length;
+        }
+        if (!ok) { pos = idx + 1; continue; }
+
+        // Right boundary: must be end-of-string or non-word character
+        if (cursor < hay.length && isWordChar(hay[cursor])) { pos = idx + 1; continue; }
+
+        return idx; // match found
+    }
+    return -1;
+};
+
 const Magnify = ({ colors, theme, translationApplication, quran, map, appendices, introduction, onClose, onConfirm, direction, multiSelect, setMultiSelect, selectedVerseList, setSelectedVerseList }) => {
     const lang = localStorage.getItem("lang");
 
     const [searchTerm, setSearchTerm] = useState(localStorage.getItem("qurantft-magnify-st") || "");
-    //const [exactMatch, setExactMatch] = useState(false);
+    const [exactMatch, setExactMatch] = useState(() => {
+        const saved = localStorage.getItem("exact");
+        return saved !== null ? JSON.parse(saved) : false;
+    });
     const [caseSensitive, setCaseSensitive] = useState(() => {
         const saved = localStorage.getItem("case");
         return (saved !== null && direction !== 'rtl') ? JSON.parse(saved) : false;
@@ -115,6 +172,10 @@ const Magnify = ({ colors, theme, translationApplication, quran, map, appendices
         localStorage.setItem("norm", JSON.stringify(normalize));
     }, [normalize]);
 
+    useEffect(() => {
+        localStorage.setItem("exact", JSON.stringify(exactMatch));
+    }, [exactMatch]);
+
     const normalizeText = (text) => {
         return text.normalize("NFD").replace(/[\u0300-\u036f]/g, "");
     };
@@ -123,7 +184,7 @@ const Magnify = ({ colors, theme, translationApplication, quran, map, appendices
         return text.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
     };
 
-    const searchFold = (text) => {
+    const searchFold = useCallback((text) => {
         let t = text;
         if ((lang === "tr" || lang === "az") && normalize) {
             t = t.replace(/[İIıi]/g, "i");
@@ -135,7 +196,7 @@ const Magnify = ({ colors, theme, translationApplication, quran, map, appendices
             t = t.toLocaleUpperCase(lang);
         }
         return t;
-    };
+    }, [lang, normalize, caseSensitive]);
 
     const performSearch = useCallback((term) => {
         if (!term) return;
@@ -190,16 +251,39 @@ const Magnify = ({ colors, theme, translationApplication, quran, map, appendices
 
         // Keep internal commas so "۲:،۳:" stays "2:,3:" (parseNumericRefs will split later).
         const keywordGroups = orTerms.map(term => {
-            return term.split(/\s+/)
-                .map(keyword => {
-                    if (hasAnyDigitLocal(keyword)) {
-                        const normalized = normalizeNumericTokenForLang(keyword);
-                        return normalized; // keep internal commas/semicolons
-                    }
-                    return keyword;
-                })
-                .filter(keyword => keyword.trim() !== '');
+            const tokens = term.split(/\s+/).filter(t => t.trim() !== '');
+            const numericParts = [];
+            const textParts = [];
+
+            tokens.forEach(token => {
+                if (hasAnyDigitLocal(token)) {
+                    numericParts.push(normalizeNumericTokenForLang(token));
+                } else {
+                    textParts.push(token);
+                }
+            });
+
+            // In exact mode: text words stay as one phrase, numeric tokens separate
+            // In normal mode: all tokens are individual keywords
+            const result = [];
+            if (exactMatch && textParts.length > 0) {
+                result.push(textParts.join(' '));
+            } else {
+                result.push(...textParts);
+            }
+            result.push(...numericParts);
+            return result.filter(k => k.trim() !== '');
         });
+
+        // Helper: does haystack contain all keywords? (exact-match aware)
+        function hayContains(hay, keywords) {
+            return keywords.every(k => {
+                if (exactMatch && !hasAnyDigitLocal(k)) {
+                    return exactIndexOf(hay, k, 0) !== -1;
+                }
+                return hay.includes(k);
+            });
+        }
 
         const titleResults = [];
         const verseResults = [];
@@ -274,13 +358,12 @@ const Magnify = ({ colors, theme, translationApplication, quran, map, appendices
 
                     if (keywordGroups.some(keywords => {
                         // 1) any pure-text match?
-                        if (keywords.every(k => hay.includes(k))) return true;
+                        if (hayContains(hay, keywords)) return true;
 
                         // 2) numeric-formula match?
-                        const numericTokens = keywords.filter(k => hasAnyDigitLocal(k)); // <— use lang-aware digit test
+                        const numericTokens = keywords.filter(k => hasAnyDigitLocal(k));
                         if (numericTokens.length === 0) return false;
 
-                        // join tokens into formula; internal commas already preserved
                         const formula = numericTokens.join(',');
                         const refs = parseNumericRefs(formula);
                         return matchesNumeric(refs, suraNumber, verseNumber);
@@ -294,7 +377,7 @@ const Magnify = ({ colors, theme, translationApplication, quran, map, appendices
                     const titleText = titles[titleNumber];
                     let processedTitleText = searchFold(titleText);
 
-                    if (keywordGroups.some(keywords => keywords.every(keyword => processedTitleText.includes(keyword)))) {
+                    if (keywordGroups.some(keywords => hayContains(processedTitleText, keywords))) {
                         titleResults.push({ suraNumber, titleNumber, titleText });
                     }
                 }
@@ -304,7 +387,7 @@ const Magnify = ({ colors, theme, translationApplication, quran, map, appendices
                     Object.values(notes).forEach((note) => {
                         let processedNote = searchFold(note);
 
-                        if (keywordGroups.some(keywords => keywords.every(keyword => processedNote.includes(keyword)))) {
+                        if (keywordGroups.some(keywords => hayContains(processedNote, keywords))) {
                             const match = String(note).match(/\*+\d+:\d+/g);
                             if (match && match.length > 0) {
                                 let cleanedRef = match[0].replace(/^\*+/, '');
@@ -339,7 +422,7 @@ const Magnify = ({ colors, theme, translationApplication, quran, map, appendices
                         const key = page + "-" + type + "-" + order;
                         let processedIntroText = searchFold(introText);
 
-                        if (keywordGroups.some(keywords => keywords.every(keyword => processedIntroText.includes(keyword)))) {
+                        if (keywordGroups.some(keywords => hayContains(processedIntroText, keywords))) {
                             appendicesResults.push({ appx, key, introText });
                         }
                     });
@@ -356,20 +439,36 @@ const Magnify = ({ colors, theme, translationApplication, quran, map, appendices
                     const key = element.type + "-" + element.key + "-" + element.order;
                     let processedAppendixText = searchFold(appendixText);
 
-                    if (keywordGroups.some(keywords => keywords.every(keyword => processedAppendixText.includes(keyword)))) {
+                    if (keywordGroups.some(keywords => hayContains(processedAppendixText, keywords))) {
                         appendicesResults.push({ appx, key, appendixText });
                     }
                 });
         }
 
-        // ---- hit count per keyword (verses only) ----
+        // ---- hit count per keyword (verses only, text keywords only) ----
         const verseTexts = verseResults.map(r => searchFold(r.verseText));
         const counts = keywordGroups.map(keywords => {
-            return keywords.map(k => {
+            // Filter out numeric keywords — no hit count for formulas like "2:5"
+            const textKeywords = keywords.filter(k => !hasAnyDigitLocal(k));
+            return textKeywords.map(k => {
                 let total = 0;
                 for (const hay of verseTexts) {
-                    let idx = 0;
-                    while ((idx = hay.indexOf(k, idx)) !== -1) { total++; idx += k.length || 1; }
+                    if (exactMatch) {
+                        let pos = 0;
+                        while ((pos = exactIndexOf(hay, k, pos)) !== -1) {
+                            total++;
+                            const words = k.split(/\s+/).filter(Boolean);
+                            let cursor = pos;
+                            for (let w = 0; w < words.length; w++) {
+                                if (w > 0) { while (cursor < hay.length && !isWordChar(hay[cursor])) cursor++; }
+                                cursor += words[w].length;
+                            }
+                            pos = cursor;
+                        }
+                    } else {
+                        let idx = 0;
+                        while ((idx = hay.indexOf(k, idx)) !== -1) { total++; idx += k.length || 1; }
+                    }
                 }
                 return total;
             });
@@ -381,7 +480,7 @@ const Magnify = ({ colors, theme, translationApplication, quran, map, appendices
         setSearchResultNotes(notesResults);
         setSearchResultAppendices(appendicesResults);
 
-    }, [quran, introduction, appsmap, caseSensitive, normalize, lang]);
+    }, [quran, introduction, appsmap, lang, exactMatch, searchFold]);
 
 
     const performSearchSingleLetter = useCallback((term) => {
@@ -436,22 +535,49 @@ const Magnify = ({ colors, theme, translationApplication, quran, map, appendices
         if (!escapedKeyword || escapedKeyword.trim() === '') return [originalText];
         processedKeyword = !caseSensitive ? escapedKeyword.toLocaleUpperCase(lang) : escapedKeyword;
 
-        const regex = new RegExp(processedKeyword, caseSensitive ? 'g' : 'gi');
-        let match;
         const parts = [];
         let lastOrigEnd = 0;
 
-        while ((match = regex.exec(searchStr)) !== null) {
-            if (match[0].length === 0) { regex.lastIndex++; continue; }
-            const origStart = posMap[match.index];
-            const origEnd = posMap[match.index + match[0].length - 1] + 1;
-            const matchText = origChars.slice(origStart, origEnd).join("");
+        if (exactMatch) {
+            // Boundary-aware exact matching (no regex, iPhone 7 safe)
+            let pos = 0;
+            while (true) {
+                const idx = exactIndexOf(searchStr, processedKeyword, pos);
+                if (idx === -1) break;
+                // Walk to find actual match end (whitespace-flexible)
+                const phraseWords = processedKeyword.split(/\s+/).filter(Boolean);
+                let cursor = idx;
+                for (let w = 0; w < phraseWords.length; w++) {
+                    if (w > 0) { while (cursor < searchStr.length && isWhitespace(searchStr[cursor])) cursor++; }
+                    cursor += phraseWords[w].length;
+                }
+                const origStart = posMap[idx];
+                const origEnd = posMap[cursor - 1] + 1;
+                const matchText = origChars.slice(origStart, origEnd).join("");
 
-            if (origStart > lastOrigEnd) {
-                parts.push(origChars.slice(lastOrigEnd, origStart).join(""));
+                if (origStart > lastOrigEnd) {
+                    parts.push(origChars.slice(lastOrigEnd, origStart).join(""));
+                }
+                parts.push(<span className={`font-bold ${colors[theme]["matching-text"]}`}>{matchText}</span>);
+                lastOrigEnd = origEnd;
+                pos = cursor;
             }
-            parts.push(<span className={`font-bold ${colors[theme]["matching-text"]}`}>{matchText}</span>);
-            lastOrigEnd = origEnd;
+        } else {
+            const regex = new RegExp(processedKeyword, caseSensitive ? 'g' : 'gi');
+            let match;
+
+            while ((match = regex.exec(searchStr)) !== null) {
+                if (match[0].length === 0) { regex.lastIndex++; continue; }
+                const origStart = posMap[match.index];
+                const origEnd = posMap[match.index + match[0].length - 1] + 1;
+                const matchText = origChars.slice(origStart, origEnd).join("");
+
+                if (origStart > lastOrigEnd) {
+                    parts.push(origChars.slice(lastOrigEnd, origStart).join(""));
+                }
+                parts.push(<span className={`font-bold ${colors[theme]["matching-text"]}`}>{matchText}</span>);
+                lastOrigEnd = origEnd;
+            }
         }
 
         if (lastOrigEnd < origChars.length) {
@@ -459,11 +585,23 @@ const Magnify = ({ colors, theme, translationApplication, quran, map, appendices
         }
 
         return parts.length > 0 ? parts : [originalText];
-    }, [caseSensitive, normalize, lang, colors, theme]);
+    }, [caseSensitive, normalize, lang, colors, theme, exactMatch]);
 
     const lightWords = useCallback((text) => {
         let processedTerm = searchFold(searchTerm);
-        const keywords = processedTerm.split(' ').filter(keyword => (keyword.trim() !== '' && keyword.trim() !== '|' && keyword.trim().length > 0));
+        let keywords;
+        if (exactMatch) {
+            // Separate numeric tokens, keep text words as one phrase per OR-group
+            const orParts = processedTerm.split('|').map(t => t.trim()).filter(t => t !== '');
+            keywords = [];
+            orParts.forEach(part => {
+                const tokens = part.split(/\s+/).filter(t => t.trim() !== '');
+                const textTokens = tokens.filter(t => !/\d/.test(t));
+                if (textTokens.length > 0) keywords.push(textTokens.join(' '));
+            });
+        } else {
+            keywords = processedTerm.split(' ').filter(keyword => (keyword.trim() !== '' && keyword.trim() !== '|' && keyword.trim().length > 0));
+        }
         let highlightedText = [text];
 
         keywords.forEach((keyword) => {
@@ -471,7 +609,7 @@ const Magnify = ({ colors, theme, translationApplication, quran, map, appendices
         });
 
         return highlightedText;
-    }, [searchTerm, caseSensitive, normalize, lang, highlightText]);
+    }, [searchTerm, highlightText, exactMatch, searchFold]);
 
     const lastTitleElementRef = useCallback(node => {
         if (observerTitles.current) observerTitles.current.disconnect();
@@ -1098,7 +1236,7 @@ const Magnify = ({ colors, theme, translationApplication, quran, map, appendices
                                 </label>
                             </div>
                         </label>
-                        <label className={`flex items-center justify-between md:justify-end space-x-2 p-3 cursor-pointer `}>
+                        <label className={`flex items-center justify-between md:justify-end space-x-2 p-3 border-b cursor-pointer ${colors[theme]["verse-border"]}`}>
                             <span className={`${normalize && direction !== 'rtl' ? colors[theme]["text"] : colors[theme]["page-text"]}`}>{translationApplication?.norm}</span>
                             <div>
                                 <label className='flex cursor-pointer select-none items-center'>
@@ -1116,10 +1254,23 @@ const Magnify = ({ colors, theme, translationApplication, quran, map, appendices
                                 </label>
                             </div>
                         </label>
-                        {/* <label className={`flex items-center justify-between md:justify-end space-x-2 py-2 px-4 rounded ${colors[theme]["text-background"]} cursor-pointer`}>
-                            <span>Exact Match</span>
-                            <input type="checkbox" checked={exactMatch} onChange={(e) => setExactMatch(e.target.checked)} className="w-8 h-8 text-sky-600 focus:ring-sky-500 border-gray-300 rounded" />
-                        </label> */}
+                        <label className={`flex items-center justify-between md:justify-end space-x-2 p-3 cursor-pointer `}>
+                            <span className={`${exactMatch ? colors[theme]["text"] : colors[theme]["page-text"]}`}>{translationApplication?.exact || "Exact Match"}</span>
+                            <div>
+                                <label className='flex cursor-pointer select-none items-center'>
+                                    <div className='relative'>
+                                        <input
+                                            type='checkbox'
+                                            checked={exactMatch}
+                                            onChange={(e) => setExactMatch(e.target.checked)}
+                                            className='sr-only'
+                                        />
+                                        <div className={`box block h-8 w-14 rounded-full ${exactMatch ? colors[theme]["text-background"] : colors[theme]["base-background"]}`}></div>
+                                        <div className={`absolute left-1 top-1 flex h-6 w-6 items-center justify-center rounded-full ${exactMatch ? colors[theme]["matching"] : colors[theme]["notes-background"]} transition ${exactMatch ? 'translate-x-full' : ''}`}></div>
+                                    </div>
+                                </label>
+                            </div>
+                        </label>
                     </div>
                 </div>
             )}
