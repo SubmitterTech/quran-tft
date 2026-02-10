@@ -299,8 +299,9 @@ describe("matchesNumeric", () => {
 /**
  * Simplified highlightText that returns text segments (no JSX)
  * to test the core logic: position mapping, keyword matching, splitting.
+ * Supports both regex (normal) and exact (boundary-aware) modes.
  */
-function highlightTextLogic(originalText, keyword, lang, doNormalize, caseSensitive) {
+function highlightTextLogic(originalText, keyword, lang, doNormalize, caseSensitive, useExact = false) {
     // Guard: null/undefined originalText
     if (!originalText) return [originalText ?? ''];
     if (!keyword || keyword.trim() === '') return [originalText];
@@ -338,28 +339,53 @@ function highlightTextLogic(originalText, keyword, lang, doNormalize, caseSensit
     if (!escapedKeyword || escapedKeyword.trim() === '') return [originalText];
     processedKeyword = !caseSensitive ? escapedKeyword.toLocaleUpperCase(lang) : escapedKeyword;
 
-    let regex;
-    try {
-        regex = new RegExp(processedKeyword, caseSensitive ? 'g' : 'gi');
-    } catch (e) {
-        return [originalText];
-    }
-
-    let match;
     const parts = [];
     let lastOrigEnd = 0;
 
-    while ((match = regex.exec(searchStr)) !== null) {
-        if (match[0].length === 0) { regex.lastIndex++; continue; }
-        const origStart = posMap[match.index];
-        const origEnd = (posMap[match.index + match[0].length - 1] ?? origChars.length - 1) + 1;
-        const matchText = origChars.slice(origStart, origEnd).join("");
+    if (useExact) {
+        // Boundary-aware exact matching (mirrors Magnify.js exact branch)
+        let pos = 0;
+        while (true) {
+            const idx = exactIndexOf(searchStr, processedKeyword, pos);
+            if (idx === -1) break;
+            const phraseWords = processedKeyword.split(/\s+/).filter(Boolean);
+            let cursor = idx;
+            for (let w = 0; w < phraseWords.length; w++) {
+                if (w > 0) { while (cursor < searchStr.length && !isWordChar(searchStr[cursor])) cursor++; }
+                cursor += phraseWords[w].length;
+            }
+            const origStart = posMap[idx];
+            const origEnd = posMap[cursor - 1] + 1;
+            const matchText = origChars.slice(origStart, origEnd).join("");
 
-        if (origStart > lastOrigEnd) {
-            parts.push({ type: 'text', value: origChars.slice(lastOrigEnd, origStart).join("") });
+            if (origStart > lastOrigEnd) {
+                parts.push({ type: 'text', value: origChars.slice(lastOrigEnd, origStart).join("") });
+            }
+            parts.push({ type: 'highlight', value: matchText });
+            lastOrigEnd = origEnd;
+            pos = cursor;
         }
-        parts.push({ type: 'highlight', value: matchText });
-        lastOrigEnd = origEnd;
+    } else {
+        let regex;
+        try {
+            regex = new RegExp(processedKeyword, caseSensitive ? 'g' : 'gi');
+        } catch (e) {
+            return [originalText];
+        }
+
+        let match;
+        while ((match = regex.exec(searchStr)) !== null) {
+            if (match[0].length === 0) { regex.lastIndex++; continue; }
+            const origStart = posMap[match.index];
+            const origEnd = (posMap[match.index + match[0].length - 1] ?? origChars.length - 1) + 1;
+            const matchText = origChars.slice(origStart, origEnd).join("");
+
+            if (origStart > lastOrigEnd) {
+                parts.push({ type: 'text', value: origChars.slice(lastOrigEnd, origStart).join("") });
+            }
+            parts.push({ type: 'highlight', value: matchText });
+            lastOrigEnd = origEnd;
+        }
     }
 
     if (lastOrigEnd < origChars.length) {
@@ -370,15 +396,15 @@ function highlightTextLogic(originalText, keyword, lang, doNormalize, caseSensit
 }
 
 /** Shorthand: returns just the highlighted segment texts */
-function getHighlights(originalText, keyword, lang = "en", doNormalize = true, caseSensitive = false) {
-    const parts = highlightTextLogic(originalText, keyword, lang, doNormalize, caseSensitive);
+function getHighlights(originalText, keyword, lang = "en", doNormalize = true, caseSensitive = false, useExact = false) {
+    const parts = highlightTextLogic(originalText, keyword, lang, doNormalize, caseSensitive, useExact);
     if (typeof parts[0] === 'string') return parts; // guard returns
     return parts.filter(p => p.type === 'highlight').map(p => p.value);
 }
 
 /** Shorthand: returns all parts as [{type, value}] */
-function getAllParts(originalText, keyword, lang = "en", doNormalize = true, caseSensitive = false) {
-    return highlightTextLogic(originalText, keyword, lang, doNormalize, caseSensitive);
+function getAllParts(originalText, keyword, lang = "en", doNormalize = true, caseSensitive = false, useExact = false) {
+    return highlightTextLogic(originalText, keyword, lang, doNormalize, caseSensitive, useExact);
 }
 
 describe("highlightText — crash guards", () => {
@@ -760,5 +786,331 @@ describe("exactIndexOf — word-boundary exact phrase matching", () => {
 
     test("Arabic comma \u060C is boundary", () => {
         expect(exactIndexOf("\u0627\u0644\u0644\u0647\u060C \u0627\u0644\u0631\u062D\u0645\u0646", "\u0627\u0644\u0644\u0647", 0)).toBe(0);
+    });
+});
+
+// ── highlightText exact mode ────────────────────────────────────────────────
+
+describe("highlightText — exact mode", () => {
+    test("single word exact match", () => {
+        const highlights = getHighlights("In the name of God", "God", "en", false, false, true);
+        expect(highlights).toEqual(["God"]);
+    });
+
+    test("exact mode: does NOT match partial word", () => {
+        const highlights = getHighlights("Godly people praise God", "God", "en", false, false, true);
+        expect(highlights).toEqual(["God"]);
+    });
+
+    test("exact mode: does NOT match inside word (suffix)", () => {
+        const highlights = getHighlights("A demigod appeared", "God", "en", false, false, true);
+        expect(highlights).toEqual([]);
+    });
+
+    test("exact mode: multi-word phrase", () => {
+        const highlights = getHighlights("God Most Gracious Most Merciful", "Most Gracious", "en", false, false, true);
+        expect(highlights).toEqual(["Most Gracious"]);
+    });
+
+    test("exact mode: multi-word with extra whitespace in text", () => {
+        const highlights = getHighlights("God  Most   Gracious", "Most Gracious", "en", false, false, true);
+        expect(highlights).toEqual(["Most   Gracious"]);
+    });
+
+    test("exact mode: multi-word with newline in text", () => {
+        const highlights = getHighlights("God\nMost\nGracious end", "Most Gracious", "en", false, false, true);
+        expect(highlights).toEqual(["Most\nGracious"]);
+    });
+
+    test("exact mode: multi-word with punctuation between words in text", () => {
+        const highlights = getHighlights("the Most, Gracious God", "Most Gracious", "en", false, false, true);
+        expect(highlights).toEqual(["Most, Gracious"]);
+    });
+
+    test("exact mode: multi-word with dash between words in text", () => {
+        const highlights = getHighlights("God Most - Gracious", "Most Gracious", "en", false, false, true);
+        expect(highlights).toEqual(["Most - Gracious"]);
+    });
+
+    test("exact mode: word at punctuation boundary", () => {
+        const highlights = getHighlights("Praise God, the Almighty", "God", "en", false, false, true);
+        expect(highlights).toEqual(["God"]);
+    });
+
+    test("exact mode: word in quotes", () => {
+        const highlights = getHighlights('He said "God" is great', "God", "en", false, false, true);
+        expect(highlights).toEqual(["God"]);
+    });
+
+    test("exact mode: word in smart quotes", () => {
+        const highlights = getHighlights("He said \u201CGod\u201D is great", "God", "en", false, false, true);
+        expect(highlights).toEqual(["God"]);
+    });
+
+    test("exact mode: word after em-dash", () => {
+        const highlights = getHighlights("Truth\u2014God\u2014is clear", "God", "en", false, false, true);
+        expect(highlights).toEqual(["God"]);
+    });
+
+    test("exact mode: multiple matches", () => {
+        const highlights = getHighlights("God is God and God alone", "God", "en", false, false, true);
+        expect(highlights).toEqual(["God", "God", "God"]);
+    });
+
+    test("exact mode: with normalize ON and accented text", () => {
+        const highlights = getHighlights("Une école française", "ecole", "fr", true, false, true);
+        expect(highlights).toEqual(["école"]);
+    });
+
+    test("exact mode: Turkish with normalize ON", () => {
+        const highlights = getHighlights("İstanbul güzel şehir", "istanbul", "tr", true, false, true);
+        expect(highlights).toEqual(["İstanbul"]);
+    });
+
+    test("exact mode: no match returns original text only", () => {
+        const parts = getAllParts("Hello World", "xyz", "en", false, false, true);
+        expect(parts).toEqual([{ type: 'text', value: "Hello World" }]);
+    });
+
+    test("exact mode: crash guard — regex special chars in keyword", () => {
+        expect(() => {
+            highlightTextLogic("test (value) data", "(value)", "en", false, false, true);
+        }).not.toThrow();
+    });
+
+    test("exact mode: keyword '?' does not crash", () => {
+        expect(() => {
+            highlightTextLogic("Is this a question?", "?", "en", false, false, true);
+        }).not.toThrow();
+    });
+});
+
+// ── lightWords logic (keyword extraction from search term) ──────────────────
+
+/**
+ * Simulates the lightWords keyword-extraction logic from Magnify.js.
+ * Returns the list of keywords that would be used for highlighting.
+ */
+function extractLightWordsKeywords(searchTerm, lang, doNormalize, caseSensitive, useExact) {
+    let processedTerm = searchFold(searchTerm, lang, doNormalize, caseSensitive);
+    if (useExact) {
+        const orParts = processedTerm.split('|').map(t => t.trim()).filter(t => t !== '');
+        const keywords = [];
+        orParts.forEach(part => {
+            const tokens = part.split(/\s+/).filter(t => t.trim() !== '');
+            const textTokens = tokens.filter(t => !/\d/.test(t));
+            if (textTokens.length > 0) keywords.push(textTokens.join(' '));
+        });
+        return keywords;
+    } else {
+        return processedTerm.split(' ').filter(keyword => (keyword.trim() !== '' && keyword.trim() !== '|' && keyword.trim().length > 0));
+    }
+}
+
+/**
+ * Simulates the full lightWords pipeline: extract keywords then highlight text.
+ * In real Magnify.js, highlightText returns a mix of strings and JSX elements.
+ * Here we simulate with {type:'text',value} and {type:'highlight',value} objects.
+ * The chaining logic: only 'text' parts get re-highlighted by subsequent keywords.
+ */
+function lightWordsHighlights(text, searchTerm, lang = "en", doNormalize = false, caseSensitive = false, useExact = false) {
+    const keywords = extractLightWordsKeywords(searchTerm, lang, doNormalize, caseSensitive, useExact);
+    // Start with the original text as a single text part
+    let parts = [{ type: 'text', value: text }];
+    keywords.forEach(keyword => {
+        parts = parts.flatMap(part => {
+            // Only re-highlight text parts (in real code: typeof part === 'string')
+            if (part.type === 'text') {
+                const result = highlightTextLogic(part.value, keyword, lang, doNormalize, caseSensitive, useExact);
+                // Guard returns (string arrays)
+                if (typeof result[0] === 'string') return [{ type: 'text', value: result[0] }];
+                return result;
+            }
+            // Already highlighted — keep as-is
+            return part;
+        });
+    });
+    return parts.filter(p => p.type === 'highlight').map(p => p.value);
+}
+
+describe("lightWords — keyword extraction", () => {
+    test("single word: normal mode", () => {
+        expect(extractLightWordsKeywords("hello", "en", false, false, false)).toEqual(["HELLO"]);
+    });
+
+    test("multiple words: normal mode splits by space", () => {
+        expect(extractLightWordsKeywords("hello world", "en", false, false, false)).toEqual(["HELLO", "WORLD"]);
+    });
+
+    test("pipe separates OR groups: normal mode keeps all as flat list", () => {
+        expect(extractLightWordsKeywords("hello | world", "en", false, false, false)).toEqual(["HELLO", "WORLD"]);
+    });
+
+    test("formula + text with pipe: normal mode includes all tokens", () => {
+        const kw = extractLightWordsKeywords("27:19; 37:154 | statement", "en", false, false, false);
+        expect(kw).toEqual(["27:19;", "37:154", "STATEMENT"]);
+    });
+
+    test("exact mode: single word", () => {
+        expect(extractLightWordsKeywords("hello", "en", false, false, true)).toEqual(["HELLO"]);
+    });
+
+    test("exact mode: multiple words become one phrase", () => {
+        expect(extractLightWordsKeywords("most gracious", "en", false, false, true)).toEqual(["MOST GRACIOUS"]);
+    });
+
+    test("exact mode: pipe separates OR groups, each group becomes phrase", () => {
+        expect(extractLightWordsKeywords("most gracious | most merciful", "en", false, false, true)).toEqual(["MOST GRACIOUS", "MOST MERCIFUL"]);
+    });
+
+    test("exact mode: formula tokens (with digits) are excluded from keywords", () => {
+        const kw = extractLightWordsKeywords("27:19; 37:154 | statement", "en", false, false, true);
+        expect(kw).toEqual(["STATEMENT"]);
+    });
+
+    test("exact mode: pure formula has no text keywords", () => {
+        expect(extractLightWordsKeywords("2:5, 3:10", "en", false, false, true)).toEqual([]);
+    });
+
+    test("exact mode: formula + text in same OR group separates correctly", () => {
+        const kw = extractLightWordsKeywords("19: meryem", "en", false, false, true);
+        expect(kw).toEqual(["MERYEM"]);
+    });
+
+    test("exact mode: mixed formula and text across pipes", () => {
+        const kw = extractLightWordsKeywords("2:5 god | 3:10 merciful", "en", false, false, true);
+        expect(kw).toEqual(["GOD", "MERCIFUL"]);
+    });
+
+    test("normal mode: pipe literal is filtered out", () => {
+        const kw = extractLightWordsKeywords("a | b | c", "en", false, false, false);
+        expect(kw).toEqual(["A", "B", "C"]);
+    });
+
+    test("empty search term returns empty", () => {
+        expect(extractLightWordsKeywords("", "en", false, false, false)).toEqual([]);
+    });
+
+    test("whitespace-only search term returns empty", () => {
+        expect(extractLightWordsKeywords("   ", "en", false, false, false)).toEqual([]);
+    });
+});
+
+describe("lightWords — full highlight pipeline", () => {
+    test("normal mode: single word highlights in text", () => {
+        const h = lightWordsHighlights("God is Most Gracious", "god", "en", false, false, false);
+        expect(h).toEqual(["God"]);
+    });
+
+    test("normal mode: multiple words each highlight independently", () => {
+        const h = lightWordsHighlights("God is Most Gracious", "god gracious", "en", false, false, false);
+        expect(h).toEqual(["God", "Gracious"]);
+    });
+
+    test("normal mode: pipe search highlights both sides", () => {
+        const h = lightWordsHighlights("God is Gracious and Merciful", "gracious | merciful", "en", false, false, false);
+        expect(h).toEqual(["Gracious", "Merciful"]);
+    });
+
+    test("normal mode: formula+text pipe — text keyword highlights in verse", () => {
+        const h = lightWordsHighlights("This is a statement about truth", "27:19; 37:154 | statement", "en", false, false, false);
+        expect(h).toEqual(["statement"]);
+    });
+
+    test("normal mode: formula tokens don't highlight in verse text", () => {
+        const h = lightWordsHighlights("God is Most Gracious", "27:19 | god", "en", false, false, false);
+        expect(h).toEqual(["God"]);
+    });
+
+    test("exact mode: single word highlights with boundary check", () => {
+        const h = lightWordsHighlights("Godly people praise God", "god", "en", false, false, true);
+        expect(h).toEqual(["God"]);
+    });
+
+    test("exact mode: multi-word phrase highlights together", () => {
+        const h = lightWordsHighlights("God Most Gracious Most Merciful", "most gracious", "en", false, false, true);
+        expect(h).toEqual(["Most Gracious"]);
+    });
+
+    test("exact mode: pipe OR — both phrases highlight", () => {
+        const h = lightWordsHighlights("God Most Gracious Most Merciful", "most gracious | most merciful", "en", false, false, true);
+        expect(h).toEqual(["Most Gracious", "Most Merciful"]);
+    });
+
+    test("exact mode: formula+text pipe — only text keyword highlights", () => {
+        const h = lightWordsHighlights("This is a statement about truth", "27:19; 37:154 | statement", "en", false, false, true);
+        expect(h).toEqual(["statement"]);
+    });
+
+    test("exact mode: formula tokens excluded from highlighting", () => {
+        const h = lightWordsHighlights("Verse 27:19 says something", "27:19; 37:154 | statement", "en", false, false, true);
+        expect(h).toEqual([]);
+    });
+
+    test("exact mode: formula + text in same group — text highlights", () => {
+        const h = lightWordsHighlights("Onu taşıyarak Meryem geldi", "19: meryem", "en", false, false, true);
+        expect(h).toEqual(["Meryem"]);
+    });
+
+    test("exact mode: Turkish with normalize — formula + text", () => {
+        const h = lightWordsHighlights("Onu taşıyarak Meryem geldi", "19: meryem", "tr", true, false, true);
+        expect(h).toEqual(["Meryem"]);
+    });
+
+    test("normal mode: no match returns empty highlights", () => {
+        const h = lightWordsHighlights("Hello World", "xyz", "en", false, false, false);
+        expect(h).toEqual([]);
+    });
+
+    test("exact mode: no match returns empty highlights", () => {
+        const h = lightWordsHighlights("Hello World", "xyz", "en", false, false, true);
+        expect(h).toEqual([]);
+    });
+
+    test("normal mode: regex special chars in search don't crash", () => {
+        expect(() => {
+            lightWordsHighlights("test (value) data", "(value)", "en", false, false, false);
+        }).not.toThrow();
+    });
+
+    test("exact mode: regex special chars in search don't crash", () => {
+        expect(() => {
+            lightWordsHighlights("test (value) data", "(value)", "en", false, false, true);
+        }).not.toThrow();
+    });
+
+    test("normal mode: formula-only search has no text highlights in verse", () => {
+        const h = lightWordsHighlights("God is Most Gracious", "2:5, 3:10", "en", false, false, false);
+        expect(h).toEqual([]);
+    });
+
+    test("exact mode: formula-only search has no text highlights in verse", () => {
+        const h = lightWordsHighlights("God is Most Gracious", "2:5, 3:10", "en", false, false, true);
+        expect(h).toEqual([]);
+    });
+
+    test("normal mode: semicolon-separated formulas with pipe and text", () => {
+        const h = lightWordsHighlights("Truth and statement here", "2:5; 3:10 | statement", "en", false, false, false);
+        expect(h).toEqual(["statement"]);
+    });
+
+    test("exact mode: semicolon-separated formulas with pipe and text", () => {
+        const h = lightWordsHighlights("Truth and statement here", "2:5; 3:10 | statement", "en", false, false, true);
+        expect(h).toEqual(["statement"]);
+    });
+
+    test("exact mode: multi-word text with formula on other side of pipe", () => {
+        const h = lightWordsHighlights("En Lütufkâr olan Tanrı", "2:5 | en lütufkâr", "en", false, false, true);
+        expect(h).toEqual(["En Lütufkâr"]);
+    });
+
+    test("normal mode: case insensitive highlighting", () => {
+        const h = lightWordsHighlights("STATEMENT about God", "statement", "en", false, false, false);
+        expect(h).toEqual(["STATEMENT"]);
+    });
+
+    test("exact mode: case insensitive highlighting", () => {
+        const h = lightWordsHighlights("STATEMENT about God", "statement", "en", false, false, true);
+        expect(h).toEqual(["STATEMENT"]);
     });
 });

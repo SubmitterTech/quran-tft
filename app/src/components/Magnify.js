@@ -20,8 +20,6 @@ const isWordChar = (ch) => {
     if (c >= 0x0E00 && c <= 0x0E7F) return true; // Thai
     return false;
 };
-const isWhitespace = (ch) => ch === ' ' || ch === '\t' || ch === '\n' || ch === '\r' || ch === '\u00A0';
-
 // Exact-match: find "phrase" in haystack, treating any whitespace run in keyword
 // as matching any whitespace/punctuation run in haystack.
 // Boundaries: string edge or any non-word character (punctuation, whitespace, etc.)
@@ -548,7 +546,7 @@ const Magnify = ({ colors, theme, translationApplication, quran, map, appendices
                 const phraseWords = processedKeyword.split(/\s+/).filter(Boolean);
                 let cursor = idx;
                 for (let w = 0; w < phraseWords.length; w++) {
-                    if (w > 0) { while (cursor < searchStr.length && isWhitespace(searchStr[cursor])) cursor++; }
+                    if (w > 0) { while (cursor < searchStr.length && !isWordChar(searchStr[cursor])) cursor++; }
                     cursor += phraseWords[w].length;
                 }
                 const origStart = posMap[idx];
