@@ -65,7 +65,6 @@ jobs:
       DEPLOY_SSH_KEY: ${{ secrets.DEPLOY_SSH_KEY }}
       DEPLOY_KNOWN_HOSTS: ${{ secrets.DEPLOY_KNOWN_HOSTS }}
       HEALTHCHECK_DOMAIN: ${{ secrets.HEALTHCHECK_DOMAIN }}
-      DEPLOY_PORT: ${{ vars.DEPLOY_PORT }}
       DEPLOY_BASE_DIR: ${{ vars.DEPLOY_BASE_DIR }}
     steps:
       - name: Download artifact
@@ -90,23 +89,22 @@ jobs:
           if [ -n "${DEPLOY_KNOWN_HOSTS:-}" ]; then
             printf '%s\n' "$DEPLOY_KNOWN_HOSTS" > "$HOME/.ssh/known_hosts"
           else
-            ssh-keyscan -p "${DEPLOY_PORT:-22}" -H "$DEPLOY_HOST" > "$HOME/.ssh/known_hosts"
+            ssh-keyscan -H "$DEPLOY_HOST" > "$HOME/.ssh/known_hosts"
           fi
           chmod 600 "$HOME/.ssh/known_hosts"
 
       - name: Deploy release and switch current symlink
         run: |
           set -Eeuo pipefail
-          SSH_OPTS="-i $HOME/.ssh/id_ed25519 -o StrictHostKeyChecking=yes -o UserKnownHostsFile=$HOME/.ssh/known_hosts -p ${DEPLOY_PORT:-22}"
+          SSH_OPTS="-i $HOME/.ssh/id_ed25519 -o StrictHostKeyChecking=yes -o UserKnownHostsFile=$HOME/.ssh/known_hosts"
           BASE_DIR="${DEPLOY_BASE_DIR:-/srv/quran-tft}"
           RELEASE_ID="${GITHUB_RUN_ID}-${GITHUB_RUN_ATTEMPT}-${GITHUB_SHA::7}"
           REMOTE_ARCHIVE="/tmp/site-build-${GITHUB_RUN_ID}-${GITHUB_RUN_ATTEMPT}.tgz"
-          REMOTE_SCRIPT="/tmp/deploy-${GITHUB_RUN_ID}-${GITHUB_RUN_ATTEMPT}.sh"
 
           scp $SSH_OPTS site-build.tgz "${DEPLOY_USER}@${DEPLOY_HOST}:${REMOTE_ARCHIVE}"
 
-          ssh $SSH_OPTS "${DEPLOY_USER}@${DEPLOY_HOST}" "cat > ${REMOTE_SCRIPT}" <<'REMOTE_SCRIPT'
-          #!/usr/bin/env bash
+          ssh $SSH_OPTS "${DEPLOY_USER}@${DEPLOY_HOST}" \
+            "BASE_DIR='${BASE_DIR}' RELEASE_ID='${RELEASE_ID}' REMOTE_ARCHIVE='${REMOTE_ARCHIVE}' bash -s" <<'REMOTE_SCRIPT'
           set -Eeuo pipefail
 
           BASE_DIR="${BASE_DIR:?Missing BASE_DIR}"
@@ -149,13 +147,10 @@ jobs:
           rm -f "$REMOTE_ARCHIVE"
           REMOTE_SCRIPT
 
-          ssh $SSH_OPTS "${DEPLOY_USER}@${DEPLOY_HOST}" \
-            "chmod +x ${REMOTE_SCRIPT} && BASE_DIR='${BASE_DIR}' RELEASE_ID='${RELEASE_ID}' REMOTE_ARCHIVE='${REMOTE_ARCHIVE}' ${REMOTE_SCRIPT} && rm -f ${REMOTE_SCRIPT}"
-
       - name: Scenario 1 - verify required files
         run: |
           set -Eeuo pipefail
-          SSH_OPTS="-i $HOME/.ssh/id_ed25519 -o StrictHostKeyChecking=yes -o UserKnownHostsFile=$HOME/.ssh/known_hosts -p ${DEPLOY_PORT:-22}"
+          SSH_OPTS="-i $HOME/.ssh/id_ed25519 -o StrictHostKeyChecking=yes -o UserKnownHostsFile=$HOME/.ssh/known_hosts"
           TARGET_PATH="${DEPLOY_BASE_DIR:-/srv/quran-tft}/current"
           ssh $SSH_OPTS "${DEPLOY_USER}@${DEPLOY_HOST}" \
             "test -f '${TARGET_PATH}/index.html' && test -f '${TARGET_PATH}/manifest.json'"
@@ -163,7 +158,7 @@ jobs:
       - name: Scenario 2 - verify content replacements
         run: |
           set -Eeuo pipefail
-          SSH_OPTS="-i $HOME/.ssh/id_ed25519 -o StrictHostKeyChecking=yes -o UserKnownHostsFile=$HOME/.ssh/known_hosts -p ${DEPLOY_PORT:-22}"
+          SSH_OPTS="-i $HOME/.ssh/id_ed25519 -o StrictHostKeyChecking=yes -o UserKnownHostsFile=$HOME/.ssh/known_hosts"
           TARGET_PATH="${DEPLOY_BASE_DIR:-/srv/quran-tft}/current"
           ssh $SSH_OPTS "${DEPLOY_USER}@${DEPLOY_HOST}" \
             "grep -q 'KURAN SON AHİT' '${TARGET_PATH}/index.html' && grep -q 'Kuran (İnteraktif Kitap)' '${TARGET_PATH}/index.html' && grep -q 'Kuran Son Ahit' '${TARGET_PATH}/manifest.json'"
@@ -177,14 +172,14 @@ jobs:
       - name: Scenario 4 - nginx config test and reload
         run: |
           set -Eeuo pipefail
-          SSH_OPTS="-i $HOME/.ssh/id_ed25519 -o StrictHostKeyChecking=yes -o UserKnownHostsFile=$HOME/.ssh/known_hosts -p ${DEPLOY_PORT:-22}"
+          SSH_OPTS="-i $HOME/.ssh/id_ed25519 -o StrictHostKeyChecking=yes -o UserKnownHostsFile=$HOME/.ssh/known_hosts"
           ssh $SSH_OPTS "${DEPLOY_USER}@${DEPLOY_HOST}" "nginx -t && systemctl reload nginx && systemctl is-active nginx"
 
       - name: Rollback to previous release on failure
         if: failure()
         run: |
           set -Eeuo pipefail
-          SSH_OPTS="-i $HOME/.ssh/id_ed25519 -o StrictHostKeyChecking=yes -o UserKnownHostsFile=$HOME/.ssh/known_hosts -p ${DEPLOY_PORT:-22}"
+          SSH_OPTS="-i $HOME/.ssh/id_ed25519 -o StrictHostKeyChecking=yes -o UserKnownHostsFile=$HOME/.ssh/known_hosts"
           BASE_DIR="${DEPLOY_BASE_DIR:-/srv/quran-tft}"
           ssh $SSH_OPTS "${DEPLOY_USER}@${DEPLOY_HOST}" \
             "if [ -L '${BASE_DIR}/previous' ]; then ln -sfn \"\$(readlink -f '${BASE_DIR}/previous')\" '${BASE_DIR}/current'; nginx -t && systemctl reload nginx || true; fi"
