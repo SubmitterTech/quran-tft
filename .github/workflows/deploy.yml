@@ -1,0 +1,187 @@
+name: Deploy Domain
+
+on:
+  push:
+    branches:
+      - main
+  workflow_dispatch:
+
+concurrency:
+  group: domain-production-deploy
+  cancel-in-progress: false
+
+jobs:
+  build_site:
+    name: Build (GitHub Runner)
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+          cache-dependency-path: app/package-lock.json
+
+      - name: Install dependencies
+        working-directory: app
+        run: npm ci --prefer-offline --no-audit --no-fund
+
+      - name: Build app
+        working-directory: app
+        run: npm run build
+
+      - name: Apply domain replacements
+        working-directory: app
+        run: |
+          [ -f build/index.html ] && sed -i 's/Quran The Final Testament (Interactive Book)/Kuran (İnteraktif Kitap)/g' build/index.html || true
+          [ -f build/index.html ] && sed -i 's/QURAN TFT/KURAN SON AHİT/g' build/index.html || true
+          [ -f build/manifest.json ] && sed -i 's/Quran TFT/Kuran/g' build/manifest.json || true
+          [ -f build/manifest.json ] && sed -i 's/Quran The Final Testament/Kuran Son Ahit/g' build/manifest.json || true
+
+      - name: Package artifact
+        run: tar -czf site-build.tgz -C app/build .
+
+      - name: Upload artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: site-build-${{ github.sha }}
+          path: site-build.tgz
+          retention-days: 2
+
+  deploy_site:
+    name: Deploy (Remote Host)
+    runs-on: ubuntu-latest
+    needs: build_site
+    if: github.ref == 'refs/heads/main'
+    env:
+      DEPLOY_HOST: ${{ secrets.DEPLOY_HOST }}
+      DEPLOY_USER: ${{ secrets.DEPLOY_USER }}
+      DEPLOY_SSH_KEY: ${{ secrets.DEPLOY_SSH_KEY }}
+      DEPLOY_KNOWN_HOSTS: ${{ secrets.DEPLOY_KNOWN_HOSTS }}
+      HEALTHCHECK_DOMAIN: ${{ secrets.HEALTHCHECK_DOMAIN }}
+      DEPLOY_PORT: ${{ vars.DEPLOY_PORT }}
+      DEPLOY_BASE_DIR: ${{ vars.DEPLOY_BASE_DIR }}
+    steps:
+      - name: Download artifact
+        uses: actions/download-artifact@v4
+        with:
+          name: site-build-${{ github.sha }}
+          path: .
+
+      - name: Validate deploy secrets
+        run: |
+          [ -n "${DEPLOY_HOST}" ] || { echo "Missing DEPLOY_HOST"; exit 1; }
+          [ -n "${DEPLOY_USER}" ] || { echo "Missing DEPLOY_USER"; exit 1; }
+          [ -n "${DEPLOY_SSH_KEY}" ] || { echo "Missing DEPLOY_SSH_KEY"; exit 1; }
+          [ -n "${HEALTHCHECK_DOMAIN}" ] || { echo "Missing HEALTHCHECK_DOMAIN"; exit 1; }
+
+      - name: Configure SSH
+        run: |
+          mkdir -p "$HOME/.ssh"
+          chmod 700 "$HOME/.ssh"
+          printf '%s\n' "$DEPLOY_SSH_KEY" > "$HOME/.ssh/id_ed25519"
+          chmod 600 "$HOME/.ssh/id_ed25519"
+          if [ -n "${DEPLOY_KNOWN_HOSTS:-}" ]; then
+            printf '%s\n' "$DEPLOY_KNOWN_HOSTS" > "$HOME/.ssh/known_hosts"
+          else
+            ssh-keyscan -p "${DEPLOY_PORT:-22}" -H "$DEPLOY_HOST" > "$HOME/.ssh/known_hosts"
+          fi
+          chmod 600 "$HOME/.ssh/known_hosts"
+
+      - name: Deploy release and switch current symlink
+        run: |
+          set -Eeuo pipefail
+          SSH_OPTS="-i $HOME/.ssh/id_ed25519 -o StrictHostKeyChecking=yes -o UserKnownHostsFile=$HOME/.ssh/known_hosts -p ${DEPLOY_PORT:-22}"
+          BASE_DIR="${DEPLOY_BASE_DIR:-/srv/quran-tft}"
+          RELEASE_ID="${GITHUB_RUN_ID}-${GITHUB_RUN_ATTEMPT}-${GITHUB_SHA::7}"
+          REMOTE_ARCHIVE="/tmp/site-build-${GITHUB_RUN_ID}-${GITHUB_RUN_ATTEMPT}.tgz"
+          REMOTE_SCRIPT="/tmp/deploy-${GITHUB_RUN_ID}-${GITHUB_RUN_ATTEMPT}.sh"
+
+          scp $SSH_OPTS site-build.tgz "${DEPLOY_USER}@${DEPLOY_HOST}:${REMOTE_ARCHIVE}"
+
+          ssh $SSH_OPTS "${DEPLOY_USER}@${DEPLOY_HOST}" "cat > ${REMOTE_SCRIPT}" <<'REMOTE_SCRIPT'
+          #!/usr/bin/env bash
+          set -Eeuo pipefail
+
+          BASE_DIR="${BASE_DIR:?Missing BASE_DIR}"
+          RELEASE_ID="${RELEASE_ID:?Missing RELEASE_ID}"
+          REMOTE_ARCHIVE="${REMOTE_ARCHIVE:?Missing REMOTE_ARCHIVE}"
+
+          RELEASES_DIR="${BASE_DIR}/releases"
+          CURRENT_LINK="${BASE_DIR}/current"
+          PREVIOUS_LINK="${BASE_DIR}/previous"
+          NEW_RELEASE_DIR="${RELEASES_DIR}/${RELEASE_ID}"
+
+          [ -f "$REMOTE_ARCHIVE" ] || { echo "Archive not found: $REMOTE_ARCHIVE" >&2; exit 1; }
+          [ -n "$BASE_DIR" ] && [ "$BASE_DIR" != "/" ] || { echo "Unsafe DEPLOY_BASE_DIR: $BASE_DIR" >&2; exit 1; }
+
+          mkdir -p "$RELEASES_DIR" "$NEW_RELEASE_DIR"
+          tar -xzf "$REMOTE_ARCHIVE" -C "$NEW_RELEASE_DIR"
+
+          test -f "$NEW_RELEASE_DIR/index.html"
+          test -f "$NEW_RELEASE_DIR/manifest.json"
+
+          OLD_RELEASE=""
+          if [ -L "$CURRENT_LINK" ]; then
+            OLD_RELEASE="$(readlink -f "$CURRENT_LINK" || true)"
+          fi
+
+          if [ -n "$OLD_RELEASE" ] && [ -d "$OLD_RELEASE" ]; then
+            ln -sfn "$OLD_RELEASE" "$PREVIOUS_LINK"
+          fi
+          ln -sfn "$NEW_RELEASE_DIR" "$CURRENT_LINK"
+
+          CURRENT_TARGET="$(readlink -f "$CURRENT_LINK" || true)"
+          PREVIOUS_TARGET="$(readlink -f "$PREVIOUS_LINK" || true)"
+
+          find "$RELEASES_DIR" -mindepth 1 -maxdepth 1 -type d | while read -r d; do
+            if [ "$d" != "$CURRENT_TARGET" ] && [ "$d" != "$PREVIOUS_TARGET" ]; then
+              rm -rf "$d"
+            fi
+          done
+
+          rm -f "$REMOTE_ARCHIVE"
+          REMOTE_SCRIPT
+
+          ssh $SSH_OPTS "${DEPLOY_USER}@${DEPLOY_HOST}" \
+            "chmod +x ${REMOTE_SCRIPT} && BASE_DIR='${BASE_DIR}' RELEASE_ID='${RELEASE_ID}' REMOTE_ARCHIVE='${REMOTE_ARCHIVE}' ${REMOTE_SCRIPT} && rm -f ${REMOTE_SCRIPT}"
+
+      - name: Scenario 1 - verify required files
+        run: |
+          set -Eeuo pipefail
+          SSH_OPTS="-i $HOME/.ssh/id_ed25519 -o StrictHostKeyChecking=yes -o UserKnownHostsFile=$HOME/.ssh/known_hosts -p ${DEPLOY_PORT:-22}"
+          TARGET_PATH="${DEPLOY_BASE_DIR:-/srv/quran-tft}/current"
+          ssh $SSH_OPTS "${DEPLOY_USER}@${DEPLOY_HOST}" \
+            "test -f '${TARGET_PATH}/index.html' && test -f '${TARGET_PATH}/manifest.json'"
+
+      - name: Scenario 2 - verify content replacements
+        run: |
+          set -Eeuo pipefail
+          SSH_OPTS="-i $HOME/.ssh/id_ed25519 -o StrictHostKeyChecking=yes -o UserKnownHostsFile=$HOME/.ssh/known_hosts -p ${DEPLOY_PORT:-22}"
+          TARGET_PATH="${DEPLOY_BASE_DIR:-/srv/quran-tft}/current"
+          ssh $SSH_OPTS "${DEPLOY_USER}@${DEPLOY_HOST}" \
+            "grep -q 'KURAN SON AHİT' '${TARGET_PATH}/index.html' && grep -q 'Kuran (İnteraktif Kitap)' '${TARGET_PATH}/index.html' && grep -q 'Kuran Son Ahit' '${TARGET_PATH}/manifest.json'"
+
+      - name: Scenario 3 - verify HTTP healthcheck
+        run: |
+          set -Eeuo pipefail
+          curl --fail --silent --show-error --location --max-time 20 "https://${HEALTHCHECK_DOMAIN}/" >/dev/null
+          curl --fail --silent --show-error --location --max-time 20 "https://${HEALTHCHECK_DOMAIN}/manifest.json" >/dev/null
+
+      - name: Scenario 4 - nginx config test and reload
+        run: |
+          set -Eeuo pipefail
+          SSH_OPTS="-i $HOME/.ssh/id_ed25519 -o StrictHostKeyChecking=yes -o UserKnownHostsFile=$HOME/.ssh/known_hosts -p ${DEPLOY_PORT:-22}"
+          ssh $SSH_OPTS "${DEPLOY_USER}@${DEPLOY_HOST}" "nginx -t && systemctl reload nginx && systemctl is-active nginx"
+
+      - name: Rollback to previous release on failure
+        if: failure()
+        run: |
+          set -Eeuo pipefail
+          SSH_OPTS="-i $HOME/.ssh/id_ed25519 -o StrictHostKeyChecking=yes -o UserKnownHostsFile=$HOME/.ssh/known_hosts -p ${DEPLOY_PORT:-22}"
+          BASE_DIR="${DEPLOY_BASE_DIR:-/srv/quran-tft}"
+          ssh $SSH_OPTS "${DEPLOY_USER}@${DEPLOY_HOST}" \
+            "if [ -L '${BASE_DIR}/previous' ]; then ln -sfn \"\$(readlink -f '${BASE_DIR}/previous')\" '${BASE_DIR}/current'; nginx -t && systemctl reload nginx || true; fi"
