@@ -334,16 +334,14 @@ function highlightTextLogic(originalText, keyword, lang, doNormalize, caseSensit
     if (doNormalize) {
         processedKeyword = normalizeText(processedKeyword);
     }
-    // Always escape regex specials to prevent SyntaxError
-    const escapedKeyword = removePunctuations(processedKeyword);
-    if (!escapedKeyword || escapedKeyword.trim() === '') return [originalText];
-    processedKeyword = !caseSensitive ? escapedKeyword.toLocaleUpperCase(lang) : escapedKeyword;
+    if (!processedKeyword || processedKeyword.trim() === '') return [originalText];
+    processedKeyword = !caseSensitive ? processedKeyword.toLocaleUpperCase(lang) : processedKeyword;
 
     const parts = [];
     let lastOrigEnd = 0;
 
     if (useExact) {
-        // Boundary-aware exact matching (mirrors Magnify.js exact branch)
+        // Boundary-aware exact matching — no regex escaping needed (uses indexOf)
         let pos = 0;
         while (true) {
             const idx = exactIndexOf(searchStr, processedKeyword, pos);
@@ -366,9 +364,12 @@ function highlightTextLogic(originalText, keyword, lang, doNormalize, caseSensit
             pos = cursor;
         }
     } else {
+        // Regex mode — escape special chars to prevent SyntaxError
+        const escapedKeyword = removePunctuations(processedKeyword);
+        if (!escapedKeyword || escapedKeyword.trim() === '') return [originalText];
         let regex;
         try {
-            regex = new RegExp(processedKeyword, caseSensitive ? 'g' : 'gi');
+            regex = new RegExp(escapedKeyword, caseSensitive ? 'g' : 'gi');
         } catch (e) {
             return [originalText];
         }
@@ -549,6 +550,114 @@ describe("highlightText — correct highlighting", () => {
     test("Arabic text case-insensitive (no case in Arabic)", () => {
         const highlights = getHighlights("بسم الله الرحمن", "الله", "ar", false, false);
         expect(highlights).toEqual(["الله"]);
+    });
+});
+
+// ── highlightText — regex special chars in keywords (both modes) ────────────
+
+describe("highlightText — regex special chars in keyword", () => {
+    // Normal (regex) mode — removePunctuations escapes so regex doesn't crash
+    test("normal mode: '(' in keyword highlights correctly", () => {
+        const h = getHighlights("the (Quran) is great", "(Quran", "en", false, false);
+        expect(h).toEqual(["(Quran"]);
+    });
+
+    test("normal mode: ')' in keyword highlights correctly", () => {
+        const h = getHighlights("see (Appendix) here", "Appendix)", "en", false, false);
+        expect(h).toEqual(["Appendix)"]);
+    });
+
+    test("normal mode: '(' and ')' wrapping keyword", () => {
+        const h = getHighlights("the (Quran) is great", "(Quran)", "en", false, false);
+        expect(h).toEqual(["(Quran)"]);
+    });
+
+    test("normal mode: '[' in keyword", () => {
+        const h = getHighlights("data [test] here", "[test]", "en", false, false);
+        expect(h).toEqual(["[test]"]);
+    });
+
+    test("normal mode: '*' in keyword", () => {
+        const h = getHighlights("footnote *19:2 data", "*19:2", "en", false, false);
+        expect(h).toEqual(["*19:2"]);
+    });
+
+    test("normal mode: '?' in keyword highlights literal '?'", () => {
+        const h = getHighlights("Is this a question?", "?", "en", false, false);
+        expect(h).toEqual(["?"]);
+    });
+
+    test("normal mode: '+' in keyword", () => {
+        const h = getHighlights("1+1=2 math", "+1", "en", false, false);
+        expect(h).toEqual(["+1"]);
+    });
+
+    test("normal mode: '.' in keyword matches literal dot", () => {
+        const h = getHighlights("version 3.14 is here", "3.14", "en", false, false);
+        expect(h).toEqual(["3.14"]);
+    });
+
+    test("normal mode: '|' in keyword (escaped, not OR)", () => {
+        const h = getHighlights("true | false", "| false", "en", false, false);
+        expect(h).toEqual(["| false"]);
+    });
+
+    // Exact mode — no escaping, uses indexOf
+    test("exact mode: '(' in keyword highlights correctly", () => {
+        const h = getHighlights("the (Quran) is great", "(Quran", "en", false, false, true);
+        expect(h).toEqual(["(Quran"]);
+    });
+
+    test("exact mode: '(Kuran' highlights in Turkish text", () => {
+        const h = getHighlights("kitap (Kuran) okuyoruz", "(Kuran", "tr", false, false, true);
+        expect(h).toEqual(["(Kuran"]);
+    });
+
+    test("exact mode: '(Kuran' with normalize ON highlights correctly", () => {
+        const h = getHighlights("kitap (Kuran) okuyoruz", "(Kuran", "tr", true, false, true);
+        expect(h).toEqual(["(Kuran"]);
+    });
+
+    test("exact mode: ')' in keyword", () => {
+        const h = getHighlights("see (Appendix) here", "Appendix)", "en", false, false, true);
+        expect(h).toEqual(["Appendix)"]);
+    });
+
+    test("exact mode: '*' in keyword", () => {
+        const h = getHighlights("footnote *19:2 data", "*19:2", "en", false, false, true);
+        expect(h).toEqual(["*19:2"]);
+    });
+
+    test("exact mode: '?' alone cannot match (not a word, boundary only)", () => {
+        const h = getHighlights("Is this a question?", "?", "en", false, false, true);
+        expect(h).toEqual([]);
+    });
+
+    test("exact mode: '[' in keyword", () => {
+        const h = getHighlights("data [test] here", "[test]", "en", false, false, true);
+        expect(h).toEqual(["[test]"]);
+    });
+
+    test("exact mode: '.' in keyword", () => {
+        const h = getHighlights("version 3.14 is here", "3.14", "en", false, false, true);
+        expect(h).toEqual(["3.14"]);
+    });
+
+    // Crash guards — both modes
+    test("normal mode: '((' does not crash", () => {
+        expect(() => highlightTextLogic("some text", "((", "en", false, false, false)).not.toThrow();
+    });
+
+    test("exact mode: '((' does not crash", () => {
+        expect(() => highlightTextLogic("some text", "((", "en", false, false, true)).not.toThrow();
+    });
+
+    test("normal mode: '\\' does not crash", () => {
+        expect(() => highlightTextLogic("some text", "\\", "en", false, false, false)).not.toThrow();
+    });
+
+    test("exact mode: '\\' does not crash", () => {
+        expect(() => highlightTextLogic("some text", "\\", "en", false, false, true)).not.toThrow();
     });
 });
 
@@ -1112,5 +1221,54 @@ describe("lightWords — full highlight pipeline", () => {
     test("exact mode: case insensitive highlighting", () => {
         const h = lightWordsHighlights("STATEMENT about God", "statement", "en", false, false, true);
         expect(h).toEqual(["STATEMENT"]);
+    });
+
+    // ── regex special chars in search term — full pipeline ──
+    test("normal mode: '(Kuran' in search highlights correctly in verse", () => {
+        const h = lightWordsHighlights("Bu kitap (Kuran) doğrudur", "(Kuran", "en", false, false, false);
+        expect(h).toEqual(["(Kuran"]);
+    });
+
+    test("exact mode: '(Kuran' in search highlights correctly in verse", () => {
+        const h = lightWordsHighlights("Bu kitap (Kuran) doğrudur", "(Kuran", "en", false, false, true);
+        expect(h).toEqual(["(Kuran"]);
+    });
+
+    test("normal mode: '(Kuran' with Turkish normalize ON", () => {
+        const h = lightWordsHighlights("Bu kitap (Kuran) doğrudur", "(Kuran", "tr", true, false, false);
+        expect(h).toEqual(["(Kuran"]);
+    });
+
+    test("exact mode: '(Kuran' with Turkish normalize ON", () => {
+        const h = lightWordsHighlights("Bu kitap (Kuran) doğrudur", "(Kuran", "tr", true, false, true);
+        expect(h).toEqual(["(Kuran"]);
+    });
+
+    test("normal mode: '*19:2' in search does not crash", () => {
+        expect(() => lightWordsHighlights("footnote *19:2 text", "*19:2", "en", false, false, false)).not.toThrow();
+    });
+
+    test("exact mode: '*19:2' in search does not crash", () => {
+        expect(() => lightWordsHighlights("footnote *19:2 text", "*19:2", "en", false, false, true)).not.toThrow();
+    });
+
+    test("normal mode: '[test]' in search highlights correctly", () => {
+        const h = lightWordsHighlights("see [test] data", "[test]", "en", false, false, false);
+        expect(h).toEqual(["[test]"]);
+    });
+
+    test("exact mode: '[test]' in search highlights correctly", () => {
+        const h = lightWordsHighlights("see [test] data", "[test]", "en", false, false, true);
+        expect(h).toEqual(["[test]"]);
+    });
+
+    test("normal mode: pipe+parens search '2:5 | (Kuran' highlights text part", () => {
+        const h = lightWordsHighlights("Bu kitap (Kuran) doğrudur", "2:5 | (Kuran", "en", false, false, false);
+        expect(h).toEqual(["(Kuran"]);
+    });
+
+    test("exact mode: pipe+parens search '2:5 | (Kuran' highlights text part", () => {
+        const h = lightWordsHighlights("Bu kitap (Kuran) doğrudur", "2:5 | (Kuran", "en", false, false, true);
+        expect(h).toEqual(["(Kuran"]);
     });
 });

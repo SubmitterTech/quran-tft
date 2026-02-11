@@ -529,15 +529,15 @@ const Magnify = ({ colors, theme, translationApplication, quran, map, appendices
         if (normalize) {
             processedKeyword = normalizeText(processedKeyword);
         }
-        const escapedKeyword = removePunctuations(processedKeyword);
-        if (!escapedKeyword || escapedKeyword.trim() === '') return [originalText];
-        processedKeyword = !caseSensitive ? escapedKeyword.toLocaleUpperCase(lang) : escapedKeyword;
+        if (!processedKeyword || processedKeyword.trim() === '') return [originalText];
+        processedKeyword = !caseSensitive ? processedKeyword.toLocaleUpperCase(lang) : processedKeyword;
 
         const parts = [];
         let lastOrigEnd = 0;
 
         if (exactMatch) {
             // Boundary-aware exact matching (no regex, iPhone 7 safe)
+            // No regex escaping needed — exactIndexOf uses indexOf, not regex
             let pos = 0;
             while (true) {
                 const idx = exactIndexOf(searchStr, processedKeyword, pos);
@@ -561,7 +561,9 @@ const Magnify = ({ colors, theme, translationApplication, quran, map, appendices
                 pos = cursor;
             }
         } else {
-            const regex = new RegExp(processedKeyword, caseSensitive ? 'g' : 'gi');
+            const escapedKeyword = removePunctuations(processedKeyword);
+            if (!escapedKeyword || escapedKeyword.trim() === '') return [originalText];
+            const regex = new RegExp(escapedKeyword, caseSensitive ? 'g' : 'gi');
             let match;
 
             while ((match = regex.exec(searchStr)) !== null) {
