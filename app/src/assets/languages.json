@@ -19,13 +19,13 @@
     },
     "de": {
         "name": "Deutsch Übersetzung",
-        "comp": 87.67,
+        "comp": 96.73,
         "dir": "ltr",
         "nums": "0 1 2 3 4 5 6 7 8 9"
     },
     "az": {
         "name": "Azərbaycan Tərcüməsi",
-        "comp": 80.16,
+        "comp": 80.28,
         "dir": "ltr",
         "nums": "0 1 2 3 4 5 6 7 8 9"
     },
@@ -37,7 +37,7 @@
     },
     "nl": {
         "name": "Nederlandse Vertaling",
-        "comp": 66.21,
+        "comp": 85.21,
         "dir": "ltr",
         "nums": "0 1 2 3 4 5 6 7 8 9"
     },
@@ -55,12 +55,18 @@
     },
     "sv": {
         "name": "Svensk översättning",
-        "comp": 3.4,
+        "comp": 4.2,
         "dir": "ltr",
         "nums": "0 1 2 3 4 5 6 7 8 9"
     },
     "es": {
         "name": "Español Traducción",
+        "comp": 0,
+        "dir": "ltr",
+        "nums": "0 1 2 3 4 5 6 7 8 9"
+    },
+    "uk": {
+        "name": "Переклад з української мови",
         "comp": 0,
         "dir": "ltr",
         "nums": "0 1 2 3 4 5 6 7 8 9"
