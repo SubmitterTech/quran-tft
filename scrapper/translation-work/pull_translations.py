@@ -1,5 +1,61 @@
-import ctypes
 import os
+import argparse
+import sys
+
+# --- CLI argument parsing (before heavy imports so --help always works) ---
+ALL_RESOURCE_SLUGS = [
+    'coverjson',
+    'introductionjson',
+    'quranjson',
+    'applicationjson',
+    'appendicesjson',
+    'mapjson'
+]
+
+parser = argparse.ArgumentParser(
+    description='Pull translations from Transifex and optionally commit changes.',
+    formatter_class=argparse.RawDescriptionHelpFormatter,
+    epilog="""examples:
+  %(prog)s                                  # pull all languages, all resources (original behavior)
+  %(prog)s --lang tr                        # pull only Turkish
+  %(prog)s --lang tr de                     # pull Turkish and German
+  %(prog)s --resource quranjson             # pull only quranjson for all languages
+  %(prog)s --lang tr --resource quranjson   # pull only quranjson for Turkish
+  %(prog)s --no-commit                      # pull all but skip commit prompt
+  %(prog)s --no-stage                       # pull all but don't stage or commit (just write files)
+  %(prog)s --dry-run                        # show what would be done without writing files
+  %(prog)s --skip-completeness              # skip updating completeness percentages in languages.json
+  %(prog)s --api-key-file /path/to/key      # use a custom API key file
+  %(prog)s --output-dir /path/to/dir        # save translations to a custom directory
+  %(prog)s --languages-file /path/to/file   # use a custom supported-languages.json file
+""")
+parser.add_argument('--lang', nargs='+', metavar='CODE',
+                    help='Language code(s) to pull (e.g. tr de ru). Default: all supported languages.')
+parser.add_argument('--resource', nargs='+', metavar='SLUG', choices=ALL_RESOURCE_SLUGS,
+                    help=f'Resource slug(s) to pull. Choices: {", ".join(ALL_RESOURCE_SLUGS)}. Default: all.')
+parser.add_argument('--no-commit', action='store_true',
+                    help='Pull and stage changes but skip the commit prompt.')
+parser.add_argument('--no-stage', action='store_true',
+                    help='Pull and write files but do not stage or commit (review only).')
+parser.add_argument('--dry-run', action='store_true',
+                    help='Show what would be done without writing any files.')
+parser.add_argument('--skip-completeness', action='store_true',
+                    help='Skip updating completeness percentages in languages.json.')
+parser.add_argument('--api-key-file', metavar='PATH',
+                    help='Path to the Transifex API key file. Default: transifex-api-key in script dir.')
+parser.add_argument('--output-dir', metavar='PATH',
+                    help='Base directory for saving translations. Default: ../../app/src/assets/translations')
+parser.add_argument('--languages-file', metavar='PATH',
+                    help='Path to supported-languages.json. Default: supported-languages.json in script dir.')
+parser.add_argument('--organization', default='submittertech', metavar='SLUG',
+                    help='Transifex organization slug. Default: submittertech')
+parser.add_argument('--project', default='quranthefinaltestament', metavar='SLUG',
+                    help='Transifex project slug. Default: quranthefinaltestament')
+
+args = parser.parse_args()
+
+# --- Heavy imports (after argparse so --help works without dependencies) ---
+import ctypes
 
 # Path to your Homebrew ICU 76 libraries (adjust if using Apple Silicon)
 icu_lib_path = "/usr/local/opt/icu4c@76/lib"
@@ -14,7 +70,6 @@ for lib_name in ["libicuuc.76.dylib", "libicui18n.76.dylib", "libicudata.76.dyli
 from transifex.api import transifex_api
 import requests
 import json
-import os
 import re
 import subprocess
 from icu import Collator, Locale
@@ -22,8 +77,8 @@ from icu import Collator, Locale
 # Determine the directory where this script is located.
 script_dir = os.path.dirname(os.path.abspath(__file__))
 
-# Read the API token from the 'transifex-api-key' file (relative to script_dir)
-api_token_path = os.path.join(script_dir, 'transifex-api-key')
+# Read the API token from the file
+api_token_path = args.api_key_file or os.path.join(script_dir, 'transifex-api-key')
 with open(api_token_path, 'r') as token_file:
     api_token = token_file.read().strip()
 assert api_token, "ERROR: API token is missing or empty. Please check the 'transifex-api-key' file."
@@ -32,16 +87,9 @@ assert api_token, "ERROR: API token is missing or empty. Please check the 'trans
 transifex_api.setup(auth=api_token)
 
 # Define the project and resource details
-organization_slug = 'submittertech'
-project_slug = 'quranthefinaltestament'
-resource_slugs = [
-    'coverjson',
-    'introductionjson',
-    'quranjson',
-    'applicationjson',
-    'appendicesjson',
-    'mapjson'
-]
+organization_slug = args.organization
+project_slug = args.project
+resource_slugs = args.resource if args.resource else ALL_RESOURCE_SLUGS
 
 def load_supported_languages(filename=None):
     # Use the provided filename or default to 'supported-languages.json' in script_dir.
@@ -57,14 +105,36 @@ def load_supported_languages(filename=None):
         raise ValueError("ERROR: The configuration file must be a JSON object mapping language codes to language names.")
     return list(supported_languages.keys()), supported_languages
 
-language_codes, language_names = load_supported_languages()
+language_codes, language_names = load_supported_languages(args.languages_file)
+
+# Filter language codes if --lang is specified
+if args.lang:
+    invalid_langs = [l for l in args.lang if l not in language_names]
+    if invalid_langs:
+        print(f"ERROR: Unknown language code(s): {', '.join(invalid_langs)}")
+        print(f"Available: {', '.join(sorted(language_names.keys()))}")
+        sys.exit(1)
+    language_codes = args.lang
 
 # Fetch organization and project
 organization = transifex_api.Organization.get(slug=organization_slug)
 project = organization.fetch('projects').get(slug=project_slug)
 
-# Base path for saving translations (relative to script_dir)
-base_path = os.path.normpath(os.path.join(script_dir, "../../app/src/assets/translations"))
+# Base path for saving translations
+base_path = args.output_dir or os.path.normpath(os.path.join(script_dir, "../../app/src/assets/translations"))
+
+# Print run configuration
+print(f"\n--- Configuration ---")
+print(f"Languages: {', '.join(language_codes)}")
+print(f"Resources: {', '.join(resource_slugs)}")
+print(f"Output:    {base_path}")
+if args.dry_run:
+    print(f"Mode:      DRY RUN (no files will be written)")
+elif args.no_stage:
+    print(f"Mode:      NO STAGE (files written but not staged/committed)")
+elif args.no_commit:
+    print(f"Mode:      NO COMMIT (files written and staged but not committed)")
+print(f"---------------------\n")
 
 
 def get_sort_key_func(language_code):
@@ -193,18 +263,18 @@ for language_code in language_codes:
         # Get the translated content
         response = requests.get(url)
         response.encoding = 'utf-8'  # Ensure the response is decoded using UTF-8
-        
+
         # Define the output file path (relative to script_dir)
         lang_dir = os.path.join(base_path, language_code)
         resource_name = resource_slug.replace('json', '')
         output_filename = f"{resource_name}_{language_code}.json"
         output_path = os.path.join(lang_dir, output_filename)
-        
+
         try:
             translated_content = json.loads(response.text)
         except json.JSONDecodeError as e:
             print(f"ERROR: while parsing JSON for language '{language_code}' and resource '{resource_slug}': {e}")
-            
+
             # Check if this is the known issue with Russian 'appendicesjson'
             if language_code == 'ru' and resource_slug == 'appendicesjson':
                 print("Attempting to fix known control character issue in Russian 'appendicesjson'...")
@@ -221,118 +291,142 @@ for language_code in language_codes:
 
         # Only proceed if there is content to save
         if translated_content:
-            # Ensure the language directory exists
-            os.makedirs(lang_dir, exist_ok=True)
-            files_saved = True
-
-            if resource_slug == 'mapjson':
-                transformed_data = translated_content
-                reconstructed_dict = reconstruct_dictionary(transformed_data, language_code)
-                with open(output_path, 'w', encoding='utf-8') as new_file:
-                    json.dump(reconstructed_dict, new_file, ensure_ascii=False, indent=4)
+            if args.dry_run:
+                print(f"[DRY RUN] Would save {output_path}")
+                files_saved = True
             else:
-                with open(output_path, 'w', encoding='utf-8') as new_file:
-                    json.dump(translated_content, new_file, ensure_ascii=False, indent=4)
-            print(f"Saved {output_path}")
+                # Ensure the language directory exists
+                os.makedirs(lang_dir, exist_ok=True)
+                files_saved = True
+
+                if resource_slug == 'mapjson':
+                    transformed_data = translated_content
+                    reconstructed_dict = reconstruct_dictionary(transformed_data, language_code)
+                    with open(output_path, 'w', encoding='utf-8') as new_file:
+                        json.dump(reconstructed_dict, new_file, ensure_ascii=False, indent=4)
+                else:
+                    with open(output_path, 'w', encoding='utf-8') as new_file:
+                        json.dump(translated_content, new_file, ensure_ascii=False, indent=4)
+                print(f"Saved {output_path}")
 
     if files_saved:
-        # After saving files for a language, check if there are changes
-        lang_dir = os.path.join(base_path, language_code)
-        lang_status = subprocess.run(
-            ['git', 'status', '--porcelain', lang_dir], capture_output=True, text=True)
-        if lang_status.stdout.strip():
-            # There are changes in this language directory
+        if args.dry_run:
             updated_languages.add(language_code)
-            # Stage the changed files
-            subprocess.run(['git', 'add', lang_dir])
-
-# Path to the languages.json file (relative to script_dir)
-languages_json_path = os.path.normpath(os.path.join(script_dir, "../../app/src/assets/languages.json"))
-
-# Load the existing languages.json file
-with open(languages_json_path, 'r', encoding='utf-8') as f:
-    languages_data = json.load(f)
+        else:
+            # After saving files for a language, check if there are changes
+            lang_dir = os.path.join(base_path, language_code)
+            lang_status = subprocess.run(
+                ['git', 'status', '--porcelain', lang_dir], capture_output=True, text=True)
+            if lang_status.stdout.strip():
+                # There are changes in this language directory
+                updated_languages.add(language_code)
+                if not args.no_stage:
+                    # Stage the changed files
+                    subprocess.run(['git', 'add', lang_dir])
 
 # --- Update languages.json with completeness percentages ---
-
-# Fetch project language stats
-project_stats = transifex_api.ResourceLanguageStats.filter(project=project)
-
-# Calculate completeness percentage per language
-completeness_percentages = {}
-
-for stat in project_stats:
-    # Parse language and resource details from the string output
-    language_str = str(stat.language)
-
-    # Extract language code from the unfetched string representation
-    language_code = language_str.split(': ')[1].split(' ')[0].replace('l:', '')
-
-    # Skip the source language (en)
-    if language_code == 'en':
-        continue
-
-    translated_strings = stat.attributes['translated_strings']
-    total_strings = stat.attributes['total_strings']
-
-    # Calculate completeness percentage
-    if language_code not in completeness_percentages:
-        completeness_percentages[language_code] = {'translated_strings': 0, 'total_strings': 0}
-
-    completeness_percentages[language_code]['translated_strings'] += translated_strings
-    completeness_percentages[language_code]['total_strings'] += total_strings
-
-# Update the 'comp' values in languages_data
 languages_json_changed = False
-for language_code, stats in completeness_percentages.items():
-    total_strings = stats['total_strings']
-    translated_strings = stats['translated_strings']
-    completeness_percentage = (translated_strings / total_strings) * 100 if total_strings else 0
 
-    # Round the completeness percentage to two decimal places
-    completeness_percentage = round(completeness_percentage, 2)
+if not args.skip_completeness and not args.dry_run:
+    # Path to the languages.json file (relative to script_dir)
+    languages_json_path = os.path.normpath(os.path.join(script_dir, "../../app/src/assets/languages.json"))
 
-    # If the percentage is a whole number, convert it to int
-    if completeness_percentage.is_integer():
-        completeness_percentage = int(completeness_percentage)
-    if language_code in languages_data:
-        old_comp = languages_data[language_code].get('comp', None)
-        languages_data[language_code]['comp'] = completeness_percentage
-        if old_comp != completeness_percentage:
-            languages_json_changed = True
-            print(f"Updated {language_code} completeness to {completeness_percentage}%")
-    else:
-        print(f"ERROR: Language {language_code} not found in languages.json")
+    # Load the existing languages.json file
+    with open(languages_json_path, 'r', encoding='utf-8') as f:
+        languages_data = json.load(f)
 
-# Save the updated languages.json file if changes were made
-if languages_json_changed:
-    with open(languages_json_path, 'w', encoding='utf-8') as f:
-        json.dump(languages_data, f, indent=4, ensure_ascii=False)
-    # Stage languages.json for commit
-    subprocess.run(['git', 'add', languages_json_path])
-    print(f"Staged {languages_json_path} for commit")
+    # Fetch project language stats
+    project_stats = transifex_api.ResourceLanguageStats.filter(project=project)
 
+    # Calculate completeness percentage per language
+    completeness_percentages = {}
+
+    for stat in project_stats:
+        # Parse language and resource details from the string output
+        language_str = str(stat.language)
+
+        # Extract language code from the unfetched string representation
+        language_code = language_str.split(': ')[1].split(' ')[0].replace('l:', '')
+
+        # Skip the source language (en)
+        if language_code == 'en':
+            continue
+
+        translated_strings = stat.attributes['translated_strings']
+        total_strings = stat.attributes['total_strings']
+
+        # Calculate completeness percentage
+        if language_code not in completeness_percentages:
+            completeness_percentages[language_code] = {'translated_strings': 0, 'total_strings': 0}
+
+        completeness_percentages[language_code]['translated_strings'] += translated_strings
+        completeness_percentages[language_code]['total_strings'] += total_strings
+
+    # Update the 'comp' values in languages_data
+    for language_code, stats in completeness_percentages.items():
+        total_strings = stats['total_strings']
+        translated_strings = stats['translated_strings']
+        completeness_percentage = (translated_strings / total_strings) * 100 if total_strings else 0
+
+        # Round the completeness percentage to two decimal places
+        completeness_percentage = round(completeness_percentage, 2)
+
+        # If the percentage is a whole number, convert it to int
+        if completeness_percentage.is_integer():
+            completeness_percentage = int(completeness_percentage)
+        if language_code in languages_data:
+            old_comp = languages_data[language_code].get('comp', None)
+            languages_data[language_code]['comp'] = completeness_percentage
+            if old_comp != completeness_percentage:
+                languages_json_changed = True
+                print(f"Updated {language_code} completeness to {completeness_percentage}%")
+        else:
+            print(f"ERROR: Language {language_code} not found in languages.json")
+
+    # Save the updated languages.json file if changes were made
+    if languages_json_changed:
+        with open(languages_json_path, 'w', encoding='utf-8') as f:
+            json.dump(languages_data, f, indent=4, ensure_ascii=False)
+        if not args.no_stage:
+            # Stage languages.json for commit
+            subprocess.run(['git', 'add', languages_json_path])
+            print(f"Staged {languages_json_path} for commit")
+        else:
+            print(f"Updated {languages_json_path} (not staged)")
+elif args.skip_completeness:
+    print("\nSkipped completeness percentage update (--skip-completeness).")
+elif args.dry_run:
+    print("\n[DRY RUN] Would update completeness percentages in languages.json.")
+
+# --- Summary and commit ---
 if updated_languages or languages_json_changed:
     # Map language codes to language names
     updated_language_names = [language_names.get(code, code) for code in sorted(updated_languages)]
     languages_str = ', '.join(updated_language_names)
     commit_message = f"Update {languages_str} from Transifex"
-    print("\nThe following languages have been updated and staged for commit:")
+    print("\nThe following languages have been updated:")
     if updated_language_names:
         print(languages_str)
     if languages_json_changed:
         print("languages.json has been updated with new completeness percentages.")
     print(f"\nCommit message: '{commit_message}'")
 
-    # Ask the user to review and confirm the commit
-    user_input = input("\nWould you like to commit these changes? (y/n): ").strip().lower()
-    if user_input == 'y':
-        author_info = 'transifex-translation-updater-bot <submittertech@gmail.com>'
-        subprocess.run(['git', 'commit', '--author', author_info, '-m', commit_message])
-        print("\nChanges have been committed.")
+    if args.dry_run:
+        print("\n[DRY RUN] No files were written or committed.")
+    elif args.no_stage:
+        print("\nFiles have been written but NOT staged. You can review with 'git diff'.")
+    elif args.no_commit:
+        print("\nChanges have been staged but NOT committed. Review with 'git diff --cached'.")
     else:
-        # Revert the staging of the files
-        subprocess.run(['git', 'reset', 'HEAD'])
-        print("\nStaged changes have been reverted.")
+        # Ask the user to review and confirm the commit
+        user_input = input("\nWould you like to commit these changes? (y/n): ").strip().lower()
+        if user_input == 'y':
+            author_info = 'transifex-translation-updater-bot <submittertech@gmail.com>'
+            subprocess.run(['git', 'commit', '--author', author_info, '-m', commit_message])
+            print("\nChanges have been committed.")
+        else:
+            # Revert the staging of the files
+            subprocess.run(['git', 'reset', 'HEAD'])
+            print("\nStaged changes have been reverted.")
 else:
     print("\nNo changes detected in the translation files or languages.json.")
