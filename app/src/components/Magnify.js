@@ -939,9 +939,21 @@ const Magnify = ({ colors, theme, translationApplication, quran, map, appendices
                             />
                             {hitCounts.length > 0 && searchTerm.length > 1 && (
                                 <span
-                                    className={`absolute top-0.5 ${direction === 'rtl' ? 'left-1' : 'right-1'} text-xs pointer-events-none ${colors[theme]["matching-text"]}`}
+                                    className={`absolute top-0 ${direction === 'rtl' ? 'left-1' : 'right-1'} text-xs pointer-events-none ${colors[theme]["matching-text"]} max-w-[97%] overflow-hidden whitespace-nowrap text-ellipsis`}
                                 >
-                                    {hitCounts.map(group => group.join(' ')).join('|')}
+                                    {hitCounts.map((group, gi) => (
+                                        <span key={gi}>
+                                            {gi > 0 && ' | '}
+                                            {group.map((count, ci) => (
+                                                <span key={ci}>
+                                                    {ci > 0 && ' '}
+                                                    {count > 0 && count % 19 === 0
+                                                        ? <span dir="ltr">{count} (<span className="text-nowrap">19 x {count / 19}</span>)</span>
+                                                        : count}
+                                                </span>
+                                            ))}
+                                        </span>
+                                    ))}
                                 </span>
                             )}
                         </div>
@@ -1163,6 +1175,94 @@ const Magnify = ({ colors, theme, translationApplication, quran, map, appendices
                         </div>
                     </div>
                 }
+                {searchTerm.length === 0 && (
+                    <div dir={direction} className={`w-full h-full flex items-start justify-center px-5 pt-4 overflow-y-auto opacity-75`}>
+                        <div className={`text-xs md:text-sm ${colors[theme]["page-text"]} space-y-2.5 max-w-2xl`}>
+                            <div className="flex items-center gap-1">
+                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-4 h-4 shrink-0"><path strokeLinecap="round" strokeLinejoin="round" d="m21 21-5.197-5.197m0 0A7.5 7.5 0 1 0 5.196 5.196a7.5 7.5 0 0 0 10.607 10.607Z" /></svg>
+                                <span>{translationApplication?.searchHint1}</span>
+                            </div>
+                            <div className="flex items-center gap-1 mt-1">
+                                <span className="w-3 h-3 shrink-0 mx-0.5 flex items-center justify-center">•</span>
+                                <span>{translationApplication?.searchHintExamples}</span>
+                            </div>
+                            <div className={`flex items-center gap-2.5 ${direction === 'rtl' ? 'pr-5' : 'pl-5'}`}>
+                                <span className={`shrink-0 font-mono font-bold ${colors[theme]["matching-text"]}`}>{translationApplication?.searchHint2aEx}</span>
+                                <span>{translationApplication?.searchHint2a}</span>
+                            </div>
+                            <div className={`flex items-center gap-2.5 ${direction === 'rtl' ? 'pr-5' : 'pl-5'}`}>
+                                <span className={`shrink-0 font-mono font-bold ${colors[theme]["matching-text"]}`}>{translationApplication?.searchHint2bEx}</span>
+                                <span>{translationApplication?.searchHint2b}</span>
+                            </div>
+                            <div className={`flex items-center gap-2.5 ${direction === 'rtl' ? 'pr-5' : 'pl-5'}`}>
+                                <span className={`shrink-0 font-mono font-bold ${colors[theme]["matching-text"]}`}>2:255</span>
+                                <span>{translationApplication?.searchHint3a}</span>
+                            </div>
+                            <div className={`flex items-center gap-2.5 ${direction === 'rtl' ? 'pr-5' : 'pl-5'}`}>
+                                <span className={`shrink-0 font-mono font-bold ${colors[theme]["matching-text"]}`}>2:1-5</span>
+                                <span>{translationApplication?.searchHint3b}</span>
+                            </div>
+                            <div className={`flex items-center gap-2.5 ${direction === 'rtl' ? 'pr-5' : 'pl-5'}`}>
+                                <span className={`shrink-0 font-mono font-bold ${colors[theme]["matching-text"]}`}>2:</span>
+                                <span>{translationApplication?.searchHint3c}</span>
+                            </div>
+                            <div className={`flex items-center gap-2.5 ${direction === 'rtl' ? 'pr-5' : 'pl-5'}`}>
+                                <span className={`shrink-0 font-mono font-bold ${colors[theme]["matching-text"]}`}>:12</span>
+                                <span>{translationApplication?.searchHint3d}</span>
+                            </div>
+                            <div className={`flex items-center gap-2.5 ${direction === 'rtl' ? 'pr-5' : 'pl-5'}`}>
+                                <span>{translationApplication?.searchHint4a}</span>
+                            </div>
+                            <div className={`flex items-center gap-2.5 ${direction === 'rtl' ? 'pr-5' : 'pl-5'}`}>
+                                <span className={`shrink-0 font-mono font-bold ${colors[theme]["matching-text"]}`}>2:255, :12</span>
+                            </div>
+                            <div className={`flex items-center gap-2.5 ${direction === 'rtl' ? 'pr-5' : 'pl-5'}`}>
+                                <span className={`shrink-0 font-mono font-bold ${colors[theme]["matching-text"]}`}>2:1-5; :12</span>
+                            </div>
+                            <div className={`flex items-center gap-2.5 ${direction === 'rtl' ? 'pr-5' : 'pl-5'}`}>
+                                <span className={`shrink-0 font-mono font-bold ${colors[theme]["matching-text"]}`}>2: 3:45 :7</span>
+                            </div>
+                            <div className={`flex items-center gap-2.5 ${direction === 'rtl' ? 'pr-5' : 'pl-5'}`}>
+                                <span className="opacity-60">{translationApplication?.searchHint4b}</span>
+                            </div>
+                            <div className="flex items-center gap-2">
+                                <span className={`shrink-0 font-mono font-bold text-lg ${colors[theme]["matching-text"]}`}>A</span>
+                                <span>{translationApplication?.searchHint5}</span>
+                            </div>
+                            <div className="flex items-center gap-1.5">
+                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-4 h-4 shrink-0"><path strokeLinecap="round" strokeLinejoin="round" d="M10.343 3.94c.09-.542.56-.94 1.11-.94h1.093c.55 0 1.02.398 1.11.94l.149.894c.07.424.384.764.78.93.398.164.855.142 1.205-.108l.737-.527a1.125 1.125 0 0 1 1.45.12l.773.774c.39.389.44 1.002.12 1.45l-.527.737c-.25.35-.272.806-.107 1.204.165.397.505.71.93.78l.893.15c.543.09.94.559.94 1.109v1.094c0 .55-.397 1.02-.94 1.11l-.894.149c-.424.07-.764.383-.929.78-.165.398-.143.854.107 1.204l.527.738c.32.447.269 1.06-.12 1.45l-.774.773a1.125 1.125 0 0 1-1.449.12l-.738-.527c-.35-.25-.806-.272-1.203-.107-.398.165-.71.505-.781.929l-.149.894c-.09.542-.56.94-1.11.94h-1.094c-.55 0-1.019-.398-1.11-.94l-.148-.894c-.071-.424-.384-.764-.781-.93-.398-.164-.854-.142-1.204.108l-.738.527c-.447.32-1.06.269-1.45-.12l-.773-.774a1.125 1.125 0 0 1-.12-1.45l.527-.737c.25-.35.272-.806.108-1.204-.165-.397-.506-.71-.93-.78l-.894-.15c-.542-.09-.94-.56-.94-1.109v-1.094c0-.55.398-1.02.94-1.11l.894-.149c.424-.07.765-.383.93-.78.165-.398.143-.854-.108-1.204l-.526-.738a1.125 1.125 0 0 1 .12-1.45l.773-.773a1.125 1.125 0 0 1 1.45-.12l.737.527c.35.25.807.272 1.204.107.397-.165.71-.505.78-.929l.15-.894Z" /><path strokeLinecap="round" strokeLinejoin="round" d="M15 12a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z" /></svg>
+                                <span>{translationApplication?.searchHint6}</span>
+                            </div>
+                            <div className="flex items-center gap-2">
+                                <span className={`shrink-0 font-mono font-bold ${colors[theme]["matching-text"]}`}>19</span>
+                                <span>{translationApplication?.searchHint7}</span>
+                            </div>
+                            <div className="flex items-center gap-2">
+                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-4 h-4 shrink-0"><path strokeLinecap="round" strokeLinejoin="round" d="M15.042 21.672 13.684 16.6m0 0-2.51 2.225.569-9.47 5.227 7.917-3.286-.672ZM12 2.25V4.5m5.834.166-1.591 1.591M20.25 10.5H18M7.757 14.743l-1.59 1.59M6 10.5H3.75m4.007-4.243-1.59-1.591" /></svg>
+                                <span>{translationApplication?.searchHint8}</span>
+                            </div>
+                            <div className="flex items-center gap-2">
+                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-4 h-4 shrink-0"><path strokeLinecap="round" strokeLinejoin="round" d="M3.75 12h16.5m-16.5 3.75h16.5M3.75 19.5h16.5M5.625 4.5h12.75a1.875 1.875 0 0 1 0 3.75H5.625a1.875 1.875 0 0 1 0-3.75Z" /></svg>
+                                <span>{translationApplication?.searchHint9}</span>
+                            </div>
+                            <div className={`flex items-center gap-2 ${direction === 'rtl' ? 'pr-6' : 'pl-6'}`}>
+                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-3.5 h-3.5 shrink-0"><path strokeLinecap="round" strokeLinejoin="round" d="M10.125 2.25h-4.5c-.621 0-1.125.504-1.125 1.125v17.25c0 .621.504 1.125 1.125 1.125h12.75c.621 0 1.125-.504 1.125-1.125v-9M10.125 2.25h.375a9 9 0 0 1 9 9v.375M10.125 2.25A3.375 3.375 0 0 1 13.5 5.625v1.5c0 .621.504 1.125 1.125 1.125h1.5a3.375 3.375 0 0 1 3.375 3.375M9 15l2.25 2.25L15 12" /></svg>
+                                <span>{translationApplication?.searchHint10}</span>
+                            </div>
+                            <div className={`flex items-center gap-2 ${direction === 'rtl' ? 'pr-6' : 'pl-6'}`}>
+                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-3.5 h-3.5 shrink-0"><path strokeLinecap="round" strokeLinejoin="round" d="M9 12h3.75M9 15h3.75M9 18h3.75m3 .75H18a2.25 2.25 0 0 0 2.25-2.25V6.108c0-1.135-.845-2.098-1.976-2.192a48.424 48.424 0 0 0-1.123-.08m-5.801 0c-.065.21-.1.433-.1.664 0 .414.336.75.75.75h4.5a.75.75 0 0 0 .75-.75 2.25 2.25 0 0 0-.1-.664m-5.8 0A2.251 2.251 0 0 1 13.5 2.25H15c1.012 0 1.867.668 2.15 1.586m-5.8 0c-.376.023-.75.05-1.124.08C9.095 4.01 8.25 4.973 8.25 6.108V8.25m0 0H4.875c-.621 0-1.125.504-1.125 1.125v11.25c0 .621.504 1.125 1.125 1.125h9.75c.621 0 1.125-.504 1.125-1.125V9.375c0-.621-.504-1.125-1.125-1.125H8.25ZM6.75 12h.008v.008H6.75V12Zm0 3h.008v.008H6.75V15Zm0 3h.008v.008H6.75V18Z" /></svg>
+                                <span>{translationApplication?.copied?.replace('!', '')}</span>
+                                <span className="opacity-40">|</span>
+                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-3.5 h-3.5 shrink-0"><path strokeLinecap="round" strokeLinejoin="round" d="M7.217 10.907a2.25 2.25 0 1 0 0 2.186m0-2.186c.18.324.283.696.283 1.093s-.103.77-.283 1.093m0-2.186 9.566-5.314m-9.566 7.5 9.566 5.314m0 0a2.25 2.25 0 1 0 3.935 2.186 2.25 2.25 0 0 0-3.935-2.186Zm0-12.814a2.25 2.25 0 1 0 3.933-2.185 2.25 2.25 0 0 0-3.933 2.185Z" /></svg>
+                                <span>Link</span>
+                            </div>
+                            <div className="flex items-center gap-2">
+                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-4 h-4 shrink-0"><path strokeLinecap="round" strokeLinejoin="round" d="M12 6v6h4.5m4.5 0a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" /></svg>
+                                <span>{translationApplication?.searchHint11}</span>
+                            </div>
+                        </div>
+                    </div>
+                )}
                 {(searchTerm.length === 1 && !/^\d$/.test(searchTerm)) &&
                     <div className={`w-full h-full px-1 z-0 overflow-y-scroll`}
                         style={{
