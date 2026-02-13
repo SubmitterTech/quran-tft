@@ -1231,7 +1231,7 @@ const Magnify = ({ colors, theme, translationApplication, quran, map, appendices
                             </div>
                             <div className="flex items-center gap-1.5">
                                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-4 h-4 shrink-0"><path strokeLinecap="round" strokeLinejoin="round" d="M10.343 3.94c.09-.542.56-.94 1.11-.94h1.093c.55 0 1.02.398 1.11.94l.149.894c.07.424.384.764.78.93.398.164.855.142 1.205-.108l.737-.527a1.125 1.125 0 0 1 1.45.12l.773.774c.39.389.44 1.002.12 1.45l-.527.737c-.25.35-.272.806-.107 1.204.165.397.505.71.93.78l.893.15c.543.09.94.559.94 1.109v1.094c0 .55-.397 1.02-.94 1.11l-.894.149c-.424.07-.764.383-.929.78-.165.398-.143.854.107 1.204l.527.738c.32.447.269 1.06-.12 1.45l-.774.773a1.125 1.125 0 0 1-1.449.12l-.738-.527c-.35-.25-.806-.272-1.203-.107-.398.165-.71.505-.781.929l-.149.894c-.09.542-.56.94-1.11.94h-1.094c-.55 0-1.019-.398-1.11-.94l-.148-.894c-.071-.424-.384-.764-.781-.93-.398-.164-.854-.142-1.204.108l-.738.527c-.447.32-1.06.269-1.45-.12l-.773-.774a1.125 1.125 0 0 1-.12-1.45l.527-.737c.25-.35.272-.806.108-1.204-.165-.397-.506-.71-.93-.78l-.894-.15c-.542-.09-.94-.56-.94-1.109v-1.094c0-.55.398-1.02.94-1.11l.894-.149c.424-.07.765-.383.93-.78.165-.398.143-.854-.108-1.204l-.526-.738a1.125 1.125 0 0 1 .12-1.45l.773-.773a1.125 1.125 0 0 1 1.45-.12l.737.527c.35.25.807.272 1.204.107.397-.165.71-.505.78-.929l.15-.894Z" /><path strokeLinecap="round" strokeLinejoin="round" d="M15 12a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z" /></svg>
-                                <span>{translationApplication?.searchHint6}</span>
+                                <span>{direction === 'rtl' ? translationApplication?.exact : translationApplication?.searchHint6}</span>
                             </div>
                             <div className="flex items-center gap-2">
                                 <span className={`shrink-0 font-mono font-bold ${colors[theme]["matching-text"]}`}>19</span>
@@ -1315,18 +1315,18 @@ const Magnify = ({ colors, theme, translationApplication, quran, map, appendices
                 }
             </div>
             {optionsVisible && (
-                <div className={`fixed left-1 right-1 ${colors[theme]["app-background"]} z-50 shadow-lg rounded px-1 py-1.5 border ${colors[theme]["border"]}`}
+                <div dir={direction} className={`fixed left-1 right-1 ${colors[theme]["app-background"]} z-50 shadow-lg rounded px-1 py-1.5 border ${colors[theme]["border"]}`}
                     style={{ top: `calc(3.3rem + env(safe-area-inset-top) * 0.76)` }}>
                     <div className={`flex flex-col text-lg md:text-xl`}>
-                        <label className={`flex items-center justify-between md:justify-end space-x-2 p-3 border-b cursor-pointer ${colors[theme]["verse-border"]}`}>
-                            <span className={`${caseSensitive && direction !== 'rtl' ? colors[theme]["text"] : colors[theme]["page-text"]}`}>{translationApplication?.case}</span>
+                        {direction !== 'rtl' && (
+                        <label className={`flex items-center justify-between md:justify-end gap-2 p-3 border-b cursor-pointer ${colors[theme]["verse-border"]}`}>
+                            <span className={`${caseSensitive ? colors[theme]["text"] : colors[theme]["page-text"]}`}>{translationApplication?.case}</span>
                             <div>
                                 <label className='flex cursor-pointer select-none items-center'>
                                     <div className='relative'>
                                         <input
                                             type='checkbox'
                                             checked={caseSensitive}
-                                            disabled={direction === 'rtl'}
                                             onChange={(e) => setCaseSensitive(e.target.checked)}
                                             className='sr-only'
                                         />
@@ -1336,15 +1336,16 @@ const Magnify = ({ colors, theme, translationApplication, quran, map, appendices
                                 </label>
                             </div>
                         </label>
-                        <label className={`flex items-center justify-between md:justify-end space-x-2 p-3 border-b cursor-pointer ${colors[theme]["verse-border"]}`}>
-                            <span className={`${normalize && direction !== 'rtl' ? colors[theme]["text"] : colors[theme]["page-text"]}`}>{translationApplication?.norm}</span>
+                        )}
+                        {direction !== 'rtl' && (
+                        <label className={`flex items-center justify-between md:justify-end gap-2 p-3 border-b cursor-pointer ${colors[theme]["verse-border"]}`}>
+                            <span className={`${normalize ? colors[theme]["text"] : colors[theme]["page-text"]}`}>{translationApplication?.norm}</span>
                             <div>
                                 <label className='flex cursor-pointer select-none items-center'>
                                     <div className='relative'>
                                         <input
                                             type='checkbox'
                                             checked={normalize}
-                                            disabled={direction === 'rtl'}
                                             onChange={(e) => setNormalize(e.target.checked)}
                                             className='sr-only'
                                         />
@@ -1354,7 +1355,8 @@ const Magnify = ({ colors, theme, translationApplication, quran, map, appendices
                                 </label>
                             </div>
                         </label>
-                        <label className={`flex items-center justify-between md:justify-end space-x-2 p-3 cursor-pointer `}>
+                        )}
+                        <label className={`flex items-center justify-between md:justify-end gap-2 p-3 cursor-pointer`}>
                             <span className={`${exactMatch ? colors[theme]["text"] : colors[theme]["page-text"]}`}>{translationApplication?.exact || "Exact Match"}</span>
                             <div>
                                 <label className='flex cursor-pointer select-none items-center'>

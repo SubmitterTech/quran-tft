@@ -1291,10 +1291,10 @@ const Book = React.memo(({ incomingSearch = false, incomingAppendix = false, inc
                             (<div
                                 style={{ animation: 'animate-scale 0.2s ease-in-out' }}
                                 className={`mx-3 z-40 ${colors[theme]["app-background"]} flex items-center justify-center rounded shadow-lg`}>
-                                <div className={`rounded px-1 py-1.5 border ${colors[theme]["border"]}`}
+                                <div dir={direction} className={`rounded px-1 py-1.5 border ${colors[theme]["border"]}`}
                                     style={{ top: `calc(3.3rem + env(safe-area-inset-top) * 0.76)` }}>
                                     <div className={`flex flex-col text-lg md:text-xl`}>
-                                        <label dir={direction} className={`flex items-center justify-between md:justify-end pt-3.5 px-3 pb-2 cursor-pointer  ${direction === 'rtl' ? `` : `space-x-4 `}`}>
+                                        <label className={`flex items-center justify-between md:justify-end gap-4 pt-3.5 px-3 pb-2 cursor-pointer`}>
                                             <span className={`${rememberHistory ? colors[theme]["text"] : colors[theme]["page-text"]}`}>{translationApplication?.returnToJumped}</span>
                                             <div>
                                                 <label className='flex cursor-pointer select-none items-center'>
@@ -1312,8 +1312,8 @@ const Book = React.memo(({ incomingSearch = false, incomingAppendix = false, inc
                                             </div>
                                         </label>
                                         <div className={`border-b ${colors[theme]["verse-border"]} mx-1 mt-2`} ></div>
-                                        <label dir={direction} className={`flex items-center justify-between md:justify-end pt-3.5 px-3 pb-2 cursor-pointer ${direction === 'rtl' ? `` : `space-x-4 `}`}>
-                                            <span className={`text-base ${direction === 'rtl' ? `pl-4` : ` `} break-words ${rememberHistory ? `` : ` brightness-50`} ${(keepVerseDetailsOpen && rememberHistory) ? colors[theme]["text"] : colors[theme]["page-text"]}`}>{translationApplication?.keepDetailsOpen}</span>
+                                        <label className={`flex items-center justify-between md:justify-end gap-4 pt-3.5 px-3 pb-2 cursor-pointer`}>
+                                            <span className={`text-base break-words ${rememberHistory ? `` : ` brightness-50`} ${(keepVerseDetailsOpen && rememberHistory) ? colors[theme]["text"] : colors[theme]["page-text"]}`}>{translationApplication?.keepDetailsOpen}</span>
                                             <div>
                                                 <label className='flex cursor-pointer select-none items-center'>
                                                     <div className='relative'>
@@ -1331,8 +1331,8 @@ const Book = React.memo(({ incomingSearch = false, incomingAppendix = false, inc
                                             </div>
                                         </label>
                                         <div className={`border-b ${colors[theme]["verse-border"]} mx-1 mt-2`} ></div>
-                                        <label dir={direction} className={`flex items-center justify-between md:justify-end pt-3.5 px-3 pb-2 cursor-pointer ${direction === 'rtl' ? `` : `space-x-4 `}`}>
-                                            <span className={`text-base ${direction === 'rtl' ? `pl-4` : ` `} break-words ${rememberHistory ? `` : ` brightness-50`} ${(includeSearchScreen && rememberHistory) ? colors[theme]["text"] : colors[theme]["page-text"]}`}>{translationApplication?.includeSearch}</span>
+                                        <label className={`flex items-center justify-between md:justify-end gap-4 pt-3.5 px-3 pb-2 cursor-pointer`}>
+                                            <span className={`text-base break-words ${rememberHistory ? `` : ` brightness-50`} ${(includeSearchScreen && rememberHistory) ? colors[theme]["text"] : colors[theme]["page-text"]}`}>{translationApplication?.includeSearch}</span>
                                             <div>
                                                 <label className='flex cursor-pointer select-none items-center'>
                                                     <div className='relative'>
