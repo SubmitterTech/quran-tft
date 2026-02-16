@@ -1072,7 +1072,7 @@ const Book = React.memo(({ incomingSearch = false, incomingAppendix = false, inc
             {renderBookContent()}
             <div>
                 <div className={`h-12 lg:h-14`}></div>
-                <div className={`w-full flex ${isJumpOpen ? 'z-[80]' : 'z-40'} ${colors[theme]["app-background"]} fixed bottom-0`}
+                <div className={`w-full flex z-[220] ${colors[theme]["app-background"]} fixed bottom-0`}
                     style={{ paddingBottom: 'calc(env(safe-area-inset-bottom) * 0.57)' }}>
                     <div className={`relative flex w-full items-center justify-between`}>
                         <div className={`absolute h-0.5 left-0 -top-0.5 ${colors[theme]["matching"]}`} style={{ width: `${progressPercentage}%` }}></div>

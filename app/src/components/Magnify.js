@@ -1,4 +1,4 @@
-import { useState, useEffect, useCallback, useRef } from 'react';
+import { useState, useEffect, useCallback, useRef, useMemo } from 'react';
 import { mapAppendices, mapQuran } from '../utils/Mapper';
 import { isNative } from '../utils/Device';
 import languages from '../assets/languages.json';
@@ -56,8 +56,192 @@ const exactIndexOf = (hay, phrase, startFrom) => {
     return -1;
 };
 
+const splitQuerySegments = (text) => {
+    const segments = [];
+    if (!text) return segments;
+
+    let current = '';
+    let mode = null;
+
+    for (const ch of String(text)) {
+        const nextMode = isWordChar(ch) ? 'word' : 'sep';
+        if (mode === null || mode === nextMode) {
+            current += ch;
+            mode = nextMode;
+        } else {
+            segments.push({ type: mode, value: current });
+            current = ch;
+            mode = nextMode;
+        }
+    }
+
+    if (current) {
+        segments.push({ type: mode, value: current });
+    }
+    return segments;
+};
+
+const hasLocalizedDigit = (value, localizedDigits = []) => {
+    if (value == null) return false;
+    const text = String(value);
+    if (/\d/.test(text)) return true;
+    for (const ch of text) {
+        if (localizedDigits.includes(ch)) return true;
+    }
+    return false;
+};
+
+const isSingleLocalizedDigit = (value, localizedDigits = []) => {
+    const text = String(value ?? '');
+    return text.length === 1 && hasLocalizedDigit(text, localizedDigits);
+};
+
+const foldRtlScript = (value) => {
+    if (value == null) return value;
+    return String(value)
+        // Remove kashida and ZW chars for stable matching.
+        .replace(/[\u0640\u200c\u200d]/g, '')
+        // Remove Arabic diacritics.
+        .replace(/[\u064b-\u065f\u0670\u06d6-\u06ed]/g, '')
+        // Normalize Arabic/Persian letter variants.
+        .replace(/[أإآٱ]/g, 'ا')
+        .replace(/ؤ/g, 'و')
+        .replace(/[ئى]/g, 'ی')
+        .replace(/[ي]/g, 'ی')
+        .replace(/[ك]/g, 'ک')
+        .replace(/[ةۀ]/g, 'ه');
+};
+
+const commonPrefixLength = (a, b) => {
+    const max = Math.min(a?.length || 0, b?.length || 0);
+    let i = 0;
+    while (i < max && a[i] === b[i]) i++;
+    return i;
+};
+
+const buildTrigramMap = (text) => {
+    const map = new Map();
+    if (!text) return map;
+    if (text.length < 3) {
+        map.set(text, 1);
+        return map;
+    }
+    for (let i = 0; i <= text.length - 3; i++) {
+        const gram = text.slice(i, i + 3);
+        map.set(gram, (map.get(gram) || 0) + 1);
+    }
+    return map;
+};
+
+const trigramSimilarity = (a, b) => {
+    if (!a || !b) return 0;
+    if (a === b) return 1;
+    const ga = buildTrigramMap(a);
+    const gb = buildTrigramMap(b);
+    let intersection = 0;
+    let totalA = 0;
+    let totalB = 0;
+
+    ga.forEach((count, gram) => {
+        totalA += count;
+        const other = gb.get(gram) || 0;
+        intersection += Math.min(count, other);
+    });
+    gb.forEach((count) => {
+        totalB += count;
+    });
+
+    if (totalA + totalB === 0) return 0;
+    return (2 * intersection) / (totalA + totalB);
+};
+
+const bagDistance = (a, b) => {
+    const counts = new Map();
+    for (const ch of a) counts.set(ch, (counts.get(ch) || 0) + 1);
+    for (const ch of b) counts.set(ch, (counts.get(ch) || 0) - 1);
+    let gap = 0;
+    for (const value of counts.values()) gap += Math.abs(value);
+    return gap;
+};
+
+const isSingleAdjacentTransposition = (a, b) => {
+    if (!a || !b || a.length !== b.length) return false;
+    let first = -1;
+    let second = -1;
+
+    for (let i = 0; i < a.length; i++) {
+        if (a[i] !== b[i]) {
+            if (first === -1) {
+                first = i;
+            } else if (second === -1) {
+                second = i;
+            } else {
+                return false;
+            }
+        }
+    }
+
+    if (first === -1 || second === -1 || second !== first + 1) return false;
+    return a[first] === b[second] && a[second] === b[first];
+};
+
+const boundedDamerauLevenshtein = (a, b, maxDistance = 2) => {
+    if (a === b) return 0;
+    if (!a || !b) return Math.max(a?.length || 0, b?.length || 0);
+
+    const alen = a.length;
+    const blen = b.length;
+    if (Math.abs(alen - blen) > maxDistance) return Infinity;
+
+    let prevPrev = null;
+    let prev = new Array(blen + 1);
+    for (let j = 0; j <= blen; j++) prev[j] = j;
+
+    for (let i = 1; i <= alen; i++) {
+        const curr = new Array(blen + 1).fill(Infinity);
+        curr[0] = i;
+
+        const start = Math.max(1, i - maxDistance - 1);
+        const end = Math.min(blen, i + maxDistance + 1);
+
+        let rowMin = curr[0];
+
+        for (let j = start; j <= end; j++) {
+            const cost = a[i - 1] === b[j - 1] ? 0 : 1;
+            const insertCost = (curr[j - 1] ?? Infinity) + 1;
+            const deleteCost = (prev[j] ?? Infinity) + 1;
+            const replaceCost = (prev[j - 1] ?? Infinity) + cost;
+            let best = Math.min(insertCost, deleteCost, replaceCost);
+
+            if (
+                prevPrev
+                && i > 1
+                && j > 1
+                && a[i - 1] === b[j - 2]
+                && a[i - 2] === b[j - 1]
+            ) {
+                best = Math.min(best, (prevPrev[j - 2] ?? Infinity) + 1);
+            }
+
+            curr[j] = best;
+            if (best < rowMin) rowMin = best;
+        }
+
+        if (rowMin > maxDistance) return Infinity;
+        prevPrev = prev;
+        prev = curr;
+    }
+
+    return prev[blen] <= maxDistance ? prev[blen] : Infinity;
+};
+
 const Magnify = ({ colors, theme, translationApplication, quran, map, appendices, introduction, onClose, onConfirm, direction, multiSelect, setMultiSelect, selectedVerseList, setSelectedVerseList }) => {
     const lang = localStorage.getItem("lang");
+    const langCfg = useMemo(() => (languages && languages[lang] ? languages[lang] : null), [lang]);
+    const isRtlLanguage = !!(langCfg && langCfg.dir === 'rtl');
+    const langDigits = useMemo(() => (
+        langCfg && langCfg.nums ? langCfg.nums.split(/\s+/).filter(Boolean) : []
+    ), [langCfg]);
 
     const [searchTerm, setSearchTerm] = useState(localStorage.getItem("qurantft-magnify-st") || "");
     const [exactMatch, setExactMatch] = useState(() => {
@@ -85,6 +269,7 @@ const Magnify = ({ colors, theme, translationApplication, quran, map, appendices
     const [searchResultNotes, setSearchResultNotes] = useState([]);
     const [searchResultAppendices, setSearchResultAppendices] = useState([]);
     const [hitCounts, setHitCounts] = useState([]);
+    const [didYouMeanSuggestions, setDidYouMeanSuggestions] = useState([]);
 
     const [loadedTitles, setLoadedTitles] = useState([]);
     const [loadedVerses, setLoadedVerses] = useState([]);
@@ -94,6 +279,7 @@ const Magnify = ({ colors, theme, translationApplication, quran, map, appendices
 
 
     const batchSize = 19;
+    const suggestionLimit = 5;
     const observerTitles = useRef();
     const observerVerses = useRef();
     const observerNotes = useRef();
@@ -112,6 +298,7 @@ const Magnify = ({ colors, theme, translationApplication, quran, map, appendices
     const saveLastSelection = useRef(false);
     const [notify, setNotify] = useState(null);
     const loadingElementsTimer = useRef(null);
+    const suggestionIndexRef = useRef({ frequency: new Map(), byLength: new Map() });
 
     const titlesReferences = useRef({});
     const versesReferences = useRef({});
@@ -184,6 +371,9 @@ const Magnify = ({ colors, theme, translationApplication, quran, map, appendices
 
     const searchFold = useCallback((text) => {
         let t = text;
+        if (isRtlLanguage) {
+            t = foldRtlScript(t);
+        }
         if ((lang === "tr" || lang === "az") && normalize) {
             t = t.replace(/[İIıi]/g, "i");
         }
@@ -194,7 +384,302 @@ const Magnify = ({ colors, theme, translationApplication, quran, map, appendices
             t = t.toLocaleUpperCase(lang);
         }
         return t;
-    }, [lang, normalize, caseSensitive]);
+    }, [lang, normalize, caseSensitive, isRtlLanguage]);
+
+    useEffect(() => {
+        const langCfg = languages && languages[lang] ? languages[lang] : null;
+        const langDigits = (langCfg && langCfg.nums ? langCfg.nums.split(/\s+/).filter(Boolean) : []);
+        const digitSet = new Set(langDigits);
+
+        if (!quran || !introduction) {
+            suggestionIndexRef.current = { frequency: new Map(), byLength: new Map() };
+            return;
+        }
+
+        const hasAnyDigitLocal = (s) => {
+            if (s == null) return false;
+            if (/\d/.test(s)) return true;
+            for (const ch of String(s)) if (digitSet.has(ch)) return true;
+            return false;
+        };
+
+        const isTurkic = lang === 'tr' || lang === 'az';
+        const turkicSuffixes = [
+            'LERİ', 'LARI', 'LERI', 'LARİ',
+            'LER', 'LAR',
+            'NIN', 'NİN', 'NUN', 'NÜN',
+            'DAN', 'DEN', 'TAN', 'TEN',
+            'YI', 'Yİ', 'YU', 'YÜ',
+            'NI', 'Nİ', 'NU', 'NÜ',
+            'IN', 'İN', 'UN', 'ÜN',
+            'SI', 'Sİ', 'SU', 'SÜ',
+            'IM', 'İM', 'UM', 'ÜM',
+            'M'
+        ];
+        const singleSuffixes = ['I', 'İ', 'U', 'Ü', 'A', 'E'];
+
+        const buildStemVariants = (token) => {
+            if (!isTurkic || !token || token.length < 5) return [];
+            const stems = new Set();
+            const queue = [{ value: token, depth: 0 }];
+
+            while (queue.length > 0) {
+                const { value, depth } = queue.shift();
+                if (depth >= 2) continue;
+
+                turkicSuffixes.forEach((suffix) => {
+                    if (!value.endsWith(suffix)) return;
+                    const stem = value.slice(0, -suffix.length);
+                    if (stem.length < 4 || stem === token || stems.has(stem)) return;
+                    stems.add(stem);
+                    queue.push({ value: stem, depth: depth + 1 });
+                });
+
+                if (value.length >= 7) {
+                    singleSuffixes.forEach((suffix) => {
+                        if (!value.endsWith(suffix)) return;
+                        const stem = value.slice(0, -suffix.length);
+                        if (stem.length < 4 || stem === token || stems.has(stem)) return;
+                        stems.add(stem);
+                        queue.push({ value: stem, depth: depth + 1 });
+                    });
+                }
+            }
+
+            return Array.from(stems);
+        };
+
+        const frequency = new Map();
+        const addToken = (token, weight = 1) => {
+            if (!token || token.length < 2) return;
+            if (hasAnyDigitLocal(token)) return;
+            frequency.set(token, (frequency.get(token) || 0) + weight);
+        };
+
+        const addText = (text) => {
+            if (text == null) return;
+            const foldedText = searchFold(String(text));
+            splitQuerySegments(foldedText).forEach((segment) => {
+                if (segment.type !== 'word') return;
+                addToken(segment.value, 1);
+                buildStemVariants(segment.value).forEach((stem) => addToken(stem, 0.42));
+            });
+        };
+
+        for (const page in quran) {
+            const suras = quran[page].sura;
+            for (const suraNumber in suras) {
+                const verses = suras[suraNumber].verses;
+                for (const verseNumber in verses) {
+                    addText(verses[verseNumber]);
+                }
+
+                const titles = suras[suraNumber].titles;
+                for (const titleNumber in titles) {
+                    addText(titles[titleNumber]);
+                }
+            }
+
+            const notes = quran[page].notes?.data;
+            if (notes && notes.length > 0) {
+                Object.values(notes).forEach((note) => addText(note));
+            }
+        }
+
+        for (const section in introduction) {
+            const introContent = (introduction[section].page !== 1 && introduction[section].page !== 22)
+                ? introduction[section]
+                : null;
+
+            if (!introContent) continue;
+
+            Object.entries(introContent).forEach(([type, content]) => {
+                if (type === "page") return;
+                if (content && typeof content === 'object') {
+                    Object.values(content).forEach((value) => addText(value));
+                } else {
+                    addText(content);
+                }
+            });
+        }
+
+        for (const appx in appsmap) {
+            const appxContent = appsmap[appx].content;
+            Object.values(appxContent)
+                .filter(element => (
+                    element.type === "text"
+                    || element.type === "title"
+                    || (element.type === "table" && element.content.ref && element.content.ref.trim() !== "")
+                ))
+                .forEach(element => {
+                    const appendixText = element.type === 'table'
+                        ? element.content.ref.toString()
+                        : element.content.toString();
+                    addText(appendixText);
+                });
+        }
+
+        if (translationApplication && typeof translationApplication === 'object') {
+            Object.values(translationApplication).forEach((value) => {
+                if (typeof value === 'string') {
+                    addText(value);
+                }
+            });
+        }
+
+        const byLength = new Map();
+        for (const token of frequency.keys()) {
+            const len = token.length;
+            if (!byLength.has(len)) byLength.set(len, []);
+            byLength.get(len).push(token);
+        }
+
+        suggestionIndexRef.current = { frequency, byLength };
+    }, [quran, introduction, appsmap, translationApplication, lang, searchFold]);
+
+    const buildDidYouMean = useCallback((rawTerm) => {
+        const term = String(rawTerm || '');
+        if (term.trim().length < 2) return [];
+
+        const { frequency, byLength } = suggestionIndexRef.current;
+        if (!frequency || frequency.size === 0) return [];
+
+        const langCfg = languages && languages[lang] ? languages[lang] : null;
+        const langDigits = (langCfg && langCfg.nums ? langCfg.nums.split(/\s+/).filter(Boolean) : []);
+        const digitSet = new Set(langDigits);
+
+        const hasAnyDigitLocal = (s) => {
+            if (s == null) return false;
+            if (/\d/.test(s)) return true;
+            for (const ch of String(s)) if (digitSet.has(ch)) return true;
+            return false;
+        };
+
+        const locale = lang || undefined;
+        const shapeToken = (candidate, originalToken) => {
+            if (caseSensitive) return candidate;
+            const lower = candidate.toLocaleLowerCase(locale);
+            const upper = originalToken.toLocaleUpperCase(locale);
+            const originalLower = originalToken.toLocaleLowerCase(locale);
+            if (originalToken === upper) return candidate;
+            if (
+                originalToken.length > 1
+                && originalToken[0] === upper[0]
+                && originalToken.slice(1) === originalLower.slice(1)
+            ) {
+                return lower[0].toLocaleUpperCase(locale) + lower.slice(1);
+            }
+            return lower;
+        };
+
+        const getCandidates = (foldedToken) => {
+            if (!foldedToken || foldedToken.length < 2) return [];
+            const maxDistance = foldedToken.length >= 7 ? 3 : (foldedToken.length >= 5 ? 2 : 1);
+            const minLen = Math.max(2, foldedToken.length - maxDistance);
+            const maxLen = foldedToken.length + maxDistance;
+            const results = [];
+
+            for (let len = minLen; len <= maxLen; len++) {
+                const bucket = byLength.get(len);
+                if (!bucket || bucket.length === 0) continue;
+
+                for (const candidate of bucket) {
+                    const distance = boundedDamerauLevenshtein(foldedToken, candidate, maxDistance);
+                    if (distance === Infinity) continue;
+                    const freq = frequency.get(candidate) || 0;
+                    const transposition = isSingleAdjacentTransposition(foldedToken, candidate);
+                    const characterGap = bagDistance(foldedToken, candidate);
+                    const prefixLen = commonPrefixLength(foldedToken, candidate);
+                    const triScore = trigramSimilarity(foldedToken, candidate);
+                    const containsBonus = (candidate.startsWith(foldedToken) || foldedToken.startsWith(candidate)) ? 180 : 0;
+                    results.push({
+                        word: candidate,
+                        distance,
+                        score: (distance * 900)
+                            + (characterGap * 120)
+                            - Math.min(freq * 1.15, 950)
+                            - Math.round(triScore * 640)
+                            - Math.min(prefixLen * 90, 540)
+                            - (transposition ? 380 : 0)
+                            - containsBonus,
+                    });
+                }
+            }
+
+            results.sort((a, b) => {
+                if (a.score !== b.score) return a.score - b.score;
+                if (a.distance !== b.distance) return a.distance - b.distance;
+                return Math.abs(a.word.length - foldedToken.length) - Math.abs(b.word.length - foldedToken.length);
+            });
+
+            return results.slice(0, 3);
+        };
+
+        const segments = splitQuerySegments(term);
+        const misspelled = [];
+
+        segments.forEach((segment, index) => {
+            if (segment.type !== 'word') return;
+            if (hasAnyDigitLocal(segment.value)) return;
+
+            const folded = searchFold(segment.value);
+            if (!folded || folded.length < 2) return;
+            if (frequency.has(folded)) return;
+
+            const candidates = getCandidates(folded);
+            if (candidates.length > 0) {
+                misspelled.push({
+                    index,
+                    original: segment.value,
+                    candidates
+                });
+            }
+        });
+
+        if (misspelled.length === 0) return [];
+
+        const rankedSuggestions = new Map();
+        const pushSuggestion = (replacements, score) => {
+            const phrase = segments.map((seg, idx) => (
+                Object.prototype.hasOwnProperty.call(replacements, idx)
+                    ? replacements[idx]
+                    : seg.value
+            )).join('');
+
+            if (!phrase || phrase.trim().length < 2) return;
+            if (searchFold(phrase) === searchFold(term)) return;
+
+            const previous = rankedSuggestions.get(phrase);
+            if (previous == null || score < previous) {
+                rankedSuggestions.set(phrase, score);
+            }
+        };
+
+        misspelled.forEach((item) => {
+            item.candidates.forEach((candidate) => {
+                pushSuggestion(
+                    { [item.index]: shapeToken(candidate.word, item.original) },
+                    candidate.score + ((misspelled.length - 1) * 240)
+                );
+            });
+        });
+
+        if (misspelled.length > 1) {
+            const replacements = {};
+            let totalScore = 0;
+            misspelled.forEach((item) => {
+                const best = item.candidates[0];
+                replacements[item.index] = shapeToken(best.word, item.original);
+                totalScore += best.score;
+            });
+            pushSuggestion(replacements, totalScore);
+        }
+
+        return Array.from(rankedSuggestions.entries())
+            .sort((a, b) => a[1] - b[1])
+            .slice(0, suggestionLimit)
+            .map(([phrase]) => phrase);
+    }, [lang, searchFold, caseSensitive, suggestionLimit]);
 
     const performSearch = useCallback((term) => {
         if (!term) return;
@@ -238,6 +723,7 @@ const Magnify = ({ colors, theme, translationApplication, quran, map, appendices
         // original early-exit, but recognize single localized digit too
         if (term.length < 2 && !isSingleDigitLocal(term)) {
             setSearchResultTitles([]); setSearchResultVerses([]); setSearchResultNotes([]); setSearchResultAppendices([]);
+            setDidYouMeanSuggestions([]);
             return;
         }
 
@@ -477,11 +963,22 @@ const Magnify = ({ colors, theme, translationApplication, quran, map, appendices
         setSearchResultVerses(verseResults);
         setSearchResultNotes(notesResults);
         setSearchResultAppendices(appendicesResults);
+        if (
+            titleResults.length === 0
+            && verseResults.length === 0
+            && notesResults.length === 0
+            && appendicesResults.length === 0
+        ) {
+            setDidYouMeanSuggestions(buildDidYouMean(term));
+        } else {
+            setDidYouMeanSuggestions([]);
+        }
 
-    }, [quran, introduction, appsmap, lang, exactMatch, searchFold]);
+    }, [quran, introduction, appsmap, lang, exactMatch, searchFold, buildDidYouMean]);
 
 
     const performSearchSingleLetter = useCallback((term) => {
+        setDidYouMeanSuggestions([]);
         const capitalizedTerm = term.toLocaleUpperCase(lang);
         if (capitalizedTerm.length === 1 && map[capitalizedTerm]) {
             setLoadedMap(map[capitalizedTerm]);
@@ -489,14 +986,21 @@ const Magnify = ({ colors, theme, translationApplication, quran, map, appendices
     }, [map, lang]);
 
     useEffect(() => {
+        if (!searchTerm || searchTerm.trim() === '') {
+            setDidYouMeanSuggestions([]);
+        }
+    }, [searchTerm]);
+
+    useEffect(() => {
         if (searchTerm) {
-            if (searchTerm.length > 1 || (searchTerm.length === 1 && /^\d$/.test(searchTerm))) {
-                performSearch(searchTerm);
-            } else if (searchTerm.length === 1 && !/^\d$/.test(searchTerm)) {
-                performSearchSingleLetter(searchTerm);
+            const trimmedTerm = searchTerm.trim();
+            if (trimmedTerm.length > 1 || isSingleLocalizedDigit(trimmedTerm, langDigits)) {
+                performSearch(trimmedTerm);
+            } else if (trimmedTerm.length === 1 && !isSingleLocalizedDigit(trimmedTerm, langDigits)) {
+                performSearchSingleLetter(trimmedTerm);
             }
         }
-    }, [searchTerm, performSearch, performSearchSingleLetter]);
+    }, [searchTerm, performSearch, performSearchSingleLetter, langDigits]);
 
     const highlightText = useCallback((originalText, keyword) => {
         if (!keyword || keyword.trim() === '') return [originalText];
@@ -507,6 +1011,9 @@ const Magnify = ({ colors, theme, translationApplication, quran, map, appendices
 
         for (let i = 0; i < origChars.length; i++) {
             let ch = origChars[i];
+            if (isRtlLanguage) {
+                ch = foldRtlScript(ch);
+            }
             if ((lang === "tr" || lang === "az") && normalize) {
                 ch = ch.replace(/[İIıi]/g, "i");
             }
@@ -523,6 +1030,9 @@ const Magnify = ({ colors, theme, translationApplication, quran, map, appendices
         }
 
         let processedKeyword = keyword;
+        if (isRtlLanguage) {
+            processedKeyword = foldRtlScript(processedKeyword);
+        }
         if ((lang === "tr" || lang === "az") && normalize) {
             processedKeyword = processedKeyword.replace(/[İIıi]/g, "i");
         }
@@ -585,7 +1095,7 @@ const Magnify = ({ colors, theme, translationApplication, quran, map, appendices
         }
 
         return parts.length > 0 ? parts : [originalText];
-    }, [caseSensitive, normalize, lang, colors, theme, exactMatch]);
+    }, [caseSensitive, normalize, lang, colors, theme, exactMatch, isRtlLanguage]);
 
     const lightWords = useCallback((text) => {
         let processedTerm = searchFold(searchTerm);
@@ -596,7 +1106,7 @@ const Magnify = ({ colors, theme, translationApplication, quran, map, appendices
             keywords = [];
             orParts.forEach(part => {
                 const tokens = part.split(/\s+/).filter(t => t.trim() !== '');
-                const textTokens = tokens.filter(t => !/\d/.test(t));
+                const textTokens = tokens.filter(t => !hasLocalizedDigit(t, langDigits));
                 if (textTokens.length > 0) keywords.push(textTokens.join(' '));
             });
         } else {
@@ -609,7 +1119,7 @@ const Magnify = ({ colors, theme, translationApplication, quran, map, appendices
         });
 
         return highlightedText;
-    }, [searchTerm, highlightText, exactMatch, searchFold]);
+    }, [searchTerm, highlightText, exactMatch, searchFold, langDigits]);
 
     const lastTitleElementRef = useCallback(node => {
         if (observerTitles.current) observerTitles.current.disconnect();
@@ -918,8 +1428,12 @@ const Magnify = ({ colors, theme, translationApplication, quran, map, appendices
         return null;
     };
 
+    const showDidYouMeanInline = didYouMeanSuggestions.length > 0 && searchTerm.trim().length > 1;
+    const didYouMeanLabel = translationApplication?.didYouMean || "Did you mean";
+    const isSearchableQuery = searchTerm.trim().length > 1 || isSingleLocalizedDigit(searchTerm.trim(), langDigits);
+
     return (
-        <div className={` w-screen h-screen fixed z-[90] left-0 top-0 backdrop-blur-2xl`} id="jump-screen"
+        <div className={` w-screen h-screen fixed z-[120] left-0 top-0 backdrop-blur-2xl`} id="jump-screen"
             style={{ paddingBottom: 'calc(env(safe-area-inset-bottom) * 0.57)' }}
         >
             <div className={`fixed flex flex-col items-center justify-start faster inset-0 outline-none focus:outline-none overflow-auto `}>
@@ -956,6 +1470,34 @@ const Magnify = ({ colors, theme, translationApplication, quran, map, appendices
                                     ))}
                                 </span>
                             )}
+                            {showDidYouMeanInline && (
+                                <div
+                                    dir={direction}
+                                    className={`absolute rounded-md left-0 right-0 top-full mt-2 z-[145] ring-1 ${colors[theme]["ring"]}`}
+                                >
+                                    <div className={`rounded-md shadow-lg ring-1 ${theme === 'light' ? `ring-black/10` : `ring-white/10`} ${colors[theme]["app-background"]} overflow-hidden`}>
+                                        <div className={`px-1 py-1.5 text-[11px] text-xs md:text-base text-start border-b mx-2 ${colors[theme]["verse-border"]} ${colors[theme]["page-text"]}`}>
+                                            {didYouMeanLabel}
+                                        </div>
+                                        <div className="flex flex-col">
+                                            {didYouMeanSuggestions.map((suggestion, index) => (
+                                                <button
+                                                    key={`didyoumean-inline-${index}-${suggestion}`}
+                                                    onClick={() => {
+                                                        setSearchTerm(suggestion);
+                                                        if (inputRef.current) {
+                                                            inputRef.current.focus();
+                                                        }
+                                                    }}
+                                                    className={`text-start mx-2 px-2 py-3 text-lg lg:text-xl border-b last:border-b-0 transition-colors duration-100 ease-linear ${colors[theme]["verse-border"]} ${colors[theme]["matching-text"]}`}
+                                                >
+                                                    {suggestion}
+                                                </button>
+                                            ))}
+                                        </div>
+                                    </div>
+                                </div>
+                            )}
                         </div>
                         <button
                             className={`flex items-center justify-center transition-all duration-300 ease-linear ${optionsVisible ? " -rotate-180 " : " rotate-0"} ${optionsVisible ? colors[theme]["matching-text"] : colors[theme]["log-text"]}`}
@@ -990,7 +1532,7 @@ const Magnify = ({ colors, theme, translationApplication, quran, map, appendices
                         </button>
                     </div>
                 </div>
-                {(searchTerm.length > 1 || (searchTerm.length === 1 && /^\d$/.test(searchTerm))) &&
+                {isSearchableQuery &&
                     <div
                         dir={direction}
                         className={`flex flex-col lg:grid lg:grid-cols-2 lg:grid-flow-row lg:px-1 gap-1 w-full overflow-auto py-0.5 flex-1`}
@@ -1315,46 +1857,46 @@ const Magnify = ({ colors, theme, translationApplication, quran, map, appendices
                 }
             </div>
             {optionsVisible && (
-                <div dir={direction} className={`fixed left-1 right-1 ${colors[theme]["app-background"]} z-50 shadow-lg rounded px-1 py-1.5 border ${colors[theme]["border"]}`}
+                <div dir={direction} className={`fixed left-1 right-1 ${colors[theme]["app-background"]} z-[146] shadow-lg rounded px-1 py-1.5 border ${colors[theme]["border"]}`}
                     style={{ top: `calc(3.3rem + env(safe-area-inset-top) * 0.76)` }}>
                     <div className={`flex flex-col text-lg md:text-xl`}>
                         {direction !== 'rtl' && (
-                        <label className={`flex items-center justify-between md:justify-end gap-2 p-3 border-b cursor-pointer ${colors[theme]["verse-border"]}`}>
-                            <span className={`${caseSensitive ? colors[theme]["text"] : colors[theme]["page-text"]}`}>{translationApplication?.case}</span>
-                            <div>
-                                <label className='flex cursor-pointer select-none items-center'>
-                                    <div className='relative'>
-                                        <input
-                                            type='checkbox'
-                                            checked={caseSensitive}
-                                            onChange={(e) => setCaseSensitive(e.target.checked)}
-                                            className='sr-only'
-                                        />
-                                        <div className={`box block h-8 w-14 rounded-full ${caseSensitive ? colors[theme]["text-background"] : colors[theme]["base-background"]}`}></div>
-                                        <div className={`absolute left-1 top-1 flex h-6 w-6 items-center justify-center rounded-full ${caseSensitive ? colors[theme]["matching"] : colors[theme]["notes-background"]} transition ${caseSensitive ? 'translate-x-full' : ''}`}></div>
-                                    </div>
-                                </label>
-                            </div>
-                        </label>
+                            <label className={`flex items-center justify-between md:justify-end gap-2 p-3 border-b cursor-pointer ${colors[theme]["verse-border"]}`}>
+                                <span className={`${caseSensitive ? colors[theme]["text"] : colors[theme]["page-text"]}`}>{translationApplication?.case}</span>
+                                <div>
+                                    <label className='flex cursor-pointer select-none items-center'>
+                                        <div className='relative'>
+                                            <input
+                                                type='checkbox'
+                                                checked={caseSensitive}
+                                                onChange={(e) => setCaseSensitive(e.target.checked)}
+                                                className='sr-only'
+                                            />
+                                            <div className={`box block h-8 w-14 rounded-full ${caseSensitive ? colors[theme]["text-background"] : colors[theme]["base-background"]}`}></div>
+                                            <div className={`absolute left-1 top-1 flex h-6 w-6 items-center justify-center rounded-full ${caseSensitive ? colors[theme]["matching"] : colors[theme]["notes-background"]} transition ${caseSensitive ? 'translate-x-full' : ''}`}></div>
+                                        </div>
+                                    </label>
+                                </div>
+                            </label>
                         )}
                         {direction !== 'rtl' && (
-                        <label className={`flex items-center justify-between md:justify-end gap-2 p-3 border-b cursor-pointer ${colors[theme]["verse-border"]}`}>
-                            <span className={`${normalize ? colors[theme]["text"] : colors[theme]["page-text"]}`}>{translationApplication?.norm}</span>
-                            <div>
-                                <label className='flex cursor-pointer select-none items-center'>
-                                    <div className='relative'>
-                                        <input
-                                            type='checkbox'
-                                            checked={normalize}
-                                            onChange={(e) => setNormalize(e.target.checked)}
-                                            className='sr-only'
-                                        />
-                                        <div className={`box block h-8 w-14 rounded-full ${normalize ? colors[theme]["text-background"] : colors[theme]["base-background"]}`}></div>
-                                        <div className={`absolute left-1 top-1 flex h-6 w-6 items-center justify-center rounded-full ${normalize ? colors[theme]["matching"] : colors[theme]["notes-background"]} transition ${normalize ? 'translate-x-full' : ''}`}></div>
-                                    </div>
-                                </label>
-                            </div>
-                        </label>
+                            <label className={`flex items-center justify-between md:justify-end gap-2 p-3 border-b cursor-pointer ${colors[theme]["verse-border"]}`}>
+                                <span className={`${normalize ? colors[theme]["text"] : colors[theme]["page-text"]}`}>{translationApplication?.norm}</span>
+                                <div>
+                                    <label className='flex cursor-pointer select-none items-center'>
+                                        <div className='relative'>
+                                            <input
+                                                type='checkbox'
+                                                checked={normalize}
+                                                onChange={(e) => setNormalize(e.target.checked)}
+                                                className='sr-only'
+                                            />
+                                            <div className={`box block h-8 w-14 rounded-full ${normalize ? colors[theme]["text-background"] : colors[theme]["base-background"]}`}></div>
+                                            <div className={`absolute left-1 top-1 flex h-6 w-6 items-center justify-center rounded-full ${normalize ? colors[theme]["matching"] : colors[theme]["notes-background"]} transition ${normalize ? 'translate-x-full' : ''}`}></div>
+                                        </div>
+                                    </label>
+                                </div>
+                            </label>
                         )}
                         <label className={`flex items-center justify-between md:justify-end gap-2 p-3 cursor-pointer`}>
                             <span className={`${exactMatch ? colors[theme]["text"] : colors[theme]["page-text"]}`}>{translationApplication?.exact || "Exact Match"}</span>
