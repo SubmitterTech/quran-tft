@@ -13,6 +13,7 @@ import Isbn from '../components/Isbn';
 import { adjustReference, generateReferenceMap, transformAppendices, findPageNumber, extractReferenceDetails, mapQuranWithNotes, generateFormula, toRoman } from '../utils/Mapper';
 import { listCopy, smartCopy, supportsLookAhead, isNative } from '../utils/Device';
 import LongPressable from '../hooks/LongPressable';
+import { NextPagerProgressRing } from '../hooks/NextPager';
 import '../assets/css/Book.css';
 
 const Book = React.memo(({ incomingSearch = false, incomingAppendix = false, incomingAppendixNumber = 1, onChangeFont, font, onChangeColor, colors, theme, translationApplication, introductionContent, quranData, map, appendicesContent, translation, onChangeLanguage, direction }) => {
@@ -72,18 +73,7 @@ const Book = React.memo(({ incomingSearch = false, incomingAppendix = false, inc
     const [remainingTime, setRemainingTime] = useState(0);
     const [overscrollNavProgress, setOverscrollNavProgress] = useState(0);
     const progressPercentage = remainingTime ? (remainingTime / 20000) * 100 : 0;
-    const clampedOverscrollNavProgress = Math.max(0, Math.min(1, overscrollNavProgress));
     const nextProgressSide = direction === 'rtl' ? 'left' : 'right';
-    const navProgressRingViewBoxSize = 52;
-    const navProgressRingCenter = navProgressRingViewBoxSize / 2;
-    const navProgressRingRadius = 23;
-    const navProgressRingTrackStrokeWidth = 1.6;
-    const navProgressRingStrokeWidth = 1.8;
-    const navProgressRingCircumference = 2 * Math.PI * navProgressRingRadius;
-    const navProgressRingDashOffset = navProgressRingCircumference * (1 - clampedOverscrollNavProgress);
-    const navProgressRingCompleteOffsetThreshold = Math.max(navProgressRingStrokeWidth, 1);
-    const isOverscrollNavProgressComplete = navProgressRingDashOffset <= navProgressRingCompleteOffsetThreshold;
-    const navProgressPulseInsetPx = Math.max(Math.round(navProgressRingStrokeWidth), 2);
 
     const skipPages = useMemo(() => [3, 4, 8, 9, 10, 12], []);
 
@@ -836,6 +826,8 @@ const Book = React.memo(({ incomingSearch = false, incomingAppendix = false, inc
                 refToJump={beginingReferenceToJump}
                 direction={direction}
                 upt={updatePageTriggered}
+                onEndOverscrollNext={nextPage}
+                onOverscrollProgressChange={setOverscrollNavProgress}
             />;
         }
 
@@ -1028,48 +1020,14 @@ const Book = React.memo(({ incomingSearch = false, incomingAppendix = false, inc
     };
 
     const renderNextProgressRing = (show) => {
-        if (!show || clampedOverscrollNavProgress <= 0) {
-            return null;
-        }
-
         return (
-            <div className="absolute pointer-events-none z-0 w-11 h-11 lg:w-[60px] lg:h-[60px]">
-                <svg
-                    viewBox={`0 0 ${navProgressRingViewBoxSize} ${navProgressRingViewBoxSize}`}
-                    className={`absolute inset-0 w-full h-full ${colors[theme]["matching-text"]} ${isOverscrollNavProgressComplete ? `invisible` : ``}`}>
-                    <circle
-                        cx={navProgressRingCenter}
-                        cy={navProgressRingCenter}
-                        r={navProgressRingRadius}
-                        fill="none"
-                        stroke="currentColor"
-                        strokeWidth={navProgressRingTrackStrokeWidth}
-                        opacity="0.25"
-                    />
-                    <circle
-                        cx={navProgressRingCenter}
-                        cy={navProgressRingCenter}
-                        r={navProgressRingRadius}
-                        fill="none"
-                        stroke="currentColor"
-                        strokeWidth={navProgressRingStrokeWidth}
-                        strokeLinecap="round"
-                        strokeDasharray={navProgressRingCircumference}
-                        strokeDashoffset={navProgressRingDashOffset}
-                        transform={`rotate(-90 ${navProgressRingCenter} ${navProgressRingCenter})`}
-                    />
-                </svg>
-                {isOverscrollNavProgressComplete && (
-                    <div className="absolute inset-0 overflow-hidden rounded-full">
-                        <div
-                            className={`absolute rounded-full animate-rotate ${colors[theme]["matching-conic"]}`}
-                            style={{ inset: 0 }} />
-                        <div
-                            className={`absolute rounded-full ${colors[theme]["app-background"]}`}
-                            style={{ inset: `${navProgressPulseInsetPx}px` }} />
-                    </div>
-                )}
-            </div>
+            <NextPagerProgressRing
+                show={show}
+                progress={overscrollNavProgress}
+                colors={colors}
+                theme={theme}
+                sizeClassName="w-11 h-11 lg:w-[60px] lg:h-[60px]"
+            />
         );
     };
 
@@ -1114,7 +1072,7 @@ const Book = React.memo(({ incomingSearch = false, incomingAppendix = false, inc
             {renderBookContent()}
             <div>
                 <div className={`h-12 lg:h-14`}></div>
-                <div className={`w-full flex z-40 ${colors[theme]["app-background"]} fixed bottom-0`}
+                <div className={`w-full flex ${isJumpOpen ? 'z-[80]' : 'z-40'} ${colors[theme]["app-background"]} fixed bottom-0`}
                     style={{ paddingBottom: 'calc(env(safe-area-inset-bottom) * 0.57)' }}>
                     <div className={`relative flex w-full items-center justify-between`}>
                         <div className={`absolute h-0.5 left-0 -top-0.5 ${colors[theme]["matching"]}`} style={{ width: `${progressPercentage}%` }}></div>

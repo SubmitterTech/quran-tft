@@ -1,15 +1,54 @@
 import React, { useState, useEffect, useRef } from 'react';
+import { animated } from '@react-spring/web';
 import Graph1 from '../specials/Graph1';
 import Graph2 from '../specials/Graph2';
+import { NextPagerIndicator, useNextPagerController } from '../hooks/NextPager';
 
-const Intro = ({ colors, theme, translationApplication, parseReferences, introduction, currentPage, restoreIntroText, refToRestore, refToJump, direction, upt }) => {
+const Intro = ({
+    colors,
+    theme,
+    translationApplication,
+    parseReferences,
+    introduction,
+    currentPage,
+    restoreIntroText,
+    refToRestore,
+    refToJump,
+    direction,
+    upt,
+    onEndOverscrollNext,
+    onOverscrollProgressChange,
+}) => {
 
     const lang = localStorage.getItem("lang");
     const images = require.context('../assets/pictures/', false, /\.jpg$/);
+    const scrollContainerRef = useRef(null);
     const introRef = useRef(null);
     const [isRefsReady, setIsRefsReady] = useState(false);
     const textRememberRef = useRef({});
     const [notify, setNotify] = useState(null);
+    const {
+        overscrollPull,
+        overscrollAwaitingTap,
+        overscrollProgressAnimated,
+        overscrollLiftAnimated,
+        handleContainerScroll,
+        handleTouchStart,
+        handleTouchMove,
+        handleTouchEnd,
+        handleWheel,
+        handleIndicatorTap,
+    } = useNextPagerController({
+        scrollContainerRef,
+        selectedPage: currentPage,
+        onEndOverscrollNext,
+        onOverscrollProgressChange,
+    });
+    const nextPagerIndicatorLabel = translationApplication?.nextPager
+        || translationApplication?.nextPage
+        || translationApplication?.next
+        || translationApplication?.continue
+        || 'Sonraki sayfaya geç';
 
     useEffect(() => {
         if (currentPage && isRefsReady) {
@@ -184,19 +223,41 @@ const Intro = ({ colors, theme, translationApplication, parseReferences, introdu
 
     return (
         <div
+            ref={scrollContainerRef}
+            onScroll={handleContainerScroll}
+            onWheel={handleWheel}
+            onTouchStart={handleTouchStart}
+            onTouchMove={handleTouchMove}
+            onTouchEnd={handleTouchEnd}
+            onTouchCancel={handleTouchEnd}
             className={`h-screen w-screen relative overflow-y-auto pb-10 md:pb-14 ${colors[theme]["app-text"]} text-lg md:text-xl lg:text-2xl select-text`}>
-            <div ref={introRef}>
-                {renderIntroduction()}
-                {!isRefsReady &&
-                    <div className={`absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 flex ${colors[theme]["page-text"]} select-none`}>
-                        <svg className={`animate-spin -ml-1 mr-3 h-5 w-5 text-white`} xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
-                            <circle className={`opacity-25`} cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
-                            <path className={`opacity-75`} fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
-                        </svg>
-                        {translationApplication?.loading}
-                    </div>
-                }
-            </div>
+            <animated.div
+                className="relative z-20 will-change-transform"
+                style={{
+                    transform: overscrollLiftAnimated.to((lift) => `translate3d(0, ${-lift}px, 0)`),
+                }}>
+                <div ref={introRef}>
+                    {renderIntroduction()}
+                    {!isRefsReady &&
+                        <div className={`absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 flex ${colors[theme]["page-text"]} select-none`}>
+                            <svg className={`animate-spin -ml-1 mr-3 h-5 w-5 text-white`} xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                                <circle className={`opacity-25`} cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
+                                <path className={`opacity-75`} fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                            </svg>
+                            {translationApplication?.loading}
+                        </div>
+                    }
+                </div>
+            </animated.div>
+            <NextPagerIndicator
+                colors={colors}
+                theme={theme}
+                overscrollAwaitingTap={overscrollAwaitingTap}
+                overscrollProgressAnimated={overscrollProgressAnimated}
+                overscrollPull={overscrollPull}
+                onTap={handleIndicatorTap}
+                label={nextPagerIndicatorLabel}
+            />
         </div>
     );
 };

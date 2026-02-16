@@ -1,26 +1,7 @@
 import React, { useState, useEffect, useRef, useCallback, useMemo, useLayoutEffect } from 'react';
-import { useSpring, animated } from '@react-spring/web';
+import { animated } from '@react-spring/web';
 import Verse from '../components/Verse';
-
-const OVERSCROLL_MAX_DISTANCE = 320;
-const OVERSCROLL_TRIGGER_DISTANCE = 220;
-const OVERSCROLL_ENGAGE_DISTANCE = 40;
-const OVERSCROLL_CONTENT_LIFT_MAX = 56;
-const OVERSCROLL_TOUCH_RESISTANCE = 0.92;
-const OVERSCROLL_WHEEL_RESISTANCE = 0.62;
-const OVERSCROLL_EDGE_TOLERANCE = 2;
-const OVERSCROLL_COOLDOWN_MS = 680;
-const OVERSCROLL_INDICATOR_REVEAL_MAX = 76;
-const OVERSCROLL_INDICATOR_BOTTOM = 'calc(env(safe-area-inset-bottom) * 0.57 + 3.05rem)';
-const OVERSCROLL_LIFT_START_PROGRESS = 0.29;
-const OVERSCROLL_LIFT_EASING_POWER = 0.62;
-const OVERSCROLL_LIFT_GAIN = 1.28;
-const OVERSCROLL_PROGRESS_RANGE = OVERSCROLL_TRIGGER_DISTANCE - OVERSCROLL_ENGAGE_DISTANCE;
-const OVERSCROLL_RESET_CONFIG = { tension: 340, friction: 34, mass: 0.95 };
-const OVERSCROLL_RESET_FAST_CONFIG = { tension: 520, friction: 36, mass: 0.82 };
-const OVERSCROLL_RELEASE_GUARD_MS = 200;
-
-const clamp = (value, min, max) => Math.max(min, Math.min(max, value));
+import { NextPagerIndicator, useNextPagerController } from '../hooks/NextPager';
 
 const formatHitCount = (count) => {
     const factor = 19;
@@ -101,17 +82,6 @@ const Pages = React.memo(({
     const stickyRef = useRef(null);
     const currentPageRef = useRef(selectedPage);
     const scrollTimeout = useRef(null);
-    const wheelReleaseTimeoutRef = useRef(null);
-    const overscrollTriggerTimeoutRef = useRef(null);
-    const overscrollUnlockTimeoutRef = useRef(null);
-    const overscrollReleaseUnlockAtRef = useRef(0);
-    const overscrollDistanceRef = useRef(0);
-    const overscrollTriggerLockRef = useRef(false);
-    const overscrollProgressEmitRef = useRef(-1);
-    const touchTrackerRef = useRef({
-        active: false,
-        lastY: 0,
-    });
 
     // State
     const [kvdoPerVerse, setkvdoPerVerse] = useState(kvdo);
@@ -121,13 +91,32 @@ const Pages = React.memo(({
     const [stickyHeight, setStickyHeight] = useState(0);
     const [isScrolling, setIsScrolling] = useState(false);
     const [besmeleClicked, setBesmeleClicked] = useState(false);
-    const [overscrollAwaitingTap, setOverscrollAwaitingTap] = useState(false);
-    const [overscrollProgress, setOverscrollProgress] = useState(0);
     const [showExplanation, setShowExplanation] = useState({
         GODnamefrequency: false,
         GODnamesum: false,
     });
-    const [{ overscrollPull }, overscrollApi] = useSpring(() => ({ overscrollPull: 0 }));
+    const {
+        overscrollPull,
+        overscrollAwaitingTap,
+        overscrollProgressAnimated,
+        overscrollLiftAnimated,
+        handleContainerScroll,
+        handleTouchStart,
+        handleTouchMove,
+        handleTouchEnd,
+        handleWheel,
+        handleIndicatorTap,
+    } = useNextPagerController({
+        scrollContainerRef,
+        selectedPage,
+        onEndOverscrollNext,
+        onOverscrollProgressChange,
+    });
+    const nextPagerIndicatorLabel = translationApplication?.nextPager
+        || translationApplication?.nextPage
+        || translationApplication?.next
+        || translationApplication?.continue
+        || 'Sonraki sayfaya geç';
 
     const pageData = useMemo(() => quranData[selectedPage], [quranData, selectedPage]);
 
@@ -182,200 +171,12 @@ const Pages = React.memo(({
         if (!isScrolling) setIsScrolling(true);
 
         clearTimeout(scrollTimeout.current);
-
-        const container = scrollContainerRef.current;
-        if (overscrollAwaitingTap && container && !isAtBottom()) {
-            resetOverscroll(false, 'fast');
-        } else if (
-            overscrollDistanceRef.current > 0 &&
-            container &&
-            (container.scrollHeight - (container.scrollTop + container.clientHeight)) > OVERSCROLL_EDGE_TOLERANCE
-        ) {
-            resetOverscroll(true);
-        }
+        handleContainerScroll();
 
         scrollTimeout.current = setTimeout(() => {
             setIsScrolling(false);
         }, 400);
     };
-
-    const isAtBottom = useCallback(() => {
-        const container = scrollContainerRef.current;
-        if (!container) {
-            return false;
-        }
-        return (container.scrollHeight - (container.scrollTop + container.clientHeight)) <= OVERSCROLL_EDGE_TOLERANCE;
-    }, []);
-
-    const calculateOverscrollProgress = useCallback((distance) => {
-        const effectiveDistance = clamp(distance - OVERSCROLL_ENGAGE_DISTANCE, 0, OVERSCROLL_PROGRESS_RANGE);
-        return clamp(effectiveDistance / OVERSCROLL_PROGRESS_RANGE, 0, 1);
-    }, []);
-
-    const armOverscrollReleaseGuard = useCallback(() => {
-        overscrollReleaseUnlockAtRef.current = Date.now() + OVERSCROLL_RELEASE_GUARD_MS;
-    }, []);
-
-    const resetOverscroll = useCallback((immediate = false, mode = 'default') => {
-        overscrollDistanceRef.current = 0;
-        overscrollReleaseUnlockAtRef.current = 0;
-        setOverscrollAwaitingTap(false);
-        setOverscrollProgress(0);
-        overscrollApi.start({
-            overscrollPull: 0,
-            immediate,
-            config: mode === 'fast' ? OVERSCROLL_RESET_FAST_CONFIG : OVERSCROLL_RESET_CONFIG,
-        });
-    }, [overscrollApi]);
-
-    const updateOverscroll = useCallback((distance, immediate = false) => {
-        const clampedDistance = clamp(distance, 0, OVERSCROLL_MAX_DISTANCE);
-        overscrollDistanceRef.current = clampedDistance;
-        setOverscrollProgress(calculateOverscrollProgress(clampedDistance));
-
-        overscrollApi.start({
-            overscrollPull: clampedDistance,
-            immediate,
-            config: { tension: 360, friction: 32, mass: 0.95 },
-        });
-    }, [calculateOverscrollProgress, overscrollApi]);
-
-    const triggerOverscrollTransition = useCallback(() => {
-        if (overscrollTriggerLockRef.current || typeof onEndOverscrollNext !== 'function') {
-            resetOverscroll(false);
-            return;
-        }
-
-        overscrollTriggerLockRef.current = true;
-        setOverscrollAwaitingTap(false);
-        updateOverscroll(OVERSCROLL_TRIGGER_DISTANCE + 12, false);
-
-        clearTimeout(overscrollTriggerTimeoutRef.current);
-        overscrollTriggerTimeoutRef.current = setTimeout(() => {
-            onEndOverscrollNext();
-            resetOverscroll(true);
-        }, 95);
-
-        clearTimeout(overscrollUnlockTimeoutRef.current);
-        overscrollUnlockTimeoutRef.current = setTimeout(() => {
-            overscrollTriggerLockRef.current = false;
-        }, OVERSCROLL_COOLDOWN_MS);
-    }, [onEndOverscrollNext, resetOverscroll, updateOverscroll]);
-
-    const finalizeOverscrollGesture = useCallback(() => {
-        clearTimeout(wheelReleaseTimeoutRef.current);
-        if (overscrollAwaitingTap) {
-            return;
-        }
-        if (overscrollDistanceRef.current >= OVERSCROLL_TRIGGER_DISTANCE) {
-            setOverscrollAwaitingTap(true);
-            setOverscrollProgress(1);
-            updateOverscroll(OVERSCROLL_TRIGGER_DISTANCE, false);
-        } else {
-            resetOverscroll(false);
-        }
-    }, [overscrollAwaitingTap, resetOverscroll, updateOverscroll]);
-
-    const handleTouchStart = useCallback((event) => {
-        if (!event.touches || event.touches.length === 0) {
-            return;
-        }
-        touchTrackerRef.current.active = true;
-        touchTrackerRef.current.lastY = event.touches[0].clientY;
-    }, []);
-
-    const handleTouchMove = useCallback((event) => {
-        if (!touchTrackerRef.current.active || !event.touches || event.touches.length === 0) {
-            return;
-        }
-
-        const currentY = event.touches[0].clientY;
-        const deltaY = touchTrackerRef.current.lastY - currentY;
-        touchTrackerRef.current.lastY = currentY;
-
-        if (overscrollAwaitingTap) {
-            if (!isAtBottom() || deltaY < -1.2) {
-                resetOverscroll(false, 'fast');
-            }
-            return;
-        }
-
-        if (deltaY > 1.2 && isAtBottom()) {
-            armOverscrollReleaseGuard();
-            updateOverscroll(overscrollDistanceRef.current + (deltaY * OVERSCROLL_TOUCH_RESISTANCE), false);
-            return;
-        }
-
-        if (overscrollDistanceRef.current > 0) {
-            const guardActive = Date.now() < overscrollReleaseUnlockAtRef.current;
-            if (guardActive && deltaY > -1.2 && isAtBottom()) {
-                return;
-            }
-            const releaseStep = Math.max(Math.abs(deltaY), 1.5);
-            const nextDistance = overscrollDistanceRef.current - releaseStep;
-            if (!isAtBottom() || nextDistance <= 0) {
-                resetOverscroll(true);
-            } else {
-                updateOverscroll(nextDistance, false);
-            }
-        }
-    }, [armOverscrollReleaseGuard, isAtBottom, overscrollAwaitingTap, resetOverscroll, updateOverscroll]);
-
-    const handleTouchEnd = useCallback(() => {
-        touchTrackerRef.current.active = false;
-        finalizeOverscrollGesture();
-    }, [finalizeOverscrollGesture]);
-
-    const handleWheel = useCallback((event) => {
-        if (overscrollAwaitingTap) {
-            if (event.deltaY < -1 || !isAtBottom()) {
-                resetOverscroll(false, 'fast');
-            }
-            return;
-        }
-
-        if (event.deltaY <= 0) {
-            if (overscrollDistanceRef.current > 0) {
-                const guardActive = Date.now() < overscrollReleaseUnlockAtRef.current;
-                if (guardActive && Math.abs(event.deltaY) < 3) {
-                    return;
-                }
-                const nextDistance = overscrollDistanceRef.current - Math.abs(event.deltaY);
-                if (nextDistance <= 0) {
-                    resetOverscroll(true);
-                } else {
-                    updateOverscroll(nextDistance, false);
-                }
-            }
-            return;
-        }
-
-        if (!isAtBottom()) {
-            if (overscrollDistanceRef.current > 0) {
-                resetOverscroll(true);
-            }
-            return;
-        }
-
-        const normalizedWheel = clamp(event.deltaY, 0, 64);
-        const wheelIncrement = Math.sqrt(normalizedWheel) * OVERSCROLL_WHEEL_RESISTANCE;
-        armOverscrollReleaseGuard();
-        updateOverscroll(overscrollDistanceRef.current + wheelIncrement, false);
-
-        clearTimeout(wheelReleaseTimeoutRef.current);
-        wheelReleaseTimeoutRef.current = setTimeout(() => {
-            finalizeOverscrollGesture();
-        }, 150);
-    }, [armOverscrollReleaseGuard, finalizeOverscrollGesture, isAtBottom, overscrollAwaitingTap, resetOverscroll, updateOverscroll]);
-
-    const handleOverscrollIndicatorTap = useCallback((event) => {
-        event.preventDefault();
-        event.stopPropagation();
-        if (!overscrollAwaitingTap) {
-            return;
-        }
-        triggerOverscrollTransition();
-    }, [overscrollAwaitingTap, triggerOverscrollTransition]);
 
     useLayoutEffect(() => {
         if (stickyRef.current) {
@@ -471,37 +272,9 @@ const Pages = React.memo(({
     }, [selectedPage, selectedSura, selectedVerse, actionType, from, forceScroll]);
 
     useEffect(() => {
-        resetOverscroll(true);
-    }, [selectedPage, resetOverscroll]);
-
-    useEffect(() => {
-        if (typeof onOverscrollProgressChange !== 'function') {
-            return;
-        }
-
-        const nextProgress = overscrollAwaitingTap ? 1 : overscrollProgress;
-        if (Math.abs(nextProgress - overscrollProgressEmitRef.current) < 0.004) {
-            return;
-        }
-        overscrollProgressEmitRef.current = nextProgress;
-        onOverscrollProgressChange(nextProgress);
-    }, [onOverscrollProgressChange, overscrollAwaitingTap, overscrollProgress]);
-
-    useEffect(() => {
-        return () => {
-            if (typeof onOverscrollProgressChange === 'function') {
-                onOverscrollProgressChange(0);
-            }
-        };
-    }, [onOverscrollProgressChange]);
-
-    useEffect(() => {
         return () => {
             clearTimeout(scrollTimeout.current);
             clearTimeout(notifyTimeoutRef.current);
-            clearTimeout(wheelReleaseTimeoutRef.current);
-            clearTimeout(overscrollTriggerTimeoutRef.current);
-            clearTimeout(overscrollUnlockTimeoutRef.current);
         };
     }, []);
 
@@ -746,21 +519,6 @@ const Pages = React.memo(({
         }
     };
 
-    const overscrollProgressAnimated = overscrollPull.to((pull) => calculateOverscrollProgress(pull));
-
-    const overscrollLiftAnimated = overscrollProgressAnimated.to((progress) => {
-        const shiftedProgress = clamp(
-            (progress - OVERSCROLL_LIFT_START_PROGRESS) / (1 - OVERSCROLL_LIFT_START_PROGRESS),
-            0,
-            1
-        );
-        const acceleratedProgress = Math.pow(shiftedProgress, OVERSCROLL_LIFT_EASING_POWER);
-        return clamp(
-            acceleratedProgress * OVERSCROLL_CONTENT_LIFT_MAX * OVERSCROLL_LIFT_GAIN,
-            0,
-            OVERSCROLL_CONTENT_LIFT_MAX
-        );
-    });
     return (
         <div
             ref={scrollContainerRef}
@@ -1040,29 +798,15 @@ const Pages = React.memo(({
                 })()
             }
             </animated.div>
-            <animated.div
-                className="pointer-events-none fixed left-1/2 z-[30] mb-5 lg:mb-7"
-                style={{
-                    bottom: OVERSCROLL_INDICATOR_BOTTOM,
-                    opacity: overscrollAwaitingTap
-                        ? 1
-                        : overscrollProgressAnimated.to((progress) => clamp(progress, 0, 1)),
-                    transform: overscrollPull.to((pull) => {
-                        const reveal = overscrollAwaitingTap
-                            ? OVERSCROLL_INDICATOR_REVEAL_MAX
-                            : clamp(pull * 0.68, 0, OVERSCROLL_INDICATOR_REVEAL_MAX);
-                        const y = OVERSCROLL_INDICATOR_REVEAL_MAX - reveal;
-                        return `translate(-50%, ${y}px)`;
-                    }),
-                }}>
-                <button
-                    type="button"
-                    onClick={handleOverscrollIndicatorTap}
-                    disabled={!overscrollAwaitingTap}
-                    className={`pointer-events-auto rounded py-2 px-3 shadow-lg transition-all duration-200 ease-in ${colors[theme]["text-background"]} ${overscrollAwaitingTap ? `cursor-pointer ${colors[theme]["matching-text"]} ` : `cursor-default ${colors[theme]["app-text"]}`}`}>
-                    <span className="text-base lg:text-large whitespace-nowrap">Sonraki sayfaya geç</span>
-                </button>
-            </animated.div>
+            <NextPagerIndicator
+                colors={colors}
+                theme={theme}
+                overscrollAwaitingTap={overscrollAwaitingTap}
+                overscrollProgressAnimated={overscrollProgressAnimated}
+                overscrollPull={overscrollPull}
+                onTap={handleIndicatorTap}
+                label={nextPagerIndicatorLabel}
+            />
             {deleteConfirmResolver && (
                 <div className="fixed inset-0 z-40 flex items-center justify-center backdrop-blur">
                     <div
