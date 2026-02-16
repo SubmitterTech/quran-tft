@@ -42,7 +42,7 @@ const BootProgress = ({ loadingLabel, loadingDirection, progress, logoSrc }) => 
                   style={{ transform: `scale(${0.57 + normalizedProgress / 200})` }}
                   decoding="async"
                   loading="eager"
-                  fetchPriority="high"
+                  fetchpriority="high"
                 />
               ) : null}
             </div>
