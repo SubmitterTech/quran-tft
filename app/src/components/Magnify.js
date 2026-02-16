@@ -919,7 +919,7 @@ const Magnify = ({ colors, theme, translationApplication, quran, map, appendices
     };
 
     return (
-        <div className={` w-screen h-screen fixed z-10 left-0 top-0 backdrop-blur-2xl`} id="jump-screen"
+        <div className={` w-screen h-screen fixed z-[90] left-0 top-0 backdrop-blur-2xl`} id="jump-screen"
             style={{ paddingBottom: 'calc(env(safe-area-inset-bottom) * 0.57)' }}
         >
             <div className={`fixed flex flex-col items-center justify-start faster inset-0 outline-none focus:outline-none overflow-auto `}>

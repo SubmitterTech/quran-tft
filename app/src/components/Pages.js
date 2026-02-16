@@ -808,13 +808,13 @@ const Pages = React.memo(({
                 label={nextPagerIndicatorLabel}
             />
             {deleteConfirmResolver && (
-                <div className="fixed inset-0 z-40 flex items-center justify-center backdrop-blur">
+                <div className="fixed inset-0 z-[70] flex items-center justify-center backdrop-blur">
                     <div
                         onClick={handleCancel}
                         className={` w-full h-full absolute left-0 top-0`}></div>
                     <div
                         style={{ animation: 'animate-scale 0.2s ease-in-out' }}
-                        className={`z-50 mx-4 ${colors[theme]["app-background"]} ${colors[theme]["app-text"]} rounded shadow-lg`}>
+                        className={`z-[80] mx-4 ${colors[theme]["app-background"]} ${colors[theme]["app-text"]} rounded shadow-lg`}>
                         <div className={`p-2 flex flex-col w-full h-full space-y-2`}>
 
                             <div className={`w-full p-1 rounded ${colors[theme]["verse-detail-background"]} flex flex-col space-y-2`}>

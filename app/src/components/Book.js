@@ -1305,7 +1305,7 @@ const Book = React.memo(({ incomingSearch = false, incomingAppendix = false, inc
                 />
             }
             {isPrevSettingsOpen &&
-                <div className={`w-screen h-full fixed left-0 top-0 inset-0 z-20 outline-none focus:outline-none`}>
+                <div className={`w-screen h-full fixed left-0 top-0 inset-0 z-[90] outline-none focus:outline-none`}>
                     <div
                         style={{ opacity: prevSettingsOpenningProgress }}
                         className={`w-full h-full backdrop-blur flex items-center justify-center relative`}>
