@@ -1,0 +1,65 @@
+{
+  "short_name": "Al-Quran",
+  "name": "Al-Quran",
+  "description": "Quran The Final Testament (Interactive Book)",
+  "lang": "ms",
+  "dir": "ltr",
+  "id": "/",
+  "start_url": "/",
+  "scope": "/",
+  "display": "standalone",
+  "display_override": [
+    "standalone",
+    "minimal-ui",
+    "browser"
+  ],
+  "theme_color": "#082f49",
+  "background_color": "#082f49",
+  "categories": [
+    "books",
+    "education",
+    "reference"
+  ],
+  "prefer_related_applications": false,
+  "icons": [
+    {
+      "src": "swa-icon-192.png",
+      "type": "image/png",
+      "sizes": "192x192",
+      "purpose": "any"
+    },
+    {
+      "src": "swa-icon-512.png",
+      "type": "image/png",
+      "sizes": "512x512",
+      "purpose": "any"
+    },
+    {
+      "src": "swa-icon-maskable-192.png",
+      "type": "image/png",
+      "sizes": "192x192",
+      "purpose": "maskable"
+    },
+    {
+      "src": "swa-icon-maskable-512.png",
+      "type": "image/png",
+      "sizes": "512x512",
+      "purpose": "maskable"
+    }
+  ],
+  "shortcuts": [
+    {
+      "name": "Cari",
+      "short_name": "Cari",
+      "description": "Cari dalam ayat, tajuk, nota dan lampiran",
+      "url": "/search",
+      "icons": [
+        {
+          "src": "swa-icon-192.png",
+          "sizes": "192x192",
+          "type": "image/png"
+        }
+      ]
+    }
+  ]
+}

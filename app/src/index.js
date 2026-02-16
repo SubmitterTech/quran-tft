@@ -28,9 +28,9 @@ const BootProgress = ({ loadingLabel, loadingDirection, progress, logoSrc }) => 
   return (
     <div
       dir={loadingDirection}
-      className="fixed inset-0 z-[9999] flex items-center justify-center bg-gradient-to-b from-cyan-500 to-sky-500 select-none"
+      className="fixed inset-0 z-[9999] flex items-center justify-center bg-sky-950 select-none"
     >
-      <div className="w-[min(560px,88vw)]">
+      <div className="w-[min(560px,95vw)]">
         <div className="mb-7 flex justify-center">
           <div className="relative h-[min(46vw,220px)] w-[min(46vw,220px)]">
             <div className="absolute inset-0 p-2">
@@ -48,7 +48,7 @@ const BootProgress = ({ loadingLabel, loadingDirection, progress, logoSrc }) => 
             </div>
           </div>
         </div>
-        <div className="mb-3 flex items-center justify-between text-neutral-100">
+        <div className="mb-3 flex items-center justify-between text-neutral-100 mx-0.5">
           <div className="flex items-center text-lg md:text-xl">
             <svg className="animate-spin -ml-1 mr-3 h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
               <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
@@ -58,9 +58,9 @@ const BootProgress = ({ loadingLabel, loadingDirection, progress, logoSrc }) => 
           </div>
           <div className="text-base tabular-nums">{`${normalizedProgress.toFixed(1)}%`}</div>
         </div>
-        <div className="h-1.5 w-full overflow-hidden bg-white/35">
+        <div className="h-1 w-full overflow-hidden bg-white/35">
           <div
-            className="h-full bg-white transition-all duration-300 ease-linear"
+            className="h-full bg-amber-400 transition-all duration-300 ease-linear"
             style={{ width: `${normalizedProgress}%` }}
           />
         </div>

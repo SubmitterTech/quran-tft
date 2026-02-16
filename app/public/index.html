@@ -15,8 +15,42 @@
     />
     <link rel="apple-touch-icon" href="%PUBLIC_URL%/logo192.png" />
     <link rel="preload" as="image" href="%PUBLIC_URL%/logo512.png" fetchpriority="high" />
+    <link rel="manifest" href="%PUBLIC_URL%/manifest.json" id="app-manifest-link" />
 
-    <link rel="manifest" href="%PUBLIC_URL%/manifest.json" />
+    <script>
+      (function () {
+        var manifestLanguages = [
+          "am", "ar", "az", "bg", "bn", "ca", "cs", "da", "de", "el",
+          "es", "et", "fa", "fi", "fil", "fr", "gu", "he", "hi", "hr",
+          "hu", "id", "it", "ja", "kk", "ko", "lt", "lv", "ml", "ms",
+          "nl", "no", "pa", "pl", "pt", "ro", "ru", "sk", "sl", "sr",
+          "sv", "sw", "ta", "te", "th", "tr", "uk", "ur", "vi", "zh"
+        ];
+        var manifestLanguageAliases = {
+          tl: "fil"
+        };
+        var manifestByLanguage = {};
+        manifestLanguages.forEach(function (code) {
+          manifestByLanguage[code] = "manifest." + code + ".json";
+        });
+
+        var preferredLanguage = "en";
+        try {
+          var storedLanguage = localStorage.getItem("lang");
+          var deviceLanguage = navigator.language || navigator.userLanguage || "en";
+          preferredLanguage = (storedLanguage || deviceLanguage || "en").toLowerCase().split("-")[0];
+          preferredLanguage = manifestLanguageAliases[preferredLanguage] || preferredLanguage;
+        } catch (_error) {
+          preferredLanguage = "en";
+        }
+
+        var manifestFile = manifestByLanguage[preferredLanguage] || "manifest.json";
+        var manifestLink = document.getElementById("app-manifest-link");
+        if (manifestLink) {
+          manifestLink.href = "%PUBLIC_URL%/" + manifestFile;
+        }
+      })();
+    </script>
 
     <title>QURAN TFT</title>
   </head>
