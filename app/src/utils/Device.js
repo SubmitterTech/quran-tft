@@ -1,15 +1,32 @@
 import { Device } from '@capacitor/device';
 import { Clipboard } from '@capacitor/clipboard';
 import { StatusBar, Style } from '@capacitor/status-bar';
+import { ScreenOrientation } from '@capacitor/screen-orientation';
 
 let hasStatusBarPromise = null;
 let isNativePlatform = false;
 let platform = 'web';
+let initPlatformPromise = null;
+const PHONE_SMALLEST_SIDE_THRESHOLD = 600;
 
 export const initPlatform = async () => {
-  const info = await Device.getInfo();
-  platform = info?.platform;
-  isNativePlatform = (info.platform === 'ios' || info.platform === 'android');
+  if (initPlatformPromise) {
+    return initPlatformPromise;
+  }
+
+  initPlatformPromise = (async () => {
+    try {
+      const info = await Device.getInfo();
+      platform = info?.platform || 'web';
+      isNativePlatform = (platform === 'ios' || platform === 'android');
+    } catch (error) {
+      console.error('Failed to detect platform', error);
+      platform = 'web';
+      isNativePlatform = false;
+    }
+  })();
+
+  return initPlatformPromise;
 };
 
 export const isNative = () => {
@@ -18,6 +35,53 @@ export const isNative = () => {
 
 export const which = () => {
   return platform;
+};
+
+const getSmallestScreenSide = () => {
+  if (typeof window === 'undefined') {
+    return null;
+  }
+
+  const screenWidth = window.screen?.width;
+  const screenHeight = window.screen?.height;
+  if (typeof screenWidth === 'number' && typeof screenHeight === 'number' && screenWidth > 0 && screenHeight > 0) {
+    return Math.min(screenWidth, screenHeight);
+  }
+
+  const viewportWidth = window.innerWidth;
+  const viewportHeight = window.innerHeight;
+  if (typeof viewportWidth === 'number' && typeof viewportHeight === 'number' && viewportWidth > 0 && viewportHeight > 0) {
+    return Math.min(viewportWidth, viewportHeight);
+  }
+
+  return null;
+};
+
+const isTabletSizedScreen = () => {
+  const smallestScreenSide = getSmallestScreenSide();
+  if (smallestScreenSide === null) {
+    return false;
+  }
+  return smallestScreenSide >= PHONE_SMALLEST_SIDE_THRESHOLD;
+};
+
+export const applyConditionalOrientationLock = async () => {
+  await initPlatform();
+
+  if (!isNativePlatform) {
+    return;
+  }
+
+  try {
+    if (isTabletSizedScreen()) {
+      await ScreenOrientation.unlock();
+      return;
+    }
+
+    await ScreenOrientation.lock({ orientation: 'portrait' });
+  } catch (error) {
+    console.error('Failed to apply conditional orientation lock', error);
+  }
 };
 
 export const supportsUnicodeRegex = () => {

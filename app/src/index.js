@@ -3,8 +3,9 @@ import ReactDOM from 'react-dom/client';
 import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
-import { setInitialLanguage } from './utils/Device';
+import { initPlatform, isNative, setInitialLanguage } from './utils/Device';
 import Boundary from './utils/Boundary';
+import * as serviceWorkerRegistration from './serviceWorkerRegistration';
 
 window.onerror = (message, source, lineno, colno, error) => {
   console.error('Global error caught:', { message, source, lineno, colno, error });
@@ -32,6 +33,7 @@ const boundaryFallback = (
 );
 
 const renderApp = async () => {
+  await initPlatform();
   await setInitialLanguage();
   root.render(
     <React.StrictMode>
@@ -40,6 +42,13 @@ const renderApp = async () => {
       </Boundary>
     </React.StrictMode>
   );
+
+  if (isNative()) {
+    serviceWorkerRegistration.unregister();
+    return;
+  }
+
+  serviceWorkerRegistration.register();
 };
 
 renderApp();
