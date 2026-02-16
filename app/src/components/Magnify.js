@@ -298,7 +298,7 @@ const Magnify = ({ colors, theme, translationApplication, quran, map, appendices
     const saveLastSelection = useRef(false);
     const [notify, setNotify] = useState(null);
     const loadingElementsTimer = useRef(null);
-    const suggestionIndexRef = useRef({ frequency: new Map(), byLength: new Map() });
+    const suggestionIndexRef = useRef({ frequency: new Map(), byLength: new Map(), searchableTexts: [] });
 
     const titlesReferences = useRef({});
     const versesReferences = useRef({});
@@ -392,7 +392,7 @@ const Magnify = ({ colors, theme, translationApplication, quran, map, appendices
         const digitSet = new Set(langDigits);
 
         if (!quran || !introduction) {
-            suggestionIndexRef.current = { frequency: new Map(), byLength: new Map() };
+            suggestionIndexRef.current = { frequency: new Map(), byLength: new Map(), searchableTexts: [] };
             return;
         }
 
@@ -450,15 +450,20 @@ const Magnify = ({ colors, theme, translationApplication, quran, map, appendices
         };
 
         const frequency = new Map();
+        const searchableTextSet = new Set();
         const addToken = (token, weight = 1) => {
             if (!token || token.length < 2) return;
             if (hasAnyDigitLocal(token)) return;
             frequency.set(token, (frequency.get(token) || 0) + weight);
         };
 
-        const addText = (text) => {
+        const addText = (text, includeInSearchHitCheck = true) => {
             if (text == null) return;
             const foldedText = searchFold(String(text));
+            const trimmedText = foldedText.trim();
+            if (includeInSearchHitCheck && trimmedText.length > 1) {
+                searchableTextSet.add(trimmedText);
+            }
             splitQuerySegments(foldedText).forEach((segment) => {
                 if (segment.type !== 'word') return;
                 addToken(segment.value, 1);
@@ -522,7 +527,7 @@ const Magnify = ({ colors, theme, translationApplication, quran, map, appendices
         if (translationApplication && typeof translationApplication === 'object') {
             Object.values(translationApplication).forEach((value) => {
                 if (typeof value === 'string') {
-                    addText(value);
+                    addText(value, false);
                 }
             });
         }
@@ -534,18 +539,20 @@ const Magnify = ({ colors, theme, translationApplication, quran, map, appendices
             byLength.get(len).push(token);
         }
 
-        suggestionIndexRef.current = { frequency, byLength };
+        suggestionIndexRef.current = {
+            frequency,
+            byLength,
+            searchableTexts: Array.from(searchableTextSet),
+        };
     }, [quran, introduction, appsmap, translationApplication, lang, searchFold]);
 
     const buildDidYouMean = useCallback((rawTerm) => {
         const term = String(rawTerm || '');
         if (term.trim().length < 2) return [];
 
-        const { frequency, byLength } = suggestionIndexRef.current;
-        if (!frequency || frequency.size === 0) return [];
+        const { frequency, byLength, searchableTexts } = suggestionIndexRef.current;
+        if (!frequency || frequency.size === 0 || !searchableTexts || searchableTexts.length === 0) return [];
 
-        const langCfg = languages && languages[lang] ? languages[lang] : null;
-        const langDigits = (langCfg && langCfg.nums ? langCfg.nums.split(/\s+/).filter(Boolean) : []);
         const digitSet = new Set(langDigits);
 
         const hasAnyDigitLocal = (s) => {
@@ -570,6 +577,32 @@ const Magnify = ({ colors, theme, translationApplication, quran, map, appendices
                 return lower[0].toLocaleUpperCase(locale) + lower.slice(1);
             }
             return lower;
+        };
+
+        const hasAnySearchHit = (phrase) => {
+            if (!phrase || phrase.trim().length < 2) return false;
+
+            const processedPhrase = searchFold(phrase);
+            const orTerms = processedPhrase.split('|').map((part) => part.trim()).filter(Boolean);
+            if (orTerms.length === 0) return false;
+
+            for (const part of orTerms) {
+                const tokens = part.split(/\s+/).filter(Boolean);
+                const textTokens = tokens.filter((token) => !hasAnyDigitLocal(token));
+                if (textTokens.length === 0) continue;
+
+                const keywords = exactMatch ? [textTokens.join(' ')] : textTokens;
+                for (const hay of searchableTexts) {
+                    const matched = keywords.every((keyword) => (
+                        exactMatch ? exactIndexOf(hay, keyword, 0) !== -1 : hay.includes(keyword)
+                    ));
+                    if (matched) {
+                        return true;
+                    }
+                }
+            }
+
+            return false;
         };
 
         const getCandidates = (foldedToken) => {
@@ -675,11 +708,18 @@ const Magnify = ({ colors, theme, translationApplication, quran, map, appendices
             pushSuggestion(replacements, totalScore);
         }
 
-        return Array.from(rankedSuggestions.entries())
-            .sort((a, b) => a[1] - b[1])
-            .slice(0, suggestionLimit)
-            .map(([phrase]) => phrase);
-    }, [lang, searchFold, caseSensitive, suggestionLimit]);
+        const validatedSuggestions = [];
+        const sortedSuggestions = Array.from(rankedSuggestions.entries())
+            .sort((a, b) => a[1] - b[1]);
+
+        for (const [phrase] of sortedSuggestions) {
+            if (!hasAnySearchHit(phrase)) continue;
+            validatedSuggestions.push(phrase);
+            if (validatedSuggestions.length >= suggestionLimit) break;
+        }
+
+        return validatedSuggestions;
+    }, [lang, langDigits, searchFold, caseSensitive, exactMatch, suggestionLimit]);
 
     const performSearch = useCallback((term) => {
         if (!term) return;
