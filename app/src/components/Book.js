@@ -70,7 +70,20 @@ const Book = React.memo(({ incomingSearch = false, incomingAppendix = false, inc
     const copyTimerRef = useRef(null);
     const timerRef = useRef(null);
     const [remainingTime, setRemainingTime] = useState(0);
+    const [overscrollNavProgress, setOverscrollNavProgress] = useState(0);
     const progressPercentage = remainingTime ? (remainingTime / 20000) * 100 : 0;
+    const clampedOverscrollNavProgress = Math.max(0, Math.min(1, overscrollNavProgress));
+    const nextProgressSide = direction === 'rtl' ? 'left' : 'right';
+    const navProgressRingViewBoxSize = 52;
+    const navProgressRingCenter = navProgressRingViewBoxSize / 2;
+    const navProgressRingRadius = 23;
+    const navProgressRingTrackStrokeWidth = 1.6;
+    const navProgressRingStrokeWidth = 1.8;
+    const navProgressRingCircumference = 2 * Math.PI * navProgressRingRadius;
+    const navProgressRingDashOffset = navProgressRingCircumference * (1 - clampedOverscrollNavProgress);
+    const navProgressRingCompleteOffsetThreshold = Math.max(navProgressRingStrokeWidth, 1);
+    const isOverscrollNavProgressComplete = navProgressRingDashOffset <= navProgressRingCompleteOffsetThreshold;
+    const navProgressPulseInsetPx = Math.max(Math.round(navProgressRingStrokeWidth), 2);
 
     const skipPages = useMemo(() => [3, 4, 8, 9, 10, 12], []);
 
@@ -125,6 +138,13 @@ const Book = React.memo(({ incomingSearch = false, incomingAppendix = false, inc
             localStorage.setItem("qurantft-pn", currentPage);
         }
     }, [currentPage]);
+
+    useEffect(() => {
+        const pageNumber = parseInt(currentPage, 10);
+        if (pageNumber < 23 || pageNumber > 394 || isMagnifyOpen) {
+            setOverscrollNavProgress(0);
+        }
+    }, [currentPage, isMagnifyOpen]);
 
     useEffect(() => {
         localStorage.setItem("qurantft-rh", JSON.stringify(rememberHistory));
@@ -920,6 +940,8 @@ const Book = React.memo(({ incomingSearch = false, incomingAppendix = false, inc
                 direction={direction}
                 upt={updatePageTriggered}
                 kvdo={keepVerseDetailsOpen && rememberHistory}
+                onEndOverscrollNext={nextPage}
+                onOverscrollProgressChange={setOverscrollNavProgress}
             />;
         }
 
@@ -1005,6 +1027,52 @@ const Book = React.memo(({ incomingSearch = false, incomingAppendix = false, inc
         }
     };
 
+    const renderNextProgressRing = (show) => {
+        if (!show || clampedOverscrollNavProgress <= 0) {
+            return null;
+        }
+
+        return (
+            <div className="absolute pointer-events-none z-0 w-11 h-11 lg:w-[60px] lg:h-[60px]">
+                <svg
+                    viewBox={`0 0 ${navProgressRingViewBoxSize} ${navProgressRingViewBoxSize}`}
+                    className={`absolute inset-0 w-full h-full ${colors[theme]["matching-text"]} ${isOverscrollNavProgressComplete ? `invisible` : ``}`}>
+                    <circle
+                        cx={navProgressRingCenter}
+                        cy={navProgressRingCenter}
+                        r={navProgressRingRadius}
+                        fill="none"
+                        stroke="currentColor"
+                        strokeWidth={navProgressRingTrackStrokeWidth}
+                        opacity="0.25"
+                    />
+                    <circle
+                        cx={navProgressRingCenter}
+                        cy={navProgressRingCenter}
+                        r={navProgressRingRadius}
+                        fill="none"
+                        stroke="currentColor"
+                        strokeWidth={navProgressRingStrokeWidth}
+                        strokeLinecap="round"
+                        strokeDasharray={navProgressRingCircumference}
+                        strokeDashoffset={navProgressRingDashOffset}
+                        transform={`rotate(-90 ${navProgressRingCenter} ${navProgressRingCenter})`}
+                    />
+                </svg>
+                {isOverscrollNavProgressComplete && (
+                    <div className="absolute inset-0 overflow-hidden rounded-full">
+                        <div
+                            className={`absolute rounded-full animate-rotate ${colors[theme]["matching-conic"]}`}
+                            style={{ inset: 0 }} />
+                        <div
+                            className={`absolute rounded-full ${colors[theme]["app-background"]}`}
+                            style={{ inset: `${navProgressPulseInsetPx}px` }} />
+                    </div>
+                )}
+            </div>
+        );
+    };
+
     return (
         <div
             className={`fixed w-full h-full flex flex-col justify-start ${colors[theme]["app-background"]} overflow-y-hidden`}
@@ -1081,9 +1149,12 @@ const Book = React.memo(({ incomingSearch = false, incomingAppendix = false, inc
                                         <button
                                             disabled={direction === 'rtl' ? (isJumpOpen || (selectedApp === 38 && currentPage === 397) || isMagnifyOpen) : (isJumpOpen || currentPage === 1 || isMagnifyOpen)}
                                             className={`w-full h-full ${colors[theme]["app-text"]} px-2 ${direction === 'rtl' ? 'ml-1' : 'mr-2'} flex items-center justify-center ${direction === 'rtl' ? (isJumpOpen || (selectedApp === 38 && currentPage === 397) || isMagnifyOpen) ? "opacity-0" : "opacity-100" : (isJumpOpen || currentPage === 1 || isMagnifyOpen) ? "opacity-0" : "opacity-100"}`}>
-                                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className={`w-7 h-7 lg:w-12 lg:h-12`}>
-                                                <path strokeLinecap="round" strokeLinejoin="round" d="M9 15L3 9m0 0l6-6M3 9h12a6 6 0 010 12h-3" />
-                                            </svg>
+                                            <div className="relative flex items-center justify-center">
+                                                {renderNextProgressRing(nextProgressSide === 'left')}
+                                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className={`relative z-20 w-7 h-7 lg:w-12 lg:h-12`}>
+                                                    <path strokeLinecap="round" strokeLinejoin="round" d="M9 15L3 9m0 0l6-6M3 9h12a6 6 0 010 12h-3" />
+                                                </svg>
+                                            </div>
                                             {direction !== 'rtl' && pageHistory.length > 0 && rememberHistory && (
                                                 <div className={`bg-transparent absolute translate-y-3 -translate-x-3 text-xs lg:translate-y-4 lg:-translate-x-4 lg:text-base ${colors[theme]["matching-text"]} flex items-center justify-center px-2 py-1 rounded-full`}>
                                                     {pageHistory.length}
@@ -1220,9 +1291,12 @@ const Book = React.memo(({ incomingSearch = false, incomingAppendix = false, inc
                                         <button
                                             disabled={direction === 'rtl' ? (isJumpOpen || currentPage === 1 || isMagnifyOpen) : (isJumpOpen || (selectedApp === 38 && currentPage === 397) || isMagnifyOpen)}
                                             className={`w-full h-full ${colors[theme]["app-text"]} px-2 ${direction === 'rtl' ? 'mr-2' : 'ml-1'} flex items-center justify-center ${direction === 'rtl' ? (isJumpOpen || currentPage === 1 || isMagnifyOpen) ? "opacity-0" : "opacity-100" : (isJumpOpen || (selectedApp === 38 && currentPage === 397) || isMagnifyOpen) ? "opacity-0" : "opacity-100"} `}>
-                                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className={`w-7 h-7 lg:w-12 lg:h-12`}>
-                                                <path strokeLinecap="round" strokeLinejoin="round" d="M15 15l6-6m0 0l-6-6m6 6H9a6 6 0 000 12h3" />
-                                            </svg>
+                                            <div className="relative flex items-center justify-center">
+                                                {renderNextProgressRing(nextProgressSide === 'right')}
+                                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className={`relative z-20 w-7 h-7 lg:w-12 lg:h-12`}>
+                                                    <path strokeLinecap="round" strokeLinejoin="round" d="M15 15l6-6m0 0l-6-6m6 6H9a6 6 0 000 12h3" />
+                                                </svg>
+                                            </div>
                                             {direction === 'rtl' && pageHistory.length > 0 && rememberHistory && (
                                                 <div className={`bg-transparent absolute translate-y-3 translate-x-3 text-xs lg:translate-y-4 lg:translate-x-4 lg:text-base ${colors[theme]["matching-text"]} flex items-center justify-center px-2 py-1 rounded-full`}>
                                                     {pageHistory.length}

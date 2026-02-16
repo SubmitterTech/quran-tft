@@ -627,7 +627,7 @@ const Jump = React.memo(({ onChangeLanguage, suraNames, onChangeFont, font, onCh
     }
 
     return (
-        <div className={`w-screen h-full fixed left-0 top-0 inset-0 z-10 outline-none focus:outline-none `} id="jump-screen">
+        <div className={`w-screen h-full fixed left-0 top-0 inset-0 z-50 outline-none focus:outline-none `} id="jump-screen">
             <div className={` w-full h-full backdrop-blur-xl `}>
                 <div
                     onClick={onClose}
