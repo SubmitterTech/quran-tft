@@ -58,7 +58,7 @@ const BootProgress = ({ loadingLabel, loadingDirection, progress, logoSrc }) => 
           </div>
           <div className="text-base tabular-nums">{`${normalizedProgress.toFixed(1)}%`}</div>
         </div>
-        <div className="h-1 w-full overflow-hidden bg-white/35">
+        <div className="h-0.5 w-full overflow-hidden bg-white/35">
           <div
             className="h-full bg-amber-400 transition-all duration-300 ease-linear"
             style={{ width: `${normalizedProgress}%` }}

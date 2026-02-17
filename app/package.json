@@ -25,10 +25,11 @@
     "web-vitals": "^2.1.4"
   },
   "scripts": {
+    "build:didyoumean": "node scripts/build-didyoumean-indexes.js",
     "predeploy": "npm run build",
     "deploy": "gh-pages -d build",
-    "start": "react-scripts start",
-    "build": "react-scripts build",
+    "start": "npm run build:didyoumean && react-scripts start",
+    "build": "npm run build:didyoumean && react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
   },

@@ -1,4 +1,4 @@
-import { useState, useEffect, useCallback, useRef, useMemo } from 'react';
+import { useState, useEffect, useCallback, useRef, useMemo, useDeferredValue, useTransition } from 'react';
 import { mapAppendices, mapQuran } from '../utils/Mapper';
 import { isNative } from '../utils/Device';
 import languages from '../assets/languages.json';
@@ -235,6 +235,145 @@ const boundedDamerauLevenshtein = (a, b, maxDistance = 2) => {
     return prev[blen] <= maxDistance ? prev[blen] : Infinity;
 };
 
+const SUGGESTION_INDEX_CACHE_VERSION = 'dym-prebuilt-v1';
+const SUGGESTION_INDEX_CACHE_LIMIT = 8;
+const SEARCH_DEBOUNCE_MS = 90;
+const DID_YOU_MEAN_IDLE_TIMEOUT_MS = 180;
+const suggestionIndexCache = new Map();
+
+const makeSuggestionIndexCacheKey = (lang) => (
+    `${SUGGESTION_INDEX_CACHE_VERSION}|${(lang || 'en').toLowerCase()}`
+);
+
+const getCachedSuggestionIndex = (key) => {
+    if (!suggestionIndexCache.has(key)) return null;
+    const cached = suggestionIndexCache.get(key);
+    suggestionIndexCache.delete(key);
+    suggestionIndexCache.set(key, cached);
+    return cached;
+};
+
+const setCachedSuggestionIndex = (key, value) => {
+    if (!key || !value) return;
+    if (suggestionIndexCache.has(key)) {
+        suggestionIndexCache.delete(key);
+    }
+    suggestionIndexCache.set(key, value);
+    while (suggestionIndexCache.size > SUGGESTION_INDEX_CACHE_LIMIT) {
+        const oldest = suggestionIndexCache.keys().next().value;
+        suggestionIndexCache.delete(oldest);
+    }
+};
+
+const scheduleDidYouMeanTask = (callback) => {
+    if (typeof window !== 'undefined' && typeof window.requestIdleCallback === 'function') {
+        return {
+            type: 'idle',
+            id: window.requestIdleCallback(callback, { timeout: DID_YOU_MEAN_IDLE_TIMEOUT_MS }),
+        };
+    }
+    return {
+        type: 'timeout',
+        id: window.setTimeout(callback, 0),
+    };
+};
+
+const cancelDidYouMeanTask = (taskRef) => {
+    const task = taskRef.current;
+    if (!task) return;
+    if (task.type === 'idle' && typeof window !== 'undefined' && typeof window.cancelIdleCallback === 'function') {
+        window.cancelIdleCallback(task.id);
+    } else {
+        window.clearTimeout(task.id);
+    }
+    taskRef.current = null;
+};
+
+const deserializeSuggestionIndex = (payload) => {
+    if (!payload) return null;
+    return {
+        frequency: new Map(payload.frequency || []),
+        byLength: new Map((payload.byLength || []).map(([len, tokens]) => [Number(len), tokens || []])),
+        surfaceForms: new Map((payload.surfaceForms || []).map(([token, variants]) => [token, new Map(variants || [])])),
+        searchableTexts: Array.isArray(payload.searchableTexts) ? payload.searchableTexts : [],
+        bigramFrequency: new Map(payload.bigramFrequency || []),
+        trigramFrequency: new Map(payload.trigramFrequency || []),
+    };
+};
+
+const createEmptySuggestionIndex = () => ({
+    frequency: new Map(),
+    byLength: new Map(),
+    surfaceForms: new Map(),
+    searchableTexts: [],
+    bigramFrequency: new Map(),
+    trigramFrequency: new Map(),
+});
+
+const loadDidYouMeanGeneratedJson = async (lang, fileName) => {
+    const module = await import(
+        /* webpackMode: "lazy" */
+        /* webpackChunkName: "didyoumean-[request]" */
+        /* webpackInclude: /\.json$/ */
+        `../generated/didyoumean-indexes/${lang}/${fileName}`
+    );
+    return module?.default || module;
+};
+
+const loadDidYouMeanSectionEntries = async (lang, fileNames = []) => {
+    if (!Array.isArray(fileNames) || fileNames.length === 0) return [];
+    const parts = await Promise.all(fileNames.map((fileName) => loadDidYouMeanGeneratedJson(lang, fileName)));
+    return parts.flat();
+};
+
+const loadPrebuiltSuggestionIndex = async (lang) => {
+    const preferredLang = (lang || 'en').toLowerCase();
+    const candidates = Array.from(new Set([preferredLang, 'en']));
+
+    for (const candidate of candidates) {
+        const cacheKey = makeSuggestionIndexCacheKey(candidate);
+        const cached = getCachedSuggestionIndex(cacheKey);
+        if (cached) {
+            return cached;
+        }
+
+        try {
+            const manifest = await loadDidYouMeanGeneratedJson(candidate, 'manifest.json');
+            if (!manifest || !manifest.sections) continue;
+
+            const [frequency, byLength, surfaceForms, searchableTexts, bigramFrequency, trigramFrequency] = await Promise.all([
+                loadDidYouMeanSectionEntries(candidate, manifest.sections.frequency),
+                loadDidYouMeanSectionEntries(candidate, manifest.sections.byLength),
+                loadDidYouMeanSectionEntries(candidate, manifest.sections.surfaceForms),
+                loadDidYouMeanSectionEntries(candidate, manifest.sections.searchableTexts),
+                loadDidYouMeanSectionEntries(candidate, manifest.sections.bigramFrequency),
+                loadDidYouMeanSectionEntries(candidate, manifest.sections.trigramFrequency),
+            ]);
+
+            const parsed = deserializeSuggestionIndex({
+                frequency,
+                byLength,
+                surfaceForms,
+                searchableTexts,
+                bigramFrequency,
+                trigramFrequency,
+            });
+            if (!parsed || parsed.frequency.size === 0) continue;
+
+            const loaded = {
+                index: parsed,
+                indexLang: (manifest?.lang || candidate).toLowerCase(),
+            };
+            setCachedSuggestionIndex(cacheKey, loaded);
+            return loaded;
+        } catch (_error) {
+            // Fall through to next language candidate.
+        }
+    }
+
+    return null;
+};
+
 const Magnify = ({ colors, theme, translationApplication, quran, map, appendices, introduction, onClose, onConfirm, direction, multiSelect, setMultiSelect, selectedVerseList, setSelectedVerseList }) => {
     const lang = localStorage.getItem("lang");
     const langCfg = useMemo(() => (languages && languages[lang] ? languages[lang] : null), [lang]);
@@ -244,6 +383,8 @@ const Magnify = ({ colors, theme, translationApplication, quran, map, appendices
     ), [langCfg]);
 
     const [searchTerm, setSearchTerm] = useState(localStorage.getItem("qurantft-magnify-st") || "");
+    const deferredSearchTerm = useDeferredValue(searchTerm);
+    const [, startTransition] = useTransition();
     const [exactMatch, setExactMatch] = useState(() => {
         const saved = localStorage.getItem("exact");
         return saved !== null ? JSON.parse(saved) : false;
@@ -298,6 +439,9 @@ const Magnify = ({ colors, theme, translationApplication, quran, map, appendices
     const saveLastSelection = useRef(false);
     const [notify, setNotify] = useState(null);
     const loadingElementsTimer = useRef(null);
+    const searchTimerRef = useRef(null);
+    const didYouMeanTaskRef = useRef(null);
+    const latestSearchRequestRef = useRef(0);
     const suggestionIndexRef = useRef({
         frequency: new Map(),
         byLength: new Map(),
@@ -306,6 +450,7 @@ const Magnify = ({ colors, theme, translationApplication, quran, map, appendices
         bigramFrequency: new Map(),
         trigramFrequency: new Map(),
     });
+    const suggestionIndexLangRef = useRef((lang || 'en').toLowerCase());
 
     const titlesReferences = useRef({});
     const versesReferences = useRef({});
@@ -368,6 +513,17 @@ const Magnify = ({ colors, theme, translationApplication, quran, map, appendices
         localStorage.setItem("exact", JSON.stringify(exactMatch));
     }, [exactMatch]);
 
+    const cancelScheduledSearch = useCallback(() => {
+        if (searchTimerRef.current != null) {
+            window.clearTimeout(searchTimerRef.current);
+            searchTimerRef.current = null;
+        }
+    }, []);
+
+    const cancelScheduledDidYouMean = useCallback(() => {
+        cancelDidYouMeanTask(didYouMeanTaskRef);
+    }, []);
+
     const normalizeText = (text) => {
         return text.normalize("NFD").replace(/[\u0300-\u036f]/g, "");
     };
@@ -394,207 +550,24 @@ const Magnify = ({ colors, theme, translationApplication, quran, map, appendices
     }, [lang, normalize, caseSensitive, isRtlLanguage]);
 
     useEffect(() => {
-        const langCfg = languages && languages[lang] ? languages[lang] : null;
-        const langDigits = (langCfg && langCfg.nums ? langCfg.nums.split(/\s+/).filter(Boolean) : []);
-        const digitSet = new Set(langDigits);
+        let cancelled = false;
+        suggestionIndexRef.current = createEmptySuggestionIndex();
+        suggestionIndexLangRef.current = (lang || 'en').toLowerCase();
 
-        if (!quran || !introduction) {
-            suggestionIndexRef.current = {
-                frequency: new Map(),
-                byLength: new Map(),
-                surfaceForms: new Map(),
-                searchableTexts: [],
-                bigramFrequency: new Map(),
-                trigramFrequency: new Map(),
-            };
-            return;
-        }
-
-        const hasAnyDigitLocal = (s) => {
-            if (s == null) return false;
-            if (/\d/.test(s)) return true;
-            for (const ch of String(s)) if (digitSet.has(ch)) return true;
-            return false;
+        const loadIndex = async () => {
+            const loaded = await loadPrebuiltSuggestionIndex(lang);
+            if (cancelled || !loaded || !loaded.index) return;
+            suggestionIndexRef.current = loaded.index;
+            suggestionIndexLangRef.current = loaded.indexLang || (lang || 'en').toLowerCase();
+            setCachedSuggestionIndex(makeSuggestionIndexCacheKey(lang), loaded);
         };
 
-        const isTurkic = lang === 'tr' || lang === 'az';
-        const turkicSuffixes = [
-            'LERİ', 'LARI', 'LERI', 'LARİ',
-            'LER', 'LAR',
-            'NIN', 'NİN', 'NUN', 'NÜN',
-            'DAN', 'DEN', 'TAN', 'TEN',
-            'YI', 'Yİ', 'YU', 'YÜ',
-            'NI', 'Nİ', 'NU', 'NÜ',
-            'IN', 'İN', 'UN', 'ÜN',
-            'SI', 'Sİ', 'SU', 'SÜ',
-            'IM', 'İM', 'UM', 'ÜM',
-            'M'
-        ];
-        const singleSuffixes = ['I', 'İ', 'U', 'Ü', 'A', 'E'];
+        void loadIndex();
 
-        const buildStemVariants = (token) => {
-            if (!isTurkic || !token || token.length < 5) return [];
-            const stems = new Set();
-            const queue = [{ value: token, depth: 0 }];
-
-            while (queue.length > 0) {
-                const { value, depth } = queue.shift();
-                if (depth >= 2) continue;
-
-                turkicSuffixes.forEach((suffix) => {
-                    if (!value.endsWith(suffix)) return;
-                    const stem = value.slice(0, -suffix.length);
-                    if (stem.length < 4 || stem === token || stems.has(stem)) return;
-                    stems.add(stem);
-                    queue.push({ value: stem, depth: depth + 1 });
-                });
-
-                if (value.length >= 7) {
-                    singleSuffixes.forEach((suffix) => {
-                        if (!value.endsWith(suffix)) return;
-                        const stem = value.slice(0, -suffix.length);
-                        if (stem.length < 4 || stem === token || stems.has(stem)) return;
-                        stems.add(stem);
-                        queue.push({ value: stem, depth: depth + 1 });
-                    });
-                }
-            }
-
-            return Array.from(stems);
+        return () => {
+            cancelled = true;
         };
-
-        const frequency = new Map();
-        const surfaceForms = new Map();
-        const searchableTextSet = new Set();
-        const bigramFrequency = new Map();
-        const trigramFrequency = new Map();
-        const addToken = (token, weight = 1) => {
-            if (!token || token.length < 2) return;
-            if (hasAnyDigitLocal(token)) return;
-            frequency.set(token, (frequency.get(token) || 0) + weight);
-        };
-        const addSurfaceForm = (foldedToken, originalToken, weight = 1) => {
-            if (!foldedToken || foldedToken.length < 2 || !originalToken) return;
-            if (hasAnyDigitLocal(foldedToken)) return;
-            if (!surfaceForms.has(foldedToken)) {
-                surfaceForms.set(foldedToken, new Map());
-            }
-            const variants = surfaceForms.get(foldedToken);
-            variants.set(originalToken, (variants.get(originalToken) || 0) + weight);
-        };
-
-        const addText = (text, includeInSearchHitCheck = true) => {
-            if (text == null) return;
-            const sourceText = String(text);
-            const foldedText = searchFold(sourceText);
-            const trimmedText = foldedText.trim();
-            if (includeInSearchHitCheck && trimmedText.length > 1) {
-                searchableTextSet.add(trimmedText);
-            }
-            const wordTokens = [];
-            splitQuerySegments(sourceText).forEach((segment) => {
-                if (segment.type !== 'word') return;
-                const foldedToken = searchFold(segment.value);
-                if (!foldedToken || foldedToken.length < 2) return;
-                addToken(foldedToken, 1);
-                addSurfaceForm(foldedToken, segment.value, 1);
-                buildStemVariants(foldedToken).forEach((stem) => {
-                    addToken(stem, 0.42);
-                    // Keep display suggestions on real corpus forms, not synthetic stems.
-                    addSurfaceForm(stem, segment.value, 0.42);
-                });
-                if (!hasAnyDigitLocal(segment.value)) {
-                    wordTokens.push(foldedToken);
-                }
-            });
-
-            for (let i = 0; i < wordTokens.length - 1; i++) {
-                const key = `${wordTokens[i]} ${wordTokens[i + 1]}`;
-                bigramFrequency.set(key, (bigramFrequency.get(key) || 0) + 1);
-            }
-            for (let i = 0; i < wordTokens.length - 2; i++) {
-                const key = `${wordTokens[i]} ${wordTokens[i + 1]} ${wordTokens[i + 2]}`;
-                trigramFrequency.set(key, (trigramFrequency.get(key) || 0) + 1);
-            }
-        };
-
-        for (const page in quran) {
-            const suras = quran[page].sura;
-            for (const suraNumber in suras) {
-                const verses = suras[suraNumber].verses;
-                for (const verseNumber in verses) {
-                    addText(verses[verseNumber]);
-                }
-
-                const titles = suras[suraNumber].titles;
-                for (const titleNumber in titles) {
-                    addText(titles[titleNumber]);
-                }
-            }
-
-            const notes = quran[page].notes?.data;
-            if (notes && notes.length > 0) {
-                Object.values(notes).forEach((note) => addText(note));
-            }
-        }
-
-        for (const section in introduction) {
-            const introContent = (introduction[section].page !== 1 && introduction[section].page !== 22)
-                ? introduction[section]
-                : null;
-
-            if (!introContent) continue;
-
-            Object.entries(introContent).forEach(([type, content]) => {
-                if (type === "page") return;
-                if (content && typeof content === 'object') {
-                    Object.values(content).forEach((value) => addText(value));
-                } else {
-                    addText(content);
-                }
-            });
-        }
-
-        for (const appx in appsmap) {
-            const appxContent = appsmap[appx].content;
-            Object.values(appxContent)
-                .filter(element => (
-                    element.type === "text"
-                    || element.type === "title"
-                    || (element.type === "table" && element.content.ref && element.content.ref.trim() !== "")
-                ))
-                .forEach(element => {
-                    const appendixText = element.type === 'table'
-                        ? element.content.ref.toString()
-                        : element.content.toString();
-                    addText(appendixText);
-                });
-        }
-
-        if (translationApplication && typeof translationApplication === 'object') {
-            Object.values(translationApplication).forEach((value) => {
-                if (typeof value === 'string') {
-                    addText(value, false);
-                }
-            });
-        }
-
-        const byLength = new Map();
-        for (const token of frequency.keys()) {
-            const len = token.length;
-            if (!byLength.has(len)) byLength.set(len, []);
-            byLength.get(len).push(token);
-        }
-
-        suggestionIndexRef.current = {
-            frequency,
-            byLength,
-            surfaceForms,
-            searchableTexts: Array.from(searchableTextSet),
-            bigramFrequency,
-            trigramFrequency,
-        };
-    }, [quran, introduction, appsmap, translationApplication, lang, searchFold]);
+    }, [lang]);
 
     const buildDidYouMean = useCallback((rawTerm) => {
         const term = String(rawTerm || '');
@@ -604,6 +577,21 @@ const Magnify = ({ colors, theme, translationApplication, quran, map, appendices
         if (!frequency || frequency.size === 0 || !searchableTexts || searchableTexts.length === 0) return [];
 
         const digitSet = new Set(langDigits);
+        const suggestionFoldLang = suggestionIndexLangRef.current || (lang || 'en');
+        const suggestionLangCfg = languages && languages[suggestionFoldLang] ? languages[suggestionFoldLang] : null;
+        const suggestionIsRtl = !!(suggestionLangCfg && suggestionLangCfg.dir === 'rtl');
+        const foldForSuggestions = (text) => {
+            let t = String(text || '');
+            if (suggestionIsRtl) {
+                t = foldRtlScript(t);
+            }
+            if (suggestionFoldLang === 'tr' || suggestionFoldLang === 'az') {
+                t = t.replace(/[İIıi]/g, 'i');
+            }
+            t = t.normalize("NFD").replace(/[\u0300-\u036f]/g, "");
+            t = t.toLocaleUpperCase(suggestionFoldLang);
+            return t;
+        };
 
         const hasAnyDigitLocal = (s) => {
             if (s == null) return false;
@@ -613,7 +601,7 @@ const Magnify = ({ colors, theme, translationApplication, quran, map, appendices
         };
 
         const locale = lang || undefined;
-        const isTurkicLang = lang === 'tr' || lang === 'az';
+        const isTurkicLang = suggestionFoldLang === 'tr' || suggestionFoldLang === 'az';
         const shapeSurfaceToken = (surfaceToken, originalToken) => {
             if (caseSensitive) return surfaceToken;
             const lower = surfaceToken.toLocaleLowerCase(locale);
@@ -670,7 +658,7 @@ const Magnify = ({ colors, theme, translationApplication, quran, map, appendices
             for (const item of ranked) {
                 const shaped = shapeSurfaceToken(item.token, originalToken);
                 if (!shaped || shaped.trim().length < 2) continue;
-                const dedupeKey = searchFold(shaped);
+                const dedupeKey = foldForSuggestions(shaped);
                 if (seen.has(dedupeKey)) continue;
                 seen.add(dedupeKey);
                 selected.push(shaped);
@@ -747,7 +735,7 @@ const Magnify = ({ colors, theme, translationApplication, quran, map, appendices
                 };
             }
 
-            const processedPhrase = searchFold(phrase);
+            const processedPhrase = foldForSuggestions(phrase);
             const orTerms = processedPhrase.split('|').map((part) => part.trim()).filter(Boolean);
             if (orTerms.length === 0) {
                 return {
@@ -972,7 +960,7 @@ const Magnify = ({ colors, theme, translationApplication, quran, map, appendices
             if (segment.type !== 'word') return;
             if (hasAnyDigitLocal(segment.value)) return;
 
-            const folded = searchFold(segment.value);
+            const folded = foldForSuggestions(segment.value);
             if (!folded || folded.length < 2) return;
             if (frequency.has(folded)) return;
 
@@ -1001,7 +989,7 @@ const Magnify = ({ colors, theme, translationApplication, quran, map, appendices
             const phrase = composeSuggestionPhrase(replacements);
 
             if (!phrase || phrase.trim().length < 2) return;
-            if (searchFold(phrase) === searchFold(term)) return;
+            if (foldForSuggestions(phrase) === foldForSuggestions(term)) return;
 
             const previous = rankedSuggestions.get(phrase);
             if (previous == null || score < previous) {
@@ -1143,7 +1131,7 @@ const Magnify = ({ colors, theme, translationApplication, quran, map, appendices
                     [item.index]: shapeSurfaceToken(variant, item.original),
                 });
                 if (!phrase || phrase.trim().length < 2 || seen.has(phrase)) return;
-                if (searchFold(phrase) === searchFold(term)) return;
+                if (foldForSuggestions(phrase) === foldForSuggestions(term)) return;
 
                 tailTrimFallbacks.push({
                     phrase,
@@ -1178,7 +1166,7 @@ const Magnify = ({ colors, theme, translationApplication, quran, map, appendices
                 const displayVariants = getDisplayTokenVariants(candidate.word, item.original, 4);
                 displayVariants.forEach((phrase, variantIndex) => {
                     if (!phrase || phrase.trim().length < 2 || seen.has(phrase)) return;
-                    if (searchFold(phrase) === searchFold(term)) return;
+                    if (foldForSuggestions(phrase) === foldForSuggestions(term)) return;
                     tokenBaseFallbacks.push({
                         phrase,
                         baseScore: candidate.score + (idx * 35) + (variantIndex * 22),
@@ -1205,10 +1193,10 @@ const Magnify = ({ colors, theme, translationApplication, quran, map, appendices
             .filter(passesExactConstraint)
             .filter((item) => item.evidence.hasHit));
         return selected;
-    }, [lang, langDigits, searchFold, caseSensitive, exactMatch, suggestionLimit]);
+    }, [lang, langDigits, caseSensitive, exactMatch, suggestionLimit]);
 
     const performSearch = useCallback((term) => {
-        if (!term) return;
+        if (!term) return false;
 
         // ---- lang-aware digit set & helpers (scoped to this call) ----
         const langCfg = languages && languages[lang] ? languages[lang] : null;
@@ -1248,9 +1236,15 @@ const Magnify = ({ colors, theme, translationApplication, quran, map, appendices
 
         // original early-exit, but recognize single localized digit too
         if (term.length < 2 && !isSingleDigitLocal(term)) {
-            setSearchResultTitles([]); setSearchResultVerses([]); setSearchResultNotes([]); setSearchResultAppendices([]);
-            setDidYouMeanSuggestions([]);
-            return;
+            startTransition(() => {
+                setHitCounts([]);
+                setSearchResultTitles([]);
+                setSearchResultVerses([]);
+                setSearchResultNotes([]);
+                setSearchResultAppendices([]);
+                setDidYouMeanSuggestions([]);
+            });
+            return false;
         }
 
         // ---- original pre-processing (unchanged) ----
@@ -1483,24 +1477,26 @@ const Magnify = ({ colors, theme, translationApplication, quran, map, appendices
                 return total;
             });
         });
-        setHitCounts(counts);
-
-        setSearchResultTitles(titleResults);
-        setSearchResultVerses(verseResults);
-        setSearchResultNotes(notesResults);
-        setSearchResultAppendices(appendicesResults);
-        if (
+        const hasResults = !(
             titleResults.length === 0
             && verseResults.length === 0
             && notesResults.length === 0
             && appendicesResults.length === 0
-        ) {
-            setDidYouMeanSuggestions(buildDidYouMean(term));
-        } else {
-            setDidYouMeanSuggestions([]);
-        }
+        );
 
-    }, [quran, introduction, appsmap, lang, exactMatch, searchFold, buildDidYouMean]);
+        startTransition(() => {
+            setHitCounts(counts);
+            setSearchResultTitles(titleResults);
+            setSearchResultVerses(verseResults);
+            setSearchResultNotes(notesResults);
+            setSearchResultAppendices(appendicesResults);
+            if (hasResults) {
+                setDidYouMeanSuggestions([]);
+            }
+        });
+
+        return hasResults;
+    }, [quran, introduction, appsmap, lang, exactMatch, searchFold, startTransition]);
 
 
     const performSearchSingleLetter = useCallback((term) => {
@@ -1512,21 +1508,64 @@ const Magnify = ({ colors, theme, translationApplication, quran, map, appendices
     }, [map, lang]);
 
     useEffect(() => {
-        if (!searchTerm || searchTerm.trim() === '') {
-            setDidYouMeanSuggestions([]);
-        }
-    }, [searchTerm]);
+        const trimmedTerm = String(deferredSearchTerm || '').trim();
+        latestSearchRequestRef.current += 1;
+        const requestId = latestSearchRequestRef.current;
 
-    useEffect(() => {
-        if (searchTerm) {
-            const trimmedTerm = searchTerm.trim();
+        cancelScheduledSearch();
+        cancelScheduledDidYouMean();
+        startTransition(() => {
+            setDidYouMeanSuggestions([]);
+        });
+
+        if (!trimmedTerm) {
+            startTransition(() => {
+                setHitCounts([]);
+            });
+            return () => {
+                cancelScheduledSearch();
+                cancelScheduledDidYouMean();
+            };
+        }
+
+        searchTimerRef.current = window.setTimeout(() => {
+            if (latestSearchRequestRef.current !== requestId) return;
+
             if (trimmedTerm.length > 1 || isSingleLocalizedDigit(trimmedTerm, langDigits)) {
-                performSearch(trimmedTerm);
-            } else if (trimmedTerm.length === 1 && !isSingleLocalizedDigit(trimmedTerm, langDigits)) {
+                const hasResults = performSearch(trimmedTerm);
+                if (!hasResults && latestSearchRequestRef.current === requestId) {
+                    didYouMeanTaskRef.current = scheduleDidYouMeanTask(() => {
+                        if (latestSearchRequestRef.current !== requestId) return;
+                        const suggestions = buildDidYouMean(trimmedTerm);
+                        if (latestSearchRequestRef.current !== requestId) return;
+                        startTransition(() => {
+                            setDidYouMeanSuggestions(suggestions);
+                        });
+                        didYouMeanTaskRef.current = null;
+                    });
+                }
+                return;
+            }
+
+            if (trimmedTerm.length === 1 && !isSingleLocalizedDigit(trimmedTerm, langDigits)) {
                 performSearchSingleLetter(trimmedTerm);
             }
-        }
-    }, [searchTerm, performSearch, performSearchSingleLetter, langDigits]);
+        }, SEARCH_DEBOUNCE_MS);
+
+        return () => {
+            cancelScheduledSearch();
+            cancelScheduledDidYouMean();
+        };
+    }, [
+        deferredSearchTerm,
+        langDigits,
+        performSearch,
+        performSearchSingleLetter,
+        buildDidYouMean,
+        cancelScheduledDidYouMean,
+        cancelScheduledSearch,
+        startTransition,
+    ]);
 
     const highlightText = useCallback((originalText, keyword) => {
         if (!keyword || keyword.trim() === '') return [originalText];
