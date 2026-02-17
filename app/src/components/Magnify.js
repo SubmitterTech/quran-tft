@@ -298,7 +298,14 @@ const Magnify = ({ colors, theme, translationApplication, quran, map, appendices
     const saveLastSelection = useRef(false);
     const [notify, setNotify] = useState(null);
     const loadingElementsTimer = useRef(null);
-    const suggestionIndexRef = useRef({ frequency: new Map(), byLength: new Map(), searchableTexts: [] });
+    const suggestionIndexRef = useRef({
+        frequency: new Map(),
+        byLength: new Map(),
+        surfaceForms: new Map(),
+        searchableTexts: [],
+        bigramFrequency: new Map(),
+        trigramFrequency: new Map(),
+    });
 
     const titlesReferences = useRef({});
     const versesReferences = useRef({});
@@ -374,7 +381,7 @@ const Magnify = ({ colors, theme, translationApplication, quran, map, appendices
         if (isRtlLanguage) {
             t = foldRtlScript(t);
         }
-        if ((lang === "tr" || lang === "az") && normalize) {
+        if ((lang === "tr" || lang === "az") && (normalize || !caseSensitive)) {
             t = t.replace(/[İIıi]/g, "i");
         }
         if (normalize) {
@@ -392,7 +399,14 @@ const Magnify = ({ colors, theme, translationApplication, quran, map, appendices
         const digitSet = new Set(langDigits);
 
         if (!quran || !introduction) {
-            suggestionIndexRef.current = { frequency: new Map(), byLength: new Map(), searchableTexts: [] };
+            suggestionIndexRef.current = {
+                frequency: new Map(),
+                byLength: new Map(),
+                surfaceForms: new Map(),
+                searchableTexts: [],
+                bigramFrequency: new Map(),
+                trigramFrequency: new Map(),
+            };
             return;
         }
 
@@ -450,25 +464,58 @@ const Magnify = ({ colors, theme, translationApplication, quran, map, appendices
         };
 
         const frequency = new Map();
+        const surfaceForms = new Map();
         const searchableTextSet = new Set();
+        const bigramFrequency = new Map();
+        const trigramFrequency = new Map();
         const addToken = (token, weight = 1) => {
             if (!token || token.length < 2) return;
             if (hasAnyDigitLocal(token)) return;
             frequency.set(token, (frequency.get(token) || 0) + weight);
         };
+        const addSurfaceForm = (foldedToken, originalToken, weight = 1) => {
+            if (!foldedToken || foldedToken.length < 2 || !originalToken) return;
+            if (hasAnyDigitLocal(foldedToken)) return;
+            if (!surfaceForms.has(foldedToken)) {
+                surfaceForms.set(foldedToken, new Map());
+            }
+            const variants = surfaceForms.get(foldedToken);
+            variants.set(originalToken, (variants.get(originalToken) || 0) + weight);
+        };
 
         const addText = (text, includeInSearchHitCheck = true) => {
             if (text == null) return;
-            const foldedText = searchFold(String(text));
+            const sourceText = String(text);
+            const foldedText = searchFold(sourceText);
             const trimmedText = foldedText.trim();
             if (includeInSearchHitCheck && trimmedText.length > 1) {
                 searchableTextSet.add(trimmedText);
             }
-            splitQuerySegments(foldedText).forEach((segment) => {
+            const wordTokens = [];
+            splitQuerySegments(sourceText).forEach((segment) => {
                 if (segment.type !== 'word') return;
-                addToken(segment.value, 1);
-                buildStemVariants(segment.value).forEach((stem) => addToken(stem, 0.42));
+                const foldedToken = searchFold(segment.value);
+                if (!foldedToken || foldedToken.length < 2) return;
+                addToken(foldedToken, 1);
+                addSurfaceForm(foldedToken, segment.value, 1);
+                buildStemVariants(foldedToken).forEach((stem) => {
+                    addToken(stem, 0.42);
+                    // Keep display suggestions on real corpus forms, not synthetic stems.
+                    addSurfaceForm(stem, segment.value, 0.42);
+                });
+                if (!hasAnyDigitLocal(segment.value)) {
+                    wordTokens.push(foldedToken);
+                }
             });
+
+            for (let i = 0; i < wordTokens.length - 1; i++) {
+                const key = `${wordTokens[i]} ${wordTokens[i + 1]}`;
+                bigramFrequency.set(key, (bigramFrequency.get(key) || 0) + 1);
+            }
+            for (let i = 0; i < wordTokens.length - 2; i++) {
+                const key = `${wordTokens[i]} ${wordTokens[i + 1]} ${wordTokens[i + 2]}`;
+                trigramFrequency.set(key, (trigramFrequency.get(key) || 0) + 1);
+            }
         };
 
         for (const page in quran) {
@@ -542,7 +589,10 @@ const Magnify = ({ colors, theme, translationApplication, quran, map, appendices
         suggestionIndexRef.current = {
             frequency,
             byLength,
+            surfaceForms,
             searchableTexts: Array.from(searchableTextSet),
+            bigramFrequency,
+            trigramFrequency,
         };
     }, [quran, introduction, appsmap, translationApplication, lang, searchFold]);
 
@@ -550,7 +600,7 @@ const Magnify = ({ colors, theme, translationApplication, quran, map, appendices
         const term = String(rawTerm || '');
         if (term.trim().length < 2) return [];
 
-        const { frequency, byLength, searchableTexts } = suggestionIndexRef.current;
+        const { frequency, byLength, surfaceForms, searchableTexts, bigramFrequency, trigramFrequency } = suggestionIndexRef.current;
         if (!frequency || frequency.size === 0 || !searchableTexts || searchableTexts.length === 0) return [];
 
         const digitSet = new Set(langDigits);
@@ -563,12 +613,14 @@ const Magnify = ({ colors, theme, translationApplication, quran, map, appendices
         };
 
         const locale = lang || undefined;
-        const shapeToken = (candidate, originalToken) => {
-            if (caseSensitive) return candidate;
-            const lower = candidate.toLocaleLowerCase(locale);
+        const isTurkicLang = lang === 'tr' || lang === 'az';
+        const shapeSurfaceToken = (surfaceToken, originalToken) => {
+            if (caseSensitive) return surfaceToken;
+            const lower = surfaceToken.toLocaleLowerCase(locale);
+            const upperSurface = lower.toLocaleUpperCase(locale);
             const upper = originalToken.toLocaleUpperCase(locale);
             const originalLower = originalToken.toLocaleLowerCase(locale);
-            if (originalToken === upper) return candidate;
+            if (originalToken === upper) return upperSurface;
             if (
                 originalToken.length > 1
                 && originalToken[0] === upper[0]
@@ -579,30 +631,203 @@ const Magnify = ({ colors, theme, translationApplication, quran, map, appendices
             return lower;
         };
 
-        const hasAnySearchHit = (phrase) => {
-            if (!phrase || phrase.trim().length < 2) return false;
+        const scoreSurfaceVariant = (foldedToken, originalToken, surface, count) => {
+            let score = count;
+            if (isTurkicLang) {
+                const trCharCount = (surface.match(/[çğıöşüÇĞİÖŞÜı]/g) || []).length;
+                if (trCharCount > 0) score += trCharCount * 0.32;
+                if (foldedToken.includes('I') && /[ıİ]/.test(surface)) score += 0.48;
+                if (/^[A-Za-z]+$/.test(surface)) score -= 0.18;
+                if (/[çğıöşüÇĞİÖŞÜı]/.test(originalToken) && /[çğıöşüÇĞİÖŞÜı]/.test(surface)) {
+                    score += 0.24;
+                }
+            }
+            const originalLower = originalToken.toLocaleLowerCase(locale);
+            const surfaceLower = surface.toLocaleLowerCase(locale);
+            if (surfaceLower === originalLower) score += 0.28;
+            if (surface.length === originalToken.length) score += 0.12;
+            return score;
+        };
+
+        const getDisplayTokenVariants = (foldedToken, originalToken, limit = 3) => {
+            const variants = surfaceForms && surfaceForms.get(foldedToken);
+            const ranked = [];
+            if (variants && variants.size > 0) {
+                variants.forEach((count, surface) => {
+                    ranked.push({
+                        token: surface,
+                        score: scoreSurfaceVariant(foldedToken, originalToken, surface, count),
+                    });
+                });
+                ranked.sort((a, b) => b.score - a.score);
+            }
+
+            // Always keep a fallback shape, even if no surface form was indexed.
+            ranked.push({ token: foldedToken, score: -Infinity });
+
+            const selected = [];
+            const seen = new Set();
+            for (const item of ranked) {
+                const shaped = shapeSurfaceToken(item.token, originalToken);
+                if (!shaped || shaped.trim().length < 2) continue;
+                const dedupeKey = searchFold(shaped);
+                if (seen.has(dedupeKey)) continue;
+                seen.add(dedupeKey);
+                selected.push(shaped);
+                if (selected.length >= limit) break;
+            }
+            return selected;
+        };
+
+        const resolveDisplayToken = (foldedToken, originalToken) => (
+            getDisplayTokenVariants(foldedToken, originalToken, 1)[0] || shapeSurfaceToken(foldedToken, originalToken)
+        );
+
+        const extractTextTokens = (text) => {
+            return splitQuerySegments(text)
+                .filter((segment) => segment.type === 'word' && !hasAnyDigitLocal(segment.value))
+                .map((segment) => segment.value);
+        };
+
+        const buildTailTrimVariants = (token) => {
+            const variants = [token];
+            if (!token || token.length < 5) return variants;
+
+            const maxTrim = token.length >= 9 ? 3 : 2;
+            for (let trim = 1; trim <= maxTrim; trim++) {
+                const next = token.slice(0, token.length - trim);
+                if (next.length < 4) break;
+                variants.push(next);
+            }
+            return variants;
+        };
+
+        const getContextMetrics = (textTokens) => {
+            if (textTokens.length === 0) {
+                return { contextScore: 0, hasAdjacentEvidence: false };
+            }
+            if (textTokens.length === 1) {
+                return {
+                    contextScore: Math.log1p(frequency.get(textTokens[0]) || 0),
+                    hasAdjacentEvidence: false
+                };
+            }
+
+            let contextScore = 0;
+            let hasAdjacentEvidence = false;
+
+            for (let i = 0; i < textTokens.length - 1; i++) {
+                const key = `${textTokens[i]} ${textTokens[i + 1]}`;
+                const count = bigramFrequency.get(key) || 0;
+                if (count > 0) hasAdjacentEvidence = true;
+                contextScore += Math.log1p(count) * 1.25;
+            }
+
+            for (let i = 0; i < textTokens.length - 2; i++) {
+                const key = `${textTokens[i]} ${textTokens[i + 1]} ${textTokens[i + 2]}`;
+                const count = trigramFrequency.get(key) || 0;
+                if (count > 0) hasAdjacentEvidence = true;
+                contextScore += Math.log1p(count) * 1.75;
+            }
+
+            return { contextScore, hasAdjacentEvidence };
+        };
+
+        const getSuggestionEvidence = (phrase) => {
+            if (!phrase || phrase.trim().length < 2) {
+                return {
+                    hasHit: false,
+                    hasRelaxedHit: false,
+                    keywordHitCount: 0,
+                    relaxedKeywordHitCount: 0,
+                    phraseHitCount: 0,
+                    contextScore: 0,
+                    hasAdjacentEvidence: false,
+                    tokenCount: 0,
+                };
+            }
 
             const processedPhrase = searchFold(phrase);
             const orTerms = processedPhrase.split('|').map((part) => part.trim()).filter(Boolean);
-            if (orTerms.length === 0) return false;
+            if (orTerms.length === 0) {
+                return {
+                    hasHit: false,
+                    hasRelaxedHit: false,
+                    keywordHitCount: 0,
+                    relaxedKeywordHitCount: 0,
+                    phraseHitCount: 0,
+                    contextScore: 0,
+                    hasAdjacentEvidence: false,
+                    tokenCount: 0,
+                };
+            }
+
+            const best = {
+                keywordHitCount: 0,
+                relaxedKeywordHitCount: 0,
+                phraseHitCount: 0,
+                contextScore: 0,
+                hasAdjacentEvidence: false,
+                tokenCount: 0,
+            };
 
             for (const part of orTerms) {
-                const tokens = part.split(/\s+/).filter(Boolean);
-                const textTokens = tokens.filter((token) => !hasAnyDigitLocal(token));
+                const textTokens = extractTextTokens(part);
                 if (textTokens.length === 0) continue;
 
                 const keywords = exactMatch ? [textTokens.join(' ')] : textTokens;
+                const relaxedTokenVariants = textTokens.map((token) => buildTailTrimVariants(token));
+                let keywordHitCount = 0;
+                let relaxedKeywordHitCount = 0;
+                let phraseHitCount = 0;
+
                 for (const hay of searchableTexts) {
-                    const matched = keywords.every((keyword) => (
+                    const keywordMatch = keywords.every((keyword) => (
                         exactMatch ? exactIndexOf(hay, keyword, 0) !== -1 : hay.includes(keyword)
                     ));
-                    if (matched) {
-                        return true;
-                    }
+                    if (keywordMatch) keywordHitCount++;
+                    const relaxedKeywordMatch = relaxedTokenVariants.every((variants) => (
+                        variants.some((variant) => hay.includes(variant))
+                    ));
+                    if (relaxedKeywordMatch) relaxedKeywordHitCount++;
+                    if (exactIndexOf(hay, part, 0) !== -1) phraseHitCount++;
+                }
+
+                const { contextScore, hasAdjacentEvidence } = getContextMetrics(textTokens);
+                const unigramScore = textTokens.reduce((sum, token) => sum + Math.log1p(frequency.get(token) || 0), 0);
+                const combinedContextScore = contextScore + (unigramScore * 0.35);
+
+                const better =
+                    keywordHitCount > best.keywordHitCount
+                    || (keywordHitCount === best.keywordHitCount && phraseHitCount > best.phraseHitCount)
+                    || (keywordHitCount === best.keywordHitCount
+                        && phraseHitCount === best.phraseHitCount
+                        && relaxedKeywordHitCount > best.relaxedKeywordHitCount)
+                    || (keywordHitCount === best.keywordHitCount
+                        && phraseHitCount === best.phraseHitCount
+                        && relaxedKeywordHitCount === best.relaxedKeywordHitCount
+                        && combinedContextScore > best.contextScore);
+
+                if (better) {
+                    best.keywordHitCount = keywordHitCount;
+                    best.relaxedKeywordHitCount = relaxedKeywordHitCount;
+                    best.phraseHitCount = phraseHitCount;
+                    best.contextScore = combinedContextScore;
+                    best.hasAdjacentEvidence = hasAdjacentEvidence;
+                    best.tokenCount = textTokens.length;
                 }
             }
 
-            return false;
+            return {
+                hasHit: exactMatch ? best.phraseHitCount > 0 : best.keywordHitCount > 0,
+                hasRelaxedHit: exactMatch ? best.phraseHitCount > 0 : best.relaxedKeywordHitCount > 0,
+                keywordHitCount: best.keywordHitCount,
+                relaxedKeywordHitCount: best.relaxedKeywordHitCount,
+                phraseHitCount: best.phraseHitCount,
+                contextScore: best.contextScore,
+                hasAdjacentEvidence: best.hasAdjacentEvidence,
+                tokenCount: best.tokenCount,
+            };
         };
 
         const getCandidates = (foldedToken) => {
@@ -639,13 +864,105 @@ const Magnify = ({ colors, theme, translationApplication, quran, map, appendices
                 }
             }
 
-            results.sort((a, b) => {
+            const candidateMap = new Map();
+            results.forEach((item) => {
+                const previous = candidateMap.get(item.word);
+                if (!previous || item.score < previous.score) {
+                    candidateMap.set(item.word, item);
+                }
+            });
+
+            if (candidateMap.size < 10) {
+                const relaxedDistance = maxDistance + 1;
+                const relaxedMinLen = Math.max(2, foldedToken.length - relaxedDistance);
+                const relaxedMaxLen = foldedToken.length + relaxedDistance + 2;
+                const strongPrefix = foldedToken.slice(0, Math.min(4, foldedToken.length));
+                const weakPrefix = foldedToken.slice(0, Math.min(3, foldedToken.length));
+
+                for (let len = relaxedMinLen; len <= relaxedMaxLen; len++) {
+                    const bucket = byLength.get(len);
+                    if (!bucket || bucket.length === 0) continue;
+
+                    for (const candidate of bucket) {
+                        if (candidateMap.has(candidate)) continue;
+                        if (
+                            !candidate.startsWith(strongPrefix)
+                            && !candidate.startsWith(weakPrefix)
+                            && commonPrefixLength(foldedToken, candidate) < 3
+                        ) {
+                            continue;
+                        }
+
+                        const distance = boundedDamerauLevenshtein(foldedToken, candidate, relaxedDistance);
+                        if (distance === Infinity) continue;
+
+                        const freq = frequency.get(candidate) || 0;
+                        const transposition = isSingleAdjacentTransposition(foldedToken, candidate);
+                        const characterGap = bagDistance(foldedToken, candidate);
+                        const prefixLen = commonPrefixLength(foldedToken, candidate);
+                        const triScore = trigramSimilarity(foldedToken, candidate);
+                        const containsBonus = (candidate.startsWith(foldedToken) || foldedToken.startsWith(candidate)) ? 220 : 0;
+                        candidateMap.set(candidate, {
+                            word: candidate,
+                            distance,
+                            score: (distance * 920)
+                                + (characterGap * 130)
+                                - Math.min(freq * 1.2, 980)
+                                - Math.round(triScore * 680)
+                                - Math.min(prefixLen * 110, 660)
+                                - (transposition ? 360 : 0)
+                                - containsBonus,
+                        });
+                    }
+                }
+            }
+
+            if (candidateMap.size < 14) {
+                const broadDistance = maxDistance + 2;
+                const broadMinLen = Math.max(2, foldedToken.length - broadDistance);
+                const broadMaxLen = foldedToken.length + broadDistance + 3;
+
+                for (let len = broadMinLen; len <= broadMaxLen; len++) {
+                    const bucket = byLength.get(len);
+                    if (!bucket || bucket.length === 0) continue;
+
+                    for (const candidate of bucket) {
+                        if (candidateMap.has(candidate)) continue;
+
+                        const prefixLen = commonPrefixLength(foldedToken, candidate);
+                        const triScore = trigramSimilarity(foldedToken, candidate);
+                        if (prefixLen < 2 && triScore < 0.34) continue;
+
+                        const distance = boundedDamerauLevenshtein(foldedToken, candidate, broadDistance);
+                        if (distance === Infinity) continue;
+
+                        const freq = frequency.get(candidate) || 0;
+                        const transposition = isSingleAdjacentTransposition(foldedToken, candidate);
+                        const characterGap = bagDistance(foldedToken, candidate);
+                        const containsBonus = (candidate.startsWith(foldedToken) || foldedToken.startsWith(candidate)) ? 240 : 0;
+                        candidateMap.set(candidate, {
+                            word: candidate,
+                            distance,
+                            score: (distance * 980)
+                                + (characterGap * 145)
+                                - Math.min(freq * 1.25, 1080)
+                                - Math.round(triScore * 760)
+                                - Math.min(prefixLen * 120, 720)
+                                - (transposition ? 340 : 0)
+                                - containsBonus,
+                        });
+                    }
+                }
+            }
+
+            const ranked = Array.from(candidateMap.values());
+            ranked.sort((a, b) => {
                 if (a.score !== b.score) return a.score - b.score;
                 if (a.distance !== b.distance) return a.distance - b.distance;
                 return Math.abs(a.word.length - foldedToken.length) - Math.abs(b.word.length - foldedToken.length);
             });
 
-            return results.slice(0, 3);
+            return ranked.slice(0, 14);
         };
 
         const segments = splitQuerySegments(term);
@@ -672,12 +989,16 @@ const Magnify = ({ colors, theme, translationApplication, quran, map, appendices
         if (misspelled.length === 0) return [];
 
         const rankedSuggestions = new Map();
-        const pushSuggestion = (replacements, score) => {
-            const phrase = segments.map((seg, idx) => (
+        const composeSuggestionPhrase = (replacements) => {
+            return segments.map((seg, idx) => (
                 Object.prototype.hasOwnProperty.call(replacements, idx)
                     ? replacements[idx]
                     : seg.value
             )).join('');
+        };
+
+        const pushSuggestion = (replacements, score) => {
+            const phrase = composeSuggestionPhrase(replacements);
 
             if (!phrase || phrase.trim().length < 2) return;
             if (searchFold(phrase) === searchFold(term)) return;
@@ -690,10 +1011,13 @@ const Magnify = ({ colors, theme, translationApplication, quran, map, appendices
 
         misspelled.forEach((item) => {
             item.candidates.forEach((candidate) => {
-                pushSuggestion(
-                    { [item.index]: shapeToken(candidate.word, item.original) },
-                    candidate.score + ((misspelled.length - 1) * 240)
-                );
+                const displayVariants = getDisplayTokenVariants(candidate.word, item.original, 3);
+                displayVariants.forEach((displayVariant, variantIndex) => {
+                    pushSuggestion(
+                        { [item.index]: displayVariant },
+                        candidate.score + ((misspelled.length - 1) * 240) + (variantIndex * 34)
+                    );
+                });
             });
         });
 
@@ -702,23 +1026,185 @@ const Magnify = ({ colors, theme, translationApplication, quran, map, appendices
             let totalScore = 0;
             misspelled.forEach((item) => {
                 const best = item.candidates[0];
-                replacements[item.index] = shapeToken(best.word, item.original);
+                replacements[item.index] = resolveDisplayToken(best.word, item.original);
                 totalScore += best.score;
             });
             pushSuggestion(replacements, totalScore);
+
+            // Beam-search combinations of alternative candidates.
+            let beams = [{ replacements: {}, score: 0 }];
+            const beamWidth = 40;
+            misspelled.forEach((item) => {
+                const topAlternatives = item.candidates.slice(0, 6);
+                if (topAlternatives.length === 0) return;
+
+                const next = [];
+                beams.forEach((beam) => {
+                    topAlternatives.forEach((candidate, candidateIndex) => {
+                        next.push({
+                            replacements: {
+                                ...beam.replacements,
+                                [item.index]: resolveDisplayToken(candidate.word, item.original),
+                            },
+                            score: beam.score + candidate.score + (candidateIndex * 45),
+                        });
+                    });
+                });
+
+                next.sort((a, b) => a.score - b.score);
+                beams = next.slice(0, beamWidth);
+            });
+
+            beams.forEach((beam) => {
+                pushSuggestion(beam.replacements, beam.score);
+            });
         }
 
-        const validatedSuggestions = [];
-        const sortedSuggestions = Array.from(rankedSuggestions.entries())
-            .sort((a, b) => a[1] - b[1]);
+        const rankedWithEvidence = Array.from(rankedSuggestions.entries())
+            .map(([phrase, baseScore]) => ({
+                phrase,
+                baseScore,
+                evidence: getSuggestionEvidence(phrase)
+            }));
+        const passesExactConstraint = (item) => (!exactMatch || item.evidence.phraseHitCount > 0);
 
-        for (const [phrase] of sortedSuggestions) {
-            if (!hasAnySearchHit(phrase)) continue;
-            validatedSuggestions.push(phrase);
-            if (validatedSuggestions.length >= suggestionLimit) break;
-        }
+        const strictComparator = (a, b) => {
+            if (b.evidence.phraseHitCount !== a.evidence.phraseHitCount) {
+                return b.evidence.phraseHitCount - a.evidence.phraseHitCount;
+            }
+            if (b.evidence.keywordHitCount !== a.evidence.keywordHitCount) {
+                return b.evidence.keywordHitCount - a.evidence.keywordHitCount;
+            }
+            if (b.evidence.contextScore !== a.evidence.contextScore) {
+                return b.evidence.contextScore - a.evidence.contextScore;
+            }
+            return a.baseScore - b.baseScore;
+        };
 
-        return validatedSuggestions;
+        const strictCandidates = rankedWithEvidence
+            .filter(passesExactConstraint)
+            .filter((item) => item.evidence.hasHit)
+            .filter((item) => (
+                item.evidence.tokenCount <= 1
+                || item.evidence.phraseHitCount > 0
+                || item.evidence.hasAdjacentEvidence
+            ))
+            .sort(strictComparator);
+
+        const selected = [];
+        const seen = new Set();
+        const appendCandidates = (candidates) => {
+            for (const item of candidates) {
+                if (seen.has(item.phrase)) continue;
+                selected.push(item.phrase);
+                seen.add(item.phrase);
+                if (selected.length >= suggestionLimit) break;
+            }
+        };
+
+        appendCandidates(strictCandidates);
+        if (selected.length >= suggestionLimit) return selected;
+
+        const mediumCandidates = rankedWithEvidence
+            .filter((item) => !seen.has(item.phrase))
+            .filter(passesExactConstraint)
+            .filter((item) => item.evidence.hasHit)
+            .sort(strictComparator);
+
+        appendCandidates(mediumCandidates);
+        if (selected.length >= suggestionLimit) return selected;
+
+        const relaxedCandidates = rankedWithEvidence
+            .filter((item) => !seen.has(item.phrase))
+            .filter(passesExactConstraint)
+            .filter((item) => item.evidence.hasHit && item.evidence.hasRelaxedHit)
+            .sort((a, b) => {
+                if (b.evidence.relaxedKeywordHitCount !== a.evidence.relaxedKeywordHitCount) {
+                    return b.evidence.relaxedKeywordHitCount - a.evidence.relaxedKeywordHitCount;
+                }
+                if (b.evidence.phraseHitCount !== a.evidence.phraseHitCount) {
+                    return b.evidence.phraseHitCount - a.evidence.phraseHitCount;
+                }
+                if (b.evidence.contextScore !== a.evidence.contextScore) {
+                    return b.evidence.contextScore - a.evidence.contextScore;
+                }
+                return a.baseScore - b.baseScore;
+            });
+
+        appendCandidates(relaxedCandidates);
+
+        if (selected.length >= suggestionLimit) return selected;
+
+        const tailTrimFallbacks = [];
+        misspelled.forEach((item) => {
+            const trimmedVariants = buildTailTrimVariants(item.original).slice(1);
+            trimmedVariants.forEach((variant, idx) => {
+                const phrase = composeSuggestionPhrase({
+                    [item.index]: shapeSurfaceToken(variant, item.original),
+                });
+                if (!phrase || phrase.trim().length < 2 || seen.has(phrase)) return;
+                if (searchFold(phrase) === searchFold(term)) return;
+
+                tailTrimFallbacks.push({
+                    phrase,
+                    baseScore: 12000 + (idx * 500),
+                    evidence: getSuggestionEvidence(phrase),
+                });
+            });
+        });
+
+        tailTrimFallbacks.sort((a, b) => {
+            if (b.evidence.relaxedKeywordHitCount !== a.evidence.relaxedKeywordHitCount) {
+                return b.evidence.relaxedKeywordHitCount - a.evidence.relaxedKeywordHitCount;
+            }
+            if (b.evidence.keywordHitCount !== a.evidence.keywordHitCount) {
+                return b.evidence.keywordHitCount - a.evidence.keywordHitCount;
+            }
+            if (b.evidence.contextScore !== a.evidence.contextScore) {
+                return b.evidence.contextScore - a.evidence.contextScore;
+            }
+            return a.baseScore - b.baseScore;
+        });
+
+        appendCandidates(tailTrimFallbacks
+            .filter(passesExactConstraint)
+            .filter((item) => item.evidence.hasHit && item.evidence.hasRelaxedHit));
+        if (selected.length >= suggestionLimit) return selected;
+
+        // Final fallback: token-level base suggestions with guaranteed hits.
+        const tokenBaseFallbacks = [];
+        misspelled.forEach((item) => {
+            item.candidates.slice(0, 14).forEach((candidate, idx) => {
+                const displayVariants = getDisplayTokenVariants(candidate.word, item.original, 4);
+                displayVariants.forEach((phrase, variantIndex) => {
+                    if (!phrase || phrase.trim().length < 2 || seen.has(phrase)) return;
+                    if (searchFold(phrase) === searchFold(term)) return;
+                    tokenBaseFallbacks.push({
+                        phrase,
+                        baseScore: candidate.score + (idx * 35) + (variantIndex * 22),
+                        evidence: getSuggestionEvidence(phrase),
+                    });
+                });
+            });
+        });
+
+        tokenBaseFallbacks.sort((a, b) => {
+            if (b.evidence.keywordHitCount !== a.evidence.keywordHitCount) {
+                return b.evidence.keywordHitCount - a.evidence.keywordHitCount;
+            }
+            if (b.evidence.phraseHitCount !== a.evidence.phraseHitCount) {
+                return b.evidence.phraseHitCount - a.evidence.phraseHitCount;
+            }
+            if (b.evidence.contextScore !== a.evidence.contextScore) {
+                return b.evidence.contextScore - a.evidence.contextScore;
+            }
+            return a.baseScore - b.baseScore;
+        });
+
+        appendCandidates(tokenBaseFallbacks
+            .filter(passesExactConstraint)
+            .filter((item) => item.evidence.hasHit));
+        return selected;
     }, [lang, langDigits, searchFold, caseSensitive, exactMatch, suggestionLimit]);
 
     const performSearch = useCallback((term) => {
