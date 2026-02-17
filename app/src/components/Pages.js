@@ -45,6 +45,8 @@ const parseNoteReferences = (notes) => {
     return noteRefsMap;
 };
 
+const SCROLL_EDGE_THRESHOLD_PX = 100;
+
 const Pages = React.memo(({
     colors,
     theme,
@@ -80,6 +82,10 @@ const Pages = React.memo(({
     const notifyTimeoutRef = useRef();
     const notifyRange = useRef({});
     const stickyRef = useRef(null);
+    const stickyTitlesFocusRef = useRef(null);
+    const expandedTitlesListRef = useRef(null);
+    const collapsedTitlesListRef = useRef(null);
+    const collapsedTitlesAnimatedRef = useRef(false);
     const currentPageRef = useRef(selectedPage);
     const scrollTimeout = useRef(null);
 
@@ -90,6 +96,12 @@ const Pages = React.memo(({
     const [focusedNoteIndices, setFocusedNoteIndices] = useState(Array(10).fill(false));
     const [stickyHeight, setStickyHeight] = useState(0);
     const [isScrolling, setIsScrolling] = useState(false);
+    const [isPageTitlesExpanded, setIsPageTitlesExpanded] = useState(false);
+    const [activePageTitleIndex, setActivePageTitleIndex] = useState(0);
+    const [scrollEdgeState, setScrollEdgeState] = useState({ isNearTop: true, isNearBottom: false });
+    const [expandedTitlesHeight, setExpandedTitlesHeight] = useState(0);
+    const [collapsedTitlesHeight, setCollapsedTitlesHeight] = useState(0);
+    const [collapsedTitlesAnimationCycle, setCollapsedTitlesAnimationCycle] = useState(0);
     const [besmeleClicked, setBesmeleClicked] = useState(false);
     const [showExplanation, setShowExplanation] = useState({
         GODnamefrequency: false,
@@ -150,6 +162,24 @@ const Pages = React.memo(({
         return newPageTitles;
     }, [quranData, selectedPage, translation]);
 
+    const pageTitleMeta = useMemo(
+        () => pageTitle.map((title, index) => {
+            const referenceMatch = title.match(/(\d+):(\d+)(?:-\d+)?\s*$/);
+            const suraNumber = referenceMatch ? parseInt(referenceMatch[1], 10) : null;
+            const startVerse = referenceMatch ? parseInt(referenceMatch[2], 10) : null;
+            const startKey = (Number.isFinite(suraNumber) && Number.isFinite(startVerse))
+                ? `${suraNumber}:${startVerse}`
+                : null;
+
+            return {
+                title,
+                index,
+                startKey
+            };
+        }),
+        [pageTitle]
+    );
+
     const besmele = quranData["23"]["sura"]["1"]["encrypted"]["1"];
 
     const [deleteConfirmResolver, setDeleteConfirmResolver] = useState(null);
@@ -167,11 +197,64 @@ const Pages = React.memo(({
         });
     };
 
+    const updateScrollEdgeState = useCallback(() => {
+        const container = scrollContainerRef.current;
+        if (!container) return;
+
+        const isNearTop = container.scrollTop <= SCROLL_EDGE_THRESHOLD_PX;
+        const bottomDistance = container.scrollHeight - (container.scrollTop + container.clientHeight);
+        const isNearBottom = bottomDistance <= SCROLL_EDGE_THRESHOLD_PX;
+
+        setScrollEdgeState((previous) => {
+            if (previous.isNearTop === isNearTop && previous.isNearBottom === isNearBottom) {
+                return previous;
+            }
+            return { isNearTop, isNearBottom };
+        });
+    }, []);
+
+    const updateActivePageTitleIndex = useCallback(() => {
+        if (pageTitleMeta.length === 0) {
+            setActivePageTitleIndex(0);
+            return;
+        }
+
+        const container = scrollContainerRef.current;
+        if (!container) return;
+
+        const containerRect = container.getBoundingClientRect();
+        const visibleBottomThreshold = container.scrollTop + container.clientHeight - 1;
+        let lastEnteredIndex = 0;
+
+        pageTitleMeta.forEach(({ startKey }, index) => {
+            if (!startKey) return;
+
+            const anchorNode = verseRefs.current[startKey];
+            if (!anchorNode) return;
+
+            const anchorTop = anchorNode.getBoundingClientRect().top - containerRect.top + container.scrollTop;
+            if (anchorTop <= visibleBottomThreshold) {
+                lastEnteredIndex = index;
+            }
+        });
+
+        const nextActiveIndex = Math.min(
+            Math.max(lastEnteredIndex, 0),
+            Math.max(pageTitleMeta.length - 1, 0)
+        );
+
+        setActivePageTitleIndex((previousIndex) => (
+            previousIndex === nextActiveIndex ? previousIndex : nextActiveIndex
+        ));
+    }, [pageTitleMeta]);
+
     const handleScroll = () => {
         if (!isScrolling) setIsScrolling(true);
 
         clearTimeout(scrollTimeout.current);
         handleContainerScroll();
+        updateScrollEdgeState();
+        updateActivePageTitleIndex();
 
         scrollTimeout.current = setTimeout(() => {
             setIsScrolling(false);
@@ -192,6 +275,39 @@ const Pages = React.memo(({
             return () => resizeObserver.disconnect();
         }
     }, [stickyRef, selectedPage]);
+
+    useEffect(() => {
+        updateScrollEdgeState();
+        updateActivePageTitleIndex();
+    }, [stickyHeight, updateActivePageTitleIndex, updateScrollEdgeState]);
+
+    useEffect(() => {
+        setIsPageTitlesExpanded(false);
+        setActivePageTitleIndex(0);
+        setScrollEdgeState({ isNearTop: true, isNearBottom: false });
+        setCollapsedTitlesAnimationCycle(0);
+        collapsedTitlesAnimatedRef.current = false;
+
+        const frame = requestAnimationFrame(() => {
+            updateScrollEdgeState();
+            updateActivePageTitleIndex();
+        });
+
+        return () => cancelAnimationFrame(frame);
+    }, [selectedPage, pageTitleMeta, updateActivePageTitleIndex, updateScrollEdgeState]);
+
+    useEffect(() => {
+        if (!isPageTitlesExpanded) return;
+
+        const handlePointerDownOutside = (event) => {
+            if (!stickyTitlesFocusRef.current?.contains(event.target)) {
+                setIsPageTitlesExpanded(false);
+            }
+        };
+
+        document.addEventListener('pointerdown', handlePointerDownOutside);
+        return () => document.removeEventListener('pointerdown', handlePointerDownOutside);
+    }, [isPageTitlesExpanded]);
 
     const forceScroll = useCallback((part) => {
         void upt;
@@ -446,6 +562,52 @@ const Pages = React.memo(({
         };
     }, []);
 
+    const hasExpandablePageTitles = pageTitleMeta.length > 2;
+    const collapsedPageTitles = useMemo(() => {
+        if (!hasExpandablePageTitles) {
+            return pageTitleMeta;
+        }
+
+        if (scrollEdgeState.isNearTop) {
+            return pageTitleMeta.slice(0, 2);
+        }
+
+        if (scrollEdgeState.isNearBottom) {
+            return pageTitleMeta.slice(-2);
+        }
+
+        const lastEnteredIndex = Math.min(
+            Math.max(activePageTitleIndex, 0),
+            Math.max(pageTitleMeta.length - 1, 0)
+        );
+        const clampedStartIndex = Math.min(
+            Math.max(lastEnteredIndex - 1, 0),
+            Math.max(pageTitleMeta.length - 2, 0)
+        );
+        return pageTitleMeta.slice(clampedStartIndex, clampedStartIndex + 2);
+    }, [activePageTitleIndex, hasExpandablePageTitles, pageTitleMeta, scrollEdgeState]);
+    const collapsedPageTitlesSignature = useMemo(
+        () => collapsedPageTitles.map(({ index }) => index).join('-'),
+        [collapsedPageTitles]
+    );
+    const collapsedRenderedTitles = collapsedPageTitles;
+
+    useLayoutEffect(() => {
+        setExpandedTitlesHeight(expandedTitlesListRef.current?.scrollHeight || 0);
+        setCollapsedTitlesHeight(collapsedTitlesListRef.current?.scrollHeight || 0);
+    }, [pageTitleMeta, collapsedRenderedTitles, isPageTitlesExpanded]);
+
+    useEffect(() => {
+        if (!hasExpandablePageTitles || isPageTitlesExpanded) return;
+
+        if (!collapsedTitlesAnimatedRef.current) {
+            collapsedTitlesAnimatedRef.current = true;
+            return;
+        }
+
+        setCollapsedTitlesAnimationCycle((cycle) => cycle + 1);
+    }, [collapsedPageTitlesSignature, hasExpandablePageTitles, isPageTitlesExpanded]);
+
     if (!pageData) return <div className={`${colors[theme]["text"]} flex flex-1 items-center justify-center w-full `}>{translationApplication?.loading}</div>;
 
     const openExplanation = (key) => {
@@ -483,7 +645,70 @@ const Pages = React.memo(({
     };
 
     const handlePageTitleClicked = () => {
-        handleToggleJump();
+        if (!hasExpandablePageTitles) {
+            handleToggleJump();
+            return;
+        }
+
+        setIsPageTitlesExpanded((isExpanded) => {
+            const nextExpandedState = !isExpanded;
+            if (nextExpandedState) {
+                requestAnimationFrame(() => {
+                    stickyTitlesFocusRef.current?.focus();
+                });
+            }
+            return nextExpandedState;
+        });
+    };
+
+    const handlePageTitlesFocusOut = (event) => {
+        if (!event.currentTarget.contains(event.relatedTarget)) {
+            setIsPageTitlesExpanded(false);
+        }
+    };
+
+    const renderPageTitleRow = ({ title, index }, { keyPrefix = 'title-row', style = undefined } = {}) => {
+        // Use a regex to match the three groups: name, Latin pronunciation, and page info
+        const titleRegex = /^(.*?)\s+\((.*?)\)\s+(.*)$/;
+        const match = title.match(titleRegex);
+
+        // If the title matches the expected format, render the groups
+        if (match) {
+            return (
+                <div key={`${keyPrefix}-matches-${index}`} style={style} className="flex justify-between w-full">
+                    <div className="w-full flex justify-between mr-2">
+                        <span className="text-left font-bold justify-self-center text-sky-500">{match[1]}</span>
+                        <span className="text-right ">{`(${match[2]})`}</span>
+                    </div>
+                    <span className="w-1/3 text-right">{direction === 'rtl' ? match[3].trim().split('-').reverse().join('-') : match[3]}</span>
+                </div>
+            );
+        }
+
+        // If the title doesn't match the expected format, split and render
+        const lastSpaceIndex = title.lastIndexOf(" ");
+        const namePart = title.substring(0, lastSpaceIndex);
+        const pageInfoPart = title.substring(lastSpaceIndex + 1);
+
+        return (
+            <div key={`${keyPrefix}-not-matches-${index}`} style={style} className="flex justify-between w-full">
+                <span className="text-left flex-1 font-bold text-sky-500">{namePart}</span>
+                <span className="text-right flex-1">{direction === 'rtl' ? pageInfoPart.trim().split('-').reverse().join('-') : pageInfoPart}</span>
+            </div>
+        );
+    };
+
+    const getCollapsedTitleAnimationStyle = (rowIndex) => {
+        if (!hasExpandablePageTitles || isPageTitlesExpanded || collapsedTitlesAnimationCycle === 0) {
+            return undefined;
+        }
+
+        const durationMs = 200;
+        const delayMs = rowIndex * durationMs;
+        return {
+            animation: `sticky-title-bounce ${durationMs}ms ease-in-out ${delayMs}ms 1 both`,
+            transformOrigin: 'center center'
+        };
     };
 
     const handleVerseClick = (hasAsterisk, key) => {
@@ -537,43 +762,64 @@ const Pages = React.memo(({
                 }}>
             <div
                 ref={stickyRef}
-                className={`sticky top-0 p-3 ${colors[theme]["app-background"]}  flex z-10`}>
+                className={`sticky top-0 p-3 ${colors[theme]["app-background"]} relative flex z-10`}>
                 <div
+                    ref={stickyTitlesFocusRef}
                     onClick={() => handlePageTitleClicked()}
-                    className={`flex w-full text-sm lg:text-lg flex-1`}>
-                    <div className={`flex flex-col space-y-2 w-full`}>
-                        {pageTitle.map((title, index) => {
-                            // Use a regex to match the three groups: name, Latin pronunciation, and page info
-                            const titleRegex = /^(.*?)\s+\((.*?)\)\s+(.*)$/;
-                            const match = title.match(titleRegex);
-
-                            // If the title matches the expected format, render the groups
-                            if (match) {
-                                return (
-                                    <div key={`title-matches-${index}`} className="flex justify-between w-full">
-                                        <div className="w-full flex justify-between mr-2">
-                                            <span className="text-left font-bold justify-self-center text-sky-500">{match[1]}</span>
-                                            <span className="text-right ">{`(${match[2]})`}</span>
-                                        </div>
-                                        <span className="w-1/3 text-right">{direction === 'rtl' ? match[3].trim().split('-').reverse().join('-') : match[3]}</span>
+                    onBlur={handlePageTitlesFocusOut}
+                    tabIndex={hasExpandablePageTitles ? 0 : -1}
+                    className={`flex w-full text-sm lg:text-lg flex-1 ${hasExpandablePageTitles ? 'cursor-pointer' : ''}`}>
+                    <div className="w-full">
+                        {hasExpandablePageTitles ? (
+                            <>
+                                <div
+                                    className="w-full"
+                                    style={{
+                                        maxHeight: isPageTitlesExpanded ? `${expandedTitlesHeight}px` : '0px',
+                                        opacity: isPageTitlesExpanded ? 1 : 0,
+                                        transition: 'max-height 100ms ease-in, opacity 100ms ease-in',
+                                    }}>
+                                    <div ref={expandedTitlesListRef} className={`flex flex-col space-y-2 w-full`}>
+                                        {pageTitleMeta.map((titleItem) => renderPageTitleRow(titleItem, { keyPrefix: 'expanded-title' }))}
                                     </div>
-                                );
-                            } else {
-                                // If the title doesn't match the expected format, split and render
-                                const lastSpaceIndex = title.lastIndexOf(" ");
-                                const namePart = title.substring(0, lastSpaceIndex);
-                                const pageInfoPart = title.substring(lastSpaceIndex + 1);
-
-                                return (
-                                    <div key={`title-not-matches-${index}`} className="flex justify-between w-full">
-                                        <span className="text-left flex-1 font-bold text-sky-500">{namePart}</span>
-                                        <span className="text-right flex-1">{direction === 'rtl' ? pageInfoPart.trim().split('-').reverse().join('-') : pageInfoPart}</span>
+                                </div>
+                                <div
+                                    className="w-full"
+                                    style={{
+                                        maxHeight: isPageTitlesExpanded ? '0px' : `${collapsedTitlesHeight}px`,
+                                        opacity: isPageTitlesExpanded ? 0 : 1,
+                                        transition: 'max-height 100ms ease-out, opacity 100ms ease-out',
+                                    }}>
+                                    <div
+                                        ref={collapsedTitlesListRef}
+                                        className={`flex flex-col space-y-2 w-full`}>
+                                        {collapsedRenderedTitles.map((titleItem, rowIndex) => renderPageTitleRow(titleItem, {
+                                            keyPrefix: `collapsed-title-${collapsedTitlesAnimationCycle}`,
+                                            style: getCollapsedTitleAnimationStyle(rowIndex)
+                                        }))}
                                     </div>
-                                );
-                            }
-                        })}
+                                </div>
+                            </>
+                        ) : (
+                            <div ref={collapsedTitlesListRef} className={`flex flex-col space-y-2 w-full`}>
+                                {pageTitleMeta.map((titleItem) => renderPageTitleRow(titleItem, { keyPrefix: 'single-title' }))}
+                            </div>
+                        )}
                     </div>
                 </div>
+                {hasExpandablePageTitles && (
+                    <div className="pointer-events-none absolute inset-x-0 bottom-0 flex justify-center leading-none">
+                        <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            className={`h-3 w-3 transition-transform duration-200 ease-in ${isPageTitlesExpanded ? 'rotate-180' : ''}`}
+                            fill="none"
+                            viewBox="0 0 24 24"
+                            stroke="currentColor"
+                            aria-hidden="true">
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 9l-7 7-7-7" />
+                        </svg>
+                    </div>
+                )}
             </div>
             <div ref={topRef} className={`flex flex-col `}>
                 {sortedVerses.map(({ suraNumber, verseNumber, verseText, encryptedText, title }) => {
@@ -774,7 +1020,9 @@ const Pages = React.memo(({
 
                     return (
                         notesData.data.length > 0 &&
-                        <div dir={direction} className={`${colors[theme]["base-background"]} mx-0.5 my-3 rounded p-1 ${textTheme} text-justify ${colors[theme]["app-text"]} flex flex-col space-y-1 whitespace-pre-line break-words`}>
+                        <div
+                            dir={direction}
+                            className={`${colors[theme]["base-background"]} mx-0.5 my-3 rounded p-1 ${textTheme} text-justify ${colors[theme]["app-text"]} flex flex-col space-y-1 whitespace-pre-line break-words`}>
                             <h3 className={`p-1`}>{translationApplication?.notes}:</h3>
 
                             {notesData.data.map((note, index) => (
