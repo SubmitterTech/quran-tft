@@ -13,6 +13,24 @@ import cover from '../assets/cover.json';
 import map from '../assets/map.json';
 import languages from '../assets/languages.json';
 
+const coverTranslationContext = require.context(
+    '../assets/translations',
+    true,
+    /cover_[a-z0-9-]+\.json$/
+);
+
+const COVER_TRANSLATION_LOOKUP = coverTranslationContext.keys().reduce((acc, filePath) => {
+    const match = filePath.match(/\.\/([^/]+)\/cover_[^/]+\.json$/);
+    if (!match || !match[1]) {
+        return acc;
+    }
+
+    const languageCode = match[1].toLowerCase();
+    const loaded = coverTranslationContext(filePath);
+    acc[languageCode] = loaded?.default || loaded || null;
+    return acc;
+}, {});
+
 const CORE_TRANSLATION_SEGMENTS = ['loadQuran', 'loadCover', 'loadIntro', 'loadAppendices', 'loadApplication'];
 const ALL_TRANSLATION_SEGMENTS = [...CORE_TRANSLATION_SEGMENTS, 'loadMap'];
 const TRANSLATION_PROGRESS_MIN_VISIBLE_MS = 280;
@@ -49,8 +67,11 @@ function Root({ bootData = null }) {
     const activeLangRef = useRef(normalizedInitialLang);
     const mapLoadPromiseRef = useRef(null);
     const introLoadPromiseRef = useRef(null);
+    const coverTranslationCacheRef = useRef({});
     const translationProgressStartedAtRef = useRef(0);
     const translationProgressTimerRef = useRef(null);
+    const coverPreviewRequestRef = useRef(0);
+    const coverPreviewLangRef = useRef('');
     const loadedSegmentsRef = useRef({
         loadQuran: false,
         loadCover: false,
@@ -94,10 +115,62 @@ function Root({ bootData = null }) {
         setBookPage(parseInt(nextPage, 10));
     }, []);
 
+    const deferLanguageCommit = useCallback((nextLanguage) => {
+        if (typeof window !== 'undefined' && typeof window.requestAnimationFrame === 'function') {
+            window.requestAnimationFrame(() => setLang(nextLanguage));
+            return;
+        }
+        window.setTimeout(() => setLang(nextLanguage), 0);
+    }, []);
+
     const isEnglishLanguage = useCallback((value) => {
         const normalized = (value || "").toLowerCase();
         return normalized === "en" || normalized.startsWith("en-");
     }, []);
+
+    const getCoverTranslationSnapshot = useCallback((language) => {
+        const normalizedLanguage = (language || "").toLowerCase();
+        if (!normalizedLanguage || isEnglishLanguage(normalizedLanguage)) {
+            return null;
+        }
+
+        const baseLanguage = normalizedLanguage.split('-')[0];
+        return COVER_TRANSLATION_LOOKUP[normalizedLanguage] || COVER_TRANSLATION_LOOKUP[baseLanguage] || null;
+    }, [isEnglishLanguage]);
+
+    const loadCoverTranslationOnly = useCallback(async (language) => {
+        const normalizedLanguage = (language || "").toLowerCase();
+
+        if (!normalizedLanguage || isEnglishLanguage(normalizedLanguage)) {
+            return null;
+        }
+
+        const syncedCover = getCoverTranslationSnapshot(normalizedLanguage);
+        if (syncedCover) {
+            coverTranslationCacheRef.current[normalizedLanguage] = syncedCover;
+            return syncedCover;
+        }
+
+        if (coverTranslationCacheRef.current[normalizedLanguage]) {
+            return coverTranslationCacheRef.current[normalizedLanguage];
+        }
+
+        try {
+            const translatedCover = await import(
+                /* webpackInclude: /cover_[a-z0-9-]+\.json$/ */
+                `../assets/translations/${normalizedLanguage}/cover_${normalizedLanguage}.json`
+            ).catch(() => null);
+
+            const result = translatedCover?.default || null;
+            if (result) {
+                coverTranslationCacheRef.current[normalizedLanguage] = result;
+            }
+            return result;
+        } catch (error) {
+            console.error('Error loading cover translation:', error);
+            return null;
+        }
+    }, [isEnglishLanguage, getCoverTranslationSnapshot]);
 
     const stopTranslationProgressTimer = useCallback(() => {
         if (translationProgressTimerRef.current) {
@@ -145,7 +218,18 @@ function Root({ bootData = null }) {
             return;
         }
 
+        const requestId = coverPreviewRequestRef.current + 1;
+        coverPreviewRequestRef.current = requestId;
+
         if (!isEnglishLanguage(normalizedNext)) {
+            const syncedCover = showCover ? getCoverTranslationSnapshot(normalizedNext) : null;
+            if (syncedCover) {
+                coverPreviewLangRef.current = normalizedNext;
+                loadedSegmentsRef.current.loadCover = true;
+                coverTranslationCacheRef.current[normalizedNext] = syncedCover;
+                setCoverData(syncedCover);
+            }
+
             translationProgressStartedAtRef.current = performance.now();
             setTranslationLoadProgress({
                 active: true,
@@ -154,12 +238,45 @@ function Root({ bootData = null }) {
                 uiProgress: 0,
             });
             startGuidedTranslationProgress();
+
+            if (showCover) {
+                if (syncedCover) {
+                    deferLanguageCommit(nextLang);
+                    return;
+                }
+
+                const cachedCover = coverTranslationCacheRef.current[normalizedNext];
+                if (cachedCover) {
+                    coverPreviewLangRef.current = normalizedNext;
+                    loadedSegmentsRef.current.loadCover = true;
+                    setCoverData(cachedCover);
+                    deferLanguageCommit(nextLang);
+                    return;
+                }
+
+                loadCoverTranslationOnly(normalizedNext).then((translatedCoverData) => {
+                    if (coverPreviewRequestRef.current !== requestId) {
+                        return;
+                    }
+
+                    if (translatedCoverData) {
+                        coverPreviewLangRef.current = normalizedNext;
+                        loadedSegmentsRef.current.loadCover = true;
+                        setCoverData(translatedCoverData);
+                    } else {
+                        coverPreviewLangRef.current = '';
+                    }
+
+                    deferLanguageCommit(nextLang);
+                });
+                return;
+            }
         } else {
             resetTranslationProgress();
         }
 
         setLang(nextLang);
-    }, [isEnglishLanguage, startGuidedTranslationProgress, resetTranslationProgress]);
+    }, [isEnglishLanguage, startGuidedTranslationProgress, resetTranslationProgress, showCover, loadCoverTranslationOnly, getCoverTranslationSnapshot, deferLanguageCommit]);
 
     const loadCoreTranslations = useCallback(async (language, preloadPlan = null, onSegmentSettled = null) => {
         const normalizedLanguage = (language || "").toLowerCase();
@@ -233,13 +350,25 @@ function Root({ bootData = null }) {
         }
     }, [isEnglishLanguage]);
 
-    const getRequiredTranslationPlan = useCallback((page, shouldShowCover) => ({
-        loadQuran: true,
-        loadCover: Boolean(shouldShowCover),
-        loadIntro: parseInt(page, 10) <= 22,
-        loadAppendices: parseInt(page, 10) >= 396,
-        loadApplication: true,
-    }), []);
+    const getRequiredTranslationPlan = useCallback((page, shouldShowCover) => {
+        if (shouldShowCover) {
+            return {
+                loadQuran: false,
+                loadCover: true,
+                loadIntro: false,
+                loadAppendices: false,
+                loadApplication: true,
+            };
+        }
+
+        return {
+            loadQuran: true,
+            loadCover: false,
+            loadIntro: parseInt(page, 10) <= 22,
+            loadAppendices: parseInt(page, 10) >= 396,
+            loadApplication: true,
+        };
+    }, []);
 
     const onIntroTranslationNeeded = useCallback(() => {
         const normalizedLang = (activeLangRef.current || "").toLowerCase();
@@ -282,6 +411,7 @@ function Root({ bootData = null }) {
         const canUseBootData = bootData?.language === normalizedLang;
 
         if (isEnglishLanguage(normalizedLang)) {
+            coverPreviewLangRef.current = '';
             setTranslation(null);
             setTranslationApplication(application);
             setTranslationIntro(introductionContent);
@@ -294,6 +424,7 @@ function Root({ bootData = null }) {
                 return acc;
             }, {});
         } else if (canUseBootData) {
+            coverPreviewLangRef.current = '';
             setTranslation(bootData.translation || null);
             setTranslationApplication(bootData.application || application);
             setTranslationIntro(bootData.introduction || introductionContent);
@@ -311,15 +442,18 @@ function Root({ bootData = null }) {
                 loadMap: Boolean(bootData.map),
             };
         } else {
+            const hasCoverPreview = coverPreviewLangRef.current === normalizedLang;
             setTranslation(null);
             setTranslationApplication(application);
             setTranslationIntro(introductionContent);
             setTranslationAppx(appendicesContent);
             setTranslationMap(map);
-            setCoverData(cover);
+            if (!hasCoverPreview) {
+                setCoverData(cover);
+            }
             loadedSegmentsRef.current = {
                 loadQuran: false,
-                loadCover: false,
+                loadCover: hasCoverPreview,
                 loadIntro: false,
                 loadAppendices: false,
                 loadApplication: false,
@@ -369,7 +503,8 @@ function Root({ bootData = null }) {
 
         (async () => {
             const settledSegments = new Set();
-            const translatedBundle = await loadCoreTranslations(normalizedLang, missingPlan, (segmentKey) => {
+
+            const onSegmentSettled = (segmentKey) => {
                 if (cancelled || activeLangRef.current !== normalizedLang || !missingPlan[segmentKey] || settledSegments.has(segmentKey)) {
                     return;
                 }
@@ -387,44 +522,84 @@ function Root({ bootData = null }) {
                         uiProgress: Math.max(prev.uiProgress, actualProgress),
                     };
                 });
-            });
-            if (cancelled || activeLangRef.current !== normalizedLang) {
-                return;
-            }
+            };
 
-            if (missingPlan.loadQuran) {
-                loadedSegmentsRef.current.loadQuran = true;
-                if (translatedBundle?.translation) {
-                    setTranslation(translatedBundle.translation);
+            const applyLoadedSegments = (plan, translatedBundle) => {
+                if (plan.loadQuran) {
+                    loadedSegmentsRef.current.loadQuran = true;
+                    if (translatedBundle?.translation) {
+                        setTranslation(translatedBundle.translation);
+                    }
+                }
+
+                if (plan.loadCover) {
+                    loadedSegmentsRef.current.loadCover = true;
+                    if (translatedBundle?.coverData) {
+                        setCoverData(translatedBundle.coverData);
+                    }
+                }
+
+                if (plan.loadIntro) {
+                    loadedSegmentsRef.current.loadIntro = true;
+                    if (translatedBundle?.introduction) {
+                        setTranslationIntro(translatedBundle.introduction);
+                    }
+                }
+
+                if (plan.loadAppendices) {
+                    loadedSegmentsRef.current.loadAppendices = true;
+                    if (translatedBundle?.appendices) {
+                        setTranslationAppx(translatedBundle.appendices);
+                    }
+                }
+
+                if (plan.loadApplication) {
+                    loadedSegmentsRef.current.loadApplication = true;
+                    if (translatedBundle?.application) {
+                        setTranslationApplication(translatedBundle.application);
+                    }
+                }
+            };
+
+            const shouldPrioritizeCover = Boolean(showCover && missingPlan.loadCover);
+            if (shouldPrioritizeCover) {
+                const coverFirstPlan = {
+                    loadQuran: false,
+                    loadCover: true,
+                    loadIntro: false,
+                    loadAppendices: false,
+                    loadApplication: false,
+                };
+                const coverFirstBundle = await loadCoreTranslations(normalizedLang, coverFirstPlan, onSegmentSettled);
+                if (cancelled || activeLangRef.current !== normalizedLang) {
+                    return;
+                }
+                applyLoadedSegments(coverFirstPlan, coverFirstBundle);
+
+                await new Promise((resolve) => {
+                    if (typeof window !== 'undefined' && typeof window.requestAnimationFrame === 'function') {
+                        window.requestAnimationFrame(() => resolve());
+                        return;
+                    }
+                    setTimeout(resolve, 0);
+                });
+                if (cancelled || activeLangRef.current !== normalizedLang) {
+                    return;
                 }
             }
 
-            if (missingPlan.loadCover) {
-                loadedSegmentsRef.current.loadCover = true;
-                if (translatedBundle?.coverData) {
-                    setCoverData(translatedBundle.coverData);
-                }
-            }
+            const remainingPlan = CORE_TRANSLATION_SEGMENTS.reduce((acc, key) => {
+                const skipCover = shouldPrioritizeCover && key === 'loadCover';
+                acc[key] = Boolean(missingPlan[key] && !skipCover);
+                return acc;
+            }, {});
 
-            if (missingPlan.loadIntro) {
-                loadedSegmentsRef.current.loadIntro = true;
-                if (translatedBundle?.introduction) {
-                    setTranslationIntro(translatedBundle.introduction);
+            if (Object.values(remainingPlan).some(Boolean)) {
+                const remainingBundle = await loadCoreTranslations(normalizedLang, remainingPlan, onSegmentSettled);
+                if (cancelled || activeLangRef.current !== normalizedLang) {
+                    return;
                 }
-            }
-
-            if (missingPlan.loadAppendices) {
-                loadedSegmentsRef.current.loadAppendices = true;
-                if (translatedBundle?.appendices) {
-                    setTranslationAppx(translatedBundle.appendices);
-                }
-            }
-
-            if (missingPlan.loadApplication) {
-                loadedSegmentsRef.current.loadApplication = true;
-                if (translatedBundle?.application) {
-                    setTranslationApplication(translatedBundle.application);
-                }
+                applyLoadedSegments(remainingPlan, remainingBundle);
             }
 
             stopTranslationProgressTimer();

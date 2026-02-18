@@ -15,7 +15,7 @@ const StaticSplash = ({ direction }) => (
       className="h-[min(45vw,220px)] w-[min(45vw,220px)] object-contain drop-shadow-[0_10px_28px_rgba(8,47,73,0.3)]"
       loading="eager"
       decoding="async"
-      fetchPriority="high"
+      fetchpriority="high"
     />
   </div>
 );
