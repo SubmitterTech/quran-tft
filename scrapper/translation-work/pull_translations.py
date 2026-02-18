@@ -91,6 +91,22 @@ organization_slug = args.organization
 project_slug = args.project
 resource_slugs = args.resource if args.resource else ALL_RESOURCE_SLUGS
 
+def parse_resource_override_list(raw_list, field_name, language_code):
+    if raw_list is None:
+        return None
+    if not isinstance(raw_list, list) or any(not isinstance(item, str) for item in raw_list):
+        raise ValueError(
+            f"ERROR: '{field_name}' for language '{language_code}' must be a list of resource slugs."
+        )
+    normalized = [item.strip() for item in raw_list if item.strip()]
+    invalid = [item for item in normalized if item not in ALL_RESOURCE_SLUGS]
+    if invalid:
+        raise ValueError(
+            f"ERROR: '{field_name}' for language '{language_code}' has unknown resource slug(s): "
+            f"{', '.join(sorted(set(invalid)))}"
+        )
+    return normalized
+
 def load_supported_languages(filename=None):
     # Use the provided filename or default to 'supported-languages.json' in script_dir.
     if filename is None:
@@ -102,10 +118,49 @@ def load_supported_languages(filename=None):
     with open(filename, "r", encoding="utf-8") as f:
         supported_languages = json.load(f)
     if not isinstance(supported_languages, dict):
-        raise ValueError("ERROR: The configuration file must be a JSON object mapping language codes to language names.")
-    return list(supported_languages.keys()), supported_languages
+        raise ValueError(
+            "ERROR: The configuration file must be a JSON object mapping language codes "
+            "to either language names (string) or language config objects."
+        )
 
-language_codes, language_names = load_supported_languages(args.languages_file)
+    language_names = {}
+    language_settings = {}
+
+    for language_code, config in supported_languages.items():
+        if not isinstance(language_code, str) or not language_code.strip():
+            raise ValueError("ERROR: Language codes must be non-empty strings.")
+
+        code = language_code.strip()
+        include_resources = None
+        exclude_resources = None
+
+        if isinstance(config, str):
+            language_name = config
+        elif isinstance(config, dict):
+            language_name = config.get("name", code)
+            include_resources = parse_resource_override_list(
+                config.get("include_resources"), "include_resources", code
+            )
+            exclude_resources = parse_resource_override_list(
+                config.get("exclude_resources"), "exclude_resources", code
+            )
+        else:
+            raise ValueError(
+                f"ERROR: Language '{code}' must be a string name or an object config."
+            )
+
+        if not isinstance(language_name, str) or not language_name.strip():
+            raise ValueError(f"ERROR: Language '{code}' must define a non-empty name.")
+
+        language_names[code] = language_name.strip()
+        language_settings[code] = {
+            "include_resources": include_resources,
+            "exclude_resources": exclude_resources
+        }
+
+    return list(language_names.keys()), language_names, language_settings
+
+language_codes, language_names, language_settings = load_supported_languages(args.languages_file)
 
 # Filter language codes if --lang is specified
 if args.lang:
@@ -247,13 +302,32 @@ def reconstruct_dictionary(transformed_data, language_code):
 updated_languages = set()  # Keep track of languages with changes
 
 for language_code in language_codes:
+    setting = language_settings.get(language_code, {})
+    include_resources = setting.get("include_resources") or []
+    exclude_resources = setting.get("exclude_resources") or []
+
+    selected_resources = list(resource_slugs)
+    if include_resources:
+        include_set = set(include_resources)
+        selected_resources = [slug for slug in selected_resources if slug in include_set]
+    if exclude_resources:
+        exclude_set = set(exclude_resources)
+        selected_resources = [slug for slug in selected_resources if slug not in exclude_set]
+
+    if not selected_resources:
+        print(
+            f"Skipping language '{language_code}': no resources left after "
+            f"supported-languages.json filters."
+        )
+        continue
+
     # Fetch the language object
     language = transifex_api.Language.get(code=language_code)
 
     # Initialize a flag to check if any files were saved for this language
     files_saved = False
 
-    for resource_slug in resource_slugs:
+    for resource_slug in selected_resources:
         # Fetch the resource
         resource = project.fetch('resources').get(slug=resource_slug)
 
