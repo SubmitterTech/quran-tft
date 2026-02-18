@@ -63,6 +63,7 @@ const Leaf = () => {
     const loc = useLocation();
     const [direction, setDirection] = useState('ltr');
     const [noteToggles, setNoteToggles] = useState({});
+    const shouldUsePersianSans = (lang || '').toLowerCase() === 'fa';
 
     const toggleNote = (noteKey) => {
         setNoteToggles((prevToggles) => ({
@@ -177,7 +178,7 @@ const Leaf = () => {
 
     return (
         <div
-            className="select-text fixed w-screen h-full pb-2 flex flex-col justify-center items-center"
+            className={`select-text fixed w-screen h-full pb-2 flex flex-col justify-center items-center ${shouldUsePersianSans ? 'font-vazirmatn' : ''}`}
             style={{ backgroundColor: LEAF_BACKGROUND_COLOR }}
         >
             <div

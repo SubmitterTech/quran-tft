@@ -209,6 +209,11 @@ export const ColorPicker = memo(({ theme, colors, onChangeColor }) => {
 });
 
 export const FontPicker = memo(({ theme, colors, font, onChangeFont }) => {
+    const activeLang = (typeof window !== 'undefined' ? localStorage.getItem('lang') : '') || '';
+    const sansPreviewFamily = activeLang.toLowerCase() === 'fa'
+        ? 'Vazirmatn, ui-sans-serif, system-ui, sans-serif'
+        : 'ui-sans-serif, system-ui, sans-serif';
+
     return (
         <div className={`flex flex-col space-y-4 w-full h-full text-lg`}>
 
@@ -222,9 +227,9 @@ export const FontPicker = memo(({ theme, colors, font, onChangeFont }) => {
                 />
                 <div
                     className={`flex flex-col items-center justify-center rounded flex-1 ${colors[theme]["text-background"]} ${colors[theme]["text"]} ${`font-normal` === font ? `border-2 ${colors[theme]["matching-border"]}` : "border border-gray-400"} h-20`}>
-                    <div style={{ fontFamily: 'sans-serif' }}>{`Q`}</div>
-                    <div style={{ fontFamily: 'ui-sans-serif, system-ui, sans-serif' }} className={`text-xl -mt-2 !font-normal`}>{`ق`}</div>
-                    <div style={{ fontFamily: 'sans-serif' }} className={`text-base `}>{`57`}</div>
+                    <div style={{ fontFamily: sansPreviewFamily }}>{`Q`}</div>
+                    <div style={{ fontFamily: sansPreviewFamily }} className={`text-xl -mt-2 !font-normal`}>{`ق`}</div>
+                    <div style={{ fontFamily: sansPreviewFamily }} className={`text-base `}>{`57`}</div>
                 </div>
             </label>
 

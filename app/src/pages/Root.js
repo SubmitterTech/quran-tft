@@ -731,9 +731,11 @@ function Root({ bootData = null }) {
     };
 
     const translationProgressPercent = Math.max(0, Math.min(100, translationLoadProgress.uiProgress || 0));
+    const normalizedLangForFont = (lang || '').toLowerCase();
+    const shouldUsePersianSans = normalizedLangForFont === 'fa' && font !== 'font-serif';
 
     return (
-        <div className={`Root select-none flex flex-col h-screen ${font}`}>
+        <div className={`Root select-none flex flex-col h-screen ${font} ${shouldUsePersianSans ? 'font-vazirmatn' : ''}`}>
             {showCover && <Cover onCoverSeen={hideCover} coverData={coverData} lang={lang} onChangeLanguage={onChangeLanguage} />}
             {!showCover && <Book
                 incomingSearch={isSearch ? isSearch : false}

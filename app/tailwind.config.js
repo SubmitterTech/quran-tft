@@ -5,8 +5,10 @@ module.exports = {
   ],
   theme: {
     fontFamily: {
+      sans: ['ui-sans-serif', 'system-ui', 'sans-serif'],
       serif: ['Lora', 'Times New Roman', 'Times', 'serif'],
       arabic: ['"Hafs"', '"Hafs UI"', "Arial", "sans-serif"],
+      vazirmatn: ['"Vazirmatn"', 'ui-sans-serif', 'system-ui', 'sans-serif'],
     },
     extend: {
       animation: {
