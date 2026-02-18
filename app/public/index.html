@@ -16,6 +16,41 @@
     <link rel="apple-touch-icon" href="%PUBLIC_URL%/logo192.png" />
     <link rel="preload" as="image" href="%PUBLIC_URL%/logo512.png" fetchpriority="high" />
     <link rel="manifest" href="%PUBLIC_URL%/manifest.json" id="app-manifest-link" />
+    <style>
+      html,
+      body {
+        width: 100%;
+        height: 100%;
+        margin: 0;
+      }
+
+      body {
+        background: linear-gradient(180deg, #06b6d4 0%, #0ea5e9 100%);
+      }
+
+      #root {
+        width: 100%;
+        height: 100%;
+      }
+
+      .app-static-splash {
+        position: fixed;
+        inset: 0;
+        z-index: 1;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background: linear-gradient(180deg, #06b6d4 0%, #0ea5e9 100%);
+        user-select: none;
+      }
+
+      .app-static-splash img {
+        width: min(45vw, 220px);
+        height: min(45vw, 220px);
+        object-fit: contain;
+        filter: drop-shadow(0 10px 28px rgba(8, 47, 73, 0.3));
+      }
+    </style>
 
     <script>
       (function () {
@@ -56,7 +91,11 @@
   </head>
   <body>
     <noscript>You need to enable JavaScript to run this app.</noscript>
-    <div id="root"></div>
+    <div id="root">
+      <div class="app-static-splash" aria-hidden="true">
+        <img src="%PUBLIC_URL%/logo512.png" alt="Quran TFT" />
+      </div>
+    </div>
    
   </body>
 </html>

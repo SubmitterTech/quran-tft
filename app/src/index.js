@@ -11,63 +11,14 @@ import languages from './assets/languages.json';
 
 window.onerror = (message, source, lineno, colno, error) => {
   console.error('Global error caught:', { message, source, lineno, colno, error });
-  // Don't swallow the error; let the browser/native WebView surface it (devtools/overlay).
   return false;
 };
 
 window.onunhandledrejection = (event) => {
   console.error('Unhandled promise rejection:', event.reason);
-  // Don't prevent default; this is critical for debugging and error reporting.
 };
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
-
-const BootProgress = ({ loadingLabel, loadingDirection, progress, logoSrc }) => {
-  const normalizedProgress = Math.max(0, Math.min(100, progress));
-
-  return (
-    <div
-      dir={loadingDirection}
-      className="fixed inset-0 z-[9999] flex items-center justify-center bg-sky-950 select-none"
-    >
-      <div className="w-[min(560px,95vw)]">
-        <div className="mb-7 flex justify-center">
-          <div className="relative h-[min(46vw,220px)] w-[min(46vw,220px)]">
-            <div className="absolute inset-0 p-2">
-              {logoSrc ? (
-                <img
-                  src={logoSrc}
-                  alt="Quran TFT"
-                  className="h-full w-full object-contain transition-all duration-200 ease-in"
-                  style={{ transform: `scale(${0.57 + normalizedProgress / 200})` }}
-                  decoding="async"
-                  loading="eager"
-                  fetchpriority="high"
-                />
-              ) : null}
-            </div>
-          </div>
-        </div>
-        <div className="mb-3 flex items-center justify-between text-neutral-100 mx-0.5">
-          <div className="flex items-center text-lg md:text-xl">
-            <svg className="animate-spin -ml-1 mr-3 h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
-              <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
-              <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
-            </svg>
-            {loadingLabel}
-          </div>
-          <div className="text-base tabular-nums">{`${normalizedProgress.toFixed(1)}%`}</div>
-        </div>
-        <div className="h-0.5 w-full overflow-hidden bg-white/35">
-          <div
-            className="h-full bg-amber-400 transition-all duration-300 ease-linear"
-            style={{ width: `${normalizedProgress}%` }}
-          />
-        </div>
-      </div>
-    </div>
-  );
-};
 
 const CrashGuard = ({ direction, title, message, reloadLabel }) => (
   <div
@@ -102,23 +53,41 @@ const getLanguageCandidates = (lang) => {
   return Array.from(new Set([normalized, base].filter(Boolean)));
 };
 
-const loadBootTranslation = async (langCandidates) => {
-  for (const lang of langCandidates) {
-    if (lang === 'en') {
-      return defaultApplication;
-    }
-
-    try {
-      const translatedApplication = await import(`./assets/translations/${lang}/application_${lang}.json`);
-      if (translatedApplication?.default) {
-        return translatedApplication.default;
-      }
-    } catch (_error) {
-      // Try next fallback candidate.
-    }
+const loadBootTranslationBundle = async (language, preloadPlan) => {
+  const normalizedLanguage = (language || '').toLowerCase();
+  if (!normalizedLanguage || normalizedLanguage === 'en') {
+    return null;
   }
 
-  return defaultApplication;
+  const shouldLoad = (flag) => Boolean(preloadPlan?.[flag]);
+  const loadOptional = (flag, importer) => (
+    shouldLoad(flag) ? importer().catch(() => null) : Promise.resolve(null)
+  );
+
+  const [
+    translatedQuran,
+    translatedCover,
+    translatedIntro,
+    translatedAppendix,
+    translatedApplication,
+  ] = await Promise.all([
+    loadOptional('loadQuran', () => import(`./assets/translations/${normalizedLanguage}/quran_${normalizedLanguage}.json`)),
+    loadOptional('loadCover', () => import(`./assets/translations/${normalizedLanguage}/cover_${normalizedLanguage}.json`)),
+    loadOptional('loadIntro', () => import(`./assets/translations/${normalizedLanguage}/introduction_${normalizedLanguage}.json`)),
+    loadOptional('loadAppendices', () => import(`./assets/translations/${normalizedLanguage}/appendices_${normalizedLanguage}.json`)),
+    import(`./assets/translations/${normalizedLanguage}/application_${normalizedLanguage}.json`).catch(() => null),
+  ]);
+
+  return {
+    language: normalizedLanguage,
+    translation: translatedQuran?.default || null,
+    coverData: translatedCover?.default || null,
+    introduction: translatedIntro?.default || null,
+    appendices: translatedAppendix?.default || null,
+    map: null,
+    application: translatedApplication?.default || null,
+    preloadPlan: preloadPlan || null,
+  };
 };
 
 const getRuntimePath = () => {
@@ -162,327 +131,91 @@ const isRootRoutePath = (path) => {
   return false;
 };
 
-const ROOT_ROUTE_CHUNK_HINT = 'route-root';
-const LEAF_ROUTE_CHUNK_HINT = 'route-leaf';
-const BOOT_LOGO_URL = `${process.env.PUBLIC_URL || ''}/logo512.png`;
+const isSearchRoutePath = (path) => /(?:^|\/)search\/?$/.test(path || '/');
+
+const isAppendixRoutePath = (path) => /(?:^|\/)appendix\/\d+\/?$/.test(path || '/');
+
+const getSavedPage = () => {
+  const parsed = parseInt(localStorage.getItem('qurantft-pn') || '', 10);
+  return Number.isFinite(parsed) && parsed > 0 ? parsed : null;
+};
+
+const getRootBootPreloadPlan = (runtimePath) => {
+  const savedPage = getSavedPage();
+  const hasSavedPage = savedPage !== null;
+  const isSearch = isSearchRoutePath(runtimePath);
+  const isAppendix = isAppendixRoutePath(runtimePath);
+  const shouldShowCover = !hasSavedPage && !isSearch && !isAppendix && !process.env.REACT_APP_DEFAULT_LANG;
+
+  let effectivePage = hasSavedPage ? savedPage : 1;
+  if (isAppendix) {
+    effectivePage = 397;
+  }
+
+  return {
+    loadQuran: true,
+    loadCover: shouldShowCover,
+    loadIntro: effectivePage <= 22,
+    loadAppendices: effectivePage >= 396,
+  };
+};
 
 const getInitialRouteConfig = () => {
   const runtimePath = getRuntimePath();
 
   if (isRootRoutePath(runtimePath)) {
     return {
-      chunkHint: ROOT_ROUTE_CHUNK_HINT,
       loader: () => import(/* webpackChunkName: "route-root" */ './pages/Root'),
-      devChunkUrl: '/static/js/src_pages_Root_js.chunk.js',
     };
   }
 
   return {
-    chunkHint: LEAF_ROUTE_CHUNK_HINT,
     loader: () => import(/* webpackChunkName: "route-leaf" */ './pages/Leaf'),
-    devChunkUrl: '/static/js/src_pages_Leaf_js.chunk.js',
   };
 };
 
-const resolveRouteChunkUrl = async (chunkHint, devChunkUrl) => {
-  try {
-    const basePath = process.env.PUBLIC_URL || '';
-    const manifestResponse = await fetch(`${basePath}/asset-manifest.json`, {
-      cache: 'no-cache',
-    });
-
-    if (manifestResponse.ok) {
-      const manifest = await manifestResponse.json();
-      const allFiles = Object.values(manifest?.files || {});
-      const matchedChunkPath = allFiles.find((filePath) => (
-        typeof filePath === 'string' &&
-        filePath.includes(`/static/js/${chunkHint}`) &&
-        filePath.endsWith('.chunk.js')
-      ));
-
-      if (matchedChunkPath) {
-        return new URL(matchedChunkPath, window.location.origin).href;
-      }
-    }
-  } catch (_error) {
-    // Fallback to development chunk path.
-  }
-
-  if (process.env.NODE_ENV !== 'production' && devChunkUrl) {
-    return new URL(devChunkUrl, window.location.origin).href;
-  }
-
-  return null;
-};
-
-const fetchWithByteProgress = async (url, onProgress) => {
-  const response = await fetch(url, { cache: 'no-cache' });
-  if (!response.ok) {
-    throw new Error(`Failed to fetch boot chunk: ${response.status}`);
-  }
-
-  if (!response.body) {
-    await response.arrayBuffer();
-    onProgress(1);
-    return;
-  }
-
-  const totalBytes = Number(response.headers.get('content-length'));
-  if (!Number.isFinite(totalBytes) || totalBytes <= 0) {
-    const readerWithoutTotal = response.body.getReader();
-    while (true) {
-      const { done } = await readerWithoutTotal.read();
-      if (done) {
-        break;
-      }
-    }
-    onProgress(1);
-    return;
-  }
-
-  const reader = response.body.getReader();
-  let loadedBytes = 0;
-
-  while (true) {
-    const { done, value } = await reader.read();
-    if (done) {
-      break;
-    }
-
-    loadedBytes += value.byteLength;
-    onProgress(Math.min(1, loadedBytes / totalBytes));
-  }
-};
-
-const preloadInitialRouteChunk = async (onProgress) => {
+const preloadInitialRouteChunk = async () => {
   const routeConfig = getInitialRouteConfig();
-  const chunkUrl = await resolveRouteChunkUrl(routeConfig.chunkHint, routeConfig.devChunkUrl);
-
-  if (chunkUrl) {
-    try {
-      await fetchWithByteProgress(chunkUrl, onProgress);
-    } catch (error) {
-      console.warn('Boot chunk fetch failed, continuing with module import', error);
-    }
-  }
-
   await routeConfig.loader();
-  onProgress(1);
-};
-
-const renderBootstrapProgress = (loadingLabel, loadingDirection, progress, logoSrc) => {
-  root.render(
-    <React.StrictMode>
-      <BootProgress
-        loadingLabel={loadingLabel}
-        loadingDirection={loadingDirection}
-        progress={progress}
-        logoSrc={logoSrc}
-      />
-    </React.StrictMode>
-  );
-};
-
-const wait = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
-
-const easeOutCubic = (t) => 1 - Math.pow(1 - t, 3);
-
-const createBootProgressController = (getContext) => {
-  let progress = 0;
-  let lastRenderedProgress = -1;
-
-  const paint = () => {
-    const clamped = Math.max(0, Math.min(100, progress));
-    if (Math.abs(clamped - lastRenderedProgress) < 0.08) {
-      return;
-    }
-
-    lastRenderedProgress = clamped;
-    const context = getContext();
-    renderBootstrapProgress(
-      context.loadingLabel,
-      context.loadingDirection,
-      clamped,
-      context.logoSrc
-    );
-  };
-
-  const setProgress = (nextProgress) => {
-    progress = Math.max(progress, nextProgress);
-    paint();
-  };
-
-  const getProgress = () => progress;
-
-  const animateTo = async (target, durationMs = 280) => {
-    const safeTarget = Math.max(getProgress(), target);
-    const start = getProgress();
-    const delta = safeTarget - start;
-
-    if (delta <= 0.01) {
-      setProgress(safeTarget);
-      return;
-    }
-
-    if (typeof window === 'undefined' || typeof window.requestAnimationFrame !== 'function') {
-      setProgress(safeTarget);
-      return;
-    }
-
-    await new Promise((resolve) => {
-      const startedAt = performance.now();
-
-      const step = (now) => {
-        const ratio = Math.min(1, (now - startedAt) / durationMs);
-        const eased = easeOutCubic(ratio);
-        setProgress(start + delta * eased);
-
-        if (ratio < 1) {
-          window.requestAnimationFrame(step);
-          return;
-        }
-        resolve();
-      };
-
-      window.requestAnimationFrame(step);
-    });
-  };
-
-  const runStage = async (
-    target,
-    task,
-    { creepDurationMs = 2200, holdBack = 1.25, completeDurationMs = 180 } = {}
-  ) => {
-    const stageStart = getProgress();
-    const softTarget = Math.max(stageStart, target - holdBack);
-    const taskPromise = Promise.resolve().then(task);
-    let taskDone = false;
-
-    taskPromise.finally(() => {
-      taskDone = true;
-    });
-
-    const startedAt = performance.now();
-    while (!taskDone) {
-      const elapsed = performance.now() - startedAt;
-      const ratio = Math.min(1, elapsed / creepDurationMs);
-      const eased = easeOutCubic(ratio);
-      const candidate = stageStart + (softTarget - stageStart) * eased;
-      if (candidate > getProgress()) {
-        setProgress(candidate);
-      }
-      await wait(32);
-    }
-
-    const result = await taskPromise;
-    await animateTo(target, completeDurationMs);
-    return result;
-  };
-
-  const runByteStage = async (
-    target,
-    taskWithProgress,
-    { creepDurationMs = 2200, holdBack = 1.25, completeDurationMs = 180 } = {}
-  ) => {
-    const stageStart = getProgress();
-    const softTarget = Math.max(stageStart, target - holdBack);
-    let hasByteSignal = false;
-
-    const reportFraction = (fraction) => {
-      hasByteSignal = true;
-      const boundedFraction = Math.max(0, Math.min(1, fraction));
-      const candidate = stageStart + (softTarget - stageStart) * boundedFraction;
-      if (candidate > getProgress()) {
-        setProgress(candidate);
-      }
-    };
-
-    const taskPromise = Promise.resolve().then(() => taskWithProgress(reportFraction));
-    let taskDone = false;
-    taskPromise.finally(() => {
-      taskDone = true;
-    });
-
-    const startedAt = performance.now();
-    while (!taskDone) {
-      if (!hasByteSignal) {
-        const elapsed = performance.now() - startedAt;
-        const ratio = Math.min(1, elapsed / creepDurationMs);
-        const eased = easeOutCubic(ratio);
-        const candidate = stageStart + (softTarget - stageStart) * eased;
-        if (candidate > getProgress()) {
-          setProgress(candidate);
-        }
-      }
-      await wait(32);
-    }
-
-    const result = await taskPromise;
-    await animateTo(target, completeDurationMs);
-    return result;
-  };
-
-  return { setProgress, getProgress, animateTo, runStage, runByteStage, paint };
 };
 
 const renderApp = async () => {
-  let loadingLabel = defaultApplication.loading;
   let loadingDirection = 'ltr';
+  let bootData = null;
   let errorTitle = defaultApplication.errorTitle || 'Something went wrong';
   let errorMessage =
     defaultApplication.errorMessage || 'An unexpected error occurred. Refresh to continue.';
   let errorReloadLabel = defaultApplication.errorReload || 'Refresh';
-  const bootContext = {
-    loadingLabel,
-    loadingDirection,
-    logoSrc: BOOT_LOGO_URL,
-  };
-  const progressController = createBootProgressController(() => bootContext);
 
   try {
-    progressController.setProgress(2.5);
-
-    await progressController.runStage(22, () => initPlatform(), {
-      creepDurationMs: 1000,
-      holdBack: 1.8,
-      completeDurationMs: 160,
-    });
-
-    const initializedLang = await progressController.runStage(46, () => setInitialLanguage(), {
-      creepDurationMs: 1500,
-      holdBack: 1.6,
-      completeDurationMs: 180,
-    });
+    await initPlatform();
+    const initializedLang = await setInitialLanguage();
 
     const languageCandidates = getLanguageCandidates(
       initializedLang || localStorage.getItem('lang') || process.env.REACT_APP_DEFAULT_LANG || 'en'
     );
     const resolvedLang = languageCandidates.find((lang) => languages[lang]) || 'en';
     loadingDirection = languages[resolvedLang]?.dir || 'ltr';
-    bootContext.loadingDirection = loadingDirection;
-    progressController.paint();
 
-    const bootTranslation = await progressController.runStage(70, () => loadBootTranslation(languageCandidates), {
-      creepDurationMs: 1500,
-      holdBack: 1.5,
-      completeDurationMs: 190,
-    });
-    loadingLabel = bootTranslation?.loading || defaultApplication.loading;
-    errorTitle = bootTranslation?.errorTitle || defaultApplication.errorTitle || errorTitle;
-    errorMessage = bootTranslation?.errorMessage || defaultApplication.errorMessage || errorMessage;
-    errorReloadLabel = bootTranslation?.errorReload || defaultApplication.errorReload || errorReloadLabel;
-    bootContext.loadingLabel = loadingLabel;
-    progressController.paint();
+    const runtimePath = getRuntimePath();
+    const preloadPlan = isRootRoutePath(runtimePath)
+      ? getRootBootPreloadPlan(runtimePath)
+      : { loadQuran: true, loadCover: false, loadIntro: false, loadAppendices: false };
 
-    await progressController.runByteStage(93, (reportFraction) => preloadInitialRouteChunk(reportFraction), {
-      creepDurationMs: 1700,
-      holdBack: 1.2,
-      completeDurationMs: 180,
-    });
+    const [preloadedBootData] = await Promise.all([
+      loadBootTranslationBundle(resolvedLang, preloadPlan),
+      preloadInitialRouteChunk(),
+    ]);
 
-    await progressController.animateTo(98.5, 120);
+    bootData = preloadedBootData;
+
+    if (bootData?.application) {
+      errorTitle = bootData.application.errorTitle || errorTitle;
+      errorMessage = bootData.application.errorMessage || errorMessage;
+      errorReloadLabel = bootData.application.errorReload || errorReloadLabel;
+    }
   } catch (error) {
-    console.error('Bootstrap progress failed', error);
+    console.error('Bootstrap failed', error);
   }
 
   root.render(
@@ -495,8 +228,9 @@ const renderApp = async () => {
             message={errorMessage}
             reloadLabel={errorReloadLabel}
           />
-        }>
-        <App loadingLabel={loadingLabel} loadingDirection={loadingDirection} />
+        }
+      >
+        <App loadingDirection={loadingDirection} bootData={bootData} />
       </Boundary>
     </React.StrictMode>
   );

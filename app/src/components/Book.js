@@ -16,7 +16,7 @@ import LongPressable from '../hooks/LongPressable';
 import { NextPagerProgressRing } from '../hooks/NextPager';
 import '../assets/css/Book.css';
 
-const Book = React.memo(({ incomingSearch = false, incomingAppendix = false, incomingAppendixNumber = 1, onChangeFont, font, onChangeColor, colors, theme, translationApplication, introductionContent, quranData, map, appendicesContent, translation, onChangeLanguage, direction }) => {
+const Book = React.memo(({ incomingSearch = false, incomingAppendix = false, incomingAppendixNumber = 1, onChangeFont, font, onChangeColor, colors, theme, translationApplication, introductionContent, quranData, map, appendicesContent, translation, onChangeLanguage, onPageChange = null, onIntroTranslationNeeded = null, isTranslationLoading = false, translationLoadProgress = 0, direction }) => {
     const lang = localStorage.getItem("lang")
     const magnifyConfirm = useRef(false);
     const [currentPage, setCurrentPage] = useState(parseInt(localStorage.getItem("qurantft-pn")) ? parseInt(localStorage.getItem("qurantft-pn")) : 1);
@@ -73,6 +73,8 @@ const Book = React.memo(({ incomingSearch = false, incomingAppendix = false, inc
     const [remainingTime, setRemainingTime] = useState(0);
     const [overscrollNavProgress, setOverscrollNavProgress] = useState(0);
     const progressPercentage = remainingTime ? (remainingTime / 20000) * 100 : 0;
+    const translationProgressPercentage = Math.max(0, Math.min(100, translationLoadProgress));
+    const hasTranslationProgress = isTranslationLoading || translationProgressPercentage > 0;
     const nextProgressSide = direction === 'rtl' ? 'left' : 'right';
 
     const skipPages = useMemo(() => [3, 4, 8, 9, 10, 12], []);
@@ -130,6 +132,12 @@ const Book = React.memo(({ incomingSearch = false, incomingAppendix = false, inc
     }, [currentPage]);
 
     useEffect(() => {
+        if (typeof onPageChange === 'function') {
+            onPageChange(parseInt(currentPage, 10));
+        }
+    }, [currentPage, onPageChange]);
+
+    useEffect(() => {
         const pageNumber = parseInt(currentPage, 10);
         if (pageNumber < 23 || pageNumber > 394 || isMagnifyOpen) {
             setOverscrollNavProgress(0);
@@ -177,6 +185,9 @@ const Book = React.memo(({ incomingSearch = false, incomingAppendix = false, inc
     const handleToggleJump = () => {
         window.dispatchEvent(new CustomEvent('navigation:click'));
         if (!isJumpOpen) {
+            if (typeof onIntroTranslationNeeded === 'function') {
+                onIntroTranslationNeeded();
+            }
             setMultiSelect(false);
         }
         setJumpOpen(!isJumpOpen);
@@ -1075,7 +1086,12 @@ const Book = React.memo(({ incomingSearch = false, incomingAppendix = false, inc
                 <div className={`w-full flex z-[220] ${colors[theme]["app-background"]} fixed bottom-0`}
                     style={{ paddingBottom: 'calc(env(safe-area-inset-bottom) * 0.57)' }}>
                     <div className={`relative flex w-full items-center justify-between`}>
-                        <div className={`absolute h-0.5 left-0 -top-0.5 ${colors[theme]["matching"]}`} style={{ width: `${progressPercentage}%` }}></div>
+                        <div className={`absolute h-0.5 left-0 -top-0.5 transition-[width] duration-200 ease-linear ${colors[theme]["matching"]}`} style={{ width: `${progressPercentage}%` }}></div>
+                        {hasTranslationProgress &&
+                            <div
+                                className={`absolute h-0.5 left-0 -top-[3px] transition-[width] duration-100 ease-linear ${colors[theme]["matching"]}`}
+                                style={{ width: `${translationProgressPercentage}%`, opacity: 0.9 }}></div>
+                        }
                         {progressPercentage > 0 &&
                             <div className={`absolute pb-1 left-1/2 -translate-x-1/2 -top-14 ${colors[theme]["app-background"]} rounded flex flex-col justify-center shadow-md shadow-cyan-300/30`}>
                                 <button className={`flex justify-center ${colors[theme]["text"]}`} onClick={stopCopyTimer}>

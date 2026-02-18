@@ -645,11 +645,6 @@ const Pages = React.memo(({
     };
 
     const handlePageTitleClicked = () => {
-        if (!hasExpandablePageTitles) {
-            handleToggleJump();
-            return;
-        }
-
         setIsPageTitlesExpanded((isExpanded) => {
             const nextExpandedState = !isExpanded;
             if (nextExpandedState) {
@@ -760,291 +755,291 @@ const Pages = React.memo(({
                 style={{
                     transform: overscrollLiftAnimated.to((lift) => `translate3d(0, ${-lift}px, 0)`),
                 }}>
-            <div
-                ref={stickyRef}
-                className={`sticky top-0 p-3 ${colors[theme]["app-background"]} relative flex z-10`}>
                 <div
-                    ref={stickyTitlesFocusRef}
-                    onClick={() => handlePageTitleClicked()}
-                    onBlur={handlePageTitlesFocusOut}
-                    tabIndex={hasExpandablePageTitles ? 0 : -1}
-                    className={`flex w-full text-sm lg:text-lg flex-1 ${hasExpandablePageTitles ? 'cursor-pointer' : ''}`}>
-                    <div className="w-full">
-                        {hasExpandablePageTitles ? (
-                            <>
-                                <div
-                                    className="w-full"
-                                    style={{
-                                        maxHeight: isPageTitlesExpanded ? `${expandedTitlesHeight}px` : '0px',
-                                        opacity: isPageTitlesExpanded ? 1 : 0,
-                                        transition: 'max-height 100ms ease-in, opacity 100ms ease-in',
-                                    }}>
-                                    <div ref={expandedTitlesListRef} className={`flex flex-col space-y-2 w-full`}>
-                                        {pageTitleMeta.map((titleItem) => renderPageTitleRow(titleItem, { keyPrefix: 'expanded-title' }))}
-                                    </div>
-                                </div>
-                                <div
-                                    className="w-full"
-                                    style={{
-                                        maxHeight: isPageTitlesExpanded ? '0px' : `${collapsedTitlesHeight}px`,
-                                        opacity: isPageTitlesExpanded ? 0 : 1,
-                                        transition: 'max-height 100ms ease-out, opacity 100ms ease-out',
-                                    }}>
+                    ref={stickyRef}
+                    className={`sticky top-0 p-3 ${colors[theme]["app-background"]} relative flex z-10`}>
+                    <div
+                        ref={stickyTitlesFocusRef}
+                        onClick={() => handlePageTitleClicked()}
+                        onBlur={handlePageTitlesFocusOut}
+                        tabIndex={hasExpandablePageTitles ? 0 : -1}
+                        className={`flex w-full text-sm lg:text-lg flex-1 ${hasExpandablePageTitles ? 'cursor-pointer' : ''}`}>
+                        <div className="w-full">
+                            {hasExpandablePageTitles ? (
+                                <>
                                     <div
-                                        ref={collapsedTitlesListRef}
-                                        className={`flex flex-col space-y-2 w-full`}>
-                                        {collapsedRenderedTitles.map((titleItem, rowIndex) => renderPageTitleRow(titleItem, {
-                                            keyPrefix: `collapsed-title-${collapsedTitlesAnimationCycle}`,
-                                            style: getCollapsedTitleAnimationStyle(rowIndex)
-                                        }))}
+                                        className="w-full"
+                                        style={{
+                                            maxHeight: isPageTitlesExpanded ? `${expandedTitlesHeight}px` : '0px',
+                                            opacity: isPageTitlesExpanded ? 1 : 0,
+                                            transition: 'max-height 100ms ease-in, opacity 100ms ease-in',
+                                        }}>
+                                        <div ref={expandedTitlesListRef} className={`flex flex-col space-y-2 w-full`}>
+                                            {pageTitleMeta.map((titleItem) => renderPageTitleRow(titleItem, { keyPrefix: 'expanded-title' }))}
+                                        </div>
                                     </div>
+                                    <div
+                                        className="w-full"
+                                        style={{
+                                            maxHeight: isPageTitlesExpanded ? '0px' : `${collapsedTitlesHeight}px`,
+                                            opacity: isPageTitlesExpanded ? 0 : 1,
+                                            transition: 'max-height 100ms ease-out, opacity 100ms ease-out',
+                                        }}>
+                                        <div
+                                            ref={collapsedTitlesListRef}
+                                            className={`flex flex-col space-y-2 w-full`}>
+                                            {collapsedRenderedTitles.map((titleItem, rowIndex) => renderPageTitleRow(titleItem, {
+                                                keyPrefix: `collapsed-title-${collapsedTitlesAnimationCycle}`,
+                                                style: getCollapsedTitleAnimationStyle(rowIndex)
+                                            }))}
+                                        </div>
+                                    </div>
+                                </>
+                            ) : (
+                                <div ref={collapsedTitlesListRef} className={`flex flex-col space-y-2 w-full`}>
+                                    {pageTitleMeta.map((titleItem) => renderPageTitleRow(titleItem, { keyPrefix: 'single-title' }))}
                                 </div>
-                            </>
-                        ) : (
-                            <div ref={collapsedTitlesListRef} className={`flex flex-col space-y-2 w-full`}>
-                                {pageTitleMeta.map((titleItem) => renderPageTitleRow(titleItem, { keyPrefix: 'single-title' }))}
-                            </div>
-                        )}
+                            )}
+                        </div>
                     </div>
+                    {hasExpandablePageTitles && (
+                        <div className="pointer-events-none absolute inset-x-0 bottom-0 flex justify-center leading-none">
+                            <svg
+                                xmlns="http://www.w3.org/2000/svg"
+                                className={`h-3 w-3 transition-transform duration-200 ease-in ${isPageTitlesExpanded ? 'rotate-180' : ''}`}
+                                fill="none"
+                                viewBox="0 0 24 24"
+                                stroke="currentColor"
+                                aria-hidden="true">
+                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 9l-7 7-7-7" />
+                            </svg>
+                        </div>
+                    )}
                 </div>
-                {hasExpandablePageTitles && (
-                    <div className="pointer-events-none absolute inset-x-0 bottom-0 flex justify-center leading-none">
-                        <svg
-                            xmlns="http://www.w3.org/2000/svg"
-                            className={`h-3 w-3 transition-transform duration-200 ease-in ${isPageTitlesExpanded ? 'rotate-180' : ''}`}
-                            fill="none"
-                            viewBox="0 0 24 24"
-                            stroke="currentColor"
-                            aria-hidden="true">
-                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 9l-7 7-7-7" />
-                        </svg>
-                    </div>
-                )}
-            </div>
-            <div ref={topRef} className={`flex flex-col `}>
-                {sortedVerses.map(({ suraNumber, verseNumber, verseText, encryptedText, title }) => {
-                    const hasAsterisk = verseText.includes('*') || (title && title.includes('*'));
-                    const hasTitleAsterisk = (title && title.includes('*'));
-                    const verseTextTheme = direction === 'rtl' ? `text-2xl md:text-3xl lg:text-4xl ` : `text-lg md:text-xl lg:text-2xl `;
-                    const titleTextTheme = direction === 'rtl' ? `text-xl md:text-2xl lg:text-3xl ` : `text-lg md:text-xl lg:text-2xl font-semibold `;
-                    const verseClassName = `${verseTextTheme} p-0.5 md:p-1 m-0.5 w-full flex flex-col cursor-pointer rounded  hyphens-auto text-justify `;
-                    const titleClassName = `${titleTextTheme} mx-1 my-0.5 italic rounded  text-center whitespace-pre-wrap `;
-                    const verseKey = `${suraNumber}:${verseNumber}`;
-                    const noteReference = hasAsterisk ? verseKey : null;
+                <div ref={topRef} className={`flex flex-col `}>
+                    {sortedVerses.map(({ suraNumber, verseNumber, verseText, encryptedText, title }) => {
+                        const hasAsterisk = verseText.includes('*') || (title && title.includes('*'));
+                        const hasTitleAsterisk = (title && title.includes('*'));
+                        const verseTextTheme = direction === 'rtl' ? `text-2xl md:text-3xl lg:text-4xl ` : `text-lg md:text-xl lg:text-2xl `;
+                        const titleTextTheme = direction === 'rtl' ? `text-xl md:text-2xl lg:text-3xl ` : `text-lg md:text-xl lg:text-2xl font-semibold `;
+                        const verseClassName = `${verseTextTheme} p-0.5 md:p-1 m-0.5 w-full flex flex-col cursor-pointer rounded  hyphens-auto text-justify `;
+                        const titleClassName = `${titleTextTheme} mx-1 my-0.5 italic rounded  text-center whitespace-pre-wrap `;
+                        const verseKey = `${suraNumber}:${verseNumber}`;
+                        const noteReference = hasAsterisk ? verseKey : null;
 
-                    pageGWC[verseKey] = countGODwords(verseText)
+                        pageGWC[verseKey] = countGODwords(verseText)
 
-                    let notes = null;
+                        let notes = null;
 
-                    Object.keys(noteReferencesMap).forEach((notesRefKey) => {
-                        const refkeys = noteReferencesMap[notesRefKey];
+                        Object.keys(noteReferencesMap).forEach((notesRefKey) => {
+                            const refkeys = noteReferencesMap[notesRefKey];
 
-                        Object.values(refkeys).forEach((refkey) => {
-                            if (notesData && notesData.data && notesData.data[refkey]) {
+                            Object.values(refkeys).forEach((refkey) => {
+                                if (notesData && notesData.data && notesData.data[refkey]) {
 
-                                const [suraPart, versePart] = notesRefKey.split(':');
-                                if (versePart) {
-                                    const verseKeyParts = verseKey.split(':');
-                                    const verseKeySura = verseKeyParts[0];
-                                    const verseKeyVerse = parseInt(verseKeyParts[1], 10);
+                                    const [suraPart, versePart] = notesRefKey.split(':');
+                                    if (versePart) {
+                                        const verseKeyParts = verseKey.split(':');
+                                        const verseKeySura = verseKeyParts[0];
+                                        const verseKeyVerse = parseInt(verseKeyParts[1], 10);
 
-                                    // Handle ranges if present
-                                    if (versePart.includes('-')) {
-                                        const [startVerse, endVerse] = versePart.split('-').map(Number);
-                                        if (verseKeySura === suraPart && verseKeyVerse >= startVerse && verseKeyVerse <= endVerse) {
-                                            if (notes === null) {
-                                                notes = notesData.data[refkey];
-                                            } else {
-                                                if (notes !== notesData.data[refkey]) {
-                                                    notes += '\n' + notesData.data[refkey];
+                                        // Handle ranges if present
+                                        if (versePart.includes('-')) {
+                                            const [startVerse, endVerse] = versePart.split('-').map(Number);
+                                            if (verseKeySura === suraPart && verseKeyVerse >= startVerse && verseKeyVerse <= endVerse) {
+                                                if (notes === null) {
+                                                    notes = notesData.data[refkey];
+                                                } else {
+                                                    if (notes !== notesData.data[refkey]) {
+                                                        notes += '\n' + notesData.data[refkey];
+                                                    }
                                                 }
                                             }
-                                        }
-                                    } else {
-                                        // Handle single verse
-                                        const singleVerse = parseInt(versePart, 10);
-                                        if (verseKeySura === suraPart && verseKeyVerse === singleVerse) {
-                                            if (notes === null) {
-                                                notes = notesData.data[refkey];
-                                            } else {
-                                                if (notes !== notesData.data[refkey]) {
-                                                    notes += '\n' + notesData.data[refkey];
+                                        } else {
+                                            // Handle single verse
+                                            const singleVerse = parseInt(versePart, 10);
+                                            if (verseKeySura === suraPart && verseKeyVerse === singleVerse) {
+                                                if (notes === null) {
+                                                    notes = notesData.data[refkey];
+                                                } else {
+                                                    if (notes !== notesData.data[refkey]) {
+                                                        notes += '\n' + notesData.data[refkey];
+                                                    }
                                                 }
                                             }
                                         }
                                     }
                                 }
-                            }
 
+                            });
                         });
-                    });
 
-                    return (
-                        <div key={`section-${verseKey}`}>
-                            {title && (
-                                title.includes('♦')
-                                    ? (
-                                        <div className={`text-lg w-full flex flex-col space-y-1 `}>
-                                            {(() => {
-                                                const gw = translationApplication.gw.toLocaleLowerCase(lang);
-                                                let parts = title.split('\n').slice(1, -1);
-                                                if (title.toLowerCase().search(gw) === -1) {
-                                                    parts = title.split('\n').slice(1)
-                                                }
+                        return (
+                            <div key={`section-${verseKey}`}>
+                                {title && (
+                                    title.includes('♦')
+                                        ? (
+                                            <div className={`text-lg w-full flex flex-col space-y-1 `}>
+                                                {(() => {
+                                                    const gw = translationApplication.gw.toLocaleLowerCase(lang);
+                                                    let parts = title.split('\n').slice(1, -1);
+                                                    if (title.toLowerCase().search(gw) === -1) {
+                                                        parts = title.split('\n').slice(1)
+                                                    }
 
-                                                const concatenated = parts.join(' ');
-                                                const finalParts = concatenated.split(':');
-                                                const surano = finalParts[0]?.trim();
-                                                let suranames = finalParts[1]?.trim();
-                                                if (parseInt(suraNumber) === 9) {
-                                                    const names = suranames?.split(' ');
-                                                    const sn = names?.slice(0, 2).join(' ');
-                                                    const nobes = names?.slice(2).join(' ');
-                                                    suranames = sn + '\n' + nobes;
-                                                }
-                                                return (
-                                                    <div
-                                                        dir={direction}
-                                                        className={`${titleClassName} flex flex-col space-y-1.5`}>
-                                                        <div className={`w-full flex justify-center not-italic text-sky-500`}>{surano}</div>
-                                                        <div className={`w-full flex justify-center`}>
-                                                            {suranames}
-                                                        </div>
-                                                    </div>
-                                                );
-                                            })()}
-                                            {(() => {
-                                                // THE FIRST SENTENCE OF FIRST SURA : BISMILLAHIRRAHMANIRRAHIM
-                                                const hasGODinit = title.split('\n').pop();
-                                                const gw = translationApplication.gw.toLocaleLowerCase(lang);
-                                                const textTheme = direction === 'rtl' ? `text-xl md:text-2xl lg:text-3xl xl:text-4xl` : `text-base md:text-lg lg:text-xl xl:text-2xl `;
-                                                if (hasGODinit.toLowerCase().search(gw) !== -1) {
+                                                    const concatenated = parts.join(' ');
+                                                    const finalParts = concatenated.split(':');
+                                                    const surano = finalParts[0]?.trim();
+                                                    let suranames = finalParts[1]?.trim();
+                                                    if (parseInt(suraNumber) === 9) {
+                                                        const names = suranames?.split(' ');
+                                                        const sn = names?.slice(0, 2).join(' ');
+                                                        const nobes = names?.slice(2).join(' ');
+                                                        suranames = sn + '\n' + nobes;
+                                                    }
                                                     return (
-                                                        <div key={`last-title-${suraNumber}-${verseNumber}`}
-                                                            ref={(el) => verseRefs.current[`${suraNumber}:${0}`] = el}
+                                                        <div
                                                             dir={direction}
-                                                            className={`cursor-pointer`}
-                                                            onClick={handleBesmeleClick}>
-                                                            <div
-                                                                className={`mx-1 py-1 px-2 text-neutral-800 rounded bg-gradient-to-r ${besmeleClicked ? ` font-semibold transition-all duration-200` : ``} ${direction === 'rtl' ? ` from-sky-500 to-cyan-300` : ` from-cyan-300 to-sky-500`} ${textTheme} besmele`}>
-                                                                {besmeleClicked ? '0. ' + hasGODinit : hasGODinit}
-                                                            </div>
-                                                            <div className={`flex items-center justify-center transition-all duration-200 ${besmeleClicked ? `py-1 px-2 mx-1` : `h-0`}`}>
-                                                                <div className={`transition-all duration-500 font-arabic text-2xl/relaxed md:text-3xl/relaxed lg:text-4xl/relaxed ${besmeleClicked ? `opacity-100` : ` opacity-0`}`}>
-                                                                    {besmeleClicked ? besmele : null}
-                                                                </div>
+                                                            className={`${titleClassName} flex flex-col space-y-1.5`}>
+                                                            <div className={`w-full flex justify-center not-italic text-sky-500`}>{surano}</div>
+                                                            <div className={`w-full flex justify-center`}>
+                                                                {suranames}
                                                             </div>
                                                         </div>
                                                     );
-                                                }
-                                                return null;
-                                            })()}
-                                        </div>
-                                    )
-                                    : (
-                                        <div
-                                            key={`${"title:" + suraNumber + ":" + verseNumber}`}
-                                            dir={direction}
-                                            className={`${titleClassName} ${hasTitleAsterisk ? " cursor-pointer text-sky-500 border border-neutral-500/50 p-2 md:p-3" : "p-0.5 md:p-2"}`}
-                                            onClick={() => hasTitleAsterisk && handleTitleClick(noteReference)}>
-                                            {title}
-                                        </div>
-                                    )
+                                                })()}
+                                                {(() => {
+                                                    // THE FIRST SENTENCE OF FIRST SURA : BISMILLAHIRRAHMANIRRAHIM
+                                                    const hasGODinit = title.split('\n').pop();
+                                                    const gw = translationApplication.gw.toLocaleLowerCase(lang);
+                                                    const textTheme = direction === 'rtl' ? `text-xl md:text-2xl lg:text-3xl xl:text-4xl` : `text-base md:text-lg lg:text-xl xl:text-2xl `;
+                                                    if (hasGODinit.toLowerCase().search(gw) !== -1) {
+                                                        return (
+                                                            <div key={`last-title-${suraNumber}-${verseNumber}`}
+                                                                ref={(el) => verseRefs.current[`${suraNumber}:${0}`] = el}
+                                                                dir={direction}
+                                                                className={`cursor-pointer`}
+                                                                onClick={handleBesmeleClick}>
+                                                                <div
+                                                                    className={`mx-1 py-1 px-2 text-neutral-800 rounded bg-gradient-to-r ${besmeleClicked ? ` font-semibold transition-all duration-200` : ``} ${direction === 'rtl' ? ` from-sky-500 to-cyan-300` : ` from-cyan-300 to-sky-500`} ${textTheme} besmele`}>
+                                                                    {besmeleClicked ? '0. ' + hasGODinit : hasGODinit}
+                                                                </div>
+                                                                <div className={`flex items-center justify-center transition-all duration-200 ${besmeleClicked ? `py-1 px-2 mx-1` : `h-0`}`}>
+                                                                    <div className={`transition-all duration-500 font-arabic text-2xl/relaxed md:text-3xl/relaxed lg:text-4xl/relaxed ${besmeleClicked ? `opacity-100` : ` opacity-0`}`}>
+                                                                        {besmeleClicked ? besmele : null}
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        );
+                                                    }
+                                                    return null;
+                                                })()}
+                                            </div>
+                                        )
+                                        : (
+                                            <div
+                                                key={`${"title:" + suraNumber + ":" + verseNumber}`}
+                                                dir={direction}
+                                                className={`${titleClassName} ${hasTitleAsterisk ? " cursor-pointer text-sky-500 border border-neutral-500/50 p-2 md:p-3" : "p-0.5 md:p-2"}`}
+                                                onClick={() => hasTitleAsterisk && handleTitleClick(noteReference)}>
+                                                {title}
+                                            </div>
+                                        )
+                                )}
+                                <Verse
+                                    besmele={besmele}
+                                    colors={colors}
+                                    theme={theme}
+                                    translationApplication={translationApplication}
+                                    relationalData={map}
+                                    verseClassName={verseClassName}
+                                    hasAsterisk={hasAsterisk}
+                                    suraNumber={suraNumber}
+                                    verseNumber={verseNumber}
+                                    verseText={verseText}
+                                    encryptedText={encryptedText}
+                                    verseRefs={verseRefs}
+                                    verseKey={verseKey}
+                                    handleVerseClick={handleVerseClick}
+                                    pulse={(notify && (notifyRange.current[`${suraNumber}:${verseNumber}`] ? notifyRange.current[`${suraNumber}:${verseNumber}`] : false)) ||
+                                        (notify && (parseInt(selectedSura) === parseInt(suraNumber) && parseInt(selectedVerse) === parseInt(verseNumber)))}
+                                    grapFocus={grapFocus}
+                                    pageGWC={updatedPageGWC}
+                                    handleClickReference={clickReferenceController}
+                                    hasTitle={title}
+                                    hasNotes={notes}
+                                    path={path}
+                                    isScrolling={isScrolling}
+                                    direction={direction}
+                                    parseReferences={parseReferences}
+                                    startCopyTimer={startCopyTimer}
+                                    kvdo={(kvdoPerVerse && (parseInt(selectedSura) === parseInt(suraNumber) && parseInt(selectedVerse) === parseInt(verseNumber)))}
+                                />
+                            </div>
+                        );
+                    })}
+
+                    <div className={`sticky -bottom-1 mt-3 flex`}>
+                        <div className={`flex text-sm justify-between flex-1`}>
+                            <div className={`py-2 px-3 ${colors[theme]["app-background"]} rounded-r`}>
+                                <p
+                                    key={`cfotwG`}
+                                    className={`cursor-pointer `} onClick={() => openExplanation('GODnamefrequency')}>
+                                    {pageData.notes.cumulativefrequencyofthewordGOD}
+                                </p>
+                            </div>
+                            {showExplanation.GODnamefrequency && (
+                                <div dir={direction} className={`absolute w-36 left-1.5 -translate-y-28 text-start p-3 ${colors[theme]["base-background"]} rounded break-word`}>
+                                    {translationApplication?.wc1} = {formatHitCount(parseInt(pageData.notes.cumulativefrequencyofthewordGOD))}
+                                </div>
                             )}
-                            <Verse
-                                besmele={besmele}
-                                colors={colors}
-                                theme={theme}
-                                translationApplication={translationApplication}
-                                relationalData={map}
-                                verseClassName={verseClassName}
-                                hasAsterisk={hasAsterisk}
-                                suraNumber={suraNumber}
-                                verseNumber={verseNumber}
-                                verseText={verseText}
-                                encryptedText={encryptedText}
-                                verseRefs={verseRefs}
-                                verseKey={verseKey}
-                                handleVerseClick={handleVerseClick}
-                                pulse={(notify && (notifyRange.current[`${suraNumber}:${verseNumber}`] ? notifyRange.current[`${suraNumber}:${verseNumber}`] : false)) ||
-                                    (notify && (parseInt(selectedSura) === parseInt(suraNumber) && parseInt(selectedVerse) === parseInt(verseNumber)))}
-                                grapFocus={grapFocus}
-                                pageGWC={updatedPageGWC}
-                                handleClickReference={clickReferenceController}
-                                hasTitle={title}
-                                hasNotes={notes}
-                                path={path}
-                                isScrolling={isScrolling}
-                                direction={direction}
-                                parseReferences={parseReferences}
-                                startCopyTimer={startCopyTimer}
-                                kvdo={(kvdoPerVerse && (parseInt(selectedSura) === parseInt(suraNumber) && parseInt(selectedVerse) === parseInt(verseNumber)))}
-                            />
-                        </div>
-                    );
-                })}
-
-                <div className={`sticky -bottom-1 mt-3 flex`}>
-                    <div className={`flex text-sm justify-between flex-1`}>
-                        <div className={`py-2 px-3 ${colors[theme]["app-background"]} rounded-r`}>
-                            <p
-                                key={`cfotwG`}
-                                className={`cursor-pointer `} onClick={() => openExplanation('GODnamefrequency')}>
-                                {pageData.notes.cumulativefrequencyofthewordGOD}
-                            </p>
-                        </div>
-                        {showExplanation.GODnamefrequency && (
-                            <div dir={direction} className={`absolute w-36 left-1.5 -translate-y-28 text-start p-3 ${colors[theme]["base-background"]} rounded break-word`}>
-                                {translationApplication?.wc1} = {formatHitCount(parseInt(pageData.notes.cumulativefrequencyofthewordGOD))}
+                            <div className={`py-2 px-3 ${colors[theme]["app-background"]} rounded-l`}>
+                                <p
+                                    key={`csovwGwo`}
+                                    className={`cursor-pointer`} onClick={() => openExplanation('GODnamesum')}>
+                                    {pageData.notes.cumulativesumofverseswhereGODwordoccurs}
+                                </p>
                             </div>
-                        )}
-                        <div className={`py-2 px-3 ${colors[theme]["app-background"]} rounded-l`}>
-                            <p
-                                key={`csovwGwo`}
-                                className={`cursor-pointer`} onClick={() => openExplanation('GODnamesum')}>
-                                {pageData.notes.cumulativesumofverseswhereGODwordoccurs}
-                            </p>
+                            {showExplanation.GODnamesum && (
+                                <div dir={direction} className={`absolute w-36 -translate-y-28 right-1.5 text-end  p-3 ${colors[theme]["base-background"]} rounded break-word`}>
+                                    {translationApplication?.wc2} = {formatHitCount(parseInt(pageData.notes.cumulativesumofverseswhereGODwordoccurs))}
+                                </div>
+                            )}
                         </div>
-                        {showExplanation.GODnamesum && (
-                            <div dir={direction} className={`absolute w-36 -translate-y-28 right-1.5 text-end  p-3 ${colors[theme]["base-background"]} rounded break-word`}>
-                                {translationApplication?.wc2} = {formatHitCount(parseInt(pageData.notes.cumulativesumofverseswhereGODwordoccurs))}
-                            </div>
-                        )}
                     </div>
+
                 </div>
+                {
+                    (() => {
+                        const textTheme = direction === 'rtl' ? `text-xl md:text-2xl lg:text-3xl ` : `text-lg lg:text-xl xl:text-2xl `;
 
-            </div>
-            {
-                (() => {
-                    const textTheme = direction === 'rtl' ? `text-xl md:text-2xl lg:text-3xl ` : `text-lg lg:text-xl xl:text-2xl `;
+                        return (
+                            notesData.data.length > 0 &&
+                            <div
+                                dir={direction}
+                                className={`${colors[theme]["base-background"]} mx-0.5 my-3 rounded p-1 ${textTheme} text-justify ${colors[theme]["app-text"]} flex flex-col space-y-1 whitespace-pre-line break-words`}>
+                                <h3 className={`p-1`}>{translationApplication?.notes}:</h3>
 
-                    return (
-                        notesData.data.length > 0 &&
-                        <div
-                            dir={direction}
-                            className={`${colors[theme]["base-background"]} mx-0.5 my-3 rounded p-1 ${textTheme} text-justify ${colors[theme]["app-text"]} flex flex-col space-y-1 whitespace-pre-line break-words`}>
-                            <h3 className={`p-1`}>{translationApplication?.notes}:</h3>
-
-                            {notesData.data.map((note, index) => (
-                                <div
-                                    className={`${colors[theme]["notes-background"]} hyphens-auto rounded p-2 ${colors[theme]["app-text"]} ${focusedNoteIndices[index] ? 'animate-pulse' : ''}`}
-                                    ref={(el) => noteRefs.current[index] = el}
-                                    key={"notes:" + index}
-                                    lang={lang}
-                                    dir={direction}>
-                                    {parseReferences(note, 'notes:' + index, clickReferenceController)}
-                                </div>
-                            ))}
-                            {notesData.tables && notesData.tables.map((table, index) => (
-                                <div className={`flex justify-center`}
-                                    key={index + ":" + table.title[0]} >
-                                    {renderTable(table)}
-                                </div>
-                            ))}
-                        </div>
-                    );
-                })()
-            }
+                                {notesData.data.map((note, index) => (
+                                    <div
+                                        className={`${colors[theme]["notes-background"]} hyphens-auto rounded p-2 ${colors[theme]["app-text"]} ${focusedNoteIndices[index] ? 'animate-pulse' : ''}`}
+                                        ref={(el) => noteRefs.current[index] = el}
+                                        key={"notes:" + index}
+                                        lang={lang}
+                                        dir={direction}>
+                                        {parseReferences(note, 'notes:' + index, clickReferenceController)}
+                                    </div>
+                                ))}
+                                {notesData.tables && notesData.tables.map((table, index) => (
+                                    <div className={`flex justify-center`}
+                                        key={index + ":" + table.title[0]} >
+                                        {renderTable(table)}
+                                    </div>
+                                ))}
+                            </div>
+                        );
+                    })()
+                }
             </animated.div>
             <NextPagerIndicator
                 colors={colors}
