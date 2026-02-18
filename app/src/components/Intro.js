@@ -21,6 +21,7 @@ const Intro = ({
 }) => {
 
     const lang = localStorage.getItem("lang");
+    const isPersian = lang === "fa";
     const images = require.context('../assets/pictures/', false, /\.jpg$/);
     const scrollContainerRef = useRef(null);
     const introRef = useRef(null);
@@ -114,8 +115,8 @@ const Intro = ({
         }
 
         introContent.sort((a, b) => a.order - b.order);
-        const smallTextTheme = direction === 'rtl' ? `text-xl md:text-2xl lg:text-3xl ` : `text-base md:text-lg lg:text-xl `;
-        const textTheme = direction === 'rtl' ? `text-2xl md:text-3xl lg:text-4xl` : `text-lg md:text-xl lg:text-2xl `;
+        const smallTextTheme = isPersian ? `text-2xl md:text-3xl lg:text-4xl ` : `text-base md:text-lg lg:text-xl `;
+        const textTheme = isPersian ? `text-3xl md:text-4xl lg:text-5xl` : `text-lg md:text-xl lg:text-2xl `;
         const renderContent = introContent.map((item, index) => {
             if (item.type === 'titles') {
                 const bsml = translationApplication.bsml.toLocaleLowerCase(lang);

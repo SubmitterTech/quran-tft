@@ -7,6 +7,7 @@ import Picture22 from '../specials/Picture22';
 const Apps = ({ colors, theme, translationApplication, parseReferences, appendices, selected, restoreAppText, refToRestore, refToJump, direction, upt }) => {
 
     const lang = localStorage.getItem("lang");
+    const isPersian = lang === "fa";
     const containerRef = useRef(null);
     const appendixRef = useRef({});
 
@@ -65,7 +66,7 @@ const Apps = ({ colors, theme, translationApplication, parseReferences, appendic
             rows.push(values.slice(i, i + columnCount));
         }
         const pulsate = notify === `${appno}-${key}` ? `animate-pulse` : ``;
-        const tableTextTheme = direction === 'rtl' ? `text-xl md:text-2xl lg:text-3xl ` : `text-base md:text-lg lg:text-xl `;
+        const tableTextTheme = isPersian ? `text-2xl md:text-3xl lg:text-4xl xl:text-5xl` : `text-base md:text-lg lg:text-xl `;
 
         return (
             <div key={key} className={`${colors[theme]["table-title-text"]} ${pulsate}`}>
@@ -194,7 +195,7 @@ const Apps = ({ colors, theme, translationApplication, parseReferences, appendic
                 </div>
             </div>
         );
-    }, [colors, theme, parseReferences, notify, direction, handleClick]);
+    }, [colors, theme, parseReferences, notify, isPersian, handleClick]);
 
     const renderContentItem = (appno, item, index) => {
         switch (item.type) {
@@ -229,7 +230,7 @@ const Apps = ({ colors, theme, translationApplication, parseReferences, appendic
                     </div>
                 );
             case 'evidence':
-                const evidenceTextTheme = direction === 'rtl' ? `text-xl md:text-2xl lg:text-3xl ` : `text-base md:text-lg lg:text-xl `;
+                const evidenceTextTheme = isPersian ? `text-2xl md:text-3xl lg:text-4xl xl:text-5xl` : `text-base md:text-lg lg:text-xl `;
 
                 return (
                     <div
@@ -343,7 +344,7 @@ const Apps = ({ colors, theme, translationApplication, parseReferences, appendic
         );
     };
 
-    const textTheme = direction === 'rtl' ? `text-2xl md:text-3xl lg:text-4xl ` : `text-lg md:text-xl lg:text-2xl `;
+    const textTheme = isPersian ? `text-2xl md:text-3xl lg:text-4xl xl:text-5xl` : `text-lg md:text-xl lg:text-2xl `;
 
     return (
         <div

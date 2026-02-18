@@ -73,6 +73,7 @@ const Pages = React.memo(({
     onOverscrollProgressChange
 }) => {
     const lang = localStorage.getItem("lang");
+    const isPersian = lang === "fa";
 
     // Refs
     const scrollContainerRef = useRef(null);
@@ -820,8 +821,8 @@ const Pages = React.memo(({
                     {sortedVerses.map(({ suraNumber, verseNumber, verseText, encryptedText, title }) => {
                         const hasAsterisk = verseText.includes('*') || (title && title.includes('*'));
                         const hasTitleAsterisk = (title && title.includes('*'));
-                        const verseTextTheme = direction === 'rtl' ? `text-2xl md:text-3xl lg:text-4xl ` : `text-lg md:text-xl lg:text-2xl `;
-                        const titleTextTheme = direction === 'rtl' ? `text-xl md:text-2xl lg:text-3xl ` : `text-lg md:text-xl lg:text-2xl font-semibold `;
+                        const verseTextTheme = isPersian ? `text-3xl md:text-4xl lg:text-5xl ` : `text-lg md:text-xl lg:text-2xl `;
+                        const titleTextTheme = isPersian ? `text-2xl md:text-3xl lg:text-4xl ` : `text-lg md:text-xl lg:text-2xl font-semibold `;
                         const verseClassName = `${verseTextTheme} p-0.5 md:p-1 m-0.5 w-full flex flex-col cursor-pointer rounded  hyphens-auto text-justify `;
                         const titleClassName = `${titleTextTheme} mx-1 my-0.5 italic rounded  text-center whitespace-pre-wrap `;
                         const verseKey = `${suraNumber}:${verseNumber}`;
@@ -912,7 +913,7 @@ const Pages = React.memo(({
                                                     // THE FIRST SENTENCE OF FIRST SURA : BISMILLAHIRRAHMANIRRAHIM
                                                     const hasGODinit = title.split('\n').pop();
                                                     const gw = translationApplication.gw.toLocaleLowerCase(lang);
-                                                    const textTheme = direction === 'rtl' ? `text-xl md:text-2xl lg:text-3xl xl:text-4xl` : `text-base md:text-lg lg:text-xl xl:text-2xl `;
+                                                    const textTheme = isPersian ? `text-2xl md:text-3xl lg:text-4xl xl:text-5xl` : `text-base md:text-lg lg:text-xl xl:text-2xl `;
                                                     if (hasGODinit.toLowerCase().search(gw) !== -1) {
                                                         return (
                                                             <div key={`last-title-${suraNumber}-${verseNumber}`}
@@ -1011,7 +1012,7 @@ const Pages = React.memo(({
                 </div>
                 {
                     (() => {
-                        const textTheme = direction === 'rtl' ? `text-xl md:text-2xl lg:text-3xl ` : `text-lg lg:text-xl xl:text-2xl `;
+                        const textTheme = isPersian ? `text-2xl md:text-3xl lg:text-4xl xl:text-5xl` : `text-lg lg:text-xl xl:text-2xl `;
 
                         return (
                             notesData.data.length > 0 &&
