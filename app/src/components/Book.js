@@ -763,15 +763,17 @@ const Book = React.memo(({ incomingSearch = false, incomingAppendix = false, inc
 
     const startCopyTimer = useCallback((currentVerseKey, verseText, hasTitle, hasNotes, translationApplication) => {
         const handleAccumulatedCopy = async () => {
+            // Reset visual timer immediately on each new copy action.
+            if (copyTimerRef.current) clearTimeout(copyTimerRef.current);
+            if (timerRef.current) cancelAnimationFrame(timerRef.current);
+            setRemainingTime(20000);
+
             const clip = `[${currentVerseKey}]`;
             const s = await smartCopy(clip, accumulatedCopiesRef, verseText, hasTitle, hasNotes);
             if (s) {
                 const textToShow = Object.keys(accumulatedCopiesRef.current).join(", ") + ` ` + translationApplication.copied
                 toast.success(textToShow, { duration: 3000 });
             }
-
-            // Clear existing timer
-            if (copyTimerRef.current) clearTimeout(copyTimerRef.current);
 
             // Start a new timeout
             copyTimerRef.current = setTimeout(() => {
@@ -781,9 +783,6 @@ const Book = React.memo(({ incomingSearch = false, incomingAppendix = false, inc
 
             let startTime = Date.now();
             let endTime = startTime + 19999;
-
-            // Cancel any previous animation frame
-            if (timerRef.current) cancelAnimationFrame(timerRef.current);
 
             const updateRemainingTime = () => {
                 let now = Date.now();
@@ -1086,7 +1085,7 @@ const Book = React.memo(({ incomingSearch = false, incomingAppendix = false, inc
                 <div className={`w-full flex z-[220] ${colors[theme]["app-background"]} fixed bottom-0`}
                     style={{ paddingBottom: 'calc(env(safe-area-inset-bottom) * 0.57)' }}>
                     <div className={`relative flex w-full items-center justify-between`}>
-                        <div className={`absolute h-0.5 left-0 -top-0.5 transition-[width] duration-200 ease-linear ${colors[theme]["matching"]}`} style={{ width: `${progressPercentage}%` }}></div>
+                        <div className={`absolute h-0.5 left-0 -top-0.5 ${colors[theme]["matching"]}`} style={{ width: `${progressPercentage}%` }}></div>
                         {hasTranslationProgress &&
                             <div
                                 className={`absolute h-0.5 left-0 -top-[3px] transition-[width] duration-100 ease-linear ${colors[theme]["matching"]}`}
