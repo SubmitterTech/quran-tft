@@ -22,7 +22,10 @@ const StaticSplash = ({ direction }) => (
 
 function App({ loadingDirection = 'ltr', bootData = null }) {
   return (
-    <Router basename={process.env.PUBLIC_URL}>
+    <Router
+      basename={process.env.PUBLIC_URL}
+      future={{ v7_startTransition: true, v7_relativeSplatPath: true }}
+    >
       <Suspense fallback={<StaticSplash direction={loadingDirection} />}>
         <Routes>
           <Route path="/" element={<Root bootData={bootData} />} />

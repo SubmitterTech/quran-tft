@@ -2,8 +2,56 @@ import React, { useEffect, useState } from 'react';
 import { useParams, useLocation, Link } from 'react-router-dom';
 import defaultQuran from '../assets/qurantft.json';
 import languages from '../assets/languages.json';
-import application from '../assets/application.json';
 import { mapQuranWithNotes } from '../utils/Mapper';
+
+const LEAF_BACKGROUND_COLOR = '#414833';
+const NOTE_ACCENT_COLOR = '#7f5539';
+const VERSE_SURFACE_COLOR = '#ffe6a7';
+const TITLE_BESMELE_TEXT_COLOR = '#f0f0f0';
+const NOTE_PANEL_MAX_HEIGHT = '57vh';
+const TITLE_DECORATION_PATTERN = /^[\s♦]+$/;
+
+const parseLeafTitle = (title, suraNumber) => {
+    if (typeof title !== 'string' || !title.includes('♦')) {
+        return null;
+    }
+
+    const cleanedLines = title
+        .split('\n')
+        .map((line) => line.trim())
+        .filter((line) => line.length > 0 && !TITLE_DECORATION_PATTERN.test(line));
+
+    if (cleanedLines.length === 0) {
+        return null;
+    }
+
+    const lastLine = cleanedLines[cleanedLines.length - 1] || '';
+    const hasBesmeleLine = cleanedLines.length > 2 || (cleanedLines.length === 2 && !/^\(.*\)$/.test(lastLine));
+    const headerLines = hasBesmeleLine ? cleanedLines.slice(0, -1) : cleanedLines;
+    const besmeleLine = hasBesmeleLine ? lastLine : '';
+    const headerText = headerLines.join(' ').trim();
+
+    let suraLabel = '';
+    let suraNames = '';
+
+    if (headerText.includes(':')) {
+        const [labelPart, ...nameParts] = headerText.split(':');
+        suraLabel = labelPart.trim();
+        suraNames = nameParts.join(':').trim();
+    } else {
+        suraLabel = headerLines[0] || '';
+        suraNames = headerLines.slice(1).join(' ').trim();
+    }
+
+    if (parseInt(suraNumber, 10) === 9 && suraNames) {
+        const words = suraNames.split(/\s+/);
+        const firstLine = words.slice(0, 2).join(' ');
+        const secondLine = words.slice(2).join(' ');
+        suraNames = secondLine ? `${firstLine}\n${secondLine}` : firstLine;
+    }
+
+    return { suraLabel, suraNames, besmeleLine };
+};
 
 const Leaf = () => {
     const { lang = process.env.REACT_APP_DEFAULT_LANG || 'en', params } = useParams();
@@ -14,7 +62,6 @@ const Leaf = () => {
     const [uf, setUf] = useState(false);
     const loc = useLocation();
     const [direction, setDirection] = useState('ltr');
-    const [translation, setTranslation] = useState(application);
     const [noteToggles, setNoteToggles] = useState({});
 
     const toggleNote = (noteKey) => {
@@ -33,7 +80,7 @@ const Leaf = () => {
         setDirection((languages[lang] && languages[lang]["dir"]) ? languages[lang]["dir"] : 'ltr');
 
         if (lang && lang !== 'en') {
-            // Dynamically load the translated Quran and Application data for the specified language
+            // Dynamically load translated Quran data for the specified language
             import(`../assets/translations/${lang}/quran_${lang}.json`)
                 .then(translatedQuran => {
                     processQuranData(translatedQuran.default);
@@ -43,19 +90,9 @@ const Leaf = () => {
                     // Fallback to default Quran in case of error
                     processQuranData(defaultQuran);
                 });
-            import(`../assets/translations/${lang}/application_${lang}.json`)
-                .then(translatedApplication => {
-                    setTranslation(translatedApplication.default);
-                })
-                .catch(error => {
-                    console.error("Error loading the translated Application data: ", error);
-                    // Fallback to default Application data in case of error
-                    setTranslation(application);
-                });
         } else {
             // Use the default Quran data
             processQuranData(defaultQuran);
-            setTranslation(application);
         }
     }, [lang]);
 
@@ -126,25 +163,31 @@ const Leaf = () => {
             setVerseList(vl);
             setTitleList(tl);
             setNoteList(nl);
+            setNoteToggles({});
             setUf(false);
         } else {
             setVerseList({});
             setTitleList({});
             setNoteList({});
+            setNoteToggles({});
             setUf(true);
         }
 
     }, [params, quranmap]);
 
     return (
-        <div className="select-text fixed w-screen h-full bg-gradient-to-r from-sky-500 to-cyan-500 pl-1 pb-2 flex flex-col justify-center items-center">
-            <div className="text-base h-10 w-10 md:h-12 md:w-12 lg:h-14 lg:w-14 absolute bottom-5 ">
+        <div
+            className="select-text fixed w-screen h-full pb-2 flex flex-col justify-center items-center"
+            style={{ backgroundColor: LEAF_BACKGROUND_COLOR }}
+        >
+            <div
+                className="text-base h-14 w-14 md:h-16 md:w-16 lg:h-18 lg:w-18 absolute bottom-0 p-0.5 rounded-t-full z-50"
+                style={{ backgroundColor: LEAF_BACKGROUND_COLOR }}
+            >
                 <Link to="/">
                     <img
                         src="/logo512.png"
                         alt="Logo"
-
-                        className="mt-4"
                     />
                 </Link>
             </div>
@@ -153,32 +196,94 @@ const Leaf = () => {
                     {loc.pathname + " ?"}
                 </div>
             ) : (
-                <div className="w-full md:text-xl lg:w-3/4 lg:text-2xl flex flex-col overflow-auto pr-1 mb-10 md:mb-12 lg:mb-14 mt-2.5">
-                    {Object.entries(verseList).map(([key, text]) => (
-                        <div dir={direction} key={key} className="text-neutral-100 text-justify hyphens-auto px-1 ">
-                            {titleList[key] && (
+                <div className="w-full lg:w-3/4 text-base lg:text-lg xl:text-xl flex flex-col overflow-auto pb-12 md:pb-14 lg:pb-16 mt-0.5">
+                    {Object.entries(verseList).map(([key, text]) => {
+                        const hasNote = Boolean(noteList[key]);
+                        const isNoteOpen = Boolean(noteToggles[key]);
+                        const [suraNumber] = key.split(':');
+                        const parsedTitle = parseLeafTitle(titleList[key], suraNumber);
+
+                        return (
+                            <div dir={direction} key={key} className="text-neutral-950 text-justify hyphens-auto px-2">
+                                {titleList[key] && (
+                                    <div
+                                        key={key + "title"}
+                                        className={` w-full flex items-center justify-center`}>
+                                        {parsedTitle ? (
+                                            <div
+                                                className="my-1.5 pt-1 px-2 text-center italic font-medium flex flex-col space-y-1"
+                                                style={{ backgroundColor: 'transparent' }}
+                                            >
+                                                {parsedTitle.suraLabel && (
+                                                    <div className="not-italic" style={{ color: TITLE_BESMELE_TEXT_COLOR }}>
+                                                        {parsedTitle.suraLabel}
+                                                    </div>
+                                                )}
+                                                {parsedTitle.suraNames && (
+                                                    <div className="whitespace-pre-line" style={{ color: TITLE_BESMELE_TEXT_COLOR }}>
+                                                        {parsedTitle.suraNames}
+                                                    </div>
+                                                )}
+                                                {parsedTitle.besmeleLine && (
+                                                    <div className="text-sm md:text-base" style={{ color: TITLE_BESMELE_TEXT_COLOR }}>
+                                                        {parsedTitle.besmeleLine}
+                                                    </div>
+                                                )}
+                                            </div>
+                                        ) : (
+                                            <div
+                                                className="rounded-t mt-1.5 pt-0.5 px-1 whitespace-pre-line text-center italic font-medium"
+                                                style={{ backgroundColor: VERSE_SURFACE_COLOR }}
+                                            >
+                                                {titleList[key]}
+                                            </div>
+                                        )}
+                                    </div>
+                                )}
                                 <div
-                                    key={key + "title"}
-                                    className={`rounded-t whitespace-pre-line bg-gradient-to-r from-transparent via-blue-600/50 to-transparent text-center italic font-semibold py-1.5 px-2.5`}>
-                                    {titleList[key]}
-                                </div>
-                            )}
-                            <div
-                                key={key + "verse"}
-                                className={` bg-neutral-900/95 text-justify hyphens-auto py-1.5 px-2 ${noteList[key] ? `rounded-t shadow-t-md` : `shadow-md rounded mb-2`}`}>
-                                <span className="text-sky-500">{key}</span> {text}
-                            </div>
-                            {noteList[key] && (
-                                <div
-                                    key={key + "note"}
-                                    onClick={() => toggleNote(key + "note")}
-                                    className={`whitespace-pre-line bg-green-700/95 hyphens-auto rounded-b py-1.5 px-2.5 mb-2 cursor-pointer transition-all duration-500 ease-linear ${noteToggles[key + "note"] ? 'max-h-[1000px] text-justify overflow-y-auto' : 'max-h-10 text-center'}`}
+                                    key={key + "verse"}
+                                    onClick={hasNote ? () => toggleNote(key) : undefined}
+                                    onKeyDown={hasNote ? (event) => {
+                                        if (event.key === 'Enter' || event.key === ' ') {
+                                            event.preventDefault();
+                                            toggleNote(key);
+                                        }
+                                    } : undefined}
+                                    role={hasNote ? "button" : undefined}
+                                    tabIndex={hasNote ? 0 : undefined}
+                                    className={`relative text-justify hyphens-auto font-light px-1 ${hasNote ? `cursor-pointer` : ``} ${hasNote && isNoteOpen ? `rounded-t shadow-t-md` : `shadow-md rounded mb-0.5`}`}
+                                    style={{ backgroundColor: VERSE_SURFACE_COLOR }}
                                 >
-                                    {noteToggles[key + "note"] ? noteList[key] : translation.notes}
+                                    {hasNote && (
+                                        <span
+                                            aria-hidden="true"
+                                            className={`pointer-events-none absolute right-0 bottom-0 h-3 w-3 transition-all duration-200 ease-out ${isNoteOpen ? `rounded-tl-full`: `rounded-tl-md rounded-br`}`}
+                                            style={{ backgroundColor: NOTE_ACCENT_COLOR }}
+                                        />
+                                    )}
+                                    <span
+                                        className="font-semibold text-neutral-950"
+                                        style={hasNote ? { color: NOTE_ACCENT_COLOR } : undefined}
+                                    >
+                                        {key}
+                                    </span>{' '}
+                                    {text}
                                 </div>
-                            )}
-                        </div>
-                    ))}
+                                {hasNote && (
+                                    <div
+                                        key={key + "note"}
+                                        className={`whitespace-pre-line text-white hyphens-auto font-light rounded-b px-1 transition-all duration-200 ease-in-out ${isNoteOpen ? 'py-1 mb-0.5 opacity-100 shadow-md overflow-y-auto' : 'py-0 mb-0 opacity-0 overflow-hidden'}`}
+                                        style={{
+                                            backgroundColor: NOTE_ACCENT_COLOR,
+                                            maxHeight: isNoteOpen ? NOTE_PANEL_MAX_HEIGHT : 0,
+                                        }}
+                                    >
+                                        {noteList[key]}
+                                    </div>
+                                )}
+                            </div>
+                        );
+                    })}
                 </div>
             )}
         </div>

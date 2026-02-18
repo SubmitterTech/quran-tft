@@ -20,6 +20,21 @@ window.onunhandledrejection = (event) => {
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 
+const signalReactReady = () => {
+  const emitReady = () => {
+    window.dispatchEvent(new Event('app:react-ready'));
+  };
+
+  if (typeof window.requestAnimationFrame === 'function') {
+    window.requestAnimationFrame(() => {
+      window.requestAnimationFrame(emitReady);
+    });
+    return;
+  }
+
+  window.setTimeout(emitReady, 0);
+};
+
 const CrashGuard = ({ direction, title, message, reloadLabel }) => (
   <div
     dir={direction}
@@ -234,6 +249,7 @@ const renderApp = async () => {
       </Boundary>
     </React.StrictMode>
   );
+  signalReactReady();
 
   if (isNative()) {
     serviceWorkerRegistration.unregister();
