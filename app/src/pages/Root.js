@@ -38,6 +38,8 @@ const TRANSLATION_PROGRESS_FINISH_HOLD_MS = 140;
 const TRANSLATION_PROGRESS_GUIDED_STEP = 0.1;
 const TRANSLATION_PROGRESS_GUIDED_INTERVAL_MS = 30;
 const TRANSLATION_PROGRESS_GUIDED_CAP = 96;
+const TURKISH_NOTICE_DELAY_MS = 1000;
+const TURKISH_NOTICE_STORAGE_KEY = 'qurantft-turkish-notice-ack-v1';
 
 function Root({ bootData = null }) {
     const { language, id } = useParams();
@@ -64,12 +66,15 @@ function Root({ bootData = null }) {
     const [translationLoadProgress, setTranslationLoadProgress] = useState({ active: false, loaded: 0, total: 0, uiProgress: 0 });
     const [theme, setTheme] = useState(localStorage.getItem("theme") ? localStorage.getItem("theme") : "sky");
     const [font, setFont] = useState(localStorage.getItem("qurantft-font") ? localStorage.getItem("qurantft-font") : "font-normal");
+    const [showTurkishNotice, setShowTurkishNotice] = useState(false);
+    const [isTurkishNoticeAcknowledged, setIsTurkishNoticeAcknowledged] = useState(() => localStorage.getItem(TURKISH_NOTICE_STORAGE_KEY) === '1');
     const activeLangRef = useRef(normalizedInitialLang);
     const mapLoadPromiseRef = useRef(null);
     const introLoadPromiseRef = useRef(null);
     const coverTranslationCacheRef = useRef({});
     const translationProgressStartedAtRef = useRef(0);
     const translationProgressTimerRef = useRef(null);
+    const turkishNoticeTimerRef = useRef(null);
     const coverPreviewRequestRef = useRef(0);
     const coverPreviewLangRef = useRef('');
     const loadedSegmentsRef = useRef({
@@ -126,6 +131,11 @@ function Root({ bootData = null }) {
     const isEnglishLanguage = useCallback((value) => {
         const normalized = (value || "").toLowerCase();
         return normalized === "en" || normalized.startsWith("en-");
+    }, []);
+
+    const isTurkishLanguage = useCallback((value) => {
+        const normalized = (value || "").toLowerCase();
+        return normalized === "tr" || normalized.startsWith("tr-");
     }, []);
 
     const getCoverTranslationSnapshot = useCallback((language) => {
@@ -721,10 +731,45 @@ function Root({ bootData = null }) {
         }
     }, [isAppendix]);
 
+    useEffect(() => {
+        if (turkishNoticeTimerRef.current) {
+            window.clearTimeout(turkishNoticeTimerRef.current);
+            turkishNoticeTimerRef.current = null;
+        }
+
+        if (isTurkishNoticeAcknowledged || !isTurkishLanguage(lang)) {
+            setShowTurkishNotice(false);
+            return;
+        }
+
+        setShowTurkishNotice(false);
+        turkishNoticeTimerRef.current = window.setTimeout(() => {
+            setShowTurkishNotice(true);
+            turkishNoticeTimerRef.current = null;
+        }, TURKISH_NOTICE_DELAY_MS);
+
+        return () => {
+            if (turkishNoticeTimerRef.current) {
+                window.clearTimeout(turkishNoticeTimerRef.current);
+                turkishNoticeTimerRef.current = null;
+            }
+        };
+    }, [lang, isTurkishNoticeAcknowledged, isTurkishLanguage]);
+
     useEffect(() => () => {
         stopTranslationProgressTimer();
     }, [stopTranslationProgressTimer]);
 
+    const acknowledgeTurkishNotice = useCallback(() => {
+        if (turkishNoticeTimerRef.current) {
+            window.clearTimeout(turkishNoticeTimerRef.current);
+            turkishNoticeTimerRef.current = null;
+        }
+
+        setIsTurkishNoticeAcknowledged(true);
+        setShowTurkishNotice(false);
+        localStorage.setItem(TURKISH_NOTICE_STORAGE_KEY, '1');
+    }, []);
 
     const hideCover = () => {
         setShowCover(false);
@@ -758,6 +803,24 @@ function Root({ bootData = null }) {
                 translationLoadProgress={translationProgressPercent}
                 direction={(languages[lang] && languages[lang]["dir"]) ? languages[lang]["dir"] : 'ltr'}
             />}
+            {showTurkishNotice && (
+                <div className="fixed inset-0 z-[12000] flex items-center justify-center bg-slate-950/85 px-5">
+                    <div className="w-full max-w-2xl rounded-2xl bg-white p-6 md:p-8 shadow-2xl">
+                        <div className="space-y-4 text-base md:text-lg lg:text-xl leading-relaxed text-slate-800">
+                            <p>Uygulamamızda yer alan Türkçe tercüme, kullanım izninin sona ermesi nedeniyle yayından kaldırılmıştır.</p>
+                            <p>Orijinal İngilizce metinden bağımsız olarak hazırlanan yeni Türkçe çeviri kademeli biçimde yayına alınmaktadır.</p>
+                            <p>Anlayışınız için teşekkür ederiz.</p>
+                        </div>
+                        <button
+                            type="button"
+                            onClick={acknowledgeTurkishNotice}
+                            className="mt-6 w-full rounded-xl bg-sky-600 px-4 py-3 text-sm md:text-base font-semibold text-white transition-colors duration-150 hover:bg-sky-700"
+                        >
+                            Anladım
+                        </button>
+                    </div>
+                </div>
+            )}
         </div>
     );
 }

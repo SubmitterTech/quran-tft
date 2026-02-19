@@ -8,7 +8,7 @@ import Bookmarks from '../utils/Bookmarks';
 import LongPressable from '../hooks/LongPressable';
 import { toast } from 'react-hot-toast';
 
-const languageDisabilityThreshold = 60;
+const languageDisabilityThreshold = 38;
 const chronologicalOrder = [
     "96", "68", "73", "74", "1", "111", "81", "87", "92", "89", "93", "94", "103", "100", "108", "102", "107", "109", "105",
     "113", "114", "112", "53", "80", "97", "91", "85", "95", "106", "101", "75", "104", "77", "50", "90", "86", "54", "38",
