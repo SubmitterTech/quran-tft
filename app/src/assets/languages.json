@@ -7,7 +7,7 @@
     },
     "tr": {
         "name": "Türkçe Tercümesi",
-        "comp": 100,
+        "comp": 66.36,
         "dir": "ltr",
         "nums": "0 1 2 3 4 5 6 7 8 9"
     },
@@ -19,43 +19,43 @@
     },
     "de": {
         "name": "Deutsch Übersetzung",
-        "comp": 96.73,
+        "comp": 96.93,
         "dir": "ltr",
         "nums": "0 1 2 3 4 5 6 7 8 9"
     },
     "az": {
         "name": "Azərbaycan Tərcüməsi",
-        "comp": 80.28,
+        "comp": 80.3,
         "dir": "ltr",
         "nums": "0 1 2 3 4 5 6 7 8 9"
     },
     "fr": {
         "name": "Traduction française",
-        "comp": 80.01,
+        "comp": 80.04,
         "dir": "ltr",
         "nums": "0 1 2 3 4 5 6 7 8 9"
     },
     "nl": {
         "name": "Nederlandse Vertaling",
-        "comp": 85.21,
+        "comp": 85.23,
         "dir": "ltr",
         "nums": "0 1 2 3 4 5 6 7 8 9"
     },
     "ru": {
         "name": "Русский Перевод",
-        "comp": 53.92,
+        "comp": 53.98,
         "dir": "ltr",
         "nums": "0 1 2 3 4 5 6 7 8 9"
     },
     "ku": {
         "name": "Wergera Kurdî",
-        "comp": 6.15,
+        "comp": 6.14,
         "dir": "ltr",
         "nums": "0 1 2 3 4 5 6 7 8 9"
     },
     "sv": {
         "name": "Svensk översättning",
-        "comp": 4.2,
+        "comp": 4.26,
         "dir": "ltr",
         "nums": "0 1 2 3 4 5 6 7 8 9"
     },
