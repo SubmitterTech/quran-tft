@@ -62,6 +62,8 @@ const Book = React.memo(({ incomingSearch = false, incomingAppendix = false, inc
     const [pages, setPages] = useState([]);
     const [selectedApp, setSelectedApp] = useState(incomingAppendixNumber);
     const [backButtonPressedOnce, setBackButtonPressedOnce] = useState(false);
+    const backButtonResetTimerRef = useRef(null);
+    const pendingExitPageRef = useRef(null);
 
     const [multiSelect, setMultiSelect] = useState(false);
     const [selectedVerseList, setSelectedVerseList] = useState([]);
@@ -684,15 +686,33 @@ const Book = React.memo(({ incomingSearch = false, incomingAppendix = false, inc
                         } else if (isPrevSettingsOpen) {
                             setPrevSettingsOpen(false);
                         } else {
+                            const pageBeforeExitAttempt = parseInt(currentPage, 10);
+                            pendingExitPageRef.current = Number.isFinite(pageBeforeExitAttempt) ? pageBeforeExitAttempt : null;
                             setBackButtonPressedOnce(true);
                             prevPage();
                             await Toast.show({
                                 text: translationApplication.exitToast,
                                 duration: 'long'
                             });
+                            if (backButtonResetTimerRef.current) {
+                                clearTimeout(backButtonResetTimerRef.current);
+                            }
+                            backButtonResetTimerRef.current = setTimeout(() => {
+                                setBackButtonPressedOnce(false);
+                                pendingExitPageRef.current = null;
+                                backButtonResetTimerRef.current = null;
+                            }, 2000);
                         }
-                        setTimeout(() => setBackButtonPressedOnce(false), 2000);
                     } else {
+                        const pageToPersist = pendingExitPageRef.current;
+                        if (Number.isFinite(pageToPersist) && pageToPersist > 0) {
+                            localStorage.setItem("qurantft-pn", String(pageToPersist));
+                        }
+                        if (backButtonResetTimerRef.current) {
+                            clearTimeout(backButtonResetTimerRef.current);
+                            backButtonResetTimerRef.current = null;
+                        }
+                        pendingExitPageRef.current = null;
                         App.exitApp();
                     }
                 });
@@ -707,11 +727,15 @@ const Book = React.memo(({ incomingSearch = false, incomingAppendix = false, inc
 
         return () => {
             cancelled = true;
+            if (backButtonResetTimerRef.current) {
+                clearTimeout(backButtonResetTimerRef.current);
+                backButtonResetTimerRef.current = null;
+            }
             if (listenerHandle) {
                 listenerHandle.remove();
             }
         };
-    }, [backButtonPressedOnce, isJumpOpen, isMagnifyOpen, isPrevSettingsOpen, translationApplication, prevPage]);
+    }, [backButtonPressedOnce, isJumpOpen, isMagnifyOpen, isPrevSettingsOpen, translationApplication, prevPage, currentPage]);
 
     const handleCopy = async () => {
         const copied = await listCopy(selectedVerseList, quranmap);
