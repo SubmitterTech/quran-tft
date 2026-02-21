@@ -70,7 +70,7 @@ const Jump = React.memo(({ onChangeLanguage, suraNames, onChangeFont, font, onCh
 
     const updateBookmarksList = () => {
         const allBookmarks = Bookmarks.all();
-        setBookmarksList(Object.entries(allBookmarks).reverse());
+        setBookmarksList(Object.entries(allBookmarks));
     };
 
     useEffect(() => {
