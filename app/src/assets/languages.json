@@ -7,7 +7,7 @@
     },
     "tr": {
         "name": "Türkçe Tercümesi",
-        "comp": 67.81,
+        "comp": 68.56,
         "dir": "ltr",
         "nums": "0 1 2 3 4 5 6 7 8 9"
     },
@@ -37,7 +37,7 @@
     },
     "nl": {
         "name": "Nederlandse Vertaling",
-        "comp": 85.23,
+        "comp": 85.22,
         "dir": "ltr",
         "nums": "0 1 2 3 4 5 6 7 8 9"
     },
@@ -55,7 +55,7 @@
     },
     "sv": {
         "name": "Svensk översättning",
-        "comp": 4.28,
+        "comp": 4.29,
         "dir": "ltr",
         "nums": "0 1 2 3 4 5 6 7 8 9"
     },
