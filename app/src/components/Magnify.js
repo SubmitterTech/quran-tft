@@ -1579,7 +1579,7 @@ const Magnify = ({ colors, theme, translationApplication, quran, map, appendices
             if (isRtlLanguage) {
                 ch = foldRtlScript(ch);
             }
-            if ((lang === "tr" || lang === "az") && normalize) {
+            if ((lang === "tr" || lang === "az") && (normalize || !caseSensitive)) {
                 ch = ch.replace(/[İIıi]/g, "i");
             }
             if (normalize) {
@@ -1598,7 +1598,7 @@ const Magnify = ({ colors, theme, translationApplication, quran, map, appendices
         if (isRtlLanguage) {
             processedKeyword = foldRtlScript(processedKeyword);
         }
-        if ((lang === "tr" || lang === "az") && normalize) {
+        if ((lang === "tr" || lang === "az") && (normalize || !caseSensitive)) {
             processedKeyword = processedKeyword.replace(/[İIıi]/g, "i");
         }
         if (normalize) {

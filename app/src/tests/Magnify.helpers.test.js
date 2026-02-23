@@ -312,7 +312,7 @@ function highlightTextLogic(originalText, keyword, lang, doNormalize, caseSensit
 
     for (let i = 0; i < origChars.length; i++) {
         let ch = origChars[i];
-        if ((lang === "tr" || lang === "az") && doNormalize) {
+        if ((lang === "tr" || lang === "az") && (doNormalize || !caseSensitive)) {
             ch = ch.replace(/[İIıi]/g, "i");
         }
         if (doNormalize) {
@@ -328,7 +328,7 @@ function highlightTextLogic(originalText, keyword, lang, doNormalize, caseSensit
     }
 
     let processedKeyword = keyword;
-    if ((lang === "tr" || lang === "az") && doNormalize) {
+    if ((lang === "tr" || lang === "az") && (doNormalize || !caseSensitive)) {
         processedKeyword = processedKeyword.replace(/[İIıi]/g, "i");
     }
     if (doNormalize) {
@@ -522,9 +522,14 @@ describe("highlightText — correct highlighting", () => {
         expect(highlights).toEqual(["İstanbul"]);
     });
 
-    test("Turkish normalize OFF: 'israıl' does NOT highlight 'İsrail' (ı≠i)", () => {
+    test("Turkish normalize OFF: 'israıl' highlights 'İsrail' (case-insensitive Turkic fold)", () => {
         const highlights = getHighlights("İsrail devleti", "israıl", "tr", false, false);
-        expect(highlights).toEqual([]);
+        expect(highlights).toEqual(["İsrail"]);
+    });
+
+    test("Turkish normalize OFF: highlights 'varış' and 'varı' queries", () => {
+        expect(getHighlights("Yolculuk varış noktasına ulaştı", "varış", "tr", false, false)).toEqual(["varış"]);
+        expect(getHighlights("Yolculuk varış noktasına ulaştı", "varı", "tr", false, false)).toEqual(["varı"]);
     });
 
     test("match at very start of text", () => {
