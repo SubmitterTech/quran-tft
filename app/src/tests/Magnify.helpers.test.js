@@ -1029,6 +1029,83 @@ function extractLightWordsKeywords(searchTerm, lang, doNormalize, caseSensitive,
  */
 function lightWordsHighlights(text, searchTerm, lang = "en", doNormalize = false, caseSensitive = false, useExact = false) {
     const keywords = extractLightWordsKeywords(searchTerm, lang, doNormalize, caseSensitive, useExact);
+    if (useExact) {
+        if (!text || keywords.length === 0) return [];
+
+        const origChars = [...text];
+        let searchStr = "";
+        const posMap = [];
+
+        for (let i = 0; i < origChars.length; i++) {
+            let ch = origChars[i];
+            if ((lang === "tr" || lang === "az") && (doNormalize || !caseSensitive)) {
+                ch = ch.replace(/[İIıi]/g, "i");
+            }
+            if (doNormalize) {
+                ch = ch.normalize("NFD").replace(/[\u0300-\u036f]/g, "");
+            }
+            if (!caseSensitive) {
+                ch = ch.toLocaleUpperCase(lang);
+            }
+            for (let j = 0; j < ch.length; j++) {
+                searchStr += ch[j];
+                posMap.push(i);
+            }
+        }
+
+        const ranges = [];
+        keywords.forEach((keyword) => {
+            let processedKeyword = keyword;
+            if ((lang === "tr" || lang === "az") && (doNormalize || !caseSensitive)) {
+                processedKeyword = processedKeyword.replace(/[İIıi]/g, "i");
+            }
+            if (doNormalize) {
+                processedKeyword = normalizeText(processedKeyword);
+            }
+            if (!processedKeyword || processedKeyword.trim() === '') return;
+            processedKeyword = !caseSensitive ? processedKeyword.toLocaleUpperCase(lang) : processedKeyword;
+
+            let pos = 0;
+            while (true) {
+                const idx = exactIndexOf(searchStr, processedKeyword, pos);
+                if (idx === -1) break;
+
+                const phraseWords = processedKeyword.split(/\s+/).filter(Boolean);
+                let cursor = idx;
+                for (let w = 0; w < phraseWords.length; w++) {
+                    if (w > 0) { while (cursor < searchStr.length && !isWordChar(searchStr[cursor])) cursor++; }
+                    cursor += phraseWords[w].length;
+                }
+
+                const origStart = posMap[idx];
+                const origEnd = posMap[cursor - 1] + 1;
+                if (origEnd > origStart) {
+                    ranges.push([origStart, origEnd]);
+                }
+                pos = cursor;
+            }
+        });
+
+        if (ranges.length === 0) return [];
+
+        ranges.sort((a, b) => (a[0] - b[0]) || (a[1] - b[1]));
+        const merged = [];
+        ranges.forEach((range) => {
+            if (merged.length === 0) {
+                merged.push(range);
+                return;
+            }
+            const last = merged[merged.length - 1];
+            if (range[0] <= last[1]) {
+                last[1] = Math.max(last[1], range[1]);
+            } else {
+                merged.push(range);
+            }
+        });
+
+        return merged.map(([start, end]) => origChars.slice(start, end).join(""));
+    }
+
     // Start with the original text as a single text part
     let parts = [{ type: 'text', value: text }];
     keywords.forEach(keyword => {
@@ -1149,6 +1226,11 @@ describe("lightWords — full highlight pipeline", () => {
     test("exact mode: pipe OR — both phrases highlight", () => {
         const h = lightWordsHighlights("God Most Gracious Most Merciful", "most gracious | most merciful", "en", false, false, true);
         expect(h).toEqual(["Most Gracious", "Most Merciful"]);
+    });
+
+    test("exact mode: overlapping OR phrases merge into one full highlight", () => {
+        const h = lightWordsHighlights("led them on", "led them | them on", "en", true, false, true);
+        expect(h).toEqual(["led them on"]);
     });
 
     test("exact mode: formula+text pipe — only text keyword highlights", () => {

@@ -1662,6 +1662,110 @@ const Magnify = ({ colors, theme, translationApplication, quran, map, appendices
         return parts.length > 0 ? parts : [originalText];
     }, [caseSensitive, normalize, lang, colors, theme, exactMatch, isRtlLanguage]);
 
+    const highlightExactKeywords = useCallback((originalText, keywords = []) => {
+        if (originalText == null) return [''];
+        if (!Array.isArray(keywords) || keywords.length === 0) return [originalText];
+
+        const origChars = [...originalText];
+        let searchStr = "";
+        const posMap = [];
+
+        for (let i = 0; i < origChars.length; i++) {
+            let ch = origChars[i];
+            if (isRtlLanguage) {
+                ch = foldRtlScript(ch);
+            }
+            if ((lang === "tr" || lang === "az") && (normalize || !caseSensitive)) {
+                ch = ch.replace(/[İIıi]/g, "i");
+            }
+            if (normalize) {
+                ch = ch.normalize("NFD").replace(/[\u0300-\u036f]/g, "");
+            }
+            if (!caseSensitive) {
+                ch = ch.toLocaleUpperCase(lang);
+            }
+            for (let j = 0; j < ch.length; j++) {
+                searchStr += ch[j];
+                posMap.push(i);
+            }
+        }
+
+        const ranges = [];
+
+        keywords.forEach((keyword) => {
+            let processedKeyword = keyword;
+            if (!processedKeyword || processedKeyword.trim() === '') return;
+
+            if (isRtlLanguage) {
+                processedKeyword = foldRtlScript(processedKeyword);
+            }
+            if ((lang === "tr" || lang === "az") && (normalize || !caseSensitive)) {
+                processedKeyword = processedKeyword.replace(/[İIıi]/g, "i");
+            }
+            if (normalize) {
+                processedKeyword = normalizeText(processedKeyword);
+            }
+            if (!processedKeyword || processedKeyword.trim() === '') return;
+            processedKeyword = !caseSensitive ? processedKeyword.toLocaleUpperCase(lang) : processedKeyword;
+
+            // Collect all exact matches for this keyword as source-index ranges.
+            let pos = 0;
+            while (true) {
+                const idx = exactIndexOf(searchStr, processedKeyword, pos);
+                if (idx === -1) break;
+
+                const phraseWords = processedKeyword.split(/\s+/).filter(Boolean);
+                let cursor = idx;
+                for (let w = 0; w < phraseWords.length; w++) {
+                    if (w > 0) { while (cursor < searchStr.length && !isWordChar(searchStr[cursor])) cursor++; }
+                    cursor += phraseWords[w].length;
+                }
+
+                const origStart = posMap[idx];
+                const origEnd = posMap[cursor - 1] + 1;
+                if (origEnd > origStart) {
+                    ranges.push([origStart, origEnd]);
+                }
+                pos = cursor;
+            }
+        });
+
+        if (ranges.length === 0) return [originalText];
+
+        ranges.sort((a, b) => (a[0] - b[0]) || (a[1] - b[1]));
+
+        const mergedRanges = [];
+        ranges.forEach((range) => {
+            if (mergedRanges.length === 0) {
+                mergedRanges.push(range);
+                return;
+            }
+            const last = mergedRanges[mergedRanges.length - 1];
+            if (range[0] <= last[1]) {
+                last[1] = Math.max(last[1], range[1]);
+            } else {
+                mergedRanges.push(range);
+            }
+        });
+
+        const parts = [];
+        let lastOrigEnd = 0;
+        mergedRanges.forEach(([start, end]) => {
+            if (start > lastOrigEnd) {
+                parts.push(origChars.slice(lastOrigEnd, start).join(""));
+            }
+            const matchText = origChars.slice(start, end).join("");
+            parts.push(<span className={`font-bold ${colors[theme]["matching-text"]}`}>{matchText}</span>);
+            lastOrigEnd = end;
+        });
+
+        if (lastOrigEnd < origChars.length) {
+            parts.push(origChars.slice(lastOrigEnd).join(""));
+        }
+
+        return parts.length > 0 ? parts : [originalText];
+    }, [caseSensitive, normalize, lang, colors, theme, isRtlLanguage]);
+
     const lightWords = useCallback((text) => {
         let processedTerm = searchFold(searchTerm);
         let keywords;
@@ -1674,6 +1778,8 @@ const Magnify = ({ colors, theme, translationApplication, quran, map, appendices
                 const textTokens = tokens.filter(t => !hasLocalizedDigit(t, langDigits));
                 if (textTokens.length > 0) keywords.push(textTokens.join(' '));
             });
+            if (keywords.length === 0) return [text];
+            return highlightExactKeywords(text, keywords);
         } else {
             keywords = processedTerm.split(' ').filter(keyword => (keyword.trim() !== '' && keyword.trim() !== '|' && keyword.trim().length > 0));
         }
@@ -1684,7 +1790,7 @@ const Magnify = ({ colors, theme, translationApplication, quran, map, appendices
         });
 
         return highlightedText;
-    }, [searchTerm, highlightText, exactMatch, searchFold, langDigits]);
+    }, [searchTerm, highlightText, highlightExactKeywords, exactMatch, searchFold, langDigits]);
 
     const lastTitleElementRef = useCallback(node => {
         if (observerTitles.current) observerTitles.current.disconnect();
