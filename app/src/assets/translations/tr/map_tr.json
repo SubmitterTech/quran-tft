@@ -789,6 +789,7 @@
         "Din (ayrıca bkz. İtikat)": {
             "'de kardeşler": "9:11; 33:5",
             "'den dönmek": "2:217; 5:54; 7:88-89; 18:20",
+            "'i oyuna çevirmek": "6:70; 7:51",
             "dalga geçme/alay etme": "5:57-58",
             "dinde zorlama yoktur": "2:256; 10:99; 109:6",
             "eğitimi": "9:122",
@@ -797,7 +798,6 @@
             "İbrahim'in": "2:128, 130-135; 3:95; 4:125; 6:161; 16:123; 22:78",
             "içindeki yanlışlık": "2:120; 3:24; 5:77; 6:70, 137, 159; 21:93; 30:32; 42:21; 43:23; 49:16",
             "ihtilafı": "21:93",
-            "ile oyun oynamak": "6:70; 7:51",
             "inkâr etmek": "82:9",
             "seninki sana, benimki bana": "109:6",
             "tek Tanrı / tek din": "21:92; 29:46; 39:2-3, 11, 14; 42:13",
@@ -992,7 +992,7 @@
             "'e davranış": "49:1-5",
             "'e ihanet": "8:27",
             "'e inanmak": "5:12, 111",
-            "'e nasıl karşılık verildiğinden sorumluyuz": "5:109; 28:65-66",
+            "'e nasıl yanıt verildiğinden sorumluyuz": "5:109; 28:65-66",
             "'e problemlerin havale edilmesi": "4:83",
             "'e uymak": "3:53, 172; 4:69, 100, 136; 5:56, 104; 7:157, 158; 9:16; 24:47, 62; 36:20; 48:9; 49:3, 15; 59:8",
             "'i her topluluk alır": "10:47; 17:15",
@@ -4113,7 +4113,7 @@
         "Yanıltma": "7:116",
         "Yanıt": {
             "mümkün olan en iyi şekilde": "41:34",
-            "putlar yanıtlayamaz": "46:5",
+            "putlar yanıt veremez": "46:5",
             "Tanrı'ya": "13:18; 42:26, 38, 47; 46:31-32"
         },
         "Yanlış yönlendirilme": {
