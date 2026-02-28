@@ -2,6 +2,7 @@ import { Device } from '@capacitor/device';
 import { Clipboard } from '@capacitor/clipboard';
 import { StatusBar, Style } from '@capacitor/status-bar';
 import { ScreenOrientation } from '@capacitor/screen-orientation';
+import { Haptics, ImpactStyle } from '@capacitor/haptics';
 
 let hasStatusBarPromise = null;
 let isNativePlatform = false;
@@ -143,6 +144,23 @@ export const setStatusBarStyle = async (theme, bgc) => {
   if (hasStatusBar) {
     await StatusBar.setStyle({ style: st });
     await StatusBar.setBackgroundColor({ color: bgc });
+  }
+};
+
+export const triggerActionHaptic = async () => {
+  if (!isNativePlatform) {
+    await initPlatform();
+  }
+
+  if (!isNativePlatform) {
+    return false;
+  }
+
+  try {
+    await Haptics.impact({ style: ImpactStyle.Light });
+    return true;
+  } catch (_error) {
+    return false;
   }
 };
 

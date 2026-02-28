@@ -33,6 +33,15 @@ jest.mock('@capacitor/screen-orientation', () => ({
   }
 }));
 
+jest.mock('@capacitor/haptics', () => ({
+  Haptics: {
+    impact: jest.fn().mockResolvedValue(undefined)
+  },
+  ImpactStyle: {
+    Light: 'LIGHT'
+  }
+}));
+
 const getCopiedText = () => {
   const calls = Clipboard.write.mock.calls;
   return calls[calls.length - 1][0].string;

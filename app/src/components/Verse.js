@@ -1,7 +1,7 @@
 import React, { useCallback, useEffect, useState } from 'react';
 import { useSpring, animated } from '@react-spring/web';
 import { useDrag } from '@use-gesture/react';
-import { supportsUnicodeRegex, supportsLookAhead } from '../utils/Device';
+import { supportsUnicodeRegex, supportsLookAhead, triggerActionHaptic } from '../utils/Device';
 import Bookmarks from '../utils/Bookmarks';
 
 const Verse = ({ besmele,
@@ -61,6 +61,7 @@ const Verse = ({ besmele,
     }, [currentVerseKey]);
 
     const handleBookmark = useCallback(async () => {
+        void triggerActionHaptic();
         if (bookmark) {
             await Bookmarks.remove(currentVerseKey);
         } else {
@@ -68,9 +69,10 @@ const Verse = ({ besmele,
         }
     }, [bookmark, currentVerseKey]);
 
-    const handleCopy = async () => {
+    const handleCopy = useCallback(() => {
+        void triggerActionHaptic();
         startCopyTimer(currentVerseKey, verseText, hasTitle, hasNotes, translationApplication);
-    };
+    }, [currentVerseKey, verseText, hasTitle, hasNotes, translationApplication, startCopyTimer]);
 
     const handleActions = () => {
         if (!isScrolling && Math.abs(swipeDistance) > 100) {
