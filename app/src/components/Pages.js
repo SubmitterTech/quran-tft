@@ -736,7 +736,7 @@ const Pages = React.memo(({
         setCollapsedTitlesAnimationCycle((cycle) => cycle + 1);
     }, [collapsedPageTitlesSignature, hasExpandablePageTitles, isPageTitlesExpanded]);
 
-    if (!pageData) return <div className={`${colors[theme]["text"]} flex flex-1 items-center justify-center w-full `}>{translationApplication?.loading}</div>;
+    if (!pageData) return <div className={`${colors[theme]["text"]["top"]} flex flex-1 items-center justify-center w-full `}>{translationApplication?.loading}</div>;
 
     const openExplanation = (key) => {
         setShowExplanation(prev => ({ ...prev, [key]: true }));
@@ -876,7 +876,7 @@ const Pages = React.memo(({
             onTouchMove={handleContainerTouchMove}
             onTouchEnd={handleContainerTouchEnd}
             onTouchCancel={handleContainerTouchEnd}
-            className={`flex relative w-full flex-1 flex-col ${colors[theme]["app-text"]} text-base overflow-y-auto overflow-x-hidden `}
+            className={`flex relative w-full flex-1 flex-col ${colors[theme]["text"]["middle"]} text-base overflow-y-auto overflow-x-hidden `}
             style={{ scrollPaddingTop: stickyHeight === 0 ? 79 : stickyHeight + 3 }}>
             <animated.div
                 className="relative z-20 will-change-transform"
@@ -885,7 +885,7 @@ const Pages = React.memo(({
                 }}>
                 <div
                     ref={stickyRef}
-                    className={`sticky top-0 p-3 ${colors[theme]["app-background"]} relative flex z-10`}>
+                    className={`sticky top-0 p-3 ${colors[theme]["surface"]["base"]} relative flex z-10`}>
                     <div
                         ref={stickyTitlesFocusRef}
                         onClick={() => handlePageTitleClicked()}
@@ -1114,7 +1114,7 @@ const Pages = React.memo(({
 
                     <div className={`sticky -bottom-1 mt-3 flex`}>
                         <div className={`flex text-sm justify-between flex-1`}>
-                            <div className={`py-2 px-3 ${colors[theme]["app-background"]} rounded-r`}>
+                            <div className={`py-2 px-3 ${colors[theme]["surface"]["base"]} rounded-r`}>
                                 <p
                                     key={`cfotwG`}
                                     className={`cursor-pointer `} onClick={() => openExplanation('GODnamefrequency')}>
@@ -1122,11 +1122,11 @@ const Pages = React.memo(({
                                 </p>
                             </div>
                             {showExplanation.GODnamefrequency && (
-                                <div dir={direction} className={`absolute w-36 left-1.5 -translate-y-28 text-start p-3 ${colors[theme]["base-background"]} rounded break-word`}>
+                                <div dir={direction} className={`absolute w-36 left-1.5 -translate-y-28 text-start p-3 ${colors[theme]["surface"]["bottom"]} rounded break-word`}>
                                     {translationApplication?.wc1} = {formatHitCount(parseInt(pageData.notes.cumulativefrequencyofthewordGOD))}
                                 </div>
                             )}
-                            <div className={`py-2 px-3 ${colors[theme]["app-background"]} rounded-l`}>
+                            <div className={`py-2 px-3 ${colors[theme]["surface"]["base"]} rounded-l`}>
                                 <p
                                     key={`csovwGwo`}
                                     className={`cursor-pointer`} onClick={() => openExplanation('GODnamesum')}>
@@ -1134,7 +1134,7 @@ const Pages = React.memo(({
                                 </p>
                             </div>
                             {showExplanation.GODnamesum && (
-                                <div dir={direction} className={`absolute w-36 -translate-y-28 right-1.5 text-end  p-3 ${colors[theme]["base-background"]} rounded break-word`}>
+                                <div dir={direction} className={`absolute w-36 -translate-y-28 right-1.5 text-end  p-3 ${colors[theme]["surface"]["bottom"]} rounded break-word`}>
                                     {translationApplication?.wc2} = {formatHitCount(parseInt(pageData.notes.cumulativesumofverseswhereGODwordoccurs))}
                                 </div>
                             )}
@@ -1150,12 +1150,12 @@ const Pages = React.memo(({
                             notesData.data.length > 0 &&
                             <div
                                 dir={direction}
-                                className={`${colors[theme]["base-background"]} mx-0.5 my-3 rounded p-1 ${textTheme} text-justify ${colors[theme]["app-text"]} flex flex-col space-y-1 whitespace-pre-line break-words`}>
+                                className={`${colors[theme]["surface"]["bottom"]} mx-0.5 my-3 rounded p-1 ${textTheme} text-justify ${colors[theme]["text"]["middle"]} flex flex-col space-y-1 whitespace-pre-line break-words`}>
                                 <h3 className={`p-1`}>{translationApplication?.notes}:</h3>
 
                                 {notesData.data.map((note, index) => (
                                     <div
-                                        className={`${colors[theme]["notes-background"]} ${hyphenClassName} rounded p-2 ${colors[theme]["app-text"]} ${focusedNoteIndices[index] ? 'animate-pulse' : ''}`}
+                                        className={`${colors[theme]["surface"]["middle"]} ${hyphenClassName} rounded p-2 ${colors[theme]["text"]["middle"]} ${focusedNoteIndices[index] ? 'animate-pulse' : ''}`}
                                         ref={(el) => noteRefs.current[index] = el}
                                         key={"notes:" + index}
                                         lang={lang}
@@ -1193,10 +1193,10 @@ const Pages = React.memo(({
                         className={` w-full h-full absolute left-0 top-0`}></div>
                     <div
                         style={{ animation: 'animate-scale 0.2s ease-in-out' }}
-                        className={`z-[80] mx-4 ${colors[theme]["app-background"]} ${colors[theme]["app-text"]} rounded shadow-lg`}>
+                        className={`z-[80] mx-4 ${colors[theme]["surface"]["base"]} ${colors[theme]["text"]["middle"]} rounded shadow-lg`}>
                         <div className={`p-2 flex flex-col w-full h-full space-y-2`}>
 
-                            <div className={`w-full p-1 rounded ${colors[theme]["verse-detail-background"]} flex flex-col space-y-2`}>
+                            <div className={`w-full p-1 rounded ${colors[theme]["surface"]["verse-detail"]} flex flex-col space-y-2`}>
                                 <div className={`p-3 text-lg md:text-xl w-full text-center font-semibold`}>
                                     {translationApplication?.bmdd}
                                 </div>
@@ -1206,7 +1206,7 @@ const Pages = React.memo(({
                                             <path strokeLinecap="round" strokeLinejoin="round" d="M16.5 3.75V16.5L12 14.25 7.5 16.5V3.75m9 0H18A2.25 2.25 0 0 1 20.25 6v12A2.25 2.25 0 0 1 18 20.25H6A2.25 2.25 0 0 1 3.75 18V6A2.25 2.25 0 0 1 6 3.75h1.5m9 0h-9" />
                                         </svg>
                                     </div>
-                                    <div className={`w-full text-lg rounded p-1 text-start whitespace-pre-line ${colors[theme]["matching-text"]} ${colors[theme]["encrypted-background"]}`}>
+                                    <div className={`w-full text-lg rounded p-1 text-start whitespace-pre-line ${colors[theme]["accent"]["top"]} ${colors[theme]["surface"]["encrypted"]}`}>
                                         {`${deleteConfirmResolver.data.value}`}
                                     </div>
                                 </div>
@@ -1214,28 +1214,28 @@ const Pages = React.memo(({
                             <div className="flex justify-between space-x-2">
                                 <button
                                     onClick={handleConfirm}
-                                    className={`flex flex-col w-full max-w-24 items-center justify-between pt-2 rounded  ${colors[theme]["text-background"]}`}>
+                                    className={`flex flex-col w-full max-w-24 items-center justify-between pt-2 rounded  ${colors[theme]["surface"]["top"]}`}>
                                     <div className={`flex justify-center`}>
                                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" className="w-12 h-12">
                                             <path strokeLinecap="round" strokeLinejoin="round" d="m3 3 1.664 1.664M21 21l-1.5-1.5m-5.485-1.242L12 17.25 4.5 21V8.742m.164-4.078a2.15 2.15 0 0 1 1.743-1.342 48.507 48.507 0 0 1 11.186 0c1.1.128 1.907 1.077 1.907 2.185V19.5M4.664 4.664 19.5 19.5" />
                                         </svg>
                                     </div>
-                                    <div className={`flex ${colors[theme]["page-text"]} text-xs items-center justify-center pb-1`}>
+                                    <div className={`flex ${colors[theme]["text"]["bottom"]} text-xs items-center justify-center pb-1`}>
                                         {translationApplication?.delete}
                                     </div>
                                 </button>
-                                <div className={` opacity-70 ${colors[theme]["page-text"]} h-20 w-full text-lg md:text-xl flex items-center justify-center text-center `}>
+                                <div className={` opacity-70 ${colors[theme]["text"]["bottom"]} h-20 w-full text-lg md:text-xl flex items-center justify-center text-center `}>
                                     {`${deleteConfirmResolver.data.key}`}
                                 </div>
                                 <button
                                     onClick={handleCancel}
-                                    className={`flex flex-col w-full max-w-24 items-center justify-between pt-1 rounded  ${colors[theme]["text-background"]}`}>
+                                    className={`flex flex-col w-full max-w-24 items-center justify-between pt-1 rounded  ${colors[theme]["surface"]["top"]}`}>
                                     <div className={`flex justify-center`}>
                                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className={`w-14 h-14`} >
                                             <path strokeLinecap="round" strokeLinejoin="round" d="M16.5 3.75V16.5L12 14.25 7.5 16.5V3.75m9 0H18A2.25 2.25 0 0 1 20.25 6v12A2.25 2.25 0 0 1 18 20.25H6A2.25 2.25 0 0 1 3.75 18V6A2.25 2.25 0 0 1 6 3.75h1.5m9 0h-9" />
                                         </svg>
                                     </div>
-                                    <div className={`flex ${colors[theme]["page-text"]} text-xs items-center justify-center pb-1`}>
+                                    <div className={`flex ${colors[theme]["text"]["bottom"]} text-xs items-center justify-center pb-1`}>
                                         {translationApplication?.keep}
                                     </div>
                                 </button>

@@ -196,7 +196,7 @@ const Intro = ({
 
 
         if (!currentPageData || !currentPageData.titles) {
-            return <div className={`${colors[theme]["log-text"]} flex flex-1 items-center justify-center w-full text-xl`}>
+            return <div className={`${colors[theme]["text"]["logger"]} flex flex-1 items-center justify-center w-full text-xl`}>
                 <svg className={`animate-spin -ml-1 mr-3 h-5 w-5 text-white`} xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
                     <circle className={`opacity-25`} cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
                     <path className={`opacity-75`} fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
@@ -237,7 +237,7 @@ const Intro = ({
                         key={`title-${index}`}
                         dir={direction}
                         ref={(el) => textRememberRef.current["intro-" + item.type + "-" + item.order] = el}
-                        className={hasBesmele ? `select-none w-full my-1.5 py-1.5 px-2.5 text-neutral-900 rounded ${textTheme} bg-gradient-to-r ${direction === 'rtl' ? ` from-sky-500 to-cyan-300` : ` from-cyan-300 to-sky-500`} besmele` : `${pulsate} select-text w-full flex items-center justify-center text-center p-2 font-semibold ${colors[theme]["app-text"]}  whitespace-pre-line ${item.order === 0 ? "text-3xl font-bold" : " text-lg"}`}>
+                        className={hasBesmele ? `select-none w-full my-1.5 py-1.5 px-2.5 text-neutral-900 rounded ${textTheme} bg-gradient-to-r ${direction === 'rtl' ? ` from-sky-500 to-cyan-300` : ` from-cyan-300 to-sky-500`} besmele` : `${pulsate} select-text w-full flex items-center justify-center text-center p-2 font-semibold ${colors[theme]["text"]["middle"]}  whitespace-pre-line ${item.order === 0 ? "text-3xl font-bold" : " text-lg"}`}>
                         <h2>{applyHyphenation(item.content)}</h2>
                     </div>
                 );
@@ -250,13 +250,13 @@ const Intro = ({
                         key={`text-${index}`}
                         ref={(el) => textRememberRef.current["intro-" + item.type + "-" + item.order] = el}
                         onClick={(e) => handleRefClick(e, item.type + "-" + item.order)}
-                        className={`select-text rounded ${colors[theme]["text-background"]} ${colors[theme]["app-text"]} p-1 mb-1 flex w-full justify-center ${hyphenClassName} ${pulsate}`}>
-                            <p className={`px-0.5 md:px-1`}>
-                                {parseReferencesWithHyphen(item.content, "intro-" + item.type + "-" + item.order, null, {
-                                    onReferenceTokenClick: handleReferenceTokenClick,
-                                    getReferenceTokenColorClass,
-                                })}
-                            </p>
+                        className={`select-text rounded ${colors[theme]["surface"]["top"]} ${colors[theme]["text"]["middle"]} p-1 mb-1 flex w-full justify-center ${hyphenClassName} ${pulsate}`}>
+                        <p className={`px-0.5 md:px-1`}>
+                            {parseReferencesWithHyphen(item.content, "intro-" + item.type + "-" + item.order, null, {
+                                onReferenceTokenClick: handleReferenceTokenClick,
+                                getReferenceTokenColorClass,
+                            })}
+                        </p>
                     </div>
                 );
             } else if (item.type === 'evidence') {
@@ -290,7 +290,7 @@ const Intro = ({
                         dir={direction}
                         ref={(el) => textRememberRef.current["intro-" + item.type + "-" + item.order] = el}
                         onClick={(e) => handleRefClick(e, item.type + "-" + item.order)}
-                        className={`${colors[theme]["base-background"]} ${colors[theme]["table-title-text"]} rounded ${smallTextTheme} p-3 border my-1.5 ${colors[theme]["border"]}`}>
+                        className={`${colors[theme]["surface"]["bottom"]} ${colors[theme]["text"]["table-title"]} rounded ${smallTextTheme} p-3 border my-1.5 ${colors[theme]["border"]["strong"]}`}>
                         {Object.entries(item.content.lines).map(([lineKey, lineValue]) => (
                             <p className={` whitespace-pre-wrap my-1`} key={lineKey}>
                                 {parseReferencesWithHyphen(lineValue, "intro-" + item.type + "-" + item.order, null, {
@@ -323,7 +323,7 @@ const Intro = ({
                                 className={`object-center`}
                             />
                         </div>
-                        {item.text && <div className={`${colors[theme]["log-text"]} w-full text-base flex justify-center`}>
+                        {item.text && <div className={`${colors[theme]["text"]["logger"]} w-full text-base flex justify-center`}>
                             <div className={`py-2 px-1`}>
                                 {applyHyphenation(item.text)}
                             </div>
@@ -332,7 +332,7 @@ const Intro = ({
                 );
             } else {
                 return (
-                    <div className={`${colors[theme]["log-text"]} flex flex-1 items-center justify-center w-full`}>
+                    <div className={`${colors[theme]["text"]["logger"]} flex flex-1 items-center justify-center w-full`}>
                         {translationApplication?.unrecognizedData}
                     </div>
                 );
@@ -340,7 +340,7 @@ const Intro = ({
         });
 
         return (
-            <div key={`content-${currentPage}-${lang}`} ref={() => handleRefsReady()} className={`${colors[theme]["text"]} overflow-auto flex-1 p-1 text-justify lg:text-start ${textTheme}`}>
+            <div key={`content-${currentPage}-${lang}`} ref={() => handleRefsReady()} className={`${colors[theme]["text"]["top"]} overflow-auto flex-1 p-1 text-justify lg:text-start ${textTheme}`}>
                 {renderContent}
             </div>
         );
@@ -355,7 +355,7 @@ const Intro = ({
             onTouchMove={handleTouchMove}
             onTouchEnd={handleTouchEnd}
             onTouchCancel={handleTouchEnd}
-            className={`h-screen w-screen relative overflow-y-auto pb-10 md:pb-14 ${colors[theme]["app-text"]} text-lg md:text-xl lg:text-2xl select-text`}>
+            className={`h-screen w-screen relative overflow-y-auto pb-10 md:pb-14 ${colors[theme]["text"]["middle"]} text-lg md:text-xl lg:text-2xl select-text`}>
             <animated.div
                 className="relative z-20 will-change-transform"
                 style={{
@@ -364,7 +364,7 @@ const Intro = ({
                 <div ref={introRef}>
                     {renderIntroduction()}
                     {!isRefsReady &&
-                        <div className={`absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 flex ${colors[theme]["page-text"]} select-none`}>
+                        <div className={`absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 flex ${colors[theme]["text"]["bottom"]} select-none`}>
                             <svg className={`animate-spin -ml-1 mr-3 h-5 w-5 text-white`} xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
                                 <circle className={`opacity-25`} cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
                                 <path className={`opacity-75`} fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>

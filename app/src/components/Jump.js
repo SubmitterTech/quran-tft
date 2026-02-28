@@ -85,7 +85,7 @@ function InlineExpandableTextareaTW({
             rows={1}
             className={[
                 "w-full rounded text-lg p-2.5 resize-none overflow-y-auto",
-                colors[theme]["text"], "bg-transparent/20",
+                colors[theme]["text"]["top"], "bg-transparent/20",
                 "focus:outline-none focus:ring-2 focus:ring-sky-500",
                 "transition-[height] duration-150 ease-out",
                 open ? expandedHeights : collapsedHeights,
@@ -150,12 +150,12 @@ const Jump = React.memo(({
     const [isShufflingSura, setIsShufflingSura] = useState(false);
     const [isShufflingVerse, setIsShufflingVerse] = useState(false);
     const languagePickerValue = isDidYouMeanBuildBusy ? LOADING_LANGUAGE_OPTION_VALUE : lang;
-    const themePanelHeightClass = direction !== 'rtl' ? 'h-64' : 'h-48';
     const [platformVersionLabel, setPlatformVersionLabel] = useState('');
     const pendingRandomSelectionRef = useRef(null);
     const randomRevealTimeoutRef = useRef(null);
 
     const bookmarksContainerRef = useRef(null);
+    const themePickerContainerRef = useRef(null);
     const bookmarkItemRefs = useRef({});
     const [bookmarksList, setBookmarksList] = useState([]);
     const [lastClickedBookmarkKey, setLastClickedBookmarkKey] = useState(null);
@@ -286,6 +286,26 @@ const Jump = React.memo(({
             setBookmarkFilter('');
         }
     }, [showBookmarks]);
+
+    useEffect(() => {
+        if (!showThemes) {
+            return undefined;
+        }
+
+        const timerId = window.setTimeout(() => {
+            const container = themePickerContainerRef.current;
+            if (!container) return;
+            const selectedThemeCard = container.querySelector('[data-selected-theme="true"]');
+            if (!selectedThemeCard) return;
+            selectedThemeCard.scrollIntoView({
+                behavior: 'smooth',
+                block: 'nearest',
+                inline: 'nearest',
+            });
+        }, 220);
+
+        return () => window.clearTimeout(timerId);
+    }, [showThemes, theme]);
 
     const filteredBookmarks = Array.isArray(bookmarksList)
         ? bookmarksList.filter(
@@ -777,7 +797,7 @@ const Jump = React.memo(({
                 </div>
                 {platformVersionLabel && (
                     <div
-                        className={`fixed top-1 right-2 z-20 text-[10px] md:text-xs tracking-wide ${colors[theme]["page-text"]} opacity-60`}
+                        className={`fixed top-1 right-2 z-20 text-[10px] md:text-xs tracking-wide ${colors[theme]["text"]["bottom"]} opacity-60`}
                         style={{ paddingTop: 'env(safe-area-inset-top)' }}
                     >
                         {platformVersionLabel}
@@ -792,7 +812,7 @@ const Jump = React.memo(({
                             onChange={handleLanguageChange}
                             value={languagePickerValue}
                             disabled={isDidYouMeanBuildBusy}
-                            className={`w-full text-center rounded px-4 py-2 border border-neutral-400/40 text-lg brightness-80 bg-neutral-500/30 ${colors[theme]["page-text"]} focus:outline-none focus:ring-2 focus:border-sky-500 focus:ring-sky-500 transition-opacity duration-150 ${isDidYouMeanBuildBusy ? 'opacity-70 cursor-not-allowed' : ''}`}>
+                            className={`w-full text-center rounded px-4 py-2 border border-neutral-400/40 text-lg brightness-80 bg-neutral-500/30 ${colors[theme]["text"]["bottom"]} focus:outline-none focus:ring-2 focus:border-sky-500 focus:ring-sky-500 transition-opacity duration-150 ${isDidYouMeanBuildBusy ? 'opacity-70 cursor-not-allowed' : ''}`}>
                             {isDidYouMeanBuildBusy && (
                                 <option value={LOADING_LANGUAGE_OPTION_VALUE}>
                                     {translationApplication?.loading || 'Loading...'}
@@ -811,14 +831,14 @@ const Jump = React.memo(({
                         </select>
                     </div>
                 </div>
-                <div className={` w-full md:w-2/3 lg:w-1/2 2xl:w-1/3 px-2 flex flex-col mb-7 fixed top-1/2 left-1/2 transform -translate-y-1/2 -translate-x-1/2 z-10`}>
-                    <div className={`shadow-[rgba(125,211,252,0.4)_0px_2px_10px_10px] flex flex-col items-center justify-center ${colors[theme]["app-background"]} rounded  w-full `}>
+                <div className={` w-full md:w-2/3 lg:w-1/2 2xl:w-1/3 px-2 flex flex-col fixed top-1/2 left-1/2 transform -translate-y-1/2 -translate-x-1/2 z-10 `}>
+                    <div className={`shadow-[rgba(125,211,252,0.4)_0px_2px_10px_10px] flex flex-col items-center justify-center ${colors[theme]["surface"]["base"]} rounded  w-full `}>
                         <div className={`w-full pt-2`}>
                             <div className={`w-full flex space-x-2 px-2`}>
                                 {showBookmarks ?
                                     (
                                         <div className={`w-3/4 flex pl-0.5 space-x-2`}>
-                                            <div className={`flex w-full items-center justify-center space-x-2 pl-1 pr-2 ${colors[theme]["page-text"]}`}>
+                                            <div className={`flex w-full items-center justify-center space-x-2 pl-1 pr-2 ${colors[theme]["text"]["bottom"]}`}>
                                                 <input
                                                     type="text"
                                                     dir={direction}
@@ -826,14 +846,14 @@ const Jump = React.memo(({
                                                     disabled={bmSettingsVisible}
                                                     onChange={e => setBookmarkFilter(e.target.value)}
                                                     placeholder={translationApplication.search + `...`}
-                                                    className={`w-full p-2.5 transition-opacity ease-linear duration-150 ${bmSettingsVisible ? " opacity-0" : ` opacity-100`} rounded ${colors[theme]["app-background"]} ${colors[theme]["app-text"]} ring-1 ${theme === 'light' ? `ring-black/20` : `ring-white/20`} focus:outline-none focus:ring-2 ${colors[theme]["focus-ring"]} ${colors[theme]["focus-text"]}`}
+                                                    className={`w-full p-2.5 transition-opacity ease-linear duration-150 ${bmSettingsVisible ? " opacity-0" : ` opacity-100`} rounded ${colors[theme]["surface"]["base"]} ${colors[theme]["text"]["middle"]} ring-1 ${colors[theme]["theme-mode"] === 'light' ? `ring-black/20` : `ring-white/20`} focus:outline-none focus:ring-2 ${colors[theme]["effect"]["focus-ring"]} ${colors[theme]["effect"]["focus-text"]}`}
                                                 />
 
                                             </div>
 
                                             <div className={`flex flex-col items-center justify-center px-3.5 `}>
                                                 <button
-                                                    className={`flex items-center justify-center transition-all duration-300 ease-linear ${bmSettingsVisible ? " -rotate-180 brightness-100 opacity-100" : ` rotate-0 brightness-50 opacity-70`} ${bmSettingsVisible ? colors[theme]["matching-text"] : colors[theme]["page-text"]}`}
+                                                    className={`flex items-center justify-center transition-all duration-300 ease-linear ${bmSettingsVisible ? " -rotate-180 brightness-100 opacity-100" : ` rotate-0 brightness-50 opacity-70`} ${bmSettingsVisible ? colors[theme]["accent"]["top"] : colors[theme]["text"]["bottom"]}`}
                                                     onClick={() => setBmSettingsVisible(!bmSettingsVisible)}
                                                 >
                                                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className={`w-11 h-11 `}>
@@ -850,20 +870,20 @@ const Jump = React.memo(({
                                         <div
                                             onClick={onMagnify}
                                             dir={direction}
-                                            className={`w-3/4 flex justify-center ${colors[theme]["text"]} rounded p-2 ${colors[theme]["text-background"]} cursor-pointer`}>
+                                            className={`w-3/4 flex justify-center ${colors[theme]["text"]["top"]} rounded p-2 ${colors[theme]["surface"]["top"]} cursor-pointer`}>
                                             <button className={`flex justify-center`} >
                                                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className={`w-14 h-14`}>
                                                     <path strokeLinecap="round" strokeLinejoin="round" d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607z" />
                                                 </svg>
                                             </button>
-                                            <div className={`flex items-center ml-3 font-semibold ${colors[theme]["matching-text"]} text-xl`}>
-                                                {translationApplication.search}<span className={`${colors[theme]["text"]}`}>{"..."}</span>
+                                            <div className={`flex items-center ml-3 font-semibold ${colors[theme]["accent"]["top"]} text-xl`}>
+                                                {translationApplication.search}<span className={`${colors[theme]["text"]["top"]}`}>{"..."}</span>
                                             </div>
                                         </div>
                                     )}
                                 <button
                                     onClick={toggleBookmark}
-                                    className={`flex flex-col w-1/3 items-center justify-between pt-2 rounded ${colors[theme]["text"]} ${colors[theme]["text-background"]}`}>
+                                    className={`flex flex-col w-1/3 items-center justify-between pt-2 rounded ${colors[theme]["text"]["top"]} ${colors[theme]["surface"]["top"]}`}>
                                     <div className={`flex justify-center`}>
                                         {showBookmarks ? (
                                             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" className={`w-11 h-11`}>
@@ -876,7 +896,7 @@ const Jump = React.memo(({
 
                                         )}
                                     </div>
-                                    <div className={`flex ${colors[theme]["page-text"]} text-sm items-center justify-center pb-2`}>
+                                    <div className={`flex ${colors[theme]["text"]["bottom"]} text-sm items-center justify-center pb-2`}>
                                         {translationApplication?.bookmark}
                                     </div>
                                 </button>
@@ -887,14 +907,14 @@ const Jump = React.memo(({
                                 (
                                     <div
                                         ref={bookmarksContainerRef}
-                                        className={`md:h-80 lg:h-96 h-72 m-2 px-1 py-1 text-base rounded ${colors[theme]["relation-background"]} overscroll-contain overflow-y-auto overflow-x-hidden`}>
+                                        className={`md:h-80 lg:h-96 h-72 m-2 px-1 py-1 text-base rounded ${colors[theme]["surface"]["relation"]} overscroll-contain overflow-y-auto overflow-x-hidden`}>
                                         {filteredBookmarks.map(([key, val]) => (
                                             <div key={key}
                                                 ref={(el) => (bookmarkItemRefs.current[key] = el)}
                                                 className={`bookmark-entry flex py-1 space-x-1 mb-1.5 border-b ${lastClickedBookmarkKey === key && isBookmarkHighlighted
-                                                    ? `${colors[theme]['matching-border']} animate-pulse`
-                                                    : `${colors[theme]['verse-border']}`}`}>
-                                                <div className={`w-full ${colors[theme]["page-text"]} flex items-center justify-center`}>
+                                                    ? `${colors[theme]["accent"]["border"]} animate-pulse`
+                                                    : `${colors[theme]["border"]["soft"]}`}`}>
+                                                <div className={`w-full ${colors[theme]["text"]["bottom"]} flex items-center justify-center`}>
                                                     <InlineExpandableTextareaTW
                                                         value={Bookmarks.format(val)}
                                                         dir={direction}
@@ -910,24 +930,24 @@ const Jump = React.memo(({
                                                 </div>
                                                 <div
                                                     onClick={() => handleMarkJump(key)}
-                                                    className={`w-24 self-start text-lg rounded px-2 ${colors[theme]["base-background"]} py-2 shadow-lg text-sky-500 flex items-center justify-center`}>
+                                                    className={`w-24 self-start text-lg rounded px-2 ${colors[theme]["surface"]["bottom"]} py-2 shadow-lg text-sky-500 flex items-center justify-center`}>
                                                     {key}
                                                 </div>
                                             </div>
                                         ))}
                                     </div>
                                 ) : showThemes ? (
-                                    <div className={`flex flex-col items-center justify-center ${themePanelHeightClass} m-2`}>
-                                        <div className={`flex items-center h-full w-full space-x-2`}>
-                                            <div className={`flex flex-col justify-center ${colors[theme]["notes-background"]} rounded h-full w-full px-2`}>
-                                                <div>
+                                    <div className={`m-2`}>
+                                        <div className={`flex flex-col items-stretch w-full gap-2`}>
+                                            <div className={`flex flex-col justify-center ${colors[theme]["surface"]["middle"]} rounded w-full pl-2 py-2`}>
+                                                <div ref={themePickerContainerRef} className="max-h-[177px] md:max-h-[208px] overflow-y-auto overscroll-contain pr-2">
                                                     <ColorPicker
                                                         theme={theme}
                                                         colors={colors}
                                                         onChangeColor={onChangeColor} />
                                                 </div>
                                             </div>
-                                            <div className={`flex flex-col justify-center ${colors[theme]["notes-background"]} rounded h-full w-1/4 px-2`}>
+                                            <div className={`flex flex-col justify-center ${colors[theme]["surface"]["middle"]} rounded w-full px-2 py-2`}>
                                                 <div>
                                                     <FontPicker
                                                         theme={theme}
@@ -938,11 +958,11 @@ const Jump = React.memo(({
                                             </div>
                                         </div>
                                         {showAutoHyphenationOption && (
-                                            <div className={`w-full flex items-center mt-2 rounded ${colors[theme]["notes-background"]} px-2 py-1 h-16`}>
+                                            <div className={`w-full flex items-center mt-2 rounded ${colors[theme]["surface"]["middle"]} px-2 py-1 h-16`}>
                                                 <label
                                                     dir={direction}
                                                     className={`flex w-full items-center justify-between md:justify-end cursor-pointer md:space-x-3 space-x-1`}>
-                                                    <span className={`${autoHyphenationEnabled ? colors[theme]["text"] : `${colors[theme]["page-text"]} brightness-75`}`}>
+                                                    <span className={`${autoHyphenationEnabled ? colors[theme]["text"]["top"] : `${colors[theme]["text"]["bottom"]} brightness-75`}`}>
                                                         <span className="text-lg md:text-xl lg:text-2xl">
                                                             {translationApplication?.autoHyphenation || 'Auto Hyphenation'}
                                                         </span>
@@ -957,8 +977,8 @@ const Jump = React.memo(({
                                                                     onChange={(e) => handleAutoHyphenationChange(e.target.checked)}
                                                                     className='sr-only'
                                                                 />
-                                                                <div className={`box block h-8 w-14 rounded-full ${autoHyphenationEnabled ? colors[theme]["text-background"] : colors[theme]["base-background"]}`}></div>
-                                                                <div className={`absolute left-1 top-1 flex h-6 w-6 items-center justify-center rounded-full ${autoHyphenationEnabled ? colors[theme]["matching"] : colors[theme]["notes-background"]} transition ${autoHyphenationEnabled ? 'translate-x-full' : ''}`}></div>
+                                                                <div className={`box block h-8 w-14 rounded-full ${autoHyphenationEnabled ? colors[theme]["surface"]["top"] : colors[theme]["surface"]["base"]}`}></div>
+                                                                <div className={`absolute left-1 top-1 flex h-6 w-6 items-center justify-center rounded-full ${autoHyphenationEnabled ? colors[theme]["accent"]["fill"] : colors[theme]["surface"]["bottom"]} transition ${autoHyphenationEnabled ? 'translate-x-full' : ''}`}></div>
                                                             </div>
                                                         </label>
                                                     </div>
@@ -974,7 +994,7 @@ const Jump = React.memo(({
                                                     {showPickerNotSupported &&
                                                         <div
                                                             style={{ opacity: ((suraSettingsOpenningProgress * 1.0 / 5) + 0.05) }}
-                                                            className={`z-40 w-1/3 absolute left-0 h-14 flex items-center justify-center ${colors[theme]['page-text']}`}>
+                                                            className={`z-40 w-1/3 absolute left-0 h-14 flex items-center justify-center ${colors[theme]["text"]["bottom"]}`}>
                                                             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className={`w-full h-full`}>
                                                                 <path strokeLinecap="round" strokeLinejoin="round" d="M10.343 3.94c.09-.542.56-.94 1.11-.94h1.093c.55 0 1.02.398 1.11.94l.149.894c.07.424.384.764.78.93.398.164.855.142 1.205-.108l.737-.527a1.125 1.125 0 0 1 1.45.12l.773.774c.39.389.44 1.002.12 1.45l-.527.737c-.25.35-.272.806-.107 1.204.165.397.505.71.93.78l.893.15c.543.09.94.559.94 1.109v1.094c0 .55-.397 1.02-.94 1.11l-.894.149c-.424.07-.764.383-.929.78-.165.398-.143.854.107 1.204l.527.738c.32.447.269 1.06-.12 1.45l-.774.773a1.125 1.125 0 0 1-1.449.12l-.738-.527c-.35-.25-.806-.272-1.203-.107-.398.165-.71.505-.781.929l-.149.894c-.09.542-.56.94-1.11.94h-1.094c-.55 0-1.019-.398-1.11-.94l-.148-.894c-.071-.424-.384-.764-.781-.93-.398-.164-.854-.142-1.204.108l-.738.527c-.447.32-1.06.269-1.45-.12l-.773-.774a1.125 1.125 0 0 1-.12-1.45l.527-.737c.25-.35.272-.806.108-1.204-.165-.397-.506-.71-.93-.78l-.894-.15c-.542-.09-.94-.56-.94-1.109v-1.094c0-.55.398-1.02.94-1.11l.894-.149c.424-.07.765-.383.93-.78.165-.398.143-.854-.108-1.204l-.526-.738a1.125 1.125 0 0 1 .12-1.45l.773-.773a1.125 1.125 0 0 1 1.45-.12l.737.527c.35.25.807.272 1.204.107.397-.165.71-.505.78-.929l.15-.894Z" />
                                                                 <path strokeLinecap="round" strokeLinejoin="round" d="M15 12a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z" />
@@ -990,10 +1010,10 @@ const Jump = React.memo(({
                                                             onLongPress={() => { setSuraSettingsOpenningProgress(1) }}
                                                             onTimerUpdate={handleTimerUpdate}
                                                             onCancel={longPressCancelled}>
-                                                            <div className={`${showPickerNotSupported ? `w-2/3 absolute right-0 top-0` : `w-full`} h-full flex justify-center cursor-pointer text-center shadow-md rounded ${colors[theme]["text"]} ${colors[theme]["notes-background"]} ${parseInt(suraNumber) !== 0 ? `text-3xl pt-2.5` : `text-2xl pt-3.5`}`}>
+                                                            <div className={`${showPickerNotSupported ? `w-2/3 absolute right-0 top-0` : `w-full`} h-full flex justify-center cursor-pointer text-center shadow-md rounded ${colors[theme]["text"]["top"]} ${colors[theme]["surface"]["middle"]} ${parseInt(suraNumber) !== 0 ? `text-3xl pt-2.5` : `text-2xl pt-3.5`}`}>
                                                                 {parseInt(suraNumber) !== 0 ? suraNumber : translationApplication?.sura}
                                                             </div>
-                                                            {parseInt(suraNumber) !== 0 && <div className={`text-xs absolute bottom-0.5 right-1 ${colors[theme]["page-text"]} brightness-75 z-50`}>{translationApplication?.sura}</div>}
+                                                            {parseInt(suraNumber) !== 0 && <div className={`text-xs absolute bottom-0.5 right-1 ${colors[theme]["text"]["bottom"]} brightness-75 z-50`}>{translationApplication?.sura}</div>}
 
                                                         </LongPressable>
                                                     </div>
@@ -1004,7 +1024,7 @@ const Jump = React.memo(({
                                                         dir={isMobile ? `ltr` : direction}
                                                         onChange={handleSuraChange}
                                                         value={suraNumber}
-                                                        className={`${showPickerNotSupported ? `z-50 ` : `z-30`} w-2/3 inset-0 opacity-0 text-3xl p-3 rounded ${colors[theme]["text"]} ${colors[theme]["notes-background"]} focus:ring-2 focus:outline-none focus:ring-sky-500  `}>
+                                                        className={`${showPickerNotSupported ? `z-50 ` : `z-30`} w-2/3 inset-0 opacity-0 text-3xl p-3 rounded ${colors[theme]["text"]["top"]} ${colors[theme]["surface"]["middle"]} focus:ring-2 focus:outline-none focus:ring-sky-500  `}>
                                                         <option key="0" value="0" disabled>
                                                             {(() => {
                                                                 if (order === 'alphabetical') {
@@ -1031,7 +1051,7 @@ const Jump = React.memo(({
                                                         })}
                                                     </select>
                                                 </div>
-                                                <div className={`relative w-1/3 flex items-center justify-center cursor-pointer ${colors[theme]["text"]}`} onClick={shuffleSuraVerse} >
+                                                <div className={`relative w-1/3 flex items-center justify-center cursor-pointer ${colors[theme]["text"]["top"]}`} onClick={shuffleSuraVerse} >
                                                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className={`w-11 h-11 p-0.5`}>
                                                         <path strokeLinecap="round" strokeLinejoin="round" d="M3 7.5 7.5 3m0 0L12 7.5M7.5 3v13.5m13.5 0L16.5 21m0 0L12 16.5m4.5 4.5V7.5" />
                                                     </svg>
@@ -1040,12 +1060,12 @@ const Jump = React.memo(({
                                                     <div
                                                         style={isShufflingVerse ? { animation: 'animate-scale 0.2s ease-in-out' } : {}}
                                                         onAnimationEnd={handleRandomVerseAnimationEnd}
-                                                        className={` w-2/3 h-14 absolute shadow-md rounded ${colors[theme]["text"]} ${colors[theme]["notes-background"]}`}
+                                                        className={` w-2/3 h-14 absolute shadow-md rounded ${colors[theme]["text"]["top"]} ${colors[theme]["surface"]["middle"]}`}
                                                         onClick={() => document.getElementById('verse').click()}>
                                                         <div className={`w-full h-full flex justify-center cursor-pointer text-center ${parseInt(suraNumber) !== 0 ? `text-3xl pt-2.5` : `text-2xl pt-3.5`}`}>
                                                             {parseInt(verseNumber) !== 0 ? verseNumber : translationApplication?.verse}
                                                         </div>
-                                                        {parseInt(verseNumber) !== 0 && <div className={`text-xs absolute bottom-0.5 left-1 ${colors[theme]["page-text"]} brightness-75`}>{translationApplication?.verse}</div>}
+                                                        {parseInt(verseNumber) !== 0 && <div className={`text-xs absolute bottom-0.5 left-1 ${colors[theme]["text"]["bottom"]} brightness-75`}>{translationApplication?.verse}</div>}
                                                     </div>
                                                     <select
                                                         id="verse"
@@ -1053,7 +1073,7 @@ const Jump = React.memo(({
                                                         dir={isMobile ? `ltr` : direction}
                                                         onChange={handleVerseChange}
                                                         value={verseNumber}
-                                                        className={` inset-0 opacity-0 text-3xl w-3/4 p-3 rounded ${colors[theme]["text"]} ${colors[theme]["notes-background"]} focus:ring-2 focus:outline-none focus:ring-sky-500`}>
+                                                        className={` inset-0 opacity-0 text-3xl w-3/4 p-3 rounded ${colors[theme]["text"]["top"]} ${colors[theme]["surface"]["middle"]} focus:ring-2 focus:outline-none focus:ring-sky-500`}>
                                                         <option key="0" value="0" disabled>{translationApplication?.verse}</option>
                                                         {suraNumber && versesInSuras[suraNumber] && versesInSuras[suraNumber].map(([verse, iftitle]) => {
                                                             const line = direction === 'rtl' ? (isMobile ? ((iftitle ? iftitle + `\t` : ``) + verse) : (verse + (iftitle ? `\t` + iftitle : ``))) : (verse + (iftitle ? `\t` + iftitle : ``));
@@ -1064,11 +1084,11 @@ const Jump = React.memo(({
                                                     </select>
                                                 </div>
                                             </div>
-                                            <div className={`w-full p-2 ${colors[theme]["app-text"]} flex-1 `}>
+                                            <div className={`w-full p-2 ${colors[theme]["text"]["middle"]} flex-1 `}>
                                                 <div
                                                     dir={direction}
                                                     className={`w-full p-1`}>
-                                                    <div className={`flex w-full ${colors?.[theme]?.["app-text"] || ''} mb-1 text-sm justify-center items-center opacity-50`}>
+                                                    <div className={`flex w-full ${colors?.[theme]?.["text"]?.["middle"] || ''} mb-1 text-sm justify-center items-center opacity-50`}>
                                                         {translationApplication?.page ?? ''} {selectedPage != null ? calculateOriginalPage(selectedPage) : ''}
                                                     </div>
                                                     {Array.isArray(pageTitles?.[selectedPage]) &&
@@ -1092,7 +1112,7 @@ const Jump = React.memo(({
                                                                     <div key={index} className="flex justify-between w-full mt-1">
                                                                         <div className="w-full flex justify-between mr-0.5">
                                                                             <span className={`${direction === 'rtl' ? "text-right" : "text-left"} font-bold justify-self-center text-sky-500`}>{match[1]}</span>
-                                                                            <span className={`${direction === 'rtl' ? 'text-left' : 'text-right'} text-nowrap ${isMatchSelectedSura ? (colors?.[theme]?.["matching-text"] || '') : ''}`}>{`(${match[2]})`}</span>
+                                                                            <span className={`${direction === 'rtl' ? 'text-left' : 'text-right'} text-nowrap ${isMatchSelectedSura ? (colors?.[theme]?.["accent"]?.["top"] || '') : ''}`}>{`(${match[2]})`}</span>
                                                                         </div>
                                                                         <span className={`${direction === 'rtl' ? "text-left" : "text-right"} w-5/12 text-nowrap`}>{adjustReference(match[3])}</span>
                                                                     </div>
@@ -1115,7 +1135,7 @@ const Jump = React.memo(({
 
                                                                 return (
                                                                     <div key={index} className="flex justify-between w-full">
-                                                                        <span className={`${direction === 'rtl' ? 'text-right' : 'text-left'} flex-1 font-bold ${isSingleMatchSelectedSura ? (colors?.[theme]?.["matching-text"] || '') : 'text-sky-500'}`}>{namePart}</span>
+                                                                        <span className={`${direction === 'rtl' ? 'text-right' : 'text-left'} flex-1 font-bold ${isSingleMatchSelectedSura ? (colors?.[theme]?.["accent"]?.["top"] || '') : 'text-sky-500'}`}>{namePart}</span>
                                                                         <span className={`${direction === 'rtl' ? "text-left" : "text-right"} flex-1`}>{adjustReference(pageInfoPart)}</span>
                                                                     </div>
                                                                 );
@@ -1129,11 +1149,11 @@ const Jump = React.memo(({
                             }
                         </div>
                         {!showBookmarks &&
-                            <div className={`flex w-full justify-between items-center ${colors[theme]["text"]} space-x-2 px-2 pb-2 `}>
+                            <div className={`flex w-full justify-between items-center ${colors[theme]["text"]["top"]} space-x-2 px-2 pb-2 `}>
                                 <button
                                     onClick={handleSubmit}
-                                    className={`flex flex-col w-full items-center justify-between pt-1 rounded  transition-all delay-150 duration-700 ease-in-out ${lightOpen ? "bg-sky-500" : colors[theme]["text-background"]}`}>
-                                    <div className={`flex justify-center transition-all delay-150 duration-700 ${lightOpen ? "text-neutral-50" : colors[theme]["text"]}`} >
+                                    className={`flex flex-col w-full items-center justify-between pt-1 rounded  transition-all delay-150 duration-700 ease-in-out ${lightOpen ? "bg-sky-500" : colors[theme]["surface"]["top"]}`}>
+                                    <div className={`flex justify-center transition-all delay-150 duration-700 ${lightOpen ? "text-neutral-50" : colors[theme]["text"]["top"]}`} >
                                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className={`w-12 h-12 transition-all delay-150 duration-600 ease-in-out ${lightOpen ? "opacity-0" : "opacity-100"}`}>
                                             <path strokeLinecap="round" strokeLinejoin="round" d="M12 6.042A8.967 8.967 0 0 0 6 3.75c-1.052 0-2.062.18-3 .512v14.25A8.987 8.987 0 0 1 6 18c2.305 0 4.408.867 6 2.292m0-14.25a8.966 8.966 0 0 1 6-2.292c1.052 0 2.062.18 3 .512v14.25A8.987 8.987 0 0 0 18 18a8.967 8.967 0 0 0-6 2.292m0-14.25v14.25" />
                                         </svg>
@@ -1141,37 +1161,37 @@ const Jump = React.memo(({
                                             <path d="M11.25 4.533A9.707 9.707 0 0 0 6 3a9.735 9.735 0 0 0-3.25.555.75.75 0 0 0-.5.707v14.25a.75.75 0 0 0 1 .707A8.237 8.237 0 0 1 6 18.75c1.995 0 3.823.707 5.25 1.886V4.533ZM12.75 20.636A8.214 8.214 0 0 1 18 18.75c.966 0 1.89.166 2.75.47a.75.75 0 0 0 1-.708V4.262a.75.75 0 0 0-.5-.707A9.735 9.735 0 0 0 18 3a9.707 9.707 0 0 0-5.25 1.533v16.103Z" />
                                         </svg>
                                     </div>
-                                    <div className={` flex text-sm items-center justify-center pb-1 transition-all delay-100 duration-700 ${lightOpen ? "text-neutral-50" : colors[theme]["page-text"]}`}>
+                                    <div className={` flex text-sm items-center justify-center pb-1 transition-all delay-100 duration-700 ${lightOpen ? "text-neutral-50" : colors[theme]["text"]["bottom"]}`}>
                                         {translationApplication?.open}
                                     </div>
                                 </button>
                                 <button
                                     onClick={goIntro}
-                                    className={`flex flex-col w-full items-center justify-between pt-2 rounded  ${colors[theme]["text-background"]}`}>
+                                    className={`flex flex-col w-full items-center justify-between pt-2 rounded  ${colors[theme]["surface"]["top"]}`}>
                                     <div className={`flex justify-center`}>
                                         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" className={`w-12 h-12`}>
                                             <path fillRule="evenodd" d="M7.5 3.75A1.5 1.5 0 006 5.25v13.5a1.5 1.5 0 001.5 1.5h6a1.5 1.5 0 001.5-1.5V15a.75.75 0 011.5 0v3.75a3 3 0 01-3 3h-6a3 3 0 01-3-3V5.25a3 3 0 013-3h6a3 3 0 013 3V9A.75.75 0 0115 9V5.25a1.5 1.5 0 00-1.5-1.5h-6zm5.03 4.72a.75.75 0 010 1.06l-1.72 1.72h10.94a.75.75 0 010 1.5H10.81l1.72 1.72a.75.75 0 11-1.06 1.06l-3-3a.75.75 0 010-1.06l3-3a.75.75 0 011.06 0z" clipRule="evenodd" />
                                         </svg>
                                     </div>
-                                    <div className={`flex ${colors[theme]["page-text"]} text-xs items-center justify-center pb-1`}>
+                                    <div className={`flex ${colors[theme]["text"]["bottom"]} text-xs items-center justify-center pb-1`}>
                                         {translationApplication?.intro}
                                     </div>
                                 </button>
                                 <button
                                     onClick={goApps}
-                                    className={`flex flex-col w-full items-center justify-between pt-2 rounded  ${colors[theme]["text-background"]}`}>
+                                    className={`flex flex-col w-full items-center justify-between pt-2 rounded  ${colors[theme]["surface"]["top"]}`}>
                                     <div className={`flex justify-center`} >
                                         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" className={`w-12 h-12`}>
                                             <path fillRule="evenodd" d="M7.5 3.75A1.5 1.5 0 006 5.25v13.5a1.5 1.5 0 001.5 1.5h6a1.5 1.5 0 001.5-1.5V15a.75.75 0 011.5 0v3.75a3 3 0 01-3 3h-6a3 3 0 01-3-3V5.25a3 3 0 013-3h6a3 3 0 013 3V9A.75.75 0 0115 9V5.25a1.5 1.5 0 00-1.5-1.5h-6zm10.72 4.72a.75.75 0 011.06 0l3 3a.75.75 0 010 1.06l-3 3a.75.75 0 11-1.06-1.06l1.72-1.72H9a.75.75 0 010-1.5h10.94l-1.72-1.72a.75.75 0 010-1.06z" clipRule="evenodd" />
                                         </svg>
                                     </div>
-                                    <div className={`flex ${colors[theme]["page-text"]} text-xs items-center justify-center pb-1`}>
+                                    <div className={`flex ${colors[theme]["text"]["bottom"]} text-xs items-center justify-center pb-1`}>
                                         {translationApplication?.appendices}
                                     </div>
                                 </button>
                                 <button
                                     onClick={toggleThemeView}
-                                    className={`flex flex-col w-full items-center justify-between pt-1 rounded  ${colors[theme]["text-background"]}`}>
+                                    className={`flex flex-col w-full items-center justify-between pt-1 rounded  ${colors[theme]["surface"]["top"]}`}>
                                     <div className={`flex justify-center`} >
                                         {showThemes ?
                                             (<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" className={`w-12 h-12`}>
@@ -1184,7 +1204,7 @@ const Jump = React.memo(({
                                             </svg>
                                             )}
                                     </div>
-                                    <div className={`flex ${colors[theme]["page-text"]} text-sm items-center justify-center pb-1`}>
+                                    <div className={`flex ${colors[theme]["text"]["bottom"]} text-sm items-center justify-center pb-1`}>
                                         {translationApplication?.theme}
                                     </div>
                                 </button>
@@ -1198,13 +1218,13 @@ const Jump = React.memo(({
 
                                     <div
                                         onClick={() => { setSuraSettingsOpen(false); setSuraSettingsOpenningProgress(0); }}
-                                        className={`absolute -left-0.5 -top-0.5 -bottom-0.5 -right-0.5 ${colors[theme]['app-background']} `}>
+                                        className={`absolute -left-0.5 -top-0.5 -bottom-0.5 -right-0.5 ${colors[theme]["surface"]["base"]} `}>
                                     </div>
 
                                     <div className={`w-full`}>
                                         <div
                                             onClick={() => { setSuraSettingsOpen(false); setSuraSettingsOpenningProgress(0); }}
-                                            className={`absolute top-0 left-1/4 -translate-x-1/2 flex items-center  justify-center transition-all duration-300 ease-linear ${suraSettingsOpenningProgress < 0.57 ? " " : " rotate-180 "} ${suraSettingsOpenningProgress >= 0.57 ? colors[theme]["matching-text"] : colors[theme]["log-text"]}`}>
+                                            className={`absolute top-0 left-1/4 -translate-x-1/2 flex items-center  justify-center transition-all duration-300 ease-linear ${suraSettingsOpenningProgress < 0.57 ? " " : " rotate-180 "} ${suraSettingsOpenningProgress >= 0.57 ? colors[theme]["accent"]["top"] : colors[theme]["text"]["logger"]}`}>
                                             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className={`w-20 h-20`}>
                                                 <path strokeLinecap="round" strokeLinejoin="round" d="M10.343 3.94c.09-.542.56-.94 1.11-.94h1.093c.55 0 1.02.398 1.11.94l.149.894c.07.424.384.764.78.93.398.164.855.142 1.205-.108l.737-.527a1.125 1.125 0 0 1 1.45.12l.773.774c.39.389.44 1.002.12 1.45l-.527.737c-.25.35-.272.806-.107 1.204.165.397.505.71.93.78l.893.15c.543.09.94.559.94 1.109v1.094c0 .55-.397 1.02-.94 1.11l-.894.149c-.424.07-.764.383-.929.78-.165.398-.143.854.107 1.204l.527.738c.32.447.269 1.06-.12 1.45l-.774.773a1.125 1.125 0 0 1-1.449.12l-.738-.527c-.35-.25-.806-.272-1.203-.107-.398.165-.71.505-.781.929l-.149.894c-.09.542-.56.94-1.11.94h-1.094c-.55 0-1.019-.398-1.11-.94l-.148-.894c-.071-.424-.384-.764-.781-.93-.398-.164-.854-.142-1.204.108l-.738.527c-.447.32-1.06.269-1.45-.12l-.773-.774a1.125 1.125 0 0 1-.12-1.45l.527-.737c.25-.35.272-.806.108-1.204-.165-.397-.506-.71-.93-.78l-.894-.15c-.542-.09-.94-.56-.94-1.109v-1.094c0-.55.398-1.02.94-1.11l.894-.149c.424-.07.765-.383.93-.78.165-.398.143-.854-.108-1.204l-.526-.738a1.125 1.125 0 0 1 .12-1.45l.773-.773a1.125 1.125 0 0 1 1.45-.12l.737.527c.35.25.807.272 1.204.107.397-.165.71-.505.78-.929l.15-.894Z" />
                                                 <path strokeLinecap="round" strokeLinejoin="round" d="M15 12a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z" />
@@ -1216,15 +1236,15 @@ const Jump = React.memo(({
 
                                         {suraSettingsOpenningProgress === 1 &&
                                             <div
-                                                className={`${colors[theme]['text-background']} shadow-lg rounded p-1.5 md:p-2 h-full w-full flex justify-center flex-col`}
+                                                className={`${colors[theme]["surface"]["top"]} shadow-lg rounded p-1.5 md:p-2 h-full w-full flex justify-center flex-col`}
                                                 style={{ animation: 'animate-scale 0.19s ease-in-out' }}>
-                                                <div className={`p-3 text-xl md:text-2xl font-semibold text-center mb-3 ${colors[theme]['app-text']} text-nowrap`}>
+                                                <div className={`p-3 text-xl md:text-2xl font-semibold text-center mb-3 ${colors[theme]["text"]["middle"]} text-nowrap`}>
                                                     {translationApplication?.thesuraorder}
                                                 </div>
-                                                <div className={`rounded w-full flex flex-col p-1.5 ${colors[theme]['app-background']}`}>
+                                                <div className={`rounded w-full flex flex-col p-1.5 ${colors[theme]["surface"]["base"]}`}>
                                                     <div className={`flex flex-col text-base md:text-xl space-y-1`}>
                                                         <label dir={direction} className={`flex items-center justify-between md:justify-end pt-3.5 px-1 pb-2 cursor-pointer  ${direction === 'rtl' ? `` : `md:space-x-3 space-x-1`}`}>
-                                                            <span className={`${order === 'quran' ? colors[theme]["text"] : `${colors[theme]["page-text"]} brightness-75`}`}>{translationApplication?.quran}</span>
+                                                            <span className={`${order === 'quran' ? colors[theme]["text"]["top"] : `${colors[theme]["text"]["bottom"]} brightness-75`}`}>{translationApplication?.quran}</span>
 
                                                             <div>
                                                                 <label className='flex cursor-pointer select-none items-center'>
@@ -1235,15 +1255,15 @@ const Jump = React.memo(({
                                                                             onChange={() => { setOrder('quran') }}
                                                                             className='sr-only'
                                                                         />
-                                                                        <div className={`box block h-8 w-14 rounded-full ${order === 'quran' ? colors[theme]["text-background"] : colors[theme]["base-background"]}`}></div>
-                                                                        <div className={`absolute left-1 top-1 flex h-6 w-6 items-center justify-center rounded-full ${order === 'quran' ? colors[theme]["matching"] : colors[theme]["notes-background"]} transition ${order === 'quran' ? 'translate-x-full' : ''}`}></div>
+                                                                        <div className={`box block h-8 w-14 rounded-full ${order === 'quran' ? colors[theme]["surface"]["top"] : colors[theme]["surface"]["bottom"]}`}></div>
+                                                                        <div className={`absolute left-1 top-1 flex h-6 w-6 items-center justify-center rounded-full ${order === 'quran' ? colors[theme]["accent"]["fill"] : colors[theme]["surface"]["middle"]} transition ${order === 'quran' ? 'translate-x-full' : ''}`}></div>
                                                                     </div>
                                                                 </label>
                                                             </div>
                                                         </label>
-                                                        <div className={`border-b ${colors[theme]["verse-border"]} mt-2`} ></div>
+                                                        <div className={`border-b ${colors[theme]["border"]["soft"]} mt-2`} ></div>
                                                         <label dir={direction} className={`flex items-center justify-between md:justify-end pt-3.5 px-1 pb-2 cursor-pointer  ${direction === 'rtl' ? `` : `md:space-x-3 space-x-1`}`}>
-                                                            <span className={`${order === 'chronological' ? colors[theme]["text"] : `${colors[theme]["page-text"]} brightness-75`}`}>{translationApplication?.tsoc}</span>
+                                                            <span className={`${order === 'chronological' ? colors[theme]["text"]["top"] : `${colors[theme]["text"]["bottom"]} brightness-75`}`}>{translationApplication?.tsoc}</span>
                                                             <div>
                                                                 <label className='flex cursor-pointer select-none items-center'>
                                                                     <div className='relative'>
@@ -1253,15 +1273,15 @@ const Jump = React.memo(({
                                                                             onChange={() => { setOrder('chronological') }}
                                                                             className='sr-only'
                                                                         />
-                                                                        <div className={`box block h-8 w-14 rounded-full ${order === 'chronological' ? colors[theme]["text-background"] : colors[theme]["base-background"]}`}></div>
-                                                                        <div className={`absolute left-1 top-1 flex h-6 w-6 items-center justify-center rounded-full ${order === 'chronological' ? colors[theme]["matching"] : colors[theme]["notes-background"]} transition ${order === 'chronological' ? 'translate-x-full' : ''}`}></div>
+                                                                        <div className={`box block h-8 w-14 rounded-full ${order === 'chronological' ? colors[theme]["surface"]["top"] : colors[theme]["surface"]["bottom"]}`}></div>
+                                                                        <div className={`absolute left-1 top-1 flex h-6 w-6 items-center justify-center rounded-full ${order === 'chronological' ? colors[theme]["accent"]["fill"] : colors[theme]["surface"]["middle"]} transition ${order === 'chronological' ? 'translate-x-full' : ''}`}></div>
                                                                     </div>
                                                                 </label>
                                                             </div>
                                                         </label>
-                                                        <div className={`border-b ${colors[theme]["verse-border"]} mt-2`} ></div>
+                                                        <div className={`border-b ${colors[theme]["border"]["soft"]} mt-2`} ></div>
                                                         <label dir={direction} className={`flex items-center justify-between md:justify-end pt-3.5 px-1 pb-2 cursor-pointer  ${direction === 'rtl' ? `` : `md:space-x-3 space-x-1`}`}>
-                                                            <span className={`${order === 'alphabetical' ? colors[theme]["text"] : `${colors[theme]["page-text"]} brightness-75`}`}>{translationApplication?.tsoa}</span>
+                                                            <span className={`${order === 'alphabetical' ? colors[theme]["text"]["top"] : `${colors[theme]["text"]["bottom"]} brightness-75`}`}>{translationApplication?.tsoa}</span>
                                                             <div>
                                                                 <label className='flex cursor-pointer select-none items-center'>
                                                                     <div className='relative'>
@@ -1271,8 +1291,8 @@ const Jump = React.memo(({
                                                                             onChange={() => { setOrder('alphabetical') }}
                                                                             className='sr-only'
                                                                         />
-                                                                        <div className={`box block h-8 w-14 rounded-full ${order === 'alphabetical' ? colors[theme]["text-background"] : colors[theme]["base-background"]}`}></div>
-                                                                        <div className={`absolute left-1 top-1 flex h-6 w-6 items-center justify-center rounded-full ${order === 'alphabetical' ? colors[theme]["matching"] : colors[theme]["notes-background"]} transition ${order === 'alphabetical' ? 'translate-x-full' : ''}`}></div>
+                                                                        <div className={`box block h-8 w-14 rounded-full ${order === 'alphabetical' ? colors[theme]["surface"]["top"] : colors[theme]["surface"]["bottom"]}`}></div>
+                                                                        <div className={`absolute left-1 top-1 flex h-6 w-6 items-center justify-center rounded-full ${order === 'alphabetical' ? colors[theme]["accent"]["fill"] : colors[theme]["surface"]["middle"]} transition ${order === 'alphabetical' ? 'translate-x-full' : ''}`}></div>
                                                                     </div>
                                                                 </label>
                                                             </div>
@@ -1287,12 +1307,12 @@ const Jump = React.memo(({
                         }
                         {bmSettingsVisible &&
                             <div className={`fixed bottom-2 left-3 right-3 z-10 md:h-80 lg:h-96 h-72`}>
-                                <div className={`h-full w-full relative flex ${colors[theme]["app-background"]}`}>
+                                <div className={`h-full w-full relative flex ${colors[theme]["surface"]["base"]}`}>
                                     <div className={`w-full h-full z-30`}>
                                         <div className={`p-2 h-full w-full flex flex-col`}>
                                             <div
                                                 dir={direction}
-                                                className={`text-center font-semibold mb-2 ${colors[theme]["app-text"]}`}>
+                                                className={`text-center font-semibold mb-2 ${colors[theme]["text"]["middle"]}`}>
                                                 {translationApplication?.options || 'Options'}
                                             </div>
                                             <div className={`flex flex-col w-full h-full justify-center items-center space-y-12 md:space-y-14 lg:space-y-16`}>
@@ -1301,7 +1321,7 @@ const Jump = React.memo(({
                                                         <button
                                                             disabled={backupBusy}
                                                             onClick={onExportBookmarks}
-                                                            className={`flex flex-col items-center justify-between rounded w-1/4 px-3 py-2 ${colors[theme]["text"]} ${colors[theme]["text-background"]} disabled:opacity-60`}>
+                                                            className={`flex flex-col items-center justify-between rounded w-1/4 px-3 py-2 ${colors[theme]["text"]["top"]} ${colors[theme]["surface"]["top"]} disabled:opacity-60`}>
                                                             <div className={`flex items-center justify-center`}>
                                                                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className={`w-11 h-11`}>
                                                                     <path strokeLinecap="round" strokeLinejoin="round" d="M3 16.5v2.25A2.25 2.25 0 0 0 5.25 21h13.5A2.25 2.25 0 0 0 21 18.75V16.5m-13.5-9L12 3m0 0 4.5 4.5M12 3v13.5" />
@@ -1309,14 +1329,14 @@ const Jump = React.memo(({
                                                             </div>
                                                             <div
                                                                 dir={direction}
-                                                                className={`text-sm mt-1 ${colors[theme]["page-text"]} text-nowrap`}>
+                                                                className={`text-sm mt-1 ${colors[theme]["text"]["bottom"]} text-nowrap`}>
                                                                 {translationApplication?.export || 'Export'}
                                                             </div>
                                                         </button>}
                                                     <button
                                                         disabled={backupBusy}
                                                         onClick={onClickImport}
-                                                        className={`flex flex-col items-center justify-between rounded w-1/4 px-3 py-2 ${colors[theme]["text"]} ${colors[theme]["text-background"]} disabled:opacity-60`}>
+                                                        className={`flex flex-col items-center justify-between rounded w-1/4 px-3 py-2 ${colors[theme]["text"]["top"]} ${colors[theme]["surface"]["top"]} disabled:opacity-60`}>
                                                         <div className={`flex items-center justify-center`}>
                                                             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className={`w-11 h-11`}>
                                                                 <path strokeLinecap="round" strokeLinejoin="round" d="M3 16.5v2.25A2.25 2.25 0 0 0 5.25 21h13.5A2.25 2.25 0 0 0 21 18.75V16.5M16.5 12 12 16.5m0 0L7.5 12m4.5 4.5V3" />
@@ -1324,14 +1344,14 @@ const Jump = React.memo(({
                                                         </div>
                                                         <div
                                                             dir={direction}
-                                                            className={`text-sm mt-1 ${colors[theme]["page-text"]} text-nowrap`}>
+                                                            className={`text-sm mt-1 ${colors[theme]["text"]["bottom"]} text-nowrap`}>
                                                             {translationApplication?.import || 'Import'}
                                                         </div>
                                                     </button>
                                                 </div>
                                                 <div
                                                     dir={direction}
-                                                    className={`flex items-center justify-center text-xs text-justify opacity-60 mt-14 ${colors[theme]["page-text"]}`}>
+                                                    className={`flex items-center justify-center text-xs text-justify opacity-60 mt-14 ${colors[theme]["text"]["bottom"]}`}>
                                                     {
                                                         bookmarksList?.length > 0
                                                             ? (translationApplication?.backup_hint || 'Export your notes on one platform and import on another.')
@@ -1356,18 +1376,18 @@ const Jump = React.memo(({
                                     onClick={cancelImportDialog}
                                     className={`absolute inset-0 backdrop-blur-lg left-2 right-2 rounded`} />
                                 <div
-                                    className={`${colors[theme]['app-background']} rounded shadow-lg ${colors[theme]["app-text"]} border ${colors[theme]['border']} w-11/12 z-50`}
+                                    className={`${colors[theme]["surface"]["base"]} rounded shadow-lg ${colors[theme]["text"]["middle"]} border ${colors[theme]["border"]["strong"]} w-11/12 z-50`}
                                     style={{ animation: 'animate-scale 0.2s ease-in-out' }}>
                                     <div className={`p-2 flex flex-col w-full h-full space-y-2`}>
 
-                                        <div className={`w-full p-1 rounded ${colors[theme]["verse-detail-background"]} flex flex-col space-y-2`}>
+                                        <div className={`w-full p-1 rounded ${colors[theme]["surface"]["verse-detail"]} flex flex-col space-y-2`}>
                                             <div
                                                 dir={direction}
                                                 className={`p-3 text-lg md:text-xl w-full text-center font-semibold`}>
                                                 {translationApplication?.summary || 'Summary'}
                                             </div>
 
-                                            <div className={`grid grid-cols-2 gap-2 p-1 rounded ${colors[theme]['matching-text']} mb-3 ${colors[theme]['relation-background']}`}>
+                                            <div className={`grid grid-cols-2 gap-2 p-1 rounded ${colors[theme]["accent"]["top"]} mb-3 ${colors[theme]["surface"]["relation"]}`}>
                                                 {parseInt(importDialog.stats?.added) !== 0 &&
                                                     <div
                                                         dir={direction}
@@ -1399,7 +1419,7 @@ const Jump = React.memo(({
                                             <button
                                                 disabled={backupBusy}
                                                 onClick={() => confirmImport('smart')}
-                                                className={`flex flex-col w-full max-w-24 items-center justify-between pt-2 rounded  ${colors[theme]["text-background"]}`}>
+                                                className={`flex flex-col w-full max-w-24 items-center justify-between pt-2 rounded  ${colors[theme]["surface"]["top"]}`}>
                                                 <div className={`flex justify-center`}>
                                                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-12 h-12">
                                                         <path strokeLinecap="round" strokeLinejoin="round" d="m20.25 7.5-.625 10.632a2.25 2.25 0 0 1-2.247 2.118H6.622a2.25 2.25 0 0 1-2.247-2.118L3.75 7.5m8.25 3v6.75m0 0-3-3m3 3 3-3M3.375 7.5h17.25c.621 0 1.125-.504 1.125-1.125v-1.5c0-.621-.504-1.125-1.125-1.125H3.375c-.621 0-1.125.504-1.125 1.125v1.5c0 .621.504 1.125 1.125 1.125Z" />
@@ -1408,7 +1428,7 @@ const Jump = React.memo(({
                                                 </div>
                                                 <div
                                                     dir={direction}
-                                                    className={`flex ${colors[theme]["page-text"]} text-xs items-center justify-center pb-1`}>
+                                                    className={`flex ${colors[theme]["text"]["bottom"]} text-xs items-center justify-center pb-1`}>
                                                     {translationApplication?.continue || 'Continue'}
                                                 </div>
                                             </button>
@@ -1416,7 +1436,7 @@ const Jump = React.memo(({
                                             <button
                                                 disabled={backupBusy}
                                                 onClick={cancelImportDialog}
-                                                className={`flex flex-col w-full max-w-24 items-center justify-between pt-1 rounded  ${colors[theme]["text-background"]}`}>
+                                                className={`flex flex-col w-full max-w-24 items-center justify-between pt-1 rounded  ${colors[theme]["surface"]["top"]}`}>
                                                 <div className={`flex justify-center`}>
                                                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-12 h-12">
                                                         <path strokeLinecap="round" strokeLinejoin="round" d="m20.25 7.5-.625 10.632a2.25 2.25 0 0 1-2.247 2.118H6.622a2.25 2.25 0 0 1-2.247-2.118L3.75 7.5m6 4.125 2.25 2.25m0 0 2.25 2.25M12 13.875l2.25-2.25M12 13.875l-2.25 2.25M3.375 7.5h17.25c.621 0 1.125-.504 1.125-1.125v-1.5c0-.621-.504-1.125-1.125-1.125H3.375c-.621 0-1.125.504-1.125 1.125v1.5c0 .621.504 1.125 1.125 1.125Z" />
@@ -1424,7 +1444,7 @@ const Jump = React.memo(({
                                                 </div>
                                                 <div
                                                     dir={direction}
-                                                    className={`flex ${colors[theme]["page-text"]} text-xs items-center justify-center pb-1`}>
+                                                    className={`flex ${colors[theme]["text"]["bottom"]} text-xs items-center justify-center pb-1`}>
                                                     {translationApplication?.cancel || 'Cancel'}
                                                 </div>
                                             </button>

@@ -1836,7 +1836,7 @@ const Magnify = ({
                 if (origStart > lastOrigEnd) {
                     parts.push(origChars.slice(lastOrigEnd, origStart).join(""));
                 }
-                parts.push(<span className={`font-bold ${colors[theme]["matching-text"]}`}>{matchText}</span>);
+                parts.push(<span className={`font-bold ${colors[theme]["accent"]["top"]}`}>{matchText}</span>);
                 lastOrigEnd = origEnd;
                 pos = cursor;
             }
@@ -1855,7 +1855,7 @@ const Magnify = ({
                 if (origStart > lastOrigEnd) {
                     parts.push(origChars.slice(lastOrigEnd, origStart).join(""));
                 }
-                parts.push(<span className={`font-bold ${colors[theme]["matching-text"]}`}>{matchText}</span>);
+                parts.push(<span className={`font-bold ${colors[theme]["accent"]["top"]}`}>{matchText}</span>);
                 lastOrigEnd = origEnd;
             }
         }
@@ -2320,7 +2320,7 @@ const Magnify = ({
                     <div
                         key={index}
                         ref={(node) => { singleReferences.current[thekey] = node; }}
-                        className={`rounded p-2  ${colors[theme]["text-background"]} ${pulsate}`}
+                        className={`rounded p-2  ${colors[theme]["surface"]["top"]} ${pulsate}`}
                         onClick={handleConfirm(`${suraNumber}:${verseNumber}`, JSON.stringify(tree))}>
                         <span className={`text-sky-500 ${direction === 'rtl' ? "ml-1" : "mr-1"}`}>{suraNumber}:{verseNumber}</span>{text}
                     </div>
@@ -2351,11 +2351,11 @@ const Magnify = ({
                                 value={searchTerm}
                                 onChange={(e) => setSearchTerm(e.target.value)}
                                 onFocus={() => { setOptionsVisible(false) }}
-                                className={`w-full p-2 rounded ${colors[theme]["app-background"]} ${colors[theme]["page-text"]} ring-1 ${theme === 'light' ? `ring-black/10` : `ring-white/10`} focus:outline-none focus:ring-2 ${colors[theme]["focus-ring"]} ${colors[theme]["focus-text"]}`}
+                                className={`w-full p-2 rounded ${colors[theme]["surface"]["base"]} ${colors[theme]["text"]["bottom"]} ring-1 ${colors[theme]["theme-mode"] === 'light' ? `ring-black/10` : `ring-white/10`} focus:outline-none focus:ring-2 ${colors[theme]["effect"]["focus-ring"]} ${colors[theme]["effect"]["focus-text"]}`}
                             />
                             {hitCounts.length > 0 && searchTerm.length > 1 && (
                                 <span
-                                    className={`absolute top-0 ${direction === 'rtl' ? 'left-1' : 'right-1'} text-xs pointer-events-none ${colors[theme]["matching-text"]} max-w-[97%] overflow-hidden whitespace-nowrap text-ellipsis`}
+                                    className={`absolute top-0 ${direction === 'rtl' ? 'left-1' : 'right-1'} text-xs pointer-events-none ${colors[theme]["accent"]["top"]} max-w-[97%] overflow-hidden whitespace-nowrap text-ellipsis`}
                                 >
                                     {hitCounts.map((group, gi) => (
                                         <span key={gi}>
@@ -2375,10 +2375,10 @@ const Magnify = ({
                             {showDidYouMeanInline && (
                                 <div
                                     dir={direction}
-                                    className={`absolute rounded-md left-0 right-0 top-full mt-2 z-[145] ring-1 ${colors[theme]["ring"]}`}
+                                    className={`absolute rounded-md left-0 right-0 top-full mt-2 z-[145] ring-1 ${colors[theme]["border"]["focus"]}`}
                                 >
-                                    <div className={`rounded-md shadow-lg ring-1 ${theme === 'light' ? `ring-black/10` : `ring-white/10`} ${colors[theme]["app-background"]} overflow-hidden`}>
-                                        <div className={`px-1 py-1.5 text-[11px] text-xs md:text-base text-start border-b mx-2 ${colors[theme]["verse-border"]} ${colors[theme]["page-text"]}`}>
+                                    <div className={`rounded-md shadow-lg ring-1 ${colors[theme]["theme-mode"] === 'light' ? `ring-black/10` : `ring-white/10`} ${colors[theme]["surface"]["base"]} overflow-hidden`}>
+                                        <div className={`px-1 py-1.5 text-[11px] text-xs md:text-base text-start border-b mx-2 ${colors[theme]["border"]["soft"]} ${colors[theme]["text"]["bottom"]}`}>
                                             {didYouMeanLabel}
                                         </div>
                                         <div className="flex flex-col">
@@ -2391,7 +2391,7 @@ const Magnify = ({
                                                             inputRef.current.focus();
                                                         }
                                                     }}
-                                                    className={`text-start mx-2 px-2 py-3 text-lg lg:text-xl border-b last:border-b-0 transition-colors duration-100 ease-linear ${colors[theme]["verse-border"]} ${colors[theme]["matching-text"]}`}
+                                                    className={`text-start mx-2 px-2 py-3 text-lg lg:text-xl border-b last:border-b-0 transition-colors duration-100 ease-linear ${colors[theme]["border"]["soft"]} ${colors[theme]["accent"]["top"]}`}
                                                 >
                                                     {suggestion}
                                                 </button>
@@ -2402,7 +2402,7 @@ const Magnify = ({
                             )}
                         </div>
                         <button
-                            className={`flex items-center justify-center transition-all duration-300 ease-linear ${optionsVisible ? " -rotate-180 " : " rotate-0"} ${optionsVisible ? colors[theme]["matching-text"] : colors[theme]["log-text"]}`}
+                            className={`flex items-center justify-center transition-all duration-300 ease-linear ${optionsVisible ? " -rotate-180 " : " rotate-0"} ${optionsVisible ? colors[theme]["accent"]["top"] : colors[theme]["text"]["logger"]}`}
                             onClick={() => setOptionsVisible(!optionsVisible)}
                         >
                             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className={`w-8 h-8 `}>
@@ -2412,7 +2412,7 @@ const Magnify = ({
 
                         </button>
 
-                        <button className={`flex items-center justify-center ${colors[theme]["text"]}`}
+                        <button className={`flex items-center justify-center ${colors[theme]["text"]["top"]}`}
                             onClick={() => {
                                 if (searchTerm.length > 0) {
                                     setSearchTerm("");
@@ -2441,13 +2441,13 @@ const Magnify = ({
                         style={{
                             marginBottom: `calc(env(safe-area-inset-bottom) * 0.57 + ${window.innerWidth >= 1024 ? '4rem' : '3rem'})`
                         }}>
-                        <div className={`${loadedTitles.length > 0 ? titlesVisible ? `flex-1 mx-1 lg:mx-0 ring-1 ${colors[theme]["text-background"]}` : `h-10 p-1 mx-1 lg:mx-0 ring-1 ${colors[theme]["base-background"]}` : "hidden"} ${loadedVerses.length > 0 ? "" : "lg:col-span-2"} transition-all duration-100 ease-linear  overflow-auto rounded ${colors[theme]["ring"]} `}>
+                        <div className={`${loadedTitles.length > 0 ? titlesVisible ? `flex-1 mx-1 lg:mx-0 ring-1 ${colors[theme]["surface"]["top"]}` : `h-10 p-1 mx-1 lg:mx-0 ring-1 ${colors[theme]["surface"]["bottom"]}` : "hidden"} ${loadedVerses.length > 0 ? "" : "lg:col-span-2"} transition-all duration-100 ease-linear  overflow-auto rounded ${colors[theme]["border"]["focus"]} `}>
                             <div
                                 onClick={() => setTitlesVisible(!titlesVisible)}
-                                className={`${loadedTitles.length > 0 ? "opacity-100" : "opacity-0 h-0"} ${titlesVisible ? `sticky z-40 top-0 text-base md:text-lg mb-1.5 p-2 justify-center rounded-t drop-shadow-md backdrop-blur-xl` : ` h-full justify-between px-2 text-xl md:text-2xl`} transition-all duration-100 ease-linear flex items-center text-center ${colors[theme]["page-text"]}`}>
-                                <div className={`${titlesVisible ? "" : "flex justify-between w-full"}`}>{translationApplication.titles}{` `}<span className={`${colors[theme]["matching-text"]}`}>{searchResultTitles.length}</span></div>
+                                className={`${loadedTitles.length > 0 ? "opacity-100" : "opacity-0 h-0"} ${titlesVisible ? `sticky z-40 top-0 text-base md:text-lg mb-1.5 p-2 justify-center rounded-t drop-shadow-md backdrop-blur-xl` : ` h-full justify-between px-2 text-xl md:text-2xl`} transition-all duration-100 ease-linear flex items-center text-center ${colors[theme]["text"]["bottom"]}`}>
+                                <div className={`${titlesVisible ? "" : "flex justify-between w-full"}`}>{translationApplication.titles}{` `}<span className={`${colors[theme]["accent"]["top"]}`}>{searchResultTitles.length}</span></div>
                             </div>
-                            <div className={`text-sm md:text-base w-full ${colors[theme]["text"]} `}>
+                            <div className={`text-sm md:text-base w-full ${colors[theme]["text"]["top"]} `}>
                                 <div className={`w-full flex flex-col space-y-1.5 ${titlesVisible ? `pb-1.5` : ``}`}>
                                     {titlesVisible &&
                                         (
@@ -2463,7 +2463,7 @@ const Magnify = ({
                                                             }
                                                         }}
                                                         key={`title-${thekey}-${index}`}
-                                                        className={`py-2 px-5 rounded relative ${colors[theme]["app-background"]} cursor-pointer mx-1.5 md:mr-2 whitespace-pre-line text-center ${pulsate}`}
+                                                        className={`py-2 px-5 rounded relative ${colors[theme]["surface"]["base"]} cursor-pointer mx-1.5 md:mr-2 whitespace-pre-line text-center ${pulsate}`}
                                                         onClick={handleConfirm(thekey, `title`)}>
                                                         <span className="text-sky-500 absolute top-1 left-1 text-xs">{result.suraNumber}:{result.titleNumber}</span> {renderTitleResultText(result)}
                                                     </div>
@@ -2474,13 +2474,13 @@ const Magnify = ({
                             </div>
                         </div>
 
-                        <div className={`${loadedVerses.length > 0 ? versesVisible ? " flex-1 mx-1 lg:mx-0 ring-1 " : "h-10 mx-1 lg:mx-0 ring-1 " : "hidden"} ${loadedTitles.length > 0 ? "" : " lg:col-span-2"} transition-all duration-100 ease-linear overflow-auto rounded ${colors[theme]["ring"]} ${colors[theme]["base-background"]}`}>
-                            <div className={`${loadedVerses.length > 0 ? "opacity-100" : "opacity-0 h-0"} ${versesVisible ? `sticky top-0 text-base md:text-lg mb-1.5 justify-between rounded-t drop-shadow-md backdrop-blur-xl` : ` h-full justify-between text-xl md:text-2xl`} transition-all duration-100 ease-linear flex items-center text-center ${colors[theme]["page-text"]}`}>
+                        <div className={`${loadedVerses.length > 0 ? versesVisible ? " flex-1 mx-1 lg:mx-0 ring-1 " : "h-10 mx-1 lg:mx-0 ring-1 " : "hidden"} ${loadedTitles.length > 0 ? "" : " lg:col-span-2"} transition-all duration-100 ease-linear overflow-auto rounded ${colors[theme]["border"]["focus"]} ${colors[theme]["surface"]["bottom"]}`}>
+                            <div className={`${loadedVerses.length > 0 ? "opacity-100" : "opacity-0 h-0"} ${versesVisible ? `sticky top-0 text-base md:text-lg mb-1.5 justify-between rounded-t drop-shadow-md backdrop-blur-xl` : ` h-full justify-between text-xl md:text-2xl`} transition-all duration-100 ease-linear flex items-center text-center ${colors[theme]["text"]["bottom"]}`}>
                                 {versesVisible &&
                                     <div
                                         onClick={() => handleSelectAll()}
                                         disabled={!multiSelect || selectedVerseList.length !== 0}
-                                        className={` ${direction === 'rtl' ? `ml-3 mr-0.5` : `mr-3 ml-0.5`} cursor-pointer mt-0.5 p-1 transition-all duration-100 ease-linear ${colors[theme]["text"]} ${(multiSelect && selectedVerseList.length === 0) ? `opacity-100` : `opacity-0`}`}>
+                                        className={` ${direction === 'rtl' ? `ml-3 mr-0.5` : `mr-3 ml-0.5`} cursor-pointer mt-0.5 p-1 transition-all duration-100 ease-linear ${colors[theme]["text"]["top"]} ${(multiSelect && selectedVerseList.length === 0) ? `opacity-100` : `opacity-0`}`}>
                                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" className={`w-8 h-7 `}>
                                             <path strokeLinecap="round" strokeLinejoin="round" d="M10.125 2.25h-4.5c-.621 0-1.125.504-1.125 1.125v17.25c0 .621.504 1.125 1.125 1.125h12.75c.621 0 1.125-.504 1.125-1.125v-9M10.125 2.25h.375a9 9 0 0 1 9 9v.375M10.125 2.25A3.375 3.375 0 0 1 13.5 5.625v1.5c0 .621.504 1.125 1.125 1.125h1.5a3.375 3.375 0 0 1 3.375 3.375M9 15l2.25 2.25L15 12" />
                                         </svg>
@@ -2491,14 +2491,14 @@ const Magnify = ({
                                     className={`flex items-center w-full p-3 h-10`}>
                                     <div dir={direction} className={`w-full flex items-center ${versesVisible ? `justify-center space-x-2` : `justify-between`}`}>
                                         <div className={`${direction === 'rtl' ? `pl-5` : ``}`}>{translationApplication.verses}{` `}</div>
-                                        <div className={`${colors[theme]["matching-text"]}`}>{searchResultVerses.length}</div>
+                                        <div className={`${colors[theme]["accent"]["top"]}`}>{searchResultVerses.length}</div>
                                     </div>
                                 </div>
                                 {versesVisible &&
                                     <div
                                         onClick={handleMultiSelectToggle}
                                         style={{ animation: 'animate-scale 0.3s ease-in-out' }}
-                                        className={` ${direction === 'rtl' ? `ml-0.5 mr-3` : `mr-0.5 ml-3`} cursor-pointer mt-0.5 p-1 transition-all duration-100 ease-linear ${multiSelect ? `${selectedVerseList.length > 0 ? `${colors[theme]["matching-text"]}` : `${colors[theme]["text"]}`}` : `${colors[theme]["passive-text"]}`}`}>
+                                        className={` ${direction === 'rtl' ? `ml-0.5 mr-3` : `mr-0.5 ml-3`} cursor-pointer mt-0.5 p-1 transition-all duration-100 ease-linear ${multiSelect ? `${selectedVerseList.length > 0 ? `${colors[theme]["accent"]["top"]}` : `${colors[theme]["text"]["top"]}`}` : `${colors[theme]["text"]["deep"]}`}`}>
                                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className={`w-8 h-8 `}>
                                             <path strokeLinecap="round" strokeLinejoin="round" d="M3.75 12h16.5m-16.5 3.75h16.5M3.75 19.5h16.5M5.625 4.5h12.75a1.875 1.875 0 0 1 0 3.75H5.625a1.875 1.875 0 0 1 0-3.75Z" />
                                         </svg>
@@ -2507,14 +2507,14 @@ const Magnify = ({
                             </div>
                             <div
                                 lang={lang}
-                                className={`text-sm md:text-base text-justify ${hyphenClassName} w-full ${colors[theme]["text"]} ${loadedVerses.length > 0 ? "max-h-full" : "h-0"}`}>
+                                className={`text-sm md:text-base text-justify ${hyphenClassName} w-full ${colors[theme]["text"]["top"]} ${loadedVerses.length > 0 ? "max-h-full" : "h-0"}`}>
                                 <div className={`w-full flex flex-col space-y-1.5 ${versesVisible ? `pb-1.5` : ``}`}>
                                     {versesVisible &&
                                         (
                                             loadedVerses.map((result, index) => {
                                                 const thekey = `${result.suraNumber}:${result.verseNumber}`;
                                                 const pulsate = notify === `verse_${thekey}` ? `animate-pulse` : ``;
-                                                const hasring = multiSelect ? selectedVerseSet.has(thekey) ? `ring-1 ${colors[theme]["matching-ring"]}` : `` : ``;
+                                                const hasring = multiSelect ? selectedVerseSet.has(thekey) ? `ring-1 ${colors[theme]["accent"]["ring"]}` : `` : ``;
                                                 return (
                                                     <div
                                                         ref={(node) => {
@@ -2524,7 +2524,7 @@ const Magnify = ({
                                                             }
                                                         }}
                                                         key={`verse-${thekey}-${index}`}
-                                                        className={`p-1.5 rounded ${colors[theme]["text-background"]} cursor-pointer mx-1.5 md:mr-2 ${hasring} ${pulsate} whitespace-pre-line`}
+                                                        className={`p-1.5 rounded ${colors[theme]["surface"]["top"]} cursor-pointer mx-1.5 md:mr-2 ${hasring} ${pulsate} whitespace-pre-line`}
                                                         onClick={handleConfirm(`${result.suraNumber}:${result.verseNumber}`, 'verse')}>
                                                         <span className="text-sky-500">{result.suraNumber}:{result.verseNumber}</span> {renderResultText(result.verseText)}
                                                     </div>
@@ -2537,15 +2537,15 @@ const Magnify = ({
 
                         </div>
 
-                        <div className={`${loadedNotes.length > 0 ? notesVisible ? "flex-1 mx-1 lg:mx-0 ring-1" : "h-10 p-1 mx-1 lg:mx-0 ring-1" : "hidden"} ${loadedAppendices.length > 0 ? "" : "lg:col-span-2"} transition-all duration-100 ease-linear  overflow-auto rounded ${colors[theme]["ring"]} ${colors[theme]["base-background"]}`}>
+                        <div className={`${loadedNotes.length > 0 ? notesVisible ? "flex-1 mx-1 lg:mx-0 ring-1" : "h-10 p-1 mx-1 lg:mx-0 ring-1" : "hidden"} ${loadedAppendices.length > 0 ? "" : "lg:col-span-2"} transition-all duration-100 ease-linear  overflow-auto rounded ${colors[theme]["border"]["focus"]} ${colors[theme]["surface"]["bottom"]}`}>
                             <div
                                 onClick={() => setNotesVisible(!notesVisible)}
-                                className={`${loadedNotes.length > 0 ? "opacity-100" : "opacity-0 "} ${notesVisible ? `sticky top-0 text-base md:text-lg mb-1.5 p-2 justify-center rounded-t drop-shadow-md backdrop-blur-xl` : ` h-full justify-between px-2 text-xl md:text-2xl`} transition-all duration-100 ease-linear flex items-center text-center ${colors[theme]["page-text"]}`}>
-                                <div className={`${notesVisible ? "" : "flex justify-between w-full"}`}>{translationApplication.notes}{` `}<span className={`${colors[theme]["matching-text"]}`}>{searchResultNotes.length}</span></div>
+                                className={`${loadedNotes.length > 0 ? "opacity-100" : "opacity-0 "} ${notesVisible ? `sticky top-0 text-base md:text-lg mb-1.5 p-2 justify-center rounded-t drop-shadow-md backdrop-blur-xl` : ` h-full justify-between px-2 text-xl md:text-2xl`} transition-all duration-100 ease-linear flex items-center text-center ${colors[theme]["text"]["bottom"]}`}>
+                                <div className={`${notesVisible ? "" : "flex justify-between w-full"}`}>{translationApplication.notes}{` `}<span className={`${colors[theme]["accent"]["top"]}`}>{searchResultNotes.length}</span></div>
                             </div>
                             <div
                                 lang={lang}
-                                className={`text-sm md:text-base text-justify ${hyphenClassName} w-full ${colors[theme]["text"]} transition-all duration-100 ease-linear ${loadedNotes.length > 0 ? "max-h-full" : "h-0"}`}>
+                                className={`text-sm md:text-base text-justify ${hyphenClassName} w-full ${colors[theme]["text"]["top"]} transition-all duration-100 ease-linear ${loadedNotes.length > 0 ? "max-h-full" : "h-0"}`}>
                                 <div className={`w-full flex flex-col space-y-1.5 ${notesVisible ? `pb-1.5` : ``}`}>
                                     {notesVisible &&
                                         (loadedNotes.map((result, index) => {
@@ -2560,7 +2560,7 @@ const Magnify = ({
                                                         }
                                                     }}
                                                     key={`footnote-${thekey}-${index}`}
-                                                    className={` p-1.5 rounded  ${colors[theme]["notes-background"]} cursor-pointer mx-1.5 md:mr-2 ${pulsate}`}
+                                                    className={` p-1.5 rounded  ${colors[theme]["surface"]["middle"]} cursor-pointer mx-1.5 md:mr-2 ${pulsate}`}
                                                     onClick={handleConfirm(`${result.suraNumber}:${result.verseNumber}`, `footnote`)}>
                                                     {renderResultText(result.note)}
                                                 </div>
@@ -2572,15 +2572,15 @@ const Magnify = ({
 
                         </div>
 
-                        <div className={`${loadedAppendices.length > 0 ? appendicesVisible ? "flex-1 mx-1 lg:mx-0 ring-1" : "h-10 p-1 mx-1 lg:mx-0 ring-1" : "hidden"} ${loadedNotes.length > 0 ? "" : "lg:col-span-2"} transition-all duration-100 ease-linear  overflow-auto rounded ${colors[theme]["ring"]} ${colors[theme]["base-background"]}`}>
+                        <div className={`${loadedAppendices.length > 0 ? appendicesVisible ? "flex-1 mx-1 lg:mx-0 ring-1" : "h-10 p-1 mx-1 lg:mx-0 ring-1" : "hidden"} ${loadedNotes.length > 0 ? "" : "lg:col-span-2"} transition-all duration-100 ease-linear  overflow-auto rounded ${colors[theme]["border"]["focus"]} ${colors[theme]["surface"]["bottom"]}`}>
                             <div
                                 onClick={() => setAppendicesVisible(!appendicesVisible)}
-                                className={`${loadedAppendices.length > 0 ? "opacity-100" : "opacity-0 "} ${appendicesVisible ? `sticky top-0 text-base md:text-lg mb-1.5 p-2 justify-center rounded-t drop-shadow-md backdrop-blur-xl` : ` h-full justify-between px-2 text-xl md:text-2xl`} transition-all duration-100 ease-linear flex items-center text-center ${colors[theme]["page-text"]}`}>
-                                <div className={`${appendicesVisible ? "" : "flex justify-between w-full"}`}>{translationApplication.appendices}{` `}<span className={`${colors[theme]["matching-text"]}`}>{searchResultAppendices.length}</span></div>
+                                className={`${loadedAppendices.length > 0 ? "opacity-100" : "opacity-0 "} ${appendicesVisible ? `sticky top-0 text-base md:text-lg mb-1.5 p-2 justify-center rounded-t drop-shadow-md backdrop-blur-xl` : ` h-full justify-between px-2 text-xl md:text-2xl`} transition-all duration-100 ease-linear flex items-center text-center ${colors[theme]["text"]["bottom"]}`}>
+                                <div className={`${appendicesVisible ? "" : "flex justify-between w-full"}`}>{translationApplication.appendices}{` `}<span className={`${colors[theme]["accent"]["top"]}`}>{searchResultAppendices.length}</span></div>
                             </div>
                             <div
                                 lang={lang}
-                                className={`text-sm md:text-base text-justify ${hyphenClassName} w-full ${colors[theme]["text"]} transition-all duration-100 ease-linear ${loadedAppendices.length > 0 ? "max-h-full" : "h-0"}`}>
+                                className={`text-sm md:text-base text-justify ${hyphenClassName} w-full ${colors[theme]["text"]["top"]} transition-all duration-100 ease-linear ${loadedAppendices.length > 0 ? "max-h-full" : "h-0"}`}>
                                 <div className={`w-full flex flex-col space-y-1.5 ${appendicesVisible ? "mb-10 pb-1.5" : ""}`}>
                                     {appendicesVisible &&
                                         loadedAppendices.map((result, index) => {
@@ -2597,7 +2597,7 @@ const Magnify = ({
                                                         }
                                                     }}
                                                     key={`appendix-${confirmKey}-${index}`}
-                                                    className={`p-1.5 rounded ${colors[theme]["text-background"]} cursor-pointer mx-1.5 md:mr-2 ${pulsate}`}
+                                                    className={`p-1.5 rounded ${colors[theme]["surface"]["top"]} cursor-pointer mx-1.5 md:mr-2 ${pulsate}`}
                                                     onClick={handleConfirm(confirmKey, `appendix`)}
                                                 >
                                                     {isIntro ? (
@@ -2621,7 +2621,7 @@ const Magnify = ({
                 }
                 {searchTerm.length === 0 && (
                     <div dir={direction} className={`w-full h-full flex items-start justify-center px-5 pt-4 overflow-y-auto opacity-75`}>
-                        <div className={`text-xs md:text-sm ${colors[theme]["page-text"]} space-y-2.5 max-w-2xl`}>
+                        <div className={`text-xs md:text-sm ${colors[theme]["text"]["bottom"]} space-y-2.5 max-w-2xl`}>
                             <div className="flex items-center gap-1">
                                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-4 h-4 shrink-0"><path strokeLinecap="round" strokeLinejoin="round" d="m21 21-5.197-5.197m0 0A7.5 7.5 0 1 0 5.196 5.196a7.5 7.5 0 0 0 10.607 10.607Z" /></svg>
                                 <span>{translationApplication?.searchHint1}</span>
@@ -2631,46 +2631,46 @@ const Magnify = ({
                                 <span>{translationApplication?.searchHintExamples}</span>
                             </div>
                             <div className={`flex items-center gap-2.5 ${direction === 'rtl' ? 'pr-5' : 'pl-5'}`}>
-                                <span className={`shrink-0 font-mono font-bold ${colors[theme]["matching-text"]}`}>{translationApplication?.searchHint2aEx}</span>
+                                <span className={`shrink-0 font-mono font-bold ${colors[theme]["accent"]["top"]}`}>{translationApplication?.searchHint2aEx}</span>
                                 <span>{translationApplication?.searchHint2a}</span>
                             </div>
                             <div className={`flex items-center gap-2.5 ${direction === 'rtl' ? 'pr-5' : 'pl-5'}`}>
-                                <span className={`shrink-0 font-mono font-bold ${colors[theme]["matching-text"]}`}>{translationApplication?.searchHint2bEx}</span>
+                                <span className={`shrink-0 font-mono font-bold ${colors[theme]["accent"]["top"]}`}>{translationApplication?.searchHint2bEx}</span>
                                 <span>{translationApplication?.searchHint2b}</span>
                             </div>
                             <div className={`flex items-center gap-2.5 ${direction === 'rtl' ? 'pr-5' : 'pl-5'}`}>
-                                <span className={`shrink-0 font-mono font-bold ${colors[theme]["matching-text"]}`}>2:255</span>
+                                <span className={`shrink-0 font-mono font-bold ${colors[theme]["accent"]["top"]}`}>2:255</span>
                                 <span>{translationApplication?.searchHint3a}</span>
                             </div>
                             <div className={`flex items-center gap-2.5 ${direction === 'rtl' ? 'pr-5' : 'pl-5'}`}>
-                                <span className={`shrink-0 font-mono font-bold ${colors[theme]["matching-text"]}`}>2:1-5</span>
+                                <span className={`shrink-0 font-mono font-bold ${colors[theme]["accent"]["top"]}`}>2:1-5</span>
                                 <span>{translationApplication?.searchHint3b}</span>
                             </div>
                             <div className={`flex items-center gap-2.5 ${direction === 'rtl' ? 'pr-5' : 'pl-5'}`}>
-                                <span className={`shrink-0 font-mono font-bold ${colors[theme]["matching-text"]}`}>2:</span>
+                                <span className={`shrink-0 font-mono font-bold ${colors[theme]["accent"]["top"]}`}>2:</span>
                                 <span>{translationApplication?.searchHint3c}</span>
                             </div>
                             <div className={`flex items-center gap-2.5 ${direction === 'rtl' ? 'pr-5' : 'pl-5'}`}>
-                                <span className={`shrink-0 font-mono font-bold ${colors[theme]["matching-text"]}`}>:12</span>
+                                <span className={`shrink-0 font-mono font-bold ${colors[theme]["accent"]["top"]}`}>:12</span>
                                 <span>{translationApplication?.searchHint3d}</span>
                             </div>
                             <div className={`flex items-center gap-2.5 ${direction === 'rtl' ? 'pr-5' : 'pl-5'}`}>
                                 <span>{translationApplication?.searchHint4a}</span>
                             </div>
                             <div className={`flex items-center gap-2.5 ${direction === 'rtl' ? 'pr-5' : 'pl-5'}`}>
-                                <span className={`shrink-0 font-mono font-bold ${colors[theme]["matching-text"]}`}>2:255, :12</span>
+                                <span className={`shrink-0 font-mono font-bold ${colors[theme]["accent"]["top"]}`}>2:255, :12</span>
                             </div>
                             <div className={`flex items-center gap-2.5 ${direction === 'rtl' ? 'pr-5' : 'pl-5'}`}>
-                                <span className={`shrink-0 font-mono font-bold ${colors[theme]["matching-text"]}`}>2:1-5; :12</span>
+                                <span className={`shrink-0 font-mono font-bold ${colors[theme]["accent"]["top"]}`}>2:1-5; :12</span>
                             </div>
                             <div className={`flex items-center gap-2.5 ${direction === 'rtl' ? 'pr-5' : 'pl-5'}`}>
-                                <span className={`shrink-0 font-mono font-bold ${colors[theme]["matching-text"]}`}>2: 3:45 :7</span>
+                                <span className={`shrink-0 font-mono font-bold ${colors[theme]["accent"]["top"]}`}>2: 3:45 :7</span>
                             </div>
                             <div className={`flex items-center gap-2.5 ${direction === 'rtl' ? 'pr-5' : 'pl-5'}`}>
                                 <span className="opacity-60">{translationApplication?.searchHint4b}</span>
                             </div>
                             <div className="flex items-center gap-2">
-                                <span className={`shrink-0 font-mono font-bold text-lg ${colors[theme]["matching-text"]}`}>A</span>
+                                <span className={`shrink-0 font-mono font-bold text-lg ${colors[theme]["accent"]["top"]}`}>A</span>
                                 <span>{translationApplication?.searchHint5}</span>
                             </div>
                             <div className="flex items-center gap-1.5">
@@ -2678,7 +2678,7 @@ const Magnify = ({
                                 <span>{direction === 'rtl' ? translationApplication?.exact : translationApplication?.searchHint6}</span>
                             </div>
                             <div className="flex items-center gap-2">
-                                <span className={`shrink-0 font-mono font-bold ${colors[theme]["matching-text"]}`}>19</span>
+                                <span className={`shrink-0 font-mono font-bold ${colors[theme]["accent"]["top"]}`}>19</span>
                                 <span>{translationApplication?.searchHint7}</span>
                             </div>
                             <div className="flex items-center gap-2">
@@ -2712,7 +2712,7 @@ const Magnify = ({
                         style={{
                             marginBottom: `calc(env(safe-area-inset-bottom) * 0.57 + ${window.innerWidth >= 1024 ? '4.2rem' : '3.2rem'})`
                         }}>
-                        <div className={`text-lg md:text-2xl w-full p-0.5 ${colors[theme]["text"]} transition-all duration-100 ease-linear `}>
+                        <div className={`text-lg md:text-2xl w-full p-0.5 ${colors[theme]["text"]["top"]} transition-all duration-100 ease-linear `}>
                             <div className={` w-full flex flex-col space-y-1.5 transition-all duration-200 ease-linear `}>
                                 {Object.entries(loadedMap).map(([exp, themeorref], index) => (
                                     <div
@@ -2720,10 +2720,10 @@ const Magnify = ({
                                         lang={lang}
                                         dir={direction}
                                         id={`theme-container-${index}-${searchTerm}`}
-                                        className={`rounded ${colors[theme]["base-background"]} ${themeorref.length === 0 ? "brightness-75" : ""} `}>
+                                        className={`rounded ${colors[theme]["surface"]["bottom"]} ${themeorref.length === 0 ? "brightness-75" : ""} `}>
                                         <div
                                             onClick={() => handleThemeClick(index + "-" + searchTerm)}
-                                            className={`rounded p-2 ${colors[theme]["base-background"]} ${openTheme === (index + "-" + searchTerm) ? `sticky top-0 z-20` : ``}`}>
+                                            className={`rounded p-2 ${colors[theme]["surface"]["bottom"]} ${openTheme === (index + "-" + searchTerm) ? `sticky top-0 z-20` : ``}`}>
                                             {exp}
                                         </div>
                                         {openTheme === (index + "-" + searchTerm) && (
@@ -2734,20 +2734,20 @@ const Magnify = ({
                                                             innerTheme = exp;
                                                         }
                                                         return (
-                                                            <div key={innerTheme} className={`p-1 ${colors[theme]["notes-background"]} rounded`}>
+                                                            <div key={innerTheme} className={`p-1 ${colors[theme]["surface"]["middle"]} rounded`}>
                                                                 <div
                                                                     onClick={() => handleSubThemeClick(index + "-" + searchTerm, innerTheme)}
-                                                                    className={`p-1 cursor-pointer ${colors[theme]["notes-background"]} ${openSubTheme[index + "-" + searchTerm]?.[innerTheme] ? "sticky top-11 " : ""}`}>
+                                                                    className={`p-1 cursor-pointer ${colors[theme]["surface"]["middle"]} ${openSubTheme[index + "-" + searchTerm]?.[innerTheme] ? "sticky top-11 " : ""}`}>
                                                                     {innerTheme}
                                                                 </div>
                                                                 {openSubTheme[index + "-" + searchTerm]?.[innerTheme] && (
-                                                                    <div className={`p-0.5 rounded ${colors[theme]["base-background"]} flex flex-col space-y-1`}>{renderref(ref, openSubTheme, index + "-" + searchTerm)}</div>
+                                                                    <div className={`p-0.5 rounded ${colors[theme]["surface"]["bottom"]} flex flex-col space-y-1`}>{renderref(ref, openSubTheme, index + "-" + searchTerm)}</div>
                                                                 )}
                                                             </div>
                                                         )
                                                     })
                                                     :
-                                                    <div className={`rounded ${colors[theme]["base-background"]} flex flex-col space-y-1`}>{renderref(themeorref, openTheme, null)}</div>
+                                                    <div className={`rounded ${colors[theme]["surface"]["bottom"]} flex flex-col space-y-1`}>{renderref(themeorref, openTheme, null)}</div>
                                                 }
                                             </div>
                                         )}
@@ -2759,12 +2759,12 @@ const Magnify = ({
                 }
             </div>
             {optionsVisible && (
-                <div dir={direction} className={`fixed left-1 right-1 ${colors[theme]["app-background"]} z-[146] shadow-lg rounded px-1 py-1.5 border ${colors[theme]["border"]}`}
+                <div dir={direction} className={`fixed left-1 right-1 ${colors[theme]["surface"]["base"]} z-[146] shadow-lg rounded px-1 py-1.5 border ${colors[theme]["border"]["strong"]}`}
                     style={{ top: `calc(3.3rem + env(safe-area-inset-top) * 0.76)` }}>
                     <div className={`flex flex-col text-lg md:text-xl`}>
                         {direction !== 'rtl' && (
-                            <label className={`flex items-center justify-between md:justify-end gap-2 p-3 border-b cursor-pointer ${colors[theme]["verse-border"]}`}>
-                                <span className={`${caseSensitive ? colors[theme]["text"] : colors[theme]["page-text"]}`}>{translationApplication?.case}</span>
+                            <label className={`flex items-center justify-between md:justify-end gap-2 p-3 border-b cursor-pointer ${colors[theme]["border"]["soft"]}`}>
+                                <span className={`${caseSensitive ? colors[theme]["text"]["top"] : colors[theme]["text"]["bottom"]}`}>{translationApplication?.case}</span>
                                 <div>
                                     <label className='flex cursor-pointer select-none items-center'>
                                         <div className='relative'>
@@ -2774,16 +2774,16 @@ const Magnify = ({
                                                 onChange={(e) => setCaseSensitive(e.target.checked)}
                                                 className='sr-only'
                                             />
-                                            <div className={`box block h-8 w-14 rounded-full ${caseSensitive ? colors[theme]["text-background"] : colors[theme]["base-background"]}`}></div>
-                                            <div className={`absolute left-1 top-1 flex h-6 w-6 items-center justify-center rounded-full ${caseSensitive ? colors[theme]["matching"] : colors[theme]["notes-background"]} transition ${caseSensitive ? 'translate-x-full' : ''}`}></div>
+                                            <div className={`box block h-8 w-14 rounded-full ${caseSensitive ? colors[theme]["surface"]["top"] : colors[theme]["surface"]["bottom"]}`}></div>
+                                            <div className={`absolute left-1 top-1 flex h-6 w-6 items-center justify-center rounded-full ${caseSensitive ? colors[theme]["accent"]["fill"] : colors[theme]["surface"]["middle"]} transition ${caseSensitive ? 'translate-x-full' : ''}`}></div>
                                         </div>
                                     </label>
                                 </div>
                             </label>
                         )}
                         {direction !== 'rtl' && (
-                            <label className={`flex items-center justify-between md:justify-end gap-2 p-3 border-b cursor-pointer ${colors[theme]["verse-border"]}`}>
-                                <span className={`${normalize ? colors[theme]["text"] : colors[theme]["page-text"]}`}>{translationApplication?.norm}</span>
+                            <label className={`flex items-center justify-between md:justify-end gap-2 p-3 border-b cursor-pointer ${colors[theme]["border"]["soft"]}`}>
+                                <span className={`${normalize ? colors[theme]["text"]["top"] : colors[theme]["text"]["bottom"]}`}>{translationApplication?.norm}</span>
                                 <div>
                                     <label className='flex cursor-pointer select-none items-center'>
                                         <div className='relative'>
@@ -2793,15 +2793,15 @@ const Magnify = ({
                                                 onChange={(e) => setNormalize(e.target.checked)}
                                                 className='sr-only'
                                             />
-                                            <div className={`box block h-8 w-14 rounded-full ${normalize ? colors[theme]["text-background"] : colors[theme]["base-background"]}`}></div>
-                                            <div className={`absolute left-1 top-1 flex h-6 w-6 items-center justify-center rounded-full ${normalize ? colors[theme]["matching"] : colors[theme]["notes-background"]} transition ${normalize ? 'translate-x-full' : ''}`}></div>
+                                            <div className={`box block h-8 w-14 rounded-full ${normalize ? colors[theme]["surface"]["top"] : colors[theme]["surface"]["bottom"]}`}></div>
+                                            <div className={`absolute left-1 top-1 flex h-6 w-6 items-center justify-center rounded-full ${normalize ? colors[theme]["accent"]["fill"] : colors[theme]["surface"]["middle"]} transition ${normalize ? 'translate-x-full' : ''}`}></div>
                                         </div>
                                     </label>
                                 </div>
                             </label>
                         )}
                         <label className={`flex items-center justify-between md:justify-end gap-2 p-3 cursor-pointer`}>
-                            <span className={`${exactMatch ? colors[theme]["text"] : colors[theme]["page-text"]}`}>{translationApplication?.exact || "Exact Match"}</span>
+                            <span className={`${exactMatch ? colors[theme]["text"]["top"] : colors[theme]["text"]["bottom"]}`}>{translationApplication?.exact || "Exact Match"}</span>
                             <div>
                                 <label className='flex cursor-pointer select-none items-center'>
                                     <div className='relative'>
@@ -2811,8 +2811,8 @@ const Magnify = ({
                                             onChange={(e) => setExactMatch(e.target.checked)}
                                             className='sr-only'
                                         />
-                                        <div className={`box block h-8 w-14 rounded-full ${exactMatch ? colors[theme]["text-background"] : colors[theme]["base-background"]}`}></div>
-                                        <div className={`absolute left-1 top-1 flex h-6 w-6 items-center justify-center rounded-full ${exactMatch ? colors[theme]["matching"] : colors[theme]["notes-background"]} transition ${exactMatch ? 'translate-x-full' : ''}`}></div>
+                                        <div className={`box block h-8 w-14 rounded-full ${exactMatch ? colors[theme]["surface"]["top"] : colors[theme]["surface"]["bottom"]}`}></div>
+                                        <div className={`absolute left-1 top-1 flex h-6 w-6 items-center justify-center rounded-full ${exactMatch ? colors[theme]["accent"]["fill"] : colors[theme]["surface"]["middle"]} transition ${exactMatch ? 'translate-x-full' : ''}`}></div>
                                     </div>
                                 </label>
                             </div>

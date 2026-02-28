@@ -3,7 +3,7 @@ import React from 'react';
 const Picture10 = ({ item, imageUrl, colors, theme }) => {
     const data = item.content.data;
     const text = item.content.text;
-    const textColor = colors[theme]["log-text"];
+    const textColor = colors[theme]["text"]["logger"];
     return (
         <div key={`picture-10-special`} className={`flex flex-col flex-1 items-center justify-center w-full px-1`}>
             <div className={`flex px-1 pt-1 pb-3 overflow-x-auto`}>

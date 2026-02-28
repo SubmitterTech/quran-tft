@@ -125,8 +125,11 @@ export const setInitialLanguage = async () => {
   }
 };
 
-export const setStatusBarStyle = async (theme, bgc) => {
-  const st = theme === 'light' ? Style.Light : Style.Dark;
+export const setStatusBarStyle = async (theme, bgc, styleMode = null) => {
+  const normalizedTheme = (theme || '').toLowerCase();
+  const fallbackStyle = (normalizedTheme === 'light' || normalizedTheme === 'leaf' || normalizedTheme === 'pink') ? 'light' : 'dark';
+  const normalizedStyle = (styleMode || fallbackStyle).toLowerCase();
+  const st = normalizedStyle === 'light' ? Style.Light : Style.Dark;
 
   if (hasStatusBarPromise === null) {
     hasStatusBarPromise = (async () => {

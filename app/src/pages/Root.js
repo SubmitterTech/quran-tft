@@ -43,6 +43,7 @@ const DID_YOU_MEAN_PROGRESS_RESET_MS = 140;
 const DID_YOU_MEAN_PROGRESS_GUIDED_STEP = 0.38;
 const DID_YOU_MEAN_PROGRESS_GUIDED_INTERVAL_MS = 133;
 const DID_YOU_MEAN_PROGRESS_GUIDED_CAP = 99.4;
+const DEFAULT_THEME = 'sky';
 
 function Root({ bootData = null }) {
     const { language, id } = useParams();
@@ -51,6 +52,10 @@ function Root({ bootData = null }) {
     const isAppendix = location.pathname.match(/\/appendix\/\d+$/) !== null;
 
     const colors = useMemo(() => colorThemes, []);
+    const resolveThemeName = useCallback((themeName) => {
+        const normalizedTheme = themeName === 'leaf-light' ? 'pink' : themeName;
+        return (normalizedTheme && colorThemes[normalizedTheme]) ? normalizedTheme : DEFAULT_THEME;
+    }, []);
     const initialLang = language ? language : localStorage.getItem("lang") ? localStorage.getItem("lang") : process.env.REACT_APP_DEFAULT_LANG || "en";
     const normalizedInitialLang = initialLang.toLowerCase();
     const hasInitialBootData = bootData?.language === normalizedInitialLang;
@@ -68,7 +73,7 @@ function Root({ bootData = null }) {
     const [translationMap, setTranslationMap] = useState(hasInitialBootData && bootData.map ? bootData.map : map);
     const [translationLoadProgress, setTranslationLoadProgress] = useState({ active: false, loaded: 0, total: 0, uiProgress: 0 });
     const [didYouMeanLoadProgress, setDidYouMeanLoadProgress] = useState({ active: false, loaded: 0, total: 0, uiProgress: 0 });
-    const [theme, setTheme] = useState(localStorage.getItem("theme") ? localStorage.getItem("theme") : "sky");
+    const [theme, setTheme] = useState(() => resolveThemeName(localStorage.getItem("theme")));
     const [font, setFont] = useState(localStorage.getItem("qurantft-font") ? localStorage.getItem("qurantft-font") : "font-normal");
     const activeLangRef = useRef(normalizedInitialLang);
     const mapLoadPromiseRef = useRef(null);
@@ -258,18 +263,33 @@ function Root({ bootData = null }) {
     }, []);
 
     useEffect(() => {
-        setStatusBarStyle(theme, colors[theme]['status-bar-background']).catch((error) => {
+        const safeTheme = resolveThemeName(theme);
+        if (safeTheme !== theme) {
+            setTheme(safeTheme);
+            localStorage.setItem("theme", safeTheme);
+            return;
+        }
+        setStatusBarStyle(
+            safeTheme,
+            colors[safeTheme]['surface']['status-bar'],
+            colors[safeTheme]['status-bar-style']
+        ).catch((error) => {
             console.error('Failed to update status bar style:', error);
         });
-    }, [theme, colors]);
+    }, [theme, colors, resolveThemeName]);
 
-    const onChangeColor = useCallback((theme) => {
-        setTheme(theme);
-        setStatusBarStyle(theme, colors[theme]['status-bar-background']).catch((error) => {
+    const onChangeColor = useCallback((nextTheme) => {
+        const safeTheme = resolveThemeName(nextTheme);
+        setTheme(safeTheme);
+        setStatusBarStyle(
+            safeTheme,
+            colors[safeTheme]['surface']['status-bar'],
+            colors[safeTheme]['status-bar-style']
+        ).catch((error) => {
             console.error('Failed to update status bar style:', error);
         });
-        localStorage.setItem("theme", theme);
-    }, [colors]);
+        localStorage.setItem("theme", safeTheme);
+    }, [colors, resolveThemeName]);
 
     const onBookPageChange = useCallback((nextPage) => {
         if (!Number.isFinite(nextPage)) {

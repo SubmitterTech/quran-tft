@@ -175,14 +175,14 @@ const Apps = ({ colors, theme, translationApplication, parseReferences, appendic
         const tableTextTheme = isPersian ? `text-2xl md:text-3xl lg:text-4xl xl:text-5xl` : `text-base md:text-lg lg:text-xl `;
 
         return (
-            <div key={key} className={`${colors[theme]["table-title-text"]} ${pulsate}`}>
+            <div key={key} className={`${colors[theme]["text"]["table-title"]} ${pulsate}`}>
                 <div className={` my-4 overflow-x-auto`}>
                     <div
                         ref={(el) => (textRef.current[`${appno}-${key}`] = el)}
-                        className={`${colors[theme]["base-background"]} w-full rounded text-sm py-2 px-1 text-center `}>
+                        className={`${colors[theme]["surface"]["bottom"]} w-full rounded text-sm py-2 px-1 text-center `}>
                         {applyHyphenation(tableRef)}
                     </div>
-                    <table className={`table-auto w-full ${tableTextTheme} ${colors[theme]["base-background"]} border-collapse border-2 ${colors[theme]["border"]}`}>
+                    <table className={`table-auto w-full ${tableTextTheme} ${colors[theme]["surface"]["bottom"]} border-collapse border-2 ${colors[theme]["border"]["strong"]}`}>
                         <thead>
                             <tr>
                                 {(() => {
@@ -226,7 +226,7 @@ const Apps = ({ colors, theme, translationApplication, parseReferences, appendic
                                     return mergedHeaders.map((header, index) => (
                                         <th key={`header-${index}`}
                                             colSpan={header.colspan}
-                                            className={`border ${colors[theme]["border"]} p-2 text-balance`}>
+                                            className={`border ${colors[theme]["border"]["strong"]} p-2 text-balance`}>
                                             {applyHyphenation(header.content)}
                                         </th>
                                     ));
@@ -289,7 +289,7 @@ const Apps = ({ colors, theme, translationApplication, parseReferences, appendic
                                                 colSpan={cell.colspan}
                                                 ref={(el) => (textRef.current[`${appno}-${key}-${rowIndex}-${cell.cellIndex}`] = el)}
                                                 onClick={(e) => handleClick(e, appno, `${key}-${rowIndex}-${cell.cellIndex}`)}
-                                                className={`text-center p-2 ${/^\s+$/.test(cell.content) ? `` : `border ${colors[theme]["border"]} border-opacity-25 `} ${((cell.cellIndex === 0 && row.length > 3) || (cell.cellIndex === row.length - 1 && row.length > 3) || (cell.content.includes('x') && /\d+ x/.test(cell.content))) ? ` text-nowrap ` : ` break-words `} `}>
+                                                className={`text-center p-2 ${/^\s+$/.test(cell.content) ? `` : `border ${colors[theme]["border"]["strong"]} border-opacity-25 `} ${((cell.cellIndex === 0 && row.length > 3) || (cell.cellIndex === row.length - 1 && row.length > 3) || (cell.content.includes('x') && /\d+ x/.test(cell.content))) ? ` text-nowrap ` : ` break-words `} `}>
                                                 {parseReferencesWithHyphen(cell.content, `${appno}-${key}-${rowIndex}-${cell.cellIndex}`, null, {
                                                     onReferenceTokenClick: handleReferenceTokenClick,
                                                     getReferenceTokenColorClass,
@@ -318,7 +318,7 @@ const Apps = ({ colors, theme, translationApplication, parseReferences, appendic
                     <div
                         key={`app-${appno}-${item.type}-${item.order}`}
                         dir={direction}
-                        className={`${isAppendixTitle ? `px-2 pb-1 pt-2.5 ${colors[theme]["page-text"]}` : `${pulsateTitle} sticky top-10 px-2 pb-1 pt-2 ${colors[theme]["app-text"]}`} flex items-center justify-center text-center  font-semibold  ${colors[theme]["app-background"]} `}
+                        className={`${isAppendixTitle ? `px-2 pb-1 pt-2.5 ${colors[theme]["text"]["bottom"]}` : `${pulsateTitle} sticky top-10 px-2 pb-1 pt-2 ${colors[theme]["text"]["middle"]}`} flex items-center justify-center text-center  font-semibold  ${colors[theme]["surface"]["base"]} `}
                         ref={isAppendixTitle ? (el) => appendixRef.current[`appendix-${item.content.match(/\d+/)[0]}`] = el : (el) => textRef.current[appno + "-" + index] = el}>
                         {applyHyphenation(item.content)}
                     </div>
@@ -332,7 +332,7 @@ const Apps = ({ colors, theme, translationApplication, parseReferences, appendic
                         key={`app-${appno}-${item.type}-${item.order}`}
                         ref={(el) => textRef.current[appno + "-" + index] = el}
                         onClick={(e) => handleClick(e, appno, index)}
-                        className={`rounded ${colors[theme]["text-background"]} ${colors[theme]["text"]} p-0.5 mb-1 flex w-full text-justify ${hyphenClassName} ${pulsate}`}>
+                        className={`rounded ${colors[theme]["surface"]["top"]} ${colors[theme]["text"]["top"]} p-0.5 mb-1 flex w-full text-justify ${hyphenClassName} ${pulsate}`}>
                         <div className={`overflow-x-auto`}>
                             <p className={`px-1 break-words`}>
                                 {parseReferencesWithHyphen(item.content, appno + "-" + index, null, {
@@ -352,7 +352,7 @@ const Apps = ({ colors, theme, translationApplication, parseReferences, appendic
                         key={`app-${appno}-${item.type}-${item.order}`}
                         ref={(el) => textRef.current[appno + "-" + index] = el}
                         onClick={(e) => handleClick(e, appno, index)}
-                        className={`${colors[theme]["base-background"]} ${colors[theme]["table-title-text"]} rounded ${evidenceTextTheme} p-3 border my-3 ${colors[theme]["border"]}`}>
+                        className={`${colors[theme]["surface"]["bottom"]} ${colors[theme]["text"]["table-title"]} rounded ${evidenceTextTheme} p-3 border my-3 ${colors[theme]["border"]["strong"]}`}>
                         {Object.entries(item.content.lines).map(([lineKey, lineValue]) => (
                             <p key={`${lineKey}`} className={`whitespace-pre-wrap text-justify my-2`}>
                                 {parseReferencesWithHyphen(lineValue, appno + "-" + index, null, {
@@ -424,7 +424,7 @@ const Apps = ({ colors, theme, translationApplication, parseReferences, appendic
                             <img src={imageUrl} alt={imageUrl} className={`object-center`} />
                         </div>
                         {item.content.text && (
-                            <div className={`${colors[theme]["log-text"]} w-full text-base flex justify-center`}>
+                            <div className={`${colors[theme]["text"]["logger"]} w-full text-base flex justify-center`}>
                                 <div className={`p-2`}>{applyHyphenation(item.content.text)}</div>
                             </div>
                         )}
@@ -434,7 +434,7 @@ const Apps = ({ colors, theme, translationApplication, parseReferences, appendic
                 return renderTable(item.content, appno, index);
             default:
                 return (
-                    <div key={`unknown-${index}`} className={`${colors[theme]["log-text"]} flex flex-1 items-center justify-center w-full`}>
+                    <div key={`unknown-${index}`} className={`${colors[theme]["text"]["logger"]} flex flex-1 items-center justify-center w-full`}>
                         {translationApplication?.unrecognizedData}
                     </div>
                 );
@@ -475,11 +475,11 @@ const Apps = ({ colors, theme, translationApplication, parseReferences, appendic
 
     return (
         <div
-            className={`h-full w-screen relative overflow-y-auto pb-10 md:pb-14 ${colors[theme]["app-text"]} ${textTheme} select-text`}>
+            className={`h-full w-screen relative overflow-y-auto pb-10 md:pb-14 ${colors[theme]["text"]["middle"]} ${textTheme} select-text`}>
             <div ref={containerRef}>
                 {renderAppendices()}
                 {!isRefsReady &&
-                    <div className={`absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 flex ${colors[theme]["page-text"]} select-none`}>
+                    <div className={`absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 flex ${colors[theme]["text"]["bottom"]} select-none`}>
                         <svg className={`animate-spin -ml-1 mr-3 h-5 w-5 text-white`} xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
                             <circle className={`opacity-25`} cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
                             <path className={`opacity-75`} fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>

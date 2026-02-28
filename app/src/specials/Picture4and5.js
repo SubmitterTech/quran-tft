@@ -2,7 +2,7 @@ import React from 'react';
 
 const Picture4and5 = ({ item, colors, theme }) => {
     const text = item.content.text;
-    const textColor = colors[theme]["log-text"];
+    const textColor = colors[theme]["text"]["logger"];
     const images = require.context('../assets/pictures/', false, /\.jpg$/);
     const image4URL = images(`./${4}.jpg`);
     const image5URL = images(`./${5}.jpg`);

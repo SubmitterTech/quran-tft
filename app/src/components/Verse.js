@@ -505,18 +505,18 @@ const Verse = ({ besmele,
         setText(lightGODwords(renderVerseText));
         let highlighted = lightGODwords(renderVerseText, true);
         if (mode === "reading") {
-            setCn(verseClassName + " " + colors[theme]["verse-detail-background"] + " flex-col ring-1 " + colors[theme]["ring"]);
+            setCn(verseClassName + " " + colors[theme]["surface"]["verse-detail"] + " flex-col ring-1 " + colors[theme]["border"]["focus"]);
             setText(highlighted);
         } else if (mode === "light") {
-            let bcn = `${colors[theme]["text-background"]} ${bookmark ? `border-l-2 ${colors[theme]["matching-border"]}` : ''}`;
+            let bcn = `${colors[theme]["surface"]["top"]} ${bookmark ? `border-l-2 ${colors[theme]["accent"]["border"]}` : ''}`;
             if (hasBesmele) {
-                bcn = `bg-gradient-to-r ${direction === 'rtl' ? ` from-sky-500 to-cyan-300` : ` from-cyan-300 to-sky-500`} text-neutral-800 ${bookmark ? `border-l-2 ${colors[theme]["matching-border"]}` : ''}`
+                bcn = `bg-gradient-to-r ${direction === 'rtl' ? ` from-sky-500 to-cyan-300` : ` from-cyan-300 to-sky-500`} text-neutral-800 ${bookmark ? `border-l-2 ${colors[theme]["accent"]["border"]}` : ''}`
             }
             setCn(verseClassName + " " + bcn);
         } else if (mode === "idle") {
-            let bcn = `${colors[theme]["text-background"]} ${bookmark ? `border-l-2 ${colors[theme]["matching-border"]}` : ''}`;
+            let bcn = `${colors[theme]["surface"]["top"]} ${bookmark ? `border-l-2 ${colors[theme]["accent"]["border"]}` : ''}`;
             if (hasBesmele) {
-                bcn = `bg-gradient-to-r ${direction === 'rtl' ? ` from-sky-500 to-cyan-300` : ` from-cyan-300 to-sky-500`} text-neutral-800 ${bookmark ? `border-l-2 ${colors[theme]["matching-border"]}` : ''}`
+                bcn = `bg-gradient-to-r ${direction === 'rtl' ? ` from-sky-500 to-cyan-300` : ` from-cyan-300 to-sky-500`} text-neutral-800 ${bookmark ? `border-l-2 ${colors[theme]["accent"]["border"]}` : ''}`
             }
             setCn(verseClassName + " " + bcn);
         }
@@ -548,7 +548,7 @@ const Verse = ({ besmele,
     return (
         <div className={`relative`}>
             <div className={`absolute w-full flex h-full justify-between px-2.5`}>
-                <div className={`flex h-full w-full px-2 justify-start items-start ${bookmark ? `${colors[theme]["matching-text"]}` : `${colors[theme]["text"]}`}`}>
+                <div className={`flex h-full w-full px-2 justify-start items-start ${bookmark ? `${colors[theme]["accent"]["top"]}` : `${colors[theme]["text"]["top"]}`}`}>
                     {bookmark ?
                         (<svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24" strokeWidth={1.5} className={`w-8 h-8 transition-colors duration-500`} style={{ opacity: Math.abs(swipeDistance) / 120 }}>
                             <path fillRule="evenodd" d="M6 3a3 3 0 0 0-3 3v12a3 3 0 0 0 3 3h12a3 3 0 0 0 3-3V6a3 3 0 0 0-3-3H6Zm1.5 1.5a.75.75 0 0 0-.75.75V16.5a.75.75 0 0 0 1.085.67L12 15.089l4.165 2.083a.75.75 0 0 0 1.085-.671V5.25a.75.75 0 0 0-.75-.75h-9Z" clipRule="evenodd" />
@@ -560,7 +560,7 @@ const Verse = ({ besmele,
                         </svg>
                         )}
                 </div>
-                <div className={`flex h-full w-full justify-end items-start px-2 ${Math.abs(swipeDistance) > 100 ? `${colors[theme]["matching-text"]}` : `${colors[theme]["page-text"]}`}`}>
+                <div className={`flex h-full w-full justify-end items-start px-2 ${Math.abs(swipeDistance) > 100 ? `${colors[theme]["accent"]["top"]}` : `${colors[theme]["text"]["bottom"]}`}`}>
                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className={`w-8 h-8 transition-colors duration-300`} style={{ opacity: Math.abs(swipeDistance) / 140 }}>
                         <path strokeLinecap="round" strokeLinejoin="round" d="M9 12h3.75M9 15h3.75M9 18h3.75m3 .75H18a2.25 2.25 0 0 0 2.25-2.25V6.108c0-1.135-.845-2.098-1.976-2.192a48.424 48.424 0 0 0-1.123-.08m-5.801 0c-.065.21-.1.433-.1.664 0 .414.336.75.75.75h4.5a.75.75 0 0 0 .75-.75 2.25 2.25 0 0 0-.1-.664m-5.8 0A2.251 2.251 0 0 1 13.5 2.25H15c1.012 0 1.867.668 2.15 1.586m-5.8 0c-.376.023-.75.05-1.124.08C9.095 4.01 8.25 4.973 8.25 6.108V8.25m0 0H4.875c-.621 0-1.125.504-1.125 1.125v11.25c0 .621.504 1.125 1.125 1.125h9.75c.621 0 1.125-.504 1.125-1.125V9.375c0-.621-.504-1.125-1.125-1.125H8.25ZM6.75 12h.008v.008H6.75V12Zm0 3h.008v.008H6.75V15Zm0 3h.008v.008H6.75V18Z" />
                     </svg>
@@ -584,7 +584,7 @@ const Verse = ({ besmele,
                     touchAction: 'pan-y',
                 }}
                 className={`relative rounded-md flex mx-0.5 items-center overflow-hidden`}>
-                {(pulse && mode !== "reading") && <div className={`absolute inset-0 animate-rotate ${colors[theme]["matching-conic"]} `}></div>}
+                {(pulse && mode !== "reading") && <div className={`absolute inset-0 animate-rotate ${colors[theme]["accent"]["conic"]} `}></div>}
                 <div
                     ref={(el) => verseRefs.current[currentVerseKey] = el}
                     lang={lang}
@@ -612,11 +612,11 @@ const Verse = ({ besmele,
                                                     return (
                                                         <React.Fragment key={index}>
                                                             {index === 0 && typeof line === 'string' && (
-                                                                <span className={mode === "light" ? `${colors[theme]["matching-text"]} font-semibold` : `brightness-150`}>
+                                                                <span className={mode === "light" ? `${colors[theme]["accent"]["top"]} font-semibold` : `brightness-150`}>
                                                                     {`${verseNumber}. `}
                                                                 </span>
                                                             )}
-                                                            <span className={isTitle ? `text-center w-full block py-1.5 md:py-2 transform italic font-semibold ${colors[theme]["app-background"]} ${mode === `reading` ? `scale-x-[1.03]` : `scale-x-[1.033] `}` : ``}>
+                                                            <span className={isTitle ? `text-center w-full block py-1.5 md:py-2 transform italic font-semibold ${colors[theme]["surface"]["base"]} ${mode === `reading` ? `scale-x-[1.03]` : `scale-x-[1.033] `}` : ``}>
                                                                 {line}
                                                             </span>
                                                         </React.Fragment>
@@ -627,7 +627,7 @@ const Verse = ({ besmele,
                                                     return (
                                                         <React.Fragment key={index}>
                                                             {index === 0 && typeof line === 'string' && (
-                                                                <span className={mode === "light" ? `${colors[theme]["matching-text"]} font-semibold` : `brightness-150`}>
+                                                                <span className={mode === "light" ? `${colors[theme]["accent"]["top"]} font-semibold` : `brightness-150`}>
                                                                     {`${verseNumber}. `}
                                                                 </span>
                                                             )}
@@ -642,11 +642,11 @@ const Verse = ({ besmele,
                                                 return (
                                                     <React.Fragment key={index}>
                                                         {index === 0 && typeof line === 'string' && (
-                                                            <span className={mode === "light" ? `${colors[theme]["matching-text"]} font-semibold` : `brightness-150`}>
+                                                            <span className={mode === "light" ? `${colors[theme]["accent"]["top"]} font-semibold` : `brightness-150`}>
                                                                 {`${verseNumber}. `}
                                                             </span>
                                                         )}
-                                                        <span className={isTitle ? `text-center w-full block py-1.5 md:py-2 transform italic font-semibold ${colors[theme]["app-background"]} ${mode === `reading` ? `scale-x-[1.03]` : `scale-x-[1.033] `}` : ``}>
+                                                        <span className={isTitle ? `text-center w-full block py-1.5 md:py-2 transform italic font-semibold ${colors[theme]["surface"]["base"]} ${mode === `reading` ? `scale-x-[1.03]` : `scale-x-[1.033] `}` : ``}>
                                                             {line}
                                                         </span>
                                                     </React.Fragment>
@@ -657,7 +657,7 @@ const Verse = ({ besmele,
                                     text.map((element, index) => (
                                         <React.Fragment key={index}>
                                             {index === 0 && typeof element === 'string' && (
-                                                <span className={mode === "light" ? hasBesmele ? `text-rose-600 font-semibold` : `${colors[theme]["matching-text"]} font-semibold` : `brightness-150`}>
+                                                <span className={mode === "light" ? hasBesmele ? `text-rose-600 font-semibold` : `${colors[theme]["accent"]["top"]} font-semibold` : `brightness-150`}>
                                                     {`${verseNumber}. `}
                                                 </span>
                                             )}
@@ -679,11 +679,11 @@ const Verse = ({ besmele,
                                         return (
                                             <React.Fragment key={index}>
                                                 {index === 0 && (
-                                                    <span className={mode === "light" ? `${colors[theme]["matching-text"]} font-semibold ` : `brightness-150`}>
+                                                    <span className={mode === "light" ? `${colors[theme]["accent"]["top"]} font-semibold ` : `brightness-150`}>
                                                         {`${verseNumber}. `}
                                                     </span>
                                                 )}
-                                                <span className={isTitle ? `text-center w-full block py-1.5 md:py-2 transform italic font-semibold ${colors[theme]["app-background"]} ${mode === `reading` ? `scale-x-[1.03]` : `scale-x-[1.033] `}` : ``}>
+                                                <span className={isTitle ? `text-center w-full block py-1.5 md:py-2 transform italic font-semibold ${colors[theme]["surface"]["base"]} ${mode === `reading` ? `scale-x-[1.03]` : `scale-x-[1.033] `}` : ``}>
                                                     {line}
                                                 </span>
                                             </React.Fragment>
@@ -691,7 +691,7 @@ const Verse = ({ besmele,
                                     })
                                 ) : (
                                     <span className={`relative`}>
-                                        <span className={mode === "light" ? hasBesmele ? `text-rose-600 font-semibold relative` : `${colors[theme]["matching-text"]} font-semibold relative` : `relative brightness-150`}>
+                                        <span className={mode === "light" ? hasBesmele ? `text-rose-600 font-semibold relative` : `${colors[theme]["accent"]["top"]} font-semibold relative` : `relative brightness-150`}>
                                             {`${verseNumber}. `}
                                         </span>
                                         <span>
@@ -703,31 +703,31 @@ const Verse = ({ besmele,
                         }
                     </div>
                     <div className={`w-full flex ${(mode === "reading" && bookmark) ? "p-0.5 mt-2 -mb-1" : "h-0"} `}>
-                        <div className={`${(mode === "reading" && bookmark) ? " select-text ease-linear duration-300 " : "h-0 "} w-full transition-all  rounded ${colors[theme]["encrypted-background"]} `} >
+                        <div className={`${(mode === "reading" && bookmark) ? " select-text ease-linear duration-300 " : "h-0 "} w-full transition-all  rounded ${colors[theme]["surface"]["encrypted"]} `} >
                             <div className={`${(mode === "reading" && bookmark) ? `px-0.5 pt-1 -pb-1 ${direction === "rtl" ? "float-right" : "float-left"}` : "hidden"}`}>
                                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className={`${(mode === "reading" && bookmark) ? `w-8 h-7 opacity-50` : "hidden"}`} >
                                     <path strokeLinecap="round" strokeLinejoin="round" d="M16.5 3.75V16.5L12 14.25 7.5 16.5V3.75m9 0H18A2.25 2.25 0 0 1 20.25 6v12A2.25 2.25 0 0 1 18 20.25H6A2.25 2.25 0 0 1 3.75 18V6A2.25 2.25 0 0 1 6 3.75h1.5m9 0h-9" />
                                 </svg>
                             </div>
-                            <div className={`${(mode === "reading" && bookmark) ? ` p-1 text-start ${colors[theme]["matching-text"]} whitespace-pre-wrap max-h-96 overflow-y-auto cursor-auto` : "h-0 "}`} dir={direction} >
+                            <div className={`${(mode === "reading" && bookmark) ? ` p-1 text-start ${colors[theme]["accent"]["top"]} whitespace-pre-wrap max-h-96 overflow-y-auto cursor-auto` : "h-0 "}`} dir={direction} >
                                 {mode === "reading" && (supportsLookAhead() ? parseReferences(Bookmarks.format(typeof bookmark === 'object' ? bookmark === null ? '' : bookmark.value : bookmark), currentVerseKey + '-bookmarknote') : Bookmarks.format(typeof bookmark === 'object' ? bookmark === null ? '' : bookmark.value : bookmark))}
                             </div>
                         </div>
                     </div>
                     <div className={`w-full flex flex-col flex-1  ${mode === "reading" ? "p-0.5 mt-2" : "h-0"} `}>
-                        <div className={`${mode === "reading" ? " select-text ease-linear mb-2 duration-300" : "h-0 "} w-full transition-all  rounded ${colors[theme]["encrypted-background"]} `} >
+                        <div className={`${mode === "reading" ? " select-text ease-linear mb-2 duration-300" : "h-0 "} w-full transition-all  rounded ${colors[theme]["surface"]["encrypted"]} `} >
                             <p className={` pb-1 pt-2.5 px-2 text-start cursor-auto font-arabic text-3xl/relaxed md:text-4xl/relaxed lg:text-5xl/relaxed`} dir="rtl" >
                                 {mode === "reading" && lightAllahwords(encryptedText)}
                             </p>
                         </div>
-                        <div className={`${(mode === "reading" && relatedVerses.size > 0) ? "overflow-auto p-2 delay-75 duration-200 ease-in-out " + heightClass : " h-0"}  transition-all w-full rounded ${colors[theme]["relation-background"]}`}>
+                        <div className={`${(mode === "reading" && relatedVerses.size > 0) ? "overflow-auto p-2 delay-75 duration-200 ease-in-out " + heightClass : " h-0"}  transition-all w-full rounded ${colors[theme]["surface"]["relation"]}`}>
                             {(mode === "reading" && relatedVerses.size > 0) && Array.from(relatedVerses.entries()).map(([themeKey, verseKeys]) => (
                                 <div key={themeKey}>
-                                    <h3 className={`text-lg text-wrap whitespace-pre ${colors[theme]["matching-text"]}`}>{themeKey}</h3>
+                                    <h3 className={`text-lg text-wrap whitespace-pre ${colors[theme]["accent"]["top"]}`}>{themeKey}</h3>
                                     <div>
                                         {verseKeys.map(verseKey => (
                                             <button
-                                                className={` p-2 rounded my-1 mr-2  text-sky-500 ${(path.current && path.current[currentVerseKey] && path.current[currentVerseKey][verseKey]) ? `${colors[theme]["relation-background"]} brightness-75` : `${colors[theme]["base-background"]} shadow-lg`}`}
+                                                className={` p-2 rounded my-1 mr-2  text-sky-500 ${(path.current && path.current[currentVerseKey] && path.current[currentVerseKey][verseKey]) ? `${colors[theme]["surface"]["relation"]} brightness-75` : `${colors[theme]["surface"]["bottom"]} shadow-lg`}`}
                                                 key={`${currentVerseKey}|${themeKey}|${verseKey}`}
                                                 onClick={() => onRelatedVerseClick(verseKey, 'map_' + currentVerseKey)}
                                             >

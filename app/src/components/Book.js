@@ -985,7 +985,7 @@ const Book = React.memo(({ incomingSearch = false, incomingAppendix = false, inc
 
             if (!cpd || !cpd.evidence["2"] || !cpd.evidence["2"].lines) {
                 return (
-                    <div className={`${colors[theme]["log-text"]} flex flex-1 items-center justify-center w-full `}>
+                    <div className={`${colors[theme]["text"]["logger"]} flex flex-1 items-center justify-center w-full `}>
                         {translationApplication?.contentNotAvailable}
                     </div>
                 )
@@ -1013,7 +1013,7 @@ const Book = React.memo(({ incomingSearch = false, incomingAppendix = false, inc
                     return (
                         <div
                             key={`each-title-${key}`}
-                            className={`${colors[theme]["app-text"]} w-full flex justify-between`} >
+                            className={`${colors[theme]["text"]["middle"]} w-full flex justify-between`} >
                             <div className={`p-3 w-1/6 flex justify-center text-center`}>{no}</div>
                             <div className={`p-3 w-full flex justify-center`}>{name}</div>
                             <div className={`p-3 w-1/6 flex justify-center text-center`}>{arabic}</div>
@@ -1025,10 +1025,10 @@ const Book = React.memo(({ incomingSearch = false, incomingAppendix = false, inc
                             onClick={() => updatePage(parseInt(page) + 22, no, 1, 'navigate', null, 'suralist')}
                             key={`each-key-${key}`}
                             className={`flex w-full justify-between mb-2`}>
-                            <div className={`font-semibold rounded m-0.5 ${colors[theme]["text-background"]} w-1/6 text-lg flex items-center justify-center`}>
+                            <div className={`font-semibold rounded m-0.5 ${colors[theme]["surface"]["top"]} w-1/6 text-lg flex items-center justify-center`}>
                                 <p className={``} key={key + no}>{no}</p>
                             </div>
-                            <div className={`m-0.5 ring-1 ${colors[theme]["ring"]} text-lg flex justify-between ${colors[theme]["base-background"]} w-full rounded `}>
+                            <div className={`m-0.5 ring-1 ${colors[theme]["border"]["focus"]} text-lg flex justify-between ${colors[theme]["surface"]["bottom"]} w-full rounded `}>
                                 <div className={`rounded-l px-1 py-1.5 text-left`}>
                                     <p className={``} key={key + name + no}>{name}</p>
                                 </div>
@@ -1036,7 +1036,7 @@ const Book = React.memo(({ incomingSearch = false, incomingAppendix = false, inc
                                     <p className={``} key={key + arabic}>{arabic}</p>
                                 </div>
                             </div>
-                            <div className={`rounded px-2 py-1 m-0.5 ${colors[theme]["text-background"]} w-1/6 text-base flex items-center justify-center`}>
+                            <div className={`rounded px-2 py-1 m-0.5 ${colors[theme]["surface"]["top"]} w-1/6 text-base flex items-center justify-center`}>
                                 <p className={``} key={key + versecount}>{versecount}</p>
                             </div>
                         </div>
@@ -1047,9 +1047,9 @@ const Book = React.memo(({ incomingSearch = false, incomingAppendix = false, inc
             return (
                 <div
                     key={`title-of-suras}`}
-                    className={`w-screen h-screen flex flex-col overflow-auto ${colors[theme]["app-text"]}`}>
+                    className={`w-screen h-screen flex flex-col overflow-auto ${colors[theme]["text"]["middle"]}`}>
                     <div className={`w-full p-3`}>
-                        <div className={`w-full flex items-center justify-center text-center ${colors[theme]["base-background"]} rounded p-2 font-semibold ${colors[theme]["app-text"]} text-2xl `}>
+                        <div className={`w-full flex items-center justify-center text-center ${colors[theme]["surface"]["bottom"]} rounded p-2 font-semibold ${colors[theme]["text"]["middle"]} text-2xl `}>
                             <h2>{cpd.titles["1"]}</h2>
                         </div>
                     </div>
@@ -1092,7 +1092,7 @@ const Book = React.memo(({ incomingSearch = false, incomingAppendix = false, inc
             return (
                 <div
                     onClick={nextPage}
-                    className={`w-screen h-screen flex items-center justify-center  ${colors[theme]["app-text"]}`}>
+                    className={`w-screen h-screen flex items-center justify-center  ${colors[theme]["text"]["middle"]}`}>
                     <div className={`text-4xl mx-2`}>
                         {translationApplication?.appendices}
                     </div>
@@ -1108,7 +1108,7 @@ const Book = React.memo(({ incomingSearch = false, incomingAppendix = false, inc
 
             if (!cpd || !cpd.evidence["2"] || !cpd.evidence["2"].lines) {
                 return (
-                    <div className={`${colors[theme]["log-text"]} flex flex-1 items-center justify-center w-full `}>
+                    <div className={`${colors[theme]["text"]["logger"]} flex flex-1 items-center justify-center w-full `}>
                         {translationApplication?.contentNotAvailable}
                     </div>
                 )
@@ -1125,7 +1125,7 @@ const Book = React.memo(({ incomingSearch = false, incomingAppendix = false, inc
                 if (parseInt(key) === 1) {
                     const titles = elements[0].split(" ").filter(element => element);
                     return (
-                        <div className={`${colors[theme]["app-text"]} text-3xl w-full flex justify-center`} key={key}>
+                        <div className={`${colors[theme]["text"]["middle"]} text-3xl w-full flex justify-center`} key={key}>
                             <div className={`p-3`}>{titles[0]}</div>
                         </div>
                     );
@@ -1136,10 +1136,10 @@ const Book = React.memo(({ incomingSearch = false, incomingAppendix = false, inc
                             dir={direction}
                             onClick={() => handleAppClick(parseInt(elements[0]))}
                             className={`flex w-full justify-between text-lg`}>
-                            <div className={`font-semibold rounded p-3 m-1 ${colors[theme]["base-background"]} w-16 flex items-center justify-center`}>
+                            <div className={`font-semibold rounded p-3 m-1 ${colors[theme]["surface"]["bottom"]} w-16 flex items-center justify-center`}>
                                 <p className={``} >{elements[0]}</p>
                             </div>
-                            <div key={key} className={`rounded p-3 my-1 ${direction === 'ltr' ? "mr-1" : "ml-1"} ${colors[theme]["text-background"]} w-full flex items-center`}>
+                            <div key={key} className={`rounded p-3 my-1 ${direction === 'ltr' ? "mr-1" : "ml-1"} ${colors[theme]["surface"]["top"]} w-full flex items-center`}>
                                 <p className={``} >{elements[1]}</p>
                             </div>
                         </div>
@@ -1148,7 +1148,7 @@ const Book = React.memo(({ incomingSearch = false, incomingAppendix = false, inc
             });
 
             return (
-                <div className={`w-screen h-screen flex flex-col overflow-auto ${colors[theme]["app-text"]}`}>
+                <div className={`w-screen h-screen flex flex-col overflow-auto ${colors[theme]["text"]["middle"]}`}>
                     {renderedContent}
                 </div>);
         }
@@ -1186,7 +1186,7 @@ const Book = React.memo(({ incomingSearch = false, incomingAppendix = false, inc
 
     return (
         <div
-            className={`fixed w-full h-full flex flex-col justify-start ${colors[theme]["app-background"]} overflow-y-hidden`}
+            className={`fixed w-full h-full flex flex-col justify-start ${colors[theme]["surface"]["base"]} overflow-y-hidden`}
             style={{ paddingTop: 'calc(env(safe-area-inset-top) * 0.76)', paddingBottom: 'calc(env(safe-area-inset-bottom) * 0.57)' }}>
             <Toaster
                 position="top-center"
@@ -1197,51 +1197,51 @@ const Book = React.memo(({ incomingSearch = false, incomingAppendix = false, inc
                 toastOptions={{
                     success: {
                         style: {
-                            background: colors[theme]["toast-background"],
-                            color: colors[theme]["toast-text"],
+                            background: colors[theme]["surface"]["toast"],
+                            color: colors[theme]["accent"]["toast"],
                             borderRadius: '5px',
                             padding: '7px',
                             boxShadow: '0px 4px 6px rgba(0, 0, 0, 0.1)',
                         },
                         iconTheme: {
-                            primary: colors[theme]["toast-text"],
-                            secondary: colors[theme]["toast-background"],
+                            primary: colors[theme]["accent"]["toast"],
+                            secondary: colors[theme]["surface"]["toast"],
                         },
                     },
                     error: {
                         style: {
-                            background: colors[theme]["toast-background"],
-                            color: colors[theme]["toast-text"],
+                            background: colors[theme]["surface"]["toast"],
+                            color: colors[theme]["accent"]["toast"],
                             borderRadius: '5px',
                             padding: '7px',
                             boxShadow: '0px 4px 6px rgba(0, 0, 0, 0.1)',
                         },
                         iconTheme: {
-                            primary: colors[theme]["toast-text"],
-                            secondary: colors[theme]["toast-background"],
+                            primary: colors[theme]["accent"]["toast"],
+                            secondary: colors[theme]["surface"]["toast"],
                         },
                     },
                 }} />
             {renderBookContent()}
             <div>
                 <div className={`h-12 lg:h-14`}></div>
-                <div className={`w-full flex z-[220] ${colors[theme]["app-background"]} fixed bottom-0`}
+                <div className={`w-full flex z-[220] ${colors[theme]["surface"]["base"]} fixed bottom-0`}
                     style={{ paddingBottom: 'calc(env(safe-area-inset-bottom) * 0.57)' }}>
                     <div className={`relative flex w-full items-center justify-between`}>
-                        <div className={`absolute h-0.5 left-0 -top-0.5 ${colors[theme]["matching"]}`} style={{ width: `${progressPercentage}%` }}></div>
+                        <div className={`absolute h-0.5 left-0 -top-0.5 ${colors[theme]["accent"]["fill"]}`} style={{ width: `${progressPercentage}%` }}></div>
                         {hasTranslationProgress &&
                             <div
-                                className={`absolute h-0.5 left-0 -top-[3px] transition-[width] duration-100 ease-linear ${colors[theme]["matching"]}`}
+                                className={`absolute h-0.5 left-0 -top-[3px] transition-[width] duration-100 ease-linear ${colors[theme]["accent"]["fill"]}`}
                                 style={{ width: `${translationProgressPercentage}%`, opacity: 0.9 }}></div>
                         }
                         {progressPercentage > 0 &&
-                            <div className={`absolute pb-1 left-1/2 -translate-x-1/2 -top-14 ${colors[theme]["app-background"]} rounded flex flex-col justify-center shadow-md shadow-cyan-300/30`}>
-                                <button className={`flex justify-center ${colors[theme]["text"]}`} onClick={stopCopyTimer}>
+                            <div className={`absolute pb-1 left-1/2 -translate-x-1/2 -top-14 ${colors[theme]["surface"]["base"]} rounded flex flex-col justify-center shadow-md shadow-cyan-300/30`}>
+                                <button className={`flex justify-center ${colors[theme]["text"]["top"]}`} onClick={stopCopyTimer}>
                                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className={`w-12 h-12`}>
                                         <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
                                     </svg>
                                 </button>
-                                <div className={`absolute bottom-0 w-full flex items-center justify-center text-xs ${colors[theme]["matching-text"]}`}>
+                                <div className={`absolute bottom-0 w-full flex items-center justify-center text-xs ${colors[theme]["accent"]["top"]}`}>
                                     <div>{parseInt(remainingTime / 1000)}</div>
                                 </div>
                             </div>
@@ -1250,8 +1250,8 @@ const Book = React.memo(({ incomingSearch = false, incomingAppendix = false, inc
                             {multiSelect ?
                                 (<button onClick={handleShare}
                                     disabled={selectedVerseList.length === 0}
-                                    className={`${colors[theme]["passive-text"]} flex items-center w-full h-full justify-end`}>
-                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className={`w-7 h-7 lg:w-10 lg:h-10 ${selectedVerseList.length > 0 ? `${colors[theme]["text"]}` : ``}`}>
+                                    className={`${colors[theme]["text"]["deep"]} flex items-center w-full h-full justify-end`}>
+                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className={`w-7 h-7 lg:w-10 lg:h-10 ${selectedVerseList.length > 0 ? `${colors[theme]["text"]["top"]}` : ``}`}>
                                         <path strokeLinecap="round" strokeLinejoin="round" d="M7.217 10.907a2.25 2.25 0 1 0 0 2.186m0-2.186c.18.324.283.696.283 1.093s-.103.77-.283 1.093m0-2.186 9.566-5.314m-9.566 7.5 9.566 5.314m0 0a2.25 2.25 0 1 0 3.935 2.186 2.25 2.25 0 0 0-3.935-2.186Zm0-12.814a2.25 2.25 0 1 0 3.933-2.185 2.25 2.25 0 0 0-3.933 2.185Z" />
                                     </svg>
                                 </button>)
@@ -1264,7 +1264,7 @@ const Book = React.memo(({ incomingSearch = false, incomingAppendix = false, inc
                                         onCancel={longPressCancelled}>
                                         <button
                                             disabled={direction === 'rtl' ? (isJumpOpen || (selectedApp === 38 && currentPage === 397) || isMagnifyOpen) : (isJumpOpen || currentPage === 1 || isMagnifyOpen)}
-                                            className={`w-full h-full ${colors[theme]["app-text"]} px-2 ${direction === 'rtl' ? 'ml-1' : 'mr-2'} flex items-center justify-center ${direction === 'rtl' ? (isJumpOpen || (selectedApp === 38 && currentPage === 397) || isMagnifyOpen) ? "opacity-0" : "opacity-100" : (isJumpOpen || currentPage === 1 || isMagnifyOpen) ? "opacity-0" : "opacity-100"}`}>
+                                            className={`w-full h-full ${colors[theme]["text"]["middle"]} px-2 ${direction === 'rtl' ? 'ml-1' : 'mr-2'} flex items-center justify-center ${direction === 'rtl' ? (isJumpOpen || (selectedApp === 38 && currentPage === 397) || isMagnifyOpen) ? "opacity-0" : "opacity-100" : (isJumpOpen || currentPage === 1 || isMagnifyOpen) ? "opacity-0" : "opacity-100"}`}>
                                             <div className="relative flex items-center justify-center">
                                                 {renderNextProgressRing(nextProgressSide === 'left')}
                                                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className={`relative z-20 w-7 h-7 lg:w-12 lg:h-12`}>
@@ -1272,7 +1272,7 @@ const Book = React.memo(({ incomingSearch = false, incomingAppendix = false, inc
                                                 </svg>
                                             </div>
                                             {direction !== 'rtl' && pageHistory.length > 0 && rememberHistory && (
-                                                <div className={`bg-transparent absolute translate-y-3 -translate-x-3 text-xs lg:translate-y-4 lg:-translate-x-4 lg:text-base ${colors[theme]["matching-text"]} flex items-center justify-center px-2 py-1 rounded-full`}>
+                                                <div className={`bg-transparent absolute translate-y-3 -translate-x-3 text-xs lg:translate-y-4 lg:-translate-x-4 lg:text-base ${colors[theme]["accent"]["top"]} flex items-center justify-center px-2 py-1 rounded-full`}>
                                                     {pageHistory.length}
                                                 </div>
                                             )}
@@ -1283,12 +1283,12 @@ const Book = React.memo(({ incomingSearch = false, incomingAppendix = false, inc
 
                         <div
                             dir={direction}
-                            className={`w-full flex items-center ${colors[theme]["page-text"]} justify-center p-0.5`}>
+                            className={`w-full flex items-center ${colors[theme]["text"]["bottom"]} justify-center p-0.5`}>
                             <div className={`menu-icon flex items-center justify-center self-center`}>
                                 {
                                     isJumpOpen ?
 
-                                        (<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" className={`w-11 h-11 lg:w-14 lg:h-14 ${colors[theme]["text"]}`} onClick={() => handleToggleJump()}>
+                                        (<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" className={`w-11 h-11 lg:w-14 lg:h-14 ${colors[theme]["text"]["top"]}`} onClick={() => handleToggleJump()}>
                                             <path fillRule="evenodd" d="M3 6a3 3 0 0 1 3-3h2.25a3 3 0 0 1 3 3v2.25a3 3 0 0 1-3 3H6a3 3 0 0 1-3-3V6Zm9.75 0a3 3 0 0 1 3-3H18a3 3 0 0 1 3 3v2.25a3 3 0 0 1-3 3h-2.25a3 3 0 0 1-3-3V6ZM3 15.75a3 3 0 0 1 3-3h2.25a3 3 0 0 1 3 3V18a3 3 0 0 1-3 3H6a3 3 0 0 1-3-3v-2.25Zm9.75 0a3 3 0 0 1 3-3H18a3 3 0 0 1 3 3V18a3 3 0 0 1-3 3h-2.25a3 3 0 0 1-3-3v-2.25Z" clipRule="evenodd" />
                                         </svg>) :
                                         (<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className={`w-11 h-11 lg:w-14 lg:h-14 `} onClick={() => handleToggleJump()}>
@@ -1300,7 +1300,7 @@ const Book = React.memo(({ incomingSearch = false, incomingAppendix = false, inc
                                 (parseInt(currentPage) < 23 ? (
                                     <div className={` relative h-11 lg:h-14 ${isJumpOpen ? `w-0` : `${direction === 'rtl' ? 'mr-2.5' : 'ml-2.5'} w-12 lg:w-16 `} transition-all duration-200 ease-out `}>
                                         <div
-                                            className={` absolute -top-1 h-full w-full text-3xl lg:text-4xl ${colors[theme]["app-text"]} flex items-center justify-start ${isJumpOpen ? `hidden` : `w-20`}`}
+                                            className={` absolute -top-1 h-full w-full text-3xl lg:text-4xl ${colors[theme]["text"]["middle"]} flex items-center justify-start ${isJumpOpen ? `hidden` : `w-20`}`}
                                             onClick={() => document.getElementById('pageselect').click()}>
                                             {pages.find((p) => p.value === currentPage)?.page || currentPage}
                                             <svg xmlns="http://www.w3.org/2000/svg" className={`w-4 h-4  ${direction === 'rtl' ? `mr-0.5 -ml-2` : ` ml-0.5 -mr-2`}`} fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -1327,14 +1327,14 @@ const Book = React.memo(({ incomingSearch = false, incomingAppendix = false, inc
                                 ) : parseInt(currentPage) < 397 ? (
                                     <div className={` relative h-11 lg:h-14 ${isJumpOpen ? `w-0` : `${direction === 'rtl' ? 'mr-2.5' : 'ml-2.5'} w-12 lg:w-16`} transition-all duration-200 ease-out `}>
                                         <div
-                                            className={` absolute top-0 h-full w-full pt-3.5 lg:pt-4 text-xl lg:text-2xl xl:text-3xl ${colors[theme]["app-text"]} flex items-center justify-start ${isJumpOpen ? `hidden` : `w-20`}`}
+                                            className={` absolute top-0 h-full w-full pt-3.5 lg:pt-4 text-xl lg:text-2xl xl:text-3xl ${colors[theme]["text"]["middle"]} flex items-center justify-start ${isJumpOpen ? `hidden` : `w-20`}`}
                                             onClick={() => document.getElementById('pageselect').click()}>
                                             {pages.find((p) => parseInt(p.value) === parseInt(currentPage))?.page || (parseInt(currentPage) - 22)}
                                             <svg xmlns="http://www.w3.org/2000/svg" className={`w-4 h-4  ${direction === 'rtl' ? `mr-0.5 -ml-2` : ` ml-0.5 -mr-2`}`} fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 9l-7 7-7-7" />
                                             </svg>
                                         </div>
-                                        {<div dir={direction} className={`text-xs absolute top-0.5 lg:top-1 ${direction === 'rtl' ? `right-0.5` : ` left-0.5`} ${colors[theme]["page-text"]} brightness-80 ${isJumpOpen ? `hidden` : ``}`}>{translationApplication?.page}</div>}
+                                        {<div dir={direction} className={`text-xs absolute top-0.5 lg:top-1 ${direction === 'rtl' ? `right-0.5` : ` left-0.5`} ${colors[theme]["text"]["bottom"]} brightness-80 ${isJumpOpen ? `hidden` : ``}`}>{translationApplication?.page}</div>}
                                         <select
                                             id="pageselect"
                                             name="pageselect"
@@ -1356,14 +1356,14 @@ const Book = React.memo(({ incomingSearch = false, incomingAppendix = false, inc
                                 ) : (
                                     <div className={` relative h-11 lg:h-14 ${isJumpOpen ? `w-0` : `${direction === 'rtl' ? 'mr-2.5' : 'ml-2.5'} w-12`} transition-all duration-200 ease-out `}>
                                         <div
-                                            className={` absolute top-0 h-full w-full pt-2.5 lg:pt-3 text-2xl lg:text-3xl xl:text-4xl ${colors[theme]["app-text"]} flex items-center justify-start ${isJumpOpen ? `hidden` : `w-20`}`}
+                                            className={` absolute top-0 h-full w-full pt-2.5 lg:pt-3 text-2xl lg:text-3xl xl:text-4xl ${colors[theme]["text"]["middle"]} flex items-center justify-start ${isJumpOpen ? `hidden` : `w-20`}`}
                                             onClick={() => document.getElementById('appselect').click()}>
                                             {selectedApp}
                                             <svg xmlns="http://www.w3.org/2000/svg" className={`w-4 h-4  ${direction === 'rtl' ? `mr-0.5 -ml-2` : ` ml-0.5 -mr-2`}`} fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 9l-7 7-7-7" />
                                             </svg>
                                         </div>
-                                        {<div dir={direction} className={`text-xs absolute top-0.5 lg:top-1 ${direction === 'rtl' ? `right-0.5` : ` left-0.5`} ${colors[theme]["page-text"]} brightness-80 ${isJumpOpen ? `hidden` : ``}`}>{translationApplication?.appendix}</div>}
+                                        {<div dir={direction} className={`text-xs absolute top-0.5 lg:top-1 ${direction === 'rtl' ? `right-0.5` : ` left-0.5`} ${colors[theme]["text"]["bottom"]} brightness-80 ${isJumpOpen ? `hidden` : ``}`}>{translationApplication?.appendix}</div>}
                                         <select
                                             id="appselect"
                                             name="appselect"
@@ -1387,12 +1387,12 @@ const Book = React.memo(({ incomingSearch = false, incomingAppendix = false, inc
                             {multiSelect ?
                                 (<button onClick={handleCopy}
                                     disabled={selectedVerseList.length === 0}
-                                    className={`${colors[theme]["passive-text"]} flex items-center w-full h-full justify-start`}>
-                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className={`w-8 h-8 lg:w-11 lg:h-11 ${selectedVerseList.length > 0 ? `${colors[theme]["text"]}` : ``}`}>
+                                    className={`${colors[theme]["text"]["deep"]} flex items-center w-full h-full justify-start`}>
+                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className={`w-8 h-8 lg:w-11 lg:h-11 ${selectedVerseList.length > 0 ? `${colors[theme]["text"]["top"]}` : ``}`}>
                                         <path strokeLinecap="round" strokeLinejoin="round" d="M9 12h3.75M9 15h3.75M9 18h3.75m3 .75H18a2.25 2.25 0 0 0 2.25-2.25V6.108c0-1.135-.845-2.098-1.976-2.192a48.424 48.424 0 0 0-1.123-.08m-5.801 0c-.065.21-.1.433-.1.664 0 .414.336.75.75.75h4.5a.75.75 0 0 0 .75-.75 2.25 2.25 0 0 0-.1-.664m-5.8 0A2.251 2.251 0 0 1 13.5 2.25H15c1.012 0 1.867.668 2.15 1.586m-5.8 0c-.376.023-.75.05-1.124.08C9.095 4.01 8.25 4.973 8.25 6.108V8.25m0 0H4.875c-.621 0-1.125.504-1.125 1.125v11.25c0 .621.504 1.125 1.125 1.125h9.75c.621 0 1.125-.504 1.125-1.125V9.375c0-.621-.504-1.125-1.125-1.125H8.25ZM6.75 12h.008v.008H6.75V12Zm0 3h.008v.008H6.75V15Zm0 3h.008v.008H6.75V18Z" />
                                     </svg>
                                     {selectedVerseList.length > 0 && (
-                                        <div className={`bg-transparent absolute translate-y-4 translate-x-5 text-xs lg:translate-y-5 lg:translate-x-6 lg:text-sm ${colors[theme]["matching-text"]} flex items-center justify-center px-2 py-1 rounded-full`}>
+                                        <div className={`bg-transparent absolute translate-y-4 translate-x-5 text-xs lg:translate-y-5 lg:translate-x-6 lg:text-sm ${colors[theme]["accent"]["top"]} flex items-center justify-center px-2 py-1 rounded-full`}>
                                             {selectedVerseList.length}
                                         </div>
                                     )}
@@ -1406,7 +1406,7 @@ const Book = React.memo(({ incomingSearch = false, incomingAppendix = false, inc
                                         onCancel={longPressCancelled}>
                                         <button
                                             disabled={direction === 'rtl' ? (isJumpOpen || currentPage === 1 || isMagnifyOpen) : (isJumpOpen || (selectedApp === 38 && currentPage === 397) || isMagnifyOpen)}
-                                            className={`w-full h-full ${colors[theme]["app-text"]} px-2 ${direction === 'rtl' ? 'mr-2' : 'ml-1'} flex items-center justify-center ${direction === 'rtl' ? (isJumpOpen || currentPage === 1 || isMagnifyOpen) ? "opacity-0" : "opacity-100" : (isJumpOpen || (selectedApp === 38 && currentPage === 397) || isMagnifyOpen) ? "opacity-0" : "opacity-100"} `}>
+                                            className={`w-full h-full ${colors[theme]["text"]["middle"]} px-2 ${direction === 'rtl' ? 'mr-2' : 'ml-1'} flex items-center justify-center ${direction === 'rtl' ? (isJumpOpen || currentPage === 1 || isMagnifyOpen) ? "opacity-0" : "opacity-100" : (isJumpOpen || (selectedApp === 38 && currentPage === 397) || isMagnifyOpen) ? "opacity-0" : "opacity-100"} `}>
                                             <div className="relative flex items-center justify-center">
                                                 {renderNextProgressRing(nextProgressSide === 'right')}
                                                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className={`relative z-20 w-7 h-7 lg:w-12 lg:h-12`}>
@@ -1414,7 +1414,7 @@ const Book = React.memo(({ incomingSearch = false, incomingAppendix = false, inc
                                                 </svg>
                                             </div>
                                             {direction === 'rtl' && pageHistory.length > 0 && rememberHistory && (
-                                                <div className={`bg-transparent absolute translate-y-3 translate-x-3 text-xs lg:translate-y-4 lg:translate-x-4 lg:text-base ${colors[theme]["matching-text"]} flex items-center justify-center px-2 py-1 rounded-full`}>
+                                                <div className={`bg-transparent absolute translate-y-3 translate-x-3 text-xs lg:translate-y-4 lg:translate-x-4 lg:text-base ${colors[theme]["accent"]["top"]} flex items-center justify-center px-2 py-1 rounded-full`}>
                                                     {pageHistory.length}
                                                 </div>
                                             )}
@@ -1476,7 +1476,7 @@ const Book = React.memo(({ incomingSearch = false, incomingAppendix = false, inc
                             onClick={() => setPrevSettingsOpen(false)}
                             className={` w-full h-full absolute left-0 top-0`}></div>
                         {prevSettingsOpenningProgress !== 1 ? (
-                            <div className={`flex items-center justify-center transition-all duration-300 ease-linear ${prevSettingsOpenningProgress < 0.57 ? " " : " rotate-180 "} ${prevSettingsOpenningProgress >= 0.57 ? colors[theme]["matching-text"] : colors[theme]["log-text"]}`}>
+                            <div className={`flex items-center justify-center transition-all duration-300 ease-linear ${prevSettingsOpenningProgress < 0.57 ? " " : " rotate-180 "} ${prevSettingsOpenningProgress >= 0.57 ? colors[theme]["accent"]["top"] : colors[theme]["text"]["logger"]}`}>
                                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className={`w-24 h-24 `}>
                                     <path strokeLinecap="round" strokeLinejoin="round" d="M10.343 3.94c.09-.542.56-.94 1.11-.94h1.093c.55 0 1.02.398 1.11.94l.149.894c.07.424.384.764.78.93.398.164.855.142 1.205-.108l.737-.527a1.125 1.125 0 0 1 1.45.12l.773.774c.39.389.44 1.002.12 1.45l-.527.737c-.25.35-.272.806-.107 1.204.165.397.505.71.93.78l.893.15c.543.09.94.559.94 1.109v1.094c0 .55-.397 1.02-.94 1.11l-.894.149c-.424.07-.764.383-.929.78-.165.398-.143.854.107 1.204l.527.738c.32.447.269 1.06-.12 1.45l-.774.773a1.125 1.125 0 0 1-1.449.12l-.738-.527c-.35-.25-.806-.272-1.203-.107-.398.165-.71.505-.781.929l-.149.894c-.09.542-.56.94-1.11.94h-1.094c-.55 0-1.019-.398-1.11-.94l-.148-.894c-.071-.424-.384-.764-.781-.93-.398-.164-.854-.142-1.204.108l-.738.527c-.447.32-1.06.269-1.45-.12l-.773-.774a1.125 1.125 0 0 1-.12-1.45l.527-.737c.25-.35.272-.806.108-1.204-.165-.397-.506-.71-.93-.78l-.894-.15c-.542-.09-.94-.56-.94-1.109v-1.094c0-.55.398-1.02.94-1.11l.894-.149c.424-.07.765-.383.93-.78.165-.398.143-.854-.108-1.204l-.526-.738a1.125 1.125 0 0 1 .12-1.45l.773-.773a1.125 1.125 0 0 1 1.45-.12l.737.527c.35.25.807.272 1.204.107.397-.165.71-.505.78-.929l.15-.894Z" />
                                     <path strokeLinecap="round" strokeLinejoin="round" d="M15 12a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z" />
@@ -1485,12 +1485,12 @@ const Book = React.memo(({ incomingSearch = false, incomingAppendix = false, inc
                             :
                             (<div
                                 style={{ animation: 'animate-scale 0.2s ease-in-out' }}
-                                className={`mx-3 z-40 ${colors[theme]["app-background"]} flex items-center justify-center rounded shadow-lg`}>
-                                <div dir={direction} className={`rounded px-1 py-1.5 border ${colors[theme]["border"]}`}
+                                className={`mx-3 z-40 ${colors[theme]["surface"]["base"]} flex items-center justify-center rounded shadow-lg`}>
+                                <div dir={direction} className={`rounded px-1 py-1.5 border ${colors[theme]["border"]["strong"]}`}
                                     style={{ top: `calc(3.3rem + env(safe-area-inset-top) * 0.76)` }}>
                                     <div className={`flex flex-col text-lg md:text-xl`}>
                                         <label className={`flex items-center justify-between md:justify-end gap-4 pt-3.5 px-3 pb-2 cursor-pointer`}>
-                                            <span className={`${rememberHistory ? colors[theme]["text"] : colors[theme]["page-text"]}`}>{translationApplication?.returnToJumped}</span>
+                                            <span className={`${rememberHistory ? colors[theme]["text"]["top"] : colors[theme]["text"]["bottom"]}`}>{translationApplication?.returnToJumped}</span>
                                             <div>
                                                 <label className='flex cursor-pointer select-none items-center'>
                                                     <div className='relative'>
@@ -1500,15 +1500,15 @@ const Book = React.memo(({ incomingSearch = false, incomingAppendix = false, inc
                                                             onChange={(e) => setRememberHistory(e.target.checked)}
                                                             className='sr-only'
                                                         />
-                                                        <div className={`box block h-8 w-14 rounded-full ${rememberHistory ? colors[theme]["text-background"] : colors[theme]["base-background"]}`}></div>
-                                                        <div className={`absolute left-1 top-1 flex h-6 w-6 items-center justify-center rounded-full ${rememberHistory ? colors[theme]["matching"] : colors[theme]["notes-background"]} transition ${rememberHistory ? 'translate-x-full' : ''}`}></div>
+                                                        <div className={`box block h-8 w-14 rounded-full ${rememberHistory ? colors[theme]["surface"]["top"] : colors[theme]["surface"]["bottom"]}`}></div>
+                                                        <div className={`absolute left-1 top-1 flex h-6 w-6 items-center justify-center rounded-full ${rememberHistory ? colors[theme]["accent"]["fill"] : colors[theme]["surface"]["middle"]} transition ${rememberHistory ? 'translate-x-full' : ''}`}></div>
                                                     </div>
                                                 </label>
                                             </div>
                                         </label>
-                                        <div className={`border-b ${colors[theme]["verse-border"]} mx-1 mt-2`} ></div>
+                                        <div className={`border-b ${colors[theme]["border"]["soft"]} mx-1 mt-2`} ></div>
                                         <label className={`flex items-center justify-between md:justify-end gap-4 pt-3.5 px-3 pb-2 cursor-pointer`}>
-                                            <span className={`text-base break-words ${rememberHistory ? `` : ` brightness-50`} ${(keepVerseDetailsOpen && rememberHistory) ? colors[theme]["text"] : colors[theme]["page-text"]}`}>{translationApplication?.keepDetailsOpen}</span>
+                                            <span className={`text-base break-words ${rememberHistory ? `` : ` brightness-50`} ${(keepVerseDetailsOpen && rememberHistory) ? colors[theme]["text"]["top"] : colors[theme]["text"]["bottom"]}`}>{translationApplication?.keepDetailsOpen}</span>
                                             <div>
                                                 <label className='flex cursor-pointer select-none items-center'>
                                                     <div className='relative'>
@@ -1519,15 +1519,15 @@ const Book = React.memo(({ incomingSearch = false, incomingAppendix = false, inc
                                                             onChange={(e) => setKeepVerseDetailsOpen(e.target.checked)}
                                                             className='sr-only'
                                                         />
-                                                        <div className={`box block h-8 w-14 rounded-full ${(keepVerseDetailsOpen && rememberHistory) ? colors[theme]["text-background"] : colors[theme]["base-background"]}`}></div>
-                                                        <div className={`absolute left-1 top-1 flex h-6 w-6 items-center justify-center rounded-full ${(keepVerseDetailsOpen && rememberHistory) ? colors[theme]["matching"] : colors[theme]["notes-background"]} transition ${keepVerseDetailsOpen ? 'translate-x-full' : ''}`}></div>
+                                                        <div className={`box block h-8 w-14 rounded-full ${(keepVerseDetailsOpen && rememberHistory) ? colors[theme]["surface"]["top"] : colors[theme]["surface"]["bottom"]}`}></div>
+                                                        <div className={`absolute left-1 top-1 flex h-6 w-6 items-center justify-center rounded-full ${(keepVerseDetailsOpen && rememberHistory) ? colors[theme]["accent"]["fill"] : colors[theme]["surface"]["middle"]} transition ${keepVerseDetailsOpen ? 'translate-x-full' : ''}`}></div>
                                                     </div>
                                                 </label>
                                             </div>
                                         </label>
-                                        <div className={`border-b ${colors[theme]["verse-border"]} mx-1 mt-2`} ></div>
+                                        <div className={`border-b ${colors[theme]["border"]["soft"]} mx-1 mt-2`} ></div>
                                         <label className={`flex items-center justify-between md:justify-end gap-4 pt-3.5 px-3 pb-2 cursor-pointer`}>
-                                            <span className={`text-base break-words ${rememberHistory ? `` : ` brightness-50`} ${(includeSearchScreen && rememberHistory) ? colors[theme]["text"] : colors[theme]["page-text"]}`}>{translationApplication?.includeSearch}</span>
+                                            <span className={`text-base break-words ${rememberHistory ? `` : ` brightness-50`} ${(includeSearchScreen && rememberHistory) ? colors[theme]["text"]["top"] : colors[theme]["text"]["bottom"]}`}>{translationApplication?.includeSearch}</span>
                                             <div>
                                                 <label className='flex cursor-pointer select-none items-center'>
                                                     <div className='relative'>
@@ -1538,8 +1538,8 @@ const Book = React.memo(({ incomingSearch = false, incomingAppendix = false, inc
                                                             onChange={(e) => setIncludeSearchScreen(e.target.checked)}
                                                             className='sr-only'
                                                         />
-                                                        <div className={`box block h-8 w-14 rounded-full ${(includeSearchScreen && rememberHistory) ? colors[theme]["text-background"] : colors[theme]["base-background"]}`}></div>
-                                                        <div className={`absolute left-1 top-1 flex h-6 w-6 items-center justify-center rounded-full ${(includeSearchScreen && rememberHistory) ? colors[theme]["matching"] : colors[theme]["notes-background"]} transition ${includeSearchScreen ? 'translate-x-full' : ''}`}></div>
+                                                        <div className={`box block h-8 w-14 rounded-full ${(includeSearchScreen && rememberHistory) ? colors[theme]["surface"]["top"] : colors[theme]["surface"]["bottom"]}`}></div>
+                                                        <div className={`absolute left-1 top-1 flex h-6 w-6 items-center justify-center rounded-full ${(includeSearchScreen && rememberHistory) ? colors[theme]["accent"]["fill"] : colors[theme]["surface"]["middle"]} transition ${includeSearchScreen ? 'translate-x-full' : ''}`}></div>
                                                     </div>
                                                 </label>
                                             </div>

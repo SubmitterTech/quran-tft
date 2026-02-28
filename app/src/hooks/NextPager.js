@@ -328,7 +328,7 @@ export const NextPagerIndicator = ({
                 type="button"
                 onClick={onTap}
                 disabled={!overscrollAwaitingTap}
-                className={`pointer-events-auto rounded py-2 px-3 shadow-lg transition-all duration-100 ease-in ${colors[theme]["text-background"]} ${overscrollAwaitingTap ? `cursor-pointer ${colors[theme]["matching-text"]} animate-pulse` : `cursor-default ${colors[theme]["app-text"]}`}`}>
+                className={`pointer-events-auto rounded py-2 px-3 shadow-lg transition-all duration-100 ease-in ${colors[theme]["surface"]["top"]} ${overscrollAwaitingTap ? `cursor-pointer ${colors[theme]["accent"]["top"]} animate-pulse` : `cursor-default ${colors[theme]["text"]["middle"]}`}`}>
                 <span className="text-base lg:text-large whitespace-nowrap">{label}</span>
             </button>
         </animated.div>
@@ -362,7 +362,7 @@ export const NextPagerProgressRing = ({
         <div className={`absolute pointer-events-none z-0 ${sizeClassName}`}>
             <svg
                 viewBox={`0 0 ${viewBoxSize} ${viewBoxSize}`}
-                className={`absolute inset-0 w-full h-full ${colors[theme]["matching-text"]} ${isComplete ? `invisible` : ``}`}>
+                className={`absolute inset-0 w-full h-full ${colors[theme]["accent"]["top"]} ${isComplete ? `invisible` : ``}`}>
                 <circle
                     cx={center}
                     cy={center}
@@ -388,10 +388,10 @@ export const NextPagerProgressRing = ({
             {isComplete && (
                 <div className="absolute inset-0 overflow-hidden rounded-full">
                     <div
-                        className={`absolute rounded-full animate-rotate ${colors[theme]["matching-conic"]}`}
+                        className={`absolute rounded-full animate-rotate ${colors[theme]["accent"]["conic"]}`}
                         style={{ inset: 0 }} />
                     <div
-                        className={`absolute rounded-full ${colors[theme]["app-background"]}`}
+                        className={`absolute rounded-full ${colors[theme]["surface"]["base"]}`}
                         style={{ inset: `${pulseInsetPx}px` }} />
                 </div>
             )}

@@ -1,206 +1,485 @@
 import { memo } from 'react';
 
 export const colorThemes = {
-    "light": {
-        "text-background": "bg-neutral-50",
-        "app-background": "bg-neutral-300",
-        "notes-background": "bg-neutral-100",
-        "base-background": "bg-neutral-200",
-        "verse-detail-background": "bg-neutral-100",
-        "encrypted-background": "bg-neutral-300",
-        "relation-background": "bg-neutral-400/30",
-        "table-title-text": "text-neutral-700",
-        "border": "border-neutral-900",
-        "text": "text-neutral-900",
-        "app-text": "text-neutral-800",
-        "page-text": "text-neutral-900/60",
-        "passive-text": "text-neutral-900/30",
-        "log-text": "text-neutral-800/80",
-        "verse-border": "border-neutral-800/80",
-        "verse-ring": "ring-neutral-700/50",
-        "title-ring": "ring-neutral-300/50",
-        "ring": "ring-neutral-800/80",
-        "focus-ring": "focus:ring-neutral-800/80",
-        "focus-text": "focus:text-neutral-800",
-        "matching-text": "text-rose-500",
-        "matching-border": "border-rose-500",
-        "matching-ring": "ring-rose-500",
-        "matching": "bg-rose-500",
-        "matching-conic": "bg-[conic-gradient(#f43f5e_20deg,transparent_180deg)]", // rose-500
-        "toast-background": "#f5f5f5",
-        "toast-text": "#f43f5e",
-        "status-bar-background": "#d4d4d4", //bg-neutral-300
+    light: {
+        'theme-mode': 'light',
+        'status-bar-style': 'light',
+        surface: {
+            top: 'bg-neutral-50',
+            middle: 'bg-neutral-100',
+            bottom: 'bg-neutral-200',
+            base: 'bg-neutral-300',
+            'verse-detail': 'bg-neutral-100',
+            encrypted: 'bg-neutral-300',
+            relation: 'bg-neutral-400/30',
+            'map-top': 'bg-neutral-400/30',
+            'map-chip-base': 'bg-neutral-200',
+            'map-chip': 'bg-neutral-200',
+            'map-chip-active': 'bg-neutral-400/30',
+            toast: '#f5f5f5',
+            'status-bar': '#d4d4d4'
+        },
+        text: {
+            top: 'text-neutral-900',
+            middle: 'text-neutral-800',
+            bottom: 'text-neutral-900/60',
+            deep: 'text-neutral-900/30',
+            logger: 'text-neutral-800/80',
+            'table-title': 'text-neutral-700',
+            'on-map': 'text-neutral-900',
+            'on-map-soft': 'text-neutral-900/60'
+        },
+        border: {
+            strong: 'border-neutral-900',
+            soft: 'border-neutral-800/80',
+            focus: 'ring-neutral-800/80'
+        },
+        accent: {
+            top: 'text-rose-500',
+            'on-light': 'text-rose-500',
+            'on-deep': 'text-rose-500',
+            'map-heading': 'text-rose-500',
+            'map-link': 'text-sky-500',
+            border: 'border-rose-500',
+            'on-deep-border': 'border-rose-500',
+            ring: 'ring-rose-500',
+            'on-deep-ring': 'ring-rose-500',
+            fill: 'bg-rose-500',
+            conic: 'bg-[conic-gradient(#f43f5e_20deg,transparent_180deg)]',
+            toast: '#f43f5e'
+        },
+        effect: {
+            'focus-ring': 'focus:ring-neutral-800/80',
+            'focus-text': 'focus:text-neutral-800',
+            'ring-verse': 'ring-neutral-700/50',
+            'ring-title': 'ring-neutral-300/50'
+        }
     },
-    "dark": {
-        "text-background": "bg-neutral-800",
-        "app-background": "bg-neutral-950",
-        "notes-background": "bg-neutral-700",
-        "base-background": "bg-neutral-900",
-        "verse-detail-background": "bg-neutral-900",
-        "encrypted-background": "bg-neutral-700",
-        "relation-background": "bg-neutral-700",
-        "table-title-text": "text-neutral-300",
-        "border": "border-neutral-100",
-        "text": "text-neutral-100",
-        "app-text": "text-neutral-300",
-        "page-text": "text-neutral-100/60",
-        "passive-text": "text-neutral-100/30",
-        "log-text": "text-neutral-300/80",
-        "verse-border": "border-neutral-500/80",
-        "verse-ring": "ring-green-500/70",
-        "title-ring": "ring-neutral-200/70",
-        "ring": "ring-neutral-500/80",
-        "focus-ring": "focus:ring-neutral-200/80",
-        "focus-text": "focus:text-neutral-200",
-        "matching-text": "text-green-500",
-        "matching-border": "border-green-500",
-        "matching-ring": "ring-green-500",
-        "matching": "bg-green-500",
-        "matching-conic": "bg-[conic-gradient(#22c55e_20deg,transparent_180deg)]", // green-500
-        "toast-background": "#171717",
-        "toast-text": "#22c55e",
-        "status-bar-background": "#0a0a0a", //bg-neutral-950
+    dark: {
+        'theme-mode': 'dark',
+        'status-bar-style': 'dark',
+        surface: {
+            top: 'bg-neutral-800',
+            middle: 'bg-neutral-700',
+            bottom: 'bg-neutral-900',
+            base: 'bg-neutral-950',
+            'verse-detail': 'bg-neutral-900',
+            encrypted: 'bg-neutral-700',
+            relation: 'bg-neutral-700',
+            'map-top': 'bg-neutral-700',
+            'map-chip-base': 'bg-neutral-900',
+            'map-chip': 'bg-neutral-900',
+            'map-chip-active': 'bg-neutral-700',
+            toast: '#171717',
+            'status-bar': '#0a0a0a'
+        },
+        text: {
+            top: 'text-neutral-100',
+            middle: 'text-neutral-300',
+            bottom: 'text-neutral-100/60',
+            deep: 'text-neutral-100/30',
+            logger: 'text-neutral-300/80',
+            'table-title': 'text-neutral-300',
+            'on-map': 'text-neutral-100',
+            'on-map-soft': 'text-neutral-100/60'
+        },
+        border: {
+            strong: 'border-neutral-100',
+            soft: 'border-neutral-500/80',
+            focus: 'ring-neutral-500/80'
+        },
+        accent: {
+            top: 'text-green-500',
+            'on-light': 'text-green-500',
+            'on-deep': 'text-green-500',
+            'map-heading': 'text-green-500',
+            'map-link': 'text-sky-500',
+            border: 'border-green-500',
+            'on-deep-border': 'border-green-500',
+            ring: 'ring-green-500',
+            'on-deep-ring': 'ring-green-500',
+            fill: 'bg-green-500',
+            conic: 'bg-[conic-gradient(#22c55e_20deg,transparent_180deg)]',
+            toast: '#22c55e'
+        },
+        effect: {
+            'focus-ring': 'focus:ring-neutral-200/80',
+            'focus-text': 'focus:text-neutral-200',
+            'ring-verse': 'ring-green-500/70',
+            'ring-title': 'ring-neutral-200/70'
+        }
     },
-    "indigo": {
-        "text-background": "bg-indigo-900",
-        "app-background": "bg-indigo-950",
-        "notes-background": "bg-neutral-700",
-        "base-background": "bg-neutral-800",
-        "verse-detail-background": "bg-neutral-800",
-        "encrypted-background": "bg-neutral-700",
-        "relation-background": "bg-neutral-700",
-        "table-title-text": "text-neutral-300",
-        "border": "border-indigo-100",
-        "text": "text-neutral-100",
-        "app-text": "text-neutral-300",
-        "page-text": "text-neutral-100/60",
-        "passive-text": "text-neutral-100/30",
-        "log-text": "text-neutral-300/80",
-        "verse-border": "border-indigo-500/80",
-        "verse-ring": "ring-lime-400/70",
-        "title-ring": "ring-neutral-200/70",
-        "ring": "ring-indigo-500/80",
-        "focus-ring": "focus:ring-neutral-200/80",
-        "focus-text": "focus:text-neutral-200",
-        "matching-text": "text-lime-400",
-        "matching-border": "border-lime-400",
-        "matching-ring": "ring-lime-400",
-        "matching": "bg-lime-400",
-        "matching-conic": "bg-[conic-gradient(#a3e635_20deg,transparent_180deg)]", // lime-400
-        "toast-background": "#262626",
-        "toast-text": "#a3e635",
-        "status-bar-background": "#1e1b4b", //bg-indigo-950
+    indigo: {
+        'theme-mode': 'dark',
+        'status-bar-style': 'dark',
+        surface: {
+            top: 'bg-indigo-900',
+            middle: 'bg-neutral-700',
+            bottom: 'bg-neutral-800',
+            base: 'bg-indigo-950',
+            'verse-detail': 'bg-neutral-800',
+            encrypted: 'bg-neutral-700',
+            relation: 'bg-neutral-700',
+            'map-top': 'bg-neutral-700',
+            'map-chip-base': 'bg-neutral-800',
+            'map-chip': 'bg-neutral-800',
+            'map-chip-active': 'bg-neutral-700',
+            toast: '#262626',
+            'status-bar': '#1e1b4b'
+        },
+        text: {
+            top: 'text-neutral-100',
+            middle: 'text-neutral-300',
+            bottom: 'text-neutral-100/60',
+            deep: 'text-neutral-100/30',
+            logger: 'text-neutral-300/80',
+            'table-title': 'text-neutral-300',
+            'on-map': 'text-neutral-100',
+            'on-map-soft': 'text-neutral-100/60'
+        },
+        border: {
+            strong: 'border-indigo-100',
+            soft: 'border-indigo-500/80',
+            focus: 'ring-indigo-500/80'
+        },
+        accent: {
+            top: 'text-lime-400',
+            'on-light': 'text-lime-400',
+            'on-deep': 'text-lime-400',
+            'map-heading': 'text-lime-400',
+            'map-link': 'text-sky-500',
+            border: 'border-lime-400',
+            'on-deep-border': 'border-lime-400',
+            ring: 'ring-lime-400',
+            'on-deep-ring': 'ring-lime-400',
+            fill: 'bg-lime-400',
+            conic: 'bg-[conic-gradient(#a3e635_20deg,transparent_180deg)]',
+            toast: '#a3e635'
+        },
+        effect: {
+            'focus-ring': 'focus:ring-neutral-200/80',
+            'focus-text': 'focus:text-neutral-200',
+            'ring-verse': 'ring-lime-400/70',
+            'ring-title': 'ring-neutral-200/70'
+        }
     },
-    "green": {
-        "text-background": "bg-teal-800",
-        "app-background": "bg-teal-950",
-        "notes-background": "bg-neutral-700",
-        "base-background": "bg-neutral-900",
-        "verse-detail-background": "bg-neutral-800",
-        "encrypted-background": "bg-neutral-700/70",
-        "relation-background": "bg-neutral-700/70",
-        "table-title-text": "text-neutral-300",
-        "border": "border-teal-100",
-        "text": "text-neutral-200",
-        "app-text": "text-neutral-300",
-        "page-text": "text-neutral-200/60",
-        "passive-text": "text-neutral-200/30",
-        "log-text": "text-neutral-300/80",
-        "verse-border": "border-teal-500/80",
-        "verse-ring": "ring-orange-500/70",
-        "title-ring": "ring-neutral-200/70",
-        "ring": "ring-teal-500/80",
-        "focus-ring": "focus:ring-neutral-200/80",
-        "focus-text": "focus:text-neutral-100",
-        "matching-text": "text-orange-500",
-        "matching-border": "border-orange-500",
-        "matching-ring": "ring-orange-500",
-        "matching": "bg-orange-500",
-        "matching-conic": "bg-[conic-gradient(#f97316_20deg,transparent_180deg)]", // orange-500
-        "toast-background": "#171717",
-        "toast-text": "#f97316",
-        "status-bar-background": "#042f2e", //bg-teal-950
+    green: {
+        'theme-mode': 'dark',
+        'status-bar-style': 'dark',
+        surface: {
+            top: 'bg-teal-800',
+            middle: 'bg-neutral-700',
+            bottom: 'bg-neutral-900',
+            base: 'bg-teal-950',
+            'verse-detail': 'bg-neutral-800',
+            encrypted: 'bg-neutral-700/70',
+            relation: 'bg-neutral-700/70',
+            'map-top': 'bg-neutral-700/70',
+            'map-chip-base': 'bg-neutral-900',
+            'map-chip': 'bg-neutral-900',
+            'map-chip-active': 'bg-neutral-700/70',
+            toast: '#171717',
+            'status-bar': '#042f2e'
+        },
+        text: {
+            top: 'text-neutral-200',
+            middle: 'text-neutral-300',
+            bottom: 'text-neutral-200/60',
+            deep: 'text-neutral-200/30',
+            logger: 'text-neutral-300/80',
+            'table-title': 'text-neutral-300',
+            'on-map': 'text-neutral-200',
+            'on-map-soft': 'text-neutral-200/60'
+        },
+        border: {
+            strong: 'border-teal-100',
+            soft: 'border-teal-500/80',
+            focus: 'ring-teal-500/80'
+        },
+        accent: {
+            top: 'text-orange-500',
+            'on-light': 'text-orange-500',
+            'on-deep': 'text-orange-500',
+            'map-heading': 'text-orange-500',
+            'map-link': 'text-sky-500',
+            border: 'border-orange-500',
+            'on-deep-border': 'border-orange-500',
+            ring: 'ring-orange-500',
+            'on-deep-ring': 'ring-orange-500',
+            fill: 'bg-orange-500',
+            conic: 'bg-[conic-gradient(#f97316_20deg,transparent_180deg)]',
+            toast: '#f97316'
+        },
+        effect: {
+            'focus-ring': 'focus:ring-neutral-200/80',
+            'focus-text': 'focus:text-neutral-100',
+            'ring-verse': 'ring-orange-500/70',
+            'ring-title': 'ring-neutral-200/70'
+        }
     },
-    "brown": {
-        "text-background": "bg-yellow-900",
-        "app-background": "bg-yellow-950",
-        "notes-background": "bg-neutral-700",
-        "base-background": "bg-neutral-900",
-        "verse-detail-background": "bg-neutral-800",
-        "encrypted-background": "bg-neutral-700/70",
-        "relation-background": "bg-neutral-700/70",
-        "table-title-text": "text-neutral-300",
-        "border": "border-yellow-100",
-        "text": "text-neutral-50",
-        "app-text": "text-neutral-300",
-        "page-text": "text-neutral-100/60",
-        "passive-text": "text-neutral-100/30",
-        "log-text": "text-neutral-300/80",
-        "verse-border": "border-yellow-500/80",
-        "verse-ring": "ring-green-500/70",
-        "title-ring": "ring-neutral-200/70",
-        "ring": "ring-yellow-500/80",
-        "focus-ring": "focus:ring-neutral-200/80",
-        "focus-text": "focus:text-neutral-200",
-        "matching-text": "text-green-500",
-        "matching-border": "border-green-500",
-        "matching-ring": "ring-green-500",
-        "matching": "bg-green-500",
-        "matching-conic": "bg-[conic-gradient(#22c55e_20deg,transparent_180deg)]", // green-500
-        "toast-background": "#171717",
-        "toast-text": "#22c55e",
-        "status-bar-background": "#422006", //bg-yellow-950
+    brown: {
+        'theme-mode': 'dark',
+        'status-bar-style': 'dark',
+        surface: {
+            top: 'bg-yellow-900',
+            middle: 'bg-neutral-700',
+            bottom: 'bg-neutral-900',
+            base: 'bg-yellow-950',
+            'verse-detail': 'bg-neutral-800',
+            encrypted: 'bg-neutral-700/70',
+            relation: 'bg-neutral-700/70',
+            'map-top': 'bg-neutral-700/70',
+            'map-chip-base': 'bg-neutral-900',
+            'map-chip': 'bg-neutral-900',
+            'map-chip-active': 'bg-neutral-700/70',
+            toast: '#171717',
+            'status-bar': '#422006'
+        },
+        text: {
+            top: 'text-neutral-50',
+            middle: 'text-neutral-300',
+            bottom: 'text-neutral-100/60',
+            deep: 'text-neutral-100/30',
+            logger: 'text-neutral-300/80',
+            'table-title': 'text-neutral-300',
+            'on-map': 'text-neutral-50',
+            'on-map-soft': 'text-neutral-100/60'
+        },
+        border: {
+            strong: 'border-yellow-100',
+            soft: 'border-yellow-500/80',
+            focus: 'ring-yellow-500/80'
+        },
+        accent: {
+            top: 'text-green-500',
+            'on-light': 'text-green-500',
+            'on-deep': 'text-green-500',
+            'map-heading': 'text-green-500',
+            'map-link': 'text-sky-500',
+            border: 'border-green-500',
+            'on-deep-border': 'border-green-500',
+            ring: 'ring-green-500',
+            'on-deep-ring': 'ring-green-500',
+            fill: 'bg-green-500',
+            conic: 'bg-[conic-gradient(#22c55e_20deg,transparent_180deg)]',
+            toast: '#22c55e'
+        },
+        effect: {
+            'focus-ring': 'focus:ring-neutral-200/80',
+            'focus-text': 'focus:text-neutral-200',
+            'ring-verse': 'ring-green-500/70',
+            'ring-title': 'ring-neutral-200/70'
+        }
     },
-    "sky": {
-        "text-background": "bg-sky-800",
-        "app-background": "bg-sky-950",
-        "notes-background": "bg-neutral-700",
-        "base-background": "bg-neutral-800",
-        "verse-detail-background": "bg-neutral-800",
-        "encrypted-background": "bg-neutral-700/90",
-        "relation-background": "bg-neutral-700/90",
-        "table-title-text": "text-neutral-300",
-        "border": "border-sky-100",
-        "text": "text-neutral-100",
-        "app-text": "text-neutral-300",
-        "page-text": "text-sky-100/60",
-        "passive-text": "text-sky-100/30",
-        "log-text": "text-neutral-300/80",
-        "verse-border": "border-sky-500/80",
-        "verse-ring": "ring-amber-400/70",
-        "title-ring": "ring-neutral-200/70",
-        "ring": "ring-sky-500/80",
-        "focus-ring": "focus:ring-neutral-200/80",
-        "focus-text": "focus:text-neutral-200",
-        "matching-text": "text-amber-400",
-        "matching-border": "border-amber-400",
-        "matching-ring": "ring-amber-300",
-        "matching": "bg-amber-400",
-        "matching-conic": "bg-[conic-gradient(#fbbf24_20deg,transparent_180deg)]", // amber-300
-        "toast-background": "#262626",
-        "toast-text": "#fbbf24",
-        "status-bar-background": "#082f49", //bg-sky-950
+    sky: {
+        'theme-mode': 'dark',
+        'status-bar-style': 'dark',
+        surface: {
+            top: 'bg-sky-800',
+            middle: 'bg-neutral-700',
+            bottom: 'bg-neutral-800',
+            base: 'bg-sky-950',
+            'verse-detail': 'bg-neutral-800',
+            encrypted: 'bg-neutral-700/90',
+            relation: 'bg-neutral-700/90',
+            'map-top': 'bg-neutral-700/90',
+            'map-chip-base': 'bg-neutral-800',
+            'map-chip': 'bg-neutral-800',
+            'map-chip-active': 'bg-neutral-700/90',
+            toast: '#262626',
+            'status-bar': '#082f49'
+        },
+        text: {
+            top: 'text-neutral-100',
+            middle: 'text-neutral-300',
+            bottom: 'text-sky-100/60',
+            deep: 'text-sky-100/30',
+            logger: 'text-neutral-300/80',
+            'table-title': 'text-neutral-300',
+            'on-map': 'text-neutral-100',
+            'on-map-soft': 'text-sky-100/60'
+        },
+        border: {
+            strong: 'border-sky-100',
+            soft: 'border-sky-500/80',
+            focus: 'ring-sky-500/80'
+        },
+        accent: {
+            top: 'text-amber-400',
+            'on-light': 'text-amber-400',
+            'on-deep': 'text-amber-400',
+            'map-heading': 'text-amber-400',
+            'map-link': 'text-sky-500',
+            border: 'border-amber-400',
+            'on-deep-border': 'border-amber-400',
+            ring: 'ring-amber-300',
+            'on-deep-ring': 'ring-amber-300',
+            fill: 'bg-amber-400',
+            conic: 'bg-[conic-gradient(#fbbf24_20deg,transparent_180deg)]',
+            toast: '#fbbf24'
+        },
+        effect: {
+            'focus-ring': 'focus:ring-neutral-200/80',
+            'focus-text': 'focus:text-neutral-200',
+            'ring-verse': 'ring-amber-400/70',
+            'ring-title': 'ring-neutral-200/70'
+        }
+    },
+    leaf: {
+        'theme-mode': 'light',
+        'status-bar-style': 'light',
+        surface: {
+            top: 'bg-[#ffe6a7]',
+            middle: 'bg-[#f3ddb0]',
+            bottom: 'bg-[#e6ca94]',
+            base: 'bg-[#414833]',
+            'verse-detail': 'bg-[#f3ddb0]',
+            encrypted: 'bg-[#36472f]',
+            relation: 'bg-[#2c3d2c]',
+            'map-top': 'bg-[#2a3a29]',
+            'map-chip-base': 'bg-[#223021]',
+            'map-chip': 'bg-[#223021]',
+            'map-chip-active': 'bg-[#3b5237]',
+            toast: '#f3ddb0',
+            'status-bar': '#414833'
+        },
+        text: {
+            top: 'text-[#3f3323]',
+            middle: 'text-[#4f3c29]',
+            bottom: 'text-[#4f3c29]/60',
+            deep: 'text-[#4f3c29]/30',
+            logger: 'text-[#4f3c29]/80',
+            'table-title': 'text-[#5e472f]',
+            'on-deep': 'text-[#f3ddb0]',
+            'on-deep-soft': 'text-[#f3ddb0]/70',
+            'on-deep-placeholder': 'placeholder:text-[#f3ddb0]/70',
+            'on-detail': 'text-[#fff6df]',
+            'on-detail-soft': 'text-[#f3ddb0]/70',
+            'on-map': 'text-[#f3ddb0]',
+            'on-map-soft': 'text-[#f3ddb0]/70'
+        },
+        border: {
+            strong: 'border-[#7f5539]',
+            soft: 'border-[#7f5539]/80',
+            focus: 'ring-[#7f5539]/80'
+        },
+        accent: {
+            top: 'text-fuchsia-700',
+            'on-light': 'text-fuchsia-700',
+            'on-deep': 'text-fuchsia-300',
+            'map-heading': 'text-fuchsia-300',
+            'map-link': 'text-fuchsia-300',
+            border: 'border-fuchsia-700',
+            'on-deep-border': 'border-fuchsia-300',
+            ring: 'ring-fuchsia-600/80',
+            'on-deep-ring': 'ring-fuchsia-300/90',
+            fill: 'bg-fuchsia-600',
+            conic: 'bg-[conic-gradient(#d946ef_20deg,transparent_180deg)]',
+            toast: '#d946ef'
+        },
+        effect: {
+            'focus-ring': 'focus:ring-fuchsia-600/70',
+            'focus-text': 'focus:text-[#4f3c29]',
+            'ring-verse': 'ring-fuchsia-600/70',
+            'ring-title': 'ring-[#f3ddb0]/70'
+        }
+    },
+    pink: {
+        'theme-mode': 'light',
+        'status-bar-style': 'light',
+        surface: {
+            top: 'bg-pink-50',
+            middle: 'bg-pink-100',
+            bottom: 'bg-pink-50',
+            base: 'bg-pink-200',
+            'verse-detail': 'bg-pink-100',
+            encrypted: 'bg-orange-300/40',
+            relation: 'bg-orange-300/40',
+            'map-top': 'bg-orange-200/60',
+            'map-chip-base': 'bg-pink-100',
+            'map-chip': 'bg-pink-100',
+            'map-chip-active': 'bg-orange-200/60',
+            toast: '#fff1f2',
+            'status-bar': '#fbcfe8'
+        },
+        text: {
+            top: 'text-neutral-950',
+            middle: 'text-neutral-900',
+            bottom: 'text-neutral-900/60',
+            deep: 'text-neutral-900/30',
+            logger: 'text-neutral-800/80',
+            'table-title': 'text-neutral-800',
+            'on-map': 'text-neutral-950',
+            'on-map-soft': 'text-neutral-900/60'
+        },
+        border: {
+            strong: 'border-pink-500',
+            soft: 'border-pink-400/80',
+            focus: 'ring-pink-400/80'
+        },
+        accent: {
+            top: 'text-green-600',
+            'on-light': 'text-green-700',
+            'on-deep': 'text-green-600',
+            'map-heading': 'text-green-600',
+            'map-link': 'text-green-600',
+            border: 'border-green-600',
+            'on-deep-border': 'border-green-600',
+            ring: 'ring-green-600',
+            'on-deep-ring': 'ring-green-600',
+            fill: 'bg-green-600',
+            conic: 'bg-[conic-gradient(#16a34a_20deg,transparent_180deg)]',
+            toast: '#16a34a'
+        },
+        effect: {
+            'focus-ring': 'focus:ring-pink-800/80',
+            'focus-text': 'focus:text-neutral-900',
+            'ring-verse': 'ring-green-600/80',
+            'ring-title': 'ring-pink-300/50'
+        }
     }
 };
 
 export const ColorPicker = memo(({ theme, colors, onChangeColor }) => {
     return (
-        <div className={`grid grid-flow-dense grid-cols-3 gap-4 w-full h-full`}>
-            {Object.entries(colors).map(([localTheme]) => (
-                <label key={localTheme} className="flex cursor-pointer flex-1 items-stretch">
+        <div className={`grid grid-flow-dense grid-cols-3 md:grid-cols-4 gap-2 w-full`}>
+            {Object.entries(colors).map(([localTheme, themeColors]) => (
+                <label
+                    key={localTheme}
+                    data-theme-option={localTheme}
+                    data-selected-theme={localTheme === theme ? "true" : "false"}
+                    className="flex cursor-pointer flex-1 items-stretch">
                     <input
                         type="radio"
                         name="theme"
                         value={localTheme}
                         onChange={(e) => onChangeColor(e.target.value)}
+                        aria-label={localTheme}
                         className="hidden"
                     />
                     <span
-                        className={`flex items-center justify-center rounded flex-1 ${colors[localTheme]["text-background"]} ${localTheme === theme ? `border-2 ${colors[theme]["matching-border"]}` : "border border-gray-400"} h-20`}>
-                        {localTheme === theme &&
-                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" className={`${colors[theme]["matching-text"]} w-9 h-9`}>
+                        title={localTheme}
+                        className={`relative flex flex-col items-stretch justify-center rounded p-1.5 flex-1 ${themeColors["surface"]["base"]} ${localTheme === theme ? `border-2 ${themeColors["accent"]["border"]}` : "border border-gray-400/70"} min-h-[76px] md:min-h-24`}>
+                        <span className={`rounded-sm w-full h-8 md:h-9 px-1.5 py-1.5 flex flex-col justify-center gap-1 ${themeColors["surface"]["top"]}`}>
+                            <span className={`block h-[2px] rounded-full bg-current ${themeColors["text"]["top"]}`} />
+                            <span className={`block h-[2px] rounded-full bg-current w-4/5 ${themeColors["text"]["middle"]}`} />
+                        </span>
+                        <span className={`h-1.5 rounded-sm w-full mt-1 ${themeColors["accent"]["fill"]}`} />
+                        <span className="grid grid-cols-4 gap-0.5 mt-1.5">
+                            <span className={`h-2.5 rounded ${themeColors['surface']['top']}`} />
+                            <span className={`h-2.5 rounded ${themeColors['surface']['middle']}`} />
+                            <span className={`h-2.5 rounded ${themeColors['surface']['bottom']}`} />
+                            <span className={`h-2.5 rounded ${themeColors['surface']['base']}`} />
+                        </span>
+                        {localTheme === theme && (
+                            <svg
+                                xmlns="http://www.w3.org/2000/svg"
+                                viewBox="0 0 24 24"
+                                fill="currentColor"
+                                className={`${themeColors["accent"]["top"]} absolute right-1 bottom-1 w-4 h-4`}>
                                 <path fillRule="evenodd" d="M19.916 4.626a.75.75 0 0 1 .208 1.04l-9 13.5a.75.75 0 0 1-1.154.114l-6-6a.75.75 0 0 1 1.06-1.06l5.353 5.353 8.493-12.74a.75.75 0 0 1 1.04-.207Z" clipRule="evenodd" />
-                            </svg>}
+                            </svg>
+                        )}
                     </span>
                 </label>
             ))}
@@ -215,9 +494,9 @@ export const FontPicker = memo(({ theme, colors, font, onChangeFont }) => {
         : 'ui-sans-serif, system-ui, sans-serif';
 
     return (
-        <div className={`flex flex-col space-y-4 w-full h-full text-lg`}>
+        <div className={`flex flex-row gap-3 w-full text-base`}>
 
-            <label key={`sans`} className="flex cursor-pointer flex-1 items-stretch ">
+            <label key={`sans`} className="flex cursor-pointer flex-1 items-stretch min-w-0">
                 <input
                     type="radio"
                     name="theme"
@@ -226,14 +505,16 @@ export const FontPicker = memo(({ theme, colors, font, onChangeFont }) => {
                     className="hidden"
                 />
                 <div
-                    className={`flex flex-col items-center justify-center rounded flex-1 ${colors[theme]["text-background"]} ${colors[theme]["text"]} ${`font-normal` === font ? `border-2 ${colors[theme]["matching-border"]}` : "border border-gray-400"} h-20`}>
-                    <div style={{ fontFamily: sansPreviewFamily }}>{`Q`}</div>
-                    <div style={{ fontFamily: sansPreviewFamily }} className={`text-xl -mt-2 !font-normal`}>{`ق`}</div>
-                    <div style={{ fontFamily: sansPreviewFamily }} className={`text-base `}>{`57`}</div>
+                    className={`flex items-center justify-center rounded flex-1 px-2 ${colors[theme]["surface"]["top"]} ${colors[theme]["text"]["top"]} ${`font-normal` === font ? `${colors[theme]["accent"]["border"]}` : `${colors[theme]["border"]["soft"]}`} border-2 h-12`}>
+                    <div className=" w-full flex items-center justify-center gap-5 leading-none">
+                        <div style={{ fontFamily: sansPreviewFamily }} className="text-3xl">{`Q`}</div>
+                        <div style={{ fontFamily: sansPreviewFamily }} className="text-[2rem] mb-2.5 !font-normal">{`ق`}</div>
+                        <div style={{ fontFamily: sansPreviewFamily }} className="text-2xl">{`57`}</div>
+                    </div>
                 </div>
             </label>
 
-            <label key={`serif`} className="flex cursor-pointer flex-1 items-stretch ">
+            <label key={`serif`} className="flex cursor-pointer flex-1 items-stretch min-w-0">
                 <input
                     type="radio"
                     name="theme"
@@ -242,10 +523,12 @@ export const FontPicker = memo(({ theme, colors, font, onChangeFont }) => {
                     className="hidden"
                 />
                 <div
-                    className={`flex flex-col items-center justify-center rounded flex-1 ${colors[theme]["text-background"]} ${colors[theme]["text"]} ${`font-serif` === font ? `border-2 ${colors[theme]["matching-border"]}` : "border border-gray-400"} h-20`}>
-                    <div style={{ fontFamily: 'serif' }}>{`Q`}</div>
-                    <div style={{ fontFamily: 'serif' }} className={`text-xl -mt-1.5 `}>{`ق`}</div>
-                    <div style={{ fontFamily: 'serif' }} className={`text-base -mt-0.5 `}>{`57`}</div>
+                    className={`flex items-center justify-center rounded flex-1 px-2 ${colors[theme]["surface"]["top"]} ${colors[theme]["text"]["top"]} ${`font-serif` === font ? `${colors[theme]["accent"]["border"]}` : `${colors[theme]["border"]["soft"]}`} border-2 h-12`}>
+                    <div className=" w-full flex items-center justify-center gap-5 leading-none">
+                        <div style={{ fontFamily: 'serif' }} className="text-3xl">{`Q`}</div>
+                        <div style={{ fontFamily: 'serif' }} className="text-[2rem] mb-2">{`ق`}</div>
+                        <div style={{ fontFamily: 'serif' }} className="text-2xl pt-1">{`57`}</div>
+                    </div>
                 </div>
             </label>
 
