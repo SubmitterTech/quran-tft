@@ -117,4 +117,30 @@ describe('listCopy note placement', () => {
       '[50:23] Verse 23\n\n[50:27] Verse 27\n\nNote: *50:23-28 note text'
     );
   });
+
+  test('smartCopy falls back to execCommand when Clipboard.write fails', async () => {
+    Clipboard.write.mockRejectedValueOnce(new Error('clipboard blocked'));
+
+    const consoleErrorSpy = jest.spyOn(console, 'error').mockImplementation(() => { });
+    const originalExecCommand = document.execCommand;
+    const originalNavigatorClipboard = navigator.clipboard;
+    document.execCommand = jest.fn().mockReturnValue(true);
+    Object.defineProperty(navigator, 'clipboard', {
+      value: undefined,
+      configurable: true
+    });
+
+    try {
+      const copied = await smartCopy('[2:255]', { current: {} }, 'Ayat text');
+      expect(copied).toBe(true);
+      expect(document.execCommand).toHaveBeenCalledWith('copy');
+    } finally {
+      consoleErrorSpy.mockRestore();
+      document.execCommand = originalExecCommand;
+      Object.defineProperty(navigator, 'clipboard', {
+        value: originalNavigatorClipboard,
+        configurable: true
+      });
+    }
+  });
 });

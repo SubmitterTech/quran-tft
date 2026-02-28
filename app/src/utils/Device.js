@@ -146,16 +146,73 @@ export const setStatusBarStyle = async (theme, bgc) => {
   }
 };
 
+const writeToNavigatorClipboard = async (text) => {
+  if (typeof navigator === 'undefined' || !navigator.clipboard || typeof navigator.clipboard.writeText !== 'function') {
+    return false;
+  }
+
+  try {
+    await navigator.clipboard.writeText(text);
+    return true;
+  } catch (_error) {
+    return false;
+  }
+};
+
+const writeWithExecCommand = (text) => {
+  if (typeof document === 'undefined' || !document.body || typeof document.createElement !== 'function') {
+    return false;
+  }
+
+  const textarea = document.createElement('textarea');
+  textarea.value = text;
+  textarea.setAttribute('readonly', '');
+  textarea.style.position = 'fixed';
+  textarea.style.top = '0';
+  textarea.style.left = '-9999px';
+  textarea.style.opacity = '0';
+  textarea.style.pointerEvents = 'none';
+
+  const selection = typeof document.getSelection === 'function' ? document.getSelection() : null;
+  const previousRange = selection && selection.rangeCount > 0 ? selection.getRangeAt(0) : null;
+
+  document.body.appendChild(textarea);
+
+  try {
+    textarea.focus();
+    textarea.select();
+    textarea.setSelectionRange(0, textarea.value.length);
+    return typeof document.execCommand === 'function' && document.execCommand('copy');
+  } catch (_error) {
+    return false;
+  } finally {
+    document.body.removeChild(textarea);
+    if (selection) {
+      selection.removeAllRanges();
+      if (previousRange) {
+        selection.addRange(previousRange);
+      }
+    }
+  }
+};
+
 const writeToClipboard = async (text) => {
+  const normalizedText = String(text ?? '');
+
   try {
     await Clipboard.write({
-      string: text
+      string: normalizedText
     });
     return true;
   } catch (err) {
-    console.error('Failed to copy text: ', err);
-    return false;
+    console.error('Failed to copy text via Capacitor Clipboard, trying fallbacks: ', err);
   }
+
+  if (await writeToNavigatorClipboard(normalizedText)) {
+    return true;
+  }
+
+  return writeWithExecCommand(normalizedText);
 };
 
 const smartCopyState = new WeakMap();
