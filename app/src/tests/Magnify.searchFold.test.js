@@ -14,6 +14,10 @@ function normalizeText(text) {
     return text.normalize("NFD").replace(/[\u0300-\u036f]/g, "");
 }
 
+function normalizeApostropheLikeMarks(text) {
+    return String(text ?? '').replace(/['’‘`´ʼʹʽˈꞌ＇]/g, '');
+}
+
 /**
  * searchFold – collapses text into a canonical form for search matching.
  * @param {string} text
@@ -27,6 +31,7 @@ function searchFold(text, lang, doNormalize, caseSensitive) {
         t = t.replace(/[İIıi]/g, "i");
     }
     if (doNormalize) {
+        t = normalizeApostropheLikeMarks(t);
         t = t.normalize("NFD").replace(/[\u0300-\u036f]/g, "");
     }
     if (!caseSensitive) {
@@ -83,6 +88,12 @@ describe("Turkish (tr) — normalize ON", () => {
     });
     test("'israıl' matches 'İsrail' (norm ON → ı≈i)", () => {
         expect(foldMatch("İsrail devleti", "israıl", lang, norm)).toBe(true);
+    });
+    test("'mümin' matches 'Mu’minleri' (apostrophe normalized)", () => {
+        expect(foldMatch("Mu’minleri", "mümin", lang, norm)).toBe(true);
+    });
+    test("'tanrının' matches 'TANRI’nın' (apostrophe normalized)", () => {
+        expect(foldMatch("TANRI’nın", "tanrının", lang, norm)).toBe(true);
     });
 });
 
@@ -314,5 +325,8 @@ describe("Case-sensitive mode", () => {
     });
     test("Turkish: 'istanbul' does NOT match 'İstanbul' (case-sensitive)", () => {
         expect(caseSensitiveMatch("İstanbul güzel", "istanbul", "tr", false)).toBe(false);
+    });
+    test("Turkish: 'TANRInın' matches 'TANRI’nın' with normalize ON", () => {
+        expect(caseSensitiveMatch("TANRI’nın", "TANRInın", "tr", true)).toBe(true);
     });
 });

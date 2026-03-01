@@ -14,6 +14,10 @@ function normalizeText(text) {
     return text.normalize("NFD").replace(/[\u0300-\u036f]/g, "");
 }
 
+function normalizeApostropheLikeMarks(text) {
+    return String(text ?? '').replace(/['’‘`´ʼʹʽˈꞌ＇]/g, '');
+}
+
 describe("normalizeText", () => {
     test("strips French accents: 'école' → 'ecole'", () => {
         expect(normalizeText("école")).toBe("ecole");
@@ -95,6 +99,7 @@ function searchFold(text, lang, doNormalize, caseSensitive) {
         t = t.replace(/[İIıi]/g, "i");
     }
     if (doNormalize) {
+        t = normalizeApostropheLikeMarks(t);
         t = t.normalize("NFD").replace(/[\u0300-\u036f]/g, "");
     }
     if (!caseSensitive) {
@@ -316,6 +321,7 @@ function highlightTextLogic(originalText, keyword, lang, doNormalize, caseSensit
             ch = ch.replace(/[İIıi]/g, "i");
         }
         if (doNormalize) {
+            ch = normalizeApostropheLikeMarks(ch);
             ch = ch.normalize("NFD").replace(/[\u0300-\u036f]/g, "");
         }
         if (!caseSensitive) {
@@ -332,6 +338,7 @@ function highlightTextLogic(originalText, keyword, lang, doNormalize, caseSensit
         processedKeyword = processedKeyword.replace(/[İIıi]/g, "i");
     }
     if (doNormalize) {
+        processedKeyword = normalizeApostropheLikeMarks(processedKeyword);
         processedKeyword = normalizeText(processedKeyword);
     }
     if (!processedKeyword || processedKeyword.trim() === '') return [originalText];
@@ -530,6 +537,21 @@ describe("highlightText — correct highlighting", () => {
     test("Turkish normalize OFF: highlights 'varış' and 'varı' queries", () => {
         expect(getHighlights("Yolculuk varış noktasına ulaştı", "varış", "tr", false, false)).toEqual(["varış"]);
         expect(getHighlights("Yolculuk varış noktasına ulaştı", "varı", "tr", false, false)).toEqual(["varı"]);
+    });
+
+    test("normalize ON: 'mümin' highlights in 'Mu’minleri'", () => {
+        const highlights = getHighlights("Mu’minleri korur", "mümin", "tr", true, false);
+        expect(highlights).toEqual(["Mu’min"]);
+    });
+
+    test("normalize ON case-insensitive: 'tanrının' highlights 'TANRI’nın'", () => {
+        const highlights = getHighlights("TANRI’nın ayetleri", "tanrının", "tr", true, false);
+        expect(highlights).toEqual(["TANRI’nın"]);
+    });
+
+    test("normalize ON case-sensitive: 'TANRInın' highlights 'TANRI’nın'", () => {
+        const highlights = getHighlights("TANRI’nın ayetleri", "TANRInın", "tr", true, true);
+        expect(highlights).toEqual(["TANRI’nın"]);
     });
 
     test("match at very start of text", () => {
@@ -1042,6 +1064,7 @@ function lightWordsHighlights(text, searchTerm, lang = "en", doNormalize = false
                 ch = ch.replace(/[İIıi]/g, "i");
             }
             if (doNormalize) {
+                ch = normalizeApostropheLikeMarks(ch);
                 ch = ch.normalize("NFD").replace(/[\u0300-\u036f]/g, "");
             }
             if (!caseSensitive) {
@@ -1060,6 +1083,7 @@ function lightWordsHighlights(text, searchTerm, lang = "en", doNormalize = false
                 processedKeyword = processedKeyword.replace(/[İIıi]/g, "i");
             }
             if (doNormalize) {
+                processedKeyword = normalizeApostropheLikeMarks(processedKeyword);
                 processedKeyword = normalizeText(processedKeyword);
             }
             if (!processedKeyword || processedKeyword.trim() === '') return;

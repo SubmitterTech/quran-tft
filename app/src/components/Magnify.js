@@ -533,6 +533,10 @@ const Magnify = ({ colors, theme, translationApplication, quran, map, appendices
         return text.normalize("NFD").replace(/[\u0300-\u036f]/g, "");
     };
 
+    const normalizeApostropheLikeMarks = (text) => {
+        return String(text ?? '').replace(/['’‘`´ʼʹʽˈꞌ＇]/g, '');
+    };
+
     const removePunctuations = (text) => {
         return text.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
     };
@@ -546,6 +550,7 @@ const Magnify = ({ colors, theme, translationApplication, quran, map, appendices
             t = t.replace(/[İIıi]/g, "i");
         }
         if (normalize) {
+            t = normalizeApostropheLikeMarks(t);
             t = t.normalize("NFD").replace(/[\u0300-\u036f]/g, "");
         }
         if (!caseSensitive) {
@@ -593,6 +598,7 @@ const Magnify = ({ colors, theme, translationApplication, quran, map, appendices
             if (suggestionFoldLang === 'tr' || suggestionFoldLang === 'az') {
                 t = t.replace(/[İIıi]/g, 'i');
             }
+            t = normalizeApostropheLikeMarks(t);
             t = t.normalize("NFD").replace(/[\u0300-\u036f]/g, "");
             t = t.toLocaleUpperCase(suggestionFoldLang);
             return t;
@@ -1588,6 +1594,7 @@ const Magnify = ({ colors, theme, translationApplication, quran, map, appendices
                 ch = ch.replace(/[İIıi]/g, "i");
             }
             if (normalize) {
+                ch = normalizeApostropheLikeMarks(ch);
                 ch = ch.normalize("NFD").replace(/[\u0300-\u036f]/g, "");
             }
             if (!caseSensitive) {
@@ -1607,6 +1614,7 @@ const Magnify = ({ colors, theme, translationApplication, quran, map, appendices
             processedKeyword = processedKeyword.replace(/[İIıi]/g, "i");
         }
         if (normalize) {
+            processedKeyword = normalizeApostropheLikeMarks(processedKeyword);
             processedKeyword = normalizeText(processedKeyword);
         }
         if (!processedKeyword || processedKeyword.trim() === '') return [originalText];
@@ -1684,6 +1692,7 @@ const Magnify = ({ colors, theme, translationApplication, quran, map, appendices
                 ch = ch.replace(/[İIıi]/g, "i");
             }
             if (normalize) {
+                ch = normalizeApostropheLikeMarks(ch);
                 ch = ch.normalize("NFD").replace(/[\u0300-\u036f]/g, "");
             }
             if (!caseSensitive) {
@@ -1708,6 +1717,7 @@ const Magnify = ({ colors, theme, translationApplication, quran, map, appendices
                 processedKeyword = processedKeyword.replace(/[İIıi]/g, "i");
             }
             if (normalize) {
+                processedKeyword = normalizeApostropheLikeMarks(processedKeyword);
                 processedKeyword = normalizeText(processedKeyword);
             }
             if (!processedKeyword || processedKeyword.trim() === '') return;
