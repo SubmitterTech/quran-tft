@@ -11,7 +11,7 @@ import Splash from '../components/Splash';
 import Intro from '../components/Intro';
 import Isbn from '../components/Isbn';
 import { adjustReference, generateReferenceMap, transformAppendices, findPageNumber, extractReferenceDetails, mapQuranWithNotes, generateFormula, toRoman } from '../utils/Mapper';
-import { listCopy, smartCopy, supportsLookAhead, isNative } from '../utils/Device';
+import { listCopy, smartCopy, supportsLookAhead, isNative, triggerActionHaptic } from '../utils/Device';
 import LongPressable from '../hooks/LongPressable';
 import { NextPagerProgressRing } from '../hooks/NextPager';
 import '../assets/css/Book.css';
@@ -185,6 +185,7 @@ const Book = React.memo(({ incomingSearch = false, incomingAppendix = false, inc
     };
 
     const handleToggleJump = () => {
+        void triggerActionHaptic();
         window.dispatchEvent(new CustomEvent('navigation:click'));
         if (!isJumpOpen) {
             if (typeof onIntroTranslationNeeded === 'function') {
@@ -347,7 +348,12 @@ const Book = React.memo(({ incomingSearch = false, incomingAppendix = false, inc
 
     const handleTimerUpdate = (progress, elapsed) => {
         if (elapsed >= 285) {
-            setPrevSettingsOpen(true);
+            setPrevSettingsOpen((wasOpen) => {
+                if (!wasOpen) {
+                    void triggerActionHaptic();
+                }
+                return true;
+            });
             setPrevSettingsOpenningProgress(progress);
         } else {
             window.dispatchEvent(new CustomEvent('navigation:click'));
@@ -355,6 +361,7 @@ const Book = React.memo(({ incomingSearch = false, incomingAppendix = false, inc
     };
 
     const handleNavigationButton = (whichone) => {
+        void triggerActionHaptic();
         window.dispatchEvent(new CustomEvent('navigation:click'));
         if (isPrevSettingsOpen) {
             setPrevSettingsOpen(false);

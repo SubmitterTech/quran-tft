@@ -2,7 +2,7 @@ import React, { useState, useEffect, useRef, useMemo, useCallback } from 'react'
 import languages from '../assets/languages.json';
 import { getRandom } from '../utils/Generator';
 import { adjustReference, toRoman } from '../utils/Mapper';
-import { isNative, which } from '../utils/Device';
+import { isNative, which, triggerActionHaptic } from '../utils/Device';
 import { ColorPicker, FontPicker } from '../utils/Theme';
 import Bookmarks from '../utils/Bookmarks';
 import LongPressable from '../hooks/LongPressable';
@@ -442,7 +442,12 @@ const Jump = React.memo(({ onChangeLanguage, suraNames, onChangeFont, font, onCh
 
     const handleTimerUpdate = (progress, elapsed) => {
         if (elapsed >= 285) {
-            setSuraSettingsOpen(true);
+            setSuraSettingsOpen((wasOpen) => {
+                if (!wasOpen) {
+                    void triggerActionHaptic();
+                }
+                return true;
+            });
             setSuraSettingsOpenningProgress(progress);
         }
     };

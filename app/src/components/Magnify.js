@@ -1,6 +1,6 @@
 import { useState, useEffect, useCallback, useRef, useMemo, useDeferredValue, useTransition } from 'react';
 import { mapAppendices, mapQuran } from '../utils/Mapper';
-import { isNative } from '../utils/Device';
+import { isNative, triggerActionHaptic } from '../utils/Device';
 import languages from '../assets/languages.json';
 
 
@@ -457,6 +457,11 @@ const Magnify = ({ colors, theme, translationApplication, quran, map, appendices
     const notesReferences = useRef({});
     const appendicesReferences = useRef({});
     const singleReferences = useRef({});
+
+    const handleMultiSelectToggle = useCallback(() => {
+        void triggerActionHaptic();
+        setMultiSelect((previous) => !previous);
+    }, [setMultiSelect]);
 
     useEffect(() => {
         setQuranmap(mapQuran(quran));
@@ -2265,7 +2270,7 @@ const Magnify = ({ colors, theme, translationApplication, quran, map, appendices
                                 </div>
                                 {versesVisible &&
                                     <div
-                                        onClick={() => setMultiSelect(!multiSelect)}
+                                        onClick={handleMultiSelectToggle}
                                         style={{ animation: 'animate-scale 0.3s ease-in-out' }}
                                         className={` ${direction === 'rtl' ? `ml-0.5 mr-3` : `mr-0.5 ml-3`} cursor-pointer mt-0.5 p-1 transition-all duration-100 ease-linear ${multiSelect ? `${selectedVerseList.length > 0 ? `${colors[theme]["matching-text"]}` : `${colors[theme]["text"]}`}` : `${colors[theme]["passive-text"]}`}`}>
                                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className={`w-8 h-8 `}>
