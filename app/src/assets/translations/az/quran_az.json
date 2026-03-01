@@ -14083,7 +14083,7 @@
                     "8": "Diri-diri basdırılan qız uşaqlarından soruşulanda:",
                     "9": "Hansı günaha görə öldürüldü?",
                     "10": "Qeydlər məlum olur. ",
-                    "11": "Göy ortadan qaldırılar. ",
+                    "11": "Göy ortadan qaldırılır. ",
                     "12": "Cəhənnəm alovlanır. ",
                     "13": "Cənnət təqdim olunur. ",
                     "14": "Hər ruh gətirdiyi hər şeyi biləcək.",
@@ -14161,7 +14161,7 @@
                     "3": "Amma onlara ölçü və ya çəki verərkən hiylə edirlər. ",
                     "4": "Məgər onlar yenidən diriləcəklərini bilmirlərmi? ",
                     "5": "Möhtəşəm bir gündə? ",
-                    "6": "Bu bütün insanların kainatın Rəbbinin hüzurunda duracağı gündür. ",
+                    "6": "Bu bütün insanların, kainatın Rəbbinin hüzurunda duracağı gündür. ",
                     "7": "Doğrusu, pis insanların kitabı Siccindədir.",
                     "8": "Siccin nədir bilirsənmi? ",
                     "9": "Rəqəmlərlə təşkil olunmuş bir kitab.",
@@ -14170,7 +14170,7 @@
                     "12": "Həddi aşan günahkarlardan başqa heç kəs onu inkar etməz. ",
                     "13": "Vəhylərimiz ona oxunduğu zaman: “Keçmişin nağıllarıdır!” - deyər. ",
                     "14": "Doğrusu, onların qəlbləri günahları ilə örtülmüşdür. ",
-                    "15": "Doğrusu, o gün onlar öz Rəbbindən təcrid olunacaq. "
+                    "15": "Doğrusu, o gün onlar öz Rəbbindən təcrid olunacaqlar. "
                 },
                 "titles": {
                     "1": "♦ ♦ ♦ ♦\nSurə 83: Hilə Edənlər \n(Əl-Mutaffifun) \nƏn Lütfkar, Ən Mərhəmətli olan Tanrının adı ilə ",
@@ -14191,7 +14191,7 @@
             "83": {
                 "verses": {
                     "16": "Sonra Cəhənnəmə atılacaqlar.",
-                    "17": "Onlara: “Bu, yalan hesab etdiyiniz şeydir” deyiləcək. ",
+                    "17": "Onlara: “Bu, yalan hesab etdiyiniz şeydir” ,- deyiləcək. ",
                     "18": "Doğrusu, doğru danışanların kitabı “İlliyyun”da olacaq. ",
                     "19": "“İlliyyun” nədir bilirsənmi?",
                     "20": "Rəqəmlərlə təşkil olunmuş bir kitab.",
@@ -14203,7 +14203,7 @@
                     "26": "Onun dadı müşk kimidir. Buna görə də rəqiblər rəqabət aparmalıdır. ",
                     "27": "İçinə xüsusi ləzzətlər qarışdırılacaq. ",
                     "28": "Mənə yaxın olanlar üçün ayrılmış bir qaynaqdan.",
-                    "29": "Pislər iman gətirənlərə gülürdülər",
+                    "29": "Pislər iman gətirənlərə gülürdülər.",
                     "30": "Yanından keçəndə onları ələ salırdılar.",
                     "31": "Camaatla bir araya gələndə onları gülüş obyektinə çevirərdilər. ",
                     "32": "Onları nə zaman görsələr deyərdilər: “Bu insanlar çox böyük bir azğınlıq içindədirlər! ",
@@ -14273,8 +14273,8 @@
                     "7": "İmanlıların yanmağını seyr etmək üçün. ",
                     "8": "Sırf onlar Qüdrətli Olan, Tərifə Layiq Olan TANRI’ya iman etdikləri üçün onlara nifrət etdilər. ",
                     "9": "Ona aiddir göylərin və yerin səltənəti. Və TANRI hər şeyə şahiddir. ",
-                    "10": "Şübhəsiz ki, imanlı kişi və qadınlara zülm edib, sonra tövbə etməyənlər Cəhənnəm əzabını üzərinə çəkdi. Onlar yanma əzabını üzərlərinə çəkdilər.",
-                    "11": "Şübhəsiz, iman edib doğru bir həyat yaşayanlar, axan çayları olan bağlara layiq oldu. Ən böyük zəfər budur. ",
+                    "10": "Şübhəsiz ki, imanlı kişi və qadınlara zülm edib, sonra tövbə etməyənlər Cəhənnəm əzabını üzərlərinə çəkdilər. Onlar yanma əzabını üzərlərinə çəkdilər.",
+                    "11": "Şübhəsiz, iman edib doğru bir həyat yaşayanlar, axan çayları olan bağlara layiq oldular. Ən böyük zəfər budur. ",
                     "12": "Doğrusu, Rəbbinin zərbəsi şiddətlidir.",
                     "13": "Odur başladan və təkrarlayan. ",
                     "14": "Və O, Bağışlayandır, Ən Yaxşı Olandır. ",
@@ -14318,7 +14318,7 @@
         "sura": {
             "86": {
                 "verses": {
-                    "8": "O onu diriltməyə əlbəttə qadirdir.",
+                    "8": "O onu diriltməyə, əlbəttə, qadirdir.",
                     "9": "Bütün sirlərin aşkara çıxacağı gün. ",
                     "10": "Onun nə gücü olacaq, nə də köməkçisi. ",
                     "11": "And olsun (suyu) geri qaytaran göyə.",
@@ -14334,8 +14334,8 @@
             "87": {
                 "verses": {
                     "1": "Ucalar Ucası olan Rəbbinin adını təriflə.",
-                    "2": "O, yaradır və forma verir. ",
-                    "3": "Dizayn edər və yol göstərər. ",
+                    "2": "O yaradır və forma verir. ",
+                    "3": "Dizayn edir və yol göstərir. ",
                     "4": "Otlağı ortaya çıxarır. ",
                     "5": "Sonra da onu yüngül, quru ota çevirir. ",
                     "6": "Sənə oxuyacağıq; unutma. ",
@@ -14346,7 +14346,7 @@
                     "11": "Pis olan ondan qaçacaq. ",
                     "12": "Nəticə olaraq, o, böyük Cəhənnəm Atəşinə məruz qalacaq.",
                     "13": "Orada heç vaxt ölməz, sağ da qalmaz. ",
-                    "14": "Ruhunu günahın bədəlindən qurtaran, həqiqətən də, uğur qazanmışdır. ",
+                    "14": "Ruhunu günahın qarşılığından qurtaran, həqiqətən də, uğur qazanmışdır. ",
                     "15": "Rəbbinin adını xatırlayaraq və ünsiyyət dualarını (Namazı) yerinə yetirərək.",
                     "16": "Doğrusu, bu ilk həyatla daim məşğul olan sizsiniz. ",
                     "17": "Baxmayaraq ki, axirət daha xeyirli və daimidir.",
@@ -14416,7 +14416,7 @@
                     "6": "Rəbbinin Ada nə etdiyinə nəzər yetirdinmi?",
                     "7": "Bəs İrəmə; yüksək binaları olan şəhərə.",
                     "8": "Heç bir yerdə onun kimisi yox idi.",
-                    "9": "Həmçinin, vadilərində qayaları olan Səmud’a.",
+                    "9": "Həmçinin, vadilərində qayaları olan Səmuda.",
                     "10": "Və qüdrət sahibi Firona.",
                     "11": "Onların hamısı öz ölkələrində həddi aşmışdı.",
                     "12": "Hər tərəfə pislik yayardılar.",
@@ -14467,9 +14467,9 @@
                     "1": "Ciddiyyətlə and içirəm bu şəhərə. ",
                     "2": "Yaşadığın şəhərə.",
                     "3": "Bir övlada ata olana və bir ataya övlad olana.",
-                    "4": "Biz insanları zəhmət çəkib (günahın əvəzindən xilas olması üçün) yaratdıq.*",
+                    "4": "Biz insanları zəhmət çəkib (günahın qarşılığından xilas olması üçün) yaratdıq.*",
                     "5": "Heç kimin ondan hesab çəkməyəcəyini düşünür?",
-                    "6": "O öyünür: “Mən çox pul xərcləmişəm!” ",
+                    "6": "O öyünür: “Mən çox pul xərcləmişəm!”. ",
                     "7": "Heç kimin onu görmədiyini düşünür?",
                     "8": "Ona iki göz vermədikmi? ",
                     "9": "Bir dil və iki dodaq?",
@@ -14482,8 +14482,8 @@
                     "16": "Yaxud ehtiyac içindəki yoxsulu.",
                     "17": "Və iman edənlərdən olmaqdır, bir-birini qərarlı olmağa və bir-birini mərhəmətli olmağa təşviq etməkdir.",
                     "18": "Bunlar xoşbəxtliyə layiq oldular.",
-                    "19": "Vəhylərimizi inkar edənlərə gəlincə, onlar isə bədbəxtliyi üzərinə çəkdi.",
-                    "20": "Onlar Cəhənnəm Atəşinə həbs ediləcək."
+                    "19": "Vəhylərimizi inkar edənlərə gəlincə, onlar isə bədbəxtliyi üzərlərinə çəkdilər.",
+                    "20": "Onlar Cəhənnəm Atəşinə həbs ediləcəklər."
                 },
                 "titles": {
                     "1": "♦ ♦ ♦ ♦\nSurə 90: Şəhər\nŞəhər (Əl-Bələd) \nƏn Lütfkar, Ən Mərhəmətli olan Tanrının adı ilə"
@@ -14521,10 +14521,10 @@
                 "verses": {
                     "9": "Uğur qazanmışdır onu günahdan xilas edən. ",
                     "10": "Uğursuz olmuşdur onu pozan.",
-                    "11": "Səmudun inkarı onların həddi aşmasına səbəb oldu.",
+                    "11": "Səmudun inkarı onların həddi aşmalarına səbəb oldu.",
                     "12": "Aralarında ən pisinin arxasınca getdilər.",
                     "13": "TANRI’nın elçisi onlara dedi: “Bu, TANRI’nın dəvəsidir. İcazə verin içsin”.",
-                    "14": "Onu inkar etdilər və dəvəni kəsdilər. Sonra Rəbbi onların günahlarının əvəzini verdi və onları məhv etdi.",
+                    "14": "Onu inkar etdilər və dəvəni kəsdilər. Sonra Rəbbi onların günahlarının qarşılığını verdi və onları məhv etdi.",
                     "15": "Yenə də onlardan sonra gələnlər qafildirlər."
                 },
                 "titles": {}
@@ -14538,7 +14538,7 @@
                     "5": "İanə edənə və doğruluğu davam etdirənə gəlincə,",
                     "6": "Və müqəddəs yazıya tabe olana.",
                     "7": "Biz onu xoşbəxtliyə doğru yönəldəcəyik.",
-                    "8": "Fəqət varlı olduğu halda xəsis olan.",
+                    "8": "Fəqət varlı olduğu halda xəsis olan,",
                     "9": "Müqəddəs yazını inkar edənə gəldikdə isə,",
                     "10": "Biz onu bədbəxtliyə doğru aparacağıq. ",
                     "11": "Yıxılanda pulu ona kömək edə bilməz.",
@@ -14551,7 +14551,7 @@
                     "18": "O, pulundan ianə edər. ",
                     "19": "Əvəzində heç nə axtarmayaraq.",
                     "20": "Sadəcə Ucalar Ucası olan Rəbbini axtarar.",
-                    "21": "O mütləq nicat tapacaqdır."
+                    "21": "O, mütləq, nicat tapacaqdır."
                 },
                 "titles": {
                     "1": "♦ ♦ ♦ ♦\nSurə 92: Gecə\n(Əl-Ləyl)\nƏn Lütfkar, Ən Mərhəmətli olan Tanrının adı ilə"
@@ -14562,7 +14562,7 @@
                     "1": "And olsun səhərə",
                     "2": "And olsun çökərkən gecəyə.",
                     "3": "Rəbbin səni əsla tərk etmədi, nə də unutmadı.",
-                    "4": "Sənin üçün axirət bu ilk (həyatdan) çox daha yaxşıdır.",
+                    "4": "Sənin üçün axirət bu ilk (həyatdan) daha yaxşıdır.",
                     "5": "Və Rəbbin sənə kifayət qədər verəcək; sən də razı qalacaqsan.",
                     "6": "O səni yetim tapıb sənə bir yuva vermədimi?",
                     "7": "O səni azğınlıqda tapdı və səni doğru yola yönəltdi.",
@@ -14615,7 +14615,7 @@
                     "5": "Sonra onu alçaqların ən aşağısına çevirdik.",
                     "6": "İman edib doğru bir həyat yaşayanlardan başqa; Onlar tamamilə layiq olduqları bir mükafat alarlar.",
                     "7": "Nə üçün hələ də inancı rədd edirsən?",
-                    "8": "TANRI, bütün müdriklərin Ən Müdrik olanı deyildir mi?"
+                    "8": "TANRI, bütün müdriklərin Ən Müdrik Olanı deyildirmi?"
                 },
                 "titles": {
                     "1": "♦ ♦ ♦ ♦\nSurə 95: Əncir\n(Əl-Tin)\nƏn Lütfkar, Ən Mərhəmətli olan Tanrının adı ilə"
@@ -14668,9 +14668,9 @@
             },
             "97": {
                 "verses": {
-                    "1": "Biz onu Tale Gecəsində vəhy etdik.*",
-                    "2": "Tale Gecəsi nə qədər də möhtəşəmdir!",
-                    "3": "Tale Gecəsi min aydan daha xeyirlidir.",
+                    "1": "Biz onu Qədər Gecəsində vəhy etdik.*",
+                    "2": "Qədər Gecəsi nə qədər də möhtəşəmdir!",
+                    "3": "Qədər Gecəsi min aydan daha xeyirlidir.",
                     "4": "Mələklər və Ruh, Rəblərinin icazəsi ilə hər əmri yerinə yetirmək üçün onda aşağı enər.",
                     "5": "Şəfəqin doğuşuna qədər sakitlikdir o. "
                 },
@@ -14685,7 +14685,7 @@
                     "3": "Onlarda dəyərli təlimlər vardır.",
                     "4": "Doğrusu, müqəddəs yazı almış olanlar, özlərinə dəlil verilənə qədər fikir ayrılığına düşməmişdi.",
                     "5": "Onlardan tələb olunan tək şey, dini tamamilə Ona həsr edərək TANRI’ya ibadət etmək, ünsiyyət dualarını (Namaz) yerinə yetirmək və məcburi ianəni (Zəkat) vermək idi. Bu, mükəmməl dindir.",
-                    "6": "Müqəddəs xalqından inkarçılar və bütə ibadət edənlər əbədi olaraq Cəhənnəm oduna düçar oldular. Onlar yaradılmışların ən pisidir.",
+                    "6": "Müqəddəs xalqından inkarçılar və bütə ibadət edənlər əbədi olaraq Cəhənnəm oduna düçar oldular. Onlar yaradılmışların ən pisidirlər.",
                     "7": "İman edib doğru bir həyat yaşayanlar, yaradılmışların ən yaxşılarıdır.",
                     "8": "Onların Rəbləri qatındakı mükafatı, içində əbədi qalacağı, axan çayları olan Ədn bağlarıdır. TANRI onlardan razıdır və onlar da Ondan razıdır. Rəblərinə dərin hörmət bəsləyənlərin mükafatı belədir."
                 },
@@ -14712,7 +14712,7 @@
                     "1": "Yer üzü şiddətlə sarsılanda.",
                     "2": "Və yer üzü yüklərini çıxarıb atanda.",
                     "3": "İnsan: “Nə baş verir?” - deyə maraqlanacaq.",
-                    "4": "Həmin gün o, sizə xəbər verəcəkdir.",
+                    "4": "Həmin gün o sizə xəbər verəcəkdir.",
                     "5": "Ki, onu Rəbbi əmr etmişdir.",
                     "6": "O gün onlara əməlləri göstərilsin deyə insanlar hər tərəfdən çıxacaq.",
                     "7": "Kim bir atom ağırlığı qədər yaxşılıq etsə, onu görəcəkdir.",
