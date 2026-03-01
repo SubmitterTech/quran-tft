@@ -32,8 +32,8 @@ def parse_args() -> argparse.Namespace:
     )
     parser.add_argument(
         "--output",
-        default="source/turkish/quran_tr.json",
-        help="Output JSON file path (default: source/turkish/quran_tr.json)",
+        default=None,
+        help="Output JSON file path (default: ./quran_tr.json next to this script)",
     )
     parser.add_argument(
         "--key-column",
@@ -175,7 +175,11 @@ def normalize_translation(value: str) -> str:
 def main() -> int:
     args = parse_args()
     input_path = Path(args.input)
-    output_path = Path(args.output)
+    output_path = (
+        Path(args.output)
+        if args.output
+        else Path(__file__).resolve().parent / "quran_tr.json"
+    )
 
     if not input_path.exists():
         raise FileNotFoundError(f"Input TSV not found: {input_path}")
