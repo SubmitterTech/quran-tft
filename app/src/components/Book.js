@@ -16,7 +16,7 @@ import LongPressable from '../hooks/LongPressable';
 import { NextPagerProgressRing } from '../hooks/NextPager';
 import '../assets/css/Book.css';
 
-const Book = React.memo(({ incomingSearch = false, incomingAppendix = false, incomingAppendixNumber = 1, onChangeFont, font, onChangeColor, colors, theme, translationApplication, introductionContent, quranData, map, appendicesContent, translation, onChangeLanguage, onPageChange = null, onIntroTranslationNeeded = null, isTranslationLoading = false, translationLoadProgress = 0, direction }) => {
+const Book = React.memo(({ incomingSearch = false, incomingAppendix = false, incomingAppendixNumber = 1, onChangeFont, font, onChangeColor, colors, theme, translationApplication, introductionContent, quranData, map, appendicesContent, translation, onChangeLanguage, onPageChange = null, onIntroTranslationNeeded = null, isTranslationLoading = false, translationLoadProgress = 0, direction, isDidYouMeanBuildBusy = false }) => {
     const lang = localStorage.getItem("lang")
     const magnifyConfirm = useRef(false);
     const [currentPage, setCurrentPage] = useState(parseInt(localStorage.getItem("qurantft-pn")) ? parseInt(localStorage.getItem("qurantft-pn")) : 1);
@@ -1329,6 +1329,7 @@ const Book = React.memo(({ incomingSearch = false, incomingAppendix = false, inc
                     onMagnify={onMagnify}
                     direction={direction}
                     isMagnifyVisited={isMagnifyVisited}
+                    isDidYouMeanBuildBusy={isDidYouMeanBuildBusy}
                 />
             }
             {isMagnifyOpen &&

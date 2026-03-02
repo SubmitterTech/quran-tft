@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useRef, useMemo, useCallback } from 'react';
+import { App as CapacitorApp } from '@capacitor/app';
 import languages from '../assets/languages.json';
 import { getRandom } from '../utils/Generator';
 import { adjustReference, toRoman } from '../utils/Mapper';
@@ -17,8 +18,9 @@ const chronologicalOrder = [
     "67", "69", "70", "78", "79", "82", "84", "30", "29", "83", "2", "8", "3", "33", "60", "4", "99", "57", "47",
     "13", "55", "76", "65", "98", "59", "24", "22", "63", "58", "49", "66", "64", "61", "62", "48", "5", "9", "110"
 ];
+const LOADING_LANGUAGE_OPTION_VALUE = '__jump-loading__';
 
-const Jump = React.memo(({ onChangeLanguage, suraNames, onChangeFont, font, onChangeColor, colors, theme, translationApplication, currentPage, quran, onClose, onConfirm, onMagnify, direction, isMagnifyVisited }) => {
+const Jump = React.memo(({ onChangeLanguage, suraNames, onChangeFont, font, onChangeColor, colors, theme, translationApplication, currentPage, quran, onClose, onConfirm, onMagnify, direction, isMagnifyVisited, isDidYouMeanBuildBusy = false }) => {
     const [suraNumber, setSuraNumber] = useState("0");
     const [verseNumber, setVerseNumber] = useState("0");
     const [selectedPage, setSelectedPage] = useState(currentPage);
@@ -52,6 +54,8 @@ const Jump = React.memo(({ onChangeLanguage, suraNames, onChangeFont, font, onCh
 
     const [isShufflingSura, setIsShufflingSura] = useState(false);
     const [isShufflingVerse, setIsShufflingVerse] = useState(false);
+    const languagePickerValue = isDidYouMeanBuildBusy ? LOADING_LANGUAGE_OPTION_VALUE : lang;
+    const [platformVersionLabel, setPlatformVersionLabel] = useState('');
 
     const bookmarksContainerRef = useRef(null);
     const bookmarkItemRefs = useRef({});
@@ -117,6 +121,43 @@ const Jump = React.memo(({ onChangeLanguage, suraNames, onChangeFont, font, onCh
     useEffect(() => {
         localStorage.setItem("qurantft-jump-so", order);
     }, [order]);
+
+    useEffect(() => {
+        let cancelled = false;
+
+        const loadPlatformVersion = async () => {
+            if (!isNative()) {
+                return;
+            }
+
+            const platformId = which();
+            if (platformId !== 'android' && platformId !== 'ios') {
+                return;
+            }
+
+            try {
+                const info = await CapacitorApp.getInfo();
+                const version = String(info?.version || '').trim();
+                const build = String(info?.build || '').trim();
+                if (!version && !build) {
+                    return;
+                }
+
+                const versionLabel = `${version || '-'}${build ? ` (${build})` : ''}`;
+                if (!cancelled) {
+                    setPlatformVersionLabel(versionLabel);
+                }
+            } catch (_error) {
+                // Silently ignore version badge failures.
+            }
+        };
+
+        void loadPlatformVersion();
+
+        return () => {
+            cancelled = true;
+        };
+    }, []);
 
     useEffect(() => {
         if (showBookmarks && bookmarksContainerRef.current && lastClickedBookmarkKey && bookmarkItemRefs.current[lastClickedBookmarkKey]) {
@@ -400,6 +441,9 @@ const Jump = React.memo(({ onChangeLanguage, suraNames, onChangeFont, font, onCh
     }, [showBookmarks]);
 
     const handleLanguageChange = useCallback((e) => {
+        if (isDidYouMeanBuildBusy) {
+            return;
+        }
 
         setLang(e.target.value);
         onChangeLanguage(e.target.value);
@@ -407,7 +451,7 @@ const Jump = React.memo(({ onChangeLanguage, suraNames, onChangeFont, font, onCh
         if (!isMagnifyVisited) {
             onClose();
         }
-    }, [onChangeLanguage, onClose, isMagnifyVisited]);
+    }, [onChangeLanguage, onClose, isMagnifyVisited, isDidYouMeanBuildBusy]);
 
     const handleSuraSelectClick = (e) => {
         if (showPickerNotSupported) {
@@ -638,25 +682,41 @@ const Jump = React.memo(({ onChangeLanguage, suraNames, onChangeFont, font, onCh
                     onClick={onClose}
                     className={`w-full h-full`}>
                 </div>
+                {platformVersionLabel && (
+                    <div
+                        className={`fixed top-1 right-2 z-20 text-[10px] md:text-xs tracking-wide ${colors[theme]["page-text"]} opacity-60`}
+                        style={{ paddingTop: 'env(safe-area-inset-top)' }}
+                    >
+                        {platformVersionLabel}
+                    </div>
+                )}
                 <div className={`w-full md:w-2/3 lg:w-1/2 2xl:w-1/3 fixed bottom-12 md:bottom-16 left-1/2 -translate-x-1/2 flex justify-center `}
                     style={{ paddingBottom: 'env(safe-area-inset-bottom)' }}>
-                    <select
-                        id="languagepicker"
-                        name="langpick"
-                        onChange={handleLanguageChange}
-                        value={lang}
-                        className={`w-full m-2 text-center rounded px-4 py-2 border border-neutral-400/40 text-lg brightness-80 bg-neutral-500/30 ${colors[theme]["page-text"]} focus:outline-none focus:ring-2 focus:border-sky-500 focus:ring-sky-500`}>
-                        {Object.keys(languages).map((key) => {
-                            if (key && languages[key]["comp"] >= languageDisabilityThreshold) {
-                                return (
-                                    <option dir={languages[key]["dir"]} key={key} value={key}>
-                                        {languages[key]["name"]}
-                                    </option>
-                                );
-                            }
-                            return null;
-                        })}
-                    </select>
+                    <div className="relative w-full m-2">
+                        <select
+                            id="languagepicker"
+                            name="langpick"
+                            onChange={handleLanguageChange}
+                            value={languagePickerValue}
+                            disabled={isDidYouMeanBuildBusy}
+                            className={`w-full text-center rounded px-4 py-2 border border-neutral-400/40 text-lg brightness-80 bg-neutral-500/30 ${colors[theme]["page-text"]} focus:outline-none focus:ring-2 focus:border-sky-500 focus:ring-sky-500 transition-opacity duration-150 ${isDidYouMeanBuildBusy ? 'opacity-70 cursor-not-allowed' : ''}`}>
+                            {isDidYouMeanBuildBusy && (
+                                <option value={LOADING_LANGUAGE_OPTION_VALUE}>
+                                    {translationApplication?.loading || 'Loading...'}
+                                </option>
+                            )}
+                            {Object.keys(languages).map((key) => {
+                                if (key && languages[key]["comp"] >= languageDisabilityThreshold) {
+                                    return (
+                                        <option dir={languages[key]["dir"]} key={key} value={key}>
+                                            {languages[key]["name"]}
+                                        </option>
+                                    );
+                                }
+                                return null;
+                            })}
+                        </select>
+                    </div>
                 </div>
                 <div className={` w-full md:w-2/3 lg:w-1/2 2xl:w-1/3 px-2 flex flex-col mb-7 fixed top-1/2 left-1/2 transform -translate-y-1/2 -translate-x-1/2 z-10`}>
                     <div className={`shadow-[rgba(125,211,252,0.4)_0px_2px_10px_10px] flex flex-col items-center justify-center ${colors[theme]["app-background"]} rounded  w-full `}>

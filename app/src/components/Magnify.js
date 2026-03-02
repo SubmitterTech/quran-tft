@@ -1,6 +1,7 @@
 import { useState, useEffect, useCallback, useRef, useMemo, useDeferredValue, useTransition } from 'react';
 import { mapAppendices, mapQuran } from '../utils/Mapper';
 import { isNative, triggerActionHaptic } from '../utils/Device';
+import { ensureDidYouMeanCacheReady, loadDidYouMeanCachedIndex } from '../utils/Generator';
 import languages from '../assets/languages.json';
 
 
@@ -235,7 +236,7 @@ const boundedDamerauLevenshtein = (a, b, maxDistance = 2) => {
     return prev[blen] <= maxDistance ? prev[blen] : Infinity;
 };
 
-const SUGGESTION_INDEX_CACHE_VERSION = 'dym-prebuilt-v1';
+const SUGGESTION_INDEX_CACHE_VERSION = 'dym-runtime-v3';
 const SUGGESTION_INDEX_CACHE_LIMIT = 8;
 const SEARCH_DEBOUNCE_MS = 90;
 const DID_YOU_MEAN_IDLE_TIMEOUT_MS = 180;
@@ -310,68 +311,18 @@ const createEmptySuggestionIndex = () => ({
     trigramFrequency: new Map(),
 });
 
-const loadDidYouMeanGeneratedJson = async (lang, fileName) => {
-    const module = await import(
-        /* webpackMode: "lazy" */
-        /* webpackChunkName: "didyoumean-[request]" */
-        /* webpackInclude: /\.json$/ */
-        `../generated/didyoumean-indexes/${lang}/${fileName}`
-    );
-    return module?.default || module;
-};
-
-const loadDidYouMeanSectionEntries = async (lang, fileNames = []) => {
-    if (!Array.isArray(fileNames) || fileNames.length === 0) return [];
-    const parts = await Promise.all(fileNames.map((fileName) => loadDidYouMeanGeneratedJson(lang, fileName)));
-    return parts.flat();
-};
-
-const loadPrebuiltSuggestionIndex = async (lang) => {
+const loadCachedSuggestionIndex = async (lang) => {
     const preferredLang = (lang || 'en').toLowerCase();
-    const candidates = Array.from(new Set([preferredLang, 'en']));
+    const cached = await loadDidYouMeanCachedIndex(preferredLang);
+    if (!cached || !cached.index) return null;
 
-    for (const candidate of candidates) {
-        const cacheKey = makeSuggestionIndexCacheKey(candidate);
-        const cached = getCachedSuggestionIndex(cacheKey);
-        if (cached) {
-            return cached;
-        }
+    const parsed = deserializeSuggestionIndex(cached.index);
+    if (!parsed || parsed.frequency.size === 0) return null;
 
-        try {
-            const manifest = await loadDidYouMeanGeneratedJson(candidate, 'manifest.json');
-            if (!manifest || !manifest.sections) continue;
-
-            const [frequency, byLength, surfaceForms, searchableTexts, bigramFrequency, trigramFrequency] = await Promise.all([
-                loadDidYouMeanSectionEntries(candidate, manifest.sections.frequency),
-                loadDidYouMeanSectionEntries(candidate, manifest.sections.byLength),
-                loadDidYouMeanSectionEntries(candidate, manifest.sections.surfaceForms),
-                loadDidYouMeanSectionEntries(candidate, manifest.sections.searchableTexts),
-                loadDidYouMeanSectionEntries(candidate, manifest.sections.bigramFrequency),
-                loadDidYouMeanSectionEntries(candidate, manifest.sections.trigramFrequency),
-            ]);
-
-            const parsed = deserializeSuggestionIndex({
-                frequency,
-                byLength,
-                surfaceForms,
-                searchableTexts,
-                bigramFrequency,
-                trigramFrequency,
-            });
-            if (!parsed || parsed.frequency.size === 0) continue;
-
-            const loaded = {
-                index: parsed,
-                indexLang: (manifest?.lang || candidate).toLowerCase(),
-            };
-            setCachedSuggestionIndex(cacheKey, loaded);
-            return loaded;
-        } catch (_error) {
-            // Fall through to next language candidate.
-        }
-    }
-
-    return null;
+    return {
+        index: parsed,
+        indexLang: (cached.lang || preferredLang).toLowerCase(),
+    };
 };
 
 const Magnify = ({ colors, theme, translationApplication, quran, map, appendices, introduction, onClose, onConfirm, direction, multiSelect, setMultiSelect, selectedVerseList, setSelectedVerseList }) => {
@@ -565,17 +516,41 @@ const Magnify = ({ colors, theme, translationApplication, quran, map, appendices
         suggestionIndexLangRef.current = (lang || 'en').toLowerCase();
 
         const loadIndex = async () => {
-            const loaded = await loadPrebuiltSuggestionIndex(lang);
-            if (cancelled || !loaded || !loaded.index) return;
+            const normalizedLang = (lang || 'en').toLowerCase();
+            const runtimeCacheKey = makeSuggestionIndexCacheKey(normalizedLang);
+            const cached = getCachedSuggestionIndex(runtimeCacheKey);
+            if (cached) {
+                suggestionIndexRef.current = cached.index;
+                suggestionIndexLangRef.current = cached.indexLang || normalizedLang;
+                return;
+            }
+
+            const loaded = await loadCachedSuggestionIndex(normalizedLang);
+            if (!loaded) {
+                void ensureDidYouMeanCacheReady({ allLanguages: true });
+                return;
+            }
+
+            if (cancelled || !loaded.index) return;
             suggestionIndexRef.current = loaded.index;
-            suggestionIndexLangRef.current = loaded.indexLang || (lang || 'en').toLowerCase();
-            setCachedSuggestionIndex(makeSuggestionIndexCacheKey(lang), loaded);
+            suggestionIndexLangRef.current = loaded.indexLang || normalizedLang;
+            setCachedSuggestionIndex(runtimeCacheKey, loaded);
         };
 
         void loadIndex();
 
+        const onDidYouMeanReady = () => {
+            void loadIndex();
+        };
+        if (typeof window !== 'undefined') {
+            window.addEventListener('didyoumean:ready', onDidYouMeanReady);
+        }
+
         return () => {
             cancelled = true;
+            if (typeof window !== 'undefined') {
+                window.removeEventListener('didyoumean:ready', onDidYouMeanReady);
+            }
         };
     }, [lang]);
 

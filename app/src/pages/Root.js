@@ -5,6 +5,7 @@ import Book from '../components/Book';
 import { colorThemes } from '../utils/Theme';
 import { setStatusBarStyle, applyConditionalOrientationLock } from '../utils/Device';
 import { init as initBookmarks } from '../utils/Bookmarks';
+import { ensureDidYouMeanCacheReady, getDidYouMeanBuildProgress } from '../utils/Generator';
 import introductionContent from '../assets/introduction.json';
 import quranData from '../assets/qurantft.json';
 import appendicesContent from '../assets/appendices.json';
@@ -32,14 +33,16 @@ const COVER_TRANSLATION_LOOKUP = coverTranslationContext.keys().reduce((acc, fil
 }, {});
 
 const CORE_TRANSLATION_SEGMENTS = ['loadQuran', 'loadCover', 'loadIntro', 'loadAppendices', 'loadApplication'];
-const ALL_TRANSLATION_SEGMENTS = [...CORE_TRANSLATION_SEGMENTS, 'loadMap'];
+const ALL_TRANSLATION_SEGMENTS = [...CORE_TRANSLATION_SEGMENTS, 'loadMap', 'loadDidYouMean'];
 const TRANSLATION_PROGRESS_MIN_VISIBLE_MS = 280;
 const TRANSLATION_PROGRESS_FINISH_HOLD_MS = 140;
 const TRANSLATION_PROGRESS_GUIDED_STEP = 0.1;
 const TRANSLATION_PROGRESS_GUIDED_INTERVAL_MS = 30;
 const TRANSLATION_PROGRESS_GUIDED_CAP = 96;
-const TURKISH_NOTICE_DELAY_MS = 1000;
-const TURKISH_NOTICE_STORAGE_KEY = 'qurantft-turkish-notice-ack-v1';
+const DID_YOU_MEAN_PROGRESS_RESET_MS = 140;
+const DID_YOU_MEAN_PROGRESS_GUIDED_STEP = 0.38;
+const DID_YOU_MEAN_PROGRESS_GUIDED_INTERVAL_MS = 133;
+const DID_YOU_MEAN_PROGRESS_GUIDED_CAP = 99.4;
 
 function Root({ bootData = null }) {
     const { language, id } = useParams();
@@ -64,17 +67,18 @@ function Root({ bootData = null }) {
     const [translationAppx, setTranslationAppx] = useState(hasInitialBootData && bootData.appendices ? bootData.appendices : appendicesContent);
     const [translationMap, setTranslationMap] = useState(hasInitialBootData && bootData.map ? bootData.map : map);
     const [translationLoadProgress, setTranslationLoadProgress] = useState({ active: false, loaded: 0, total: 0, uiProgress: 0 });
+    const [didYouMeanLoadProgress, setDidYouMeanLoadProgress] = useState({ active: false, loaded: 0, total: 0, uiProgress: 0 });
     const [theme, setTheme] = useState(localStorage.getItem("theme") ? localStorage.getItem("theme") : "sky");
     const [font, setFont] = useState(localStorage.getItem("qurantft-font") ? localStorage.getItem("qurantft-font") : "font-normal");
-    const [showTurkishNotice, setShowTurkishNotice] = useState(false);
-    const [isTurkishNoticeAcknowledged, setIsTurkishNoticeAcknowledged] = useState(() => localStorage.getItem(TURKISH_NOTICE_STORAGE_KEY) === '1');
     const activeLangRef = useRef(normalizedInitialLang);
     const mapLoadPromiseRef = useRef(null);
     const introLoadPromiseRef = useRef(null);
     const coverTranslationCacheRef = useRef({});
     const translationProgressStartedAtRef = useRef(0);
     const translationProgressTimerRef = useRef(null);
-    const turkishNoticeTimerRef = useRef(null);
+    const didYouMeanProgressResetTimerRef = useRef(null);
+    const didYouMeanProgressTimerRef = useRef(null);
+    const didYouMeanProgressTargetRef = useRef(0);
     const coverPreviewRequestRef = useRef(0);
     const coverPreviewLangRef = useRef('');
     const loadedSegmentsRef = useRef({
@@ -84,7 +88,73 @@ function Root({ bootData = null }) {
         loadAppendices: false,
         loadApplication: false,
         loadMap: false,
+        loadDidYouMean: false,
     });
+
+    const stopGuidedProgressTimer = useCallback((timerRef) => {
+        if (timerRef.current) {
+            window.clearInterval(timerRef.current);
+            timerRef.current = null;
+        }
+    }, []);
+
+    const startGuidedProgressTimer = useCallback(({
+        timerRef,
+        setProgressState,
+        step,
+        intervalMs,
+        getCap,
+        restart = false,
+    }) => {
+        if (restart) {
+            stopGuidedProgressTimer(timerRef);
+        }
+        if (timerRef.current) {
+            return;
+        }
+
+        timerRef.current = window.setInterval(() => {
+            setProgressState((prev) => {
+                if (!prev.active) {
+                    return prev;
+                }
+
+                const capSource = (typeof getCap === 'function') ? getCap(prev) : getCap;
+                const cap = Math.max(0, Math.min(100, Number(capSource) || 0));
+                const nextUi = Math.min(
+                    cap,
+                    Number((prev.uiProgress + step).toFixed(1)),
+                );
+
+                if (nextUi <= prev.uiProgress) {
+                    return prev;
+                }
+
+                return {
+                    ...prev,
+                    uiProgress: nextUi,
+                };
+            });
+        }, intervalMs);
+    }, [stopGuidedProgressTimer]);
+
+    const stopDidYouMeanProgressTimer = useCallback(() => {
+        stopGuidedProgressTimer(didYouMeanProgressTimerRef);
+    }, [stopGuidedProgressTimer]);
+
+    const startGuidedDidYouMeanProgress = useCallback(() => {
+        startGuidedProgressTimer({
+            timerRef: didYouMeanProgressTimerRef,
+            setProgressState: setDidYouMeanLoadProgress,
+            step: DID_YOU_MEAN_PROGRESS_GUIDED_STEP,
+            intervalMs: DID_YOU_MEAN_PROGRESS_GUIDED_INTERVAL_MS,
+            getCap: () => Math.max(
+                0,
+                Math.min(DID_YOU_MEAN_PROGRESS_GUIDED_CAP, didYouMeanProgressTargetRef.current || 0),
+            ),
+            restart: false,
+        });
+    }, [startGuidedProgressTimer]);
 
     useEffect(() => {
         const initialize = async () => {
@@ -93,6 +163,94 @@ function Root({ bootData = null }) {
         };
         initialize();
     }, []);
+
+    useEffect(() => {
+        let cancelled = false;
+
+        const applyProgress = (progress) => {
+            if (cancelled || !progress) return;
+
+            if (didYouMeanProgressResetTimerRef.current) {
+                window.clearTimeout(didYouMeanProgressResetTimerRef.current);
+                didYouMeanProgressResetTimerRef.current = null;
+            }
+
+            const normalized = {
+                active: Boolean(progress.active),
+                loaded: Number(progress.completed || 0),
+                total: Number(progress.total || 0),
+                uiProgress: Number(progress.percent || 0),
+            };
+
+            if (normalized.active) {
+                didYouMeanProgressTargetRef.current = Math.max(
+                    didYouMeanProgressTargetRef.current,
+                    Math.max(0, Math.min(DID_YOU_MEAN_PROGRESS_GUIDED_CAP, normalized.uiProgress || 0)),
+                );
+                startGuidedDidYouMeanProgress();
+                setDidYouMeanLoadProgress((prev) => ({
+                    active: true,
+                    loaded: normalized.loaded,
+                    total: normalized.total,
+                    uiProgress: prev.active
+                        ? prev.uiProgress
+                        : Math.max(0.2, Math.min(didYouMeanProgressTargetRef.current, 1.2)),
+                }));
+                loadedSegmentsRef.current.loadDidYouMean = false;
+                return;
+            }
+
+            if (normalized.total > 0 && normalized.uiProgress >= 100) {
+                didYouMeanProgressTargetRef.current = 100;
+                stopDidYouMeanProgressTimer();
+                setDidYouMeanLoadProgress({
+                    active: false,
+                    loaded: normalized.total,
+                    total: normalized.total,
+                    uiProgress: 100,
+                });
+                loadedSegmentsRef.current.loadDidYouMean = true;
+                didYouMeanProgressResetTimerRef.current = window.setTimeout(() => {
+                    if (cancelled) return;
+                    setDidYouMeanLoadProgress({ active: false, loaded: 0, total: 0, uiProgress: 0 });
+                    didYouMeanProgressResetTimerRef.current = null;
+                }, DID_YOU_MEAN_PROGRESS_RESET_MS);
+                return;
+            }
+
+            didYouMeanProgressTargetRef.current = 0;
+            stopDidYouMeanProgressTimer();
+            setDidYouMeanLoadProgress({ active: false, loaded: 0, total: 0, uiProgress: 0 });
+        };
+
+        const existing = getDidYouMeanBuildProgress();
+        applyProgress(existing);
+
+        const progressListener = (event) => {
+            applyProgress(event?.detail);
+        };
+
+        window.addEventListener('didyoumean:build-progress', progressListener);
+
+        void ensureDidYouMeanCacheReady({
+            allLanguages: true,
+            onProgress: applyProgress,
+        }).catch((error) => {
+            console.error('DidYouMean cache build failed', error);
+            applyProgress({ active: false, completed: 0, total: 0, percent: 0 });
+        });
+
+        return () => {
+            cancelled = true;
+            if (didYouMeanProgressResetTimerRef.current) {
+                window.clearTimeout(didYouMeanProgressResetTimerRef.current);
+                didYouMeanProgressResetTimerRef.current = null;
+            }
+            didYouMeanProgressTargetRef.current = 0;
+            stopDidYouMeanProgressTimer();
+            window.removeEventListener('didyoumean:build-progress', progressListener);
+        };
+    }, [startGuidedDidYouMeanProgress, stopDidYouMeanProgressTimer]);
 
     const onChangeFont = useCallback((f) => {
         setFont(f);
@@ -131,11 +289,6 @@ function Root({ bootData = null }) {
     const isEnglishLanguage = useCallback((value) => {
         const normalized = (value || "").toLowerCase();
         return normalized === "en" || normalized.startsWith("en-");
-    }, []);
-
-    const isTurkishLanguage = useCallback((value) => {
-        const normalized = (value || "").toLowerCase();
-        return normalized === "tr" || normalized.startsWith("tr-");
     }, []);
 
     const getCoverTranslationSnapshot = useCallback((language) => {
@@ -183,11 +336,8 @@ function Root({ bootData = null }) {
     }, [isEnglishLanguage, getCoverTranslationSnapshot]);
 
     const stopTranslationProgressTimer = useCallback(() => {
-        if (translationProgressTimerRef.current) {
-            window.clearInterval(translationProgressTimerRef.current);
-            translationProgressTimerRef.current = null;
-        }
-    }, []);
+        stopGuidedProgressTimer(translationProgressTimerRef);
+    }, [stopGuidedProgressTimer]);
 
     const resetTranslationProgress = useCallback(() => {
         stopTranslationProgressTimer();
@@ -196,29 +346,15 @@ function Root({ bootData = null }) {
     }, [stopTranslationProgressTimer]);
 
     const startGuidedTranslationProgress = useCallback(() => {
-        stopTranslationProgressTimer();
-        translationProgressTimerRef.current = window.setInterval(() => {
-            setTranslationLoadProgress((prev) => {
-                if (!prev.active) {
-                    return prev;
-                }
-
-                const nextUi = Math.min(
-                    TRANSLATION_PROGRESS_GUIDED_CAP,
-                    Number((prev.uiProgress + TRANSLATION_PROGRESS_GUIDED_STEP).toFixed(1))
-                );
-
-                if (nextUi === prev.uiProgress) {
-                    return prev;
-                }
-
-                return {
-                    ...prev,
-                    uiProgress: nextUi,
-                };
-            });
-        }, TRANSLATION_PROGRESS_GUIDED_INTERVAL_MS);
-    }, [stopTranslationProgressTimer]);
+        startGuidedProgressTimer({
+            timerRef: translationProgressTimerRef,
+            setProgressState: setTranslationLoadProgress,
+            step: TRANSLATION_PROGRESS_GUIDED_STEP,
+            intervalMs: TRANSLATION_PROGRESS_GUIDED_INTERVAL_MS,
+            getCap: TRANSLATION_PROGRESS_GUIDED_CAP,
+            restart: true,
+        });
+    }, [startGuidedProgressTimer]);
 
     const onChangeLanguage = useCallback((nextLang) => {
         const normalizedNext = (nextLang || "").toLowerCase();
@@ -433,6 +569,7 @@ function Root({ bootData = null }) {
                 acc[key] = true;
                 return acc;
             }, {});
+            loadedSegmentsRef.current.loadDidYouMean = true;
         } else if (canUseBootData) {
             coverPreviewLangRef.current = '';
             setTranslation(bootData.translation || null);
@@ -450,6 +587,7 @@ function Root({ bootData = null }) {
                 loadAppendices: Boolean(bootData.appendices),
                 loadApplication: Boolean(bootData.application),
                 loadMap: Boolean(bootData.map),
+                loadDidYouMean: loadedSegmentsRef.current.loadDidYouMean,
             };
         } else {
             const hasCoverPreview = coverPreviewLangRef.current === normalizedLang;
@@ -468,6 +606,7 @@ function Root({ bootData = null }) {
                 loadAppendices: false,
                 loadApplication: false,
                 loadMap: false,
+                loadDidYouMean: loadedSegmentsRef.current.loadDidYouMean,
             };
         }
 
@@ -731,51 +870,33 @@ function Root({ bootData = null }) {
         }
     }, [isAppendix]);
 
-    useEffect(() => {
-        if (turkishNoticeTimerRef.current) {
-            window.clearTimeout(turkishNoticeTimerRef.current);
-            turkishNoticeTimerRef.current = null;
-        }
-
-        if (isTurkishNoticeAcknowledged || !isTurkishLanguage(lang)) {
-            setShowTurkishNotice(false);
-            return;
-        }
-
-        setShowTurkishNotice(false);
-        turkishNoticeTimerRef.current = window.setTimeout(() => {
-            setShowTurkishNotice(true);
-            turkishNoticeTimerRef.current = null;
-        }, TURKISH_NOTICE_DELAY_MS);
-
-        return () => {
-            if (turkishNoticeTimerRef.current) {
-                window.clearTimeout(turkishNoticeTimerRef.current);
-                turkishNoticeTimerRef.current = null;
-            }
-        };
-    }, [lang, isTurkishNoticeAcknowledged, isTurkishLanguage]);
-
     useEffect(() => () => {
         stopTranslationProgressTimer();
     }, [stopTranslationProgressTimer]);
 
-    const acknowledgeTurkishNotice = useCallback(() => {
-        if (turkishNoticeTimerRef.current) {
-            window.clearTimeout(turkishNoticeTimerRef.current);
-            turkishNoticeTimerRef.current = null;
+    useEffect(() => () => {
+        if (didYouMeanProgressResetTimerRef.current) {
+            window.clearTimeout(didYouMeanProgressResetTimerRef.current);
+            didYouMeanProgressResetTimerRef.current = null;
         }
-
-        setIsTurkishNoticeAcknowledged(true);
-        setShowTurkishNotice(false);
-        localStorage.setItem(TURKISH_NOTICE_STORAGE_KEY, '1');
-    }, []);
+        didYouMeanProgressTargetRef.current = 0;
+        stopDidYouMeanProgressTimer();
+    }, [stopDidYouMeanProgressTimer]);
 
     const hideCover = () => {
         setShowCover(false);
     };
 
     const translationProgressPercent = Math.max(0, Math.min(100, translationLoadProgress.uiProgress || 0));
+    const didYouMeanProgressPercent = Math.max(0, Math.min(100, didYouMeanLoadProgress.uiProgress || 0));
+    const isTranslationProgressActive = translationLoadProgress.active || translationProgressPercent > 0;
+    const isDidYouMeanProgressActive = didYouMeanLoadProgress.active || didYouMeanProgressPercent > 0;
+    const isDidYouMeanBuildBusy = Boolean(didYouMeanLoadProgress.active);
+    const combinedProgressPercent = Number((
+        isTranslationProgressActive && isDidYouMeanProgressActive
+            ? (translationProgressPercent + didYouMeanProgressPercent) / 2
+            : (isTranslationProgressActive ? translationProgressPercent : didYouMeanProgressPercent)
+    ).toFixed(1));
     const normalizedLangForFont = (lang || '').toLowerCase();
     const shouldUsePersianSans = normalizedLangForFont === 'fa' && font !== 'font-serif';
 
@@ -799,28 +920,11 @@ function Root({ bootData = null }) {
                 onChangeLanguage={onChangeLanguage}
                 onPageChange={onBookPageChange}
                 onIntroTranslationNeeded={onIntroTranslationNeeded}
-                isTranslationLoading={translationLoadProgress.active || translationProgressPercent > 0}
-                translationLoadProgress={translationProgressPercent}
+                isTranslationLoading={isTranslationProgressActive || isDidYouMeanProgressActive}
+                translationLoadProgress={combinedProgressPercent}
+                isDidYouMeanBuildBusy={isDidYouMeanBuildBusy}
                 direction={(languages[lang] && languages[lang]["dir"]) ? languages[lang]["dir"] : 'ltr'}
             />}
-            {showTurkishNotice && (
-                <div className="fixed inset-0 z-[12000] flex items-center justify-center bg-slate-950/85 px-5">
-                    <div className="w-full max-w-2xl rounded-2xl bg-white p-6 md:p-8 shadow-2xl">
-                        <div className="space-y-4 text-base md:text-lg lg:text-xl leading-relaxed text-slate-800">
-                            <p>Uygulamamızda yer alan Türkçe tercüme, kullanım izninin sona ermesi nedeniyle yayından kaldırılmıştır.</p>
-                            <p>Orijinal İngilizce metinden bağımsız olarak hazırlanan yeni Türkçe çeviri kademeli biçimde yayına alınmaktadır.</p>
-                            <p>Anlayışınız için teşekkür ederiz.</p>
-                        </div>
-                        <button
-                            type="button"
-                            onClick={acknowledgeTurkishNotice}
-                            className="mt-6 w-full rounded-xl bg-sky-600 px-4 py-3 text-sm md:text-base font-semibold text-white transition-colors duration-150 hover:bg-sky-700"
-                        >
-                            Anladım
-                        </button>
-                    </div>
-                </div>
-            )}
         </div>
     );
 }
