@@ -8,6 +8,7 @@ import Boundary from './utils/Boundary';
 import * as serviceWorkerRegistration from './serviceWorkerRegistration';
 import defaultApplication from './assets/application.json';
 import languages from './assets/languages.json';
+import { ensureRuntimeCachesReady } from './utils/Generator';
 
 window.onerror = (message, source, lineno, colno, error) => {
   console.error('Global error caught:', { message, source, lineno, colno, error });
@@ -223,6 +224,16 @@ const renderApp = async () => {
     ]);
 
     bootData = preloadedBootData;
+
+    try {
+      await ensureRuntimeCachesReady({
+        allLanguages: true,
+        startupBlocking: true,
+      });
+    } catch (cacheError) {
+      // Fail-open: keep startup resilient if cache build fails.
+      console.error('Startup runtime cache build failed; continuing with fail-open policy', cacheError);
+    }
 
     if (bootData?.application) {
       errorTitle = bootData.application.errorTitle || errorTitle;

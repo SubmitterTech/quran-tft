@@ -19,6 +19,7 @@
     "@fontsource/vazirmatn": "^5.2.8",
     "@react-spring/web": "^9.7.3",
     "@use-gesture/react": "^10.3.1",
+    "hyphen": "^1.14.1",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-hot-toast": "2.5.2",

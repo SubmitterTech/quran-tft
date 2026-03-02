@@ -5,7 +5,7 @@ import Book from '../components/Book';
 import { colorThemes } from '../utils/Theme';
 import { setStatusBarStyle, applyConditionalOrientationLock } from '../utils/Device';
 import { init as initBookmarks } from '../utils/Bookmarks';
-import { ensureDidYouMeanCacheReady, getDidYouMeanBuildProgress } from '../utils/Generator';
+import { ensureRuntimeCachesReady, getDidYouMeanBuildProgress } from '../utils/Generator';
 import introductionContent from '../assets/introduction.json';
 import quranData from '../assets/qurantft.json';
 import appendicesContent from '../assets/appendices.json';
@@ -232,11 +232,11 @@ function Root({ bootData = null }) {
 
         window.addEventListener('didyoumean:build-progress', progressListener);
 
-        void ensureDidYouMeanCacheReady({
+        void ensureRuntimeCachesReady({
             allLanguages: true,
             onProgress: applyProgress,
         }).catch((error) => {
-            console.error('DidYouMean cache build failed', error);
+            console.error('Runtime cache build failed', error);
             applyProgress({ active: false, completed: 0, total: 0, percent: 0 });
         });
 

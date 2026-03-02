@@ -23,6 +23,15 @@ const DYM_BUILD_YIELD_TEXT_EVERY = 320;
 const DYM_BUILD_YIELD_MIN_INTERVAL_MS = 20;
 const DYM_BUILD_PROGRESS_MIN_DELTA = 0.005;
 
+const HYPH_ALGO_VERSION = 'hyphen-runtime-v4';
+const HYPH_SCHEMA_VERSION = 1;
+const HYPH_DB_NAME = 'quran-tft-hyphen-cache';
+const HYPH_DB_VERSION = 1;
+const HYPH_STORE_NAME = 'hyphenation';
+const HYPH_MANIFEST_KEY = 'manifest';
+const HYPHEN_CHAR = '\u00AD';
+const RUNTIME_HYPHEN_LANGUAGES = ['tr', 'az'];
+
 const TURKIC_SUFFIXES = [
     'LERİ', 'LARI', 'LERI', 'LARİ',
     'LER', 'LAR',
@@ -53,27 +62,42 @@ const RUNTIME_DYM_LANGUAGES = Array.from(new Set([
         .filter(Boolean),
 ])).filter((lang) => !!languagesCatalog[lang] || lang === 'en').sort();
 
-let didYouMeanDbPromise = null;
-let didYouMeanBuildPromise = null;
+let runtimeCachesBuildPromise = null;
 let didYouMeanBuildProgress = {
     active: false,
     total: 0,
     completed: 0,
     percent: 0,
     currentLanguage: null,
+    stage: null,
+    cacheType: null,
+    startupBlocking: false,
 };
+
+const dbPromiseCache = new Map();
+const hyphenatorPromiseCache = new Map();
 
 const asLanguageCode = (value) => String(value || 'en').toLowerCase();
 
+const getPrimaryLanguageCode = (value) => asLanguageCode(value).split('-')[0];
+
 const getDidYouMeanIndexKey = (lang) => `index:${asLanguageCode(lang)}`;
+const getHyphenIndexKey = (lang) => `index:${asLanguageCode(lang)}`;
 
 const updateDidYouMeanBuildProgress = (progress, onProgress) => {
-    didYouMeanBuildProgress = progress;
+    didYouMeanBuildProgress = {
+        ...progress,
+        stage: progress?.stage || null,
+        cacheType: progress?.cacheType || null,
+        startupBlocking: Boolean(progress?.startupBlocking),
+    };
+
     if (typeof onProgress === 'function') {
-        onProgress(progress);
+        onProgress(didYouMeanBuildProgress);
     }
+
     if (typeof window !== 'undefined') {
-        window.dispatchEvent(new CustomEvent(DYM_PROGRESS_EVENT, { detail: progress }));
+        window.dispatchEvent(new CustomEvent(DYM_PROGRESS_EVENT, { detail: didYouMeanBuildProgress }));
     }
 };
 
@@ -91,22 +115,23 @@ const waitForFrame = () => new Promise((resolve) => {
     setTimeout(resolve, 0);
 });
 
-const openDidYouMeanDb = () => {
+const openIndexedKeyValueDb = ({ dbName, dbVersion, storeName }) => {
     if (typeof indexedDB === 'undefined') {
         return Promise.resolve(null);
     }
 
-    if (didYouMeanDbPromise) {
-        return didYouMeanDbPromise;
+    const cacheKey = `${dbName}:${storeName}:${dbVersion}`;
+    if (dbPromiseCache.has(cacheKey)) {
+        return dbPromiseCache.get(cacheKey);
     }
 
-    didYouMeanDbPromise = new Promise((resolve, reject) => {
-        const request = indexedDB.open(DYM_DB_NAME, DYM_DB_VERSION);
+    const promise = new Promise((resolve, reject) => {
+        const request = indexedDB.open(dbName, dbVersion);
 
         request.onupgradeneeded = () => {
             const db = request.result;
-            if (!db.objectStoreNames.contains(DYM_STORE_NAME)) {
-                db.createObjectStore(DYM_STORE_NAME);
+            if (!db.objectStoreNames.contains(storeName)) {
+                db.createObjectStore(storeName);
             }
         };
 
@@ -114,42 +139,63 @@ const openDidYouMeanDb = () => {
         request.onerror = () => reject(request.error);
     });
 
-    return didYouMeanDbPromise;
+    dbPromiseCache.set(cacheKey, promise);
+    return promise;
 };
 
-const idbGet = async (key) => {
-    const db = await openDidYouMeanDb();
+const idbGetFrom = async ({ dbName, dbVersion, storeName }, key) => {
+    const db = await openIndexedKeyValueDb({ dbName, dbVersion, storeName });
     if (!db) return null;
 
     return new Promise((resolve, reject) => {
-        const tx = db.transaction(DYM_STORE_NAME, 'readonly');
-        const store = tx.objectStore(DYM_STORE_NAME);
+        const tx = db.transaction(storeName, 'readonly');
+        const store = tx.objectStore(storeName);
         const request = store.get(key);
         request.onsuccess = () => resolve(request.result ?? null);
         request.onerror = () => reject(request.error);
     });
 };
 
-const idbSet = async (key, value) => {
-    const db = await openDidYouMeanDb();
+const idbSetTo = async ({ dbName, dbVersion, storeName }, key, value) => {
+    const db = await openIndexedKeyValueDb({ dbName, dbVersion, storeName });
     if (!db) return;
 
     await new Promise((resolve, reject) => {
-        const tx = db.transaction(DYM_STORE_NAME, 'readwrite');
-        const store = tx.objectStore(DYM_STORE_NAME);
+        const tx = db.transaction(storeName, 'readwrite');
+        const store = tx.objectStore(storeName);
         const request = store.put(value, key);
         request.onsuccess = () => resolve();
         request.onerror = () => reject(request.error);
     });
 };
 
-const idbHasKey = async (key) => {
-    const value = await idbGet(key);
+const idbHasKeyIn = async ({ dbName, dbVersion, storeName }, key) => {
+    const value = await idbGetFrom({ dbName, dbVersion, storeName }, key);
     return value != null;
 };
 
+const dymDbConfig = {
+    dbName: DYM_DB_NAME,
+    dbVersion: DYM_DB_VERSION,
+    storeName: DYM_STORE_NAME,
+};
+
+const hyphenDbConfig = {
+    dbName: HYPH_DB_NAME,
+    dbVersion: HYPH_DB_VERSION,
+    storeName: HYPH_STORE_NAME,
+};
+
+const dymIdbGet = async (key) => idbGetFrom(dymDbConfig, key);
+const dymIdbSet = async (key, value) => idbSetTo(dymDbConfig, key, value);
+const dymIdbHasKey = async (key) => idbHasKeyIn(dymDbConfig, key);
+
+const hyphenIdbGet = async (key) => idbGetFrom(hyphenDbConfig, key);
+const hyphenIdbSet = async (key, value) => idbSetTo(hyphenDbConfig, key, value);
+const hyphenIdbHasKey = async (key) => idbHasKeyIn(hyphenDbConfig, key);
+
 const readDidYouMeanManifest = async () => {
-    const manifest = await idbGet(DYM_MANIFEST_KEY);
+    const manifest = await dymIdbGet(DYM_MANIFEST_KEY);
     return manifest || null;
 };
 
@@ -158,10 +204,30 @@ const writeDidYouMeanManifest = async ({
     languagesReady,
     failed = {},
 }) => {
-    await idbSet(DYM_MANIFEST_KEY, {
+    await dymIdbSet(DYM_MANIFEST_KEY, {
         schemaVersion: DYM_SCHEMA_VERSION,
         appVersion,
         algoVersion: DYM_ALGO_VERSION,
+        languagesReady: Array.from(new Set(languagesReady || [])).sort(),
+        failed,
+        updatedAt: new Date().toISOString(),
+    });
+};
+
+const readHyphenManifest = async () => {
+    const manifest = await hyphenIdbGet(HYPH_MANIFEST_KEY);
+    return manifest || null;
+};
+
+const writeHyphenManifest = async ({
+    appVersion,
+    languagesReady,
+    failed = {},
+}) => {
+    await hyphenIdbSet(HYPH_MANIFEST_KEY, {
+        schemaVersion: HYPH_SCHEMA_VERSION,
+        appVersion,
+        algoVersion: HYPH_ALGO_VERSION,
         languagesReady: Array.from(new Set(languagesReady || [])).sort(),
         failed,
         updatedAt: new Date().toISOString(),
@@ -183,6 +249,13 @@ const getRuntimeBuildSignature = () => {
     if (!match || !match[1]) return mainScript;
     return match[1];
 };
+
+const doesManifestMatch = ({ manifest, schemaVersion, algoVersion, appVersion }) => Boolean(
+    manifest
+    && manifest.schemaVersion === schemaVersion
+    && manifest.algoVersion === algoVersion
+    && String(manifest.appVersion || '') === String(appVersion),
+);
 
 const isWordChar = (ch) => {
     if (!ch) return false;
@@ -294,6 +367,79 @@ const mapAppendices = (appendices, translationApplication) => {
     return appendixMap;
 };
 
+const collectLanguageTextQueue = ({ quran = {}, introduction = {}, appendices = {}, application = {} }) => {
+    const textQueue = [];
+
+    const enqueueText = (text, includeInSearchHitCheck = true) => {
+        if (text == null) return;
+        textQueue.push({ text, includeInSearchHitCheck });
+    };
+
+    Object.keys(quran || {}).forEach((page) => {
+        const suras = quran[page]?.sura || {};
+        Object.keys(suras).forEach((suraNumber) => {
+            const verses = suras[suraNumber]?.verses || {};
+            Object.keys(verses).forEach((verseNumber) => {
+                enqueueText(verses[verseNumber]);
+            });
+
+            const titles = suras[suraNumber]?.titles || {};
+            Object.keys(titles).forEach((titleNumber) => {
+                enqueueText(titles[titleNumber]);
+            });
+        });
+
+        const notes = quran[page]?.notes?.data;
+        if (notes && notes.length > 0) {
+            Object.values(notes).forEach((note) => enqueueText(note));
+        }
+    });
+
+    Object.keys(introduction || {}).forEach((section) => {
+        const introSection = introduction[section];
+        const introContent = (introSection?.page !== 1 && introSection?.page !== 22)
+            ? introSection
+            : null;
+        if (!introContent) return;
+
+        Object.entries(introContent).forEach(([type, content]) => {
+            if (type === 'page') return;
+            if (content && typeof content === 'object') {
+                Object.values(content).forEach((value) => enqueueText(value));
+            } else {
+                enqueueText(content);
+            }
+        });
+    });
+
+    const appendixMap = mapAppendices(appendices, application);
+    Object.keys(appendixMap || {}).forEach((appendixNo) => {
+        const appendixContent = appendixMap[appendixNo]?.content || [];
+        appendixContent
+            .filter((element) => (
+                element.type === 'text'
+                || element.type === 'title'
+                || (element.type === 'table' && element.content?.ref && String(element.content.ref).trim() !== '')
+            ))
+            .forEach((element) => {
+                const appendixText = element.type === 'table'
+                    ? String(element.content.ref)
+                    : String(element.content);
+                enqueueText(appendixText);
+            });
+    });
+
+    if (application && typeof application === 'object') {
+        Object.values(application).forEach((value) => {
+            if (typeof value === 'string') {
+                enqueueText(value, false);
+            }
+        });
+    }
+
+    return textQueue;
+};
+
 const getLanguageDigits = (lang, languagesConfig) => {
     const config = languagesConfig[lang] || languagesConfig.en || {};
     const numbers = config.nums || '0 1 2 3 4 5 6 7 8 9';
@@ -349,7 +495,7 @@ const buildStemVariants = (token, lang) => {
     return Array.from(stems);
 };
 
-const buildDidYouMeanIndex = async ({ lang, quran, introduction, appendices, application, languagesConfig, onProgress = null }) => {
+const buildDidYouMeanIndex = async ({ lang, quran, introduction, appendices, application, languagesConfig, onProgress = null, textQueue = null }) => {
     const searchFold = createSuggestionFold(lang, languagesConfig);
     const languageDigits = getLanguageDigits(lang, languagesConfig);
     const digitSet = new Set(languageDigits);
@@ -421,74 +567,8 @@ const buildDidYouMeanIndex = async ({ lang, quran, introduction, appendices, app
         }
     };
 
-    const textQueue = [];
-    const enqueueText = (text, includeInSearchHitCheck = true) => {
-        if (text == null) return;
-        textQueue.push({ text, includeInSearchHitCheck });
-    };
-
-    Object.keys(quran || {}).forEach((page) => {
-        const suras = quran[page]?.sura || {};
-        Object.keys(suras).forEach((suraNumber) => {
-            const verses = suras[suraNumber]?.verses || {};
-            Object.keys(verses).forEach((verseNumber) => {
-                enqueueText(verses[verseNumber]);
-            });
-
-            const titles = suras[suraNumber]?.titles || {};
-            Object.keys(titles).forEach((titleNumber) => {
-                enqueueText(titles[titleNumber]);
-            });
-        });
-
-        const notes = quran[page]?.notes?.data;
-        if (notes && notes.length > 0) {
-            Object.values(notes).forEach((note) => enqueueText(note));
-        }
-    });
-
-    Object.keys(introduction || {}).forEach((section) => {
-        const introContent = (introduction[section].page !== 1 && introduction[section].page !== 22)
-            ? introduction[section]
-            : null;
-        if (!introContent) return;
-
-        Object.entries(introContent).forEach(([type, content]) => {
-            if (type === 'page') return;
-            if (content && typeof content === 'object') {
-                Object.values(content).forEach((value) => enqueueText(value));
-            } else {
-                enqueueText(content);
-            }
-        });
-    });
-
-    const appendixMap = mapAppendices(appendices, application);
-    Object.keys(appendixMap || {}).forEach((appendixNo) => {
-        const appendixContent = appendixMap[appendixNo]?.content || [];
-        appendixContent
-            .filter((element) => (
-                element.type === 'text'
-                || element.type === 'title'
-                || (element.type === 'table' && element.content?.ref && String(element.content.ref).trim() !== '')
-            ))
-            .forEach((element) => {
-                const appendixText = element.type === 'table'
-                    ? String(element.content.ref)
-                    : String(element.content);
-                enqueueText(appendixText);
-            });
-    });
-
-    if (application && typeof application === 'object') {
-        Object.values(application).forEach((value) => {
-            if (typeof value === 'string') {
-                enqueueText(value, false);
-            }
-        });
-    }
-
-    const totalTextEntries = Math.max(textQueue.length, 1);
+    const queue = textQueue || collectLanguageTextQueue({ quran, introduction, appendices, application });
+    const totalTextEntries = Math.max(queue.length, 1);
     let processedTextEntries = 0;
     let lastReportedProgress = -1;
     let lastYieldAt = (typeof performance !== 'undefined' && typeof performance.now === 'function')
@@ -499,10 +579,12 @@ const buildDidYouMeanIndex = async ({ lang, quran, introduction, appendices, app
             ? performance.now()
             : Date.now()
     );
+
     const reportProgress = (force = false) => {
         if (typeof onProgress !== 'function') {
             return;
         }
+
         const progress = Math.max(0, Math.min(1, processedTextEntries / totalTextEntries));
         if (!force && lastReportedProgress >= 0 && (progress - lastReportedProgress) < DYM_BUILD_PROGRESS_MIN_DELTA) {
             return;
@@ -512,15 +594,17 @@ const buildDidYouMeanIndex = async ({ lang, quran, introduction, appendices, app
     };
 
     reportProgress(true);
-    for (const entry of textQueue) {
+    for (const entry of queue) {
         addText(entry.text, entry.includeInSearchHitCheck);
         processedTextEntries += 1;
+
         if (
             processedTextEntries === totalTextEntries
             || processedTextEntries % DYM_BUILD_PROGRESS_UPDATE_TEXT_EVERY === 0
         ) {
             reportProgress(false);
         }
+
         if (processedTextEntries % DYM_BUILD_YIELD_TEXT_EVERY === 0) {
             const now = nowMs();
             if ((now - lastYieldAt) >= DYM_BUILD_YIELD_MIN_INTERVAL_MS) {
@@ -560,6 +644,205 @@ const serializeDidYouMeanIndex = (index) => ({
     trigramFrequency: Array.from(index.trigramFrequency.entries()),
 });
 
+const normalizeHyphenToken = (token, lang) => {
+    let value = String(token || '');
+    if (lang === 'tr' || lang === 'az') {
+        value = value.replace(/[İIıi]/g, 'i');
+    }
+    value = value.normalize('NFC');
+    return value.toLocaleLowerCase(lang || 'en');
+};
+
+const buildHyphenProtectedTokenSet = ({ lang, application }) => {
+    const normalizedLang = getPrimaryLanguageCode(lang);
+    const protectedTokens = new Set();
+    const godWord = application?.gw;
+
+    if (godWord == null) {
+        return protectedTokens;
+    }
+
+    splitQuerySegments(String(godWord)).forEach((segment) => {
+        if (segment.type !== 'word') {
+            return;
+        }
+
+        const normalized = normalizeHyphenToken(segment.value, normalizedLang);
+        if (!normalized) {
+            return;
+        }
+
+        protectedTokens.add(normalized);
+    });
+
+    return protectedTokens;
+};
+
+const resolveHyphenLoaderLanguage = (lang) => {
+    if (lang === 'az') return 'tr';
+    if (lang === 'tr') return 'tr';
+    return null;
+};
+
+const loadHyphenModule = async (loaderLanguage) => {
+    switch (loaderLanguage) {
+        case 'tr':
+            return import(/* webpackChunkName: "hyphen-tr" */ 'hyphen/tr');
+        default:
+            return null;
+    }
+};
+
+const resolveHyphenateWord = async (lang) => {
+    const normalizedLang = asLanguageCode(lang);
+
+    if (hyphenatorPromiseCache.has(normalizedLang)) {
+        return hyphenatorPromiseCache.get(normalizedLang);
+    }
+
+    const promise = (async () => {
+        const loaderLanguage = resolveHyphenLoaderLanguage(normalizedLang);
+        if (!loaderLanguage) {
+            return null;
+        }
+
+        const hyphenModule = await loadHyphenModule(loaderLanguage).catch(() => null);
+        if (!hyphenModule) {
+            return null;
+        }
+
+        const hyphenateWord = hyphenModule?.hyphenateSync
+            || hyphenModule?.hyphenate
+            || hyphenModule?.default?.hyphenateSync
+            || hyphenModule?.default?.hyphenate
+            || null;
+
+        return (typeof hyphenateWord === 'function') ? hyphenateWord : null;
+    })();
+
+    hyphenatorPromiseCache.set(normalizedLang, promise);
+    return promise;
+};
+
+const buildHyphenIndex = async ({
+    lang,
+    hyphenateWord,
+    textQueue,
+    protectedTokens = null,
+    onProgress = null,
+}) => {
+    const protectedTokenSet = protectedTokens instanceof Set ? protectedTokens : new Set();
+    const uniqueTokens = new Set();
+    const queue = textQueue || [];
+    const totalTextEntries = Math.max(queue.length, 1);
+    let processedTextEntries = 0;
+    let lastReportedProgress = -1;
+
+    let lastYieldAt = (typeof performance !== 'undefined' && typeof performance.now === 'function')
+        ? performance.now()
+        : Date.now();
+    const nowMs = () => (
+        (typeof performance !== 'undefined' && typeof performance.now === 'function')
+            ? performance.now()
+            : Date.now()
+    );
+
+    const reportProgress = (nextProgress, force = false) => {
+        if (typeof onProgress !== 'function') {
+            return;
+        }
+
+        const progress = Math.max(0, Math.min(1, Number(nextProgress) || 0));
+        if (!force && lastReportedProgress >= 0 && (progress - lastReportedProgress) < DYM_BUILD_PROGRESS_MIN_DELTA) {
+            return;
+        }
+
+        lastReportedProgress = progress;
+        onProgress(progress);
+    };
+
+    reportProgress(0, true);
+
+    for (const entry of queue) {
+        splitQuerySegments(String(entry.text || '')).forEach((segment) => {
+            if (segment.type !== 'word') return;
+            if (/\d/.test(segment.value)) return;
+
+            const normalized = normalizeHyphenToken(segment.value, lang);
+            if (!normalized || normalized.length < 5) return;
+            if (protectedTokenSet.has(normalized)) return;
+            uniqueTokens.add(normalized);
+        });
+
+        processedTextEntries += 1;
+        if (
+            processedTextEntries === totalTextEntries
+            || processedTextEntries % DYM_BUILD_PROGRESS_UPDATE_TEXT_EVERY === 0
+        ) {
+            reportProgress((processedTextEntries / totalTextEntries) * 0.45, false);
+        }
+
+        if (processedTextEntries % DYM_BUILD_YIELD_TEXT_EVERY === 0) {
+            const now = nowMs();
+            if ((now - lastYieldAt) >= DYM_BUILD_YIELD_MIN_INTERVAL_MS) {
+                await waitForFrame();
+                lastYieldAt = nowMs();
+            }
+        }
+    }
+
+    const tokens = Array.from(uniqueTokens);
+    const hyphenMap = new Map();
+    const totalTokens = Math.max(tokens.length, 1);
+    let processedTokens = 0;
+
+    for (const token of tokens) {
+        try {
+            const hyphenatedMaybePromise = hyphenateWord(token, {
+                hyphenChar: HYPHEN_CHAR,
+                minWordLength: 5,
+            });
+            const hyphenated = (hyphenatedMaybePromise && typeof hyphenatedMaybePromise.then === 'function')
+                ? await hyphenatedMaybePromise
+                : hyphenatedMaybePromise;
+
+            if (
+                typeof hyphenated === 'string'
+                && hyphenated.includes(HYPHEN_CHAR)
+                && hyphenated !== token
+            ) {
+                hyphenMap.set(token, hyphenated);
+            }
+        } catch (_error) {
+            // Skip failed token-level hyphenation silently to keep builder resilient.
+        }
+
+        processedTokens += 1;
+        if (
+            processedTokens === totalTokens
+            || processedTokens % DYM_BUILD_PROGRESS_UPDATE_TEXT_EVERY === 0
+        ) {
+            reportProgress(0.45 + ((processedTokens / totalTokens) * 0.55), false);
+        }
+
+        if (processedTokens % DYM_BUILD_YIELD_TEXT_EVERY === 0) {
+            const now = nowMs();
+            if ((now - lastYieldAt) >= DYM_BUILD_YIELD_MIN_INTERVAL_MS) {
+                await waitForFrame();
+                lastYieldAt = nowMs();
+            }
+        }
+    }
+
+    reportProgress(1, true);
+
+    return {
+        entries: Array.from(hyphenMap.entries()),
+        tokenCount: tokens.length,
+        hyphenatedCount: hyphenMap.size,
+    };
+};
+
 export const buildDidYouMeanSerializedIndex = async ({
     lang = 'en',
     quran = {},
@@ -568,6 +851,7 @@ export const buildDidYouMeanSerializedIndex = async ({
     application = {},
     languagesConfig = languagesCatalog,
     onProgress = null,
+    textQueue = null,
 }) => serializeDidYouMeanIndex(await buildDidYouMeanIndex({
     lang,
     quran,
@@ -576,7 +860,52 @@ export const buildDidYouMeanSerializedIndex = async ({
     application,
     languagesConfig,
     onProgress,
+    textQueue,
 }));
+
+export const buildHyphenSerializedIndex = async ({
+    lang = 'tr',
+    quran = {},
+    introduction = {},
+    appendices = {},
+    application = {},
+    hyphenateWord = null,
+    onProgress = null,
+    textQueue = null,
+}) => {
+    const normalizedLang = asLanguageCode(lang);
+    const resolvedHyphenator = hyphenateWord || await resolveHyphenateWord(normalizedLang);
+    if (typeof resolvedHyphenator !== 'function') {
+        if (typeof onProgress === 'function') {
+            onProgress(1);
+        }
+        return {
+            entries: [],
+            tokenCount: 0,
+            hyphenatedCount: 0,
+            protectedTokens: [],
+        };
+    }
+
+    const queue = textQueue || collectLanguageTextQueue({ quran, introduction, appendices, application });
+    const protectedTokens = buildHyphenProtectedTokenSet({
+        lang: normalizedLang,
+        application,
+    });
+
+    const hyphenIndex = await buildHyphenIndex({
+        lang: normalizedLang,
+        hyphenateWord: resolvedHyphenator,
+        textQueue: queue,
+        protectedTokens,
+        onProgress,
+    });
+
+    return {
+        ...hyphenIndex,
+        protectedTokens: Array.from(protectedTokens).sort(),
+    };
+};
 
 const loadTranslation = async (lang, prefix, fallback) => {
     const normalizedLang = asLanguageCode(lang);
@@ -605,7 +934,7 @@ const loadLanguagePayload = async (lang) => {
     };
 };
 
-const buildDidYouMeanLanguageIndex = async (lang, onProgress = null) => {
+const buildDidYouMeanLanguageIndex = async (lang, payload = null, onProgress = null) => {
     const report = (fraction) => {
         if (typeof onProgress !== 'function') return;
         const normalized = Math.max(0, Math.min(1, Number(fraction) || 0));
@@ -613,21 +942,23 @@ const buildDidYouMeanLanguageIndex = async (lang, onProgress = null) => {
     };
 
     report(0.02);
-    const payload = await loadLanguagePayload(lang);
+    const loadedPayload = payload || await loadLanguagePayload(lang);
+    const textQueue = collectLanguageTextQueue(loadedPayload);
     report(0.12);
     const serializedIndex = await buildDidYouMeanSerializedIndex({
         lang,
-        quran: payload.quran,
-        introduction: payload.introduction,
-        appendices: payload.appendices,
-        application: payload.application,
+        quran: loadedPayload.quran,
+        introduction: loadedPayload.introduction,
+        appendices: loadedPayload.appendices,
+        application: loadedPayload.application,
+        textQueue,
         onProgress: (fraction) => {
             report(0.12 + (Math.max(0, Math.min(1, fraction)) * 0.82));
         },
     });
     report(0.95);
 
-    await idbSet(getDidYouMeanIndexKey(lang), {
+    await dymIdbSet(getDidYouMeanIndexKey(lang), {
         lang: asLanguageCode(lang),
         version: DYM_ALGO_VERSION,
         generatedAt: new Date().toISOString(),
@@ -636,77 +967,168 @@ const buildDidYouMeanLanguageIndex = async (lang, onProgress = null) => {
     report(1);
 };
 
-const verifyReusableLanguages = async (languagesReady = []) => {
+const buildHyphenLanguageIndex = async (lang, payload = null, onProgress = null) => {
+    const report = (fraction) => {
+        if (typeof onProgress !== 'function') return;
+        const normalized = Math.max(0, Math.min(1, Number(fraction) || 0));
+        onProgress(normalized);
+    };
+
+    report(0.02);
+    const loadedPayload = payload || await loadLanguagePayload(lang);
+    const textQueue = collectLanguageTextQueue(loadedPayload);
+
+    report(0.12);
+    const hyphenateWord = await resolveHyphenateWord(lang);
+    report(0.18);
+
+    const serializedIndex = await buildHyphenSerializedIndex({
+        lang,
+        quran: loadedPayload.quran,
+        introduction: loadedPayload.introduction,
+        appendices: loadedPayload.appendices,
+        application: loadedPayload.application,
+        hyphenateWord,
+        textQueue,
+        onProgress: (fraction) => {
+            report(0.18 + (Math.max(0, Math.min(1, fraction)) * 0.78));
+        },
+    });
+
+    report(0.97);
+    await hyphenIdbSet(getHyphenIndexKey(lang), {
+        lang: asLanguageCode(lang),
+        version: HYPH_ALGO_VERSION,
+        generatedAt: new Date().toISOString(),
+        index: serializedIndex,
+    });
+    report(1);
+};
+
+const verifyReusableDidYouMeanLanguages = async (languagesReady = []) => {
     const reusable = [];
     for (const lang of languagesReady) {
-        const exists = await idbHasKey(getDidYouMeanIndexKey(lang));
+        const exists = await dymIdbHasKey(getDidYouMeanIndexKey(lang));
         if (exists) reusable.push(asLanguageCode(lang));
     }
     return reusable;
 };
 
-export const ensureDidYouMeanCacheReady = async ({
+const verifyReusableHyphenLanguages = async (languagesReady = []) => {
+    const reusable = [];
+    for (const lang of languagesReady) {
+        const exists = await hyphenIdbHasKey(getHyphenIndexKey(lang));
+        if (exists) reusable.push(asLanguageCode(lang));
+    }
+    return reusable;
+};
+
+export const ensureRuntimeCachesReady = async ({
     allLanguages = true,
     onProgress = null,
+    startupBlocking = false,
 } = {}) => {
-    if (didYouMeanBuildPromise) {
+    if (runtimeCachesBuildPromise) {
         if (typeof onProgress === 'function') {
             onProgress(didYouMeanBuildProgress);
         }
-        return didYouMeanBuildPromise;
+        return runtimeCachesBuildPromise;
     }
 
-    didYouMeanBuildPromise = (async () => {
+    runtimeCachesBuildPromise = (async () => {
         const appVersion = getRuntimeBuildSignature();
-        const targetLanguages = allLanguages ? RUNTIME_DYM_LANGUAGES : ['en'];
-        const targetSet = new Set(targetLanguages.map(asLanguageCode));
-        const manifest = await readDidYouMeanManifest();
+        const dymTargetLanguages = (allLanguages ? RUNTIME_DYM_LANGUAGES : ['en']).map(asLanguageCode);
+        const hyphenTargetLanguages = (allLanguages ? RUNTIME_HYPHEN_LANGUAGES : []).map(asLanguageCode);
 
-        const manifestMatches = Boolean(
-            manifest
-            && manifest.schemaVersion === DYM_SCHEMA_VERSION
-            && manifest.algoVersion === DYM_ALGO_VERSION
-            && String(manifest.appVersion || '') === String(appVersion),
+        const dymTargetSet = new Set(dymTargetLanguages);
+        const hyphenTargetSet = new Set(hyphenTargetLanguages);
+        const targetLanguages = Array.from(new Set([...dymTargetLanguages, ...hyphenTargetLanguages]));
+
+        const didYouMeanManifest = await readDidYouMeanManifest();
+        const hyphenManifest = await readHyphenManifest();
+
+        const dymManifestMatches = doesManifestMatch({
+            manifest: didYouMeanManifest,
+            schemaVersion: DYM_SCHEMA_VERSION,
+            algoVersion: DYM_ALGO_VERSION,
+            appVersion,
+        });
+
+        const hyphenManifestMatches = doesManifestMatch({
+            manifest: hyphenManifest,
+            schemaVersion: HYPH_SCHEMA_VERSION,
+            algoVersion: HYPH_ALGO_VERSION,
+            appVersion,
+        });
+
+        const didYouMeanReadySet = new Set(
+            dymManifestMatches
+                ? await verifyReusableDidYouMeanLanguages(didYouMeanManifest?.languagesReady || [])
+                : []
         );
 
-        const reusableLanguages = manifestMatches
-            ? await verifyReusableLanguages(manifest.languagesReady || [])
-            : [];
-        const readySet = new Set(reusableLanguages.map(asLanguageCode));
-        const missingLanguages = targetLanguages.filter((lang) => !readySet.has(asLanguageCode(lang)));
-        const failed = {};
+        const hyphenReadySet = new Set(
+            hyphenManifestMatches
+                ? await verifyReusableHyphenLanguages(hyphenManifest?.languagesReady || [])
+                : []
+        );
 
-        if (missingLanguages.length === 0) {
+        const didYouMeanFailed = {};
+        const hyphenFailed = {};
+
+        const buildLanguages = targetLanguages.filter((lang) => {
+            const needsDidYouMean = dymTargetSet.has(lang) && !didYouMeanReadySet.has(lang);
+            const needsHyphen = hyphenTargetSet.has(lang) && !hyphenReadySet.has(lang);
+            return needsDidYouMean || needsHyphen;
+        });
+
+        if (buildLanguages.length === 0) {
             updateDidYouMeanBuildProgress({
                 active: false,
                 total: targetLanguages.length,
                 completed: targetLanguages.length,
                 percent: 100,
                 currentLanguage: null,
+                stage: 'finalizing',
+                cacheType: null,
+                startupBlocking,
             }, onProgress);
+
             const result = {
                 ready: true,
                 built: false,
                 missingLanguages: [],
+                missingDidYouMeanLanguages: [],
+                missingHyphenLanguages: [],
                 appVersion,
                 algoVersion: DYM_ALGO_VERSION,
+                hyphenAlgoVersion: HYPH_ALGO_VERSION,
             };
             emitDidYouMeanReady(result);
             return result;
         }
 
-        let completed = 0;
-        const totalBuildLanguages = missingLanguages.length;
+        let completedLanguages = 0;
+        const totalBuildLanguages = buildLanguages.length;
         let lastProgressPercent = -1;
         let lastProgressTimestamp = 0;
+
         const nowTime = () => {
             if (typeof performance !== 'undefined' && typeof performance.now === 'function') {
                 return performance.now();
             }
             return Date.now();
         };
-        const emitActiveBuildProgress = (completedLanguages, languageFraction = 0, currentLanguage = null, force = false) => {
-            const safeCompleted = Math.max(0, Math.min(totalBuildLanguages, Number(completedLanguages) || 0));
+
+        const emitActiveBuildProgress = ({
+            completed = 0,
+            languageFraction = 0,
+            currentLanguage = null,
+            stage = 'didyoumean',
+            cacheType = null,
+            force = false,
+        }) => {
+            const safeCompleted = Math.max(0, Math.min(totalBuildLanguages, Number(completed) || 0));
             const safeLanguageFraction = Math.max(0, Math.min(1, Number(languageFraction) || 0));
             const exactCompleted = Math.min(totalBuildLanguages, safeCompleted + safeLanguageFraction);
             const percent = Number(((exactCompleted / totalBuildLanguages) * 100).toFixed(1));
@@ -732,79 +1154,179 @@ export const ensureDidYouMeanCacheReady = async ({
                 completed: safeCompleted,
                 percent,
                 currentLanguage,
+                stage,
+                cacheType,
+                startupBlocking,
             }, onProgress);
         };
 
-        emitActiveBuildProgress(completed, 0, missingLanguages[0], true);
+        for (const lang of buildLanguages) {
+            const needsHyphen = hyphenTargetSet.has(lang) && !hyphenReadySet.has(lang);
+            const needsDidYouMean = dymTargetSet.has(lang) && !didYouMeanReadySet.has(lang);
+            const totalSteps = (needsHyphen ? 1 : 0) + (needsDidYouMean ? 1 : 0);
+            const completedBeforeLanguage = completedLanguages;
+            const toLanguageFraction = (stepIndex, fraction) => {
+                if (totalSteps <= 0) return 1;
+                const safeFraction = Math.max(0, Math.min(1, Number(fraction) || 0));
+                return (stepIndex + safeFraction) / totalSteps;
+            };
 
-        for (const lang of missingLanguages) {
-            emitActiveBuildProgress(completed, 0, lang, true);
+            let loadedPayload = null;
+            let currentStepIndex = 0;
 
-            try {
-                const completedBeforeLanguage = completed;
-                await buildDidYouMeanLanguageIndex(lang, (languageFraction) => {
-                    emitActiveBuildProgress(completedBeforeLanguage, languageFraction, lang, false);
+            if (needsHyphen) {
+                emitActiveBuildProgress({
+                    completed: completedBeforeLanguage,
+                    languageFraction: toLanguageFraction(currentStepIndex, 0),
+                    currentLanguage: lang,
+                    stage: 'hyphen',
+                    cacheType: 'hyphen',
+                    force: true,
                 });
-                readySet.add(asLanguageCode(lang));
-            } catch (error) {
-                failed[lang] = error?.message || 'build_failed';
+
+                try {
+                    loadedPayload = loadedPayload || await loadLanguagePayload(lang);
+                    await buildHyphenLanguageIndex(lang, loadedPayload, (fraction) => {
+                        emitActiveBuildProgress({
+                            completed: completedBeforeLanguage,
+                            languageFraction: toLanguageFraction(currentStepIndex, fraction),
+                            currentLanguage: lang,
+                            stage: 'hyphen',
+                            cacheType: 'hyphen',
+                            force: false,
+                        });
+                    });
+                    hyphenReadySet.add(lang);
+                } catch (error) {
+                    hyphenFailed[lang] = error?.message || 'build_failed';
+                }
+
+                await writeHyphenManifest({
+                    appVersion,
+                    languagesReady: Array.from(hyphenReadySet),
+                    failed: hyphenFailed,
+                });
+
+                currentStepIndex += 1;
             }
 
-            completed += 1;
-            await writeDidYouMeanManifest({
-                appVersion,
-                languagesReady: Array.from(readySet),
-                failed,
-            });
+            if (needsDidYouMean) {
+                emitActiveBuildProgress({
+                    completed: completedBeforeLanguage,
+                    languageFraction: toLanguageFraction(currentStepIndex, 0),
+                    currentLanguage: lang,
+                    stage: 'didyoumean',
+                    cacheType: 'didyoumean',
+                    force: true,
+                });
 
-            emitActiveBuildProgress(
-                completed,
-                0,
-                completed < missingLanguages.length ? missingLanguages[completed] : null,
-                true,
-            );
+                try {
+                    loadedPayload = loadedPayload || await loadLanguagePayload(lang);
+                    await buildDidYouMeanLanguageIndex(lang, loadedPayload, (fraction) => {
+                        emitActiveBuildProgress({
+                            completed: completedBeforeLanguage,
+                            languageFraction: toLanguageFraction(currentStepIndex, fraction),
+                            currentLanguage: lang,
+                            stage: 'didyoumean',
+                            cacheType: 'didyoumean',
+                            force: false,
+                        });
+                    });
+                    didYouMeanReadySet.add(lang);
+                } catch (error) {
+                    didYouMeanFailed[lang] = error?.message || 'build_failed';
+                }
+
+                await writeDidYouMeanManifest({
+                    appVersion,
+                    languagesReady: Array.from(didYouMeanReadySet),
+                    failed: didYouMeanFailed,
+                });
+            }
+
+            completedLanguages += 1;
+            const nextLang = completedLanguages < buildLanguages.length
+                ? buildLanguages[completedLanguages]
+                : null;
+            const nextNeedsHyphen = Boolean(nextLang && hyphenTargetSet.has(nextLang) && !hyphenReadySet.has(nextLang));
+            const nextStage = nextLang
+                ? (nextNeedsHyphen ? 'hyphen' : 'didyoumean')
+                : 'finalizing';
+
+            emitActiveBuildProgress({
+                completed: completedLanguages,
+                languageFraction: 0,
+                currentLanguage: nextLang,
+                stage: nextStage,
+                cacheType: nextLang ? (nextNeedsHyphen ? 'hyphen' : 'didyoumean') : null,
+                force: true,
+            });
 
             await waitForFrame();
         }
 
-        updateDidYouMeanBuildProgress({
-            active: false,
-            total: missingLanguages.length,
-            completed: missingLanguages.length,
-            percent: 100,
-            currentLanguage: null,
-        }, onProgress);
-
         await writeDidYouMeanManifest({
             appVersion,
-            languagesReady: Array.from(readySet),
-            failed,
+            languagesReady: Array.from(didYouMeanReadySet),
+            failed: didYouMeanFailed,
         });
 
-        const missingAfterBuild = Array.from(targetSet).filter((lang) => !readySet.has(lang));
+        await writeHyphenManifest({
+            appVersion,
+            languagesReady: Array.from(hyphenReadySet),
+            failed: hyphenFailed,
+        });
+
+        const missingDidYouMeanAfterBuild = dymTargetLanguages.filter((lang) => !didYouMeanReadySet.has(lang));
+        const missingHyphenAfterBuild = hyphenTargetLanguages.filter((lang) => !hyphenReadySet.has(lang));
+
+        updateDidYouMeanBuildProgress({
+            active: false,
+            total: totalBuildLanguages,
+            completed: totalBuildLanguages,
+            percent: 100,
+            currentLanguage: null,
+            stage: 'finalizing',
+            cacheType: null,
+            startupBlocking,
+        }, onProgress);
+
         const result = {
-            ready: missingAfterBuild.length === 0,
+            ready: missingDidYouMeanAfterBuild.length === 0 && missingHyphenAfterBuild.length === 0,
             built: true,
-            missingLanguages: missingAfterBuild,
+            missingLanguages: missingDidYouMeanAfterBuild,
+            missingDidYouMeanLanguages: missingDidYouMeanAfterBuild,
+            missingHyphenLanguages: missingHyphenAfterBuild,
             appVersion,
             algoVersion: DYM_ALGO_VERSION,
+            hyphenAlgoVersion: HYPH_ALGO_VERSION,
         };
+
         emitDidYouMeanReady(result);
         return result;
     })().finally(() => {
-        didYouMeanBuildPromise = null;
+        runtimeCachesBuildPromise = null;
     });
-
-    return didYouMeanBuildPromise;
+    return runtimeCachesBuildPromise;
 };
+
+export const ensureDidYouMeanCacheReady = async ({
+    allLanguages = true,
+    onProgress = null,
+} = {}) => ensureRuntimeCachesReady({
+    allLanguages,
+    onProgress,
+    startupBlocking: false,
+});
 
 export const getDidYouMeanBuildProgress = () => didYouMeanBuildProgress;
 
 export const loadDidYouMeanCachedIndex = async (lang) => {
     const preferred = asLanguageCode(lang);
-    const candidates = Array.from(new Set([preferred, 'en']));
+    const candidates = Array.from(new Set([preferred, preferred.split('-')[0], 'en']));
+
     for (const candidate of candidates) {
-        const payload = await idbGet(getDidYouMeanIndexKey(candidate));
+        const payload = await dymIdbGet(getDidYouMeanIndexKey(candidate));
         if (!payload || !payload.index) continue;
         return {
             lang: payload.lang || candidate,
@@ -812,7 +1334,30 @@ export const loadDidYouMeanCachedIndex = async (lang) => {
             version: payload.version || DYM_ALGO_VERSION,
         };
     }
+
+    return null;
+};
+
+export const loadHyphenCachedIndex = async (lang) => {
+    const preferred = asLanguageCode(lang);
+    const candidates = Array.from(new Set([
+        preferred,
+        preferred.split('-')[0],
+        ...RUNTIME_HYPHEN_LANGUAGES,
+    ]));
+
+    for (const candidate of candidates) {
+        const payload = await hyphenIdbGet(getHyphenIndexKey(candidate));
+        if (!payload || !payload.index) continue;
+        return {
+            lang: payload.lang || candidate,
+            index: payload.index,
+            version: payload.version || HYPH_ALGO_VERSION,
+        };
+    }
+
     return null;
 };
 
 export const getDidYouMeanManifest = async () => readDidYouMeanManifest();
+export const getHyphenManifest = async () => readHyphenManifest();

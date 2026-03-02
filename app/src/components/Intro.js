@@ -1,8 +1,16 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect, useRef, useCallback } from 'react';
 import { animated } from '@react-spring/web';
 import Graph1 from '../specials/Graph1';
 import Graph2 from '../specials/Graph2';
 import { NextPagerIndicator, useNextPagerController } from '../hooks/NextPager';
+import { loadHyphenCachedIndex } from '../utils/Generator';
+import {
+    applyCachedHyphenationToText,
+    buildHyphenBreakMapFromSerializedIndex,
+    buildHyphenProtectedTokenSetFromSerializedIndex,
+    hyphenateReactNode,
+    isHyphenCacheLanguage,
+} from '../utils/Hyphenation';
 
 const Intro = ({
     colors,
@@ -21,6 +29,7 @@ const Intro = ({
 }) => {
 
     const lang = localStorage.getItem("lang");
+    const normalizedLang = String(lang || '').toLowerCase();
     const isPersian = lang === "fa";
     const images = require.context('../assets/pictures/', false, /\.jpg$/);
     const scrollContainerRef = useRef(null);
@@ -28,6 +37,9 @@ const Intro = ({
     const [isRefsReady, setIsRefsReady] = useState(false);
     const textRememberRef = useRef({});
     const [notify, setNotify] = useState(null);
+    const [hyphenBreakMap, setHyphenBreakMap] = useState(() => new Map());
+    const [hyphenProtectedTokens, setHyphenProtectedTokens] = useState(() => new Set());
+    const [hyphenLanguage, setHyphenLanguage] = useState(normalizedLang || 'en');
     const {
         overscrollPull,
         overscrollAwaitingTap,
@@ -50,6 +62,52 @@ const Intro = ({
         || translationApplication?.next
         || translationApplication?.continue
         || 'Sonraki sayfaya geç';
+
+    useEffect(() => {
+        let isCancelled = false;
+
+        const loadHyphenCache = async () => {
+            if (!isHyphenCacheLanguage(normalizedLang)) {
+                setHyphenBreakMap(new Map());
+                setHyphenProtectedTokens(new Set());
+                setHyphenLanguage(normalizedLang || 'en');
+                return;
+            }
+
+            try {
+                const cached = await loadHyphenCachedIndex(normalizedLang);
+                if (isCancelled) return;
+
+                setHyphenLanguage(String(cached?.lang || normalizedLang || 'en').toLowerCase());
+                setHyphenBreakMap(buildHyphenBreakMapFromSerializedIndex(cached?.index));
+                setHyphenProtectedTokens(buildHyphenProtectedTokenSetFromSerializedIndex(cached?.index));
+            } catch (_error) {
+                if (isCancelled) return;
+                setHyphenLanguage(normalizedLang || 'en');
+                setHyphenBreakMap(new Map());
+                setHyphenProtectedTokens(new Set());
+            }
+        };
+
+        loadHyphenCache();
+
+        return () => {
+            isCancelled = true;
+        };
+    }, [normalizedLang]);
+
+    const applyHyphenation = useCallback((value) => {
+        if (typeof value !== 'string') {
+            return value;
+        }
+
+        return applyCachedHyphenationToText(value, hyphenLanguage, hyphenBreakMap, hyphenProtectedTokens);
+    }, [hyphenBreakMap, hyphenLanguage, hyphenProtectedTokens]);
+
+    const parseReferencesWithHyphen = useCallback((value, from, controller = null) => {
+        const parsed = parseReferences(value, from, controller);
+        return hyphenateReactNode(parsed, applyHyphenation);
+    }, [parseReferences, applyHyphenation]);
 
     useEffect(() => {
         if (currentPage && isRefsReady) {
@@ -129,7 +187,7 @@ const Intro = ({
                         dir={direction}
                         ref={(el) => textRememberRef.current["intro-" + item.type + "-" + item.order] = el}
                         className={hasBesmele ? `select-none w-full my-1.5 py-1.5 px-2.5 text-neutral-900 rounded ${textTheme} bg-gradient-to-r ${direction === 'rtl' ? ` from-sky-500 to-cyan-300` : ` from-cyan-300 to-sky-500`} besmele` : `${pulsate} select-text w-full flex items-center justify-center text-center p-2 font-semibold ${colors[theme]["app-text"]}  whitespace-pre-line ${item.order === 0 ? "text-3xl font-bold" : " text-lg"}`}>
-                        <h2>{item.content}</h2>
+                        <h2>{applyHyphenation(item.content)}</h2>
                     </div>
                 );
             } else if (item.type === 'text') {
@@ -142,7 +200,7 @@ const Intro = ({
                         ref={(el) => textRememberRef.current["intro-" + item.type + "-" + item.order] = el}
                         onClick={(e) => handleRefClick(e, item.type + "-" + item.order)}
                         className={`select-text rounded ${colors[theme]["text-background"]} ${colors[theme]["app-text"]} p-1 mb-1 flex w-full justify-center hyphens-auto ${pulsate}`}>
-                        <p className={`px-0.5 md:px-1`}>{parseReferences(item.content, "intro-" + item.type + "-" + item.order)}</p>
+                        <p className={`px-0.5 md:px-1`}>{parseReferencesWithHyphen(item.content, "intro-" + item.type + "-" + item.order)}</p>
                     </div>
                 );
             } else if (item.type === 'evidence') {
@@ -178,10 +236,10 @@ const Intro = ({
                         onClick={(e) => handleRefClick(e, item.type + "-" + item.order)}
                         className={`${colors[theme]["base-background"]} ${colors[theme]["table-title-text"]} rounded ${smallTextTheme} p-3 border my-1.5 ${colors[theme]["border"]}`}>
                         {Object.entries(item.content.lines).map(([lineKey, lineValue]) => (
-                            <p className={` whitespace-pre-wrap my-1`} key={lineKey}>{parseReferences(lineValue, "intro-" + item.type + "-" + item.order)}</p>
+                            <p className={` whitespace-pre-wrap my-1`} key={lineKey}>{parseReferencesWithHyphen(lineValue, "intro-" + item.type + "-" + item.order)}</p>
                         ))}
                         {item.content.ref.length > 0 && (
-                            <p>{parseReferences("[" + item.content.ref.join(', ') + "]", "intro-" + item.type + "-" + item.order)}</p>
+                            <p>{parseReferencesWithHyphen("[" + item.content.ref.join(', ') + "]", "intro-" + item.type + "-" + item.order)}</p>
                         )}
                     </div>
                 );
@@ -201,7 +259,7 @@ const Intro = ({
                         </div>
                         {item.text && <div className={`${colors[theme]["log-text"]} w-full text-base flex justify-center`}>
                             <div className={`py-2 px-1`}>
-                                {item.text}
+                                {applyHyphenation(item.text)}
                             </div>
                         </div>}
                     </div>

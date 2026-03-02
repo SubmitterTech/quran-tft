@@ -3,10 +3,19 @@ import { mapAppendices } from '../utils/Mapper';
 import Picture4and5 from '../specials/Picture4and5';
 import Picture10 from '../specials/Picture10';
 import Picture22 from '../specials/Picture22';
+import { loadHyphenCachedIndex } from '../utils/Generator';
+import {
+    applyCachedHyphenationToText,
+    buildHyphenBreakMapFromSerializedIndex,
+    buildHyphenProtectedTokenSetFromSerializedIndex,
+    hyphenateReactNode,
+    isHyphenCacheLanguage,
+} from '../utils/Hyphenation';
 
 const Apps = ({ colors, theme, translationApplication, parseReferences, appendices, selected, restoreAppText, refToRestore, refToJump, direction, upt }) => {
 
     const lang = localStorage.getItem("lang");
+    const normalizedLang = String(lang || '').toLowerCase();
     const isPersian = lang === "fa";
     const containerRef = useRef(null);
     const appendixRef = useRef({});
@@ -18,6 +27,9 @@ const Apps = ({ colors, theme, translationApplication, parseReferences, appendic
 
     const [isRefsReady, setIsRefsReady] = useState(false);
     const [notify, setNotify] = useState(null);
+    const [hyphenBreakMap, setHyphenBreakMap] = useState(() => new Map());
+    const [hyphenProtectedTokens, setHyphenProtectedTokens] = useState(() => new Set());
+    const [hyphenLanguage, setHyphenLanguage] = useState(normalizedLang || 'en');
 
     const mapAppendicesData = useCallback((appendices) => {
         return mapAppendices(appendices, translationApplication);
@@ -27,6 +39,52 @@ const Apps = ({ colors, theme, translationApplication, parseReferences, appendic
         const initialAppendixMap = mapAppendicesData(appendices);
         setAppendixMap(initialAppendixMap);
     }, [appendices, mapAppendicesData]);
+
+    useEffect(() => {
+        let isCancelled = false;
+
+        const loadHyphenCache = async () => {
+            if (!isHyphenCacheLanguage(normalizedLang)) {
+                setHyphenBreakMap(new Map());
+                setHyphenProtectedTokens(new Set());
+                setHyphenLanguage(normalizedLang || 'en');
+                return;
+            }
+
+            try {
+                const cached = await loadHyphenCachedIndex(normalizedLang);
+                if (isCancelled) return;
+
+                setHyphenLanguage(String(cached?.lang || normalizedLang || 'en').toLowerCase());
+                setHyphenBreakMap(buildHyphenBreakMapFromSerializedIndex(cached?.index));
+                setHyphenProtectedTokens(buildHyphenProtectedTokenSetFromSerializedIndex(cached?.index));
+            } catch (_error) {
+                if (isCancelled) return;
+                setHyphenLanguage(normalizedLang || 'en');
+                setHyphenBreakMap(new Map());
+                setHyphenProtectedTokens(new Set());
+            }
+        };
+
+        loadHyphenCache();
+
+        return () => {
+            isCancelled = true;
+        };
+    }, [normalizedLang]);
+
+    const applyHyphenation = useCallback((value) => {
+        if (typeof value !== 'string') {
+            return value;
+        }
+
+        return applyCachedHyphenationToText(value, hyphenLanguage, hyphenBreakMap, hyphenProtectedTokens);
+    }, [hyphenBreakMap, hyphenLanguage, hyphenProtectedTokens]);
+
+    const parseReferencesWithHyphen = useCallback((value, from, controller = null) => {
+        const parsed = parseReferences(value, from, controller);
+        return hyphenateReactNode(parsed, applyHyphenation);
+    }, [parseReferences, applyHyphenation]);
 
     useEffect(() => {
         if (selected && isRefsReady) {
@@ -74,7 +132,7 @@ const Apps = ({ colors, theme, translationApplication, parseReferences, appendic
                     <div
                         ref={(el) => (textRef.current[`${appno}-${key}`] = el)}
                         className={`${colors[theme]["base-background"]} w-full rounded text-sm py-2 px-1 text-center `}>
-                        {tableRef}
+                        {applyHyphenation(tableRef)}
                     </div>
                     <table className={`table-auto w-full ${tableTextTheme} ${colors[theme]["base-background"]} border-collapse border-2 ${colors[theme]["border"]}`}>
                         <thead>
@@ -121,7 +179,7 @@ const Apps = ({ colors, theme, translationApplication, parseReferences, appendic
                                         <th key={`header-${index}`}
                                             colSpan={header.colspan}
                                             className={`border ${colors[theme]["border"]} p-2 text-balance`}>
-                                            {header.content}
+                                            {applyHyphenation(header.content)}
                                         </th>
                                     ));
                                 })()}
@@ -184,7 +242,7 @@ const Apps = ({ colors, theme, translationApplication, parseReferences, appendic
                                                 ref={(el) => (textRef.current[`${appno}-${key}-${rowIndex}-${cell.cellIndex}`] = el)}
                                                 onClick={(e) => handleClick(e, appno, `${key}-${rowIndex}-${cell.cellIndex}`)}
                                                 className={`text-center p-2 ${/^\s+$/.test(cell.content) ? `` : `border ${colors[theme]["border"]} border-opacity-25 `} ${((cell.cellIndex === 0 && row.length > 3) || (cell.cellIndex === row.length - 1 && row.length > 3) || (cell.content.includes('x') && /\d+ x/.test(cell.content))) ? ` text-nowrap ` : ` break-words `} `}>
-                                                {parseReferences(cell.content, `${appno}-${key}-${rowIndex}-${cell.cellIndex}`)}
+                                                {parseReferencesWithHyphen(cell.content, `${appno}-${key}-${rowIndex}-${cell.cellIndex}`)}
                                             </td>
                                         ))}
                                     </tr>
@@ -195,7 +253,7 @@ const Apps = ({ colors, theme, translationApplication, parseReferences, appendic
                 </div>
             </div>
         );
-    }, [colors, theme, parseReferences, notify, isPersian, handleClick]);
+    }, [colors, theme, parseReferencesWithHyphen, notify, isPersian, handleClick, applyHyphenation]);
 
     const renderContentItem = (appno, item, index) => {
         switch (item.type) {
@@ -211,7 +269,7 @@ const Apps = ({ colors, theme, translationApplication, parseReferences, appendic
                         dir={direction}
                         className={`${isAppendixTitle ? `px-2 pb-1 pt-2.5 ${colors[theme]["page-text"]}` : `${pulsateTitle} sticky top-10 px-2 pb-1 pt-2 ${colors[theme]["app-text"]}`} flex items-center justify-center text-center  font-semibold  ${colors[theme]["app-background"]} `}
                         ref={isAppendixTitle ? (el) => appendixRef.current[`appendix-${item.content.match(/\d+/)[0]}`] = el : (el) => textRef.current[appno + "-" + index] = el}>
-                        {item.content}
+                        {applyHyphenation(item.content)}
                     </div>
                 );
             case 'text':
@@ -225,7 +283,7 @@ const Apps = ({ colors, theme, translationApplication, parseReferences, appendic
                         onClick={(e) => handleClick(e, appno, index)}
                         className={`rounded ${colors[theme]["text-background"]} ${colors[theme]["text"]} p-0.5 mb-1 flex w-full text-justify hyphens-auto ${pulsate}`}>
                         <div className={`overflow-x-auto`}>
-                            <p className={`px-1 break-words`}>{parseReferences(item.content, appno + "-" + index)}</p>
+                            <p className={`px-1 break-words`}>{parseReferencesWithHyphen(item.content, appno + "-" + index)}</p>
                         </div>
                     </div>
                 );
@@ -240,10 +298,10 @@ const Apps = ({ colors, theme, translationApplication, parseReferences, appendic
                         onClick={(e) => handleClick(e, appno, index)}
                         className={`${colors[theme]["base-background"]} ${colors[theme]["table-title-text"]} rounded ${evidenceTextTheme} p-3 border my-3 ${colors[theme]["border"]}`}>
                         {Object.entries(item.content.lines).map(([lineKey, lineValue]) => (
-                            <p key={`${lineKey}`} className={`whitespace-pre-wrap text-justify my-2`}>{parseReferences(lineValue, appno + "-" + index)}</p>
+                            <p key={`${lineKey}`} className={`whitespace-pre-wrap text-justify my-2`}>{parseReferencesWithHyphen(lineValue, appno + "-" + index)}</p>
                         ))}
                         {item.content.ref.length > 0 && (
-                            <p>{parseReferences("[" + item.content.ref.join(', ') + "]", appno + "-" + index)}</p>
+                            <p>{parseReferencesWithHyphen("[" + item.content.ref.join(', ') + "]", appno + "-" + index)}</p>
                         )}
                     </div>
                 );
@@ -284,7 +342,7 @@ const Apps = ({ colors, theme, translationApplication, parseReferences, appendic
                             direction={direction}
                             colors={colors}
                             theme={theme}
-                            parseReferences={parseReferences}
+                            parseReferences={parseReferencesWithHyphen}
                             textRef={textRef}
                             appno={appno}
                             handleClick={handleClick}
@@ -298,7 +356,7 @@ const Apps = ({ colors, theme, translationApplication, parseReferences, appendic
                         </div>
                         {item.content.text && (
                             <div className={`${colors[theme]["log-text"]} w-full text-base flex justify-center`}>
-                                <div className={`p-2`}>{item.content.text}</div>
+                                <div className={`p-2`}>{applyHyphenation(item.content.text)}</div>
                             </div>
                         )}
                     </div>

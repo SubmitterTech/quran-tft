@@ -1,8 +1,15 @@
-import React, { useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import { useParams, useLocation, Link } from 'react-router-dom';
 import defaultQuran from '../assets/qurantft.json';
 import languages from '../assets/languages.json';
 import { mapQuranWithNotes } from '../utils/Mapper';
+import { loadHyphenCachedIndex } from '../utils/Generator';
+import {
+    applyCachedHyphenationToText,
+    buildHyphenBreakMapFromSerializedIndex,
+    buildHyphenProtectedTokenSetFromSerializedIndex,
+    isHyphenCacheLanguage,
+} from '../utils/Hyphenation';
 
 const LEAF_BACKGROUND_COLOR = '#414833';
 const NOTE_ACCENT_COLOR = '#7f5539';
@@ -64,6 +71,10 @@ const Leaf = () => {
     const [direction, setDirection] = useState('ltr');
     const [noteToggles, setNoteToggles] = useState({});
     const shouldUsePersianSans = (lang || '').toLowerCase() === 'fa';
+    const normalizedLang = String(lang || '').toLowerCase();
+    const [hyphenBreakMap, setHyphenBreakMap] = useState(() => new Map());
+    const [hyphenProtectedTokens, setHyphenProtectedTokens] = useState(() => new Set());
+    const [hyphenLanguage, setHyphenLanguage] = useState(normalizedLang || 'en');
 
     const toggleNote = (noteKey) => {
         setNoteToggles((prevToggles) => ({
@@ -71,6 +82,47 @@ const Leaf = () => {
             [noteKey]: !prevToggles[noteKey],
         }));
     };
+
+    useEffect(() => {
+        let isCancelled = false;
+
+        const loadHyphenCache = async () => {
+            if (!isHyphenCacheLanguage(normalizedLang)) {
+                setHyphenBreakMap(new Map());
+                setHyphenProtectedTokens(new Set());
+                setHyphenLanguage(normalizedLang || 'en');
+                return;
+            }
+
+            try {
+                const cached = await loadHyphenCachedIndex(normalizedLang);
+                if (isCancelled) return;
+
+                setHyphenLanguage(String(cached?.lang || normalizedLang || 'en').toLowerCase());
+                setHyphenBreakMap(buildHyphenBreakMapFromSerializedIndex(cached?.index));
+                setHyphenProtectedTokens(buildHyphenProtectedTokenSetFromSerializedIndex(cached?.index));
+            } catch (_error) {
+                if (isCancelled) return;
+                setHyphenLanguage(normalizedLang || 'en');
+                setHyphenBreakMap(new Map());
+                setHyphenProtectedTokens(new Set());
+            }
+        };
+
+        loadHyphenCache();
+
+        return () => {
+            isCancelled = true;
+        };
+    }, [normalizedLang]);
+
+    const applyHyphenation = useCallback((value) => {
+        if (typeof value !== 'string') {
+            return value;
+        }
+
+        return applyCachedHyphenationToText(value, hyphenLanguage, hyphenBreakMap, hyphenProtectedTokens);
+    }, [hyphenBreakMap, hyphenLanguage, hyphenProtectedTokens]);
 
     useEffect(() => {
         // Function to process and set Quran data
@@ -203,6 +255,9 @@ const Leaf = () => {
                         const isNoteOpen = Boolean(noteToggles[key]);
                         const [suraNumber] = key.split(':');
                         const parsedTitle = parseLeafTitle(titleList[key], suraNumber);
+                        const displayVerseText = applyHyphenation(text);
+                        const displayNoteText = noteList[key] ? applyHyphenation(noteList[key]) : noteList[key];
+                        const displayTitleText = titleList[key] ? applyHyphenation(titleList[key]) : titleList[key];
 
                         return (
                             <div dir={direction} key={key} className="text-neutral-950 text-justify hyphens-auto px-2">
@@ -217,17 +272,17 @@ const Leaf = () => {
                                             >
                                                 {parsedTitle.suraLabel && (
                                                     <div className="not-italic" style={{ color: TITLE_BESMELE_TEXT_COLOR }}>
-                                                        {parsedTitle.suraLabel}
+                                                        {applyHyphenation(parsedTitle.suraLabel)}
                                                     </div>
                                                 )}
                                                 {parsedTitle.suraNames && (
                                                     <div className="whitespace-pre-line" style={{ color: TITLE_BESMELE_TEXT_COLOR }}>
-                                                        {parsedTitle.suraNames}
+                                                        {applyHyphenation(parsedTitle.suraNames)}
                                                     </div>
                                                 )}
                                                 {parsedTitle.besmeleLine && (
                                                     <div className="text-sm md:text-base" style={{ color: TITLE_BESMELE_TEXT_COLOR }}>
-                                                        {parsedTitle.besmeleLine}
+                                                        {applyHyphenation(parsedTitle.besmeleLine)}
                                                     </div>
                                                 )}
                                             </div>
@@ -236,7 +291,7 @@ const Leaf = () => {
                                                 className="rounded-t mt-1.5 pt-0.5 px-1 whitespace-pre-line text-center italic font-medium"
                                                 style={{ backgroundColor: VERSE_SURFACE_COLOR }}
                                             >
-                                                {titleList[key]}
+                                                {displayTitleText}
                                             </div>
                                         )}
                                     </div>
@@ -268,7 +323,7 @@ const Leaf = () => {
                                     >
                                         {key}
                                     </span>{' '}
-                                    {text}
+                                    {displayVerseText}
                                 </div>
                                 {hasNote && (
                                     <div
@@ -279,7 +334,7 @@ const Leaf = () => {
                                             maxHeight: isNoteOpen ? NOTE_PANEL_MAX_HEIGHT : 0,
                                         }}
                                     >
-                                        {noteList[key]}
+                                        {displayNoteText}
                                     </div>
                                 )}
                             </div>

@@ -14,6 +14,7 @@ const Verse = ({ besmele,
     suraNumber,
     verseNumber,
     verseText,
+    displayVerseText,
     encryptedText,
     verseRefs,
     handleVerseClick,
@@ -33,7 +34,7 @@ const Verse = ({ besmele,
     const currentVerseKey = `${suraNumber}:${verseNumber}`;
     const [mode, setMode] = useState((hasAsterisk && path.current[currentVerseKey] === undefined) ? 'light' : 'idle');
     const [cn, setCn] = useState(verseClassName);
-    const [text, setText] = useState(verseText);
+    const [text, setText] = useState(displayVerseText || verseText);
     const [relatedVerses, setRelatedVerses] = useState([]);
     const lang = localStorage.getItem("lang");
     const [bookmark, setBookmark] = useState(null);
@@ -441,9 +442,11 @@ const Verse = ({ besmele,
         return parts;
     };
 
+    const renderVerseText = displayVerseText || verseText;
+
     useEffect(() => {
-        setText(lightGODwords(verseText));
-        let highlighted = lightGODwords(verseText, true);
+        setText(lightGODwords(renderVerseText));
+        let highlighted = lightGODwords(renderVerseText, true);
         if (mode === "reading") {
             setCn(verseClassName + " " + colors[theme]["verse-detail-background"] + " flex-col ring-1 " + colors[theme]["ring"]);
             setText(highlighted);
@@ -460,7 +463,7 @@ const Verse = ({ besmele,
             }
             setCn(verseClassName + " " + bcn);
         }
-    }, [mode, verseClassName, verseText, lightGODwords, colors, theme, encryptedText, hasBesmele, bookmark, direction]);
+    }, [mode, verseClassName, renderVerseText, lightGODwords, colors, theme, encryptedText, hasBesmele, bookmark, direction]);
 
 
     const handleClick = () => {

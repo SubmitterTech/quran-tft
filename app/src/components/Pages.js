@@ -2,6 +2,14 @@ import React, { useState, useEffect, useRef, useCallback, useMemo, useLayoutEffe
 import { animated } from '@react-spring/web';
 import Verse from '../components/Verse';
 import { NextPagerIndicator, useNextPagerController } from '../hooks/NextPager';
+import { loadHyphenCachedIndex } from '../utils/Generator';
+import {
+    applyCachedHyphenationToText,
+    buildHyphenBreakMapFromSerializedIndex,
+    buildHyphenProtectedTokenSetFromSerializedIndex,
+    hyphenateReactNode,
+    isHyphenCacheLanguage,
+} from '../utils/Hyphenation';
 
 const formatHitCount = (count) => {
     const factor = 19;
@@ -73,6 +81,7 @@ const Pages = React.memo(({
     onOverscrollProgressChange
 }) => {
     const lang = localStorage.getItem("lang");
+    const normalizedLang = String(lang || '').toLowerCase();
     const isPersian = lang === "fa";
 
     // Refs
@@ -108,6 +117,9 @@ const Pages = React.memo(({
         GODnamefrequency: false,
         GODnamesum: false,
     });
+    const [hyphenBreakMap, setHyphenBreakMap] = useState(() => new Map());
+    const [hyphenProtectedTokens, setHyphenProtectedTokens] = useState(() => new Set());
+    const [hyphenLanguage, setHyphenLanguage] = useState(normalizedLang || 'en');
     const {
         overscrollPull,
         overscrollAwaitingTap,
@@ -130,6 +142,52 @@ const Pages = React.memo(({
         || translationApplication?.next
         || translationApplication?.continue
         || 'Sonraki sayfaya geç';
+
+    useEffect(() => {
+        let isCancelled = false;
+
+        const loadHyphenCache = async () => {
+            if (!isHyphenCacheLanguage(normalizedLang)) {
+                setHyphenBreakMap(new Map());
+                setHyphenProtectedTokens(new Set());
+                setHyphenLanguage(normalizedLang || 'en');
+                return;
+            }
+
+            try {
+                const cached = await loadHyphenCachedIndex(normalizedLang);
+                if (isCancelled) return;
+
+                setHyphenLanguage(String(cached?.lang || normalizedLang || 'en').toLowerCase());
+                setHyphenBreakMap(buildHyphenBreakMapFromSerializedIndex(cached?.index));
+                setHyphenProtectedTokens(buildHyphenProtectedTokenSetFromSerializedIndex(cached?.index));
+            } catch (_error) {
+                if (isCancelled) return;
+                setHyphenLanguage(normalizedLang || 'en');
+                setHyphenBreakMap(new Map());
+                setHyphenProtectedTokens(new Set());
+            }
+        };
+
+        loadHyphenCache();
+
+        return () => {
+            isCancelled = true;
+        };
+    }, [normalizedLang]);
+
+    const applyHyphenation = useCallback((value) => {
+        if (typeof value !== 'string') {
+            return value;
+        }
+
+        return applyCachedHyphenationToText(value, hyphenLanguage, hyphenBreakMap, hyphenProtectedTokens);
+    }, [hyphenBreakMap, hyphenLanguage, hyphenProtectedTokens]);
+
+    const parseReferencesWithHyphen = useCallback((value, from, controller = null) => {
+        const parsed = parseReferences(value, from, controller);
+        return hyphenateReactNode(parsed, applyHyphenation);
+    }, [parseReferences, applyHyphenation]);
 
     const pageData = useMemo(() => quranData[selectedPage], [quranData, selectedPage]);
 
@@ -628,7 +686,7 @@ const Pages = React.memo(({
                 <thead>
                     <tr>
                         {tableData.title.map((header, index) => (
-                            <th key={index} className={`border-2 border-sky-500 p-2 `}>{header}</th>
+                            <th key={index} className={`border-2 border-sky-500 p-2 `}>{applyHyphenation(header)}</th>
                         ))}
                     </tr>
                 </thead>
@@ -636,7 +694,7 @@ const Pages = React.memo(({
                     {rows.map((row, rowIndex) => (
                         <tr key={rowIndex}>
                             {row.map((cell, cellIndex) => (
-                                <td key={cellIndex} className={`border-2 border-sky-500 p-2`}>{cell}</td>
+                                <td key={cellIndex} className={`border-2 border-sky-500 p-2`}>{applyHyphenation(cell)}</td>
                             ))}
                         </tr>
                     ))}
@@ -821,6 +879,8 @@ const Pages = React.memo(({
                     {sortedVerses.map(({ suraNumber, verseNumber, verseText, encryptedText, title }) => {
                         const hasAsterisk = verseText.includes('*') || (title && title.includes('*'));
                         const hasTitleAsterisk = (title && title.includes('*'));
+                        const displayVerseText = applyHyphenation(verseText);
+                        const displayTitle = title ? applyHyphenation(title) : title;
                         const verseTextTheme = isPersian ? `text-3xl md:text-4xl lg:text-5xl ` : `text-lg md:text-xl lg:text-2xl `;
                         const titleTextTheme = isPersian ? `text-2xl md:text-3xl lg:text-4xl ` : `text-lg md:text-xl lg:text-2xl font-semibold `;
                         const verseClassName = `${verseTextTheme} p-0.5 md:p-1 m-0.5 w-full flex flex-col cursor-pointer rounded  hyphens-auto text-justify `;
@@ -902,9 +962,9 @@ const Pages = React.memo(({
                                                         <div
                                                             dir={direction}
                                                             className={`${titleClassName} flex flex-col space-y-1.5`}>
-                                                            <div className={`w-full flex justify-center not-italic text-sky-500`}>{surano}</div>
+                                                            <div className={`w-full flex justify-center not-italic text-sky-500`}>{applyHyphenation(surano)}</div>
                                                             <div className={`w-full flex justify-center`}>
-                                                                {suranames}
+                                                                {applyHyphenation(suranames)}
                                                             </div>
                                                         </div>
                                                     );
@@ -923,7 +983,7 @@ const Pages = React.memo(({
                                                                 onClick={handleBesmeleClick}>
                                                                 <div
                                                                     className={`mx-1 py-1 px-2 text-neutral-800 rounded bg-gradient-to-r ${besmeleClicked ? ` font-semibold transition-all duration-200` : ``} ${direction === 'rtl' ? ` from-sky-500 to-cyan-300` : ` from-cyan-300 to-sky-500`} ${textTheme} besmele`}>
-                                                                    {besmeleClicked ? '0. ' + hasGODinit : hasGODinit}
+                                                                    {applyHyphenation(besmeleClicked ? `0. ${hasGODinit}` : hasGODinit)}
                                                                 </div>
                                                                 <div className={`flex items-center justify-center transition-all duration-200 ${besmeleClicked ? `py-1 px-2 mx-1` : `h-0`}`}>
                                                                     <div className={`transition-all duration-500 font-arabic text-2xl/relaxed md:text-3xl/relaxed lg:text-4xl/relaxed ${besmeleClicked ? `opacity-100` : ` opacity-0`}`}>
@@ -943,7 +1003,7 @@ const Pages = React.memo(({
                                                 dir={direction}
                                                 className={`${titleClassName} ${hasTitleAsterisk ? " cursor-pointer text-sky-500 border border-neutral-500/50 p-2 md:p-3" : "p-0.5 md:p-2"}`}
                                                 onClick={() => hasTitleAsterisk && handleTitleClick(noteReference)}>
-                                                {title}
+                                                {displayTitle}
                                             </div>
                                         )
                                 )}
@@ -958,6 +1018,7 @@ const Pages = React.memo(({
                                     suraNumber={suraNumber}
                                     verseNumber={verseNumber}
                                     verseText={verseText}
+                                    displayVerseText={displayVerseText}
                                     encryptedText={encryptedText}
                                     verseRefs={verseRefs}
                                     verseKey={verseKey}
@@ -1028,7 +1089,7 @@ const Pages = React.memo(({
                                         key={"notes:" + index}
                                         lang={lang}
                                         dir={direction}>
-                                        {parseReferences(note, 'notes:' + index, clickReferenceController)}
+                                        {parseReferencesWithHyphen(note, 'notes:' + index, clickReferenceController)}
                                     </div>
                                 ))}
                                 {notesData.tables && notesData.tables.map((table, index) => (
