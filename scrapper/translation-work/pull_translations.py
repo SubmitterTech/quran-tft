@@ -24,6 +24,7 @@ parser = argparse.ArgumentParser(
   %(prog)s --no-commit                      # pull all but skip commit prompt
   %(prog)s --no-stage                       # pull all but don't stage or commit (just write files)
   %(prog)s --dry-run                        # show what would be done without writing files
+  %(prog)s --assume-yes                     # auto-commit without interactive confirmation
   %(prog)s --skip-completeness              # skip updating completeness percentages in languages.json
   %(prog)s --api-key-file /path/to/key      # use a custom API key file
   %(prog)s --output-dir /path/to/dir        # save translations to a custom directory
@@ -39,6 +40,8 @@ parser.add_argument('--no-stage', action='store_true',
                     help='Pull and write files but do not stage or commit (review only).')
 parser.add_argument('--dry-run', action='store_true',
                     help='Show what would be done without writing any files.')
+parser.add_argument('--assume-yes', '--asume-yes', action='store_true',
+                    help='Automatically commit staged changes without asking for confirmation.')
 parser.add_argument('--skip-completeness', action='store_true',
                     help='Skip updating completeness percentages in languages.json.')
 parser.add_argument('--api-key-file', metavar='PATH',
@@ -474,12 +477,18 @@ elif args.dry_run:
 
 # --- Summary and commit ---
 if updated_languages or languages_json_changed:
-    # Map language codes to language names
-    updated_language_names = [language_names.get(code, code) for code in sorted(updated_languages)]
-    languages_str = ', '.join(updated_language_names)
-    commit_message = f"Update {languages_str} from Transifex"
+    updated_language_codes = sorted(updated_languages)
+    languages_str = ', '.join(updated_language_codes)
+
+    if updated_language_codes and languages_json_changed:
+        commit_message = f"Update translations ({languages_str}) and completeness from Transifex"
+    elif updated_language_codes:
+        commit_message = f"Update translations ({languages_str}) from Transifex"
+    else:
+        commit_message = "Update translation completeness from Transifex"
+
     print("\nThe following languages have been updated:")
-    if updated_language_names:
+    if updated_language_codes:
         print(languages_str)
     if languages_json_changed:
         print("languages.json has been updated with new completeness percentages.")
@@ -492,9 +501,15 @@ if updated_languages or languages_json_changed:
     elif args.no_commit:
         print("\nChanges have been staged but NOT committed. Review with 'git diff --cached'.")
     else:
-        # Ask the user to review and confirm the commit
-        user_input = input("\nWould you like to commit these changes? (y/n): ").strip().lower()
-        if user_input == 'y':
+        should_commit = args.assume_yes
+        if not should_commit:
+            # Ask the user to review and confirm the commit
+            user_input = input("\nWould you like to commit these changes? (y/n): ").strip().lower()
+            should_commit = user_input == 'y'
+        else:
+            print("\nAuto-confirm enabled (--assume-yes). Committing changes...")
+
+        if should_commit:
             author_info = 'transifex-translation-updater-bot <submittertech@gmail.com>'
             subprocess.run(['git', 'commit', '--author', author_info, '-m', commit_message])
             print("\nChanges have been committed.")
