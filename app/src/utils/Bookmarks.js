@@ -217,12 +217,15 @@ const set = (verseKey, value) => {
     const trimmedValue = safeValue.trim();
     const currentTimestamp = format(Date.now());
     const normalizedValue = trimmedValue ? trimmedValue.replace(timestampRegex, "$1 $2") : '';
+    const existingBookmark = bookmarks[verseKey];
 
-    if (bookmarks[verseKey]) {
-        if (normalizedValue === bookmarks[verseKey].timestamp) {
-            bookmarks[verseKey] = { value: null, timestamp: currentTimestamp };
+    if (existingBookmark) {
+        // Keep original creation timestamp stable so list order is based on first save time.
+        const initialTimestamp = existingBookmark.timestamp || currentTimestamp;
+        if (normalizedValue === initialTimestamp) {
+            bookmarks[verseKey] = { value: null, timestamp: initialTimestamp };
         } else {
-            bookmarks[verseKey] = { value: trimmedValue ? safeValue : null, timestamp: currentTimestamp };
+            bookmarks[verseKey] = { value: trimmedValue ? safeValue : null, timestamp: initialTimestamp };
         }
     } else {
         bookmarks[verseKey] = { value: trimmedValue ? safeValue : null, timestamp: currentTimestamp };
