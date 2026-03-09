@@ -8,7 +8,6 @@ import Boundary from './utils/Boundary';
 import * as serviceWorkerRegistration from './serviceWorkerRegistration';
 import defaultApplication from './assets/application.json';
 import languages from './assets/languages.json';
-import { ensureRuntimeCachesReady } from './utils/Generator';
 
 window.onerror = (message, source, lineno, colno, error) => {
   console.error('Global error caught:', { message, source, lineno, colno, error });
@@ -226,6 +225,7 @@ const renderApp = async () => {
     bootData = preloadedBootData;
 
     try {
+      const { ensureRuntimeCachesReady } = await import('./utils/Generator');
       await ensureRuntimeCachesReady({
         allLanguages: true,
         startupBlocking: true,

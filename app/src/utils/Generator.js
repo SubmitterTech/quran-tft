@@ -1,8 +1,4 @@
 import languagesCatalog from '../assets/languages.json';
-import baseQuran from '../assets/qurantft.json';
-import baseIntroduction from '../assets/introduction.json';
-import baseAppendices from '../assets/appendices.json';
-import baseApplication from '../assets/application.json';
 
 export const getRandom = () => {
     const array = new Uint32Array(1);
@@ -13,7 +9,7 @@ export const getRandom = () => {
 const DYM_ALGO_VERSION = 'dym-runtime-v2';
 const DYM_SCHEMA_VERSION = 1;
 const DYM_DB_NAME = 'quran-tft-cache';
-const DYM_DB_VERSION = 1;
+const DYM_DB_VERSION = 2;
 const DYM_STORE_NAME = 'didyoumean';
 const DYM_MANIFEST_KEY = 'manifest';
 const DYM_PROGRESS_EVENT = 'didyoumean:build-progress';
@@ -25,8 +21,8 @@ const DYM_BUILD_PROGRESS_MIN_DELTA = 0.005;
 
 const HYPH_ALGO_VERSION = 'hyphen-runtime-v4';
 const HYPH_SCHEMA_VERSION = 1;
-const HYPH_DB_NAME = 'quran-tft-hyphen-cache';
-const HYPH_DB_VERSION = 1;
+const HYPH_DB_NAME = DYM_DB_NAME;
+const HYPH_DB_VERSION = DYM_DB_VERSION;
 const HYPH_STORE_NAME = 'hyphenation';
 const HYPH_MANIFEST_KEY = 'manifest';
 const HYPHEN_CHAR = '\u00AD';
@@ -52,6 +48,7 @@ const quranTranslationContext = require.context(
     '../assets/translations',
     true,
     /quran_[a-z0-9-]+\.json$/,
+    'lazy',
 );
 
 const RUNTIME_DYM_LANGUAGES = Array.from(new Set([
@@ -63,6 +60,10 @@ const RUNTIME_DYM_LANGUAGES = Array.from(new Set([
         })
         .filter(Boolean),
 ])).filter((lang) => !!languagesCatalog[lang] || lang === 'en').sort();
+
+const DB_STORES_BY_NAME = {
+    [DYM_DB_NAME]: [DYM_STORE_NAME, HYPH_STORE_NAME],
+};
 
 let runtimeCachesBuildPromise = null;
 let didYouMeanBuildProgress = {
@@ -132,9 +133,12 @@ const openIndexedKeyValueDb = ({ dbName, dbVersion, storeName }) => {
 
         request.onupgradeneeded = () => {
             const db = request.result;
-            if (!db.objectStoreNames.contains(storeName)) {
-                db.createObjectStore(storeName);
-            }
+            const stores = new Set([storeName, ...(DB_STORES_BY_NAME[dbName] || [])]);
+            stores.forEach((candidateStoreName) => {
+                if (!db.objectStoreNames.contains(candidateStoreName)) {
+                    db.createObjectStore(candidateStoreName);
+                }
+            });
         };
 
         request.onsuccess = () => resolve(request.result);
@@ -914,25 +918,43 @@ const loadTranslation = async (lang, prefix, fallback) => {
     const module = await import(
         `../assets/translations/${normalizedLang}/${prefix}_${normalizedLang}.json`
     ).catch(() => null);
-    return module?.default || fallback;
+    if (module?.default) {
+        return module.default;
+    }
+    if (typeof fallback === 'function') {
+        return fallback();
+    }
+    return fallback;
 };
+
+const loadBaseQuran = async () => (await import('../assets/qurantft.json')).default;
+const loadBaseIntroduction = async () => (await import('../assets/introduction.json')).default;
+const loadBaseAppendices = async () => (await import('../assets/appendices.json')).default;
+const loadBaseApplication = async () => (await import('../assets/application.json')).default;
 
 const loadLanguagePayload = async (lang) => {
     const normalizedLang = asLanguageCode(lang);
     if (normalizedLang === 'en') {
+        const [quran, introduction, appendices, application] = await Promise.all([
+            loadBaseQuran(),
+            loadBaseIntroduction(),
+            loadBaseAppendices(),
+            loadBaseApplication(),
+        ]);
+
         return {
-            quran: baseQuran,
-            introduction: baseIntroduction,
-            appendices: baseAppendices,
-            application: baseApplication,
+            quran,
+            introduction,
+            appendices,
+            application,
         };
     }
 
     return {
-        quran: await loadTranslation(normalizedLang, 'quran', baseQuran),
-        introduction: await loadTranslation(normalizedLang, 'introduction', baseIntroduction),
-        appendices: await loadTranslation(normalizedLang, 'appendices', baseAppendices),
-        application: await loadTranslation(normalizedLang, 'application', baseApplication),
+        quran: await loadTranslation(normalizedLang, 'quran', loadBaseQuran),
+        introduction: await loadTranslation(normalizedLang, 'introduction', loadBaseIntroduction),
+        appendices: await loadTranslation(normalizedLang, 'appendices', loadBaseAppendices),
+        application: await loadTranslation(normalizedLang, 'application', loadBaseApplication),
     };
 };
 
