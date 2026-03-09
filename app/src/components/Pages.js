@@ -77,6 +77,7 @@ const Pages = React.memo(({
     direction,
     upt,
     kvdo,
+    autoHyphenation = true,
     onEndOverscrollNext,
     onOverscrollProgressChange
 }) => {
@@ -120,6 +121,7 @@ const Pages = React.memo(({
     const [hyphenBreakMap, setHyphenBreakMap] = useState(() => new Map());
     const [hyphenProtectedTokens, setHyphenProtectedTokens] = useState(() => new Set());
     const [hyphenLanguage, setHyphenLanguage] = useState(normalizedLang || 'en');
+    const hyphenClassName = autoHyphenation ? 'hyphens-auto' : 'hyphens-none';
     const {
         overscrollPull,
         overscrollAwaitingTap,
@@ -147,7 +149,7 @@ const Pages = React.memo(({
         let isCancelled = false;
 
         const loadHyphenCache = async () => {
-            if (!isHyphenCacheLanguage(normalizedLang)) {
+            if (!autoHyphenation || !isHyphenCacheLanguage(normalizedLang)) {
                 setHyphenBreakMap(new Map());
                 setHyphenProtectedTokens(new Set());
                 setHyphenLanguage(normalizedLang || 'en');
@@ -174,20 +176,27 @@ const Pages = React.memo(({
         return () => {
             isCancelled = true;
         };
-    }, [normalizedLang]);
+    }, [normalizedLang, autoHyphenation]);
 
     const applyHyphenation = useCallback((value) => {
         if (typeof value !== 'string') {
             return value;
         }
 
+        if (!autoHyphenation) {
+            return value;
+        }
+
         return applyCachedHyphenationToText(value, hyphenLanguage, hyphenBreakMap, hyphenProtectedTokens);
-    }, [hyphenBreakMap, hyphenLanguage, hyphenProtectedTokens]);
+    }, [hyphenBreakMap, hyphenLanguage, hyphenProtectedTokens, autoHyphenation]);
 
     const parseReferencesWithHyphen = useCallback((value, from, controller = null) => {
         const parsed = parseReferences(value, from, controller);
+        if (!autoHyphenation) {
+            return parsed;
+        }
         return hyphenateReactNode(parsed, applyHyphenation);
-    }, [parseReferences, applyHyphenation]);
+    }, [parseReferences, applyHyphenation, autoHyphenation]);
 
     const pageData = useMemo(() => quranData[selectedPage], [quranData, selectedPage]);
 
@@ -883,7 +892,7 @@ const Pages = React.memo(({
                         const displayTitle = title ? applyHyphenation(title) : title;
                         const verseTextTheme = isPersian ? `text-3xl md:text-4xl lg:text-5xl ` : `text-lg md:text-xl lg:text-2xl `;
                         const titleTextTheme = isPersian ? `text-2xl md:text-3xl lg:text-4xl ` : `text-lg md:text-xl lg:text-2xl font-semibold `;
-                        const verseClassName = `${verseTextTheme} p-0.5 md:p-1 m-0.5 w-full flex flex-col cursor-pointer rounded  hyphens-auto text-justify `;
+                        const verseClassName = `${verseTextTheme} p-0.5 md:p-1 m-0.5 w-full flex flex-col cursor-pointer rounded ${hyphenClassName} text-justify `;
                         const titleClassName = `${titleTextTheme} mx-1 my-0.5 italic rounded  text-center whitespace-pre-wrap `;
                         const verseKey = `${suraNumber}:${verseNumber}`;
                         const noteReference = hasAsterisk ? verseKey : null;
@@ -1084,7 +1093,7 @@ const Pages = React.memo(({
 
                                 {notesData.data.map((note, index) => (
                                     <div
-                                        className={`${colors[theme]["notes-background"]} hyphens-auto rounded p-2 ${colors[theme]["app-text"]} ${focusedNoteIndices[index] ? 'animate-pulse' : ''}`}
+                                        className={`${colors[theme]["notes-background"]} ${hyphenClassName} rounded p-2 ${colors[theme]["app-text"]} ${focusedNoteIndices[index] ? 'animate-pulse' : ''}`}
                                         ref={(el) => noteRefs.current[index] = el}
                                         key={"notes:" + index}
                                         lang={lang}

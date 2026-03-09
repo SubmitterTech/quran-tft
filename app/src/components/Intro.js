@@ -24,6 +24,7 @@ const Intro = ({
     refToJump,
     direction,
     upt,
+    autoHyphenation = true,
     onEndOverscrollNext,
     onOverscrollProgressChange,
 }) => {
@@ -40,6 +41,7 @@ const Intro = ({
     const [hyphenBreakMap, setHyphenBreakMap] = useState(() => new Map());
     const [hyphenProtectedTokens, setHyphenProtectedTokens] = useState(() => new Set());
     const [hyphenLanguage, setHyphenLanguage] = useState(normalizedLang || 'en');
+    const hyphenClassName = autoHyphenation ? 'hyphens-auto' : 'hyphens-none';
     const {
         overscrollPull,
         overscrollAwaitingTap,
@@ -67,7 +69,7 @@ const Intro = ({
         let isCancelled = false;
 
         const loadHyphenCache = async () => {
-            if (!isHyphenCacheLanguage(normalizedLang)) {
+            if (!autoHyphenation || !isHyphenCacheLanguage(normalizedLang)) {
                 setHyphenBreakMap(new Map());
                 setHyphenProtectedTokens(new Set());
                 setHyphenLanguage(normalizedLang || 'en');
@@ -94,20 +96,27 @@ const Intro = ({
         return () => {
             isCancelled = true;
         };
-    }, [normalizedLang]);
+    }, [normalizedLang, autoHyphenation]);
 
     const applyHyphenation = useCallback((value) => {
         if (typeof value !== 'string') {
             return value;
         }
 
+        if (!autoHyphenation) {
+            return value;
+        }
+
         return applyCachedHyphenationToText(value, hyphenLanguage, hyphenBreakMap, hyphenProtectedTokens);
-    }, [hyphenBreakMap, hyphenLanguage, hyphenProtectedTokens]);
+    }, [hyphenBreakMap, hyphenLanguage, hyphenProtectedTokens, autoHyphenation]);
 
     const parseReferencesWithHyphen = useCallback((value, from, controller = null) => {
         const parsed = parseReferences(value, from, controller);
+        if (!autoHyphenation) {
+            return parsed;
+        }
         return hyphenateReactNode(parsed, applyHyphenation);
-    }, [parseReferences, applyHyphenation]);
+    }, [parseReferences, applyHyphenation, autoHyphenation]);
 
     useEffect(() => {
         if (currentPage && isRefsReady) {
@@ -199,7 +208,7 @@ const Intro = ({
                         key={`text-${index}`}
                         ref={(el) => textRememberRef.current["intro-" + item.type + "-" + item.order] = el}
                         onClick={(e) => handleRefClick(e, item.type + "-" + item.order)}
-                        className={`select-text rounded ${colors[theme]["text-background"]} ${colors[theme]["app-text"]} p-1 mb-1 flex w-full justify-center hyphens-auto ${pulsate}`}>
+                        className={`select-text rounded ${colors[theme]["text-background"]} ${colors[theme]["app-text"]} p-1 mb-1 flex w-full justify-center ${hyphenClassName} ${pulsate}`}>
                         <p className={`px-0.5 md:px-1`}>{parseReferencesWithHyphen(item.content, "intro-" + item.type + "-" + item.order)}</p>
                     </div>
                 );

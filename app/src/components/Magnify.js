@@ -1,8 +1,15 @@
 import { useState, useEffect, useCallback, useRef, useMemo, useDeferredValue, useTransition } from 'react';
 import { mapAppendices, mapQuran } from '../utils/Mapper';
 import { isNative, triggerActionHaptic } from '../utils/Device';
-import { ensureDidYouMeanCacheReady, loadDidYouMeanCachedIndex } from '../utils/Generator';
+import { ensureDidYouMeanCacheReady, loadDidYouMeanCachedIndex, loadHyphenCachedIndex } from '../utils/Generator';
 import languages from '../assets/languages.json';
+import {
+    applyCachedHyphenationToText,
+    buildHyphenBreakMapFromSerializedIndex,
+    buildHyphenProtectedTokenSetFromSerializedIndex,
+    hyphenateReactNode,
+    isHyphenCacheLanguage,
+} from '../utils/Hyphenation';
 
 
 // Word-boundary check: a character is a boundary (not part of a word) if it's
@@ -325,8 +332,27 @@ const loadCachedSuggestionIndex = async (lang) => {
     };
 };
 
-const Magnify = ({ colors, theme, translationApplication, quran, map, appendices, introduction, onClose, onConfirm, direction, multiSelect, setMultiSelect, selectedVerseList, setSelectedVerseList }) => {
+const Magnify = ({
+    colors,
+    theme,
+    translationApplication,
+    quran,
+    map,
+    appendices,
+    introduction,
+    onClose,
+    onConfirm,
+    direction,
+    multiSelect,
+    setMultiSelect,
+    selectedVerseList,
+    setSelectedVerseList,
+    autoHyphenationEnabled = true,
+    onAutoHyphenationChange = null,
+    showAutoHyphenationOption = true,
+}) => {
     const lang = localStorage.getItem("lang");
+    const normalizedLang = String(lang || '').toLowerCase();
     const langCfg = useMemo(() => (languages && languages[lang] ? languages[lang] : null), [lang]);
     const isRtlLanguage = !!(langCfg && langCfg.dir === 'rtl');
     const langDigits = useMemo(() => (
@@ -368,6 +394,10 @@ const Magnify = ({ colors, theme, translationApplication, quran, map, appendices
     const [loadedNotes, setLoadedNotes] = useState([]);
     const [loadedMap, setLoadedMap] = useState([]);
     const [loadedAppendices, setLoadedAppendices] = useState([]);
+    const [hyphenBreakMap, setHyphenBreakMap] = useState(() => new Map());
+    const [hyphenProtectedTokens, setHyphenProtectedTokens] = useState(() => new Set());
+    const [hyphenLanguage, setHyphenLanguage] = useState(normalizedLang || 'en');
+    const hyphenClassName = autoHyphenationEnabled ? 'hyphens-auto' : 'hyphens-none';
 
 
     const batchSize = 19;
@@ -421,6 +451,65 @@ const Magnify = ({ colors, theme, translationApplication, quran, map, appendices
     useEffect(() => {
         setAppsmap(mapAppendices(appendices, translationApplication));
     }, [appendices, translationApplication]);
+
+    useEffect(() => {
+        let isCancelled = false;
+
+        const loadHyphenCache = async () => {
+            if (!autoHyphenationEnabled || !isHyphenCacheLanguage(normalizedLang)) {
+                setHyphenBreakMap(new Map());
+                setHyphenProtectedTokens(new Set());
+                setHyphenLanguage(normalizedLang || 'en');
+                return;
+            }
+
+            try {
+                const cached = await loadHyphenCachedIndex(normalizedLang);
+                if (isCancelled) return;
+
+                setHyphenLanguage(String(cached?.lang || normalizedLang || 'en').toLowerCase());
+                setHyphenBreakMap(buildHyphenBreakMapFromSerializedIndex(cached?.index));
+                setHyphenProtectedTokens(buildHyphenProtectedTokenSetFromSerializedIndex(cached?.index));
+            } catch (_error) {
+                if (isCancelled) return;
+                setHyphenLanguage(normalizedLang || 'en');
+                setHyphenBreakMap(new Map());
+                setHyphenProtectedTokens(new Set());
+            }
+        };
+
+        loadHyphenCache();
+
+        return () => {
+            isCancelled = true;
+        };
+    }, [normalizedLang, autoHyphenationEnabled]);
+
+    const applyHyphenation = useCallback((value) => {
+        if (typeof value !== 'string') {
+            return value;
+        }
+
+        if (!autoHyphenationEnabled) {
+            return value;
+        }
+
+        return applyCachedHyphenationToText(value, hyphenLanguage, hyphenBreakMap, hyphenProtectedTokens);
+    }, [hyphenLanguage, hyphenBreakMap, hyphenProtectedTokens, autoHyphenationEnabled]);
+
+    const applyHyphenationToNode = useCallback((node) => {
+        if (!autoHyphenationEnabled) {
+            return node;
+        }
+
+        return hyphenateReactNode(node, applyHyphenation);
+    }, [autoHyphenationEnabled, applyHyphenation]);
+
+    const handleAutoHyphenationToggle = useCallback((nextValue) => {
+        if (typeof onAutoHyphenationChange === 'function') {
+            onAutoHyphenationChange(Boolean(nextValue));
+        }
+    }, [onAutoHyphenationChange]);
 
     const handleThemeClick = (index) => {
         setOpenTheme(openTheme === index ? null : index);
@@ -1782,6 +1871,10 @@ const Magnify = ({ colors, theme, translationApplication, quran, map, appendices
         return highlightedText;
     }, [searchTerm, highlightText, highlightExactKeywords, exactMatch, searchFold, langDigits]);
 
+    const renderResultText = useCallback((text) => (
+        applyHyphenationToNode(lightWords(text))
+    ), [lightWords, applyHyphenationToNode]);
+
     const lastTitleElementRef = useCallback(node => {
         if (observerTitles.current) observerTitles.current.disconnect();
         observerTitles.current = new IntersectionObserver(entries => {
@@ -2224,7 +2317,7 @@ const Magnify = ({ colors, theme, translationApplication, quran, map, appendices
                                                         key={`title-${thekey}-${index}`}
                                                         className={`py-2 px-5 rounded relative ${colors[theme]["app-background"]} cursor-pointer mx-1.5 md:mr-2 whitespace-pre-line text-center ${pulsate}`}
                                                         onClick={handleConfirm(thekey, `title`)}>
-                                                        <span className="text-sky-500 absolute top-1 left-1 text-xs">{result.suraNumber}:{result.titleNumber}</span> {lightWords(result.titleText)}
+                                                        <span className="text-sky-500 absolute top-1 left-1 text-xs">{result.suraNumber}:{result.titleNumber}</span> {renderResultText(result.titleText)}
                                                     </div>
                                                 );
                                             })
@@ -2266,7 +2359,7 @@ const Magnify = ({ colors, theme, translationApplication, quran, map, appendices
                             </div>
                             <div
                                 lang={lang}
-                                className={`text-sm md:text-base text-justify hyphens-auto w-full ${colors[theme]["text"]} ${loadedVerses.length > 0 ? "max-h-full" : "h-0"}`}>
+                                className={`text-sm md:text-base text-justify ${hyphenClassName} w-full ${colors[theme]["text"]} ${loadedVerses.length > 0 ? "max-h-full" : "h-0"}`}>
                                 <div className={`w-full flex flex-col space-y-1.5 ${versesVisible ? `pb-1.5` : ``}`}>
                                     {versesVisible &&
                                         (
@@ -2285,7 +2378,7 @@ const Magnify = ({ colors, theme, translationApplication, quran, map, appendices
                                                         key={`verse-${thekey}-${index}`}
                                                         className={`p-1.5 rounded ${colors[theme]["text-background"]} cursor-pointer mx-1.5 md:mr-2 ${hasring} ${pulsate} whitespace-pre-line`}
                                                         onClick={handleConfirm(`${result.suraNumber}:${result.verseNumber}`, 'verse')}>
-                                                        <span className="text-sky-500">{result.suraNumber}:{result.verseNumber}</span> {lightWords(result.verseText)}
+                                                        <span className="text-sky-500">{result.suraNumber}:{result.verseNumber}</span> {renderResultText(result.verseText)}
                                                     </div>
                                                 );
                                             })
@@ -2304,7 +2397,7 @@ const Magnify = ({ colors, theme, translationApplication, quran, map, appendices
                             </div>
                             <div
                                 lang={lang}
-                                className={`text-sm md:text-base text-justify hyphens-auto w-full ${colors[theme]["text"]} transition-all duration-100 ease-linear ${loadedNotes.length > 0 ? "max-h-full" : "h-0"}`}>
+                                className={`text-sm md:text-base text-justify ${hyphenClassName} w-full ${colors[theme]["text"]} transition-all duration-100 ease-linear ${loadedNotes.length > 0 ? "max-h-full" : "h-0"}`}>
                                 <div className={`w-full flex flex-col space-y-1.5 ${notesVisible ? `pb-1.5` : ``}`}>
                                     {notesVisible &&
                                         (loadedNotes.map((result, index) => {
@@ -2321,7 +2414,7 @@ const Magnify = ({ colors, theme, translationApplication, quran, map, appendices
                                                     key={`footnote-${thekey}-${index}`}
                                                     className={` p-1.5 rounded  ${colors[theme]["notes-background"]} cursor-pointer mx-1.5 md:mr-2 ${pulsate}`}
                                                     onClick={handleConfirm(`${result.suraNumber}:${result.verseNumber}`, `footnote`)}>
-                                                    {lightWords(result.note)}
+                                                    {renderResultText(result.note)}
                                                 </div>
                                             );
                                         }))
@@ -2339,7 +2432,7 @@ const Magnify = ({ colors, theme, translationApplication, quran, map, appendices
                             </div>
                             <div
                                 lang={lang}
-                                className={`text-sm md:text-base text-justify hyphens-auto w-full ${colors[theme]["text"]} transition-all duration-100 ease-linear ${loadedAppendices.length > 0 ? "max-h-full" : "h-0"}`}>
+                                className={`text-sm md:text-base text-justify ${hyphenClassName} w-full ${colors[theme]["text"]} transition-all duration-100 ease-linear ${loadedAppendices.length > 0 ? "max-h-full" : "h-0"}`}>
                                 <div className={`w-full flex flex-col space-y-1.5 ${appendicesVisible ? "mb-10 pb-1.5" : ""}`}>
                                     {appendicesVisible &&
                                         loadedAppendices.map((result, index) => {
@@ -2361,11 +2454,11 @@ const Magnify = ({ colors, theme, translationApplication, quran, map, appendices
                                                 >
                                                     {isIntro ? (
                                                         <>
-                                                            <span className="text-sky-500">{translationApplication.intro}</span> {lightWords(result.introText)}
+                                                            <span className="text-sky-500">{translationApplication.intro}</span> {renderResultText(result.introText)}
                                                         </>
                                                     ) : (
                                                         <>
-                                                            <span className="text-sky-500">{translationApplication.appendix}-{result.appx}</span> {lightWords(result.appendixText)}
+                                                            <span className="text-sky-500">{translationApplication.appendix}-{result.appx}</span> {renderResultText(result.appendixText)}
                                                         </>
                                                     )}
                                                 </div>
@@ -2521,6 +2614,29 @@ const Magnify = ({ colors, theme, translationApplication, quran, map, appendices
                 <div dir={direction} className={`fixed left-1 right-1 ${colors[theme]["app-background"]} z-[146] shadow-lg rounded px-1 py-1.5 border ${colors[theme]["border"]}`}
                     style={{ top: `calc(3.3rem + env(safe-area-inset-top) * 0.76)` }}>
                     <div className={`flex flex-col text-lg md:text-xl`}>
+                        {showAutoHyphenationOption && (
+                            <label className={`flex items-center justify-between md:justify-end gap-2 p-3 border-b cursor-pointer ${colors[theme]["verse-border"]}`}>
+                                <span className={`${autoHyphenationEnabled ? colors[theme]["text"] : colors[theme]["page-text"]}`}>
+                                    <span className="text-xl md:text-2xl font-semibold">
+                                        {translationApplication?.autoHyphenation || 'Otomatik tireleme'}
+                                    </span>
+                                </span>
+                                <div>
+                                    <label className='flex cursor-pointer select-none items-center'>
+                                        <div className='relative'>
+                                            <input
+                                                type='checkbox'
+                                                checked={autoHyphenationEnabled}
+                                                onChange={(e) => handleAutoHyphenationToggle(e.target.checked)}
+                                                className='sr-only'
+                                            />
+                                            <div className={`box block h-8 w-14 rounded-full ${autoHyphenationEnabled ? colors[theme]["text-background"] : colors[theme]["base-background"]}`}></div>
+                                            <div className={`absolute left-1 top-1 flex h-6 w-6 items-center justify-center rounded-full ${autoHyphenationEnabled ? colors[theme]["matching"] : colors[theme]["notes-background"]} transition ${autoHyphenationEnabled ? 'translate-x-full' : ''}`}></div>
+                                        </div>
+                                    </label>
+                                </div>
+                            </label>
+                        )}
                         {direction !== 'rtl' && (
                             <label className={`flex items-center justify-between md:justify-end gap-2 p-3 border-b cursor-pointer ${colors[theme]["verse-border"]}`}>
                                 <span className={`${caseSensitive ? colors[theme]["text"] : colors[theme]["page-text"]}`}>{translationApplication?.case}</span>

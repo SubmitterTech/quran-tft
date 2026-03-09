@@ -16,6 +16,8 @@ import LongPressable from '../hooks/LongPressable';
 import { NextPagerProgressRing } from '../hooks/NextPager';
 import '../assets/css/Book.css';
 
+const AUTO_HYPHEN_STORAGE_KEY = 'qurantft-ah';
+
 const Book = React.memo(({ incomingSearch = false, incomingAppendix = false, incomingAppendixNumber = 1, onChangeFont, font, onChangeColor, colors, theme, translationApplication, introductionContent, quranData, map, appendicesContent, translation, onChangeLanguage, onPageChange = null, onIntroTranslationNeeded = null, isTranslationLoading = false, translationLoadProgress = 0, direction, isDidYouMeanBuildBusy = false }) => {
     const lang = localStorage.getItem("lang")
     const magnifyConfirm = useRef(false);
@@ -55,6 +57,20 @@ const Book = React.memo(({ incomingSearch = false, incomingAppendix = false, inc
         const saved = localStorage.getItem("qurantft-iss");
         return (saved !== null) ? JSON.parse(saved) : false;
     });
+    const [autoHyphenationEnabled, setAutoHyphenationEnabled] = useState(() => {
+        const saved = localStorage.getItem(AUTO_HYPHEN_STORAGE_KEY);
+        if (saved !== null) {
+            try {
+                return JSON.parse(saved);
+            } catch (_error) {
+                // Ignore malformed persisted values and fall back.
+            }
+        }
+        return false;
+    });
+    const isRtlDirection = direction === 'rtl';
+    const isAutoHyphenationToggleVisible = !isRtlDirection;
+    const isAutoHyphenationEnabled = autoHyphenationEnabled && !isRtlDirection;
 
     const referenceMap = useMemo(() => generateReferenceMap(quranData), [quranData]);
     const quranmap = useMemo(() => mapQuranWithNotes(translation || quranData), [translation, quranData]);
@@ -157,6 +173,17 @@ const Book = React.memo(({ incomingSearch = false, incomingAppendix = false, inc
     useEffect(() => {
         localStorage.setItem("qurantft-iss", JSON.stringify(includeSearchScreen));
     }, [includeSearchScreen]);
+
+    useEffect(() => {
+        localStorage.setItem(AUTO_HYPHEN_STORAGE_KEY, JSON.stringify(Boolean(autoHyphenationEnabled)));
+    }, [autoHyphenationEnabled]);
+
+    const handleAutoHyphenationChange = useCallback((nextValue) => {
+        if (isRtlDirection) {
+            return;
+        }
+        setAutoHyphenationEnabled(Boolean(nextValue));
+    }, [isRtlDirection]);
 
     const handleMagnifyConfirm = (reference, from = null) => {
         from = 'magnify'
@@ -867,6 +894,7 @@ const Book = React.memo(({ incomingSearch = false, incomingAppendix = false, inc
                 refToJump={beginingReferenceToJump}
                 direction={direction}
                 upt={updatePageTriggered}
+                autoHyphenation={isAutoHyphenationEnabled}
                 onEndOverscrollNext={nextPage}
                 onOverscrollProgressChange={setOverscrollNavProgress}
             />;
@@ -973,6 +1001,7 @@ const Book = React.memo(({ incomingSearch = false, incomingAppendix = false, inc
                 direction={direction}
                 upt={updatePageTriggered}
                 kvdo={keepVerseDetailsOpen && rememberHistory}
+                autoHyphenation={isAutoHyphenationEnabled}
                 onEndOverscrollNext={nextPage}
                 onOverscrollProgressChange={setOverscrollNavProgress}
             />;
@@ -1056,6 +1085,7 @@ const Book = React.memo(({ incomingSearch = false, incomingAppendix = false, inc
                 refToJump={appxReferenceToJump}
                 direction={direction}
                 upt={updatePageTriggered}
+                autoHyphenation={isAutoHyphenationEnabled}
             />;
         }
     };
@@ -1330,6 +1360,9 @@ const Book = React.memo(({ incomingSearch = false, incomingAppendix = false, inc
                     direction={direction}
                     isMagnifyVisited={isMagnifyVisited}
                     isDidYouMeanBuildBusy={isDidYouMeanBuildBusy}
+                    autoHyphenationEnabled={isAutoHyphenationEnabled}
+                    onAutoHyphenationChange={handleAutoHyphenationChange}
+                    showAutoHyphenationOption={isAutoHyphenationToggleVisible}
                 />
             }
             {isMagnifyOpen &&
@@ -1349,6 +1382,9 @@ const Book = React.memo(({ incomingSearch = false, incomingAppendix = false, inc
                     setMultiSelect={setMultiSelect}
                     selectedVerseList={selectedVerseList}
                     setSelectedVerseList={setSelectedVerseList}
+                    autoHyphenationEnabled={isAutoHyphenationEnabled}
+                    onAutoHyphenationChange={handleAutoHyphenationChange}
+                    showAutoHyphenationOption={isAutoHyphenationToggleVisible}
                 />
             }
             {isPrevSettingsOpen &&

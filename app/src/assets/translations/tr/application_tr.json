@@ -35,6 +35,7 @@
     "case": "Büyük/küçük harf duyarlılığı",
     "norm": "Normalizasyon",
     "exact": "Tam Eşleşme",
+    "autoHyphenation": "Otomatik tireleme",
     "acts": "Elçilerin İşleri",
     "isaiah": "Yeşaya",
     "john": "Yuhanna",

@@ -35,6 +35,7 @@
     "case": "Sensibilität für Groß-/Kleinschreibung",
     "norm": "Normalisierung",
     "exact": "Exakte Übereinstimmung",
+    "autoHyphenation": "Automatische Silbentrennung",
     "acts": "Handlungen",
     "isaiah": "Jesaja",
     "john": "Johannes",

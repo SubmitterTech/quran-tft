@@ -35,6 +35,7 @@
     "case": "Sensibilité à la casse",
     "norm": "Normalization",
     "exact": "Correspondance exacte",
+    "autoHyphenation": "Césure automatique",
     "acts": "Actes",
     "isaiah": "Isaïe",
     "john": "John",

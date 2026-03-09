@@ -35,6 +35,7 @@
     "case": "Hoofdlettergevoeligheid",
     "norm": "Normalisatie",
     "exact": "Exacte overeenkomst",
+    "autoHyphenation": "Automatische woordafbreking",
     "acts": "Handelingen",
     "isaiah": "Jesaja",
     "john": "Johannes",

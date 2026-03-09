@@ -75,6 +75,7 @@ const Leaf = () => {
     const [hyphenBreakMap, setHyphenBreakMap] = useState(() => new Map());
     const [hyphenProtectedTokens, setHyphenProtectedTokens] = useState(() => new Set());
     const [hyphenLanguage, setHyphenLanguage] = useState(normalizedLang || 'en');
+    const hyphenClassName = 'hyphens-auto';
 
     const toggleNote = (noteKey) => {
         setNoteToggles((prevToggles) => ({
@@ -260,7 +261,7 @@ const Leaf = () => {
                         const displayTitleText = titleList[key] ? applyHyphenation(titleList[key]) : titleList[key];
 
                         return (
-                            <div dir={direction} key={key} className="text-neutral-950 text-justify hyphens-auto px-2">
+                            <div dir={direction} key={key} className={`text-neutral-950 text-justify ${hyphenClassName} px-2`}>
                                 {titleList[key] && (
                                     <div
                                         key={key + "title"}
@@ -307,7 +308,7 @@ const Leaf = () => {
                                     } : undefined}
                                     role={hasNote ? "button" : undefined}
                                     tabIndex={hasNote ? 0 : undefined}
-                                    className={`relative text-justify hyphens-auto font-light px-1 ${hasNote ? `cursor-pointer` : ``} ${hasNote && isNoteOpen ? `rounded-t shadow-t-md` : `shadow-md rounded mb-0.5`}`}
+                                    className={`relative text-justify ${hyphenClassName} font-light px-1 ${hasNote ? `cursor-pointer` : ``} ${hasNote && isNoteOpen ? `rounded-t shadow-t-md` : `shadow-md rounded mb-0.5`}`}
                                     style={{ backgroundColor: VERSE_SURFACE_COLOR }}
                                 >
                                     {hasNote && (
@@ -328,7 +329,7 @@ const Leaf = () => {
                                 {hasNote && (
                                     <div
                                         key={key + "note"}
-                                        className={`whitespace-pre-line text-white hyphens-auto font-light rounded-b px-1 transition-all duration-200 ease-in-out ${isNoteOpen ? 'py-1 mb-0.5 opacity-100 shadow-md overflow-y-auto' : 'py-0 mb-0 opacity-0 overflow-hidden'}`}
+                                        className={`whitespace-pre-line text-white ${hyphenClassName} font-light rounded-b px-1 transition-all duration-200 ease-in-out ${isNoteOpen ? 'py-1 mb-0.5 opacity-100 shadow-md overflow-y-auto' : 'py-0 mb-0 opacity-0 overflow-hidden'}`}
                                         style={{
                                             backgroundColor: NOTE_ACCENT_COLOR,
                                             maxHeight: isNoteOpen ? NOTE_PANEL_MAX_HEIGHT : 0,

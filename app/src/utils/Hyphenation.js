@@ -2,6 +2,7 @@ import React from 'react';
 
 const HYPHEN_CHAR = '\u00AD';
 const ZERO_WIDTH_SPACE = '\u200B';
+// Must stay in sync with runtime builder target list in Generator.js.
 const SUPPORTED_HYPHEN_CACHE_LANGUAGES = new Set(['tr', 'az']);
 const APOSTROPHE_CHARS = new Set(["'", '’']);
 

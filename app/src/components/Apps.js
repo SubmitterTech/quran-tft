@@ -12,7 +12,7 @@ import {
     isHyphenCacheLanguage,
 } from '../utils/Hyphenation';
 
-const Apps = ({ colors, theme, translationApplication, parseReferences, appendices, selected, restoreAppText, refToRestore, refToJump, direction, upt }) => {
+const Apps = ({ colors, theme, translationApplication, parseReferences, appendices, selected, restoreAppText, refToRestore, refToJump, direction, upt, autoHyphenation = true }) => {
 
     const lang = localStorage.getItem("lang");
     const normalizedLang = String(lang || '').toLowerCase();
@@ -30,6 +30,7 @@ const Apps = ({ colors, theme, translationApplication, parseReferences, appendic
     const [hyphenBreakMap, setHyphenBreakMap] = useState(() => new Map());
     const [hyphenProtectedTokens, setHyphenProtectedTokens] = useState(() => new Set());
     const [hyphenLanguage, setHyphenLanguage] = useState(normalizedLang || 'en');
+    const hyphenClassName = autoHyphenation ? 'hyphens-auto' : 'hyphens-none';
 
     const mapAppendicesData = useCallback((appendices) => {
         return mapAppendices(appendices, translationApplication);
@@ -44,7 +45,7 @@ const Apps = ({ colors, theme, translationApplication, parseReferences, appendic
         let isCancelled = false;
 
         const loadHyphenCache = async () => {
-            if (!isHyphenCacheLanguage(normalizedLang)) {
+            if (!autoHyphenation || !isHyphenCacheLanguage(normalizedLang)) {
                 setHyphenBreakMap(new Map());
                 setHyphenProtectedTokens(new Set());
                 setHyphenLanguage(normalizedLang || 'en');
@@ -71,20 +72,27 @@ const Apps = ({ colors, theme, translationApplication, parseReferences, appendic
         return () => {
             isCancelled = true;
         };
-    }, [normalizedLang]);
+    }, [normalizedLang, autoHyphenation]);
 
     const applyHyphenation = useCallback((value) => {
         if (typeof value !== 'string') {
             return value;
         }
 
+        if (!autoHyphenation) {
+            return value;
+        }
+
         return applyCachedHyphenationToText(value, hyphenLanguage, hyphenBreakMap, hyphenProtectedTokens);
-    }, [hyphenBreakMap, hyphenLanguage, hyphenProtectedTokens]);
+    }, [hyphenBreakMap, hyphenLanguage, hyphenProtectedTokens, autoHyphenation]);
 
     const parseReferencesWithHyphen = useCallback((value, from, controller = null) => {
         const parsed = parseReferences(value, from, controller);
+        if (!autoHyphenation) {
+            return parsed;
+        }
         return hyphenateReactNode(parsed, applyHyphenation);
-    }, [parseReferences, applyHyphenation]);
+    }, [parseReferences, applyHyphenation, autoHyphenation]);
 
     useEffect(() => {
         if (selected && isRefsReady) {
@@ -281,7 +289,7 @@ const Apps = ({ colors, theme, translationApplication, parseReferences, appendic
                         key={`app-${appno}-${item.type}-${item.order}`}
                         ref={(el) => textRef.current[appno + "-" + index] = el}
                         onClick={(e) => handleClick(e, appno, index)}
-                        className={`rounded ${colors[theme]["text-background"]} ${colors[theme]["text"]} p-0.5 mb-1 flex w-full text-justify hyphens-auto ${pulsate}`}>
+                        className={`rounded ${colors[theme]["text-background"]} ${colors[theme]["text"]} p-0.5 mb-1 flex w-full text-justify ${hyphenClassName} ${pulsate}`}>
                         <div className={`overflow-x-auto`}>
                             <p className={`px-1 break-words`}>{parseReferencesWithHyphen(item.content, appno + "-" + index)}</p>
                         </div>

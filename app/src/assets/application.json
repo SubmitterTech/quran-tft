@@ -35,6 +35,7 @@
     "case": "Case Sensitivity",
     "norm": "Normalization",
     "exact": "Exact Match",
+    "autoHyphenation": "Automatic Hyphenation",
     "acts": "Acts",
     "isaiah":"Isaiah",
     "john": "John",

@@ -30,6 +30,8 @@ const HYPH_DB_VERSION = 1;
 const HYPH_STORE_NAME = 'hyphenation';
 const HYPH_MANIFEST_KEY = 'manifest';
 const HYPHEN_CHAR = '\u00AD';
+// LTR langs with runtime hyphen fallback need. As of 2026-03 caniuse checks
+// against our supported set keep this limited to Turkish + Azerbaijani.
 const RUNTIME_HYPHEN_LANGUAGES = ['tr', 'az'];
 
 const TURKIC_SUFFIXES = [

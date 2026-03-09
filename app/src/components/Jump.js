@@ -20,7 +20,27 @@ const chronologicalOrder = [
 ];
 const LOADING_LANGUAGE_OPTION_VALUE = '__jump-loading__';
 
-const Jump = React.memo(({ onChangeLanguage, suraNames, onChangeFont, font, onChangeColor, colors, theme, translationApplication, currentPage, quran, onClose, onConfirm, onMagnify, direction, isMagnifyVisited, isDidYouMeanBuildBusy = false }) => {
+const Jump = React.memo(({
+    onChangeLanguage,
+    suraNames,
+    onChangeFont,
+    font,
+    onChangeColor,
+    colors,
+    theme,
+    translationApplication,
+    currentPage,
+    quran,
+    onClose,
+    onConfirm,
+    onMagnify,
+    direction,
+    isMagnifyVisited,
+    isDidYouMeanBuildBusy = false,
+    autoHyphenationEnabled = true,
+    onAutoHyphenationChange = null,
+    showAutoHyphenationOption = true,
+}) => {
     const [suraNumber, setSuraNumber] = useState("0");
     const [verseNumber, setVerseNumber] = useState("0");
     const [selectedPage, setSelectedPage] = useState(currentPage);
@@ -55,6 +75,7 @@ const Jump = React.memo(({ onChangeLanguage, suraNames, onChangeFont, font, onCh
     const [isShufflingSura, setIsShufflingSura] = useState(false);
     const [isShufflingVerse, setIsShufflingVerse] = useState(false);
     const languagePickerValue = isDidYouMeanBuildBusy ? LOADING_LANGUAGE_OPTION_VALUE : lang;
+    const themePanelHeightClass = direction !== 'rtl' ? 'h-64' : 'h-48';
     const [platformVersionLabel, setPlatformVersionLabel] = useState('');
 
     const bookmarksContainerRef = useRef(null);
@@ -440,6 +461,12 @@ const Jump = React.memo(({ onChangeLanguage, suraNames, onChangeFont, font, onCh
         setShowBookmarks((prev) => !prev);
     }, [showBookmarks]);
 
+    const handleAutoHyphenationChange = useCallback((nextValue) => {
+        if (typeof onAutoHyphenationChange === 'function') {
+            onAutoHyphenationChange(Boolean(nextValue));
+        }
+    }, [onAutoHyphenationChange]);
+
     const handleLanguageChange = useCallback((e) => {
         if (isDidYouMeanBuildBusy) {
             return;
@@ -824,7 +851,7 @@ const Jump = React.memo(({ onChangeLanguage, suraNames, onChangeFont, font, onCh
                                         ))}
                                     </div>
                                 ) : showThemes ? (
-                                    <div className={`flex flex-col items-center justify-center h-48 m-2`}>
+                                    <div className={`flex flex-col items-center justify-center ${themePanelHeightClass} m-2`}>
                                         <div className={`flex items-center h-full w-full space-x-2`}>
                                             <div className={`flex flex-col justify-center ${colors[theme]["notes-background"]} rounded h-full w-full px-2`}>
                                                 <div>
@@ -844,6 +871,34 @@ const Jump = React.memo(({ onChangeLanguage, suraNames, onChangeFont, font, onCh
                                                 </div>
                                             </div>
                                         </div>
+                                        {showAutoHyphenationOption && (
+                                            <div className={`w-full flex items-center mt-2 rounded ${colors[theme]["notes-background"]} px-2 py-1 h-16`}>
+                                                <label
+                                                    dir={direction}
+                                                    className={`flex w-full items-center justify-between md:justify-end cursor-pointer md:space-x-3 space-x-1`}>
+                                                    <span className={`${autoHyphenationEnabled ? colors[theme]["text"] : `${colors[theme]["page-text"]} brightness-75`}`}>
+                                                        <span className="text-lg md:text-xl lg:text-2xl">
+                                                            {translationApplication?.autoHyphenation || 'Auto Hyphenation'}
+                                                        </span>
+                                                    </span>
+
+                                                    <div>
+                                                        <label className='flex cursor-pointer select-none items-center'>
+                                                            <div className='relative'>
+                                                                <input
+                                                                    type='checkbox'
+                                                                    checked={autoHyphenationEnabled}
+                                                                    onChange={(e) => handleAutoHyphenationChange(e.target.checked)}
+                                                                    className='sr-only'
+                                                                />
+                                                                <div className={`box block h-8 w-14 rounded-full ${autoHyphenationEnabled ? colors[theme]["text-background"] : colors[theme]["base-background"]}`}></div>
+                                                                <div className={`absolute left-1 top-1 flex h-6 w-6 items-center justify-center rounded-full ${autoHyphenationEnabled ? colors[theme]["matching"] : colors[theme]["notes-background"]} transition ${autoHyphenationEnabled ? 'translate-x-full' : ''}`}></div>
+                                                            </div>
+                                                        </label>
+                                                    </div>
+                                                </label>
+                                            </div>
+                                        )}
                                     </div>
                                 ) :
                                     (
