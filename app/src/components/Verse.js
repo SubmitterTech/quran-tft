@@ -1,8 +1,10 @@
-import React, { useCallback, useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useRef, useState } from 'react';
 import { useSpring, animated } from '@react-spring/web';
 import { useDrag } from '@use-gesture/react';
 import { supportsUnicodeRegex, supportsLookAhead, triggerActionHaptic } from '../utils/Device';
 import Bookmarks from '../utils/Bookmarks';
+
+const SWIPE_LOCK_THRESHOLD_PX = 19;
 
 const Verse = ({ besmele,
     colors,
@@ -26,6 +28,8 @@ const Verse = ({ besmele,
     hasNotes,
     path,
     isScrolling,
+    isScrollingRef,
+    onSwipeStateChange,
     direction,
     parseReferences,
     startCopyTimer,
@@ -39,6 +43,7 @@ const Verse = ({ besmele,
     const lang = localStorage.getItem("lang");
     const [bookmark, setBookmark] = useState(null);
     const [swipeDistance, setSwipeDistance] = useState(0);
+    const swipeActiveRef = useRef(false);
     const hasBesmele = encryptedText.includes(besmele);
     const [{ x }, api] = useSpring(() => ({ x: 0 }));
 
@@ -75,8 +80,20 @@ const Verse = ({ besmele,
         startCopyTimer(currentVerseKey, verseText, hasTitle, hasNotes, translationApplication);
     }, [currentVerseKey, verseText, hasTitle, hasNotes, translationApplication, startCopyTimer]);
 
+    const setSwipeActive = useCallback((isActive) => {
+        if (swipeActiveRef.current === isActive) {
+            return;
+        }
+
+        swipeActiveRef.current = isActive;
+        if (typeof onSwipeStateChange === 'function') {
+            onSwipeStateChange(isActive);
+        }
+    }, [onSwipeStateChange]);
+
     const handleActions = () => {
-        if (!isScrolling && Math.abs(swipeDistance) > 100) {
+        const isScrollBusy = Boolean(isScrollingRef?.current ?? isScrolling);
+        if (!isScrollBusy && Math.abs(swipeDistance) > 100) {
             if (swipeDistance > 100) {
                 handleBookmark();
             } else if (swipeDistance < -100) {
@@ -85,18 +102,51 @@ const Verse = ({ besmele,
         }
     };
 
-    const bindDrag = useDrag(({ down, movement: [mx], memo, event }) => {
+    const bindDrag = useDrag(({ down, movement: [mx, my], memo, event }) => {
         if (mode === 'reading' || event.pointerType === 'mouse') {
-            return;
+            if (!down) {
+                setSwipeActive(false);
+            }
+            return memo;
         }
+
         if (!memo) {
-            const initialX = mx;
-            return initialX;
+            return {
+                startX: mx,
+                startY: my,
+                lock: null,
+            };
         }
-        const deltaX = mx - memo;
-        setSwipeDistance(mx - memo);
+        const deltaX = mx - memo.startX;
+        const deltaY = my - memo.startY;
+        const absX = Math.abs(deltaX);
+        const absY = Math.abs(deltaY);
+
+        if (
+            memo.lock === null
+            && (absX >= SWIPE_LOCK_THRESHOLD_PX || absY >= SWIPE_LOCK_THRESHOLD_PX)
+        ) {
+            memo.lock = absX >= absY ? 'x' : 'y';
+        }
+
+        if (memo.lock !== 'x') {
+            setSwipeActive(false);
+            if (!down) {
+                setSwipeDistance(0);
+                api.start({ x: 0, config: { tension: 190, friction: 38 } });
+            }
+            return memo;
+        }
+
+        if (event.cancelable) {
+            event.preventDefault();
+        }
+
+        setSwipeActive(down);
+        setSwipeDistance(deltaX);
         if (!down) {
-            if (Math.abs(deltaX) > 100) {
+            const isScrollBusy = Boolean(isScrollingRef?.current ?? isScrolling);
+            if (!isScrollBusy && Math.abs(deltaX) > 100) {
                 if (deltaX > 0) {
                     handleBookmark();
                 } else {
@@ -113,7 +163,8 @@ const Verse = ({ besmele,
         return memo;
     }, {
         axis: 'x',
-        pointer: { touch: true }
+        pointer: { touch: true },
+        eventOptions: { passive: false }
     });
 
     const handleMouseEnter = (side) => {
@@ -132,6 +183,12 @@ const Verse = ({ besmele,
         setSwipeDistance(0);
         api.start({ x: 0 });
     };
+
+    useEffect(() => {
+        return () => {
+            setSwipeActive(false);
+        };
+    }, [setSwipeActive]);
 
     const onRelatedVerseClick = (verseKey, from = null) => {
         if (!path.current[currentVerseKey]) { path.current[currentVerseKey] = {} }
@@ -514,9 +571,17 @@ const Verse = ({ besmele,
             <animated.div
                 key={"verse:" + currentVerseKey}
                 {...bindDrag()}
-                onTouchEnd={() => api.start({ x: 0 })}
+                onTouchEnd={() => {
+                    setSwipeActive(false);
+                    api.start({ x: 0 });
+                }}
+                onTouchCancel={() => {
+                    setSwipeActive(false);
+                    api.start({ x: 0 });
+                }}
                 style={{
                     transform: x.to(x => `translateX(${x}px)`),
+                    touchAction: 'pan-y',
                 }}
                 className={`relative rounded-md flex mx-0.5 items-center overflow-hidden`}>
                 {(pulse && mode !== "reading") && <div className={`absolute inset-0 animate-rotate ${colors[theme]["matching-conic"]} `}></div>}

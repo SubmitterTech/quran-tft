@@ -99,6 +99,8 @@ const Pages = React.memo(({
     const collapsedTitlesAnimatedRef = useRef(false);
     const currentPageRef = useRef(selectedPage);
     const scrollTimeout = useRef(null);
+    const isScrollingRef = useRef(false);
+    const isSwipingRef = useRef(false);
 
     // State
     const [kvdoPerVerse, setkvdoPerVerse] = useState(kvdo);
@@ -317,7 +319,10 @@ const Pages = React.memo(({
     }, [pageTitleMeta]);
 
     const handleScroll = () => {
-        if (!isScrolling) setIsScrolling(true);
+        if (!isScrollingRef.current) {
+            isScrollingRef.current = true;
+            setIsScrolling(true);
+        }
 
         clearTimeout(scrollTimeout.current);
         handleContainerScroll();
@@ -325,9 +330,28 @@ const Pages = React.memo(({
         updateActivePageTitleIndex();
 
         scrollTimeout.current = setTimeout(() => {
+            isScrollingRef.current = false;
             setIsScrolling(false);
         }, 400);
     };
+
+    const handleSwipeStateChange = useCallback((isActive) => {
+        isSwipingRef.current = Boolean(isActive);
+    }, []);
+
+    const handleContainerTouchMove = useCallback((event) => {
+        if (isSwipingRef.current) {
+            return;
+        }
+        handleTouchMove(event);
+    }, [handleTouchMove]);
+
+    const handleContainerTouchEnd = useCallback((event) => {
+        if (isSwipingRef.current) {
+            return;
+        }
+        handleTouchEnd(event);
+    }, [handleTouchEnd]);
 
     useLayoutEffect(() => {
         if (stickyRef.current) {
@@ -813,9 +837,9 @@ const Pages = React.memo(({
             onScroll={handleScroll}
             onWheel={handleWheel}
             onTouchStart={handleTouchStart}
-            onTouchMove={handleTouchMove}
-            onTouchEnd={handleTouchEnd}
-            onTouchCancel={handleTouchEnd}
+            onTouchMove={handleContainerTouchMove}
+            onTouchEnd={handleContainerTouchEnd}
+            onTouchCancel={handleContainerTouchEnd}
             className={`flex relative w-full flex-1 flex-col ${colors[theme]["app-text"]} text-base overflow-y-auto overflow-x-hidden `}
             style={{ scrollPaddingTop: stickyHeight === 0 ? 79 : stickyHeight + 3 }}>
             <animated.div
@@ -1041,6 +1065,8 @@ const Pages = React.memo(({
                                     hasNotes={notes}
                                     path={path}
                                     isScrolling={isScrolling}
+                                    isScrollingRef={isScrollingRef}
+                                    onSwipeStateChange={handleSwipeStateChange}
                                     direction={direction}
                                     parseReferences={parseReferences}
                                     startCopyTimer={startCopyTimer}
