@@ -348,8 +348,6 @@ const Magnify = ({
     selectedVerseList,
     setSelectedVerseList,
     autoHyphenationEnabled = true,
-    onAutoHyphenationChange = null,
-    showAutoHyphenationOption = true,
 }) => {
     const lang = localStorage.getItem("lang");
     const normalizedLang = String(lang || '').toLowerCase();
@@ -504,12 +502,6 @@ const Magnify = ({
 
         return hyphenateReactNode(node, applyHyphenation);
     }, [autoHyphenationEnabled, applyHyphenation]);
-
-    const handleAutoHyphenationToggle = useCallback((nextValue) => {
-        if (typeof onAutoHyphenationChange === 'function') {
-            onAutoHyphenationChange(Boolean(nextValue));
-        }
-    }, [onAutoHyphenationChange]);
 
     const handleThemeClick = (index) => {
         setOpenTheme(openTheme === index ? null : index);
@@ -2614,29 +2606,6 @@ const Magnify = ({
                 <div dir={direction} className={`fixed left-1 right-1 ${colors[theme]["app-background"]} z-[146] shadow-lg rounded px-1 py-1.5 border ${colors[theme]["border"]}`}
                     style={{ top: `calc(3.3rem + env(safe-area-inset-top) * 0.76)` }}>
                     <div className={`flex flex-col text-lg md:text-xl`}>
-                        {showAutoHyphenationOption && (
-                            <label className={`flex items-center justify-between md:justify-end gap-2 p-3 border-b cursor-pointer ${colors[theme]["verse-border"]}`}>
-                                <span className={`${autoHyphenationEnabled ? colors[theme]["text"] : colors[theme]["page-text"]}`}>
-                                    <span className="text-xl md:text-2xl font-semibold">
-                                        {translationApplication?.autoHyphenation || 'Otomatik tireleme'}
-                                    </span>
-                                </span>
-                                <div>
-                                    <label className='flex cursor-pointer select-none items-center'>
-                                        <div className='relative'>
-                                            <input
-                                                type='checkbox'
-                                                checked={autoHyphenationEnabled}
-                                                onChange={(e) => handleAutoHyphenationToggle(e.target.checked)}
-                                                className='sr-only'
-                                            />
-                                            <div className={`box block h-8 w-14 rounded-full ${autoHyphenationEnabled ? colors[theme]["text-background"] : colors[theme]["base-background"]}`}></div>
-                                            <div className={`absolute left-1 top-1 flex h-6 w-6 items-center justify-center rounded-full ${autoHyphenationEnabled ? colors[theme]["matching"] : colors[theme]["notes-background"]} transition ${autoHyphenationEnabled ? 'translate-x-full' : ''}`}></div>
-                                        </div>
-                                    </label>
-                                </div>
-                            </label>
-                        )}
                         {direction !== 'rtl' && (
                             <label className={`flex items-center justify-between md:justify-end gap-2 p-3 border-b cursor-pointer ${colors[theme]["verse-border"]}`}>
                                 <span className={`${caseSensitive ? colors[theme]["text"] : colors[theme]["page-text"]}`}>{translationApplication?.case}</span>

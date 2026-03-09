@@ -1383,8 +1383,6 @@ const Book = React.memo(({ incomingSearch = false, incomingAppendix = false, inc
                     selectedVerseList={selectedVerseList}
                     setSelectedVerseList={setSelectedVerseList}
                     autoHyphenationEnabled={isAutoHyphenationEnabled}
-                    onAutoHyphenationChange={handleAutoHyphenationChange}
-                    showAutoHyphenationOption={isAutoHyphenationToggleVisible}
                 />
             }
             {isPrevSettingsOpen &&
