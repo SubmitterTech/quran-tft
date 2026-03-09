@@ -86,6 +86,26 @@ const getPrimaryLanguageCode = (value) => asLanguageCode(value).split('-')[0];
 
 const getDidYouMeanIndexKey = (lang) => `index:${asLanguageCode(lang)}`;
 const getHyphenIndexKey = (lang) => `index:${asLanguageCode(lang)}`;
+const normalizeRequestedLanguages = (languages) => {
+    if (languages == null) return [];
+
+    const source = Array.isArray(languages) ? languages : [languages];
+    const normalized = [];
+    const seen = new Set();
+
+    source.forEach((value) => {
+        const asCode = asLanguageCode(value);
+        const primary = getPrimaryLanguageCode(asCode);
+
+        [asCode, primary].forEach((candidate) => {
+            if (!candidate || seen.has(candidate)) return;
+            seen.add(candidate);
+            normalized.push(candidate);
+        });
+    });
+
+    return normalized;
+};
 
 const updateDidYouMeanBuildProgress = (progress, onProgress) => {
     didYouMeanBuildProgress = {
@@ -1029,26 +1049,43 @@ const buildHyphenLanguageIndex = async (lang, payload = null, onProgress = null)
     report(1);
 };
 
-const verifyReusableDidYouMeanLanguages = async (languagesReady = []) => {
-    const reusable = [];
-    for (const lang of languagesReady) {
-        const exists = await dymIdbHasKey(getDidYouMeanIndexKey(lang));
-        if (exists) reusable.push(asLanguageCode(lang));
+const verifyReusableDidYouMeanLanguages = async (languagesReady = [], targetLanguages = []) => {
+    const targetSet = new Set((targetLanguages || []).map(asLanguageCode));
+    const candidates = Array.from(new Set((languagesReady || []).map(asLanguageCode)))
+        .filter((lang) => targetSet.size === 0 || targetSet.has(lang));
+
+    if (candidates.length === 0) {
+        return [];
     }
-    return reusable;
+
+    const checks = await Promise.all(candidates.map(async (lang) => {
+        const exists = await dymIdbHasKey(getDidYouMeanIndexKey(lang));
+        return exists ? lang : null;
+    }));
+
+    return checks.filter(Boolean);
 };
 
-const verifyReusableHyphenLanguages = async (languagesReady = []) => {
-    const reusable = [];
-    for (const lang of languagesReady) {
-        const exists = await hyphenIdbHasKey(getHyphenIndexKey(lang));
-        if (exists) reusable.push(asLanguageCode(lang));
+const verifyReusableHyphenLanguages = async (languagesReady = [], targetLanguages = []) => {
+    const targetSet = new Set((targetLanguages || []).map(asLanguageCode));
+    const candidates = Array.from(new Set((languagesReady || []).map(asLanguageCode)))
+        .filter((lang) => targetSet.size === 0 || targetSet.has(lang));
+
+    if (candidates.length === 0) {
+        return [];
     }
-    return reusable;
+
+    const checks = await Promise.all(candidates.map(async (lang) => {
+        const exists = await hyphenIdbHasKey(getHyphenIndexKey(lang));
+        return exists ? lang : null;
+    }));
+
+    return checks.filter(Boolean);
 };
 
 export const ensureRuntimeCachesReady = async ({
     allLanguages = true,
+    languages = null,
     onProgress = null,
     startupBlocking = false,
 } = {}) => {
@@ -1061,8 +1098,34 @@ export const ensureRuntimeCachesReady = async ({
 
     runtimeCachesBuildPromise = (async () => {
         const appVersion = getRuntimeBuildSignature();
-        const dymTargetLanguages = (allLanguages ? RUNTIME_DYM_LANGUAGES : ['en']).map(asLanguageCode);
-        const hyphenTargetLanguages = (allLanguages ? RUNTIME_HYPHEN_LANGUAGES : []).map(asLanguageCode);
+        const requestedLanguages = normalizeRequestedLanguages(languages);
+
+        let dymTargetLanguages = (allLanguages ? RUNTIME_DYM_LANGUAGES : ['en']).map(asLanguageCode);
+        let hyphenTargetLanguages = (allLanguages ? RUNTIME_HYPHEN_LANGUAGES : []).map(asLanguageCode);
+
+        if (requestedLanguages.length > 0) {
+            const requestedSet = new Set(requestedLanguages);
+            const availableDidYouMeanLanguages = new Set(RUNTIME_DYM_LANGUAGES.map(asLanguageCode));
+            const availableHyphenLanguages = new Set(RUNTIME_HYPHEN_LANGUAGES.map(asLanguageCode));
+
+            dymTargetLanguages = requestedLanguages.filter((lang) => availableDidYouMeanLanguages.has(lang));
+            hyphenTargetLanguages = requestedLanguages.filter((lang) => availableHyphenLanguages.has(lang));
+
+            // If caller requested only unsupported aliases (e.g. en-US), include supported primaries.
+            if (dymTargetLanguages.length === 0) {
+                const fallbackDidYouMean = Array.from(requestedSet)
+                    .map(getPrimaryLanguageCode)
+                    .filter((lang) => availableDidYouMeanLanguages.has(lang));
+                dymTargetLanguages = Array.from(new Set(fallbackDidYouMean));
+            }
+
+            if (hyphenTargetLanguages.length === 0) {
+                const fallbackHyphen = Array.from(requestedSet)
+                    .map(getPrimaryLanguageCode)
+                    .filter((lang) => availableHyphenLanguages.has(lang));
+                hyphenTargetLanguages = Array.from(new Set(fallbackHyphen));
+            }
+        }
 
         const dymTargetSet = new Set(dymTargetLanguages);
         const hyphenTargetSet = new Set(hyphenTargetLanguages);
@@ -1087,13 +1150,19 @@ export const ensureRuntimeCachesReady = async ({
 
         const didYouMeanReadySet = new Set(
             dymManifestMatches
-                ? await verifyReusableDidYouMeanLanguages(didYouMeanManifest?.languagesReady || [])
+                ? await verifyReusableDidYouMeanLanguages(
+                    didYouMeanManifest?.languagesReady || [],
+                    dymTargetLanguages,
+                )
                 : []
         );
 
         const hyphenReadySet = new Set(
             hyphenManifestMatches
-                ? await verifyReusableHyphenLanguages(hyphenManifest?.languagesReady || [])
+                ? await verifyReusableHyphenLanguages(
+                    hyphenManifest?.languagesReady || [],
+                    hyphenTargetLanguages,
+                )
                 : []
         );
 
@@ -1286,7 +1355,9 @@ export const ensureRuntimeCachesReady = async ({
                 force: true,
             });
 
-            await waitForFrame();
+            if (!startupBlocking) {
+                await waitForFrame();
+            }
         }
 
         await writeDidYouMeanManifest({

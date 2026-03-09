@@ -168,7 +168,8 @@ const getRootBootPreloadPlan = (runtimePath) => {
   }
 
   return {
-    loadQuran: true,
+    // If cover is visible at startup, defer heavy quran translation load to post-cover flow.
+    loadQuran: !shouldShowCover,
     loadCover: shouldShowCover,
     loadIntro: effectivePage <= 22,
     loadAppendices: effectivePage >= 396,
@@ -217,23 +218,26 @@ const renderApp = async () => {
       ? getRootBootPreloadPlan(runtimePath)
       : { loadQuran: true, loadCover: false, loadIntro: false, loadAppendices: false };
 
+    const runtimeCacheReadyPromise = (async () => {
+      try {
+        const { ensureRuntimeCachesReady } = await import('./utils/Generator');
+        await ensureRuntimeCachesReady({
+          languages: [resolvedLang],
+          startupBlocking: true,
+        });
+      } catch (cacheError) {
+        // Fail-open: keep startup resilient if cache build fails.
+        console.error('Startup runtime cache build failed; continuing with fail-open policy', cacheError);
+      }
+    })();
+
     const [preloadedBootData] = await Promise.all([
       loadBootTranslationBundle(resolvedLang, preloadPlan),
       preloadInitialRouteChunk(),
+      runtimeCacheReadyPromise,
     ]);
 
     bootData = preloadedBootData;
-
-    try {
-      const { ensureRuntimeCachesReady } = await import('./utils/Generator');
-      await ensureRuntimeCachesReady({
-        allLanguages: true,
-        startupBlocking: true,
-      });
-    } catch (cacheError) {
-      // Fail-open: keep startup resilient if cache build fails.
-      console.error('Startup runtime cache build failed; continuing with fail-open policy', cacheError);
-    }
 
     if (bootData?.application) {
       errorTitle = bootData.application.errorTitle || errorTitle;
