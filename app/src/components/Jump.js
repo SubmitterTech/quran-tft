@@ -19,6 +19,7 @@ const chronologicalOrder = [
     "13", "55", "76", "65", "98", "59", "24", "22", "63", "58", "49", "66", "64", "61", "62", "48", "5", "9", "110"
 ];
 const LOADING_LANGUAGE_OPTION_VALUE = '__jump-loading__';
+const RANDOM_VERSE_REVEAL_DELAY_MS = 76;
 
 function InlineExpandableTextareaTW({
     value,
@@ -151,6 +152,8 @@ const Jump = React.memo(({
     const languagePickerValue = isDidYouMeanBuildBusy ? LOADING_LANGUAGE_OPTION_VALUE : lang;
     const themePanelHeightClass = direction !== 'rtl' ? 'h-64' : 'h-48';
     const [platformVersionLabel, setPlatformVersionLabel] = useState('');
+    const pendingRandomSelectionRef = useRef(null);
+    const randomRevealTimeoutRef = useRef(null);
 
     const bookmarksContainerRef = useRef(null);
     const bookmarkItemRefs = useRef({});
@@ -251,6 +254,14 @@ const Jump = React.memo(({
 
         return () => {
             cancelled = true;
+        };
+    }, []);
+
+    useEffect(() => {
+        return () => {
+            if (randomRevealTimeoutRef.current) {
+                clearTimeout(randomRevealTimeoutRef.current);
+            }
         };
     }, []);
 
@@ -447,27 +458,66 @@ const Jump = React.memo(({
             }
         }
 
+        if (randomRevealTimeoutRef.current) {
+            clearTimeout(randomRevealTimeoutRef.current);
+            randomRevealTimeoutRef.current = null;
+        }
+
+        pendingRandomSelectionRef.current = {
+            sura: ns.toString(),
+            verse: nv.toString(),
+            page: pageForSuraVerse[ns]?.[nv] || null,
+        };
         setIsShufflingSura(true);
+        setIsShufflingVerse(false);
         setSuraNumber('0');
         setVerseNumber('0');
         setLightOpen(false);
-        setTimeout(() => {
-            setSuraNumber(ns.toString());
-            setIsShufflingSura(false);
-            setTimeout(() => {
-                setIsShufflingVerse(true);
-                setTimeout(() => {
-                    setVerseNumber(nv.toString());
-                    setIsShufflingVerse(false);
-
-                    if (pageForSuraVerse[ns] && pageForSuraVerse[ns][nv]) {
-                        setSelectedPage(pageForSuraVerse[ns][nv]);
-                    }
-                    setLightOpen(true);
-                }, 209);
-            }, 76);
-        }, 209);
     }, [versesInSuras, pageForSuraVerse]);
+
+    const handleRandomSuraAnimationEnd = useCallback((event) => {
+        if (event.target !== event.currentTarget || !isShufflingSura) {
+            return;
+        }
+
+        const pendingSelection = pendingRandomSelectionRef.current;
+        setIsShufflingSura(false);
+
+        if (!pendingSelection) {
+            return;
+        }
+
+        setSuraNumber(pendingSelection.sura);
+        void triggerActionHaptic();
+
+        randomRevealTimeoutRef.current = setTimeout(() => {
+            setIsShufflingVerse(true);
+            randomRevealTimeoutRef.current = null;
+        }, RANDOM_VERSE_REVEAL_DELAY_MS);
+    }, [isShufflingSura]);
+
+    const handleRandomVerseAnimationEnd = useCallback((event) => {
+        if (event.target !== event.currentTarget || !isShufflingVerse) {
+            return;
+        }
+
+        const pendingSelection = pendingRandomSelectionRef.current;
+        setIsShufflingVerse(false);
+
+        if (!pendingSelection) {
+            return;
+        }
+
+        setVerseNumber(pendingSelection.verse);
+
+        if (pendingSelection.page) {
+            setSelectedPage(pendingSelection.page);
+        }
+
+        setLightOpen(true);
+        pendingRandomSelectionRef.current = null;
+        void triggerActionHaptic();
+    }, [isShufflingVerse]);
 
     const handleSuraChange = useCallback((e) => {
         const newSuraNumber = e.target.value;
@@ -933,6 +983,7 @@ const Jump = React.memo(({
                                                     }
                                                     <div
                                                         style={isShufflingSura ? { animation: 'animate-scale 0.2s ease-in-out' } : {}}
+                                                        onAnimationEnd={handleRandomSuraAnimationEnd}
                                                         className={`z-40 ${showPickerNotSupported ? `w-full absolute flex justify-end` : `w-2/3 absolute`} h-14 `}>
                                                         <LongPressable
                                                             onTap={() => { handleSuraSelectClick() }}
@@ -988,6 +1039,7 @@ const Jump = React.memo(({
                                                 <div className={`relative w-full flex justify-start`}>
                                                     <div
                                                         style={isShufflingVerse ? { animation: 'animate-scale 0.2s ease-in-out' } : {}}
+                                                        onAnimationEnd={handleRandomVerseAnimationEnd}
                                                         className={` w-2/3 h-14 absolute shadow-md rounded ${colors[theme]["text"]} ${colors[theme]["notes-background"]}`}
                                                         onClick={() => document.getElementById('verse').click()}>
                                                         <div className={`w-full h-full flex justify-center cursor-pointer text-center ${parseInt(suraNumber) !== 0 ? `text-3xl pt-2.5` : `text-2xl pt-3.5`}`}>
