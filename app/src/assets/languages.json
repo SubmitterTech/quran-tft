@@ -7,7 +7,7 @@
     },
     "tr": {
         "name": "Türkçe Tercümesi",
-        "comp": 82.9,
+        "comp": 84.04,
         "dir": "ltr",
         "nums": "0 1 2 3 4 5 6 7 8 9"
     },
@@ -19,7 +19,7 @@
     },
     "de": {
         "name": "Deutsch Übersetzung",
-        "comp": 98.44,
+        "comp": 98.46,
         "dir": "ltr",
         "nums": "0 1 2 3 4 5 6 7 8 9"
     },
@@ -55,7 +55,7 @@
     },
     "sv": {
         "name": "Svensk översättning",
-        "comp": 4.62,
+        "comp": 4.74,
         "dir": "ltr",
         "nums": "0 1 2 3 4 5 6 7 8 9"
     },
