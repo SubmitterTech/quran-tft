@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""List verse refs where Turkish text ends with a closing curly quote but original text does not."""
+"""List verse refs where original text contains * but Turkish text does not."""
 
 from __future__ import annotations
 
@@ -14,7 +14,7 @@ VERSE_KEY_RE = re.compile(r"^\d+\.sura\.(?P<sura>\d+)\.verses\.(?P<verse>\d+)$")
 def parse_args() -> argparse.Namespace:
     parser = argparse.ArgumentParser(
         description=(
-            "Find TSV rows where column 2 does not end with ” but the last column does, "
+            "Find TSV rows where column 2 contains * but the last column does not, "
             "then print verse refs like [31:24]."
         )
     )
@@ -27,10 +27,6 @@ def parse_args() -> argparse.Namespace:
         ),
     )
     return parser.parse_args()
-
-
-def ends_with_closing_quote(value: str) -> bool:
-    return value.rstrip().endswith("”")
 
 
 def parse_ref(key: str) -> str:
@@ -75,7 +71,7 @@ def main() -> int:
             if not key:
                 continue
 
-            if ends_with_closing_quote(turkish) and not ends_with_closing_quote(original):
+            if "*" in original and "*" not in turkish:
                 hits.append(parse_ref(key))
 
     for ref in hits:
