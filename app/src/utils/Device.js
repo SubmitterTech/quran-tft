@@ -234,10 +234,11 @@ const writeToClipboard = async (text) => {
 };
 
 const smartCopyState = new WeakMap();
-const NOTE_REFERENCE_AT_START = /^\s*\*+\s*(\d+):(\d+)(?:-(\d+))?/;
-const NOTE_REFERENCE_STARRED_ANYWHERE = /\*+\s*(\d+):(\d+)(?:-(\d+))?/;
+const NOTE_REFERENCE_AT_START = /^(?:\*+\s*)?(\d+):(\d+(?:-\d+)?(?:,\s*\d+(?:-\d+)?)*)/u;
+const NOTE_REFERENCE_STARRED_ANYWHERE = /\*+\s*\d+:\d+/u;
 const NOTE_REFERENCE_START_LINE = /^\s*\*+\s*\d+:\d+(?:-\d+)?/;
 const VERSE_REFERENCE = /(\d+):(\d+)/;
+const NOTE_REFERENCE_CONNECTOR = /^(?:[&;,/]|and(?=\s)|v(?:e|\u0259)(?=\s)|und(?=\s)|et(?=\s)|en(?=\s)|y(?=\s)|\u0438(?=\s)|\u0648(?=\s))/iu;
 
 const parseVerseKey = (key) => {
   const match = String(key).match(VERSE_REFERENCE);
@@ -279,75 +280,123 @@ const splitNotesByReference = (noteText) => {
   return notes;
 };
 
-const extractNoteReference = (noteText) => {
-  if (typeof noteText !== 'string') {
-    return null;
-  }
-
-  const starredMatch = noteText.match(NOTE_REFERENCE_STARRED_ANYWHERE);
-  if (starredMatch) {
-    const noteSura = parseInt(starredMatch[1], 10);
-    const startVerse = parseInt(starredMatch[2], 10);
-    const endVerse = starredMatch[3] ? parseInt(starredMatch[3], 10) : startVerse;
-    return { noteSura, startVerse, endVerse };
-  }
-
-  const startMatch = noteText.match(NOTE_REFERENCE_AT_START);
-  if (startMatch) {
-    const noteSura = parseInt(startMatch[1], 10);
-    const startVerse = parseInt(startMatch[2], 10);
-    const endVerse = startMatch[3] ? parseInt(startMatch[3], 10) : startVerse;
-    return { noteSura, startVerse, endVerse };
-  }
-
-  return null;
+const expandVerseFormula = (sura, verseFormula) => {
+  return verseFormula.split(',').map((segment) => {
+    const normalizedSegment = segment.trim();
+    const [startValue, endValue] = normalizedSegment.split('-').map((value) => parseInt(value, 10));
+    const startVerse = startValue;
+    const endVerse = Number.isFinite(endValue) ? endValue : startValue;
+    return {
+      sura: parseInt(sura, 10),
+      startVerse,
+      endVerse
+    };
+  }).filter(({ sura: parsedSura, startVerse, endVerse }) => {
+    return Number.isFinite(parsedSura) && Number.isFinite(startVerse) && Number.isFinite(endVerse);
+  });
 };
 
-const getNotePlacement = (noteText, fallbackSura, fallbackVerse, selectedBySura) => {
-  const reference = extractNoteReference(noteText);
+const skipWhitespace = (text, fromIndex) => {
+  let cursor = fromIndex;
+  while (cursor < text.length && /\s/u.test(text[cursor])) {
+    cursor += 1;
+  }
+  return cursor;
+};
 
-  if (!reference) {
-    const selectedVersesInFallbackSura = selectedBySura.get(fallbackSura) || [];
-    if (!selectedVersesInFallbackSura.includes(fallbackVerse)) {
+const extractNoteOwnershipReferencesAtStart = (noteText) => {
+  if (typeof noteText !== 'string') {
+    return [];
+  }
+
+  const normalizedText = noteText.trimStart();
+  const initialMatch = normalizedText.match(NOTE_REFERENCE_AT_START);
+  if (!initialMatch) {
+    return [];
+  }
+
+  const references = [
+    ...expandVerseFormula(initialMatch[1], initialMatch[2])
+  ];
+  let cursor = initialMatch[0].length;
+
+  while (cursor < normalizedText.length) {
+    cursor = skipWhitespace(normalizedText, cursor);
+
+    const directReferenceMatch = normalizedText.slice(cursor).match(NOTE_REFERENCE_AT_START);
+    if (directReferenceMatch) {
+      references.push(...expandVerseFormula(directReferenceMatch[1], directReferenceMatch[2]));
+      cursor += directReferenceMatch[0].length;
+      continue;
+    }
+
+    const connectorMatch = normalizedText.slice(cursor).match(NOTE_REFERENCE_CONNECTOR);
+    if (!connectorMatch) {
+      break;
+    }
+
+    cursor += connectorMatch[0].length;
+    cursor = skipWhitespace(normalizedText, cursor);
+    const nextReferenceMatch = normalizedText.slice(cursor).match(NOTE_REFERENCE_AT_START);
+    if (!nextReferenceMatch) {
+      break;
+    }
+
+    references.push(...expandVerseFormula(nextReferenceMatch[1], nextReferenceMatch[2]));
+    cursor += nextReferenceMatch[0].length;
+  }
+
+  return references;
+};
+
+const extractNoteOwnershipReferences = (noteText) => {
+  const referencesAtStart = extractNoteOwnershipReferencesAtStart(noteText);
+  if (referencesAtStart.length > 0) {
+    return referencesAtStart;
+  }
+
+  if (typeof noteText !== 'string') {
+    return [];
+  }
+
+  const starredMatchIndex = noteText.search(NOTE_REFERENCE_STARRED_ANYWHERE);
+  if (starredMatchIndex === -1) {
+    return [];
+  }
+
+  return extractNoteOwnershipReferencesAtStart(noteText.slice(starredMatchIndex));
+};
+
+const getNotePlacement = (noteText, fallbackSura, fallbackVerse, verseEntries) => {
+  const references = extractNoteOwnershipReferences(noteText);
+
+  if (references.length === 0) {
+    const fallbackEntry = verseEntries.find((entry) => entry.sura === fallbackSura && entry.verse === fallbackVerse);
+    if (!fallbackEntry) {
       return null;
     }
     return { sura: fallbackSura, verse: fallbackVerse };
   }
 
-  const { noteSura, startVerse, endVerse } = reference;
-  const selectedVersesInSura = selectedBySura.get(noteSura) || [];
-  const coveredVerses = selectedVersesInSura.filter((verse) => verse >= startVerse && verse <= endVerse);
+  let placement = null;
+  verseEntries.forEach((entry) => {
+    const matchesReference = references.some(({ sura, startVerse, endVerse }) => {
+      return entry.sura === sura && entry.verse >= startVerse && entry.verse <= endVerse;
+    });
 
-  if (coveredVerses.length === 0) {
-    return null;
-  }
-
-  return { sura: noteSura, verse: coveredVerses[coveredVerses.length - 1] };
-};
-
-const buildSelectedBySuraMap = (verseEntries) => {
-  const selectedBySura = new Map();
-
-  verseEntries.forEach(({ sura, verse }) => {
-    if (isNaN(sura) || isNaN(verse)) {
-      return;
+    if (matchesReference) {
+      placement = { sura: entry.sura, verse: entry.verse };
     }
-
-    if (!selectedBySura.has(sura)) {
-      selectedBySura.set(sura, []);
-    }
-    selectedBySura.get(sura).push(verse);
   });
 
-  selectedBySura.forEach((verses) => verses.sort((a, b) => a - b));
-  return selectedBySura;
+  return placement;
 };
 
-const buildNotesByInsertPoint = (notes, selectedBySura, verseEntries) => {
+const buildNotesByInsertPoint = (notes, verseEntries) => {
   const notesByInsertPoint = new Map();
 
   notes.forEach(({ text, fallbackSura, fallbackVerse }) => {
-    const placement = getNotePlacement(text, fallbackSura, fallbackVerse, selectedBySura);
+    const placement = getNotePlacement(text, fallbackSura, fallbackVerse, verseEntries);
     if (!placement) {
       return;
     }
@@ -418,10 +467,8 @@ export const smartCopy = async (key, accumulatedCopiesRef, verseText, hasTitle =
     };
   });
 
-  const selectedBySura = buildSelectedBySuraMap(orderedEntries);
   const notesByInsertPoint = buildNotesByInsertPoint(
     Array.from(copySession.notes.values()),
-    selectedBySura,
     orderedEntries
   );
 
@@ -449,16 +496,10 @@ export const listCopy = async (list, quranmap) => {
     }
   });
 
-  const selectedBySura = new Map();
-  sortedList.forEach((key) => {
+  const orderedEntries = sortedList.map((key) => {
     const { sura, verse } = parseVerseKey(key);
-    if (!selectedBySura.has(sura)) {
-      selectedBySura.set(sura, []);
-    }
-    selectedBySura.get(sura).push(verse);
+    return { key, sura, verse };
   });
-
-  selectedBySura.forEach((verses) => verses.sort((a, b) => a - b));
 
   const notesByInsertPoint = new Map();
   const seenNotes = new Set();
@@ -481,7 +522,7 @@ export const listCopy = async (list, quranmap) => {
           return;
         }
 
-        const placement = getNotePlacement(singleNote, fallbackSura, fallbackVerse, selectedBySura);
+        const placement = getNotePlacement(singleNote, fallbackSura, fallbackVerse, orderedEntries);
         if (!placement) {
           return;
         }
