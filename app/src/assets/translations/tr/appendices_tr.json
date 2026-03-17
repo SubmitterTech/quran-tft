@@ -49,7 +49,7 @@
                     "35": "34. Bekaret/İffet: Hakiki İnananların Bir Özelliği .... 483",
                     "36": "35. Uyuşturucular & Alkol .... 483",
                     "37": "36. Büyük Bir Ulusun Bedeli .... 484",
-                    "38": "37. İslam’da Ceza Hukuku .... 485",
+                    "38": "37. İslam’da Ceza Adaleti .... 485",
                     "39": "38. Yaratıcı’nın İmzası .... 486"
                 },
                 "ref": []
@@ -377,8 +377,8 @@
         "evidence": {
             "8": {
                 "lines": {
-                    "1": "1. The frequency of occurrence of “Q” in Sura “Q” (No. 50) is 57, 19 x 3.",
-                    "2": "2. The letter “Q” occurs in the other Q-initialed sura (No. 42) exactly the same number of times, 57.",
+                    "1": "1. “Q Suresinde” (Sure 50) “Q”nun geçiş sıklığı 57’dir, yani 19 x 3.",
+                    "2": "2. “Q” harfi diğer Q-başlangıçlı surede (Sure 42) tam olarak aynı sayıda geçer, 57.",
                     "3": "3. The total occurrence of the letter “Q” in the two Q-initialed suras is 114, which equals the number of suras in the Quran.",
                     "4": "4. “The Quran” is mentioned in the Quran 57 times.",
                     "5": "5. The description of the Quran as “Majid” (Glorious) is correlated with the frequency of occurrence of the letter “Q” in each of the Q-initialed suras. The word “Majid” has a gematrical value of 57.",
@@ -415,7 +415,7 @@
             "6": {
                 "ref": "Table 2: The Frequency of Occurrence of the Letter “S” in the Saad-initialed Suras",
                 "title": [
-                    "Sura",
+                    "Sure",
                     "Frequency of “S”"
                 ],
                 "values": [
@@ -436,7 +436,7 @@
         },
         "evidence": {},
         "titles": {
-            "2": "NuN (Noon)",
+            "2": "NuN (nun)",
             "5": "S (Saad)"
         }
     },
@@ -455,7 +455,7 @@
             "6": {
                 "ref": "Table 3: Occurrence of the Letters “H” and “M” in the Seven H.M.-initialed Suras",
                 "title": [
-                    "Sura No.",
+                    "Sure No",
                     "Frequency of Occurence “H”",
                     "Frequency of Occurence “M”",
                     "Frequency of Occurence “H + M”"
@@ -507,9 +507,9 @@
         "evidence": {},
         "titles": {
             "1": "Historical Note",
-            "2": "Y.S. (Ya Seen)",
+            "2": "Y.S. (Ya Sin)",
             "4": "H.M. (Ha Mim)",
-            "7": "‘A.S.Q. (‘Ayn Seen Qaf)"
+            "7": "‘A.S.Q. (‘Ayn Sin Kaf)"
         }
     },
     {
@@ -517,7 +517,7 @@
         "text": {
             "2": "The letters “A,” “L,” and “M” are the most frequently used letters in the Arabic language, and in the same order as we see in the Quranic Initials—“A,” then “L,” then “M.” These letters prefix six suras—2, 3, 29, 30, 31, and 32—and the total occurrence of the three letters in each of the six suras is a multiple of 19 [9899 (19 x 521), 5662 (19 x 298), 1672 (19 x 88), 1254 (19 x 66), 817 (19 x 43), and 570 (19 x 30), respectively]. Thus, the total occurrence of the three letters in the six suras is 19874 (19 x 1046), and the alteration of one of these letters destroys this phenomenon.",
             "4": "These initials are found in Suras 10, 11, 12, 14, and 15. The total occurrences of these letters in these suras are 2489 (19 x 131), 2489 (19 x 131), 2375 (19 x 125), 1197 (19 x 63), and 912 (19 x 48), respectively (Table 5).",
-            "6": "These initials prefix one sura, No. 13, and the total frequency of occurrence of the four letters is 1482, or 19 x 78. The letter “A” occurs 605 times, “L” occurs 480 times, “M” occurs 260 times, and “R” occurs 137 times.",
+            "6": "Bu başlangıç harfleri tek bir surenin, 13 numaralı surenin başında yer alır ve bu dört harfin toplam geçiş sıklığı 1482 veya 19 x 78’dir. “A” harfi 605 kez, “L” harfi 480 kez, “M” harfi 260 kez ve “R” harfi 137 kez geçer.",
             "8": "Only one sura is prefixed with these initials, Sura 7, and the letter “A” occurs in this sura 2529 times, “L” occurs 1530 times, “M” occurs 1164 times, and “S” (Saad) occurs 97 times. Thus, the total occurrence of the four letters in this sura is 2529 + 1530 + 1164 + 97 = 5320 = 19 x 280.",
             "9": "An important observation here is the interlocking relationship involving the letter “S” (Saad). This initial occurs also in Suras 19 and 38. While complementing its sister letters in Sura 7 to give a total that is divisible by 19, the frequency of this letter also complements its sister letters in Suras 19 and 38 to give a multiple of 19 (see Page 380).",
             "10": "Additionally, the Quranic Initial “S” (Saad) interacts with the Quranic Initials “K.H.Y. ‘A.” (Kaaf Haa Ya ‘Ayn) in Sura 19 to give another total that is also a multiple of 19 (see Page 383). This interlocking relationship—which is not unique to the initial “S” (Saad)—contributes to the intricacy of the Quran’s numerical code."
@@ -527,11 +527,11 @@
             "2": {
                 "ref": "Table 4: Occurrence of the Letters “A,” “L,” and “M” in the A.L.M.-Initialed Suras",
                 "title": [
-                    "Sura No.",
+                    "Sure No",
                     "Frequency of Occurence “A”",
                     "Frequency of Occurence “L”",
                     "Frequency of Occurence “M”",
-                    "Total"
+                    "Toplam"
                 ],
                 "values": [
                     "2",
@@ -579,11 +579,11 @@
             "4": {
                 "ref": "Table 5: Occurrence of the Letters “A,” “L,” and “R” in the A.L.R.-initialed Suras",
                 "title": [
-                    "Sura No.",
+                    "Sure No",
                     "Frequency of Occurence “A”",
                     "Frequency of Occurence “L”",
                     "Frequency of Occurence “R”",
-                    "Total"
+                    "Toplam"
                 ],
                 "values": [
                     "10",
@@ -626,10 +626,10 @@
         },
         "evidence": {},
         "titles": {
-            "1": "A.L.M. (Alef Laam Mim)",
-            "3": "A.L.R. (Alef Laam Ra)",
-            "5": "A.L.M.R. (Alef Laam Mim Ra)",
-            "7": "A.L.M.S. (Alef Laam Mim Saad)"
+            "1": "A.L.M. (Elif Lam Mim)",
+            "3": "A.L.R. (Elif Lam Ra)",
+            "5": "A.L.M.R. (Elif Lam Mim Ra)",
+            "7": "A.L.M.S. (Elif Lam Mim Sad)"
         }
     },
     {
@@ -651,7 +651,7 @@
             "5": {
                 "ref": "Table 6: Occurrence of the Quranic Initials “H.,” “T.H.,” “T.S.,” and “T.S.M.” in Their Suras",
                 "title": [
-                    "Sura No.",
+                    "Sure No",
                     "Frequency of Occurence “H”",
                     "Frequency of Occurence “T”",
                     "Frequency of Occurence “S”",
@@ -787,7 +787,7 @@
                     "Initial",
                     "Number of Occurences",
                     "Sura Where It Occurs",
-                    "Total"
+                    "Toplam"
                 ],
                 "values": [
                     "A (Alef) ",
@@ -878,7 +878,7 @@
             "3": {
                 "ref": "Table 10: Total Gematrical Values of All Quranic Initials In Their Suras",
                 "title": [
-                    "Sura",
+                    "Sure",
                     "Initials",
                     "Frequency Of Initials",
                     "Tot. G. Val. in Sura"
@@ -1108,7 +1108,7 @@
                     "295",
                     "514",
                     "",
-                    "Grand Total = 43423 + 295 + 514 = 44232 = 19 x 2328.",
+                    "Genel Toplam = 43423 + 295 + 514 = 44232 = 19 x 2328.",
                     "",
                     ""
                 ]
@@ -1129,8 +1129,8 @@
             "1": {
                 "ref": "Table 12: Mathematical Coding of the Number of Verses With Initials",
                 "title": [
-                    "Sura No.",
-                    "No. of Initials",
+                    "Sure No",
+                    "Başlangıç Harfi Sayısı",
                     "Initialed Verses"
                 ],
                 "values": [
@@ -1235,10 +1235,10 @@
             "2": {
                 "ref": "Table 13: Multiplying the First Two Columns of Table 12, Instead of Adding",
                 "title": [
-                    "Sura No.",
+                    "Sure No",
                     " ",
-                    "No. of Initials",
-                    "No. of Init'Id Verses"
+                    "Başlangıç Harfi Sayısı",
+                    "Başlangıç Harfli Ayet Sayısı"
                 ],
                 "values": [
                     "2",
@@ -1306,7 +1306,7 @@
                     "Number of Verses",
                     "Number of Initialed Verses",
                     "Gematrical Value of the Initials",
-                    "TOTAL"
+                    "TOPLAM"
                 ],
                 "values": [
                     "2",
@@ -1494,7 +1494,7 @@
                     "",
                     "Gematrical Value of the Initials",
                     "",
-                    "TOTAL"
+                    "TOPLAM"
                 ],
                 "values": [
                     "2",
@@ -1583,10 +1583,10 @@
             "2": {
                 "ref": "Table 16: Mathematical Structuring of the Verses of Initialed Suras",
                 "title": [
-                    "Sura No.",
-                    "No. of Verses",
-                    "Sum of No. Verses #s",
-                    "Total"
+                    "Sure No",
+                    "Ayet Numarası",
+                    "Ayet No Toplamı",
+                    "Toplam"
                 ],
                 "values": [
                     "2",
@@ -1788,7 +1788,7 @@
                 "ref": "Table 19: All Suras in Which the Word “God” (Allah) Is Mentioned",
                 "title": [
                     "",
-                    "Sura No.",
+                    "Sure No",
                     "First Verse",
                     "Last Verse",
                     "Verses 1st to Last"
@@ -1870,9 +1870,9 @@
             "12": {
                 "ref": "Table 20: Why “19! (Letter)”",
                 "title": [
-                    "Hebrew",
-                    "Arabic",
-                    "Value"
+                    "İbranice",
+                    "Arapça",
+                    "Değer"
                 ],
                 "values": [
                     "V",
@@ -1936,8 +1936,8 @@
             "5": {
                 "ref": "Table 21: Suras and Verses Where “Quran” Occurs",
                 "title": [
-                    "Sura",
-                    "Verse"
+                    "Sure",
+                    "Ayet"
                 ],
                 "values": [
                     "2",
@@ -2083,7 +2083,7 @@
         },
         "evidence": {},
         "titles": {
-            "2": "The Word “Quran”",
+            "2": "“Kuran” Sözcüğü",
             "4": "A STRONG FOUNDATION"
         }
     },
@@ -2099,11 +2099,11 @@
                 "no": 10,
                 "text": "The four words of Basmalah are shown on the left side, and the only four divine names whose gematrical values are divisible by 19 are on the right side. The numbers in the middle are the frequencies of occurrence of the words of Basmalah, and, at the same time, the gematrical values of the four divine names.",
                 "data": [
-                    "Name",
-                    "God",
-                    "Most Gracious",
-                    "Most Merciful",
-                    "One",
+                    "Ad",
+                    "Tanrı",
+                    "En Lütufkâr",
+                    "En Merhametli",
+                    "Bir",
                     "Possessor of\nInfinite Grace",
                     "Glorious",
                     "Gatherer"
@@ -2162,10 +2162,10 @@
             "10": {
                 "ref": "Table 22: All Suras and Verses from the First Occurrence of LAA ELAAHA ELLA HOO to the Last Occurrence.",
                 "title": [
-                    "Sura No",
-                    "No. of Verses",
-                    "Sum of Verse #s",
-                    "Total"
+                    "Sure No",
+                    "Ayet Sayısı",
+                    "Ayet No Toplamı",
+                    "Toplam"
                 ],
                 "values": [
                     "2",
@@ -2214,7 +2214,7 @@
                 "ref": "Table 23: List of All Occurrences of the Crucial Phrase: “LAA ELAAHA ELLA HOO” (There is no other god besides Him).",
                 "title": [
                     "No",
-                    "Sura No",
+                    "Sure No",
                     "Verses with Shahadah",
                     "Frequency of Shahadah"
                 ],
@@ -2353,7 +2353,7 @@
             "5": {
                 "ref": "Table 24: All the Quranic Numbers.",
                 "title": [
-                    "Number",
+                    "Sayı",
                     "Location Example"
                 ],
                 "values": [
@@ -2426,10 +2426,10 @@
             "6": {
                 "ref": "Table 25: Mathematical Coding of the Sura and Verse Numbers.",
                 "title": [
-                    "Sura No",
-                    "No. of Verses",
-                    "Sum of Verse #s",
-                    "TOTAL"
+                    "Sure No",
+                    "Ayet Sayısı",
+                    "Ayet No Toplamı",
+                    "TOPLAM"
                 ],
                 "values": [
                     "1",
@@ -2492,10 +2492,10 @@
             "1": {
                 "ref": "Table 26: Mathematical Coding of the 85 Un-initialed Suras",
                 "title": [
-                    "Sura No.",
-                    "No. of Verses",
-                    "Sum of Verse #s",
-                    "TOTAL"
+                    "Sure No",
+                    "Ayet Sayısı",
+                    "Ayet No Toplamı",
+                    "TOPLAM"
                 ],
                 "values": [
                     "1",
@@ -2543,8 +2543,8 @@
             "3": {
                 "ref": "Table 27: Sura, Total Number of Verses, Verse numbers & Sum of Verse numbers for every sura.",
                 "title": [
-                    "Sura",
-                    "Sura,# of Verses, Verse #’s & Sum of Verse #’s"
+                    "Sure",
+                    "Sure No, Ayet Sayısı, Ayet No’ları, Ayet No’ları Toplamı"
                 ],
                 "values": [
                     "1",
@@ -2562,7 +2562,7 @@
             "5": {
                 "ref": "Table 28: Number of verses for every sura & sum of verse numbers, justified to the left.",
                 "title": [
-                    "Sura",
+                    "Sure",
                     "Total Verses & Sum of Verses"
                 ],
                 "values": [
@@ -2586,7 +2586,7 @@
                 "ref": "Table 29: Verse numbers and Sum of Verse numbers, justified to the left.",
                 "title": [
                     "Sura",
-                    "Verse #’s & Sum of Verses"
+                    "Ayet No’ları & Ayet No’ları Toplamı"
                 ],
                 "values": [
                     "1",
@@ -2985,7 +2985,7 @@
                     "“Khalifa”"
                 ],
                 "values": [
-                    "No.",
+                    "No",
                     "Sura",
                     "Verse",
                     "Sura",
@@ -3122,9 +3122,9 @@
             "2": {
                 "ref": "Table 2: The Suras and Verses from the Beginning of the Quran to the First Occurrence of the Root Word “Rashada”",
                 "title": [
-                    "Sura No.",
-                    "No. of Verses",
-                    "Sum of Verse #s"
+                    "Sure No",
+                    "Ayet Numarası",
+                    "Ayet No Toplamı"
                 ],
                 "values": [
                     "1",
@@ -3147,9 +3147,9 @@
             "9": {
                 "ref": "Table 3: The Suras Where the Root Word “Rashada” Occurs.",
                 "title": [
-                    "Sura No.",
-                    "No. of Verses",
-                    "Total"
+                    "Sure No",
+                    "Ayet Numarası",
+                    "Toplam"
                 ],
                 "values": [
                     "2",
@@ -3215,9 +3215,9 @@
             "4": {
                 "ref": "Table 4: The Suras and Verses from the First “Rashada” to “Khalifa.” ",
                 "title": [
-                    "Sura No",
-                    "No. of Verses",
-                    "Total"
+                    "Sure No",
+                    "Ayet Sayısı",
+                    "Toplam"
                 ],
                 "values": [
                     "2",
@@ -3298,7 +3298,7 @@
                 "title": [
                     "Name",
                     "Value of Individual Letters",
-                    "Total"
+                    "Toplam"
                 ],
                 "values": [
                     "Abraham",
@@ -3330,9 +3330,9 @@
             "15": {
                 "ref": "Table 6: The Suras and Verses from 1:1 to 3:81",
                 "title": [
-                    "Sura No",
-                    "No. of Verses",
-                    "Total"
+                    "Sure No",
+                    "Ayet Sayısı",
+                    "Toplam"
                 ],
                 "values": [
                     "1",
@@ -3390,9 +3390,9 @@
             "11": {
                 "ref": "Table 7: Suras and Verses From Sura 1 to Verse 3 of Sura 36.",
                 "title": [
-                    "Sura No",
-                    "No. of Verses",
-                    "Sum of Verse #s"
+                    "Sure No",
+                    "Ayet Sayısı",
+                    "Ayet No Toplamı"
                 ],
                 "values": [
                     "1",
@@ -3460,9 +3460,9 @@
             "4": {
                 "ref": "Table 8: The Suras and Verses from the First “Rashada” to 36:3.",
                 "title": [
-                    "No.",
-                    "Sura No.",
-                    "Sum of Verse #s"
+                    "No",
+                    "Sure No",
+                    "Ayet No Toplamı"
                 ],
                 "values": [
                     "1.",
@@ -3509,9 +3509,9 @@
             "11": {
                 "ref": "Table 9: The Suras and Verses from the Beginning to 5:19.",
                 "title": [
-                    "Sura No.",
-                    "No. of Verses",
-                    "Total"
+                    "Sure No",
+                    "Ayet Sayısı",
+                    "Toplam"
                 ],
                 "values": [
                     "1",
@@ -3571,9 +3571,9 @@
             "6": {
                 "ref": "Table 10: The Suras and Verses from 1:1 to 44:13.",
                 "title": [
-                    "Sura No.",
-                    "No. of Verses",
-                    "Total"
+                    "Sure No",
+                    "Ayet Sayısı",
+                    "Toplam"
                 ],
                 "values": [
                     "1",
@@ -3742,7 +3742,7 @@
                     "11": "11. Explain why most believers in God do not make it to Heaven (Appendix 27).",
                     "12": "12. Proclaim that God never ordered Abraham to kill his son (Appendix 9).",
                     "13": "13. Proclaim the secret of perfect happiness (Introduction, xx).",
-                    "14": "14. Establish a criminal justice system (Appendix 37)."
+                    "14": "14. Bir ceza adalet sistemi oluşturmak (Ek 37)."
                 },
                 "ref": []
             }
@@ -4093,7 +4093,7 @@
             "5": {
                 "ref": "Properties of Sura 1, The Key",
                 "title": [
-                    "Verse No",
+                    "Ayet No",
                     "No of Letters",
                     "Gematrical Value"
                 ],
@@ -4661,7 +4661,7 @@
     {
         "page": 464,
         "text": {
-            "3": "(1) Bay Schroeder’in nefsinin operasyondan sonraki 19. günde ayrılmış olması gerçeği ve (2) bedeninin 19 ay hayatta kalmış olması gerçeği düşündürücü hatırlatıcılardır ki Tanrı Schroeder’in durumu ile İsa’nın, nefsi olmayan bedeninin tutuklanmasından, işkence görmesinden ve çarmıha gerilmesinden önceki ayrılışına dair kanıtlanmış anlatı arasındaki paralelliği dünyanın bilmesini istedi."
+            "3": "(1) Bay Schroeder’in nefsinin operasyondan sonraki 19. günde ayrılmış olması gerçeği ve (2) bedeninin 19 ay hayatta kalmış olması gerçeği düşündürücü hatırlatmalardır ki Tanrı Schroeder’in durumu ile İsa’nın, nefsi olmayan bedeninin tutuklanmasından, işkence görmesinden ve çarmıha gerilmesinden önceki ayrılışına dair kanıtlanmış anlatı arasındaki paralelliği dünyanın bilmesini istedi."
         },
         "picture": {},
         "table": {
@@ -5026,8 +5026,8 @@
             "7": {
                 "ref": "Table 1: Occurrence of the word “God” outside the initialed section.",
                 "title": [
-                    "Sura No",
-                    "No. of “God”"
+                    "Sure No",
+                    "“Tanrı” Kelimesi Sayısı"
                 ],
                 "values": [
                     "1",
@@ -5086,8 +5086,8 @@
                 "ref": "Table 2: The word “God” from the missing Basmalah to the extra Basmalah.",
                 "title": [
                     "No",
-                    "Sura No",
-                    "No. of Verses with “God”"
+                    "Sure No",
+                    "“Tanrı” Kelimesi Geçen Ayet Sayısı"
                 ],
                 "values": [
                     "1.",
@@ -5155,7 +5155,7 @@
                     "513",
                     "",
                     "",
-                    "No. of suras = 19,",
+                    "Sure Sayısı = 19",
                     "",
                     "",
                     "Total of sura numbers = 342 = 19 x 18",
@@ -5184,10 +5184,10 @@
             "7": {
                 "ref": "Table 3: Mathematical coding of the Quran’s suras & verses, based on “19”.",
                 "title": [
-                    "Sura No.",
-                    "No. of Verses",
-                    "Sum of Verse #'s",
-                    "Total"
+                    "Sure No",
+                    "Ayet Sayısı",
+                    "Ayet No’ları Toplamı",
+                    "Toplam"
                 ],
                 "values": [
                     "1",
@@ -5246,10 +5246,10 @@
             "1": {
                 "ref": "Table 4: Mathematical coding of the Quran’s 85 un-initialed suras.",
                 "title": [
-                    "Sura No.",
-                    "No. of Verses",
-                    "Sum of Verse #'s",
-                    "Total"
+                    "Sure No",
+                    "Ayet Sayısı",
+                    "Ayet No’ları Toplamı",
+                    "Toplam"
                 ],
                 "values": [
                     "1",
@@ -5294,8 +5294,8 @@
                 "ref": "Table 5: Un-initialed suras and their verses from the beginning to Sura 9.",
                 "title": [
                     "Sura",
-                    "# Verses",
-                    "Total"
+                    "Ayet No’ları",
+                    "Toplam"
                 ],
                 "values": [
                     "1",
@@ -5330,10 +5330,10 @@
             "6": {
                 "ref": "Table 6: The un-initialed suras & their verses from missing Basmalah (Sura 9) to the end of the Quran.",
                 "title": [
-                    "Sura No.",
-                    "No. of Verses",
-                    "Sum of Verse #'s",
-                    "Total"
+                    "Sure No",
+                    "Ayet Sayısı",
+                    "Ayet No’ları Toplamı",
+                    "Toplam"
                 ],
                 "values": [
                     "9",
@@ -5373,10 +5373,10 @@
             "10": {
                 "ref": "Table 7: The suras and verses from the missing Basmalah to 74:30.",
                 "title": [
-                    "Sura No.",
-                    "No. of Verses",
-                    "Sum of Verse #'s",
-                    "Total"
+                    "Sure No",
+                    "Ayet Sayısı",
+                    "Ayet No’ları Toplamı",
+                    "Toplam"
                 ],
                 "values": [
                     "9",
@@ -5431,10 +5431,10 @@
             "2": {
                 "ref": "Table 8: The verses whose digits add up to 10 from 9:1 to 27:29.",
                 "title": [
-                    "Sura No.",
-                    "No. of Verses",
+                    "Sure No",
+                    "Ayet Sayısı",
                     "How many add up to 10",
-                    "No. of Total"
+                    "Toplam Sayı"
                 ],
                 "values": [
                     "9",
@@ -5530,10 +5530,10 @@
             "5": {
                 "ref": "Table 9: All the suras whose number of verses ends with “9.”",
                 "title": [
-                    "Sura No.",
-                    "No. of Verses",
-                    "Sum of Verse #s",
-                    "Total"
+                    "Sure No",
+                    "Ayet Sayısı",
+                    "Ayet No Toplamı",
+                    "Toplam"
                 ],
                 "values": [
                     "10",
@@ -5606,8 +5606,8 @@
                 "ref": "Table 10: Counting all the 1’s in the 85 un-initialed suras.",
                 "title": [
                     "Sura",
-                    "# of Verse",
-                    "# of 1's"
+                    "Ayet Sayısı",
+                    "1’lerin Sayısı"
                 ],
                 "values": [
                     "1",
@@ -5660,11 +5660,11 @@
                 "ref": "Table 11: Counting the digits that make up 128 and 129 in the whole Quran.",
                 "title": [
                     "Sura",
-                    "# of 1’s",
-                    "# of 2’s",
-                    "# of 8’s",
-                    "# of 9’s",
-                    "Total"
+                    "1’lerin Sayısı",
+                    "2’lerin Sayısı",
+                    "8’lerin Sayısı",
+                    "9’lerin Sayısı",
+                    "Toplam"
                 ],
                 "values": [
                     "1",
@@ -5732,8 +5732,8 @@
             "6": {
                 "ref": "Table 12: Sum of digits of all suras & verse numbers in the whole Quran.",
                 "title": [
-                    "Sura No.",
-                    "No. of Verses",
+                    "Sure No",
+                    "Ayet Sayısı",
                     "Sum of Suras",
                     "Digits of Verses"
                 ],
@@ -5796,8 +5796,8 @@
             "2": {
                 "ref": "Table 13: Multiplication of the sum of digits of the Quran’s suras and verses.",
                 "title": [
-                    "Sura No.",
-                    "No. of Verses",
+                    "Sure No",
+                    "Ayet Sayısı",
                     "Sum of Digits of Suras",
                     " ",
                     "Sum of Digits of Verses",
@@ -5887,11 +5887,11 @@
             "5": {
                 "ref": "Table 14: Same data as in Table 12, but only for the odd-numbered suras.",
                 "title": [
-                    "Sura No.",
-                    "No. of Verses",
+                    "Sure No",
+                    "Ayet Sayısı",
                     "Sum of Digits of Suras",
                     "Sum of Digits of Verses",
-                    "Total"
+                    "Toplam"
                 ],
                 "values": [
                     "1",
@@ -5961,8 +5961,8 @@
                 "ref": "Table 15: Mathematical coding of all suras consisting of 127 verses or less.",
                 "title": [
                     "Sura Number",
-                    "No. of Verses",
-                    "Total"
+                    "Ayet Sayısı",
+                    "Toplam"
                 ],
                 "values": [
                     "1",
@@ -6001,8 +6001,8 @@
                 "ref": "Table 16: All suras whose number of verses is 3 digits, and is divisible by 3. ",
                 "title": [
                     "Sura",
-                    " # of Verses",
-                    "Total"
+                    "Ayet Sayısı",
+                    "Toplam"
                 ],
                 "values": [
                     "5",
@@ -6037,8 +6037,8 @@
             "7": {
                 "ref": "Table 17: All the suras that consist of 129 verses or more.",
                 "title": [
-                    "Sura No.",
-                    "No. of Verses"
+                    "Sure No",
+                    "Ayet Sayısı"
                 ],
                 "values": [
                     "2",
@@ -6086,9 +6086,9 @@
             "2": {
                 "ref": "Table 18: Suras whose final verse have the numerals “1” and “2” in common with the verses in question (127, 128, and 129). ",
                 "title": [
-                    "Sura No.",
-                    "No. of Verses",
-                    "Total"
+                    "Sure No",
+                    "Ayet Sayısı",
+                    "Toplam"
                 ],
                 "values": [
                     "5",
@@ -6133,7 +6133,7 @@
                 "ref": "Table 19: The only suras whose number is a single digit, and the number of verses contains the numerals “1” and “2.”",
                 "title": [
                     "Sura Number",
-                    "No. of Verses"
+                    "Ayet Sayısı"
                 ],
                 "values": [
                     "5",
@@ -6151,9 +6151,9 @@
             "11": {
                 "ref": "Table 20: All the suras where the digits of sura number and number of verses add up to 19. ",
                 "title": [
-                    "Sura No.",
-                    "No. of Verses",
-                    "Total"
+                    "Sure No",
+                    "Ayet Sayısı",
+                    "Toplam"
                 ],
                 "values": [
                     "9",
@@ -6218,8 +6218,8 @@
             "4": {
                 "ref": "Table 21: All the suras where the digits of sura number add up to 9 and the digits of number of verses add up to 10.",
                 "title": [
-                    "Sura No.",
-                    "No. of Verses"
+                    "Sure No",
+                    "Ayet Sayısı"
                 ],
                 "values": [
                     "9",
@@ -6241,8 +6241,8 @@
             "7": {
                 "ref": "Table 22: The suras where the digits of sura number add up to 9, and the digits of the number of verses add up to 12, assuming that Sura 9 is 129 verses.",
                 "title": [
-                    "Sura No.",
-                    "No. of Verses"
+                    "Sure No",
+                    "Ayet Sayısı"
                 ],
                 "values": [
                     "9",
@@ -6260,10 +6260,10 @@
             "11": {
                 "ref": "Table 23: All suras whose number of verses end with the digit “9.”",
                 "title": [
-                    "Sura No.",
-                    "No. of Verses",
-                    "Sum of Verse #'s",
-                    "Total"
+                    "Sure No",
+                    "Ayet Sayısı",
+                    "Ayet No’ları Toplamı",
+                    "Toplam"
                 ],
                 "values": [
                     "10",
@@ -6350,9 +6350,9 @@
             "2": {
                 "ref": "Table 24: Odd numbered suras whose number of verses ends with “9.”",
                 "title": [
-                    "Sura No.",
-                    "No. of Verses",
-                    "Total"
+                    "Sure No",
+                    "Ayet Sayısı",
+                    "Toplam"
                 ],
                 "values": [
                     "15",
@@ -6387,9 +6387,9 @@
             "4": {
                 "ref": "Table 25: The suras whose number of verses ends with the digit “7.”",
                 "title": [
-                    "Sura No.",
-                    "No. of Verses",
-                    "Total"
+                    "Sure No",
+                    "Ayet Sayısı",
+                    "Toplam"
                 ],
                 "values": [
                     "1",
@@ -6427,7 +6427,7 @@
             "8": {
                 "ref": "Table 26: The total number of the digit “7” among the last two verses of every sura in the Quran.",
                 "title": [
-                    "Sura No.",
+                    "Sure No",
                     "Last 2 Verses",
                     "7's in Last 2 Verses"
                 ],
@@ -6488,8 +6488,8 @@
             "3": {
                 "ref": "Table 27: All suras which contain a verse number “129.”",
                 "title": [
-                    "Sura No.",
-                    "Verse No"
+                    "Sure No",
+                    "Ayet No"
                 ],
                 "values": [
                     "2",
@@ -6521,8 +6521,8 @@
             "6": {
                 "ref": "Table 28: All suras containing a verse number “128.”",
                 "title": [
-                    "Sura No.",
-                    "Verse No"
+                    "Sure No",
+                    "Ayet No"
                 ],
                 "values": [
                     "2",
@@ -6556,9 +6556,9 @@
             "8": {
                 "ref": "Table 29: Abbreviated table of the last two verses in the un-initialed suras.",
                 "title": [
-                    "Sura No.",
+                    "Sure No",
                     "Last 2 Verses",
-                    "Total"
+                    "Toplam"
                 ],
                 "values": [
                     "1",
@@ -6612,7 +6612,7 @@
             "3": {
                 "ref": "Table 30: Sum of digits of the last two verses of every sura in the Quran.",
                 "title": [
-                    "Sura No.",
+                    "Sure No",
                     "Last 2 Verses",
                     "Sum the Digits"
                 ],
@@ -6652,8 +6652,8 @@
             "8": {
                 "ref": "Table 31: All suras whose number of verses is odd, and consists of 3 digits.",
                 "title": [
-                    "Sura No.",
-                    "No. of Verses",
+                    "Sure No",
+                    "Ayet Sayısı",
                     "Last Digit"
                 ],
                 "values": [
@@ -6714,8 +6714,8 @@
             "4": {
                 "ref": "Table 32: Odd numbered suras whose number of verses is odd and consists of 3 digits.",
                 "title": [
-                    "Sura No.",
-                    "No. of Verses"
+                    "Sure No",
+                    "Ayet Sayısı"
                 ],
                 "values": [
                     "9",
@@ -6735,10 +6735,10 @@
             "12": {
                 "ref": "Table 33: Suras whose number begins with “9” and their number of verses ends with “9.”",
                 "title": [
-                    "Sura No.",
-                    "No. of Verses",
-                    "Sum of Verse #s",
-                    "Total"
+                    "Sure No",
+                    "Ayet Sayısı",
+                    "Ayet No Toplamı",
+                    "Toplam"
                 ],
                 "values": [
                     "9",
@@ -6766,10 +6766,10 @@
             "13": {
                 "ref": "Table 34: Same data as in Table 33, after correcting the number of verses in Sura 9.",
                 "title": [
-                    "Sura No.",
-                    "No. of Verses",
-                    "sum of Verse #s",
-                    "Total"
+                    "Sure No",
+                    "Ayet Sayısı",
+                    "Ayet No Toplamı",
+                    "Toplam"
                 ],
                 "values": [
                     "9",
@@ -6819,10 +6819,10 @@
             "4": {
                 "ref": "Table 35: Suras whose digits of sura numbers and verse numbers add up to 21, assuming that Sura 9 consists of 129 verses",
                 "title": [
-                    "Sura No.",
-                    "No. of Verses",
-                    "sum of Verse #s",
-                    "Total"
+                    "Sure No",
+                    "Ayet Sayısı",
+                    "Ayet No Toplamı",
+                    "Toplam"
                 ],
                 "values": [
                     "9",
@@ -6870,10 +6870,10 @@
             "5": {
                 "ref": "Table 36: Calculations of Table 35, after correcting the verses in Sura 9.",
                 "title": [
-                    "Sura No.",
-                    "No. of Verses",
-                    "sum of Verse #s",
-                    "Total"
+                    "Sure No",
+                    "Ayet Sayısı",
+                    "Ayet No Toplamı",
+                    "Toplam"
                 ],
                 "values": [
                     "9",
@@ -6949,10 +6949,10 @@
             "9": {
                 "ref": "Table 37: Gematrical value of the first and last letters of every sura from the beginning of the Quran to Sura 9.",
                 "title": [
-                    "Sura No.",
+                    "Sure No",
                     "First Letter",
                     "Last Letter",
-                    "Total"
+                    "Toplam"
                 ],
                 "values": [
                     "1",
@@ -7027,8 +7027,8 @@
             "1": {
                 "ref": "Table 38: List of all occurrences of the crucial phrase : “LAA ELAAHA ELLA HOO” (There is no other god besides Him), after removing 9:129.",
                 "title": [
-                    "No.",
-                    "Sura No.",
+                    "No",
+                    "Sure No",
                     "Verses with the key phrase",
                     "Frequency of the phrase"
                 ],
@@ -7126,10 +7126,10 @@
             "2": {
                 "ref": "Table 39: All suras and verses from the first occurrence to the last occurrence of “LAA ELAAHA ELLA HOO.”",
                 "title": [
-                    "Sura No.",
-                    "No. of Verses",
-                    "Verses #s",
-                    "Total"
+                    "Sure No",
+                    "Ayet Sayısı",
+                    "Ayet Numaraları",
+                    "Toplam"
                 ],
                 "values": [
                     "2",
@@ -7177,7 +7177,7 @@
             "5": {
                 "ref": "Table 40: Occurrences of the phrase “LAA ELAAHA ELLA HOO” from the missing Basmalah to the extra Basmalah.",
                 "title": [
-                    "Sura No.",
+                    "Sure No",
                     "Verse Numbers With Phrase"
                 ],
                 "values": [
@@ -7267,9 +7267,9 @@
             "6": {
                 "ref": "Table 41: The number of verses from 3:81 to the end of Sura 9.",
                 "title": [
-                    "Sura No.",
-                    "No. of Verses",
-                    "Sum of Verse #s"
+                    "Sure No",
+                    "Ayet Sayısı",
+                    "Ayet No Toplamı"
                 ],
                 "values": [
                     "3",
@@ -7307,7 +7307,7 @@
             "11": {
                 "ref": "Table 42: Occurrence of the word “God” from 3:78 to the end of Sura 9",
                 "title": [
-                    "Sura No.",
+                    "Sure No",
                     "Frequency of “God”"
                 ],
                 "values": [
@@ -7528,10 +7528,10 @@
             "10": {
                 "ref": "Table 1: The Suras & Verses from the First to the Last Occurrence of Abraham.",
                 "title": [
-                    "Sura No.",
-                    "No. of Verses",
-                    "Sum of Verse #'s",
-                    "Total"
+                    "Sure No",
+                    "Ayet Sayısı",
+                    "Ayet No’ları Toplamı",
+                    "Toplam"
                 ],
                 "values": [
                     "2",
@@ -7621,7 +7621,7 @@
             "4": {
                 "ref": "Table 2: The Suras and Occurrences of Abraham, Muhammad, and Rashada.",
                 "title": [
-                    "Sura No.",
+                    "Sure No",
                     "Abraham",
                     "Muhammad",
                     "Rashada"
@@ -7793,7 +7793,7 @@
             "2": {
                 "ref": "Table 3: The Suras & First Verse Where Abraham, Muhammad, & Rashada Occur.",
                 "title": [
-                    "Sura No.",
+                    "Sure No",
                     "Abraham",
                     "Muhammad",
                     "Rashada"
@@ -7959,7 +7959,7 @@
             "1": {
                 "ref": "Table 4: The Suras, Verses, and Occurrences of ‘Abraham,” “Muhammad,” and “Rashada.”\n Verse Where the 3 Words are Mentioned",
                 "title": [
-                    "Sura No.",
+                    "Sure No",
                     "Abraham",
                     "Muhammad",
                     "Rashada",
@@ -8262,7 +8262,7 @@
             "2": {
                 "ref": "Table 1: The Verses Containing the Word “Allah” from the Missing Basmalah to the Extra Basmalah.",
                 "title": [
-                    "Sura No.",
+                    "Sure No",
                     "Verses w/ “Allah”"
                 ],
                 "values": [
@@ -8317,7 +8317,7 @@
                 "title": [
                     "Sura",
                     "Verses",
-                    "Sum of Verse #"
+                    "Ayet No’ları Toplamı"
                 ],
                 "values": [
                     "9",
@@ -8391,9 +8391,9 @@
             "6": {
                 "ref": "Table 3: The Verses Whose Digits Add Up to 10, from the Missing Basmalah to the Extra Basmalah.",
                 "title": [
-                    "Sura No",
-                    "No. of Verses",
-                    "No. of Occurrences"
+                    "Sure No",
+                    "Ayet Sayısı",
+                    "Geçiş Sayısı"
                 ],
                 "values": [
                     "9",
@@ -8467,9 +8467,9 @@
             "12": {
                 "ref": "Table 4: The Odd-numbered Suras Whose Number of Verses are Also Odd.",
                 "title": [
-                    "Sura No",
+                    "Sure No",
                     "Sum of Digits",
-                    "No. of Verses",
+                    "Ayet Sayısı",
                     "Sum of Digits"
                 ],
                 "values": [
@@ -8616,7 +8616,7 @@
     {
         "page": 502,
         "text": {
-            "1": "Early in 1989 a man by the name of Theodore Robert Bundy was executed for killing a number of women. The whole nation agreed that he was one of the most vicious criminals in history. So much so that his execution was one of the rare occasions where the opponents of capital punishment did not protest. On the contrary, many people actually celebrated his execution. Numerous journalists, editorials, and politicians lamented the fact that justice took eleven years to execute Ted Bundy. They stated that Bundy should have been executed within a maximum of six years after his conviction. According to the Quran, this would have been the greatest favor anyone could have done to Bundy. He was 42 years old when executed. Had he been executed five years earlier, at the age of 37, he would have gone straight to Heaven, and he did not deserve that.",
+            "1": "1989’un başlarında Theodore Robert Bundy adında bir adam, çok sayıda kadın öldürdüğü için idam edildi. Bütün ulus, onun tarihin en vahşi suçlularından biri olduğu konusunda hemfikirdi. Öyle ki, onun infazı, idam cezası karşıtlarının protesto etmediği ender durumlardan biriydi. Tam tersine, esasında birçok insan onun infazını kutladı. Çok sayıda gazeteci, başyazı ve siyasetçi, Ted Bundy’i infaz etmek için adaletin on bir yıl sürmesi gerçeğinden hayıflandılar. Bundy’nin mahkûmiyetinden sonra en geç altı yıl içinde infaz edilmiş olması gerektiğini belirttiler. Kuran’a göre bu, birinin Bundy’e yapabileceği en büyük iyilik olurdu. İnfaz edildiğinde 42 yaşındaydı. Beş yıl önce, 37 yaşındayken infaz edilmiş olsaydı, doğruca Cennete gitmiş olacaktı ve o bunu hak etmiyordu.",
             "2": "As it turns out, Bundy was one of the signs God has given us to confirm that anyone who dies before 40 goes to Heaven. Bundy’s name, Theodore Robert Bundy, consists of 19 letters, and he confessed to killing 19 women just one day before his execution. There were many other signs from God.",
             "3": "Delivering this important piece of information is one of the responsibilities given to me as God’s Messenger of the Covenant. It is not my personal opinion.",
             "4": "It is noteworthy that both Martin Luther King and Malcolm X were assassinated just a couple of months before their 40th birthdays.",
@@ -8682,7 +8682,7 @@
                     "Killing whomever they consider an apostate",
                     "2:256; 4:90; 10:99; 18:29; 88:21-22.",
                     "",
-                    "Vicious criminal justice system:",
+                    "Acımasız ceza adalet sistemi:",
                     "Cutting off the hand of the thief",
                     "5:38, 12:31.",
                     "Stoning the adulterers to death",
@@ -8799,15 +8799,15 @@
         },
         "titles": {
             "1": "Ek 36",
-            "2": "What Price A Great Nation"
+            "2": "Büyük Bir Ulusun Bedeli"
         }
     },
     {
         "page": 507,
         "text": {
             "3": "If a thief steals a thousand dollars from you, and they put him in prison, what do you get? If the thief has a wife and children, what is their crime? Why should they be deprived of their father?",
-            "4": "The Quran solves this problem, as well as the problems associated with the criminal justice systems prevalent in today’s world.",
-            "6": "According to the Quranic criminal justice, the thief who is convicted of stealing a thousand dollars from you must work for you until you are fully paid for the thousand dollars you lost, plus any other damage and inconvenience the theft may have caused you. At the same time, the thief’s innocent wife and children are not deprived of their man, and the expensive prison system is eliminated. Imprisonment is a cruel and inhumane punishment that has proven useless to all concerned.",
+            "4": "Kuran bu sorunu da, günümüz dünyasında yaygın olan ceza adalet sistemlerine bağlı sorunları da çözer.",
+            "6": "Kuranî ceza adaletine göre, sizden bin dolar çalmasından suçlu olduğu kanıtlanmış hırsız, kaybettiğiniz bin dolar size eksiksiz ödenene ve ayrıca hırsızlığın size vermiş olabileceği başka herhangi bir zarar ya da sıkıntı da karşılanana kadar sizin için çalışmak zorundadır. Aynı zamanda, hırsızın suçsuz karısı kocasından, çocukları da babalarından mahrum bırakılmaz ve pahalı hapishane sistemi ortadan kaldırılır. Hapsedilme, ilgili herkes açısından yararsız olduğu kanıtlanmış merhametsiz ve insanlık dışı bir cezadır.",
             "7": "Contrary to common belief, the thief’s hand shall not be cut off. Thank God for His mercy and His mathematical miracle in the Quran, we know now that the thief’s hand is to be marked. Marking the hand of the thief is stated in 5:38. The sura and verse numbers add up to 5 + 38 = 43. The other place in the Quran where “the hand is cut” is found in 12:31. This is where we see the women who admired Joseph so much, they “cut” their hands. Obviously, they did not sever their hands; no one can do that. The sura and verse numbers add up to 12 + 31 = 43, the same total as in 5:38. This gives mathematical confirmation that the Quranic law calls for marking the hand of the thief, not severing it. Additional mathematical confirmation is provided: 19 verses after 12:31, we see the “cutting of the hand” again. Punishment in Islam (Submission) is based on equivalence and social pressure (2:178, 5:38, 24:2).",
             "8": "The blasphemy called “Hadith & Sunna” has instituted stoning to death as the punishment for married adulterers. This is not God’s law. As stated in 24:2, the punishment for adultery is whipping in public; a hundred symbolic lashes. As pointed out above, the basic punishment is social pressure and scandalizing the criminal. Whipping in public achieves this goal.",
             "9": "In dealing with murder, the Quran definitely discourages capital punishment (2:179). “The free for the free, the slave for the slave, and the female for the female” (2:178). Due to human meanness and injustice, many people cannot even imagine what this Quranic law says. They refuse to accept the clear injunctions that strict equivalence must be observed—if a woman kills a man, or a man kills a woman, or a slave kills a free person, or a free person kills a slave, capital punishment cannot be applied. The Quran prefers that the murderer compensate the victim’s family. Killing the murderer does not bring the victim back, nor does the family of the victim benefit from executing the murderer. The compensation, however, must be sufficient to be a deterrent for others. In Islam (Submission), the victim and/or the victim’s family are the judges for all crimes; they decide what the punishment shall be under the supervision of a person who knows the Quran."
@@ -8817,8 +8817,8 @@
         "evidence": {},
         "titles": {
             "1": "Ek 37",
-            "2": "Criminal Justice",
-            "5": "Equivalence is the Law [2:178-179]"
+            "2": "Ceza Adaleti",
+            "5": "Denklik Yasadır [2:178-179]"
         }
     },
     {
@@ -8828,21 +8828,21 @@
             "4": "1. The sun, the moon, and the earth become aligned in the same relative positions once every 19 years (see ENCYCLOPEDIA JUDAICA under “Calendar”).",
             "5": "2. Halley’s comet, a profound heavenly phenomenon, visits our solar system every 76 years, 19 x 4.",
             "6": "3. God’s stamp on you and me is manifested in the fact that the human body contains 209 bones, 19 x 11.",
-            "7": "4. LANGMAN’S MEDICAL EMBRYOLOGY, by T. W. Sadler, is used as a textbook in most of the Medical Schools in the U.S.A. On Page 88 of the Fifth edition, we read the following statement: “In general the length of pregnancy for a full term fetus is considered to be 280 days or 40 weeks after onset of the last menstruation, or more accurately, 266 days or 38 weeks after fertilization.” The numbers 266 and 38 are both multiples of 19."
+            "7": "4. Langman’s Medical Embryology, T. W. Sadler tarafından yazılmış olup A.B.D.’deki Tıp Fakültelerinin çoğunda ders kitabı olarak kullanılır. Beşinci baskının 88. sayfasında şu ifadeyi okuruz: “Genel olarak, tam süreli bir fetüs için gebeliğin süresi, son regl başlangıcından sonra 280 gün ya da 40 hafta, ya da daha doğru bir ifadeyle, döllenmeden sonra 266 gün ya da 38 hafta olarak kabul edilir.” 266 ve 38 sayıları ikisi de 19’un katıdır."
         },
         "picture": {},
         "table": {},
         "evidence": {
             "8": {
                 "lines": {
-                    "1": "GOD BE GLORIFIED."
+                    "1": "TANRI YÜCELTİLSİN."
                 },
                 "ref": []
             }
         },
         "titles": {
             "1": "Ek 38",
-            "2": "19: The Creator’s Signature"
+            "2": "19: Yaratıcının İmzası"
         }
     }
 ]
