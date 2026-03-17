@@ -116,7 +116,7 @@
                     "10": "Zihinlerinde bir hastalık vardır. Sonuç olarak, TANRI onların hastalığını artırır. Yalan söylemelerinden dolayı acı veren bir azabı üzerlerine çekmişlerdir.",
                     "11": "Onlara “Kötülük yapmayın.” denildiğinde, “Ama biz doğru olanlarız!” derler.",
                     "12": "Aslında, kötülük yapan onlar ama farkında değiller.",
-                    "13": "Onlara “İnanmış olan kimseler gibi inanın.” denildiğinde, “O inanmış budalalar gibi mi inanalım?” derler. Aslında budala olan onlar, ama bilmezler.",
+                    "13": "Onlara “İnanmış olan insanlar gibi inanın.” denildiğinde, “O inanmış budalalar gibi mi inanalım?” derler. Aslında budala olan onlar, ama bilmezler.",
                     "14": "İnananlarla karşılaştıklarında “Biz İnanıyoruz.” derler, ama şeytanları ile baş başa kaldıklarında “Biz sizinle beraberiz; sadece alay ediyorduk.” derler.",
                     "15": "TANRI onları alay konusu yapar ve taşkınlıkları içinde bocalarlarken onları oyalar.",
                     "16": "Rehberlik pahasına sapkınlığı satın alanlar onlardır. Asla ne böyle bir ticaret başarılı olur ne de onlar herhangi bir rehberlik alırlar.",
@@ -1158,7 +1158,7 @@
         "sura": {
             "3": {
                 "verses": {
-                    "49": "İsrailoğullarına gönderilen bir elçi olarak: “Size Rabbinizden bir işaret ile geldim—size çamurdan bir kuşun şeklini yaratırım, sonra ona üflerim ve o, TANRI’nın izni ile canlı bir kuşa dönüşür. Körlere görme yetisini geri veririm, cüzzamlıları iyileştiririm ve TANRI’nın izniyle ölüleri yeniden canlandırırım. Size ne yediğinizi ve evlerinizde ne depoladığınızı söyleyebilirim. Eğer inananlar iseniz, bu sizin için bir kanıt olmalıdır.",
+                    "49": "İsrailoğullarına gönderilen bir elçi olarak: “Size Rabbinizden bir işaret ile geldim—size kilden bir kuşun şeklini yaratırım, sonra ona üflerim ve o, TANRI’nın izni ile canlı bir kuşa dönüşür. Körlere görme yetisini geri veririm, cüzzamlıları iyileştiririm ve TANRI’nın izniyle ölüleri yeniden canlandırırım. Size ne yediğinizi ve evlerinizde ne depoladığınızı söyleyebilirim. Eğer inananlar iseniz, bu sizin için bir kanıt olmalıdır.",
                     "50": "“Ben önceki kutsal yazıyı—Tevrat’ı—doğruluyorum ve size yüklenen belirli haramları yürürlükten kaldırıyorum. Rabbinizden yeterli kanıtla size geliyorum. Bu nedenle, TANRI’yı gözetin ve bana itaat edin.",
                     "51": "“TANRI benim de Rabbimdir sizin de Rabbinizdir;* yalnızca O’na tapın. Doğru yol budur.”",
                     "52": "İsa onların inkârını sezdiğinde, dedi ki: “TANRI’ya yönelik benim destekçilerim kimlerdir?” Havariler dedi ki: “Biz TANRI’nın destekçileriyiz; TANRI’ya inanıyoruz ve şahit ol ki biz teslimolanlarız.",
@@ -1981,7 +1981,7 @@
                     "122": "İnanan ve doğru bir hayat sürenlere gelince, biz onları akan nehirleri olan bahçelere kabul edeceğiz, içinde sonsuza dek yaşarlar. İşte TANRI’nın hak olan vaadi böyledir. Kimin sözleri TANRI’nınkinden daha doğrudur?",
                     "123": "Bu, sizin arzularınıza veya kutsal yazı halkının arzularına göre değildir: kötülük işleyen herkes bedelini öder ve TANRI’ya karşı bir yardımcısı ya da destekçisi olmayacaktır.",
                     "124": "İnanarak doğru bir hayat sürenlere gelince, erkek ya da kadın en ufak bir haksızlık olmaksızın Cennete girerler.",
-                    "125": "İbrahim’in inancı: tektanrıcılık üzere tamamen TANRI’ya teslimolan ve doğru bir hayat süren kimseden, kim dininde daha iyi rehberlik edilmiştir? TANRI, İbrahim’i sevilen bir dost olarak seçmiştir.",
+                    "125": "İbrahim’in inancı: tektanrıcılık üzere tamamen TANRI’ya teslim olan ve doğru bir hayat süren kimseden, kim dininde daha iyi rehberlik edilmiştir? TANRI, İbrahim’i sevilen bir dost olarak seçmiştir.",
                     "126": "Göklerdeki ve yeryüzündeki her şey TANRI’ya aittir. TANRI her şeyde tam kontrol durumundadır.",
                     "127": "Sana kadınlar ile ilgili danışırlar: De ki: “Kutsal yazıda size okunduğu gibi, TANRI onlarla ilgili olarak sizi aydınlatır. Kendileri ile evlenmek istediğiniz zaman, ödenmesi gereken mehirlerinden hileyle mahrum bıraktığınız yetim kızların haklarını geri verin: Onlardan çıkar sağlamayın. Yetim kalmış erkek çocukların da hakları aynı şekilde korunmalıdır. Yetimlere adil davranın. Her ne iyilik yaparsanız TANRI onun tamamen farkındadır.”",
                     "128": "Eğer bir kadın kocasından baskı ya da terk edilme sezerse, çift aralarındaki anlaşmazlıkları uzlaştırmaya çalışsın, çünkü uzlaşma onlar için en iyisidir. Bencillik bir insan özelliğidir, eğer iyilik yapar ve doğru bir hayat sürerseniz, TANRI yaptığınız her şeyden tamamen Haberdardır.",
@@ -2499,7 +2499,7 @@
                     "107": "Eğer şahitlerin tarafgirlikle suçlu oldukları bulunursa, o zaman iki başka kimseden onların yerlerini almaları istensin. İlk şahitler tarafından mağdur edilmiş iki kişiyi seçin ve onlar TANRI adına yemin etsinler: “Bizim şahitliğimiz onlarınkinden daha doğrudur; biz tarafgir olmayacağız. Aksi taktirde, biz haddi aşan oluruz.”",
                     "108": "Bu onların açısından, önceki şahitlerin yemini gibi yeminlerinin göz ardı edilebileceği korkusuyla onları dürüst bir şahitliğe teşvik etmeye daha uygundur. TANRI’yı gözetin ve dinleyin. TANRI kötülere rehberlik etmez.",
                     "109": "Gün gelecek, TANRI elçileri toplayacak ve onlara, “Size verilen yanıt nasıldı?” diye soracak. Diyecekler ki: “Bizim hiçbir bilgimiz yoktur. Sen bütün sırları Bilensin.”",
-                    "110": "TANRI diyecek ki: “Ey Meryem’in oğlu İsa, sana ve annene olan Benim nimetlerimi hatırla. Ben seni Kutsanmış Ruh ile destekledim; hem beşikten hem de bir yetişkinken insanlara konuşabilesin diye. Sana kutsal yazıyı, bilgelik, Tevrat’ı ve İncil’i öğrettim. Hani Benim iznimle çamurdan bir kuşun şeklini yarattın, sonra ona üfledin de Benim iznimle o canlı bir kuş oldu. Körleri ve cüzzamlıları Benim iznimle iyileştirdin ve ölüleri de Benim iznimle yeniden canlandırdın. Hani kendilerine göstermiş olduğun esaslı mucizelere rağmen sana zarar vermek isteyen İsrailoğullarından seni Ben korumuştum. Onların arasındaki inkârcılar, ‘Bu besbelli ki sihir’ dediler.",
+                    "110": "TANRI diyecek ki: “Ey Meryem’in oğlu İsa, sana ve annene olan Benim nimetlerimi hatırla. Ben seni Kutsanmış Ruh ile destekledim; hem beşikten hem de bir yetişkinken insanlara konuşabilesin diye. Sana kutsal yazıyı, bilgelik, Tevrat’ı ve İncil’i öğrettim. Hani Benim iznimle kilden bir kuşun şeklini yarattın, sonra ona üfledin de Benim iznimle o canlı bir kuş oldu. Körleri ve cüzzamlıları Benim iznimle iyileştirdin ve ölüleri de Benim iznimle yeniden canlandırdın. Hani kendilerine göstermiş olduğun esaslı mucizelere rağmen sana zarar vermek isteyen İsrailoğullarından seni Ben korumuştum. Onların arasındaki inkârcılar, ‘Bu besbelli ki sihir’ dediler.",
                     "111": "“Hani Ben havarilere ilham etmiştim: ‘Bana ve elçime inanın.’ Dediler ki: ‘Biz inandık ve şahit ol ki biz teslimolanlarız.’ ”",
                     "112": "Hani havariler demişlerdi ki: “Ey Meryem’in oğlu İsa, Rabbin bize gökyüzünden bir ziyafet indirebilir mi?” O demişti ki: “Eğer inananlar iseniz, TANRI’ya derin saygı duymalısınız.”",
                     "113": "Onlar, “Biz ondan yemek, kalplerimizi tatmin etmek ve senin bize hakikati söylediğini kesin olarak bilmek istiyoruz. Biz buna şahitler olarak hizmet edeceğiz” demişlerdi."
@@ -3191,7 +3191,7 @@
                     "66": "Halkı arasından inkâr eden liderler dediler ki: “Görüyoruz ki budalaca davranıyorsun ve biz senin bir yalancı olduğunu düşünüyoruz.”",
                     "67": "O dedi ki: “Ey halkım, bende budalalık yok; ben kâinatın Rabbinden bir elçiyim.",
                     "68": "“Ben size Rabbimin mesajlarını iletirim ve size dürüstçe tavsiye veriyorum.",
-                    "69": "“Sizi uyarmak için, sizin gibi bir adam vasıtasıyla Rabbinizden size bir mesaj gelmesi gerektiği çok mu şaşırtıcı? Hani O sizi Nuh halkından sonra mirasçılar yapmıştı ve sayınızı çoğaltmıştı. TANRI’nın nimetlerini hatırlayın ki başarılı olasınız.”",
+                    "69": "“Sizi uyarmak için, sizin gibi bir adam vasıtasıyla Rabbinizden size bir mesaj gelmesi gerektiği çok mu şaşırtıcı? Hani O sizi Nuh’un halkından sonra mirasçılar yapmıştı ve sayınızı çoğaltmıştı. TANRI’nın nimetlerini hatırlayın ki başarılı olasınız.”",
                     "70": "Dediler ki: “Sen bizi yalnızca TANRI’ya taptırmaya ve ebeveynlerimizin vaktiyle taptığı şeyleri terk ettirmeye mi geldin? Eğer doğru sözlüysen, bizi tehdit ettiğin korkunç sonu getirmen için sana meydan okuyoruz.”",
                     "71": "Dedi ki: “Siz Rabbinizden kınama ve gazabı üzerinize çektiniz. TANRI tarafından hiçbir zaman yetkilendirilmeyen sizin uydurduğunuz—sizin ve ebeveynlerinizin— bidatleri müdafaa etmek için mi benimle tartışıyorsunuz? Öyleyse bekleyin, ben de sizinle beraber bekleyeceğim.”",
                     "72": "Sonra biz onu ve onunla beraber olanları bizden gelen merhametle kurtardık ve vahiylerimizi reddedip inanan olmayı kabul etmeyenleri imha ettik.",
@@ -3813,7 +3813,7 @@
         "notes": {
             "data": [
                 "*9:24 Herhangi bir insanın gerçekten inanmasının ve tapınmayı yalnızca Tanrı’ya adamasının aleyhindeki olasılıklar ezici olduğu için (12:103, 12:106), bütün bir ailenin inandığını görmek neredeyse imkânsızdır. Bu nedenle, inananların çoğu şu tercihle yüz yüze gelmiştir: “Ya ben ya da Tanrı ve elçisi.” Bu tercih, inananların ya eşleri ya ebeveynleri ya da evlatları vs. tarafından daima dile getirilir. İnananlar da daima doğru seçimi yaptılar. Bu, tüm inananlar için zorunlu bir testtir (29:2).",
-                "**9:24 Kuranî matematiksel delil, spesifik olarak Tanrı’nın Antlaşman Elçisi’ni işaret eder. “Reşad”ın sayısal değeri (505) artı “Halife”nin sayısal değeri (725) artı ayet numarasını (24) toplarsak 505 + 725 + 24 = 1254 = 19x66 elde ederiz."
+                "**9:24 Kuranî matematiksel delil, spesifik olarak Tanrı’nın Antlaşma Elçisi’ni işaret eder. “Reşad”ın sayısal değeri (505) artı “Halife”nin sayısal değeri (725) artı ayet numarasını (24) toplarsak 505 + 725 + 24 = 1254 = 19x66 elde ederiz."
             ]
         }
     },
@@ -4526,7 +4526,7 @@
         "sura": {
             "11": {
                 "verses": {
-                    "29": "“Ey halkım, ben sizden hiç para istemiyorum; benim ücretim sadece TANRI’dan gelir. Ben inananları kovmuyorum; onlar Rableri ile buluşacaklar (ve onları yalnızca O yargılayacak). Görüyorum ki siz cahil bir halksınız.",
+                    "29": "“Ey halkım, ben sizden hiç para istemiyorum; benim ücretim sadece TANRI’dan gelir. Ben inanmış olanları kovmuyorum; onlar Rableri ile buluşacaklar (ve onları yalnızca O yargılayacak). Görüyorum ki siz cahil bir halksınız.",
                     "30": "“Ey halkım, eğer onları kovarsam, TANRI’ya karşı beni kim destekleyebilir? Dikkate almaz mısınız?",
                     "31": "“TANRI’nın hazinelerine sahip olduğumu iddia etmiyorum, geleceği de bilmiyorum, bir melek olduğumu da iddia etmiyorum. Gözlerinizin hor gördüğü kimselere, TANRI’nın herhangi bir nimet ihsan etmeyeceğini de söylemiyorum. Onların en içteki düşüncelerinde ne olduğunu en iyi TANRI bilir. (Eğer bunu yapsaydım,) ben haddi aşan biri olurdum.”",
                     "32": "Dediler ki: “Ey Nuh, bizimle tartıştın ve ısrarla tartışmayı sürdürdün. Eğer doğru sözlüysen, bizi tehdit ettiğin korkunç sonu getirmen için sana meydan okuyoruz.”",
@@ -5039,7 +5039,7 @@
             "13": {
                 "verses": {
                     "4": "Yeryüzünde—iki evcikli olan ve iki evcikli olmayan—üzüm bağları, ekinler ve hurma ağaçları üreten bitişik parseller vardır. Onlar aynı suyla sulansalar da, biz yeme hususunda onlardan bazılarını diğerlerine üstün tutarız. Bunlar anlayan halk için sağlam kanıtlardır.",
-                    "5": "Bir şeye şaşıracak olursan, asıl şaşırtıcı şey onların şöyle demeleridir: “Biz toprak olduktan sonra yeniden mi yaratılacağız?” Bunlar Rablerini inkâr etmiş olan kimselerdir. Bunlar, boyunlarının etrafına prangaları üzerine çekmiş olanlardır. Bunlar Cehennemi üzerlerine çekmiş olanlardır, içinde sonsuza dek kalırlar.",
+                    "5": "Bir şeye şaşıracak olursan, asıl şaşırtıcı şey onların şöyle demeleridir: “Biz toprak olduktan sonra yeniden mi yaratılacağız?” Bunlar Rablerini inkâr etmiş olan kimselerdir. Bunlar, boyunlarının etrafına prangaları üzerlerine çekmiş olanlardır. Bunlar Cehennemi üzerlerine çekmiş olanlardır, içinde sonsuza dek kalırlar.",
                     "6": "Doğru olmaktansa, üzerlerine korkunç son getirmen için sana meydan okuyorlar! Geçmişte yeterli emsaller onlar için oluşturulmuştur. Gerçekten de, haddi aşmalarına rağmen senin Rabbin insanlara yönelik bağışlamayla doludur ve aynı zamanda senin Rabbin azap uygulamada serttir.",
                     "7": "İnkâr edenler derler ki: “Keşke ona Rabbinden bir mucize inseydi (biz o zaman inanırdık).” Sen sadece bir uyarıcısın—her topluluk bir yol gösteren öğretmen alır.",
                     "8": "TANRI, her dişinin ne taşıdığını ve her rahmin ne saldığını ya da ne kazandığını bilir. O’nun yaptığı her şey kusursuz bir biçimde ölçülüdür.",
@@ -5182,7 +5182,7 @@
                     "6": "Hani Musa halkına şöyle demişti: “TANRI’nın üzerinizdeki nimetlerini hatırlayın. Oğullarınızı katledip kızlarınızı sağ bırakarak size en kötü zulmü uygulayan Firavun’un adamlarından sizi O kurtardı. Bu, Rabbinizden zorlu bir imtihandı.”",
                     "7": "Rabbiniz hükme bağladı: “Bana ne kadar çok şükrederseniz, Ben size o kadar çok veririm.” Ancak nankörlüğe dönerseniz, o zaman Benim azabım şiddetlidir.",
                     "8": "Musa dedi ki: “Yeryüzündeki bütün insanlarla beraber inkâr etseniz de TANRI hiçbir şeye muhtaç değildir; O, Övgüye Layık Olandır.”",
-                    "9": "Sizden öncekilerin haberlerini almadınız mı—Nuh halkı, Âd, Semûd ve onlardan sonra gelmiş sadece TANRI tarafından bilinen diğerlerinin? Elçileri onlara apaçık kanıtlarla gelmişlerdi, ancak onlara küçümseyerek davrandılar ve dediler ki: “Sizinle gönderilen şeyi inkâr ediyoruz. Mesajınız hakkında kuşkuluyuz; şüphe doluyuz.”",
+                    "9": "Sizden öncekilerin haberlerini almadınız mı—Nuh’un halkı, Âd, Semûd ve onlardan sonra gelmiş sadece TANRI tarafından bilinen diğerlerinin? Elçileri onlara apaçık kanıtlarla gelmişlerdi, ancak onlara küçümseyerek davrandılar ve dediler ki: “Sizinle gönderilen şeyi inkâr ediyoruz. Mesajınız hakkında kuşkuluyuz; şüphe doluyuz.”",
                     "10": "Elçileri dediler ki: “Gökleri ve yeryüzünü Başlatan TANRI hakkında şüpheleriniz mi var? O sizi sadece, günahlarınızı bağışlamak ve kendinizi kurtarasınız diye size bir şans daha vermek için davet ediyor.” Dediler ki: “Siz, ebeveynlerimizin vaktiyle tapınır oldukları yöntemden bizi uzaklaştırmak isteyen bizim gibi insanlardan fazlası değilsiniz. Bize esaslı birtakım yetki belgesi gösterin.”",
                     "11": "Elçileri onlara dediler ki: “Biz, sizin gibi insanlardan fazlası değiliz, ancak TANRI, kulları arasından seçtiği kimseyi nimetlendirir. TANRI’nın iradesine uygun olmadığı sürece size herhangi bir tür yetki belgesi göstermemiz mümkün değil. İnananlar TANRI’ya güvensinler.",
                     "12": "“O bize yollarımızda rehberlik etmişken neden TANRI’ya güvenmeyelim? Biz zulmünüz karşısında kararlılıkla sebat edeceğiz. Tüm güvenenler TANRI’ya güvensinler.”",
@@ -5227,7 +5227,7 @@
                     "28": "TANRI’nın nimetlerine karşı inkâr ederek yanıt verenlere ve böylece kendi ailelerine felaket getirenlere dikkat ettin mi?",
                     "29": "Onların varış noktası, içinde yanacakları Cehennemdir; ne sefil bir son!",
                     "30": "Onlar TANRI’ya denk tutmak ve başkalarını O’nun yolundan çevirmek için O’na rakipler edinirler. De ki: “Bir süreliğine keyfini çıkarın; nihai varış noktanız Cehennemdir.”",
-                    "31": "Benim inanmış kullarımı, ne ticaretin ne de adam kayırmanın olduğu bir gün gelmeden önce, İletişim Dualarını (Namazı) gözetmeye ve onlara sağladığımız rızıklardan gizlice ve alenen (bağış) yapmaya teşvik et."
+                    "31": "Benim inanmış olan kullarımı, ne ticaretin ne de adam kayırmanın olduğu bir gün gelmeden önce, İletişim Dualarını (Namazı) gözetmeye ve onlara sağladığımız rızıklardan gizlice ve alenen (bağış) yapmaya teşvik et."
                 },
                 "titles": {
                     "19": "Sadece Her Şeye Gücü Yeten O’na Tap",
@@ -5262,7 +5262,7 @@
                     "37": "“Rabbimiz, ailemin bir kısmını bu bitkisiz vadiye, Senin Kutsal Evinin yanına yerleştirdim. Rabbimiz, onlar İletişim Dualarını (Namazı) gözetmeliler, bu nedenle insan kalabalıkları onların yanına toplansın ve onları her türden meyveyle rızıklandır ki minnettar olsunlar.",
                     "38": "“Rabbimiz, her neyi gizlesek ve her neyi beyan etsek Sen hepsini bilirsin—ne yeryüzünde ne de göklerde hiçbir şey TANRI’dan gizli değildir.",
                     "39": "“Yaşlılığıma rağmen bana İsmail’i ve İshak’ı bahşeden TANRI’ya övgüler olsun. Rabbim duaları yanıtlar.",
-                    "40": "“Rabbim, beni İletişim Dualarını (Namazı) istikrarlı olarak yerine getirenlerden biri yap ve evlatlarımı da. Rabbimiz, lütfen dualarımı yanıtla.",
+                    "40": "“Rabbim, beni İletişim Dualarını (Namazı) istikrarlı olarak gözeten biri yap ve evlatlarımı da. Rabbimiz, lütfen dualarımı yanıtla.",
                     "41": "“Rabbim, hesabın görüleceği günde beni, ebeveynlerimi ve inananları bağışla.”",
                     "42": "Asla TANRI’nın, haddi aşanların yaptıklarından habersiz olduğunu sanma. O sadece, gözlerin dehşetle dikilip kalacağı bir güne kadar onlara mühlet verir.",
                     "43": "Onlar (kabirlerden) fırlarken yüzleri yukarı bakıyor olacak, gözleri bir kez bile kırpılmayacak ve zihinleri dehşete kapılacak.",
@@ -5350,14 +5350,14 @@
                     "23": "Hayatı ve ölümü kontrol eden biziz ve biz nihai mirasçılarız.",
                     "24": "Ve biz aranızdan ilerleyenleri tam olarak biliriz, gerileyenleri de tam olarak biliriz.",
                     "25": "Rabbin onları mutlaka toplayacaktır. O En Bilgedir, Her Şeyi Bilendir.",
-                    "26": "Biz insanı, çömlekçi çamuruna benzer yıllanmış çamurdan yarattık.",
+                    "26": "Biz insanı, çömlekçi kiline benzer yıllanmış çamurdan yarattık.",
                     "27": "Cinlere gelince, onları ondan da önce alevli ateşten yarattık.",
-                    "28": "Rabbin meleklere dedi ki: “Ben, çömlekçi çamuruna benzer yıllanmış çamurdan bir insan yaratıyorum.",
+                    "28": "Rabbin meleklere dedi ki: “Ben, çömlekçi kiline benzer yıllanmış çamurdan bir insan yaratıyorum.",
                     "29": "“Onu tamamlayıp ona Benim ruhumdan üflediğimde, onun önünde secdeye kapanın.”",
                     "30": "Melekler secdeye kapandılar; hepsi,",
                     "31": "İblis (Şeytan) hariç. Secde edenlerle birlikte olmayı o reddetti.",
                     "32": "O dedi ki: “Ey İblis (Şeytan), neden secde edenlerle birlikte değilsin?”",
-                    "33": "Dedi ki: “Çömlekçi çamuruna benzer yıllanmış çamurdan yarattığın bir insanın önünde ben secde edecek değilim.”",
+                    "33": "Dedi ki: “Çömlekçi kiline benzer yıllanmış çamurdan yarattığın bir insanın önünde ben secde edecek değilim.”",
                     "34": "O dedi ki: “O hâlde, sen çıkmak zorundasın; sürgün edildin.",
                     "35": "“Yargı Günü’ne kadar Benim kınamamı üzerine çektin.”",
                     "36": "Dedi ki: “Rabbim, onların diriltileceği güne kadar bana mühlet ver.”",
@@ -6120,7 +6120,7 @@
                     "10": "Gençler mağaraya sığındıklarında şöyle dediler: “Rabbimiz, bize merhametini yağdır ve işlerimizi Senin rehberliğinle nimetlendir.”",
                     "11": "Biz sonra, önceden belirlenmiş sayıda yıl boyunca mağarada onların kulaklarını mühürledik.",
                     "12": "Sonra, iki taraftan hangisinin orada kalışlarının süresini hesap edebileceğini görmek için onları dirilttik.",
-                    "13": "Onların tarihini sana doğru bir şekilde aktarıyoruz. Onlar Rablerine inanan gençlerdi ve biz de onların hidayetini artırdık.",
+                    "13": "Onların tarihini sana doğru bir şekilde aktarıyoruz. Onlar Rablerine inanmış olan gençlerdi ve biz de onların hidayetini artırdık.",
                     "14": "Onlar ayağa kalkıp şöyle ilan ettiklerinde biz onların kalplerini güçlendirdik: “Bizim tek Rabbimiz göklerin ve yeryüzünün Rabbidir. Biz asla O’nun yanında başka bir tanrıya tapmayacağız. Aksi hâlde, biz çok uzak sapmış oluruz.",
                     "15": "“İşte bizim halkımız O’nun yanında tanrılar ediniyor. Keşke tutumlarını desteklemek için herhangi bir kanıt sunabilselerdi! Yalanlar uyduran ve onları TANRI’ya atfeden kimseden daha kötü kimdir?",
                     "16": "“Madem onlardan ve TANRI’dan başkasına tapmalarından kaçınmak istiyorsunuz,* haydi mağaraya sığınalım. Rabbiniz merhametini üzerinize yağdırsın ve sizi doğru karara yöneltsin.”",
@@ -6938,7 +6938,7 @@
                     "48": "Biz Musa’ya ve Harun’a, doğrular için bir işaret ışığı ve bir hatırlatma olan Yasa Kitabı’nı verdik.",
                     "49": "Onlar, mahremiyetlerinde yalnızken bile Rablerine derin saygı duyan ve Saat hakkında kaygılananlardır.",
                     "50": "Bu da indirdiğimiz kutlu bir hatırlatmadır. Onu yalanlıyor musunuz?",
-                    "51": "Ondan önce de İbrahim’e hidayetini ve anlayışını bahşettik, çünkü biz onun tamamen farkındaydık.*",
+                    "51": "Ondan önce de İbrahim’e hidayetini ve anlayışını bahşettik, zira biz onun tamamen farkındaydık.*",
                     "52": "Babasına ve halkına dedi ki: “Kendinizi adadığınız bu heykeller de nedir?”",
                     "53": "Onlar, “Biz ebeveynlerimizi bunlara tapıyorken bulduk” dediler.",
                     "54": "O dedi ki: “Gerçekten de siz ve ebeveynleriniz tümüyle sapmışsınız.”"
@@ -7206,7 +7206,7 @@
                     "41": "Onlar öyle kimselerdir ki, eğer onları yeryüzünde hükümdar olarak tayin etseydik, İletişim Dualarını (Namazı) ve zorunlu bağışı (Zekâtı) tesis ederlerdi ve doğruluğu savunup kötülüğe engel olurlardı. TANRI nihai hükümdardır.",
                     "42": "Eğer seni reddederlerse, onlardan önce Nuh’un halkı, Âd ve Semûd da inkâr etmişlerdi.",
                     "43": "Ayrıca İbrahim’in halkı ve Lut’un halkı da.",
-                    "44": "Ve Midyan sakinleri. Musa da reddedildi. Tüm bu insanların gittikleri yolda sürüklenmelerine Ben izin verdim, sonra onlardan hesaplarını Ben sordum; Benim misillemem nasıl da (yıkıcıydı)!",
+                    "44": "Ve Midyan sakinleri. Musa da reddedildi. Bu insanların hepsini Ben oyaladım, sonra onlardan hesaplarını Ben sordum; Benim misillemem nasıl da (yıkıcıydı)!",
                     "45": "Birçok topluluğu kötülükleri sebebiyle imha ettik. Onlar sonunda kalıntılarla, suyu çekilmiş kuyularla ve büyük boş köşklerle kaldılar.",
                     "46": "Yeryüzünü dolaşmadılar mı, sonrasında anlamak için akıllarını ve işitmek için kulaklarını kullanmadılar mı? Doğrusu, gerçek körlük gözlerin körlüğü değil, ancak göğüslerin içindeki kalplerin körlüğüdür.",
                     "47": "Sana azabı getirmen için meydan okuyorlar ama TANRI kehanetini yerine getirmeyi asla ihmal etmez. Rabbinin bir günü sizin bin yılınız gibidir.",
@@ -7815,7 +7815,7 @@
                     "34": "Cehenneme yaka paça toplananlar en kötü konumdadır; onlar doğru yoldan en uzakta olanlardır.",
                     "35": "Biz Musa’ya kutsal yazıyı verdik ve kardeşi Harun’u kendisine yardımcı olması için atadık.",
                     "36": "Biz, “Vahiylerimizi reddeden o halka ikiniz de gidin” dedik ve sonrasında o reddedicileri tamamen imha ettik.",
-                    "37": "Aynı şekilde, Nuh halkı elçileri inkâr ettiğinde biz onları boğduk ve onları insanlar için bir işaret olarak yerleştirdik. Biz haddi aşanlara acı veren bir azap hazırladık.",
+                    "37": "Aynı şekilde, Nuh’un halkı elçileri inkâr ettiğinde biz onları boğduk ve onları insanlar için bir işaret olarak yerleştirdik. Biz haddi aşanlara acı veren bir azap hazırladık.",
                     "38": "Ayrıca Âd’ı, Semûd’u, Ress’in sakinlerini ve onların arasındaki birçok nesilleri.",
                     "39": "Bu grupların her birine, biz onları imha etmeden önce yeterince örnek ilettik.",
                     "40": "Onlar, üstlerine sefil bir sağanak yağdırılmış olan topluluğun (Sodom) yanından geçip gittiler. Onu görmediler mi? Asıl gerçek şu ki, onlar yeniden dirilişe asla inanmadılar.",
@@ -8739,7 +8739,7 @@
                     "9": "İnanan ve doğru bir hayat sürenler; biz kesinlikle onları doğrularla beraber kabul edeceğiz.",
                     "10": "İnsanlar arasında “Biz TANRI’ya inanıyoruz” diyenler vardır, ama TANRI için bir zorluğa uğrar uğramaz, insanların zulmünü TANRI’nın azabı ile bir tutarlar. Ancak senin karşına Rabbinden nimetler çıkarsa, onlar “Biz seninle beraberdik” derler. TANRI insanların en içteki düşüncelerinin tamamen farkında değil midir?",
                     "11": "TANRI inananları kesin surette ayırt edecektir ve O, ikiyüzlüleri mutlaka ifşa edecektir.",
-                    "12": "İnkâr etmiş olanlar inanan kimselere dediler ki: “Eğer bizim yolumuzu takip ederseniz günahlarınızdan biz sorumlu olacağız.” Doğru değil; onların günahlarından hiçbirini üstlenemezler. Onlar yalancıdır.",
+                    "12": "İnkâr etmiş olanlar inanmış olanlara dediler ki: “Eğer bizim yolumuzu takip ederseniz günahlarınızdan biz sorumlu olacağız.” Doğru değil; onların günahlarından hiçbirini üstlenemezler. Onlar yalancıdır.",
                     "13": "Aslında, onlar kendi günahlarını, sorumlusu oldukları diğer insanların günahlarının yüklerine ek olarak taşıyacaklardır. Muhakkak ki Diriliş Günü’nde sahte iddialarından sorulacaklardır.",
                     "14": "Biz Nuh’u kendi halkına gönderdik ve o, bin yıldan elli yıl eksik onlarla beraber kaldı.* Sonrasında, onlar tufanı haddi aşmaları yüzünden üzerlerine çektiler."
                 },
@@ -9263,7 +9263,7 @@
         "notes": {
             "data": [
                 "*33:4 Arabistan’da, eşin, kocanın annesi gibi olduğu beyan edilerek yabancılaştırılması bir gelenekti. Burada, böylesi adil olmayan bir uygulama iptal edilmiştir.",
-                "*33:7 Bu antlaşma 3:81’de detaylandırılmıştır. Tanrı peygamberlerle bir antlaşma yaptı ki onlar Muhammed’den sonra gelecek olan ve onların mesajlarını arındırıp birleştirecek olan O’nun Antlaşma Elçisi’ni destekleyeceklerdir. Bu antlaşma, dünya yaratılmadan önce yapıldı ve Mekke’de, 3 Zilhicce 1391’de (20 Ocak 1972’de) yerine getirildi. İslami ay (12) artı gün (3) artı yıl (1391) toplandığında 1406 eder; bu 19x74’tür. Tanrı’nın Antlaşma Elçisi’ni Reşad Halife olarak tanımlayan karşı konulmaz kanıt Kuran boyunca verilmektedir (Ekler 2 ve 26)."
+                "*33:7 Bu antlaşma 3:81’de detaylandırılmıştır. Tanrı peygamberlerle bir antlaşma yaptı ki onlar Muhammed’den sonra gelecek olan ve onların mesajlarını arındırıp birleştirecek olan O’nun Antlaşma Elçisi’ni destekleyeceklerdir. Bu antlaşma, dünya yaratılmadan önce yapıldı ve Mekke’de, 3 Zilhicce 1391’de (20 Ocak 1972’de) yerine getirildi. İslami ay (12) artı gün (3) artı yıl (1391) toplandığında 1406 eder; bu 19x74’tür. Tanrı’nın Antlaşma Elçisi’ni Reşad Halife olarak tanımlayan karşı konulmaz kanıt Kuran boyunca verilmektedir (Ek 2 ve 26)."
             ]
         }
     },
@@ -9410,7 +9410,7 @@
                     "60": "İkiyüzlüler, kalplerinde hastalık bulunanlar ve şehrin azılı yalancıları (size zulmetmekten) vazgeçmezlerse, biz mutlaka sana üstünlük bahşederiz, sonrasında onlar kısa bir süre içinde ayrılmaya zorlanacaklardır.",
                     "61": "Nereye giderlerse gitsinler, kınanmayı üzerlerine çekmişlerdir; (size saldırmayı bırakmazlarsa) yakalanabilir ve öldürülebilirler.",
                     "62": "Bu, TANRI’nın ebedî sistemidir ve TANRI’nın sisteminin değiştirilemez olduğunu bulacaksın.",
-                    "63": "İnsanlar sana Saat (dünyanın sonu) hakkında soruyorlar. De ki: “Bunun bilgisi sadece TANRI’nın katındadır. Kim bilir, belki de Saat yakın olabilir.”",
+                    "63": "İnsanlar sana Saat (dünyanın sonu) hakkında soruyorlar. De ki: “Bunun bilgisi sadece TANRI’nın katındadır. Ne biliyorsun belki de Saat yakın olabilir.”",
                     "64": "TANRI inkârcıları kınamış ve onlar için Cehennemi hazırlamıştır.",
                     "65": "Ebediyen orada kalırlar. Onlar ne bir efendi ne de bir destekçi bulacaklar.",
                     "66": "Cehenneme atılacakları gün diyecekler ki: “Ah, keşke TANRI’ya itaat etseydik ve elçiye itaat etseydik.”",
@@ -9942,14 +9942,14 @@
                     "20": "Diyecekler ki: “Yazıklar olsun bize, bu Yargı Günü.”",
                     "21": "Bu, vaktiyle inkâr ettiğiniz karar günüdür.",
                     "22": "Toplayın o haddi aşanları, eşlerini ve taptıkları putları",
-                    "23": "TANRI’nın yanında ve onları Cehennemin yoluna yönlendirin.",
+                    "23": "TANRI’nın yanında; ve onları Cehennemin yoluna yönlendirin.",
                     "24": "Onları durdurun ve onlara sorun:",
                     "25": "“Neden birbirinize yardım etmiyorsunuz?”",
                     "26": "Onlar, o gün, tamamen teslim olmuş olacaklar.",
                     "27": "Biri diğerini sorgulayıp suçlayarak, birbirlerine gelecekler.",
                     "28": "Onlar (liderlerine) diyecekler ki: “Vaktiyle siz bize sağ yandan yaklaşıyordunuz.”",
                     "29": "Şöyle yanıt verecekler: “İnanan olmayan sizdiniz.",
-                    "30": "“Bizim üzerinizde asla hiçbir gücümüz yoktu; kötü olan sizdiniz.",
+                    "30": "“Bizim, üzerinizde asla hiçbir gücümüz yoktu; kötü olan sizdiniz.",
                     "31": "“Biz, Rabbimizin hükmünü, hak ederek üzerimize çektik; artık acı çekmek zorundayız.",
                     "32": "“Biz sizi yanılttık çünkü biz de sapmıştık.”",
                     "33": "Böylece, o gün onların hepsi beraber azabı paylaşacaklardır.",
@@ -10074,7 +10074,7 @@
                     "110": "Biz doğruları işte böyle ödüllendiririz.",
                     "111": "O, inanan kullarımızdan biridir.",
                     "112": "Sonra ona, doğruluk üzere peygamberlerden biri olacak İshak’ın doğumu hakkındaki müjdeyi verdik.",
-                    "113": "Onu ve İshak’ı nimetlendirdik. Onların soyundan gelenler arasında bazıları doğru, bazıları da kötü haddi aşanlardır."
+                    "113": "Onu ve İshak’ı nimetlendirdik. Onların soyundan gelenler arasından bazıları doğrulardır, bazıları da kötü haddi aşanlardır."
                 },
                 "titles": {
                     "83": "İbrahim",
@@ -10160,7 +10160,7 @@
                 "verses": {
                     "151": "Gerçekten de, onlar şöyle söylediklerinde ağır şekilde küfür ettiler ─",
                     "152": "“TANRI bir oğula baba oldu.” Gerçekten de, onlar yalancıdır.",
-                    "153": "“O, erkeklerin yerine kızları mı seçti?",
+                    "153": "O, erkeklerin yerine kızları mı seçti?",
                     "154": "Mantığınızdaki sorun nedir?",
                     "155": "Neden dikkate almıyorsunuz?",
                     "156": "Herhangi bir kanıtınız var mı?",
@@ -10232,7 +10232,7 @@
                     "9": "Kudretli, Bahşedici Rabbinin merhamet hazinelerine mi sahipler?",
                     "10": "Göklerin ve yeryüzünün ve onlar arasındaki her şeyin hükümranlığına sahipler mi? Varsın kendi kendilerine yardım etsinler.",
                     "11": "Aksine, toplayabilecekleri güçler ne olursa olsun—onların bütün grupları bir araya gelseler bile—yenileceklerdir.",
-                    "12": "Onlardan önce Nuh halkı, Âd ve güçlü Firavun da inkâr ediyordu.",
+                    "12": "Onlardan önce Nuh’un halkı, Âd ve güçlü Firavun da inkâr ediyordu.",
                     "13": "Ayrıca, Semûd, Lut halkı, (Midyan’ın) Orman sakinleri de; bunlar muhaliflerdi.",
                     "14": "Onların her biri elçileri inkâr ettiler ve böylece Benim azabım kaçınılmazdı.",
                     "15": "Bu insanlar, asla toparlanamayacakları tek bir darbeyi bekleyebilirler.",
@@ -10276,8 +10276,8 @@
                     "35": "Dedi ki: “Rabbim, beni bağışla ve bana başka hiç kimse tarafından hiçbir zaman erişilmemiş bir krallık bahşet. Sen Bahşedicisin.”",
                     "36": "Biz (onun duasını yanıtladık ve) istediği her yere yağmur yağdırarak rüzgârı onun emrine verdik.",
                     "37": "Ve inşa eden, dalış yapan şeytanları.",
-                    "38": "Başkalarını da onun emrine verildi.",
-                    "39": "“Sana ihsanımız budur; sınır olmaksızın, cömertçe verebilirsin yahut kısıtlayabilirsin.”"
+                    "38": "Başkaları da onun emrine verildi.",
+                    "39": "“Sana olan teminimiz budur; sınır olmaksızın, cömertçe verebilir ya da kısıtlayabilirsin.”"
                 },
                 "titles": {
                     "24": "Davut’un Örnek Takvası",
@@ -10310,7 +10310,7 @@
                     "46": "Onlara büyük bir nimeti, Ahiret farkındalığını, ihsan ettik.",
                     "47": "Onlar seçildiler, zira en doğrular arasındaydılar.",
                     "48": "En doğrular arasında İsmail’i, Elişa’yı ve Zül-Kifl’i de hatırla.",
-                    "49": "Bu bir hatırlatmadır: doğrular harika bir varış noktasını hak etmişlerdir.",
+                    "49": "Bu bir hatırlatmadır: Doğrular harika bir varış noktasını hak etmişlerdir.",
                     "50": "Aden bahçeleri kapılarını onlar için açacak.",
                     "51": "Orada dinlenirlerken, kendilerine birçok türden meyve ve içecek verilecek.",
                     "52": "Harika eşlere sahip olacaklardır.",
@@ -10356,7 +10356,7 @@
                     "68": "“Ki siz ona karşı tamamen gaflettesiniz.",
                     "69": "“Üst Toplum’daki kavga hakkında daha önce hiçbir bilgim yoktu.*",
                     "70": "“Bana, tek görevimin size uyarıları iletmek olduğu ilham edilmektedir.”",
-                    "71": "Rabbin meleklere dedi ki: “Ben çamurdan bir insan yaratıyorum.",
+                    "71": "Rabbin meleklere dedi ki: “Ben kilden bir insan yaratıyorum.",
                     "72": "“Onu tasarlayıp ona Benim ruhumdan üflediğimde, onun önünde secdeye kapanın.”",
                     "73": "Melekler secdeye kapandılar, hepsi,",
                     "74": "Şeytan hariç; o reddetti ve çok kibirliydi, nankördü.",
@@ -10411,13 +10411,13 @@
                     "7": "Eğer inkâr ederseniz TANRI’nın hiç kimseye ihtiyacı yoktur. Ancak O, kullarının yanlış karar vermesini görmekten hazzetmez. Eğer minnettar olmaya karar verirseniz, O sizden hoşnut olur. Hiçbir nefis bir başka nefsin günahlarını yüklenmez. En nihayetinde geri dönüşünüz Rabbinizedir, sonra yapmış olduğunuz her şeyi size haber verecektir. O, en içteki düşüncelerin tamamen farkındadır.",
                     "8": "İnsan bir sıkıntıya uğradığında, samimiyetle O’na adanarak Rabbine yalvarır. Ancak O onu nimetlendirir nimetlendirmez, önceki yalvarışını unutur, TANRI’ya denk tutmak ve başkalarını O’nun yolundan saptırmak için putlar edinir. De ki: “Geçici olarak inkârının keyfini çıkar; sen cehennem ateşini üzerinize çekmiş bulunuyorsun.”",
                     "9": "Secde ederek ve geceyi ayakta geçirerek, Ahiretin farkında olarak ve Rablerinin merhametini arayarak geceleyin tefekkür edenlerden biri olmak daha iyi değil midir? De ki: “Bilenler ile bilmeyenler eşit midir?” Sadece akıl sahibi olanlar dikkate alacaktır.",
-                    "10": "De ki: “Ey Benim inanmış kullarım, Rabbinize derin saygı duyun.” Bu dünyada doğruluğa çalışanlar için iyi bir ödül vardır. TANRI’nın yeryüzü geniştir ve kararlılıkla sebat edenler mükâfatlarını cömertçe, sınırsız olarak alacaklardır.",
+                    "10": "De ki: “Ey Benim inanmış olan kullarım, Rabbinize derin saygı duyun.” Bu dünyada doğruluğa çalışanlar için iyi bir ödül vardır. TANRI’nın yeryüzü geniştir ve kararlılıkla sebat edenler mükâfatlarını cömertçe, sınırsız olarak alacaklardır.",
                     "11": "De ki: “Ben, dini mutlak bir şekilde yalnızca O’na adayarak TANRI’ya tapmakla emrolundum.",
                     "12": "“Ve ben en ileri teslimolan olmakla emrolundum.”",
                     "13": "De ki: “Eğer Rabbime itaatsizlik edersem, büyük bir günün azabından korkarım.”",
                     "14": "De ki: “Dinimi mutlak bir şekilde yalnızca O’na adayarak taptığım sadece TANRI’dır.",
                     "15": "“O hâlde, O’ndan başka dilediğinize tapın.” De ki: “Gerçek kaybedenler, Diriliş Günü’nde kendi nefislerini ve ailelerini kaybedenlerdir.” Hiç şüphe yok ki, asıl kayıp budur.",
-                    "16": "Onların üstlerinde ve altlarında ateş kitleleri olacaktır. TANRI kullarını böylece ikaz etmektedir: “Ey Benim kullarım, Bana derin saygı duyun.”"
+                    "16": "Onların üstlerinde ve altlarında ateş kütleleri olacaktır. TANRI kullarını böylece ikaz etmektedir: “Ey Benim kullarım, Bana derin saygı duyun.”"
                 },
                 "titles": {
                     "5": "Dünya’nın Şekli*",
@@ -10591,9 +10591,9 @@
                 "verses": {
                     "1": "H.M.*",
                     "2": "Kutsal yazının bu vahyi, Kudretli, Her Şeyi Bilen TANRI’dandır.",
-                    "3": "Günahları Bağışlayıcı, tövbeyi kabul eden, azap uygulamada serttir ve tüm gücün sahibidir. O’nun yanında başka tanrı yoktur. Nihai varış O’nadır.",
-                    "4": "İnkâr edenler dışında hiç kimse TANRI’nın vahiylerinin aleyhinde olmaz. Onların görünürdeki başarısından etkilenme.",
-                    "5": "Onlardan önce Nuh halkı ve onlardan sonra da nice muhalifler inkârdaydılar. Her topluluk elçisini etkisiz hâle getirmek için ona zulmetti. Ve hakikati yenmek için yalanla tartıştılar. Bunun sonucunda Ben onları cezalandırdım; Benim azabım nasıl da korkunçtu!",
+                    "3": "Günahları Bağışlayıcı, tövbeyi kabul eden, azap uygulamada sert ve tüm gücün sahibi. O’nun yanında başka tanrı yoktur. Nihai varış O’nadır.",
+                    "4": "İnkâr edenler dışında hiç kimse TANRI’nın vahiylerine karşı tartışmaz. Onların görünürdeki başarısından etkilenme.",
+                    "5": "Onlardan önce Nuh’un halkı ve onlardan sonra da nice muhalifler inkârdaydılar. Her topluluk elçisini etkisiz hâle getirmek için ona zulmetti. Ve hakikati yenmek için yalanla tartıştılar. Bunun sonucunda Ben onları cezalandırdım; Benim azabım nasıl da korkunçtu!",
                     "6": "Böylece, Rabbinin hükmü inkâr edenlerin üzerine zaten damgalanmıştır ki onlar Cehennem sakinleridir.",
                     "7": "Tahtın hizmetinde olanlar ve onun etrafındaki herkes Rablerini yüceltirler, överler ve O’na inanırlar. Ve onlar inananlar için bağışlanma dilerler: “Rabbimiz, Senin merhametin ve Senin bilgin her şeyi kuşatır. Tövbe edenleri ve Senin yolunu takip edenleri bağışla ve onları Cehennem azabından esirge.",
                     "8": "“Rabbimiz, Senin onlara ve ebeveynleri, eşleri ve evlatları arasında doğru olanlara vadettiğin Aden bahçelerine onları kabul et. Sen Kudretlisin, En Bilgesin.",
@@ -10638,7 +10638,7 @@
                     "22": "Bunun nedeni elçilerinin onlara apaçık kanıtlarla gelmeleri ama onların inkâr etmeleriydi. Sonuç olarak, TANRI onları cezalandırdı. O En Güçlüdür, azap uygulamada serttir.",
                     "23": "Musa’yı işaretlerimizle ve esaslı bir yetkiyle gönderdik.",
                     "24": "Firavun’a, Haman’a ve Karun’a. Ancak onlar, “Bir sihirbaz; bir yalancı” dediler.",
-                    "25": "Ve o, bizden gelen hakikati onlara gösterdiğinde dediler ki: “Onunla birlikte inananların oğullarını öldürün ve kızlarını sağ bırakın.” Nitekim inkârcıların planlaması hep kötüdür.",
+                    "25": "Ve o, bizden gelen hakikati onlara gösterdiğinde dediler ki: “Onunla birlikte inanmış olanların oğullarını öldürün ve kızlarını sağ bırakın.” Nitekim inkârcıların planlaması hep kötüdür.",
                     "26": "Firavun dedi ki: “Bırakın Musa’yı öldüreyim ve o da varsın Rabbine yalvarsın. Ya dininizi bozar ya da yeryüzünde kötülük yayar diye endişeleniyorum.”",
                     "27": "Musa dedi ki: “Hesap Günü’ne inanmayan her bir kibirliden, Rabbime ve Rabbinize sığınıyorum.”",
                     "28": "Firavun’un adamlarından, inandığı hâlde inancını gizleyen bir adam dedi ki: “Siz bir adamı, sırf ‘Benim Rabbim TANRI’dır’ dediği için, hem de size Rabbinizden apaçık kanıtlar göstermişken nasıl öldürebilirsiniz? Eğer o bir yalancıysa bu onun problemidir ve eğer o doğru sözlü ise siz onun vaatlerinden faydalanırsınız. Şüphesiz, TANRI hiçbir yalancı haddi aşana rehberlik etmez."
@@ -10665,12 +10665,12 @@
             "40": {
                 "verses": {
                     "29": "“Ey halkım, iktidar ve üstünlük bugün sizdedir. Ancak TANRI’nın hükmü başımıza gelirse, karşısında bize kim yardım edecek?” Firavun dedi ki: “Sadece benim uygun gördüğüme uyacaksınız; size sadece ben doğru yolda rehberlik edeceğim.”",
-                    "30": "İnananlardan biri dedi ki: “Ey halkım, sizin için, önceki muhaliflerin uğradığıyla aynı akıbetten korkuyorum.",
+                    "30": "İnanmış olan kimse dedi ki: “Ey halkım, sizin için, önceki muhaliflerin uğradığıyla aynı akıbetten korkuyorum.",
                     "31": "“Nuh’un muhalifleri ve Âd, Semûd ve onlardan sonra gelen diğerleri. TANRI insanlar için herhangi bir haksızlık dilemez.",
                     "32": "“Ey halkım, sizin için Toplanma Günü’nden korkuyorum.",
                     "33": "“O, arkanızı dönüp kaçmak isteyebileceğiniz gündür. Ancak o zaman hiçbir şey sizi TANRI’dan korumayacaktır. TANRI kimi saptırırsa, hiçbir şey ona rehberlik edemez.”",
                     "34": "Ondan önce Yusuf size apaçık vahiylerle gelmişti, ama siz onun mesajından şüphe etmeyi sürdürdünüz. Sonra, o öldüğünde dediniz ki: “TANRI ondan sonra başka hiçbir elçi göndermeyecek. (O son elçiydi)!”** TANRI haddi aşan, şüphe duyan kimseleri işte böyle saptırır.**",
-                    "35": "Onlar, herhangi bir dayanağı olmaksızın TANRI’nın vahiylerinin aleyhinde tartışırlar. Bu, TANRI ve inananlar tarafından en iğrenilen bir niteliktir. TANRI, her kibirli zorbanın kalbini işte böyle mühürler.",
+                    "35": "Onlar, herhangi bir dayanağı olmaksızın TANRI’nın vahiylerine karşı tartışırlar. Bu, TANRI ve inananlar tarafından en iğrenilen bir niteliktir. TANRI, her kibirli zorbanın kalbini işte böyle mühürler.",
                     "36": "Firavun dedi ki: “Ey Haman, benim için yüksek bir kule inşa et ki erişip keşfedeyim.",
                     "37": "“Göğe ulaşmak ve Musa’nın tanrısına bir göz atmak istiyorum. Ben onun bir yalancı olduğuna inanıyorum.” Böylece Firavun’un kötü işleri gözlerinde süslendi ve böylelikle (doğru) yolu izlemekten engellendi. Firavun’un planlaması hakikaten kötüydü.",
                     "38": "İnanmış olan kimse dedi ki: “Ey halkım, Bana uyun, ben de sizi doğru yolda yönlendireyim.",
@@ -10702,10 +10702,10 @@
                 "verses": {
                     "42": "“Siz beni TANRI’ya karşı nankör olmaya ve O’nun yanında tanımadığım putlar edinmeye davet ediyorsunuz. Ben sizi Kudretliye, Bağışlayıcıya çağırıyorum.",
                     "43": "“Hiç şüphe yok ki, beni davet ettiğiniz şeyin ne bu dünyada bir dayanağı var ne de Ahirette, bizim nihai dönüşümüz TANRI’yadır ve haddi aşanlar cehennem ateşini üzerlerine çekmişlerdir.",
-                    "44": "“Bir gün, az önce size söylediklerimi hatırlayacaksınız. Bu meselenin hükmünü TANRI’ya bırakıyorum; TANRI bütün insanların Görenidir.”",
+                    "44": "“Bir gün, az önce size söylediklerimi hatırlayacaksınız. Bu meselenin hükmünü TANRI’ya bırakıyorum; TANRI bütün insanları Görendir.”",
                     "45": "Sonra TANRI onu, onların kötü planlarından korudu, Firavun’un adamları ise en kötü azabı üzerine çekmiştir.",
                     "46": "Cehennem onlara gece gündüz gösterilecek ve Diriliş Günü’nde ise: “Firavun’un adamlarını en kötü azabın içine alın.”",
-                    "47": "Cehennem’de tartışırlarken, takipçiler liderlerine diyecekler ki: “Vaktiyle biz sizin takipçilerinizdik, bu Cehennem’in herhangi bir kısmını üzerimizden savabilir misiniz?”",
+                    "47": "Cehennem’de tartışırlarken, takipçiler liderlerine diyecekler ki: “Vaktiyle biz sizin takipçilerinizdik, bu Cehennem’in herhangi bir kısmınından bizi esirgeyebilir misiniz?”",
                     "48": "Liderler diyecekler ki: “Hepimiz bunun içinde beraberiz. TANRI insanlar arasında yargılama yapmıştır.”",
                     "49": "Cehennem ateşinde olanlar, Cehennemin bekçilerine diyecekler ki: “Rabbinize çağrıda bulunun da bizim için bu azabı bir günlüğüne dahi hafifletsin.”",
                     "50": "Onlar diyecekler ki: “Size apaçık mesajlar ileten elçileriniz gelmedi mi?” Onlar, “Evet, geldiler” diyerek yanıtlayacaklar. Onlar da, “O zaman (dilediğiniz kadar) yalvarın; inkârcıların yalvarışı daima boşunadır” diyecek.",
@@ -10714,7 +10714,7 @@
                     "53": "Biz Musa’ya kılavuzu verdik ve İsrailoğullarının kutsal yazıyı miras almasını sağladık.",
                     "54": "(Onların tarihçesi) akıl sahibi olanlar için bir ders ve bir hatırlatmadır.",
                     "55": "Bu nedenle sabırlı ol, zira TANRI’nın vaadi doğrudur ve günahın için bağışlanma dile ve Rabbini gece gündüz yücelt ve öv.",
-                    "56": "Şüphesiz, TANRI’nın vahiylerine karşı kanıt olmaksızın tartışanlar, göğüslerinin içinde gizli olan kibri açığa vuruyorlar ve onlar bunun bile farkında değiller. Bu nedenle, TANRI’ya sığın; O İşitendir, Görendir.",
+                    "56": "Şüphesiz, kanıt olmaksızın TANRI’nın vahiylerine karşı tartışanlar, göğüslerinin içinde gizli olan kibri açığa vuruyorlar ve onlar bunun bile farkında değiller. Bu nedenle, TANRI’ya sığın; O İşitendir, Görendir.",
                     "57": "Göklerin ve yeryüzünün yaratılışı, insanın yaratılışından daha da müthiştir, fakat insanların çoğu bilmez.",
                     "58": "Kör, gören ile eşit değildir. İnanan ve doğruluğa çalışanlar da günahkârlar ile eşit değildir. Nadiren dikkate alıyorsunuz."
                 },
@@ -11000,7 +11000,7 @@
                 "verses": {
                     "15": "İşte bunu vaaz et ve emrolunduğun şeyi kararlılıkla sürdür ve onların isteklerine uyma. Ve ilan et: “Ben TANRI tarafından indirilmiş bütün kutsal yazılara inanıyorum. Aranızda adil bir şekilde hüküm vermekle emrolundum. TANRI bizim de Rabbimiz sizin de Rabbinizdir. Bizim eylemlerimiz bize ve sizin eylemleriniz size. Bizimle sizin aranızda hiçbir tartışma yoktur. TANRI hepimizi bir araya toplayacaktır; nihai varış O’nadır.”",
                     "16": "TANRI hakkında, O’nun mesajını aldıktan sonra tartışanların tartışması Rableri katında geçersiz kılınmıştır. Onlar kınanmayı üzerlerine çekmiş ve şiddetli bir azabı hak etmişlerdir.",
-                    "17": "Hakikati ve yasayı iletmek için kutsal yazıyı indiren TANRI’dır. Sizin bildiğiniz kadarıyla, Saat (Yargı Günü) çok yakın olabilir.",
+                    "17": "Hakikati ve yasayı iletmek için kutsal yazıyı indiren TANRI’dır. Ne biliyorsun belki de Saat (Yargı Günü) çok yakın olabilir.",
                     "18": "Ona meydan okuyanlar, ona inanmayanlardır. Ona inananlara gelince, onun hakkında kaygı duyarlar ve onun hakikat olduğunu bilirler. Kesinlikle, Saat’i yalanlayanlar çok uzak sapmışlardır.",
                     "19": "TANRI tüm yaratıklarının tamamen farkındadır; O irade ettiği kimseye rızık sağlar. O Güçlüdür, Kudretlidir.",
                     "20": "Her kim Ahiretin ödüllerini ararsa onun için ödülleri çoğaltırız. Ve her kim bu dünyanın metalarını ararsa ona da ondan veririz, sonuçta o, Ahirette hiçbir pay almaz.",
@@ -11247,7 +11247,7 @@
                     "66": "Onlar Saat’in (Yargı Günü’nün) kendilerine hiç beklemedikleri bir anda aniden gelmesini mi bekliyorlar?",
                     "67": "O gün yakın dostlar, doğrular hariç, birbirlerine düşman olacaklardır.",
                     "68": "Ey Benim kullarım, o gün hiçbir korkunuz olmayacak, siz üzülmeyeceksiniz de.",
-                    "69": "Onlar, vahiylerimize inanmış ve teslimolan kimselerdir.",
+                    "69": "Vahiylerimize inanmış olandır onlar ayrıca teslimolanlardı.",
                     "70": "Eşlerinizle beraber Cennete girin ve sevinin.",
                     "71": "Onlara altın tepsiler ve kadehler sunulacak ve orada kalplerin arzuladığı, gözlerin dilediği her şeyi bulacaklardır. Orada sonsuza dek yaşarsınız.",
                     "72": "İşte işlerinizin karşılığında miras aldığınız Cennet böyledir.",
@@ -11522,7 +11522,7 @@
                     "8": "Onlar “Bunu o uydurdu” dediklerinde, de ki: “Eğer bunu ben uydurduysam, o zaman siz beni TANRI’dan koruyamazsınız. O, planladığınız her şeyin tamamen farkındadır. Benimle sizin aranızda şahit olarak O yeter. O Bağışlayıcıdır, En Merhametlidir.”",
                     "9": "De ki: “Ben diğer elçilerden farklı değilim. Bana ya da size ne olacak hiçbir fikrim yok. Ben yalnızca bana vahyedileni takip ediyorum. Ben esaslı bir uyarıcıdan fazlası değilim.”",
                     "10": "De ki: “Ya o, TANRI’dan gelmişse ve siz onu inkâr ettiyseniz? İsrailoğullarından bir şahit benzer bir olguya* şahitlik etti ve o inandı, oysa siz kibirlendiniz. Şüphesiz, TANRI kötü halka rehberlik etmez.”",
-                    "11": "İnkâr etmiş olanlar, inananlar hakkında dediler ki: “Eğer bu iyi bir şey olsaydı, onu bizden önce kabul etmezlerdi.” Onlar, ona yönlendirilmedikleri için, dediler ki: “Bu eski bir uydurma!”",
+                    "11": "İnkâr etmiş olanlar, inanmış olanlar hakkında dediler ki: “Eğer bu iyi bir şey olsaydı, onu bizden önce kabul etmezlerdi.” Onlar, ona yönlendirilmedikleri için, dediler ki: “Bu eski bir uydurma!”",
                     "12": "Bundan önce, Musa’nın kitabı rehberlik ve merhamet sağladı. Bu da haddi aşanları uyarmak ve doğrulara müjde vermek için Arapça olan doğrulayıcı bir kutsal yazıdır.",
                     "13": "Şüphesiz, “Rabbimiz TANRI’dır” diyen, sonra da doğru bir hayat sürenlerin hiçbir korkuları olmayacaktır, onlar üzülmeyecekler de.",
                     "14": "Onlar işleri için bir ödül olarak, sonsuza dek kalacakları Cenneti hak etmişlerdir.",
@@ -11638,7 +11638,7 @@
                     "17": "Rehberlik edilenlere gelince, O onların hidayetini artırır ve onlara doğruluklarını bahşeder.",
                     "18": "Saat onlara aniden gelinceye kadar mı bekliyorlar? Onun bütün işaretleri zaten gelmiştir.* Saat onlara geldiğinde, kendi mesajlarından nasıl fayda görecekler?",
                     "19": "Şunu bil ki: “TANRI’nın yanında başka tanrı yoktur”* ve hem kendi günahların için hem de tüm inanan erkeklerin ve kadınların günahları için bağışlanma dile. TANRI, kararlarınızın ve nihai varışınızın tamamen farkındadır.",
-                    "20": "İnananlar dediler ki: “Yeni bir sure ne zaman vahyedilecek?” Ancak içinde savaşa değinilen anlaşılması kolay bir sure vahyedildiğinde, kalplerinde şüphe barındıranların sanki çoktan ölüm onlara gelmiş gibi sana baktıklarını görürdün. Onlar böylece ifşa oldular.",
+                    "20": "İnanmış olanlar dediler ki: “Yeni bir sure ne zaman vahyedilecek?” Ancak içinde savaşa değinilen anlaşılması kolay bir sure vahyedildiğinde, kalplerinde şüphe barındıranların sanki çoktan ölüm onlara gelmiş gibi sana baktıklarını görürdün. Onlar böylece ifşa oldular.",
                     "21": "Onlardan beklenenler itaat ve doğru sözlerdir. Keşke seferberlik çağrısı yapıldığında TANRI’ya güven sergileselerdi; bu onlar için daha iyi olurdu.",
                     "22": "Ayrıca sizin niyetiniz ayrılır ayrılmaz kötülük işlemek ve akrabalarınıza kötü davranmak mı?",
                     "23": "İşte, TANRI’dan bir laneti üzerlerine çekenler onlardır; böylece O onları sağır ve kör hâle getirdi."
@@ -11959,7 +11959,7 @@
                     "24": "İbrahim’in şerefli misafirlerinin tarihçesine dikkat ettin mi?",
                     "25": "Onlar, “Esenlikler.” diyerek onu ziyaret ettiler. O da “Size esenlik olsun, yabancılar!” dedi.",
                     "26": "Ailesinden besili bir buzağı hazırlamalarını istedi.",
-                    "27": "Onlara onu sununca dikkat çekti, “Yemek yemiyor musunuz?”",
+                    "27": "Onlara onu sununca, şöyle dikkat çekti, “Yemek yemiyor musunuz?”",
                     "28": "Onlara karşı korku barındırdı. “Hiç korkma!” dediler ve bilgili bir oğulun müjdesini verdiler.",
                     "29": "Karısı hayrete kapıldı. Kırışık yüzünü işaret ederek: ”Ben kısır bir yaşlı kadınım.”",
                     "30": "Onlar, “Rabbin öyle söyledi. O En Bilgedir, Her Şeyi Bilendir” dediler.",
@@ -11996,7 +11996,7 @@
                     "43": "Semûd’da (bir ders vardır). Onlara, “Geçici olarak keyfini çıkarın” denildi.",
                     "44": "Onlar Rablerinin emrine karşı isyan ettiler. Sonuç olarak, bakınırlarken onları yıldırım çarptı.",
                     "45": "Ne doğrulabildiler ne de yardım edildiler.",
-                    "46": "Ondan önce de Nuh halkı; onlar kötü insanlardı.",
+                    "46": "Ondan önce de Nuh’un halkı; onlar kötü insanlardı.",
                     "47": "Biz gökyüzünü ellerimizle inşa ettik ve onu genişletmeye devam edeceğiz.",
                     "48": "Ve biz yeryüzünü yaşanabilir kıldık; mükemmel bir tasarım.",
                     "49": "Biz her şeyden bir çift (erkek ve dişi) yarattık ki dikkate alasınız.",
@@ -12182,7 +12182,7 @@
                     "49": "O, galaksilerin Rabbidir.",
                     "50": "Antik Âd’ı imha eden O’dur.",
                     "51": "Ve Semûd’u ortadan kaldıran.",
-                    "52": "Ayrıca ondan önce Nuh halkını da; onlar haddi aşan kötülerdi.",
+                    "52": "Ayrıca ondan önce Nuh’un halkını da; onlar haddi aşan kötülerdi.",
                     "53": "(Sodom ve Gomora’nın) kötü toplulukları en aşağılarıydı."
                 },
                 "titles": {
@@ -12327,7 +12327,7 @@
                     "11": "Orada meyveler ve asılı meyveleriyle hurma ağaçları vardır.*",
                     "12": "Ayrıca taneler ve baharatlar.",
                     "13": "(Ey insanlar ve cinler,) Rabbinizin harikalarından hangisini yalanlayabilirsiniz?",
-                    "14": "O, insanı çömlekçi çamuruna benzer yıllanmış çamurdan yarattı",
+                    "14": "O, insanı çömlekçi kiline benzer yıllanmış çamurdan yarattı",
                     "15": "Cinleri de alevli ateşten yarattı.",
                     "16": "(Ey insanlar ve cinler,) Rabbinizin harikalarından hangisini yalanlayabilirsiniz?",
                     "17": "İki doğunun ve iki batının Rabbi.",
@@ -12659,7 +12659,7 @@
         },
         "notes": {
             "data": [
-                "*57:22 Bizler Tanrı’nın veya Şeytan’ın tarafında olmakta tamamen özgürüz. Tanrı her birimizin ne tür bir karar alacağını tam olarak bilmektedir. Doğumdan ölüme kadar hayatınızın video kaydı zaten kaydedilmiştir. Ek 14’e bakınız"
+                "*57:22 Bizler Tanrı’nın veya Şeytan’ın tarafında olmakta tamamen özgürüz. Tanrı her birimizin ne tür bir karar alacağını tam olarak bilmektedir. Doğumdan ölüme kadar hayatınızın video kaydı zaten kaydedilmiştir. Ek 14’e bakınız."
             ]
         }
     },
@@ -12672,7 +12672,7 @@
             "57": {
                 "verses": {
                     "26": "Biz Nuh’u ve İbrahim’i gönderdik ve soylarına peygamberlik ve kutsal yazıyı bahşettik. Onlardan bazılarına rehberlik edildi, oysa birçoğu kötü kimselerdi.",
-                    "27": "Onların ardından elçilerimizi gönderdik. Meryem’in oğlu İsa’yı gönderdik, ona İncil’i (Gospel) verdik ve onun takipçilerinin kalplerine şefkat ve merhamet yerleştirdik. Fakat onlar için asla hükme bağlamadığımız bir ruhbanlık icat ettiler. Onlardan tüm istediğimiz, TANRI’nın onayladığı buyruklara bağlı kalmalarıydı. Ancak mesaja gereği gibi bağlı kalmadılar. Sonuç olarak, aralarından inananlara mükâfatlarını verdik, oysa çoğu kötüydü.",
+                    "27": "Onların ardından elçilerimizi gönderdik. Meryem’in oğlu İsa’yı gönderdik, ona İncil’i (Gospel) verdik ve onun takipçilerinin kalplerine şefkat ve merhamet yerleştirdik. Fakat onlar için asla hükme bağlamadığımız bir ruhbanlık icat ettiler. Onlardan tüm istediğimiz, TANRI’nın onayladığı buyruklara bağlı kalmalarıydı. Ancak mesaja gereği gibi bağlı kalmadılar. Sonuç olarak, aralarından inanmış olanlara mükâfatlarını verdik, oysa çoğu kötüydü.",
                     "28": "Ey inananlar TANRI’ya derin saygı duyun ve elçisine inanın. O zaman O, merhametinden size iki katı ödül bahşedecek, size rehberlik etmek için sizi ışıkla donatacak ve sizi bağışlayacaktır. TANRI Bağışlayıcıdır, En Merhametlidir.",
                     "29": "Bu nedenle, önceki kutsal yazıların takipçileri, TANRI’nın merhametini ve lütfunu tekelleştirmemiş olduklarını ve lütfun tümünün TANRI’nın elinde olduğunu bilmelidirler. O, onu irade ettiği kimseye ihsan eder. TANRI Sonsuz Lütuf Sahibidir."
                 },
@@ -12712,7 +12712,7 @@
                     "7": "TANRI’nın göklerdeki her şeyi ve yeryüzündeki her şeyi bildiğinin farkında değil misiniz? Gizlice komplo kuran üç kişi yoktur ki, dördüncüleri O olmasın yahut beş kişi yoktur ki, altıncıları O olmasın, ne bundan daha az ne de daha çok, nerede olurlarsa olsunlar O kendileriyle beraberdir. Sonra O, Diriliş Günü’nde, yapmış oldukları her şeyi onlara haber verecektir. TANRI her şeyin tamamen farkındadır.",
                     "8": "Gizlice komplo kurmaktan menedilen, sonra da komplo kurmakta ısrar edenlere dikkat ettin mi? Onlar, günah işlemek, haddi aşmak ve elçiye itaatsizlik etmek için komplo kurarlar. Sana geldiklerinde, seni TANRI tarafından hükme bağlanandan başka bir selamla selamlarlar. İçlerinden, “TANRI söylemlerimiz için bizi cezalandırmayacak” derler. Onların tek karşılığı, içinde yanacakları Cehennemdir; ne sefil bir varış noktası.",
                     "9": "Ey inananlar, eğer gizlice görüşmeniz gerekiyorsa, günah işlemek, haddi aşmak ve elçiye itaatsizlik etmek amacıyla görüşme yapmayın. Doğruluğa ve takvaya çalışmak için görüşme yapın. Nezdinde toplatılacağınız TANRI’ya derin saygı duyun.",
-                    "10": "Gizli komplo şeytanın fikridir, o bu yolla inanan kimselere zarar vermeyi amaçlar. Oysaki, TANRI irade etmedikçe o onlara zarar veremez. İnananlar TANRI’ya güvensin.",
+                    "10": "Gizli komplo şeytanın fikridir, o bu yolla inanmış olanlara zarar vermeyi amaçlar. Oysaki, TANRI irade etmedikçe o onlara zarar veremez. İnananlar TANRI’ya güvensin.",
                     "11": "Ey inananlar, size “Lütfen yer açın” denilirse birbirinizin oturması için yer açın. TANRI da o zaman sizin için yer açacaktır. Eğer sizden kalkmanız ve hareket etmeniz istenirse kalkıp hareket edin. TANRI, aranızdan inananları ve bilgi edinenleri yüksek derecelere yükseltir. TANRI yaptığınız her şeyden tamamen Haberdardır.",
                     "12": "Ey inananlar, elçi ile görüşmek istediğinizde, bunu yapmadan önce (fakirlere) bir bağışta bulunun. Bu sizin için daha iyi ve daha temizdir. Eğer buna güç yetiremezseniz, o zaman TANRI Bağışlayıcıdır, En Merhametlidir.",
                     "13": "Eğer görüşme öncesi bağışta bulunamadıysanız, hemen sonrasında tövbe ettiyseniz, TANRI tövbenizi kabul eder. İletişim Dualarını (Namazı) gözetin, zorunlu bağışı (Zekâtı) verin ve TANRI’ya ve elçisine itaat edin. TANRI yaptığınız her şeyden tamamen Haberdardır.",
@@ -13111,7 +13111,7 @@
                 "verses": {
                     "9": "Ey peygamber, inkârcılara ve ikiyüzlülere karşı mücadele et ve onlara karşı amansız ol. Onların meskeni Cehennemdir ayrıca sefil bir varış noktası.",
                     "10": "TANRI, inkâr etmiş olanlara örnek olarak Nuh’un eşi ve Lut’un eşini gösterir. Onlar iki doğru kulumuzla evliydiler; ancak onlara ihanet ettiler ve sonuç olarak, onlar TANRI’ya karşı bunlara hiç de yardım edemediler. İkisine de, “Hak eden kimselerle beraber Cehennem Ateşi’ne girin” denildi.",
-                    "11": "Ve TANRI, inanmış olanlara örnek olarak Firavun’un eşini gösterir. O, “Rabbim, benim için Cennette Senin katında bir ev inşa et; beni Firavun’dan ve onun işlerinden kurtar; beni haddi aşan halktan kurtar” dedi.",
+                    "11": "Ve TANRI, inanmış olanların bir örneği olarak Firavun’un karısını verir. O, “Rabbim, benim için Cennette Senin katında bir ev inşa et; beni Firavun’dan ve onun işlerinden kurtar; beni haddi aşan halktan kurtar” dedi.",
                     "12": "Ayrıca İmran ailesinden Meryem. O, iffetini korudu, sonra biz onun içine bizim ruhumuzdan üfledik. O, Rabbinin kelimelerine ve O’nun kutsal yazılarına inandı; o itaatkârdı."
                 },
                 "titles": {
