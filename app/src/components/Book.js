@@ -637,7 +637,7 @@ const Book = React.memo(({ incomingSearch = false, incomingAppendix = false, inc
                             pushedOld = true;
                         } else if (reference.toLowerCase().includes(translationApplication.quran.toLocaleLowerCase(lang))) {
                             oldscripture = false;
-                        } else if (reference.trim().includes(translationApplication.and) && pushedOld) {
+                        } else if ((reference.trim().includes(translationApplication.and) || reference.trim().includes('&')) && pushedOld) {
                             oldscripture = true;
                         }
                     }
