@@ -6950,8 +6950,8 @@
                 "ref": "Table 37: Gematrical value of the first and last letters of every sura from the beginning of the Quran to Sura 9.",
                 "title": [
                     "Sure No",
-                    "First Letter",
-                    "Last Letter",
+                    "İlk Harf",
+                    "Son Harf",
                     "Toplam"
                 ],
                 "values": [
@@ -7461,15 +7461,15 @@
             "7": {
                 "ref": "Table 1: Total Gematrical Value of “The Seven Pairs” of Quranic Initials.",
                 "title": [
-                    "Quranic Initial",
-                    "Gematrical Value"
+                    "Kuranî Başlangıç Harfi",
+                    "Sayısal Değer"
                 ],
                 "values": [
                     "1. Q ",
                     "100",
                     "2. N ",
                     "50",
-                    "3. S (Saad) ",
+                    "3. S (Sad)",
                     "90",
                     "4. H.M. ",
                     "48",
@@ -7622,8 +7622,8 @@
                 "ref": "Table 2: The Suras and Occurrences of Abraham, Muhammad, and Rashada.",
                 "title": [
                     "Sure No",
-                    "Abraham",
-                    "Muhammad",
+                    "İbrahim",
+                    "Muhammed",
                     "Rashada"
                 ],
                 "values": [
@@ -7794,8 +7794,8 @@
                 "ref": "Table 3: The Suras & First Verse Where Abraham, Muhammad, & Rashada Occur.",
                 "title": [
                     "Sure No",
-                    "Abraham",
-                    "Muhammad",
+                    "İbrahim",
+                    "Muhammed",
                     "Rashada"
                 ],
                 "values": [
@@ -7960,10 +7960,10 @@
                 "ref": "Table 4: The Suras, Verses, and Occurrences of ‘Abraham,” “Muhammad,” and “Rashada.”\n Verse Where the 3 Words are Mentioned",
                 "title": [
                     "Sure No",
-                    "Abraham",
-                    "Muhammad",
+                    "İbrahim",
+                    "Muhammed",
                     "Rashada",
-                    "No of Verses"
+                    "Ayet Sayısı"
                 ],
                 "values": [
                     "2",
@@ -8263,7 +8263,7 @@
                 "ref": "Table 1: The Verses Containing the Word “Allah” from the Missing Basmalah to the Extra Basmalah.",
                 "title": [
                     "Sure No",
-                    "Verses w/ “Allah”"
+                    "“Allah” Kelimesi Geçen Ayetler"
                 ],
                 "values": [
                     "9",
@@ -8315,8 +8315,8 @@
             "4": {
                 "ref": "Table 2: Suras & Verses From the Missing Basmalah to the Extra Basmalah.",
                 "title": [
-                    "Sura",
-                    "Verses",
+                    "Sure",
+                    "Ayetler",
                     "Ayet No’ları Toplamı"
                 ],
                 "values": [
@@ -8468,9 +8468,9 @@
                 "ref": "Table 4: The Odd-numbered Suras Whose Number of Verses are Also Odd.",
                 "title": [
                     "Sure No",
-                    "Sum of Digits",
+                    "Rakamlar Toplamı",
                     "Ayet Sayısı",
-                    "Sum of Digits"
+                    "Rakamlar Toplamı"
                 ],
                 "values": [
                     "9",
@@ -8610,7 +8610,7 @@
         },
         "titles": {
             "5": "Ek 32",
-            "6": "The Crucial Age of 40"
+            "6": "Kritik Yaş 40"
         }
     },
     {
@@ -8824,10 +8824,10 @@
     {
         "page": 508,
         "text": {
-            "3": "The scriptures are not the only mathematically composed creations of God where the number 19 is the common denominator. It is profound indeed that Galileo made his famous statement: “Mathematics is the language with which God created the universe.” A plethora of scientific findings have now shown that the number 19 represents God’s signature upon certain creations. This divine stamp appears throughout the universe in much the same manner as the signature of Michelangelo and Picasso identify their works. For example:",
-            "4": "1. The sun, the moon, and the earth become aligned in the same relative positions once every 19 years (see ENCYCLOPEDIA JUDAICA under “Calendar”).",
-            "5": "2. Halley’s comet, a profound heavenly phenomenon, visits our solar system every 76 years, 19 x 4.",
-            "6": "3. God’s stamp on you and me is manifested in the fact that the human body contains 209 bones, 19 x 11.",
+            "3": "19 sayısının ortak payda olduğu Tanrı’nın matematiksel olarak oluşturulmuş tek yaratımları kutsal yazılar değildir. Galileo’nun şu ünlü ifadeyi söylemiş olması gerçekten de çok derindir: “Matematik, Tanrı’nın evreni yarattığı dildir.” Çok sayıda bilimsel bulgu artık göstermiştir ki belirli yaratımlar üzerinde 19 sayısı Tanrı imzasını temsil eder. Bu göksel damga, Michelangelo ve Picasso’nun imzalarının eserlerini tanımlamasıyla hemen hemen aynı şekilde evrenin her yanında görünür. Örneğin:",
+            "4": "1. Güneş, Ay ve Dünya, her 19 yılda bir aynı göreli konumlarda hizalanır (Encyclopedia Judaica’ya “Calendar” maddesi altına bakınız).",
+            "5": "2. Halley kuyruklu yıldızı, esaslı bir göksel olgu olarak, güneş sistemimizi her 76 yılda bir ziyaret eder, 19 x 4.",
+            "6": "3. Tanrı’nın sizin üzerinizdeki ve benim üzerimizdeki damgası şu olguda görünür: insan bedeni 209 kemik içerir, 19 x 11.",
             "7": "4. Langman’s Medical Embryology, T. W. Sadler tarafından yazılmış olup A.B.D.’deki Tıp Fakültelerinin çoğunda ders kitabı olarak kullanılır. Beşinci baskının 88. sayfasında şu ifadeyi okuruz: “Genel olarak, tam süreli bir fetüs için gebeliğin süresi, son regl başlangıcından sonra 280 gün ya da 40 hafta, ya da daha doğru bir ifadeyle, döllenmeden sonra 266 gün ya da 38 hafta olarak kabul edilir.” 266 ve 38 sayıları ikisi de 19’un katıdır."
         },
         "picture": {},
