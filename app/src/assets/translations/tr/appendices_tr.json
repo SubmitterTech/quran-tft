@@ -326,9 +326,9 @@
     {
         "page": 400,
         "text": {
-            "1": "In 1968, I realized that the existing English translations of the Quran did not present the truthful message of God’s Final Testament. For example, the two most popular translators, Yusuf Ali and Marmaduke Pickthall, could not overcome their corrupted religious traditions when it came to the Quran’s great criterion in 39:45.",
+            "1": "1968’de fark ettim ki Kuran’ın mevcut İngilizce çevirileri Tanrı’nın Son Ahit’inin hak olan mesajını sunmuyordu. Örneğin, en popüler iki çevirmen olan Yusuf Ali ve Marmaduke Pickthall, Kuran’ın 39:45’teki büyük kriteri söz konusu olduğunda, bozulmuş dinî geleneklerini aşamadılar.",
             "3": "Yusuf Ali omitted the crucial word “ALONE” from his translation, and altered the rest of the verse by inserting the word “(gods).” Thus, he utterly destroyed this most important Quranic criterion. He translated 39:45 as follows:",
-            "5": "The expression “When God, the One and Only, is mentioned,” is not the same as saying, “When God alone is mentioned.” One can mention “God, the One and Only,” and also mention Muhammad or Jesus, and no one will be upset. But if “God ALONE is mentioned,” you cannot mention anyone else, and a lot of people—those who idolize Muhammad or Jesus—will be upset. Thus, Yusuf Ali could not bring himself to present the truth of the Quran, if it exposed his corrupted belief.",
+            "5": "“Bir ve Tek olan Tanrı anıldığında” ifadesi, “Tanrı tek başına anıldığında” demekle aynı şey değildir. İnsan “Tanrı, Bir ve Tek Olan”ı anabilir ve ayrıca Muhammed’i ya da İsa’yı da anabilir ve hiç kimse rahatsız olmaz. Ama eğer “Tanrı TEK BAŞINA anıldığında,” başka hiç kimseyi anamazsınız ve birçok insan —Muhammed’i ya da İsa’yı putlaştıranlar— rahatsız olur. Böylece Yusuf Ali, bu onun bozulmuş inancını açığa çıkaracak diye, Kuran’ın hakikatini sunmayı kendine yediremedi.",
             "6": "Marmaduke Pickthall translated “ALONE” correctly, but destroyed the criterion by inserting his personal belief in parentheses; he translated 39:45 as follows:",
             "8": "When I saw the truth of God’s word thus distorted, I decided to translate the Quran, at least for the benefit of my own children. Since I was a chemist by profession, and despite my extensive religious background—my father was a renowned Sufi leader in Egypt—I vowed to God that I would not move from one verse to the next unless I fully understood it.",
             "9": "I purchased all the available books of Quranic translations and exegeses (Tafseer) I could find, placed them on a large table, and began my translation. The first sura, The Key, was completed in a few days. The first verse in Sura 2 is “A.L.M.” The translation of this verse took four years, and coincided with the divine unveiling of “the secret,” the great mathematical Miracle of the Quran.",
@@ -720,51 +720,51 @@
             "3": {
                 "ref": "Table 8: The 14 Letters Used in Forming Quranic Initials",
                 "title": [
-                    "Letter",
-                    "Value",
-                    "First Sura"
+                    "Harf",
+                    "Değer",
+                    "İlk Sure"
                 ],
                 "values": [
-                    "A (Alef) ",
+                    "A (Elif) ",
                     "1",
                     "2",
-                    "L (Laam) ",
+                    "L (Lam) ",
                     "30",
                     "2",
                     "M (Mim) ",
                     "40",
                     "2",
-                    "S (Saad) ",
+                    "S (Sad) ",
                     "90",
                     "7",
                     "R (Ra) ",
                     "200",
                     "10",
-                    "K (Kaf) ",
+                    "K (Kef)",
                     "20",
                     "19",
-                    "H (Ha) ",
+                    "H (He)",
                     "5",
                     "19",
-                    "Y (Ya) ",
+                    "Y (Ye)",
                     "10",
                     "19",
                     "‘A (‘Ayn)",
                     "70",
                     "19",
-                    "T (Ta) ",
+                    "T (Ta)",
                     "9",
                     "20",
-                    "S (Seen) ",
+                    "S (Sin) ",
                     "60",
                     "26",
-                    "H (Ha) ",
+                    "H (Ha)",
                     "8",
                     "40",
-                    "Q (Qaf) ",
+                    "Q (Kaf)",
                     "100",
                     "42",
-                    "N (Noon) ",
+                    "N (Nun) ",
                     "50",
                     "68",
                     " ",
@@ -784,17 +784,17 @@
             "5": {
                 "ref": "Table 9: Mathematically Structured Distribution of the Quranic Initials",
                 "title": [
-                    "Initial",
-                    "Number of Occurences",
-                    "Sura Where It Occurs",
+                    "Başlangıç Harfi",
+                    "Geçiş Sayısı",
+                    "Geçtiği Sure",
                     "Toplam"
                 ],
                 "values": [
-                    "A (Alef) ",
+                    "A (Elif) ",
                     "13",
                     "[ + 2 + 3 + 7 + 10 + 11 + 12 + 13 + 14 + 15 + 29 + 30 + 31 + 32]",
                     "222",
-                    "L (Laam) ",
+                    "L (Lam) ",
                     "13",
                     "[ + 2 + 3 + 7 + 10 + 11 + 12 + 13 + 14 + 15 + 29 + 30 + 31 + 32]",
                     "222",
@@ -802,7 +802,7 @@
                     "17",
                     "[+ 2 + 3 + 7 + 13 + 26 + 28 + 29 + 30 + 31 + 32 + 40 + 41 + 42 + 43 + 44 + 45 + 46]",
                     "519",
-                    "S (Saad) ",
+                    "S (Sad) ",
                     "3",
                     "+ 7 + 19 + 38",
                     "67",
@@ -810,15 +810,15 @@
                     "6",
                     "+ 10 + 11 + 12 + 13 + 14 + 15",
                     "81",
-                    "K (Kaf) ",
+                    "K (Kef)",
                     "1",
                     "+ 19",
                     "20",
-                    "H (Ha) ",
+                    "H (He) ",
                     "2",
                     "+ 19 + 20",
                     "41",
-                    "Y (Ya) ",
+                    "Y (Ye)",
                     "2",
                     "+ 19 + 36",
                     "57",
@@ -826,23 +826,23 @@
                     "2",
                     "+ 19 + 42",
                     "63",
-                    "T (Ta) ",
+                    "T (Ta)",
                     "4",
                     "+ 20 + 26 + 27 + 28",
                     "105",
-                    "S (Seen) ",
+                    "S (Sin) ",
                     "5",
                     "+ 26 + 27 + 28 + 36 + 42",
                     "164",
-                    "H (HHa) ",
+                    "H (Ha)",
                     "7",
                     "+ 40 + 41 + 42 + 43 + 44 + 45 + 46",
                     "308",
-                    "Q (Qaf) ",
+                    "Q (Kaf)",
                     "2",
                     "+ 42 + 50",
                     "94",
-                    "N (Noon) ",
+                    "N (Nun) ",
                     "2",
                     "+ 68",
                     "70",
@@ -879,9 +879,9 @@
                 "ref": "Table 10: Total Gematrical Values of All Quranic Initials In Their Suras",
                 "title": [
                     "Sure",
-                    "Initials",
-                    "Frequency Of Initials",
-                    "Tot. G. Val. in Sura"
+                    "Başlangıç Harfleri",
+                    "Başlangıç Harflerinin Sıklığı",
+                    "Suredeki Toplam Sayısal Değer"
                 ],
                 "values": [
                     "2",
@@ -1037,17 +1037,17 @@
             "1": {
                 "ref": "Table 11: Parameters of the 14 Individual Quranic Initials",
                 "title": [
-                    "Initial",
-                    "Sura, Verse, & (Frequency) of Initial in Each Sura",
-                    "First Sura",
-                    "Last Sura"
+                    "Başlangıç Harfi",
+                    "Sure, Ayet & Her bir Suredeki Başlangıç Harfi (Sıklığı)",
+                    "İlk Sure",
+                    "Son Sure"
                 ],
                 "values": [
-                    "A (Alef)",
+                    "A (Elif)",
                     "2:1 (4502), 3:1 (2521), 7:1 (2529), 10:1 (1319) 11:1 (1370), 12:1 (1306), 13:1 (605), 14:1 (585), 15:1 (493), 29:1 (774), 30:1 (544), 31:1 (347), 32:1 (257)",
                     "2",
                     "32",
-                    "L (Laam)",
+                    "L (Lam)",
                     "2:1 (3202), 3:1 (1892), 7:1 (1530), 10:1 (913), 11:1 (794), 12:1 (812), 13:1 (480), 14:1 (452), 15:1 (323), 29:1 (554), 30:1 (393), 31:1 (297), 32:1 (155)",
                     "2",
                     "32",
@@ -1055,7 +1055,7 @@
                     "2:1 (2195), 3:1 (1249), 7:1 (1164), 13:1 (260) 26:1 (484), 28:1 (460), 29:1 (344), 30:1 (317), 31:1 (173), 32:1 (158), 40:1 (380), 41:1 (276), 42:1 (300), 43:1 (324), 44:1 (150), 45:1 (200), 46:1 (225)",
                     "2",
                     "46",
-                    "S (Saad)",
+                    "S (Sad)",
                     "7:1 (97), 19:1 (26), 38:1 (29)",
                     "7",
                     "38",
@@ -1063,15 +1063,15 @@
                     "10:1 (257), 11:1 (325), 12:1 (257), 13:1 (137), 14:1 (160), 15:1 (96)",
                     "10",
                     "15",
-                    "K (Kaf)",
+                    "K (Kef)",
                     "19:1 (137)",
                     "19",
                     "19",
-                    "H (Ha)",
+                    "H (He)",
                     "19:1 (175), 20:1 (251)",
                     "19",
                     "20",
-                    "Y (Ya)",
+                    "Y (Ye)",
                     "19:1 (343), 36:1 (237)",
                     "19",
                     "36",
@@ -1083,15 +1083,15 @@
                     "20:1 (28), 26:1 (33), 27:1 (27), 28:1 (19)",
                     "20",
                     "28",
-                    "S (Seen)",
+                    "S (Sin)",
                     "26:1 (94), 27:1 (94), 28:1 (102), 36:1 (48), 42:2 (54)",
                     "26",
                     "42",
-                    "H (HHa)",
+                    "H (Ha)",
                     "40:1 (64), 41:1 (48), 42:1 (53), 43:1 (44) 44:1 (16), 45:1 (31), 46:1 (36)",
                     "40",
                     "46",
-                    "Q (Qaf)",
+                    "Q (Kaf)",
                     "42:2 (57), 50:1 (57)",
                     "42",
                     "50",
@@ -1302,10 +1302,10 @@
             "1": {
                 "ref": "Table 14: Mathematical Properties of the Initialed Suras",
                 "title": [
-                    "Sura Number",
-                    "Number of Verses",
-                    "Number of Initialed Verses",
-                    "Gematrical Value of the Initials",
+                    "Sure Numarası",
+                    "Ayet Sayısı",
+                    "Başlangıç Harfli Ayet Sayısı",
+                    "Başlangıç Harflerin Sayısal Değeri",
                     "TOPLAM"
                 ],
                 "values": [
@@ -1486,13 +1486,13 @@
             "1": {
                 "ref": "Table 15: Multiplying the First 2 Columns of Table 14, Instead of Adding Them",
                 "title": [
-                    "Sura Number",
+                    "Sure Numarası",
                     "",
-                    "Number of Verse",
+                    "Ayet Numarası",
                     "",
-                    "Number of Initialed Verses",
+                    "Başlangıç Harfli Ayet Sayısı",
                     "",
-                    "Gematrical Value of the Initials",
+                    "Başlangıç Harflerin Sayısal Değeri",
                     "",
                     "TOPLAM"
                 ],
@@ -1630,8 +1630,8 @@
             "5": {
                 "ref": "Table 17: Values Obtained by Successive Addition of Sura Numbers",
                 "title": [
-                    "Sura Number",
-                    "Calculated Value"
+                    "Sure Numarası",
+                    "Hesaplanan Değer"
                 ],
                 "values": [
                     "2",
@@ -1696,9 +1696,9 @@
             "4": {
                 "ref": "Table 18: Occurrence of the Word “God” Outside the Initialed Section",
                 "title": [
-                    "Number of Sura",
-                    "Numbers of Verses",
-                    "Time Occurs"
+                    "Sure Numarası",
+                    "Ayet Numaraları",
+                    "Geçiş Sayıları"
                 ],
                 "values": [
                     "1",
@@ -1789,9 +1789,9 @@
                 "title": [
                     "",
                     "Sure No",
-                    "First Verse",
-                    "Last Verse",
-                    "Verses 1st to Last"
+                    "İlk Ayet",
+                    "Son Ayet",
+                    "1’inciden Sona Ayet Sayısı"
                 ],
                 "values": [
                     "1.",
@@ -1850,7 +1850,7 @@
         "evidence": {},
         "titles": {
             "1": "Mathematical Coding of Special Words",
-            "2": "The Word “God” (Allah)"
+            "2": "“Tanrı” (Allah) Kelimesi"
         }
     },
     {
@@ -1868,7 +1868,7 @@
         "picture": {},
         "table": {
             "12": {
-                "ref": "Table 20: Why “19! (Letter)”",
+                "ref": "Tablo 20: Neden “19! (Harf)”",
                 "title": [
                     "İbranice",
                     "Arapça",
@@ -1905,7 +1905,7 @@
             },
             "11": {
                 "lines": {
-                    "1": "The Lord our God is ONE!",
+                    "1": "Tanrımız Rab TEK’tir!",
                     "2": "Therefore, you shall worship",
                     "3": "the Lord your God",
                     "4": "with all your heart,",
@@ -1920,7 +1920,7 @@
             }
         },
         "titles": {
-            "3": "WHY 19!"
+            "3": "NEDEN 19!"
         }
     },
     {
@@ -2084,7 +2084,7 @@
         "evidence": {},
         "titles": {
             "2": "“Kuran” Sözcüğü",
-            "4": "A STRONG FOUNDATION"
+            "4": "SAĞLAM BİR TEMEL"
         }
     },
     {
@@ -2225,7 +2225,7 @@
                     "2",
                     "2.",
                     "3",
-                    "2, 6, 18 (twice)",
+                    "2, 6, 18 (iki kez)",
                     "4",
                     "3.",
                     "4",
@@ -2312,7 +2312,7 @@
         },
         "evidence": {},
         "titles": {
-            "7": "1. One God (Shahaadah):"
+            "7": "1. Tek Tanrı (Şehadet):"
         }
     },
     {
@@ -2890,7 +2890,7 @@
         },
         "titles": {
             "0": "Ek 2",
-            "1": "God’s Messenger of the Covenant"
+            "1": "Tanrı’nın Antlaşma Elçisi"
         }
     },
     {
@@ -2962,7 +2962,7 @@
             "2": "The name of God’s Messenger of the Covenant is mathematically coded into the Quran as “Rashad Khalifa.” This is certainly the most appropriate method of introducing God’s messenger to the world in the computer-age.",
             "3": "(1) As shown in Appendix 1, God’s great miracle in the Quran is based on the prime number 19, and it remained hidden for 1406 years (19 x 74). This awesome miracle was predestined by Almighty God to be unveiled through Rashad Khalifa. Hundreds of Muslim and Orientalist scholars during the last 14 centuries have tried in vain, but none of them was permitted to decipher the significance of the Quranic Initials.",
             "4": "(2) The Quran is made easy for the sincere believers and seekers (54:17, 54:22, 54:32, 54:40 & 39:28). It is an irrevocable divine law that no one is permitted access to the Quran, let alone its great miracle, unless he or she is a sincere believer who is given specific divine authorization (17:45-46, 18:57, 41:44, 56:79). The unveiling of the Quran’s miracle through Rashad Khalifa is a major sign of his messengership.",
-            "5": "(3) The root word of the name “Rashad رَشَاد” is “Rashada رَشَدَ” (to uphold the right guidance). This root word is mentioned in the Quran 19 times. Nineteen is the Quran’s common denominator (see INDEX TO THE WORDS OF QURAN, First Printing, Page 320). "
+            "5": "(3) “Reşad رَشَاد” isminin kök kelimesi “Reşede رَشَدَ”dir. (doğru rehberliğe bağlı kalmak). Bu kök kelime Kuran’da 19 kez geçmektedir. On dokuz, Kuran’ın ortak paydasıdır (INDEX TO THE WORDS OF QURAN’a bakınız, İlk Baskı, Sayfa 320). "
         },
         "evidence": {
             "1": {
@@ -2976,11 +2976,11 @@
         },
         "table": {
             "4": {
-                "ref": "Table 1: Suras and Verses of “Rashada” and “Khalifa”",
+                "ref": "Tablo 1: “Reşede” ve “Halife” geçen Sure ve Ayetler",
                 "title": [
                     " ",
                     "",
-                    "“Rashada”",
+                    "“Reşede”",
                     "",
                     "“Khalifa”"
                 ],
@@ -3111,16 +3111,16 @@
         "page": 430,
         "text": {
             "1": "(4) The word “Rashad” occurs in 40:29 & 40:38. The word “Khalifa” occurs in 2:30 and 38:26. The first “Khalifa” refers to a non-human “Khalifa,” namely, Satan, while the second occurrence (Sura 38), refers to a human “Khalifa.” If we add the numbers of suras and verses of “Rashad” (40:29, 40:38) and “Khalifa” (38:26) we get 40 + 29 + 38 + 38 + 26 = 171 = 19 x 9.",
-            "2": "(5) The sum of all sura and verse numbers where all “Rashada” and all “Khalifa” occur, without discrimination, add up to 1463, 19 x 77 (Table 1).",
-            "3": "(6) The total of all suras and verses where the root word “Rashada” occurs is 1369, or (19 x 72) + 1, while the total for all occurrences of “Khalifa” is 94, (19 x 5)-1. The fact that “Rashada” is up by one and “Khalifa” is down by one pins down the name as “Rashad Khalifa,” and not any “Rashad” or any “Khalifa.”",
-            "4": "(7) The gematrical value of “Rashad” is 505 and the value of “Khalifa” is 725 (Table 7, Appendix 1). If we add the value of “Rashad Khalifa” (1230) to the sura numbers, and the number of verses, from the beginning of the Quran to the first occurrence of “Rashada,” the total is 1425, 19 x 75. The details are given in Table 2. ",
-            "7": "(8) If we add the numbers of all the verses in every sura, i.e., the sum of verse numbers (1 + 2 + 3 + ... + n) from the beginning of the Quran to the first occurrence of the root word “Rashada,” the total comes to 17233,19 x 907 (Table 2). ",
+            "2": "(5) Bütün “Reşede” ve bütün “Halife” geçişlerinin bulunduğu tüm sure ve ayet numaralarının toplamı, ayrım yapılmaksızın, 1463 eder, 19 x 77 (Tablo 1).",
+            "3": "(6) “Reşede” kök kelimesinin geçtiği bütün sure ve ayetlerin toplamı 1369’dur, yani (19 x 72) + 1, oysa “Halife”nin bütün geçişleri için toplam 94’tür, yani (19 x 5) - 1. “Reşede”nin bir fazla ve “Halife”nin bir eksik olması, adı “Reşad Halife” olarak kesin biçimde saptar, herhangi bir “Reşad” ya da herhangi bir “Halife” değil.",
+            "4": "(7) “Reşad”ın sayısal değeri 505’tir ve “Halife”nin sayısal değeri 725’tir (Tablo 7, Ek 1). Eğer “Reşad Halife”nin sayısal değerini (1230), Kuran’ın başlangıcından “Reşede”nin ilk kez geçişine kadarki sure numaralarına ve ayet sayılarına eklersek, toplam 1425’tir, 19 x 75. Ayrıntılar Tablo 2’de verilir.",
+            "7": "(8) Eğer her suredeki bütün ayetlerin numaralarını, yani Kuran’ın başlangıcından “Reşede” kök kelimesinin ilk kez geçişine kadar ayet numaralarının toplamını (1 + 2 + 3 + ... + n) toplarsak, toplam 17233 eder, 19 x 907 (Tablo 2).",
             "8": "(9) The Quranic Initials constitute the basic foundation of the Quran’s miracle. These initials occur in suras 2, 3, 7, 10, 11, 12, 13, 14, 15, 19, 20, 26, 27, 28, 29, 30, 31, 32, 36, 38, 40, 41, 42, 43, 44, 45, 46, 50, and 68. If we add the sum of these numbers (822) to the value of “Rashad Khalifa” (1230), the total is 2052, 19 x 108.",
-            "10": "(10) As shown in Table 3, if we add the numbers of all suras where the root word “Rashada” occurs, plus the number of verses, we get 1368, or 19 x 72."
+            "10": "(10) Tablo 3’te gösterildiği gibi, “Reşede” kök kelimesinin geçtiği bütün surelerin numaralarını, artı ayet sayılarını toplarsak, 1368 elde ederiz, yani 19 x 72."
         },
         "table": {
             "2": {
-                "ref": "Table 2: The Suras and Verses from the Beginning of the Quran to the First Occurrence of the Root Word “Rashada”",
+                "ref": "Tablo 2: Kuran’ın Başlangıcından “Reşede” Kök Kelimesinin İlk kez Geçişine Kadarki Sure ve Ayetler",
                 "title": [
                     "Sure No",
                     "Ayet Numarası",
@@ -3145,7 +3145,7 @@
                 ]
             },
             "9": {
-                "ref": "Table 3: The Suras Where the Root Word “Rashada” Occurs.",
+                "ref": "Tablo 3: “Reşede” Kök Kelimesinin Bulunduğu Sureler.",
                 "title": [
                     "Sure No",
                     "Ayet Numarası",
@@ -3206,14 +3206,14 @@
     {
         "page": 431,
         "text": {
-            "1": "(11) If we write down the sura number, followed by the number of verses per sura, followed by the individual verse numbers, from the first occurrence of the root word “Rashada” (2:186) to the last occurrence of “Rashada” (72:21), and place these numbers next to each other, we get a very long number that consists of 11087 digits, and is a multiple of 19. This very long number begins with the number of Sura 2, followed by the number of verses in Sura 2 from the first occurrence of “Rashada” at verse 186 to the end of the sura (100 verses). Thus, the beginning of the number looks like this: 2 100. The numbers of these 100 individual verses (187 to 286) are placed next to this number. Thus, the number representing Sura 2 looks like this: 2 100 187 188 189 .... 285 286. The same process is carried out all the way to 72:21, the last occurrence of the root “Rashada.” The complete number looks like this:",
-            "3": "(12) If we examine the suras and verses from the first occurrence of the root word “Rashada” to the word “Khalifa” in 38:26, we find that the sum of sura numbers and their numbers of verses is 4541, or 19 x 239. The details are in Table 4.",
-            "5": "(13) When we write down the value of “Rashad” (505), followed by the value of “Khalifa” (725), followed by every sura number where the root word “Rashada” occurs, followed by the numbers of its verses, from the first “Rashada” (2:186) to the word “Khalifa” (38:26), we get a long number that is divisible by 19. ",
-            "6": "The first occurrence of “Rashada” is in 2:186. So, we write down 2 186. The second occurrence is in 2:256, so we write down 256. The next occurrence is in 4:6, so we write down 4 6, and so on, until we write down 38 26 (“Khalifa” occurs in 38:26). The complete number looks like this:"
+            "1": "(11) Eğer sure numarasını, ardından sure başına ayet sayısını, ardından da “Reşede” kök sözcüğünün ilk bulunduğu yerden (2:186) “Reşede”nin son bulunduğu yere kadar (72:21) tek tek ayet numaralarını yazıp bu sayıları yan yana koyarsak, 11087 rakamdan oluşan ve 19’un katı olan çok uzun bir sayı elde ederiz. Bu çok uzun sayı 2’nci surenin numarasıyla başlar; ardından 186’ncı ayetteki ilk “Reşede”nin bulunduğu yerden surenin sonuna kadar 2’inci suredeki ayet sayısı gelir (100 ayet). Böylece, sayının başlangıcı şöyle görünür: 2 100. Bu 100 tekil ayetin numaraları (187’den 286’ya) bu sayının yanına konur. Böylece, 2’nci sureyi temsil eden sayı şöyle görünür: 2 100 187 188 189 ... 285 286. Aynı işlem, “Reşede” kökünün son bulunduğu yer olan 72:21’e kadar sürdürülür. Tam sayı şöyle görünür:",
+            "3": "(12) Eğer “Reşede” kök sözcüğünün ilk bulunduğu yerden 38:26’daki “Halife” sözcüğüne kadar sureleri ve ayetleri incelersek, sure numaralarının ve ayet sayılarının toplamının 4541, yani 19 x 239 olduğunu görürüz. Ayrıntılar Tablo 4’tedir.",
+            "5": "(13) “Reşad”ın sayısal değerini (505), ardından “Halife”nin sayısal değerini (725), ardından “Reşede” kök kelimesinin bulunduğu her sure numarasını, ardından da ilk “Reşede”den (2:186) “Halife” sözcüğüne kadarki (38:26) ayetlerin numaralarını yazdığımızda, 19’a bölünen uzun bir sayı elde ederiz.",
+            "6": "“Reşede”nin ilk geçtiği yer 2:186’dadır. Bu yüzden 2 186 yazarız. İkinci geçiş 2:256’dadır, bu yüzden 256 yazarız. Sonraki geçiş 4:6’dadır, bu yüzden 4 6 yazarız ve 38 26 yazıncaya kadar böyle sürer (“Halife” 38:26’da geçer). Tam sayı şöyle görünür:"
         },
         "table": {
             "4": {
-                "ref": "Table 4: The Suras and Verses from the First “Rashada” to “Khalifa.” ",
+                "ref": "Tablo 4: İlk “Reşede”den “Halife”ye Kadarki Sure ve Ayetler.",
                 "title": [
                     "Sure No",
                     "Ayet Sayısı",
@@ -3260,7 +3260,7 @@
             "2": {
                 "lines": {
                     "1": "2 100 187 188 189 ..... 72 21 1 2 3 ..... 19 20 21",
-                    "2": "The Sura number is followed by the number of verses, then the numbers of individual verses, from the first to the last occurrence of “Rashada” (2:187 through 72:21).",
+                    "2": "Sure numarasının ardından ayet sayısı gelir, sonra da “Reşede”nin ilk geçtiği yerden son geçtiği yere kadar tek tek ayet numaraları gelir (2:187’den 72:21’e).",
                     "3": "The complete number consists of 11087 digits, and is divisible by 19."
                 },
                 "ref": []
@@ -3273,7 +3273,7 @@
             },
             "8": {
                 "lines": {
-                    "1": "The gematrical value of “Rashad” is followed by the value of “Khalifa,” followed by the sura number and verse numbers of every occurrence of the root word “Rashada” from the first occurrence of “Rashada” to the occurrence of “Khalifa” in 38:26. "
+                    "1": "“Reşad”ın sayısal değerinin ardından “Halife”nin sayısal değeri gelir; onun ardından da “Reşede” kök sözcüğünün ilk geçişinden 38:26’daki “Halife” geçişine kadar her geçiş için sure numarası ve ayet numaraları gelir."
                 },
                 "ref": []
             }
@@ -3286,7 +3286,7 @@
             "1": "[3:19]",
             "2": "(14) The Quran specifies three messengers of Islam (Submission): ",
             "8": "The true Judaism, Christianity, and Islam will be consolidated into one religion—complete submission and absolute devotion to God ALONE. ",
-            "9": "The existing religions, including Judaism, Christianity, and Islam are severely corrupted and will simply die out (9:33, 48:28, 61:9).",
+            "9": "Var olan dinler, Yahudilik, Hristiyanlık ve İslam dâhil, ağır biçimde bozulmuştur ve öylece ortadan kalkacaktır (9:33, 48:28, 61:9).",
             "10": "(15) Since the Quran sometimes refers to “Abraham, Ismail, and Isaac,” it was suggested that Ismail and Isaac should be included. Remarkably, the addition of Ismail and Isaac gave a total that is still a multiple of 19. As shown in Table 5, the new total is 1235, or 19 x 65. This divisibility by 19 is not possible if any of the 3 names Abraham, Muhammad, or Rashad is omitted.",
             "11": "(16) God’s Messenger of the Covenant is prophesied in Verse 81 of Sura 3. The addition of the gematrical value of “Rashad” (505), plus the gematrical value of “Khalifa” (725), plus the Verse number (81), produces 505 + 725 + 81 = 1311 = 19 x 69.",
             "12": "(17) If we look at Sura 81, we read about a messenger of God who is powerfully supported and authorized by the Almighty (Verse 19). Thus, Verse 81 of Sura 3, and Sura 81, Verse 19 are strongly connected with the name “Rashad Khalifa” 505 + 725 + 81 = 1311 = 19 x 69.",
@@ -3449,16 +3449,16 @@
         "page": 434,
         "text": {
             "1": "(28) The sum of sura numbers from Sura 1 to Sura 36 is 666 (Table 7). If we add this sum to the gematrical value of “Rashad Khalifa” (505 + 725), plus the gematrical value of verse 36:3 “Surely, you are one of the messengers,” (612), the total is: 666 + 505 + 725 + 612 = 2508 = 19 x 132.",
-            "2": "(29) If we add the sum of verse numbers (1 + 2 + 3 + ... + n) from the first occurrence of the root word “Rashada” (2:186) to 36:3 (You are one of the messengers) to the total of suras (35), plus the sura numbers themselves, the total is 241395, or 19 x 12705 (Table 8).",
-            "3": "(30) The sum of sura numbers from the first occurrence of the root word “Rashada” to 36:3 is 665, 19 x 35. Note that these are 35 suras (Table 8).",
-            "8": "(31) Obviously, the number of this verse is 19, the Quran’s common denominator discovered by Rashad, and the number of occurrences of “Rashada” in the Quran.",
+            "2": "(29) Eğer “Reşede” kök kelimesinin ilk geçişinden (2:186) 36:3’e kadar (“Sen elçilerden birisin”) ayet numaralarının toplamını (1 + 2 + 3 + ... + n), surelerin toplamına (35), artı sure numaralarının kendilerine eklersek, toplam 241395’tir, yani 19 x 12705’tir (Tablo 8).",
+            "3": "(30) “Reşede” kök kelimesinin ilk geçişinden 36:3’e kadar sure numaralarının toplamı 665’tir, 19 x 35. Bunların 35 sure olduğuna dikkat edin (Tablo 8).",
+            "8": "(31) Bariz biçimde, bu ayetin numarası 19’dur; bu, Reşad tarafından keşfedilen Kuran’ın ortak paydası ve Kuran’daki “Reşede” geçişlerinin sayısıdır.",
             "9": "(32) If we add the value of “Rashad Khalifa” (1230), plus the sura number (5), plus the verse number (19), we get 1230 + 5 + 19 = 1254 = 19 x 66.",
             "10": "(33) The sum of the sura numbers and the number of verses from the beginning of the Quran to this verse (5:19) is 703,19 x 37. See Table 9."
         },
         "picture": {},
         "table": {
             "4": {
-                "ref": "Table 8: The Suras and Verses from the First “Rashada” to 36:3.",
+                "ref": "Tablo 8: İlk “Reşede”den 36:3’e Kadar Sure ve Ayetler.",
                 "title": [
                     "No",
                     "Sure No",
@@ -3564,7 +3564,7 @@
             "4": "(36) By adding the sura numbers, plus the number of verses in each sura, from the 1:1 to 44:13, the total comes to 5415, 19 x 19 x 15 (Table 10).",
             "5": "(37) The sum of the sura number (44) plus the number of the verse where the messenger is predicted (13) equals 57, 19 x 3. See Table 10.",
             "8": "(38) God is the only Knower of the future; He knows exactly when this world will end (7:187, 31:34, 33:63, 41:47, 43:85). We learn from the Quran that God reveals certain aspects of the future to His chosen messengers. In Appendix 25, evidence is presented that Rashad Khalifa was blessed with unveiling the End of the World, in accordance with 72:27.",
-            "9": "(39) The number of verses from the beginning of the Quran to Verse 72:27 is 5472, or 19 x 72 x 4. Note that the messenger who is given information about the future in 72:27, and that this sura contains 4 “Rashada” words (72:2, 72:10, 72:14, & 72:21). By adding the value of “Rashad Khalifa” (1230), plus the sura number (72), plus the numbers of the 4 verses where “Rashada” is mentioned, we get 1230 + 72 + 2 + 10 + 14 + 21 = 1349 = 19 x 71.",
+            "9": "(39) Kuran’ın başlangıcından 72:27. ayete kadar olan ayetlerin sayısı 5472’dir, yani 19 x 72 x 4’tür. 72:27’de geleceğe dair bilgi verilen elçiye ve bu surenin 4 adet “Reşede” kelimesini içerdiğine dikkat edin (72:2, 72:10, 72:14 ve 72:21). “Reşad Halife”nin sayısal değerini (1230), artı sure numarasını (72), artı “Reşede”nin söz edildiği 4 ayetin numaralarını topladığımızda, 1230 + 72 + 2 + 10 + 14 + 21 = 1349 = 19 x 71 elde ederiz.",
             "10": "(40) Verse 72:27 begins with the statement “إِلَّا مَنِ ارْتَضَى مِن رَّسُولٍ” This reference to the messenger who is chosen by God to receive news about the future has a gematrical value of 1919. Table 11 presents the data."
         },
         "table": {
@@ -3655,8 +3655,8 @@
             "2": {
                 "ref": "Table 11: Gematrical Value of the Chosen Messenger in 72:27.",
                 "title": [
-                    "Letter",
-                    "Gematrical Value"
+                    "Harf",
+                    "Sayısal Değer"
                 ],
                 "values": [
                     "A",
@@ -3730,9 +3730,9 @@
             "4": {
                 "lines": {
                     "1": "1. Unveil and proclaim the Quran’s mathematical miracle (Appendix 1).",
-                    "2": "2. Expose and remove the two false verses 9:128-129 from the Quran (Appendix 24).",
+                    "2": "2. 9:128-129 iki sahte ayeti açığa çıkarıp Kuran’dan kaldırmak. (Ek 24)",
                     "3": "3. Explain the purpose of our lives; why we are here (Appendix 7).",
-                    "4": "4. Proclaim one religion for all the people, and point out and purge away all the corruptions afflicting Judaism, Christianity, and Islam (Appendices 13, 15, 19).",
+                    "4": "4. Bütün insanlar için tek bir din ilan etmek ve Yahudiliği, Hristiyanlığı ve İslam’ı etkileyen bütün bozulmalara işaret etmek ve temizleyip gidermek (Ek 13, 15, 19).",
                     "5": "5. Proclaim that Zakat (obligatory charity) is a prerequisite for redemption (7:156), and explain the correct method of observing Zakat (Appendix 15).",
                     "6": "6. Unveil the end of the world (Appendix 25).",
                     "7": "7. Proclaim that those who die before the age of 40 go to Heaven (Appendix 32).",
@@ -3881,7 +3881,7 @@
         },
         "titles": {
             "1": "Ek 7",
-            "2": "Why Were We Created ?",
+            "2": "Biz Niçin Yaratıldık?",
             "9": "The Most Merciful"
         }
     },
@@ -4012,7 +4012,7 @@
             "4": "Verse 3:18 states the First Pillar of Islam (Submission): “God bears witness that there is no other god besides Him, and so do the angels and those who possess knowledge.”",
             "5": "This most crucial pillar has been distorted. Millions of Muslims have adopted Satan’s polytheistic version, and insist upon mentioning the name of Muhammad besides the name of God. However, the Quran’s great criterion in 39:45 stamps such Muslims as disbelievers: “When God ALONE is mentioned, the hearts of those who do disbelieve in the Hereafter shrink with aversion, but when others are mentioned with Him, they become satisfied.”",
             "6": "I have conducted extensive research into this criterion, and I have reached a startling conclusion: the idol worshipers who do not uphold the First Pillar of Islam as dictated in 3:18 are forbidden by God from uttering the correct Shahadah. They simply cannot say: “Ash-hadu Allaa Elaaha Ellaa Allah” by itself, without mentioning the name of Muhammad. Try it with any idol worshiper who claims to be a Muslim. Challenge them to say: “Ash-hadu Allaa Elaaha Ellaa Allah.” They can never say it. Since this is the religion of Abraham (2:130, 2:135; 3:95; 4:125; 6:161; 12:37-38; 16:123; 22:78; Appendix 9), the ONLY creed must be “LAA ELAAHA ELLAA ALLAH (there is no god except the One God)”. Muhammad did not exist on earth before Abraham.",
-            "8": "There is no greater blasphemy than distorting the Quran to idolize the prophet Muhammad against his will. Verse 19 of Sura “Muhammad” (47:19) states: “You shall know that there is no god except the one God.” Shown below is a photocopy of the regular logo of a Muslim publication THE REVIEW OF RELIGIONS (The London Mosque, 16 Gressenhall Road, London SW18 5QL, England). Using the Quran’s calligraphic style, the publishers of THE REVIEW OF RELIGIONS added the phrase “Muhammad Rasool Allah” in such a way that gives a false impression that such is the Quranic statement of 47:19. What a blasphemy!"
+            "8": "Kuran’ı, Muhammed peygamberi onun isteği dışında putlaştırmak için tahrif etmekten daha büyük bir küfür yoktur. “Muhammed” suresinin 19’uncu ayeti (47:19) şöyle der: “O Tek Tanrı’dan başka tanrı olmadığını bil.” Aşağıda, Müslüman bir yayın olan THE REVIEW OF RELIGIONS’ın olağan logosunun bir fotokopisi gösterilmektedir (The London Mosque, 16 Gressenhall Road, London SW18 5QL, England). Kuranî hat üslubunu kullanarak THE REVIEW OF RELIGIONS’ın yayımcıları “Muhammad Resul Allah” ifadesini, bunun 47:19’un Kuranî beyanı olduğu yönünde yanlış izlenim verecek şekilde eklediler. Ne küfür ama!"
         },
         "picture": {
             "10": {
@@ -4048,7 +4048,7 @@
         "evidence": {},
         "titles": {
             "1": "Ek 14",
-            "2": "Predestination"
+            "2": "Kader"
         }
     },
     {
@@ -4069,8 +4069,8 @@
         "evidence": {},
         "titles": {
             "1": "Ek 15",
-            "2": "Religious Duties: A Gift From God",
-            "4": "The Contact Prayers (Salat)"
+            "2": "Dini Görevler: Tanrı’dan Bir Hediye",
+            "4": "İletişim Duaları (Namaz)"
         }
     },
     {
@@ -4169,9 +4169,9 @@
                 "ref": "",
                 "title": [
                     "",
-                    "Word",
-                    "Letter",
-                    "Value"
+                    "Kelime",
+                    "Harf",
+                    "Değer"
                 ],
                 "values": [
                     "1.",
@@ -4191,15 +4191,15 @@
                     "M",
                     "40",
                     "5.",
-                    "Al-Hamdu ",
+                    "El-Hamdu",
                     "M",
                     "40",
                     "6.",
-                    "Rub",
+                    "Rab",
                     "B",
                     "2",
                     "7.",
-                    "‘Alamin ",
+                    "‘Alemin",
                     "M",
                     "40",
                     "8.",
@@ -4215,7 +4215,7 @@
                     "M",
                     "40",
                     "11.",
-                    "Yawm",
+                    "Yevm",
                     "M",
                     "40",
                     "12.",
@@ -4223,31 +4223,31 @@
                     "B",
                     "2",
                     "13.",
-                    "Mustaqim",
+                    "Mustakim",
                     "M",
                     "40",
                     "14.",
-                    "Mustaqim",
+                    "Mustakim",
                     "M",
                     "40",
                     "15.",
-                    "An‘amta ",
+                    "En‘amte",
                     "M",
                     "40",
                     "16.",
-                    "‘Alayhim ",
+                    "Aleyhim",
                     "M",
                     "40",
                     "17.",
-                    "Maghdub",
+                    "Mağdub",
                     "M",
                     "40",
                     "18.",
-                    "Maghdub",
+                    "Mağdub",
                     "B",
                     "2",
                     "19.",
-                    "‘Alayhim ",
+                    "Aleyhim",
                     "M",
                     "40",
                     " ",
@@ -4281,9 +4281,9 @@
         "picture": {},
         "evidence": {},
         "titles": {
-            "1": "The Obligatory Charity (Zakat)",
-            "3": "Fasting",
-            "5": "Pilgrimage: Hajj & ‘Umrah"
+            "1": "Zorunlu Bağış (Zekât)",
+            "3": "Oruç",
+            "5": "Kutsal Yolculuk: Hac ve Umre"
         }
     },
     {
@@ -4304,7 +4304,7 @@
         },
         "evidence": {},
         "titles": {
-            "3": "Physical Benefits"
+            "3": "Fiziksel Faydalar"
         }
     },
     {
@@ -4335,9 +4335,9 @@
         },
         "titles": {
             "1": "Ek 16",
-            "2": "Dietary Prohibitions",
+            "2": "Beslenme Yasakları",
             "6": "Ek 17",
-            "7": "Death"
+            "7": "Ölüm"
         }
     },
     {
@@ -4418,9 +4418,9 @@
         },
         "titles": {
             "1": "Ek 18",
-            "2": "Quran: All You Need For Salvation",
+            "2": "Kuran: Kurtuluş için İhtiyacınız Olan Tek Şey",
             "5": "Ek 19",
-            "6": "Hadith & Sunna: Satanic Innovations"
+            "6": "Hadis & Sünnet: Şeytani Bidatlar"
         }
     },
     {
@@ -4668,8 +4668,8 @@
             "6": {
                 "ref": "",
                 "title": [
-                    "Order",
-                    "Sura"
+                    "Sıra",
+                    "Sure"
                 ],
                 "values": [
                     "1",
@@ -4938,7 +4938,7 @@
         "evidence": {
             "3": {
                 "lines": {
-                    "1": "A superhuman mathematical system pervades the Quran and serves to guard and authenticate every element in it. Nineteen years after the Prophet’s death, some scribes injected two false verses at the end of Sura 9, the last sura revealed in Medina. The evidence presented in this Appendix incontrovertibly removes these human injections, restores the Quran to its pristine purity, and illustrates a major function of the Quran’s mathematical code, namely, to protect the Quran from the slightest tampering. Thus, the code rejects ONLY the false injections 9:128-129."
+                    "1": "İnsanüstü bir matematiksel sistem Kuran’ı kaplar ve onun içindeki her unsuru korumaya ve doğrulamaya hizmet eder. Peygamber’in ölümünden on dokuz yıl sonra, Medine’de vahyedilen son sure olan 9’uncu surenin sonuna bazı kâtipler iki sahte ayeti sokuşturdu. Bu Ek’te sunulan kanıtlar bu insan kaynaklı sokuşturmaları tartışmasız biçimde ortadan kaldırır, Kuran’ı ilk saflığına geri döndürür ve Kuran’ın matematiksel kodunun ana işlevlerinden birini gösterir; yani Kuran’ı en ufak tahrifattan korumak. Böylece kod SADECE 9:128-129 sahte sokuşturmalarını reddeder."
                 },
                 "ref": []
             },
@@ -4981,15 +4981,15 @@
     {
         "page": 467,
         "text": {
-            "1": "Upon examining the oldest Islamic references, we realize that the false injections, 9:128-129, were always suspect. For example, we read in Bukhary’s famous Hadith, and Al-Suyuty’s famous Itqaan, that every single verse in the Quran was verified by a multiplicity of witnesses “except Verses 128 and 129 of Sura 9; they were found only with Khuzeimah Ibn Thaabet Al-Ansaary.” When some people questioned this improper exception, someone came up with a Hadith stating that “the testimony of Khuzeimah equals the testimony of two men!!!”",
-            "2": "Strangely, the false injections 9:128-129 are labeled in the traditional Quran printings as “Meccan” [see Insert 2].",
+            "1": "En eski İslami kaynakları incelediğimizde, 9:128-129 sahte sokuşturmalarının daima şüpheli olduğunu fark ederiz. Örneğin, Buhari’nin meşhur Hadis’inde ve El-Suyuti’nin meşhur İtkaan’ında, Kuran’daki tek tek her ayetin, 9. surenin 128 ve 129. ayetleri hariç, çok sayıda tanık tarafından doğrulandığını; bunların yalnızca Huzeyme bin Sabit El-Ensari’de bulunduğunu okuruz. Bazı insanlar bu uygunsuz istisnayı sorguladığında, biri şunu diyen bir Hadis ortaya attı: “Huzeyme’nin şahitliği iki erkeğin şahitliğine eşittir!!!”",
+            "2": "Tuhaf biçimde, 9:128-129 sahte sokuşturmaları geleneksel Kuran baskılarında “Mekkî” diye etiketlenmiştir [bkz. Ekleme 2].",
             "4": "How could these ‘Meccan’ verses be found with Khuzeimah, a late ‘Medinan’ Muslim?! How could a Medinan sura contain Meccan verses, when the universal convention has been to label as ‘Medinan’ all revelations after the Prophet’s Hijerah from Mecca??!! Despite these discrepancies, plus many more glaring contradictions associated with Verses 9:128-129, no one dared to question their authenticity. The discovery of the Quran’s mathematical code in 1974, however, ushered in a new era where the authenticity of every element in the Quran is proven (Appendix 1).",
-            "5": "As it turns out, the injection of the two false Verses 9:128-129 resulted in:",
+            "5": "Ortaya çıktığı üzere, 9:128-129 iki sahte ayetin sokuşturulması şuna yol açtı:",
             "6": "(1) demonstrating the major function of the Quran’s mathematical system, and",
             "7": "(2) producing an awesome miracle in its own right, and",
             "8": "(3) distinguishing the true believers from the hypocrites (they uphold traditions).",
-            "9": "The translation of the two false verses is shown in Insert 3:",
-            "12": "[1] The first violation of the Quran’s code by Verses 9:128-129 appeared when the count of the word “God” (Allah) in the Quran was found to be 2699, which is not a multiple of 19, unless we remove one. The count of the word “God” is shown at the bottom of each page in this translation. The total shown at the end of the Quran is 2698, 19 x 142, because the false injections 9:128-129 have been removed."
+            "9": "İki sahte ayetin tercümesi Ekleme 3’te gösterilmektedir:",
+            "12": "[1] Kuran’ın kodunun 9:128-129’uncu ayetler tarafından gerçekleştirilen ilk ihlali, Kuran’daki “Tanrı” (Allah) kelimesinin sayısı 2699 olarak bulunduğunda ortaya çıktı; bu da birini çıkarmazsak 19’un katı değildir. “Tanrı” kelimesinin sayısı bu çeviride her sayfanın altında gösterilir. Kuran’ın sonunda gösterilen toplam 2698’dir, 19 x 142; çünkü 9:128-129 sahte sokuşturmaları çıkarılmıştır."
         },
         "picture": {
             "3": {
@@ -5014,11 +5014,11 @@
     {
         "page": 468,
         "text": {
-            "1": "[2] The sum of all the verse numbers where the word “God” occurs is 118123, or 19 x 6217. This total is obtained by adding the numbers of verses wherever the word “God” is found. If the false Verse 9:129 is included, this phenomenon disappears.",
-            "2": "[3] As shown at the end of Sura 9 in this translation, the total occurrence of the word “God” to the end of Sura 9 is 1273, 19 x 67. If the false injections 9:128-129 were included, the total would have become 1274, not a multiple of 19.",
-            "3": "[4] The occurrence of the word “God” from the first Quranic initial (“A.L.M.” of 2:1) to the last initial (“N.” of 68:1) totals 2641, or 19 x 139. Since it is easier to list the suras outside the initialed section of the Quran, Table 1 shows the 57 occurrences of the word “God” in that section. Subtracting 57 from the total occurrence of the word “God” gives us 2698-57 = 2641 = 19 x 139, from the first initial to the last initial. If the human injections 9:128 and 129 were included, the count of the word “God” in the initialed section would have become 2642, not a multiple of 19.",
+            "1": "[2] “Tanrı” kelimesinin geçtiği bütün ayet numaralarının toplamı 118123’tür, yani 19 x 6217. Bu toplam, “Tanrı” kelimesinin bulunduğu her yerde ayet numaralarını toplayarak elde edilir. Eğer sahte 9:129 ayeti dahil edilirse, bu olgu ortadan kalkar.",
+            "2": "[3] Bu çeviride 9’uncu surenin sonunda gösterildiği gibi, 9’uncu surenin sonuna kadar “Tanrı” kelimesinin toplam geçiş sayısı 1273’tür, 19 x 67. Eğer 9:128-129’daki sahte sokuşturmalar dahil edilseydi, toplam 1274 olurdu; 19’un katı olmazdı.",
+            "3": "[4] İlk Kuran başlangıç harfinden (“A.L.M.”, 2:1) son başlangıç harfine kadar (“N.”, 68:1) “Tanrı” sözcüğünün geçiş sayısı toplam 2641 eder, yani 19 x 139. Kuran’ın başlangıç harfli bölümü dışında kalan sureleri listelemek daha kolay olduğu için, Tablo 1 o bölümdeki “Tanrı” kelimesinin 57 adet geçişini gösterir. “Tanrı” kelimesinin toplam geçiş sayısından 57’yi çıkarınca, ilk başlangıç harfinden son başlangıç harfine kadar 2698-57 = 2641 = 19 x 139 elde ederiz. Eğer 9:128 ve 9:129’daki insan kaynaklı sokuşturmalar dahil edilseydi, başlangıç harfli bölümdeki “Tanrı” kelimesinin sayısı 2642 olurdu; 19’un katı olmazdı.",
             "4": "[5] Sura 9 is an un-initialed sura, and if we look at the 85 un-initialed suras, we find that the word “God” occurs in 57 of these suras, 19 x 3. The total number of verses in the suras where the word “God” is found is 1045, 19 x 55. If 9:128-129 were included, the verses containing the word “God” would increase by 1.",
-            "5": "[6] The word “God” from the missing Basmalah (Sura 9) to the extra Basmalah (Sura 27) occurs in 513 verses, 19 x 27, within 19 suras (Table 2). If the false Verses 9:128-129 were included, the number of verses containing the word “God” would have become 514, and this phenomenon would have disappeared.",
+            "5": "[6] “Tanrı” kelimesi kayıp Besmeleden (9. sure) ekstra Besmeleye kadar (27. sure), 19 sure içinde, 513 ayette geçer, 19 x 27 (Tablo 2). Eğer sahte 9:128-129 ayetleri dahil edilseydi, “Tanrı” kelimesi içeren ayetlerin sayısı 514 olurdu ve bu olgu ortadan kalkardı.",
             "6": "[7] The word “Elaah” which means “god” occurs in Verses 9:129. The total occurrence of this word in the Quran is 95, 19 x 5. The inclusion of 9:128-129 causes this word to increase by 1, to 96."
         },
         "picture": {},
@@ -5171,13 +5171,13 @@
     {
         "page": 469,
         "text": {
-            "1": "[8] The INDEX TO THE WORDS OF THE QURAN, lists 116 “Rasool” (Messenger) words. One of these words is in 9:128. By removing this false verse, 115 “Rasool” words remain. Another “Rasool” word which must be excluded from counting is in 12:50, since it refers to the “messenger of Pharaoh,” not the messenger of God. Thus, the total occurrence of “Rasool” of God is 114, 19 x 6.",
-            "2": "[9] Another important word that occurs in the false Verses 9:128-129 is the word “Raheem” (Merciful). This word is used in the Quran exclusively as a name of God, and its total count is 114,19 x 6, after removing the word “Raheem” of 9:128, which refers to the prophet. According to 7:188, 10:49, and 72:21 the Prophet did not possess any power of mercy.",
-            "3": "[10] The INDEX lists 22 occurrences of the word “ ‘Arsh” (Throne). After removing the false injection 9:129, and the “ ‘Arsh” of Joseph which occurs in 12:100, and the “ ‘Arsh” of the Queen of Sheba (27:23), we end up with 19 “ ‘Arsh” words. This proves that the word “ ‘Arsh” of 9:129 does not belong in the Quran.",
-            "4": "[11] The Quranic command “Qul” (Say) occurs in the Quran 332 times. Also, the word “Qaaloo” (They said) occurs the same number of times, 332. Since the false Verse 9:129 contains the word “Qul” (Say), its inclusion would have destroyed this typical Quranic phenomenon.",
-            "5": "[12] The Quran contains 6234 numbered verses and 112 un-numbered verses (Basmalahs). Thus, the total number of verses in the Quran is 6346, 19 x 334. The false Verses 9:128-129 violate this important criterion of the Quran’s code.",
-            "6": "[13] In addition to violating the numbers of words as listed above, 9:128-129 violate the Quran’s mathematical structure. When we add the number of verses in each sura, plus the sum of verse numbers (1 + 2 + 3 + ... + n, where n = number of verses), plus the number of each sura, the cumulative total for the whole Quran comes to 346199, or 19 x 19 x 959. This phenomenon confirms the authenticity of every verse in the Quran, while excluding 9:128-129. Table 3 is an abbreviated illustration of the calculations of Item 13. This phenomenon is impossible if the false Verses 9:128-129 are included.",
-            "8": "[14] When we carry out the same calculations as in Item 13 above, but for the 85 un-initialed suras only, which include Sura 9, the cumulative total is also a multiple of 19. The cumulative total for all un-initialed suras is 156066, or 19 x 8214. This result depends on the fact that Sura 9 consists of 127 verses, not 129. The data are shown in Table 4. The false verses would have destroyed this criterion."
+            "1": "[8] INDEX TO THE WORDS OF THE QURAN, 116 “Resul” (Elçi) sözcüğü listeler. Bu sözcüklerden biri 9:128’dedir. Bu sahte ayeti çıkarınca, 115 “Resul” sözcüğü kalır. Sayımdan hariç tutulması gereken bir başka “Resul” sözcüğü 12:50’dedir; çünkü Tanrı’nın elçisine değil, “Firavun’un elçisi”ne gönderme yapar. Böylece, Tanrı’nın elçisi anlamındaki toplam “Resul” geçişi 114’tür, 19 x 6.",
+            "2": "[9] Sahte 9:128-129 ayetlerinde geçen bir başka önemli sözcük “Rahim”dir (Merhametli). Bu kelime Kuran’da yalnızca Tanrı’nın bir adı olarak kullanılır ve 9:128’deki, peygambere gönderme yapan “Rahim” kelimesini çıkardıktan sonra toplam sayısı 114’tür, 19 x 6. 7:188, 10:49 ve 72:21’e göre Peygamber herhangi bir merhamet gücüne sahip değildi.",
+            "3": "[10] INDEX, “ ‘Arş” (Taht) kelimesinin 22 geçişini listeler. 9:129’daki sahte sokuşturmayı, 12:100’de geçen Yusuf’un “ ‘Arş”ını ve Saba Kraliçesi’nin “ ‘Arş”ını (27:23) çıkardıktan sonra, 19 “ ‘Arş” sözcüğü kalır. Bu, 9:129’daki “ ‘Arş” sözcüğünün Kuran’a ait olmadığını kanıtlar.",
+            "4": "[11] Kuranî “Kul” (De ki) emri Kuran’da 332 kez geçer. Ayrıca “Kalu” (Dediler ki) kelimesi de aynı sayıda, 332 kez geçer. Sahte 9:129 ayeti “Kul” (De ki) kelimesini içerdiği için, onun dahil edilmesi bu tipik Kuranî olguyu bozardı.",
+            "5": "[12] Kuran 6234 numaralı ayet ve numarasız 112 ayet (Besmele) içerir. Böylece Kuran’daki toplam ayet sayısı 6346’dır, 19 x 334. Sahte 9:128-129 ayetleri Kuran’ın kodunun bu önemli kriterini ihlal eder.",
+            "6": "[13] Yukarıda listelendiği gibi kelime sayılarını ihlal etmenin yanı sıra, 9:128-129 Kuran’ın matematiksel yapısını da ihlal eder. Her suredeki ayet sayısını, artı ayet numaralarının toplamını (1 + 2 + 3 + ... + n, burada n = ayet sayısıdır), artı her surenin numarasını topladığımızda, bütün Kuran için kümülatif toplam 346199 eder, yani 19 x 19 x 959. Bu olgu Kuran’daki her ayetin orijinalliğini doğrular ve 9:128-129’u dışlar. Tablo 3, 13. maddedeki hesaplamaların kısaltılmış bir gösterimidir. Eğer sahte 9:128-129 ayetleri dahil edilirse, bu olgu imkânsızdır.",
+            "8": "[14] Yukarıdaki 13. maddedeki hesaplamaların aynısını, ama yalnızca başlangıç harfsiz 85 sure için yaptığımızda, bunlara 9. sure de dahil olmak üzere, kümülatif toplam da 19’un katıdır. Bütün başlangıç harfsiz sureler için kümülatif toplam 156066’dır, yani 19 x 8214. Bu sonuç, 9. surenin 129 değil 127 ayetten oluştuğu olgusuna bağlıdır. Veriler Tablo 4’te gösterilmektedir. Sahte ayetler bu kriteri bozardı."
         },
         "picture": {},
         "table": {
@@ -5293,7 +5293,7 @@
             "3": {
                 "ref": "Table 5: Un-initialed suras and their verses from the beginning to Sura 9.",
                 "title": [
-                    "Sura",
+                    "Sure",
                     "Ayet No’ları",
                     "Toplam"
                 ],
@@ -5423,7 +5423,7 @@
             "1": "[19] Sura 9 consists of 127 verses. The digits of 127 add up to 1 + 2 + 7 = 10. Let us look at all the verses whose digits add up to 10, from the missing Basmalah of Sura 9, to the extra Basmalah of Sura 27. If Sura 9 consisted of 129 verses, the grand total would be 2472, instead of 2470 (19 x 130); 2472 is not a multiple of 19, and this phenomenon would have disappeared. The data are in Table 8.",
             "3": "[20] The falsifiers wanted us to believe that Sura 9 consists of 129 verses. The number 129 ends with the digit “9.” Let us look at the first sura and the last sura whose number of verses ends with the digit “9.” These are Sura 10 and Sura 104. By adding the sura number, plus the number of verses, plus the sum of verse numbers, from Sura 10 to Sura 104, we get a grand total that equals 23655, or 19 x 1245. The details are shown in Table 9.",
             "4": "The inclusion of Sura 9 with the wrong number of verses, 129, would have altered both the sum of verse numbers and the cumulative total—the sum of verse numbers would have become 627 + 129 = 756, and the cumulative total would not be 23655—and the Quran’s code would have been violated (Table 9).",
-            "6": "[21] The false injection consisted of Verses 128 and 129 at the end of Sura 9. If we look at the numbers 128 and 129, we see two 1’s, two 2’s, one 8, and one 9. Now let us look at all the verses in the Quran, and count all the 1's we see. This means the 1’s we see in verses 1, 10, 11, 12, 13 ... 21, 31, and so on. The total count of the 1's is 2546 (19 x 134), provided the correct number of verses in Sura 9, 127, is used. If 128 and 129 are included, the grand total becomes 2548, which is not a multiple of 19 (Table 11).",
+            "6": "[21] Sahte sokuşturma; 9. surenin sonundaki 128 ve 129’uncu ayetlerden oluşuyordu. Eğer 128 ve 129 sayılarına bakarsak, iki tane 1, iki tane 2, bir tane 8 ve bir tane 9 görürüz. Şimdi Kuran’daki bütün ayetlere bakalım ve gördüğümüz bütün 1’leri sayalım. Bu, 1, 10, 11, 12, 13 ... 21, 31 ve böyle devam eden ayetlerde gördüğümüz 1’ler demektir. 1’lerin toplam sayısı 2546’dır (19 x 134), yeter ki 9. suredeki doğru ayet sayısı olan 127 kullanılsın. Eğer 128 ve 129 dahil edilirse, genel toplam 2548 olur; bu da 19’un katı değildir (Tablo 11).",
             "8": "[22] Since Sura 9 is an uninitialed sura, let us look at all the verse numbers in the 85 uninitialed suras and count all the 1’s we see. As shown in Table 10, the total count of the digit “1” in the un-initialed suras is 1406, or 19 x 74. Obviously, if Sura 9 consisted of 129 verses, we would see two additional 1's, from 128 and 129, and the code would be violated. "
         },
         "picture": {},
@@ -5605,7 +5605,7 @@
             "7": {
                 "ref": "Table 10: Counting all the 1’s in the 85 un-initialed suras.",
                 "title": [
-                    "Sura",
+                    "Sure",
                     "Ayet Sayısı",
                     "1’lerin Sayısı"
                 ],
@@ -5650,7 +5650,7 @@
         "page": 472,
         "text": {
             "1": "[23] Following the same process explained in Items 22 and 23 for the digit “1,” let us count all the 2’s, 8’s and 9’s in all the verse numbers of the whole Quran. As shown in Table 11, the total count of all the 2’s, 8’s, and 9’s is 3382, or 19 x 178. This makes the grand total of all the 1's, 2’s, 8’s, and 9’s 2546 + 3382 = 5928, 19 x 312.",
-            "3": "In this remarkable phenomenon, we considered every single verse in the Quran, and examined the individual digits that make up Verses 128 and 129. Since 128 and 129 contain 6 digits, the inclusion of these human injections causes the total count of these digits in the whole Quran to be 5928 + 6 = 5934, not a multiple of 19.",
+            "3": "Bu dikkate değer olguda, Kuran’daki tek tek her ayeti dikkate aldık ve 128 ve 129. ayetleri oluşturan tek tek rakamları inceledik. 128 ve 129, 6 rakam içerdiği için, bu insan kaynaklı sokuşturmaların dahil edilmesi Kuran’ın tamamındaki bu rakamların toplam sayısını 5928 + 6 = 5934 yapar; bu da 19’un katı değildir.",
             "5": "[24] The total count of all the digits (1 through 9) in all the verse numbers of the 85 un-initialed suras, including Sura 9 with 127 verses, is 27075, or 19 x 19 x 75.",
             "7": "[25] Adding up the digits of the Quran’s suras and verses produces a multiple of 19, provided the correct number of verses for Sura 9, 127, is taken. To do this, you make a list of the Quran’s 114 suras and the number of verses in each sura. Add the digits of every sura number. The sum of digits of 10 = 1, 11 = 2, 12 = 3, 99 = 18, and so on. The total for all the suras is 975. The same thing is done for the numbers of verses in every sura. For example, Sura 2 consists of 286 verses. The digits of 286 add up to 2 + 8 + 6 = 16. For Sura 9, the digits of its number of verses add up to 1 + 2 + 7 = 10. The total for all 114 suras is 906. Thus, the grand total for the sum of digits of all the suras and verses is 975 + 906 = 1881 = 19 x 99. Naturally, this observation would not be possible if Sura 9 consisted of 129 verses. Table 12 is abbreviated to illustrate the calculations."
         },
@@ -5787,7 +5787,7 @@
     {
         "page": 473,
         "text": {
-            "1": "[26] Miraculously, if we calculate the sum of digits for every sura in the Quran, and multiply the sum for each sura by the sum of digits of its number of verses, instead of adding, we still end up with a grand total that is a multiple of 19. For example, Sura 2 has 286 verses. The sum of digits of 2 + 8 + 6 = 16. So you multiply 2 by 16, and you get 32, instead of adding 2 + 16 as we did in Item 26. This is done for every sura in the Quran. The grand total for all the suras is 7771, or 19 x 409. Once again, every single verse in the Quran is confirmed, while the false verses are utterly rejected. See Table 13.",
+            "1": "[26] Mucizevi biçimde, Kuran’daki her sure için rakamların toplamını hesaplar ve her sure için bu toplamı, toplamak yerine, onun ayet sayısının rakamları toplamıyla çarparsak, yine de 19’un katı olan bir genel toplam elde ederiz. Örneğin, 2. sure 286 ayetten oluşur. 2 + 8 + 6’nın rakamları toplamı 16’dır. Bu yüzden, 26. maddede yaptığımız gibi 2 + 16’yı toplamak yerine, 2’yi 16 ile çarparsınız ve 32 elde edersiniz. Bu, Kuran’daki her sure için yapılır. Bütün sureler için genel toplam 7771’dir, yani 19 x 409. Bir kez daha, Kuran’daki tek tek her ayet doğrulanır, oysa sahte ayetler bütünüyle reddedilir. Bakınız Tablo 13.",
             "3": "[27] Another truly awesome phenomenon: Sura 9 is an odd-numbered sura, and if we carry out the calculations described above for the odd-numbered suras only, we find that the total for the suras is 513 (19 x 27), the total for the verses is 437 (19 x 23), and the grand total for both is 513 + 437 = 950 (19 x 50). Table 14 illustrates this remarkable phenomenon.",
             "4": "[28] Let us take all the suras that consist of 127 verses or less. There are 105 such suras. The sum of the sura numbers of these 105 suras, plus the sum of their verse numbers is 10963,or 19 x 577. Sura 9 is the only sura that has 127 verses. See Table 15. If Sura 9 did consist of 129 verses, it would not be included in this list of suras, the total would be 10827 (10963-136), this phenomenon would have disappeared, and the Quran’s code would have been violated."
         },
@@ -5950,7 +5950,7 @@
         "text": {
             "1": "[29] Since Sura 9 is oddnumbered, and its number of verses is also odd, let us look at all the odd-numbered suras whose number of verses is also odd. This gives us 27 suras: 1, 9, 11, 13, 15, 17, 25, 27, 29, 33, 35, 39, 43, 45, 57, 63, 81, 87, 91, 93, 97, 101, 103, 105,107, 111, and 113. They consist of 7, 127, 123, 43, 99, 111, 77, 93, 69, 73, 45, 75, 89, 37, 29, 11, 29, 19, 15, 11, 5, 11, 3, 5, 7, 5, and 5 verses, respectively. The sum of these sura numbers, plus their sum of verse numbers is 2774, 19 x 146. If we take the wrong number of verses for Sura 9 , i.e., 129, this miracle disappears. ",
             "3": "[30] The correct number of verses in Sura 9 is 127, and this is a prime number—it is not divisible by any number except 1, and itself. Let us look at all the suras whose number of verses is a prime number. These are Suras 1, 9, 13, 33, 43, 45, 57, 63, 81, 87, 93, 97, 101, 103, 105, 107, 111, and 113. The numbers of verses in these suras are 7, 127, 43, 73, 89, 37, 29, 11, 29, 19,11, 5, 11, 3, 5, 7, 5, and 5, respectively. If you add the digits of these suras, you get 137, while the digits of the verses add up to 129. This makes the grand total of all the digits 137 + 129 = 266 = 19 x 14.",
-            "4": "[31] The distorters added two false verses to Sura 9, and this caused the sura to have 129 verses. Since 129 consists of 3 digits, and is divisible by 3, let us look at the suras whose number of verses is divisible by 3, and consists of 3 digits. The total of these sura numbers is 71, and the total number of verses is 765. This produces a grand total of 71 + 765 = 836, or 19 x 44. The data are shown in Table 16.",
+            "4": "[31] Tahrif ediciler 9’uncu sureye iki sahte ayet ekledi ve bu surenin 129 ayete sahip olmasına yol açtı. 129 üç rakamdan oluştuğu ve 3’e bölünebildiği için, ayet sayısı 3’e bölünebilen ve 3 rakamdan oluşan surelere bakalım. Bu sure numaralarının toplamı 71’dir ve toplam ayet sayısı 765’tir. Bu, 71 + 765 = 836 şeklinde bir genel toplam verir, yani 19 x 44. Veriler Tablo 16’da gösterilmektedir.",
             "6": "If Sura 9 had 129 verses, it would have been included in this table, and would have destroyed this phenomenon.",
             "8": "[32] If Sura 9 consisted of 129 verses, as the falsifiers would like us to believe, then let us look at all the suras which consist of 129 verses or more. There are 8 such suras. Their data are shown Table 17.",
             "9": "If Sura 9 consisted of 129 verses, the total number of verses would have been 1577 + 129 = 1706, not a multiple of 19."
@@ -5960,7 +5960,7 @@
             "2": {
                 "ref": "Table 15: Mathematical coding of all suras consisting of 127 verses or less.",
                 "title": [
-                    "Sura Number",
+                    "Sure Numarası",
                     "Ayet Sayısı",
                     "Toplam"
                 ],
@@ -6000,7 +6000,7 @@
             "5": {
                 "ref": "Table 16: All suras whose number of verses is 3 digits, and is divisible by 3. ",
                 "title": [
-                    "Sura",
+                    "Sure ",
                     "Ayet Sayısı",
                     "Toplam"
                 ],
@@ -6428,8 +6428,8 @@
                 "ref": "Table 26: The total number of the digit “7” among the last two verses of every sura in the Quran.",
                 "title": [
                     "Sure No",
-                    "Last 2 Verses",
-                    "7's in Last 2 Verses"
+                    "Son 2 Ayet",
+                    "Son 2 Ayetteki 7'ler"
                 ],
                 "values": [
                     "1",
@@ -6479,8 +6479,8 @@
         "text": {
             "1": "[43] Assuming that Sura 9 consists of 129 verses, let us look at all the suras that contain a verse No. 129. This means that we look at all the suras that consist of 129 or more verses. For example, Sura 2 consists of 286 verses. Therefore, it contains a verse that is assigned the number “129.” We then take this verse and add it to all the other verses assigned the number 129 throughout the Quran. Under this assumption, there are 9 suras that contain a verse No. 129. Interestingly, we find that the total of sura numbers of these 9 suras is a multiple of 19 (114), while the total for the nine 129’s can be a multiple of 19 if 2 is deducted from their total. In other words, we are told that one of these 9 suras contains 2 extra verses. The details are in Table 27.",
             "2": "When we add 114, plus 1161, and remove 2, we get 1273, or 19 x 67. Compare this total (1273) with the total reported in the Item 44 below. Of the 9 suras listed in Table 27, which one has the extra 2 verses? The answer is provided in Item 44.",
-            "4": "[44] To pinpoint the location of these two false verses, let us look at all the suras that contain a verse No. 128, while continuing to assume that Sura 9 consists of 129 verses. This will give us the same list of suras as in Table 27, and also bring in Sura 16 which has precisely 128 verses.",
-            "5": "As shown in Table 28, Sura 9 stands out in glaring disharmony; it is singled out as the sura that contains the false verses. The total of suras and verses becomes divisible by 19 only if Sura 9 is removed. Note that the divisible total, after removing Sura 9, is 1273, 19 x 67, which is the same total obtained in Item 43 above after removing 2 verses. This remarkable phenomenon proves that Sura 9 could not contain a verse No. 128.",
+            "4": "[44] Bu iki sahte ayetin yerini tam olarak belirlemek için, 9’uncu surenin 129 ayetten oluştuğunu varsaymaya devam ederek, 128 numaralı bir ayet içeren bütün surelere bakalım. Bu, bize Tablo 27’dekiyle aynı sure listesini verecek ve ayrıca tam olarak 128 ayete sahip olan 16. sureyi de dahil edecektir.",
+            "5": "Tablo 28’de gösterildiği gibi, 9’uncu sure göze batan bir uyumsuzluk içinde göze çarpar; sahte ayetleri içeren sure olarak seçip ayrılır. Surelerin ve ayetlerin toplamı, ancak 9’uncu sure çıkarılırsa 19’a bölünebilir hâle gelir. 9’uncu sure çıkarıldıktan sonra bölünebilir toplamın 1273, yani 19 x 67 olduğuna dikkat edin; bu, yukarıdaki 43. maddede 2 ayet çıkarıldıktan sonra elde edilen toplamın aynısıdır. Bu dikkate değer olgu, 9’uncu surenin 128 numaralı bir ayet içeremeyeceğini kanıtlar.",
             "7": "[45] Sura 9 is an un-initialed sura whose last two verses are 126 and 127. Let us take the 85 uninitialed suras, and add up the numbers of the last two verses in each sura. For example, the last two verses in Sura 1 are 6 and 7. Add 6 + 7 and you get 13. The next un-initialed sura is Sura 4; its last two verses are 175 and 176. Add 175 + 176 and you get 351. Do this for all un-initialed suras. The data are in Table 29. Thus, the last two verses of Sura 9 are confirmed to be 126 and 127."
         },
         "picture": {},
@@ -6557,7 +6557,7 @@
                 "ref": "Table 29: Abbreviated table of the last two verses in the un-initialed suras.",
                 "title": [
                     "Sure No",
-                    "Last 2 Verses",
+                    "Son 2 Ayet",
                     "Toplam"
                 ],
                 "values": [
@@ -6613,8 +6613,8 @@
                 "ref": "Table 30: Sum of digits of the last two verses of every sura in the Quran.",
                 "title": [
                     "Sure No",
-                    "Last 2 Verses",
-                    "Sum the Digits"
+                    "Son 2 Ayet",
+                    "Rakamlar Toplamı"
                 ],
                 "values": [
                     "1",
@@ -6654,7 +6654,7 @@
                 "title": [
                     "Sure No",
                     "Ayet Sayısı",
-                    "Last Digit"
+                    "Son Rakam"
                 ],
                 "values": [
                     "6",
@@ -6707,7 +6707,7 @@
             "7": "[52] The number 129 is divisible by 3. If Sura 9 consisted of 129 verses as the distorters claimed, then it would be (1) an odd-numbered sura that (2) consists of a 3-digit number of verses, (3) the number of verses is odd, and (4) the number of verses is divisible by 3. There are only two suras in the whole Quran that possess these qualities: Sura 11 with 123 verses, and Sura 17 with 111 verses. The sum of digits of both sura numbers and the numbers of verses comes to 1 + 1 + 1 + 2 + 3 + 1 + 7 + 1 + 1 + 1 = 19. This can be observed only if Sura 9 consists of 127 verses.",
             "8": "[53] Sura 9 is (1) odd-numbered, (2) its number of verses is odd, (3) its number of verses ends with the digit “7,” (4) its number of verses is a prime number, and (5) the sura number is divisible by 3 & 9. The only two suras that possess these qualities are: Sura 9 (127 verses), and Sura 45 (37 verses). Just add the digits you see:",
             "10": "[54] Let us assume that Sura 9 does have 129 verses. In that case we will have only two suras in the whole Quran whose number begins with 9, and their number of verses ends with 9: Sura 9 (129 verses) and Sura 96 (19 verses). As detailed in Table 33, the grand total of sura number, plus the number of verses, plus the sum of verse numbers is 8828, not a multiple of 19.",
-            "11": "Now let us remove the false verses (128 & 129) from Sura 9, and repeat the same calculations. The result of this correction is shown in Table 34. The grand total becomes 8569, 19 x 451."
+            "11": "Şimdi sahte ayetleri (128 ve 129) 9’uncu sureden çıkaralım ve aynı hesaplamaları tekrarlayalım. Bu düzeltmenin sonucu Tablo 34’te gösterilir. Genel toplam 8569 olur, 19 x 451."
         },
         "picture": {},
         "table": {
@@ -6760,7 +6760,7 @@
                     " ",
                     " ",
                     " ",
-                    "(Not multiple of 19)"
+                    "(19’un katı değil)"
                 ]
             },
             "13": {
@@ -6812,7 +6812,7 @@
             "2": "By adding the sura numbers, plus the number of verses in each sura, plus the sum of verse numbers, the grand total comes to 34744, not a multiple of 19 (Table 35).",
             "3": "Now, let us use the correct number of verses for Sura 9, 127, and repeat the same calculations as in Table 35. This causes the grand total to become 34485, or 19 x 1815. See Table 36.",
             "5": "[56] For the last time, let us assume that Sura 9 consists of 129 verses. We have here a sura that (1) is an odd numbered sura, (2) its number is divisible by 3, (3) the number of verses, 129, is also divisible by 3, and (4) the number of verses ends with the digit “9.” There is only one sura that possesses these qualities: Sura 15 is divisible by 3, its number of verses is 99, which is divisible by 3 and ends with the digit “9.” If Sura 9 consisted of 129, and we added the sura and verse numbers for these two suras, we would end up with the following results: 9 + 129 + 15 + 99 = 252—not a multiple of 19.",
-            "6": "If we throw away the false number 129, we have one sura in the Quran whose number is odd, and its number of verses is divisible by 3 and ends with the digit 9—Sura 15. Now we have the following result:"
+            "6": "Eğer sahte 129 sayısını atarsak, Kuran’da numarası tek olan, ayet sayısı 3’e bölünebilir olan ve 9 rakamıyla biten bir suremiz olur: 15. sure. Şimdi şu sonucu elde ederiz:"
         },
         "picture": {},
         "table": {
@@ -6864,7 +6864,7 @@
                     " ",
                     " ",
                     " ",
-                    "(not divisible by 19)"
+                    "(19’a bölünmez)"
                 ]
             },
             "5": {
@@ -6932,14 +6932,14 @@
     {
         "page": 482,
         "text": {
-            "1": "[57] For some time now, we have been dealing with numbers. Let us now look at specific words and letters that occur in the false injections 9:128-129.",
+            "1": "[57] Bir süredir sayılarla uğraşıyoruz. Şimdi 9:128-129’daki sahte sokuşturmalarda geçen spesifik sözcüklere ve harflere bakalım.",
             "2": "The last statement in 9:127 describes the disbelievers as “LAA YAFQAHOON” (they do not comprehend). Thus, the last letter in Sura 9 is “N” (Noon).",
-            "3": "According to the falsifiers, the last verse is 129, and the last letter is “M” (Meem), since the last false word is “AZEEM.”",
+            "3": "Sahtekârların iddiasına göre, son ayet 129’dur ve son harf “M”dir (Mim), çünkü son sahte kelime “AZİM”dir.",
             "4": "Now let us look at the first letter and the last letter of every sura from the beginning of the Quran to Sura 9, and calculate their gematrical (numerical) values. Table 37 shows that the last true letter in Sura 9 must be “N,” not “M.”",
             "5": "[58] Sister Ihsan Ramadan of Masjid Tucson counted all the suras in the Quran which end with the letter “N” (Noon), the last letter in Sura 9.",
             "6": "She found that 43 suras end with the same letter as Sura 9 (N)—suras 1, 2, 3, 7, 9, 10, 11, 12, 15, 16, 21, 23, 26, 27, 28, 29, 30, 32, 36, 37, 38, 39, 40, 43, 44, 46, 49, 51, 58, 61, 62, 63, 66, 67, 68, 70, 77, 81, 83, 84, 95, 107, and 109. Just add the sura numbers + number of suras that end with “N”, and you get:",
             "8": "Thus, the last letter in Sura 9 is once again confirmed to be “N,” not “M.”",
-            "10": "[59] Now let us look at the crucial expression “LA ELAAHA ELLA HOO” (There is no god except He). This phrase occurs in the false injection 9:129.",
+            "10": "[59] Şimdi kritik ifadeye bakalım: “LA İLAHE İLLA HU” (O’ndan başka tanrı yoktur). Bu ifade 9:129’daki sahte sokuşturmada geçer.",
             "11": "This very special expression occurs 29 times in 19 suras (Table 38). By adding the sura numbers of the 19 suras, plus the verse numbers where the phrase “LAA ELAAHA ELLA HOO” occurs, plus the number of occurrences of this crucial phrase, the grand total comes to 2128, or 19 x 112. This awesome result is dependent on the fact that 9:128-129 do not belong in the Quran.",
             "12": "Obviously, if 9:129 were included, the crucial expression “LA ELAAHA ELLA HOO,” the First Pillar of Islam, would not conform with the mathematical code.",
             "13": "[60] The first occurrence of “LA ELAAHA ELLA HOO” is in 2:163, and the last occurrence is in 73:9. If we add the sura number, plus the number of verses, plus the sum of verse numbers from the first occurrence to the last occurrence, the grand total comes to 316502, or 19 x 16658."
@@ -7019,7 +7019,7 @@
     {
         "page": 483,
         "text": {
-            "3": "Table 39 presents the detailed data. Naturally, if “LAA ELAAHA ELLA HOO” of the false verse 129 were included, this phenomenon would have disappeared.",
+            "3": "Tablo 39 ayrıntılı verileri sunar. Doğal olarak, sahte 129’uncu ayetteki “LA İLAHE İLLA HU” dahil edilseydi, bu olgu ortadan kalkardı.",
             "4": "[61] The phrase “LAA ELAAHA ELLA HOO” occurs 7 times between the missing Basmalah of Sura 9 and the extra Basmalah of Sura 27, in 9:31, 11:14, 13:30, 20:8, 20:98, 23:116, and 27:26. By adding the numbers of the 7 verses, we get 323, or 19 x 17. The detailed data are shown in Table 40."
         },
         "picture": {},
@@ -7029,8 +7029,8 @@
                 "title": [
                     "No",
                     "Sure No",
-                    "Verses with the key phrase",
-                    "Frequency of the phrase"
+                    "Anahtar ifadenin geçtiği ayetler",
+                    "İfadenin sıklığı"
                 ],
                 "values": [
                     "1.",
@@ -7217,7 +7217,7 @@
     {
         "page": 484,
         "text": {
-            "2": "[62] Brother Abdullah Arik has discovered what I consider to be the ultimate Quranic miracle. This miraculous phenomenon incontrovertibly authenticates every single verse in the Quran—the number of verses in every sura, and the numbers assigned to every single verse in the Quran—while exposing and rejecting the false injections, 9:128-129. To witness this great phenomenon, see Page 398. Putting the number of every verse in the Quran in sequence from the beginning to the end, with the number of verses in each sura ahead of the verse numbers of each sura, the final number consists of 12692 digits (19 x 668), and the number itself is also a multiple of 19. If the wrong number of verses for Sura 9 was used—129 instead of 127—neither the number of digits, nor the number itself would be divisible by 19.",
+            "2": "[62] Kardeş Abdullah Arik, benim nihai Kuran mucizesi saydığım şeyi keşfetmiştir. Bu mucizevi olgu, Kuran’daki tek tek her ayetin doğruluğunu, her suredeki ayet sayısını ve Kuran’daki tek tek her ayete verilmiş numaraları tartışmasız biçimde ispatlar; aynı zamanda 9:128-129’daki sahte sokuşturmaları açığa çıkarıp reddeder. Bu büyük olguyu görmek için 398. sayfaya bakın. Kuran’daki her ayetin numarasını baştan sona yan yana sırayla koyduğumuzda, her surenin ayet numaralarının önüne o surenin ayet sayısını koyarak, nihai sayı 12692 rakamdan oluşur (19 x 668) ve sayının kendisi de 19’un katıdır. Eğer 9. sure için yanlış ayet sayısı kullanılmış olsaydı —127 yerine 129— ne rakam sayısı ne de sayının kendisi 19’a bölünebilirdi.",
             "3": "[63] Since the subject of this Appendix is Sura 9 and its number of true verses, it is noteworthy that if we write down the number of the sura, 9, followed by the correct number of verses, 127, followed by the numbers of all the verses from 1 to 127, the resulting long number is a multiple of 19. Needless to say, if the wrong number of verses is used, i.e., 129 instead of 127, this remarkable miracle would have disappeared:",
             "5": "[64] The number of verses in Sura 9, 127, is an odd number. The falsifiers added two fake verses, and this made the number of verses 129, which is also an odd number. Mr. Arik used the same computer program he devised for Item 62 above to check all odd-numbered verses in the Quran. Thus, the number of verses in every sura was written down, followed only by the last digit of each of the odd-numbered verses in that sura. Sura 1 was represented by the number 71357. Sura 2 was represented by the number 28613579 ... 5, and so on through the last sura. The result is a long number, with 3371 digits, that is divisble by 19. Obviously, Sura 9 was represented by the number 12713579 ... 7:",
             "7": "[65] Since Sura 9 is an un-initialed sura, Mr. Arik applied the same computer program to all 85 un-initialed suras. The number of every verse in each of the 85 suras was written down, without the number of verses in the sura. Thus, Sura 1 was represented by the number 1234567, not 71234567. This was done with all un-initialed suras. The final result is a number that consists of 6635 digits, and is a multiple of 19. These awesome phenomena would be destroyed if we used the wrong number of verses for Sura 9, i.e., 129 instead of 127."
@@ -7243,7 +7243,7 @@
             }
         },
         "titles": {
-            "1": "The Ultimate Quranic Miracle"
+            "1": "Nihai Kuranî Mucize"
         }
     },
     {
@@ -7253,9 +7253,9 @@
             "3": "The gematrical value of the word “Rashad,” as written in the Quran (40:29, 40:38) is 505 (R = 200, Sh = 300, A = 1, and D = 4). The gematrical value of the word “Khalifa,” as written in the Quran (38:26) is 725 (Kh = 600, L = 30, I = 10, F = 80, and H = 5). By writing down the value of “Rashad,” followed by the value of “Khalifa,” followed by the number of Sura 9, followed by the correct number of verses in this sura, the product is 5057259127. This number is a multiple of 19; it equals 19 x 266171533.",
             "4": "[67] The number of verses from 3:81, where God’s Messenger of the Covenant is prophesied, to 9:127, the end of Sura 9, is 988 (19 x 52). Table 41.",
             "5": "[68] The sum of verse numbers from 3:81 to 9:127 is also a multiple of 19 (Table 41).",
-            "7": "[69] In Verse 3:78, just 3 verses before proclaiming God’s Messenger of the Covenant, the word “God” number 361 (19 x 19) occurs. This verse (3:78) informs us that some falsifiers will “add falsehood to the Quran, then claim that it is part of the Quran; they attribute lies to God, knowingly.”",
+            "7": "[69] 3:78 ayetinde, Tanrı’nın Antlaşma Elçisi’ni ilan etmeden hemen 3 ayet önce, 361. “Tanrı” kelimesi (19 x 19) geçer. Bu ayet (3:78) bize şunu bildirir: bazı sahtekârlar “Kuran’a yalan sokuşturacak, sonra da onun Kuran’ın bir parçası olduğunu iddia edecekler; bile bile Tanrı’ya yalan isnat edecekler.”",
             "8": "[70] The word “God” occurs 912 times (19 x 48) from Verse 3:78, which exposes the falsifiers, to 9:127.",
-            "9": "[71] The number of letters, plus the number of words in 3:78 and in the false verses 9:128-129, give the same total, 143. Verse 3:78 consists of 27 words and 116 letters, & 9:128-129 consist of 115 letters and 28 words."
+            "9": "[71] 3:78’de ve sahte 9:128-129 ayetlerinde harflerin sayısı artı sözcüklerin sayısı aynı toplamı verir: 143. 3:78 ayeti 27 kelime ve 116 harften oluşur ve 9:128-129, 115 harf ve 28 kelimeden oluşur."
         },
         "picture": {
             "10": {
@@ -7308,7 +7308,7 @@
                 "ref": "Table 42: Occurrence of the word “God” from 3:78 to the end of Sura 9",
                 "title": [
                     "Sure No",
-                    "Frequency of “God”"
+                    "“Tanrı” Kelimesi Sıklığı"
                 ],
                 "values": [
                     "3",
@@ -7344,7 +7344,7 @@
         "text": {
             "2": "The overwhelming physical evidence provided by the Almighty to protect and authenticate His message leaves no doubt that: (1) no distortion of any kind can enter the Quran, (2) Verses 9:128-129 do not belong in the Quran, and (3) every element in the Quran is mathematically structured far beyond human capabilities— the number of suras, the number of verses, the numbers assigned to the suras and verses, the frequency of occurrence of key expressions, the number of words, the number of letters, and the unique and often uncommon spelling of certain words.",
             "3": "This Appendix documents a profound miracle in its own right. Vast and utterly overwhelming as it is, it does not surpass or even match the overall mathematical miracle of the Quran which is detailed in Appendix One. This merely confirms the fact that the Almighty Author of the Quran has deliberately permitted the blasphemous addition of two verses to Sura 9 in order to:",
-            "6": "Due to the mass corruption of Islam shortly after the prophet Muhammad’s death, God obviously has fulfilled His pledge in 47:38. A divine decree issued in Sura 47, which is entitled “Muhammad,” Verse 38 (19 x 2), stipulates that “if the Arabs failed to uphold the Quran, God will dismiss them from His grace, and substitute other people in their place.”",
+            "6": "Peygamber Muhammed’in ölümünden kısa süre sonra İslam’ın kitlesel bozulması nedeniyle, Tanrı 47:38’deki vaadini açıkça yerine getirmiştir. “Muhammed” başlıklı 47. surenin 38. ayetinde (19 x 2) verilmiş göksel bir hüküm şunu hükme bağlar ki: “eğer Araplar Kuran’a bağlı kalamazlarsa, Tanrı onları lütfundan uzaklaştıracaktır ve yerlerine başka halkı koyacaktır.”",
             "7": "When the Arabs distorted the Quran a few years after the Prophet’s death, and exterminated the Prophet’s family in the process, they incurred God’s pledge of 47:38, and no longer deserved to possess the Quran; the true Quran. The evidence is irrefutable that the Arabs have abandoned the Quran en masse.",
             "8": "For example, there is not a single mosque in the so-called Muslim world today (1989) that upholds the crucial commandment: “The mosques belong to God; you shall not invoke anyone else besides God” (72:18).",
             "9": "The call to prayer (Azan) and the prayer itself are no longer devoted to God alone; Muhammad’s name is invariably invoked along with the name of God.",
@@ -7612,19 +7612,19 @@
     {
         "page": 491,
         "text": {
-            "1": "[4] As pointed out in Appendix 2, the name of God’s Messenger of the Covenant is introduced to the computer age through mathematical coding. If the name was specified in the Quran, as is the case with past messengers, millions of people would have named their children “Rashad Khalifa.” Thus, the root word “Rashada” is mentioned in the Quran 19 times (Appendix 2).",
-            "2": "[5] “Abraham” is mentioned in 25 suras, “Muhammad” is mentioned in 4 suras, and “Rashada” occurs in 9 suras. The total of these suras is 25 + 4 + 9 = 38 = 19 x 2 (INDEX TO THE WORDS OF QURAN, Abdul Baqi).",
-            "3": "[6] If we add the numbers of the suras where Abraham, Muhammad, and Rashada occur, plus the number of occurrences per sura, the total comes to 1083, 19 x 19 x 3 (Table 2)."
+            "1": "[4] Ek 2’de açıkça gösterildiği gibi, Tanrı’nın Antlaşma Elçisi’nin adı matematiksel kodlama aracılığıyla bilgisayar çağına tanıtılmaktadır. Geçmiş elçilerde olduğu gibi, isim Kuran’da belirtilmiş olsaydı, milyonlarca insan çocuklarına “Reşad Halife” adını verirdi. Buradan hareketle, “Reşede” kök kelimesi Kuran’da 19 kez geçer (Ek 2).",
+            "2": "[5] “İbrahim” 25 surede geçer, “Muhammed” 4 surede geçer ve “Reşede” 9 surede geçer. Bu surelerin toplamı 25 + 4 + 9 = 38 = 19 x 2’dir (INDEX TO THE WORDS OF QURAN, Abdul Baqi).",
+            "3": "[6] Eğer İbrahim’in, Muhammed’in ve Reşede’nin geçtiği surelerin numaralarını, artı sure başına geçiş sayısını toplarsak, toplam 1083 eder, 19 x 19 x 3 (Tablo 2)."
         },
         "picture": {},
         "table": {
             "4": {
-                "ref": "Table 2: The Suras and Occurrences of Abraham, Muhammad, and Rashada.",
+                "ref": "Tablo 2: İbrahim’in, Muhammed’in ve Reşede’nin Geçtiği Sureler ve Geçiş Sayıları.",
                 "title": [
                     "Sure No",
                     "İbrahim",
                     "Muhammed",
-                    "Rashada"
+                    "Reşede"
                 ],
                 "values": [
                     "2",
@@ -7770,7 +7770,7 @@
                     "",
                     "",
                     "",
-                    "* “Rashada” occurs 19 times",
+                    "* “Reşede” 19 kez geçer",
                     "",
                     "",
                     "",
@@ -7784,19 +7784,19 @@
     {
         "page": 492,
         "text": {
-            "1": "[7] If we take all the suras where Abraham, Muhammad, and the root word “Rashada” are mentioned, and add the sura numbers, plus the number of the first verse in each sura where each of the three words is mentioned, the total comes to 2793, 19 x 147 (Table 3).",
+            "1": "[7] Eğer İbrahim’in, Muhammed’in ve “Reşede” kök kelimesinin geçtiği bütün sureleri alır ve sure numaralarını, artı bu üç sözcüğün her birinin geçtiği her suredeki ilk ayetin numarasını toplarsak, toplam 2793 eder; 19 x 147 (Tablo 3).",
             "3": "[8] The sum of all sura numbers where the three words occur, without repetition, plus the sum of all the verse numbers, without repetition, add up to 6479, 19 x 341. The suras are 2, 3, 4, 6, 7, 9, 11, 12, 14, 15, 16, 18, 19, 21, 22, 26, 29, 33, 37, 38, 40, 42, 43, 47, 48, 49, 51, 53, 57, 60, 72, and 87. The sum of these numbers is 991 (see Table 3). The verses where the three words are mentioned, without repetition, are 2, 4, 6, 7, 10, 13, 14, 16, 17, 19, 21, 24, 26, 29, 31, 33, 35, 37, 38, 40, 41, 43, 45, 46, 51, 54, 58, 60, 62, 65, 66, 67, 68, 69, 70, 74, 75, 76, 78, 83, 84, 87, 95, 97, 104, 109, 114, 120, 123, 124, 125, 126, 127, 130, 132, 133, 135, 136, 140, 144, 146, 161, 163, 186, 256, 258, and 260. The sum of these numbers is 5488, and: 5488 + 991 = 6479 = 19 x 341.",
-            "4": "[9] If we add the sura number, plus the verse number, plus the number of verses where Abraham, Muhammad, and Rashada occur, we get a grand total that equals 7505, 19 x 395 (Table 4)."
+            "4": "[9] Eğer sure numarasını, artı ayet numarasını, artı İbrahim’in, Muhammed’in ve Reşede’nin geçtiği ayetlerin sayısını toplarsak, 7505’e eşit bir genel toplam elde ederiz; 19 x 395 (Tablo 4)."
         },
         "picture": {},
         "table": {
             "2": {
-                "ref": "Table 3: The Suras & First Verse Where Abraham, Muhammad, & Rashada Occur.",
+                "ref": "Tablo 3: İbrahim’in, Muhammed’in & Reşede’nin Geçtiği Sureler ve İlk Ayet.",
                 "title": [
                     "Sure No",
                     "İbrahim",
                     "Muhammed",
-                    "Rashada"
+                    "Reşede"
                 ],
                 "values": [
                     "2",
@@ -7957,12 +7957,12 @@
         "picture": {},
         "table": {
             "1": {
-                "ref": "Table 4: The Suras, Verses, and Occurrences of ‘Abraham,” “Muhammad,” and “Rashada.”\n Verse Where the 3 Words are Mentioned",
+                "ref": "Tablo 4: Sureler, Ayetler ile ‘İbrahim,” “Muhammed” ve “Reşede” Geçişleri. \n 3 Kelimenin Söz Edildiği Ayet",
                 "title": [
                     "Sure No",
                     "İbrahim",
                     "Muhammed",
-                    "Rashada",
+                    "Reşede",
                     "Ayet Sayısı"
                 ],
                 "values": [
@@ -8150,8 +8150,8 @@
     {
         "page": 494,
         "text": {
-            "1": "[10] As shown in Table 4, the 19 occurrences of the root word “Rashada” are in verses 186, 256, 6, 146, 78, 87, 97, 10, 17, 24, 66, 51, 29, 38, 7, 2, 10, 14, and 21. These are 38 digits, 19 x 2.",
-            "2": "[11] Table 4 shows that the sum of the verse numbers where we see the 19 occurrences of the root word “Rashada” is 1145. By adding this total of verse numbers (1145), to the gematrical value of the name “Rashad” (505), plus the gematrical value of the name “Khalifa” (725), we get 1145 + 505 + 725 = 2375, 19 x 125.",
+            "1": "[10] Tablo 4’te görüldüğü gibi, “Reşede” kök kelimesinin 19 kez geçişi, 186, 256, 6, 146, 78, 87, 97, 10, 17, 24, 66, 51, 29, 38, 7, 2, 10, 14 ve 21 numaralı ayetlerdedir. Burası 38 rakamdır, 19 x 2.",
+            "2": "[11] Tablo 4, “Reşede” kök kelimesinin 19 kez geçişini gördüğümüz ayet numaralarının toplamının 1145 olduğunu göstermektedir. Ayet numaralarının bu toplamını (1145) “Reşad” isminin sayısal değeri (505) ile “Halife” isminin sayısal değerine (725) eklediğimize 1145 + 505 + 725 = 2375, 19 x 125 elde ederiz.",
             "3": "[12] If we write down these numbers next to each other, i.e., the total of verse numbers (1145), followed by the gematrical value of the name “Rashad” (505), followed by the gematrical value of the name “Khalifa” (725), we also get a number that is a multiple of 19: 1145505725 = 19 x 60289775.",
             "8": "Most people are outraged upon hearing this question. “What do you mean, ‘Who is your god?’ ” they ask. “My god is the Creator of the heavens and the earth.” And most of these people will be shocked to find out that their proclamation that their god is the Creator of the heavens and the earth is no more than lip service, and that they are in fact destined for Hell (12:106).",
             "10": "Your god can be your children (7:190), your spouse (9:24), your business (18:35), or your ego (25:43). This is why we note that one of the most important and most repeated commandments in the Quran is:",
@@ -8162,7 +8162,7 @@
         "evidence": {
             "4": {
                 "lines": {
-                    "1": "Sum of Verse Numbers Where the 19 “Rashada” Occur .... = 1145",
+                    "1": "“Reşede” 19 Kez Geçişindeki Ayet Numaraları Toplamı .... = 1145",
                     "2": "Gematrical Value of the Name “Rashad” .... = 505",
                     "3": "Gematrical Value of the Name “Khalifa” .... = 725"
                 },
@@ -8192,7 +8192,7 @@
         },
         "titles": {
             "6": "Ek 27",
-            "7": "Who Is Your God?"
+            "7": "Senin Tanrın Kim?"
         }
     },
     {
@@ -8204,44 +8204,44 @@
             "4": "4. God’s Gift (MAA SHAA ALLAH): To invoke God’s protection for our beloved objects—our children, our cars, our homes, etc.—we are enjoined in 18:39 to say “MAA SHAA ALLAH” (This is God’s gift).",
             "5": "5. Glorify God day and night: When we eat anything, we shouldn’t be like animals; we must reflect on God’s creation of the food we are eating—the flavor, our enjoyment due to the senses God has given us, the perfect packaging of the banana or the orange, the varieties of sea foods created by God, etc.—and glorify Him as we enjoy His provisions. When we see a beautiful flower, or animal, or sunsets, we must glorify God. We must seize every possible opportunity to remember and glorify God, so that God may be our God.",
             "6": "6. First Utterance: Make it a habit to say: “In the name of God, Most Gracious, Most Merciful. There is no other god besides God,” the moment you wake up every morning. If you establish this good habit, this is what you will utter when you are resurrected.",
-            "9": "The first revelation was “Read,” and included the statement “God teaches by means of the pen” (96:1-4), and the second revelation was “The Pen” (68:1). The only function of the pen is to write.",
-            "10": "Ignorant Muslim scholars of the first two centuries after the Quran could not understand the Quran’s challenge to produce anything like it. They had no idea about the Quran’s mathematical composition, and they knew that many literary giants could have composed works comparable to the Quran. In fact, many such literary giants did claim the ability to produce a literary work as excellent as the Quran. The latest claim came from Taha Hussein, the renowned Egyptian writer."
+            "9": "İlk vahiy “Oku” idi ve şu ifadeyi içeriyordu: “Tanrı kalem yoluyla öğretir” (96:1-4); ikinci vahiy ise “Kalem” idi (68:1). Kalemin tek işlevi yazmaktır.",
+            "10": "Kuran’dan sonraki ilk iki yüzyılın cahil Müslüman âlimleri, Kuran’ın onun benzeri herhangi bir şey ortaya koymaya dair meydan okumasını anlayamadılar. Kuran’ın matematiksel bileşimi hakkında hiçbir fikirleri yoktu ve birçok edebiyat devinin Kuran’la kıyaslanabilir eserler meydana getirebileceğini biliyorlardı. Aslında, bunun gibi birçok edebiyat devi, Kuran kadar mükemmel bir edebî eser ortaya koyabilme yeteneğine sahip olduğunu gerçekten de iddia etti. En son iddia meşhur Mısırlı yazar Taha Hüseyin’den geldi."
         },
         "picture": {},
         "table": {},
         "evidence": {},
         "titles": {
             "7": "Ek 28",
-            "8": "Muhammad Wrote God’s Revelations With His Own Hand"
+            "8": "Muhammed Tanrı’nın Vahiylerini Kendi Eliyle Yazdı"
         }
     },
     {
         "page": 496,
         "text": {
-            "1": "The ignorant Muslim scholars then decided to proclaim Muhammad an illiterate man! They figured that this would make the Quran’s extraordinary literary excellence truly miraculous. The word they relied on to bestow illiteracy upon the Prophet was “UMMY.” Unfortunately for those “scholars,” this word clearly means “Gentile,” or one who does not follow any scripture (Torah, Injeel, or Quran) [see 2:78, 3:20 & 3:75, 62:2]; it does NOT mean “illiterate.”",
-            "2": "The Prophet was a successful merchant. The “Muslim scholars” who fabricated the illiteracy lie forgot that there were no numbers during the Prophet’s time; the letters of the alphabet were used as numbers. As a merchant dealing with numbers every day, the Prophet had to know the alphabet, from one to one-thousand.",
-            "3": "The Quran tells us that Muhammad wrote down the Quran—Muhammad’s contemporaries are quoted as saying, “These are tales from the past that he wrote down. They are being dictated to him day and night” (25:5). You cannot “dictate” to an illiterate person. The Prophet’s enemies who accuse him of illiteracy abuse Verse 29:48, which relates specifically to previous scriptures.",
+            "1": "Cahil Müslüman âlimler sonra Muhammed’i okuma yazma bilmeyen bir adam ilan etmeye karar verdiler! Bunun Kuran’ın olağanüstü edebî mükemmelliğini gerçekten mucizevi kılacağının hesabını yaptılar. Peygamber’e okuma yazma bilmeme niteliğini yakıştırmak için dayandıkları sözcük “ÜMMİ” idi. Ne yazık ki o “âlimler” için, bu kelime açıkça “kitap ehli olmayan,” yani herhangi bir kutsal yazıyı (Tevrat, İncil veya Kuran) takip etmeyen kimse anlamına gelir [bkz. 2:78, 3:20 ve 3:75, 62:2]; “okuma yazma bilmeyen” anlamına GELMEZ.",
+            "2": "Peygamber başarılı bir tüccardı. “Müslüman âlimler” arasında okuma yazma bilmeme yalanını uyduranlar, Peygamber’in zamanında rakamların bulunmadığını, alfabenin harflerinin rakam olarak kullanıldığını unuttular. Her gün rakamlarla uğraşan bir tüccar olarak Peygamber, birden bine kadar alfabeyi bilmek zorundaydı.",
+            "3": "Kuran bize Kuran’ı Muhammed’in yazdığını söyler; Muhammed’in çağdaşlarından şu söz aktarılır: “Bunlar onun yazdığı geçmişten hikâyelerdir. Bunlar ona gece gündüz dikte ediliyor” (25:5). Okuma yazma bilmeyen birine “dikte” edemezsiniz. Onu okuma yazma bilmemekle suçlayan Peygamber düşmanları, özellikle önceki kutsal yazılarla ilgili olan 29:48. ayeti kötüye kullanırlar.",
             "4": "Ramazan’ın 27. gecesinde, H.Ö. (Hicretten Önce) 13’te, Muhammed — nefis, gerçek kişi, beden değil — en üst evrene çağrıldı ve Kuran kendisine verildi (2:97, 17:1, 44:3, 53:1-18, 97:1-5). Bunun ardından melek Cebrail, her bir defasında Kuran’ın birkaç ayetini, nefisten Muhammed’in hafızasına bırakmada Muhammed’e yardım etti. Peygamber, zihnine az önce bırakılmış ayetleri yazdı ve ezberledi. Peygamber öldüğünde, her ayetin nereye yerleştirileceğine dair spesifik talimatlarla beraber vahyin kronolojik sıralı şekilde kendi eliyle yazılmış eksiksiz Kuran’ı bıraktı. Peygamber tarafından kaydedilen göksel talimatlar, amaçlanan nihai formatta Kuran’ı Tanrı’nın dünyaya Son Ahiti olarak bir araya getirmek üzere tasarlanmıştı (75:17). İlk dönem Müslümanlar’ı, Kuran’ı bir araya getirme işine Halife Raşid Osman zamanına kadar girişmediler. Bu görevi yerine getirmek için bir komite atandı. Ayrıntılar için Ek 24’ü okuyunuz.",
-            "7": "Every sura in the Quran opens with the statement “In the name of God, Most Gracious, Most Merciful,” known as the Basmalah, with the exception of Sura 9. This conspicuous absence of the Basmalah from Sura 9 has been an intriguing feature of the Quran for 14 centuries. Many theories have been advanced to explain this phenomenon.",
-            "8": "Now we learn that the missing Basmalah plays a significant role as [1] a significant constituent of the Quran’s mathematical miracle, and [2] a glaring sign from the Most Gracious, Most Merciful, that Sura 9 has been tampered with and must be purified (Appendix 24). Both roles of the missing Basmalah were revealed with the discovery of the Quran’s mathematical code. The following list of factual observations illustrate the miraculous features of the missing Basmalah:"
+            "7": "9. sure hariç Kuran’daki her sure, “En Lütufkâr, En Merhametli Tanrı’nın adıyla” ifadesiyle açılır; buna Besmele denir. Besmele’nin 9. suredeki bu dikkat çekici yokluğu, 14 yüzyıl boyunca Kuran’ın merak uyandıran bir özelliği olmuştur. Bu olguyu açıklamak için birçok teori ileri sürülmüştür.",
+            "8": "Şimdi, kayıp Besmele’nin [1] Kuran’ın matematiksel mucizesinin önemli bir bileşeni olarak ve [2] En Lütufkâr, En Merhametliden gelen, 9’uncu surenin kurcalandığını ve arındırılması gerektiğini gösteren göze batan bir işaret olarak önemli bir rol oynadığını öğreniyoruz (Ek 24). Kayıp Besmele’nin her iki rolü de Kuran’ın matematiksel kodunun keşfiyle ortaya çıkarıldı. Aşağıdaki gerçek gözlemler listesi, kayıp Besmele’nin mucizevi özelliklerini örneklemektedir:"
         },
         "picture": {},
         "table": {},
         "evidence": {},
         "titles": {
             "5": "Ek 29",
-            "6": "The Missing Basmalah"
+            "6": "Kayıp Besmele"
         }
     },
     {
         "page": 497,
         "text": {
-            "1": "[1] Since the Basmalah consists of 19 Arabic letters, and prefixes all the suras except one, it can be considered the foundation upon which the Quran’s 19-based code is built. But the absence of the Basmalah from Sura 9 causes the number of this crucial opening statement to be 113, a number that does not conform with the Quran’s code. However, we find that this deficiency is compensated for in Sura 27. Two Basmalahs occur in Sura 27, one as an opener and one in Verse 30. This restores the total number of Basmalahs in the Quran to 114, 19 x 6.",
-            "2": "[2] From the missing Basmalah of Sura 9 to the extra Basmalah of Sura 27, there are 19 suras.",
-            "3": "[3] The sum of sura numbers from the missing Basmalah (Sura 9) to the extra Basmalah (Sura 27) is 9 + 10 + 11 + 12 + ... + 25 + 26 + 27 = 342, 19 x 18. This is a mathematical property, any consecutive 19 numbers will add up to a multiple of 19. But the miraculous phenomenon is that this number, 342, equals the number of words from the first Basmalah of Sura 27 to the second Basmalah in 27:30.",
-            "4": "[4] The occurrence of the extra Basmalah in 27:30 conforms with the Quran’s code in that the sura number, plus the verse number is a multiple of 19 (27 + 30 = 57 = 19 x 3).",
-            "5": "[5] The occurrence of the extra Basmalah in Verse 30 compares with the occurrence of the number 19 itself in Verse 30 (Sura 74).",
-            "6": "[6] The Quran contains 6234 numbered verses. The absence of the Basmalah from Sura 9, and compensating for it in Verse 30 of Sura 27 gives us two numbered Basmalahs, 1:1 & 27:30, and 112 un-numbered Basmalahs. This causes the total number of verses in the Quran to be 6234 + 112 = 6346, 19 x 334."
+            "1": "[1] Besmelenin 19 Arapça harften oluştuğu ve bir sure dışında bütün surelerin başında yer aldığı için, Kuran’ın 19 temelli kodunun üzerine kurulduğu temel olarak kabul edilebilir. Ama Besmele’nin 9. surede bulunmayışı, bu kritik açılış ifadesinin sayısını 113 yapar; bu, Kuran’ın koduna uymayan bir sayıdır. Ancak, bu eksikliğin 27. surede telafi edildiğini görürüz. 27. surede iki Besmele geçer; biri açılışta, biri de 30. ayette. Bu, Kuran’daki toplam Besmele sayısını 114’e geri döndürür, 19 x 6.",
+            "2": "[2] 9. surenin kayıp Besmelesinden 27. surenin ekstra Besmelesine kadar 19 sure vardır.",
+            "3": "[3] Kayıp Besmeleden (9. sure) ekstra Besmeleye kadar (27. sure) sure numaralarının toplamı 9 + 10 + 11 + 12 + ... + 25 + 26 + 27 = 342’dir, 19 x 18. Bu matematiksel bir özelliktir; art arda gelen herhangi 19 sayı 19’un katı olacak şekilde toplanır. Ama mucizevi olgu şudur: bu 342 sayısı, 27. surenin ilk Besmelesinden 27:30’daki ikinci Besmeleye kadar olan kelime sayısına eşittir.",
+            "4": "[4] 27:30’daki ekstra Besmele’nin geçişi Kuran’ın koduna uyar; çünkü sure numarası artı ayet numarası 19’un katıdır (27 + 30 = 57 = 19 x 3).",
+            "5": "[5] 30. ayetteki ekstra Besmele’nin geçişi, 30. ayette 19 sayısının kendisinin geçişiyle karşılaştırılır (74. sure).",
+            "6": "[6] Kuran 6234 numaralı ayet içerir. Besmele’nin 9. surede bulunmayışı ve bunun 27. surenin 30. ayetinde telafi edilmesi bize iki numaralı Besmele, 1:1 ve 27:30, ve 112 numarasız Besmele verir. Bu, Kuran’daki toplam ayet sayısını 6234 + 112 = 6346 yapar, 19 x 334."
         },
         "picture": {},
         "table": {},
@@ -8251,16 +8251,16 @@
     {
         "page": 498,
         "text": {
-            "1": "[7] From the missing Basmalah to the extra Basmalah, the number of verses containing the word “Allah” is 513, 19 x 27. Note that 27 is the sura number where the extra Basmalah occurs. The data are in Table 1.",
-            "3": "[8] The sum of verse numbers (1 + 2 + 3 + ... + n), plus the number of verses, from the missing Basmalah to the extra Basmalah is 119624, 19 x 6296. See Table 2.",
-            "5": "[9] This item alsoproves that Sura 9 consists of 127 verses, not 129 (see Appendix 24). The sum of digits of 127 is 1 + 2 + 7 = 10. By finding all the verses whose digits add up to 10, from the missing Basmalah of Sura 9 to the extra Basmalah of Sura 27, then adding the number of these verses to the total number of verses from the missing Basmalah to the extra Basmalah, we get 2128, or 19 x 112 (Table 3).",
-            "10": "[10] Sura 9 is an odd-numbered sura whose number of verses (127) is also odd. From the missing Basmalah to the extra Basmalah, there are 7 suras that possess this property; they are odd-numbered suras whose numbers of verses are also odd. As detailed in Table 4, these are Suras 9, 11, 13, 15,17, 25, and 27. By adding the digits that make up the sura numbers and the numbers of verses, the grand total is 114, 19 x 6.",
-            "11": "[11] The next two features authenticate both the missing Basmalah and the number of verses in Sura 9 (where two false verses had been injected). If we take the same suras listed in Table 4, odd-numbered suras whose numbers of verses are also odd, and write down the number of every sura, followed by its number of verses, the resulting long number (30 digits) is a multiple of 19 (Figure 1)."
+            "1": "[7] Kayıp Besmeleden ekstra Besmeleye kadar “Allah” kelimesini içeren ayetlerin sayısı 513’tür, 19 x 27’dir. 27’nin, ekstra Besmelenin bulunduğu sure numarası olduğuna dikkat edin. Veriler Tablo 1’dedir.",
+            "3": "[8] Kayıp Besmeleden ekstra Besmeleye kadar ayet numaralarının toplamı (1 + 2 + 3 + ... + n), artı ayetlerin sayısı, 119624’tür, 19 x 6296. Bkz. Tablo 2.",
+            "5": "[9] Bu madde ayrıca 9’uncu surenin 129 değil, 127 ayetten oluştuğunu kanıtlar (bkz. Ek 24). 127’nin rakamları toplamı 1 + 2 + 7 = 10’dur. 9’uncu surenin kayıp Besmelesinden 27. surenin ekstra Besmelesine kadar rakamları toplamı 10 olan bütün ayetleri bulup sonra bu ayetlerin sayısını, kayıp Besmeleden ekstra Besmeleye kadar olan toplam ayet sayısına eklediğimizde, 2128 elde ederiz, yani 19 x 112 (Tablo 3).",
+            "10": "[10] 9’uncu sure, ayet sayısı da (127) tek olan tek sayılı bir suredir. Kayıp Besmeleden ekstra Besmeleye kadar, bu özelliğe sahip 7 sure vardır; bunlar ayet sayıları da tek olan tek sayılı surelerdir. Tablo 4’te ayrıntılandırıldığı gibi, bunlar 9, 11, 13, 15, 17, 25 ve 27’nci surelerdir. Sure numaralarını ve ayet sayılarını oluşturan rakamları topladığımızda, genel toplam 114’tür, 19 x 6.",
+            "11": "[11] Sonraki iki özellik hem kayıp Besmeleyi hem de 9. suredeki ayet sayısını doğrular (buraya iki sahte ayet sokuşturulmuştu). Eğer Tablo 4’te listelenen aynı sureleri, yani ayet sayıları da tek olan tek sayılı sureleri alır ve her surenin numarasını, ardından onun ayet sayısını yan yana yazarsak, ortaya çıkan (30 basamaklı) uzun sayı 19’un katıdır (Şekil 1)."
         },
         "picture": {},
         "table": {
             "2": {
-                "ref": "Table 1: The Verses Containing the Word “Allah” from the Missing Basmalah to the Extra Basmalah.",
+                "ref": "Tablo 1: Kayıp Besmeleden Ekstra Besmeleye Kadar “Allah” Kelimesini İçeren Ayetler.",
                 "title": [
                     "Sure No",
                     "“Allah” Kelimesi Geçen Ayetler"
@@ -8313,7 +8313,7 @@
                 ]
             },
             "4": {
-                "ref": "Table 2: Suras & Verses From the Missing Basmalah to the Extra Basmalah.",
+                "ref": "Tablo 2: Kayıp Besmeleden Ekstra Besmeleye Kadar Sure ve Ayetler.",
                 "title": [
                     "Sure",
                     "Ayetler",
@@ -8389,7 +8389,7 @@
                 ]
             },
             "6": {
-                "ref": "Table 3: The Verses Whose Digits Add Up to 10, from the Missing Basmalah to the Extra Basmalah.",
+                "ref": "Tablo 3: Kayıp Besmeleden Ekstra Besmeleye Kadar Rakamları Toplamı 10 Olan Ayetler.",
                 "title": [
                     "Sure No",
                     "Ayet Sayısı",
@@ -8465,7 +8465,7 @@
                 ]
             },
             "12": {
-                "ref": "Table 4: The Odd-numbered Suras Whose Number of Verses are Also Odd.",
+                "ref": "Tablo 4: Ayet Sayıları da Tek Olan Tek Sayılı Sureler.",
                 "title": [
                     "Sure No",
                     "Rakamlar Toplamı",
@@ -8522,52 +8522,52 @@
     {
         "page": 499,
         "text": {
-            "1": "[12] Let us take the last digit of all the verses from the missing Basmalah to the extra Basmalah. If we write down the number of every sura, followed by the last digit in every verse in that sura, we end up with a long number, of 1988 digits, which is divisible by 19 (Figure 2).",
-            "6": "Polygamy was a way of life until the Quran was revealed 1400 years ago. When the earth was young and under-populated, polygamy was one way of populating it and bringing in the human beings needed to carry out God’s plan. By the time the Quran was revealed, the world had been sufficiently populated, and the Quran put down the first limitations against polygamy.",
-            "7": "Polygamy is permitted in the Quran, but under strictly observed circumstances. Any abuse of this divine permission incurs severe retribution. Thus, although polygamy is permitted by God, it behooves us to examine our circumstances carefully before saying that a particular polygamous relationship is permissible.",
-            "8": "Our perfect example here is the prophet Muhammad. He was married to one wife, Khadijah, until she died. He had all his children, except one, from Khadijah. Thus, she and her children enjoyed the Prophet’s full attention for as long as she was married to him; twenty-five years. For all practical purposes, Muhammad had one wife—from the age of 25 to 50. During the remaining 13 years of his life, he married the aged widows of his friends who left many children. The children needed a complete home, with a fatherly figure, and the Prophet provided that. Providing a fatherly figure for orphans is the only specific circumstance in support of polygamy mentioned in the Quran (4:3).",
-            "9": "Other than marrying widowed mothers of orphans, there were three political marriages in the Prophet’s life. His close friends Abu Bakr and Omar insisted that he marry their daughters, Aisha and Hafsah, to establish traditional family ties among them. The third marriage was to Maria the Egyptian; she was given to him as a political gesture of friendship from the ruler of Egypt."
+            "1": "[12] Kayıp Besmeleden ekstra Besmeleye kadarki bütün ayetlerin son rakamını alalım. Her surenin numarasını, ardından da o suredeki her ayetin son rakamını yazarsak, 1988 basamaklı uzun bir sayı elde ederiz; bu sayı 19’a bölünür (Şekil 2).",
+            "6": "1400 yıl önce Kuran vahyedilene kadar çok eşlilik bir yaşam tarzıydı. Dünya genç ve az nüfuslu iken, çok eşlilik nüfusu artırmanın ve Tanrı’nın planını yerine getirmek üzere gerekli olan insanları dünyaya getirmenin yollarından biriydi. Kuran vahyedildiği zaman dünyada yeterli nüfusa ulaşıldı ve Kuran çok eşliliğe karşı ilk sınırlamaları ortaya koydu.",
+            "7": "Kuran’da çok eşliliğe izin verilir, ancak sıkı biçimde gözetilen koşullar altında. Bu göksel iznin herhangi bir kötüye kullanımı şiddetli azabı üzerine çeker. Böylece, Tanrı çok eşliliğe izin vermiş olsa da, belirli bir çok eşli ilişkinin izin verilebilir olduğunu söylemeden önce koşullarımızı dikkatle incelememiz icap eder.",
+            "8": "Buradaki tam uyumlu örneğimiz Muhammed peygamberdir. O, tek bir eş olan Hatice ile o ölünceye kadar evliydi. Bir tanesi dışında bütün çocukları Hatice’dendi. Böylece o ve çocukları, onunla evli olduğu sürede; yirmi beş yıl boyunca Peygamberin bütün ilgisinin keyfini çıkardılar. Hangi açıdan bakılırsa bakılsın, Muhammed’in 25 yaşından 50 yaşına kadar tek bir eşi vardı. Hayatının kalan 13 yılı boyunca, geride çok sayıda çocuk bırakan arkadaşlarının yaşlı dul eşleriyle evlendi. O çocukların, bir baba figürüyle birlikte, tam bir yuvaya ihtiyacı vardı ve Peygamber bunu sağladı. Yetimler için bir baba figürü sağlamak, Kuran’da söz edilen, çok eşliliği destekleyen tek spesifik koşuldur (4:3).",
+            "9": "Yetimlerin dul kalmış anneleriyle evlenmenin dışında, Peygamberin hayatında üç tane siyasi evlilik vardı. Onun yakın arkadaşları Ebu Bekir ve Ömer, aralarında geleneksel aile bağları kurmak için, kızları Ayşe ve Hafsa ile evlenmesinde ısrar ettiler. Üçüncü evlilik Mısırlı Maria ileydi; o, Mısır Hükümdarı tarafından ona, siyasi bir dostluk jesti olarak verildi."
         },
         "picture": {},
         "table": {},
         "evidence": {
             "2": {
                 "lines": {
-                    "1": "9 127 11 123 13 43 15 99 17 111 25 77 27 29 Every sura number is followed by the number of verses in that sura. This long number equals 19 x 48037427533385052195322409091. [Figure 1]"
+                    "1": "9 127 11 123 13 43 15 99 17 111 25 77 27 29 Her sure numarasının ardından o suredeki ayet sayısı gelir. Bu uzun sayı 19 x 48037427533385052195322409091’e eşittir. [Şekil 1]"
                 },
                 "ref": []
             },
             "3": {
                 "lines": {
-                    "1": "9 1234567890123 ... ... 27 1234567890 ... 789 The sura number is followed by the last digit in every verse number from Sura 9 to Sura 27, Verse 29. [Figure 2]"
+                    "1": "9 1234567890123 ... ... 27 1234567890 ... 789 Sure numarasının ardından, 9’uncu sureden 27’inci surenin 29. ayetine kadar, her ayet numarasındaki son rakam gelir. [Şekil 2]"
                 },
                 "ref": []
             }
         },
         "titles": {
             "4": "Ek 30",
-            "5": "Polygamy"
+            "5": "Çok Eşlilik"
         }
     },
     {
         "page": 500,
         "text": {
-            "1": "This perfect example tells us that a man must give his full attention and loyalty in marriage to his wife and children in order to raise a happy and wholesome family.",
-            "2": "The Quran emphasizes the limitations against polygamy in very strong words: “If you fear lest you may not be perfectly equitable in treating more than one wife, then you shall be content with one.” (4:3) “You cannot be equitable in a polygamous relationship, no matter how hard you try.” (4:129)",
-            "3": "The Quranic limitations against polygamy point out the possibility of abusing God’s law. Therefore, unless we are absolutely sure that God’s law will not be abused, we had better resist our lust and stay away from polygamy. If the circumstances do not dictate polygamy, we had better give our full attention to one wife and one set of children. The children’s psychological and social well-being, especially in countries where polygamy is prohibited, almost invariably dictate monogamy. A few basic criteria must be observed in contemplating polygamy:",
-            "4": "1. It must alleviate pain and suffering and not cause any pain or suffering.",
-            "5": "2. If you have a young family, it is almost certain that polygamy is an abuse.",
-            "6": "3. Polygamy to substitute a younger wife is an abuse of God’s law (4:19).",
-            "9": "We learn from the Quran that evolution is a divinely designed fact:",
-            "12": "Evolution is possible only within a given species. For example, the navel orange evolved from seeded oranges, not from apples. The laws of probablity preclude the possibility of haphazard evolution between species. A fish cannot evolve into a bird; a monkey can never evolve into a human.",
-            "14": "In this computer age, we have mathematical laws that tell us whether a certain event is probable or not. If we throw five numbered cubes up in the air and let them fall into a guided straight line, the probability laws tell us the number of possible combinations we can get: 1 x 2 x 3 x 4 x 5 = 120 combinations. Thus, the probability of obtaining any combination is 1 in 120, or 1/120, or 0.0086. This probability diminishes fast when we increase the number of cubes. If we increase them by one, the number of combinations becomes 1 x 2 x 3 x 4 x 5 x 6 = 720, and the probability of getting any combination diminishes to 1/720, 0.0014. Mathematicians, who are very exacting scientists, have agreed that the probability diminishes to “Zero” when we increase the number of cubes to 84. If we work with 84 cubes, the probability diminishes to 209 x 10⁻⁵⁰, or 0.00000000000000000000000000000000000000000000000000209"
+            "1": "Bu tam uyumlu örnek bize şunu söyler: bir erkeğin, mutlu ve sağlıklı bir aile yetiştirmek için, evlilikte bütün dikkatini ve bağlılığını eşine ve çocuklarına vermesi gerekir.",
+            "2": "Kuran çok eşliliğe karşı sınırlamaları çok güçlü sözlerle vurgular: “Eğer birden fazla eşe davranırken tam adil olamamaktan korkuyorsanız, o zaman bir eşle yetinmelisiniz.” (4:3) “Ne kadar çabalarsanız çabalayın, çok eşli bir ilişkide adil olamazsınız.” (4:129)",
+            "3": "Çok eşliliğe karşı sunulan Kuranî sınırlamalar, Tanrı’nın yasasının kötüye kullanılma olasılığını açıkça gösterir. Bu nedenle, Tanrı’nın yasasının kötüye kullanılmayacağından kesinlikle emin değilsek, şehvetimize direnmemiz ve çok eşlilikten uzak durmamız daha iyi olur. Eğer koşullar çok eşliliği gerektirmiyorsa, bütün ilgimizi tek bir eşe ve tek bir çocuk grubuna vermemiz daha iyi olur. Çocukların psikolojik ve toplumsal afiyeti, özellikle çok eşliliğin yasak olduğu ülkelerde, neredeyse istisnasız biçimde tek eşliliği gerektirir. Çok eşliliği düşünürken birkaç temel kriter gözetilmelidir:",
+            "4": "1. Acıyı ve ızdırabı hafifletmelidir ve hiçbir acıya veya ızdıraba neden olmamalıdır.",
+            "5": "2. Eğer genç bir aileniz varsa, çok eşliliğin bir suistimal olduğu neredeyse kesindir.",
+            "6": "3. Daha genç bir eşin ikamesi için yapılan çok eşlilik, Tanrı’nın yasasını suistimal etmektir (4:19).",
+            "9": "Kuran’dan öğreniriz ki evrim göksel olarak tasarlanmış bir gerçektir:",
+            "12": "Evrim sadece bir tür içinde belirlenince mümkündür. Örneğin, göbek portakalı çekirdekli portakallardan evrimleşti, elmalardan değil. Olasılık yasaları türler arasında gelişigüzel evrim olasılığını olanaksız kılar. Bir balık bir kuşa evrimleşemez; bir maymun da asla bir insana evrimleşemez.",
+            "14": "Bu bilgisayar çağında, belirli bir olayın olası olup olmadığını bize söyleyen matematiksel yasalara sahibiz. Eğer numaralandırılmış beş küpü havaya atarsak ve onların kılavuzlu düz bir hatta düşmesine izin verirsek, olasılık yasaları bize elde edebileceğimiz olası kombinasyonların sayısını söyler: 1 x 2 x 3 x 4 x 5 = 120 kombinasyon. Böylece, herhangi bir kombinasyonu elde etme olasılığı 120’de 1, ya da 1/120, ya da 0.0086’dır. Bu olasılık, küplerin sayısını artırdığımızda hızla azalır. Eğer onları bir artırırsak, kombinasyonların sayısı 1 x 2 x 3 x 4 x 5 x 6 = 720 olur ve herhangi bir kombinasyonu elde etme olasılığı 1/720’ye, 0.0014’e düşer. Son derece titiz bilim insanları olan matematikçiler, küplerin sayısını 84’e çıkardığımızda olasılığın “Sıfır”a düştüğü konusunda mutabık kalmıştır. Eğer 84 küple çalışırsak, olasılık 209 x 10⁻⁵⁰’ye, ya da 0.00000000000000000000000000000000000000000000000000209’a düşer."
         },
         "picture": {},
         "table": {},
         "evidence": {
             "10": {
                 "lines": {
-                    "1": "Life began in water: “From water we initiated all living things.”"
+                    "1": "Hayat suda başladı: “Bütün canlı şeyleri sudan başlattık.”"
                 },
                 "ref": [
                     "21:30, 24:45"
@@ -8575,35 +8575,35 @@
             },
             "11": {
                 "lines": {
-                    "1": "Humans not descendants of monkeys: “He started the creation of man from mud.” (32:7)",
-                    "2": "Man created from “aged” mud: “I am creating the human being from ‘aged’ clay.” (15:28)"
+                    "1": "İnsanlar maymunların soyundan gelmez: “O, insanın yaratılışını çamurdan başlattı.” (32:7)",
+                    "2": "İnsan “yıllanmış” çamurdan yaratıldı: “Ben insanı ‘yıllanmış’ kilden yaratıyorum.” (15:28)"
                 },
                 "ref": []
             }
         },
         "titles": {
             "7": "Ek 31",
-            "8": "Evolution: Divinely Controlled",
-            "13": "Probability Laws Preclude Darwin’s Evolution"
+            "8": "Evrim: Göksel Olarak Kontrol Edilir",
+            "13": "Olasılık Yasaları Darwin’in Evrimini Olanaksız Kılar"
         }
     },
     {
         "page": 501,
         "text": {
-            "1": "Darwin’s famous statement that “life began as a ‘simple’ cell” is laughable. As recently as 50 years ago, Wells, Huxley, and Wells wrote in their classic textbook that “nothing can be seen inside the nucleus but clear fluid.” We know now that the cell, is an extremely complex unit, with billions of nucleotides in the gene material inside the nucleus, and millions of biochemical reactions. The probability laws tell us that the probability of the haphazard creation of the exacting sequences of nucleotides into DNA is Zero, many times over. We are not talking about 84 nucleotides; we are talking about billions of nucleotides that must be arranged in a specific sequence.",
-            "2": "Some evolutionists have stated that the human gene and the monkey’s gene are 90% similar. However, even if the similarity was 99%, we are still talking about 300,000,000 nucleotides that must be haphazardly re-arranged to change the monkey into a human. The probability laws preclude this as an utter impossibility. The human gene contains 30,000,000,000 nucleotides; 1% of that is 300,000,000.",
-            "3": "A fitting quote here is that of Professor Edwin Conklin; he stated:",
-            "7": "What is the age of responsibility? If a child dies at the age of 12, without even hearing about God, does this child go to Heaven or Hell? What if the child is 15 years old, or 21, or 25? At what age will the human being be held responsible for his or her beliefs? This question has puzzled researchers of all religions for a long time.",
+            "1": "Darwin’in “hayat ‘basit’ bir hücre olarak başladı” yönündeki meşhur ifadesi gülünçtür. Daha 50 yıl kadar önce yakın bir zamanda, Huxley ve Wells klasik ders kitaplarında Wells şunu yazdı: “çekirdeğin içinde berrak sıvıdan başka hiçbir şey görülemez.” Artık hücrenin, çekirdeğin içindeki gen materyalinde milyarlarca nükleotit ve milyonlarca biyokimyasal reaksiyon ile, son derece karmaşık bir birim olduğunu biliyoruz. Olasılık yasaları bize, nükleotitlerin DNA içindeki çok hassas dizilimlerinin gelişigüzel yaratılma olasılığının Sıfır olduğunu defalarca söyler. 84 nükleotitten söz etmiyoruz; biz, belirli bir dizilim içinde düzenlenmesi gereken milyarlarca nükleotitten söz ediyoruz.",
+            "2": "Bazı evrimciler insan geni ile maymun geninin %90 benzer olduğunu belirtmiştir. Oysaki benzerlik %99 olsa bile, maymunu insana dönüştürmek için gelişigüzel yeniden düzenlenmesi gereken hâlâ 300.000.000 nükleotitten söz ediyoruz. Olasılık yasaları bunu tam bir imkânsızlık olarak olanaksız kılar. İnsan geni 30.000.000.000 nükleotit içerir; bunun %1’i 300.000.000’dur.",
+            "3": "Burada uygun bir alıntı Profesör Edwin Conklin’inkidir; şöyle ifade etti:",
+            "7": "Sorumluluk yaşı kaçtır? Bir çocuk 12 yaşında, Tanrı hakkında tek bir şey bile duymadan ölürse, bu çocuk Cennet’e mi gider Cehenneme mi? Ya çocuk 15 yaşındaysa, ya da 21, ya da 25? İnsan hangi yaşta inançlarından sorumlu tutulmalıdır? Bu soru uzun zamandır bütün dinlerin araştırmacılarını kafasını karıştırmıştır.",
             "8": "Kuran, sorumluluk yaşını 40 olarak belirler; bu yaştan önce ölen herkes Cennete gider (46:15). Eğer kişi Tanrı’ya inandıysa ve nefsi besleyip geliştirerek bu inançtan yarar gördüyse (bkz. Ek 15), Üst Cennete gider. Aksi takdirde kişi Alt Cennete gider.",
-            "9": "Your first reaction to this piece of information is objection: “What if the person was really bad, evil, and an atheist, will he go to Heaven if he died before the age of 40?” This is because you are mean, while God is the Most Merciful. Our tendency is to “put them all in Hell.”",
-            "10": "People who object strongly to this Divine mercy cannot come up with a cutoff age of responsibility. They ask questions like, “What if the person was really wicked?” The answer is, “Does God know that this person was wicked?” “Yes.” “Does God know that this person does not deserve to go to Heaven?” “Yes.” “Therefore, this person will not die before the age of 40.” As simple as that. God is the only one who terminates our lives on this earth. He knows exactly who deserves to go Heaven and who deserves to go to Hell."
+            "9": "Bu bilgi parçasına ilk tepkiniz itiraz etmektir: “Ya kişi gerçekten kötü, kötücül ve ateist ise, 40 yaşından önce öldüyse Cennet’e mi gider?” Bunun nedeni sizin acımasız olmanızdır, oysa Tanrı En Merhametlidir. Bizim eğilimimiz “onların hepsini Cehenneme koyun” şeklinde olur.",
+            "10": "Bu göksel merhamete şiddetle itiraz eden insanlar sorumluluk için bir sınır yaşı ortaya koyamaz. Şöyle sorular sorarlar: “Ya kişi gerçekten kötüyse?” Yanıt şudur: “Tanrı bu kişinin kötü olduğunu biliyor mu?” “Evet.” “Tanrı bu kişinin Cennet’e gitmeyi hak edip etmediğini biliyor mu?” “Evet.” “O hâlde, bu kişi 40 yaşından önce ölmeyecektir.” Bu kadar basit. Bu yeryüzündeki hayatlarımıza son veren tek kişi Tanrı’dır. Kimin Cennet’e gitmeyi hak ettiğini ve kimin Cehenneme gitmeyi hak ettiğini O tam olarak bilir."
         },
         "picture": {},
         "table": {},
         "evidence": {
             "4": {
                 "lines": {
-                    "1": "The probability of life originating from accident is comparable to the probability of the Unabridged Dictionary resulting from an explosion in a printing factory."
+                    "1": "Hayatın tesadüften kaynaklanma olasılığı, bir basım fabrikasındaki bir patlamayla Kısaltılmış Sözlük’ün ortaya çıkma olasılığına benzer."
                 },
                 "ref": []
             }
@@ -8617,126 +8617,126 @@
         "page": 502,
         "text": {
             "1": "1989’un başlarında Theodore Robert Bundy adında bir adam, çok sayıda kadın öldürdüğü için idam edildi. Bütün ulus, onun tarihin en vahşi suçlularından biri olduğu konusunda hemfikirdi. Öyle ki, onun infazı, idam cezası karşıtlarının protesto etmediği ender durumlardan biriydi. Tam tersine, esasında birçok insan onun infazını kutladı. Çok sayıda gazeteci, başyazı ve siyasetçi, Ted Bundy’i infaz etmek için adaletin on bir yıl sürmesi gerçeğinden hayıflandılar. Bundy’nin mahkûmiyetinden sonra en geç altı yıl içinde infaz edilmiş olması gerektiğini belirttiler. Kuran’a göre bu, birinin Bundy’e yapabileceği en büyük iyilik olurdu. İnfaz edildiğinde 42 yaşındaydı. Beş yıl önce, 37 yaşındayken infaz edilmiş olsaydı, doğruca Cennete gitmiş olacaktı ve o bunu hak etmiyordu.",
-            "2": "As it turns out, Bundy was one of the signs God has given us to confirm that anyone who dies before 40 goes to Heaven. Bundy’s name, Theodore Robert Bundy, consists of 19 letters, and he confessed to killing 19 women just one day before his execution. There were many other signs from God.",
-            "3": "Delivering this important piece of information is one of the responsibilities given to me as God’s Messenger of the Covenant. It is not my personal opinion.",
-            "4": "It is noteworthy that both Martin Luther King and Malcolm X were assassinated just a couple of months before their 40th birthdays.",
-            "7": "As stated in 3:81, and in Appendix 2, God has sent a messenger to consolidate the messages delivered by all the prophets, purify them, and unify them into one religion: Submission. The timing is certainly ripe for fulfillment of this important prophecy, for the following reasons:",
-            "8": "1. Judaism, Christianity, and Islam have been corrupted beyond recognition.",
-            "9": "2. All God’s messages have been delivered; the Quran is the Final Testament.",
-            "10": "3. More than 93% of the human beings destined to live in this world are yet to come. As illustrated in the Introduction, Page xiv, the people who have lived on this earth since Adam are only one-fifteenth of the total projected human population.",
-            "12": "The best illustration of today’s corrupted Judaism can be found in the books of a famous Rabbi; Harold S. Kushner. In his best seller WHEN BAD THINGS HAPPEN TO GOOD PEOPLE, Avon Books, 1981, Rabbi Kushner states the following:"
+            "2": "Anlaşılan o ki Bundy, 40 yaşından önce ölen herkesin Cennet’e gittiğini doğrulamak için Tanrı’nın bize verdiği işaretlerden biriydi. Bundy’nin adı, Theodore Robert Bundy, 19 harften oluşur ve infazından sadece bir gün önce, 19 kadını öldürdüğünü itiraf etti. Tanrı’dan gelen daha birçok işaret vardı.",
+            "3": "Bu önemli bilgi parçasını iletmek, Tanrı’nın Antlaşma Elçisi olarak bana verilmiş sorumluluklardan biridir. Bu benim şahsi görüşüm değildir.",
+            "4": "Şu dikkat çekicidir ki hem Martin Luther King hem de Malcolm X 40. doğum günlerinden yalnızca birkaç ay önce suikast sonucu öldürüldü.",
+            "7": "3:81’de ve Ek 2’de belirtildiği gibi, Tanrı bütün peygamberler tarafından iletilen mesajları sağlamlaştırmak, onları arıtmak ve onları tek bir dinde birleştirmek için bir elçi göndermiştir: Teslimiyet. Bu önemli kehanetin gerçekleşmesi için zamanlama kesinlikle olgunlaşmıştır, şu nedenlerden dolayı:",
+            "8": "1. Yahudilik, Hristiyanlık ve İslam tanınmayacak kadar bozulmuştur.",
+            "9": "2. Tanrı’nın bütün mesajları iletilmiştir; Kuran Son Ahit’tir.",
+            "10": "3. Bu dünyada yaşaması mukadder olan insanların %93’ünden fazlası henüz gelmemiştir. Giriş, xiv. sayfada gösterildiği gibi, Adem’den beri bu yeryüzünde yaşamış olan insanlar toplam öngörülen insan nüfusunun yalnızca on beşte biridir.",
+            "12": "Günümüzün bozulmuş Yahudiliğinin en iyi örneği, ünlü bir Haham olan Harold S. Kushner’in kitaplarında bulunabilir. En çok satan kitabında; When Bad Things Happen to Good People, Avon Books, 1981, Haham Kushner şunları belirtir:"
         },
         "picture": {},
         "table": {},
         "evidence": {},
         "titles": {
             "5": "Ek 33",
-            "6": "Why Did God Send A Messenger Now?",
-            "11": "Judaism"
+            "6": "Tanrı Neden Şimdi Bir Elçi Gönderdi?",
+            "11": "Yahudilik"
         }
     },
     {
         "page": 503,
         "text": {
-            "3": "If Jesus came back to life today, the Christians would crucify him. Outstanding Christian scholars have reached solid conclusions that today’s Christianity has nothing to do with Jesus, and that its doctrine was mortally distorted at the infamous Nicene Conferences (325 A.D.). See THE MYTH OF GOD INCARNATE, Westminster Press, Philadelphia, 1977.",
-            "5": "If Muhammad came back to this world, the “Muslims” would stone him to death. The religion they follow today has nothing to do with the Islam, i.e. Submission, preached by Abraham and Muhammad. Everything the “Muslims” do is wrong: the First Pillar (Shahaadah), the call to Salat prayer (Azan), the ablution (Wudu), the daily Salat prayers, the Zakat charity, Hajj, and all other practices of Islam (see Appendices 2, 13, & 15).",
-            "7": "The extent to which Islam (Submission) has been corrupted is illustrated in the following table:"
+            "3": "İsa bugün hayata geri gelseydi, Hristiyanlar onu çarmıha gererdi. Seçkin Hristiyan âlimler, bugünün Hristiyanlığının İsa ile hiçbir ilgisi olmadığı ve doktrininin kötü şöhretli İznik Konferanslarında (MS 325) ölümcül biçimde tahrif edildiği yönünde sağlam sonuçlara varmıştır. Bkz. The Myth of God Incarnate, Westminster Press, Philadelphia, 1977.",
+            "5": "Muhammed bu dünyaya geri gelseydi, “Müslümanlar” onu taşlayarak öldürürdü. Bugün takip ettikleri dinin, İbrahim ve Muhammed tarafından vaaz edilen İslam’la, yani Teslimiyet’le, hiçbir ilgisi yoktur. “Müslümanların” yaptığı her şey yanlıştır: İlk Direk (Şehadet), Namaz duasına çağrı (Ezan), abdest (Vudu), günlük Namaz duaları, Zekât bağışı, Hac ve İslam’ın bütün diğer uygulamaları (bkz. Ek 2, 13 ve 15).",
+            "7": "İslam’ın (Teslimiyet’in) ne ölçüde bozulduğu aşağıdaki tabloda gösterilmektedir:"
         },
         "picture": {},
         "table": {},
         "evidence": {
             "1": {
                 "lines": {
-                    "1": "..., we would be advised to take this world as seriously as we can, in case it turns out to be the only one we will ever have, and to look for meaning and justice here. (P. 29)",
-                    "2": "Bad things do happen to good people in this world, but it is not God who wills it. God would like people to get what they deserve, but He cannot always arrange it. (P. 42)",
-                    "3": "God does not reach down to interrupt the workings of laws of nature to protect the righteous from harm. This is a second area of our world which causes bad things to happen to good people, and God does not cause it and cannot stop it. (P. 58)",
-                    "4": "God can’t do everything, but He can do some important things. (P. 113)",
-                    "5": "We can’t ask Him to make us immune to disease, because He can’t do that. (P. 125)",
-                    "6": "I recognize His limitations. He is limited in what He can do by law of nature, and by the evolution of human nature and human moral freedom. (P. 134)"
+                    "1": "…, bu dünyayı elimizden geldiğince ciddiye almamız öğüt verilir; bu durumda sahip olacağımız, anlam ve adaleti bulacağımız tek yer haline geldiği ortaya çıkar. (S. 29)",
+                    "2": "Bu dünyada iyi insanların başına gerçekten de kötü şeyler gelir, ama onu irade eden Tanrı değildir. Tanrı insanların hak ettiklerini almasını ister, ama bunu her zaman ayarlayamaz. (S. 42)",
+                    "3": "Tanrı, doğruları zarardan korumak için doğa yasalarının işleyişini kesintiye uğratmak üzere aşağı uzanmaz. Bu, dünyamızın, iyi insanların başına kötü şeyler gelmesine yol açan ikinci bir alanıdır ve Tanrı buna neden olmaz ve bunu durduramaz. (S. 58)",
+                    "4": "Tanrı her şeyi yapamaz, ama bazı önemli şeyleri yapabilir. (S. 113)",
+                    "5": "O’ndan bizi hastalığa karşı bağışık kılmasını isteyemeyiz, çünkü O bunu yapamaz. (S. 125)",
+                    "6": "Ben O’nun sınırlarını fark ediyorum. O, yapabileceği şeyler bakımından doğa yasasıyla ve insan doğasının ve insanın ahlaki özgürlüğünün evrimiyle sınırlıdır. (S. 134)"
                 },
                 "ref": []
             }
         },
         "titles": {
-            "2": "Christianity",
-            "4": "Islam",
-            "6": "“A Religion Never Authorized by God” (42:21)"
+            "2": "Hristiyanlık",
+            "4": "İslam",
+            "6": "“Tanrı Tarafından Hiçbir Zaman Yetkilendirilmemiş Bir Din” (42:21)"
         }
     },
     {
         "page": 504,
         "text": {
-            "2": "This is only a minute sample of the violations committed by the “Muslims” on a daily basis. This is why God has sent His Messenger of the Covenant now."
+            "2": "Bu, “Müslümanlar” tarafından günlük olarak işlenen ihlallerin yalnızca küçük bir örneğidir. İşte bu yüzden Tanrı şimdi O’nun Antlaşma Elçisi’ni göndermiştir."
         },
         "picture": {},
         "table": {
             "1": {
                 "ref": "",
                 "title": [
-                    "Innovation",
-                    "Violated Quranic Principles"
+                    "Bidat",
+                    "İhlal Edilen Kuranî İlkeler"
                 ],
                 "values": [
-                    "Hadith & Sunna",
-                    "6:19, 6:38, 6:114; 7:1-3; 12:111; 17:46; 31:6; 45:6; 69:38-47; plus more.",
-                    "Killing whomever they consider an apostate",
+                    "Hadis & Sünnet",
+                    "6:19, 6:38, 6:114; 7:1-3; 12:111; 17:46; 31:6; 45:6; 69:38-47; ve daha fazlası.",
+                    "Mürted saydıkları herkesi öldürmek",
                     "2:256; 4:90; 10:99; 18:29; 88:21-22.",
                     "",
                     "Acımasız ceza adalet sistemi:",
-                    "Cutting off the hand of the thief",
+                    "Hırsızın elini kesip atmak",
                     "5:38, 12:31.",
-                    "Stoning the adulterers to death",
+                    "Zina edenleri taşlayarak öldürmek",
                     "4:25, 24:2.",
-                    "Killing anyone who does not observe Salat",
+                    "Namazı gözetmeyen herhangi birini öldürmek",
                     "2:256, 18:29.",
-                    "Killing one who drinks alcohol for the 4th time",
+                    "4’üncü kez alkol içen birini öldürmek",
                     "2:256, 18:29.",
-                    "Forbidding menstruating women from worshiping",
+                    "Regl olan kadınların tapınmasını yasaklamak",
                     "2:222.",
-                    "Forbidding women from the Friday Prayer",
+                    "Kadınlara Cuma Namazı’nı yasaklamak",
                     "62:9.",
                     "",
-                    "Idolizing Muhammad against his will:",
-                    "calling him “the most honorable messenger”",
+                    "Muhammed’i onun iradesine aykırı putlaştırmak:",
+                    "onu “en şerefli elçi” olarak adlandırmak",
                     "2:285.",
-                    "claiming that he was infallible",
+                    "onun yanılmaz olduğunu iddia etmek",
                     "4:79; 9:117; 17:73-74; 33:37; 40:66, 66:1; 80:1-10; 93:7.",
-                    "setting up his tomb as a “Sacred Mosque”",
+                    "onun mezarını bir “Kutsal Mescit” olarak tesis etmek",
                     "2:149-150.",
-                    "claiming that he possesses power of intercession",
+                    "onun şefaat gücüne sahip olduğunu iddia etmek",
                     "2:48, 2:123, 2:254; 6:70,6:94; 7:53; 10:3; 39:44; 43:86; 74:48.",
-                    "inventing an indefensible story about his ascension to the heavens on a horse, at the speed of light, and talking God out of 50 Salat prayers. At the speed of light, he would still be traveling within the Milky Way Galaxy.",
+                    "onun bir at üzerinde, ışık hızında, göklere yükselişi ve Tanrı’yı 50 rekât namazdan vazgeçirmesi hakkında savunulamaz bir hikâye uydurmak. Işık hızında bile olsa, o hâlâ Samanyolu Galaksisi içinde yol alıyor olacaktı.",
                     "17:1; 53:1-18.",
-                    "Adding his name in the Salat prayers & Azan",
+                    "onun adını namaz dualarına ve ezana eklemek",
                     "20:14; 72:18.",
-                    "Adding his name to the First Pillar of Islam",
+                    "onun adını İslam’ın İlk Direği’ne eklemek",
                     "3:18; 37:35; 39:45.",
                     "",
-                    "Insulting Muhammad by depicting him as a vicious man:",
-                    "they claim he gouged out people’s eyes",
+                    "Acımasız bir adam olarak tasvir ederek Muhammed’e hakaret etmek:",
+                    "onun insanların gözlerini oyduğunu iddia ediyorlar",
                     "3:159, 68:4",
-                    "claiming he possessed sexual power of 30 men",
+                    "onun 30 erkeğin cinsel gücüne sahip olduğunu iddia etmek",
                     "18:110; 25:20.",
-                    "Nullifying the fact that Muhammad was the last prophet by teaching that Jesus will come back to this world. This makes Jesus the last prophet.",
+                    "Muhammed’in son peygamber olduğu gerçeğini, İsa’nın bu dünyaya geri döneceğini öğreterek geçersiz kılmak. Bu, İsa’yı son peygamber yapar.",
                     "33:40.",
-                    "Claiming that Muhammad was illiterate, un-intelligent.",
+                    "Muhammed’in okur-yazar olmayan, akılsız biri olduğunu iddia etmek",
                     "Ek 28’e bakınız.",
-                    "A bizarre dietary system with multitudes of prohibitions",
+                    "Çok sayıda haram içeren acayip bir beslenme sistemi",
                     "6:145-150; 16:115-116.",
-                    "Altering the Sacred Months",
+                    "Kutsal Ayları değiştirmek",
                     "9:37.",
-                    "Neglecting the Zakat charity through distortion",
+                    "Zekât bağışını tahrifat yoluyla ihmal etmek",
                     "6:141, Ek 15.",
-                    "Oppressing women and forcing them to wear head-covers and unreasonable clothes; and depriving them of all rights in marriage, divorce, inheritance, etc. Insulting women by instituting that “if a monkey, dog or a woman passes in front of a praying person, his prayer is nullified” (Hadith)",
+                    "Kadınlara baskı uygulamak ve onları başörtüleri takmaya ve makul olmayan kıyafetler giymeye zorlamak; ve onları evlilikte, boşanmada, mirasta vb. bütün haklardan mahrum bırakmak. “Eğer bir maymun, köpek veya kadın dua eden bir kişinin önünden geçerse onun duası geçersiz kılınır” (Hadis) hükmünü koyarak kadınlara hakaret etmek.",
                     "2:228; 3:195; 4:19, 4:32; 9:71.",
-                    "Inventing numerous rules from ablution, to prayer, to sleeping to cutting one’s nails",
+                    "Abdestten namaza, uyumaya, birinin tırnaklarını kesmesine kadar çok sayıda kural icat etmek",
                     "2:67-71; 5:101;42:21.",
-                    "Prohibiting gold and silk for men",
+                    "Altını ve ipeği erkeklere haram kılmak",
                     "5:48-49; 7:31-32.",
-                    "Prohibiting music and the arts",
+                    "Müziği ve sanatı haram kılmak",
                     "7:32; 34:13; 42:21.",
-                    "Ridiculing Islam by stating that the earth is built on top of a giant whale!! ",
-                    "(79:30; Ibn Kathir, 1200 AD & Ben Baz, 1975 AD)"
+                    "Dünya’nın dev bir balina üzerinde inşa edildiğini söyleyerek İslam ile alay etmek!!",
+                    "(79:30; İbn-i Kesir, M.S. 1200 & Bin Baz, M.S. 1975)"
                 ]
             }
         },
@@ -8746,18 +8746,18 @@
     {
         "page": 505,
         "text": {
-            "4": "Today’s society is replete with powerful temptations. In America’s society of the eighties, even parents start talking about boyfriends for their daughters and girlfriends for their sons. When they reach their teens, many parents even supply birth control means to their children. An alarming percentage of teen-agers are sexually active, even though they are not physiologically mature, and without any moral limitations. Millions of illicit pregnancies and the tragedies associated with them, plus millions of tragic abortions, happen every month in the USA.",
-            "5": "Among the results of this moral breakdown: unwanted and unsupported children, delinquent and irresponsible fathers, criminals who have no regard for people’s lives or properties, millions of social misfits, incurable genital herpes, incurable genital warts, devastating syphilis and gonorrhea, dysplasia, the killer AIDS, and new diseases never known before.",
-            "6": "What most people do not know is that this moral breakdown costs them dearly throughout their lives. For the only law that rules the world is God’s law, and these flagrant violations of God’s law cost them a lot of misery and problems (20:124).",
-            "7": "The true believers who care about their children will advise them and remind them repeatedly and persistently (20:132) to keep their chastity. This means staying a virgin until their wedding night, then staying loyal to one’s spouse—never committing adultery—for their own happiness. God’s advice to keep our chastity, before and after marriage, is for our own good. God is the one who controls our health, wealth, and happiness or misery (53:43, 53:48).",
-            "10": "There is no compromise whatsoever regarding illicit drugs and alcoholic beverages; they are called “abominations and the work of Satan” (5:90). In 2:219 and 5:90, we see that “intoxicants, gambling, the idols’ altars, and games of chance” are strictly prohibited. The word used for intoxicants is “Khamr” from the root word “Khamara” which means “to cover.” Thus, anything that covers or hinders the mind is prohibited. This includes anything that alters the mind, such as marijuana, heroin, cocaine, alcohol, hashish, and anything else that affects the mind."
+            "4": "Günümüz toplumu birinin yoldan çıkmasına sebep olabilecek tesirli şeylerle doludur. Seksenlerin Amerika toplumunda ebeveynler bile kızları için erkek arkadaşlardan ve oğulları için kız arkadaşlardan söz etmeye başladılar. Çocukları ergenlik çağına ulaştığında birçok ebeveyn çocuklarına doğum kontrol araçları bile temin ediyor. Ergenlerin endişe verici bir yüzdesi, fizyolojik olarak olgun olmamalarına rağmen ve hiçbir ahlaki sınırlama olmaksızın, cinsel olarak aktif durumdalar. ABD’de her ay milyonlarca evlilik dışı gebelik ve bunlarla bağlantılı trajediler, buna ek olarak milyonlarca trajik kürtaj meydana gelmektedir.",
+            "5": "Bu ahlaki çöküşün sonuçları arasında şunlar vardır: istenmeyen ve destek verilmeyen çocuklar, görevlerini yerine getirmeyen ve sorumsuz babalar, insanların hayatlarına veya mallarına hiçbir saygı göstermeyen suçlular, milyonlarca sosyal açıdan uyumsuz bireyler, tedavisi olmayan genital uçuk, tedavisi olmayan genital siğiller, yıkıcı frengi ve bel soğukluğu, displazi, öldürücü AIDS ve daha önce hiç bilinmeyen yeni hastalıklar.",
+            "6": "İnsanların çoğunun bilmediği şey şudur ki bu ahlaki çöküş hayatları boyunca onlara çok ağır bedeller ödetir. Çünkü dünyaya hükmeden tek yasa Tanrı’nın yasasıdır ve Tanrı’nın yasasının bu apaçık ihlalleri onlara çok fazla sefalet ve soruna mal olur (20:124).",
+            "7": "Çocuklarını önemseyen hakiki inananlar, iffetlerini korumaları için onlara öğüt verecek ve bunu onlara tekrar tekrar ve ısrarla hatırlatacaktır (20:132). Bu, kendi mutlulukları için evlilik gecelerine kadar bakir/bakire kalmak, sonra da kişinin eşine sadık kalması ve asla zina etmemesi anlamına gelir. Tanrı’nın evlilikten önce ve sonra iffetimizi koruma öğüdü kendi iyiliğimiz içindir. Sağlığımızı, servetimizi ve mutluluğumuzu ya da perişanlığımızı kontrol eden Tanrı’dır (53:43, 53:48).",
+            "10": "Yasa dışı uyuşturucular ve alkollü içecekler konusunda kesinlikle hiçbir taviz yoktur; onlara “iğrençlikler ve Şeytan’ın işi” diye adlandırılır (5:90). 2:219 ve 5:90’da şunu görürüz ki “sarhoş ediciler, kumar, putlara ait sunaklar ve şans oyunları” kesin biçimde yasaklanmıştır. Sarhoş ediciler için kullanılan sözcük “Hamr”dır; bu, “örtmek” anlamına gelen kök sözcük “Hamara”dan gelir. Böylece, zihni örten veya engelleyen her şey yasaklanmıştır. Bu, marihuana, eroin, kokain, alkol, afyon gibi şeyleri ve zihni etkileyen başka her şeyi, yani zihni değiştiren her şeyi kapsar."
         },
         "picture": {},
         "table": {},
         "evidence": {
             "3": {
                 "lines": {
-                    "1": "Sons and daughters of the true believers must be taught that their happiness throughout their lives depends on following God’s law and preserving their chastity. This means that they must keep themselves for their spouses only, and never allow anyone else to touch them in a sexual manner"
+                    "1": "Hakiki inananların oğullarına ve kızlarına, hayatları boyunca mutluluklarının, Tanrı’nın yasasına uymaya ve iffetlerini korumaya bağlı olduğu öğretilmesi gerekir. Bu, kendilerini yalnızca eşleri için saklamaları ve başka hiç kimsenin onlara cinsel bir biçimde dokunmasına asla izin vermemeleri gerektiği anlamına gelir."
                 },
                 "ref": [
                     "23:5-6, 24:30, 33:35, 70:29-30"
@@ -8766,33 +8766,33 @@
         },
         "titles": {
             "1": "Ek 34",
-            "2": "Virginity",
+            "2": "Bekâret",
             "8": "Ek 35",
-            "9": "Drugs & Alcohol"
+            "9": "Uyuşturucular & Alkol"
         }
     },
     {
         "page": 506,
         "text": {
-            "4": "A nation that upholds God’s laws is guaranteed prominence among the nations of the world, victory, prosperity, and happiness (10:62-64, 16:97, 24:55, 41:30-31). On the other hand, a nation that violates God’s laws incurs a miserable life (20:124). A nation that upholds God’s laws is guaranteed to be a great nation. This is not a mere idealistic dream; since God is in full control (10:61), His guarantees and promises are done. A nation that upholds God’s laws is characterized by:",
-            "5": "1. Maximum freedom for the people—freedom of religion, freedom of expression, freedom to travel, and freedom of economy (2:256, 10:99, 88:21-22).",
-            "6": "2. Guaranteed human rights for all the people, regardless of their race, color, creed, social status, financial situation, or political affiliation (5:8, 49:13).",
-            "7": "3. Prosperity for all the people. God’s economic system is based on constant circulation of wealth, no usury, and productive investment. Non-productive economy such as gambling, lottery, and high interest loans are not permitted (2:275-277, 59:7).",
-            "8": "4. Social justice for all. Because of the obligatory charity (Zakat), no one will go hungry or un-sheltered (2:215, 70:24-25, 107:1-7).",
-            "9": "5. A political system that is based on unanimous consensus. Through mutual consultation and freedom of expression, one side of any given issue convinces all participants in the discussion. The end result is a unanimous agreement, not the opinion of a 51% majority rammed down the throat of the 49% minority (42:38).",
-            "10": "6. A society that upholds and maintains the highest standards of moral behavior. There will be a strong family, no alcoholism, no illicit drugs, no illegitimate pregnancies, no abortions, and practically no divorce.",
-            "11": "7. Maximum regard for people’s lives and properties. Therefore, there will be no crime against the people’s lives or properties.",
-            "12": "8. Prevalence of love, courtesy, peace, and mutual respect among the people, and between this nation and other world communities (3:110, 60:8-9).",
-            "13": "9. Environmental protection is guaranteed through conservation and prohibition of wasteful practices (30:41)."
+            "4": "Tanrı’nın yasalarına bağlı kalan bir ulusa, dünya ulusları arasında öne çıkma, galibiyet, refah ve mutlulukla garanti edilir (10:62-64, 16:97, 24:55, 41:30-31). Öte yandan, Tanrı’nın yasalarını ihlal eden bir ulus sefil bir hayatı üzerine çeker (20:124). Tanrı’nın yasalarına bağlı kalan bir ulusun büyük bir ulus olması garanti edilmektedir. Bu, sadece idealist bir hayal değildir; çünkü Tanrı tam kontrol durumunda olduğundan (10:61), O’nun güvenceleri ve vaatleri yapılmaktadır. Tanrı’nın yasalarına bağlı kalan bir ulus şunlarla karakterize edilir:",
+            "5": "1. İnsanlar için maksimum özgürlük—din özgürlüğü, ifade özgürlüğü, seyahat etme özgürlüğü ve ekonomik özgürlük (2:256, 10:99, 88:21-22).",
+            "6": "2. Bütün insanlar için, ırkları, renkleri, inançları, toplumsal statüleri, mali durumları veya siyasi mensubiyetleri ne olursa olsun, garanti altına alınmış insan hakları (5:8, 49:13).",
+            "7": "3. Bütün insanlar için refah. Tanrı’nın ekonomik sistemi servetin sürekli dolaşımına, tefeciliğin olmamasına ve üretken yatırıma dayanır. Kumar, piyango ve yüksek faizli krediler gibi üretken olmayan ekonomi biçimlerine izin verilmez (2:275-277, 59:7).",
+            "8": "4. Herkes için sosyal adalet. Zorunlu bağış (Zekât) sayesinde hiç kimse aç veya barınaksız kalmayacaktır (2:215, 70:24-25, 107:1-7).",
+            "9": "5. Oy birliğiyle mutabakata dayalı bir siyasi sistem. Karşılıklı istişare ve ifade özgürlüğü yoluyla, herhangi bir meselenin bir tarafı tartışmadaki bütün katılımcıları ikna eder. Nihai sonuç, %49’luk azınlığa dayatılan %51’lik bir çoğunluğun görüşü değil, oy birliğiyle varılmış bir anlaşmadır (42:38).",
+            "10": "6. Ahlaki davranışın en yüksek standartlarına bağlı kalan ve bunları sürdüren bir toplum. Güçlü bir aile olacaktır, alkolizm olmayacaktır, yasa dışı uyuşturucular olmayacaktır, evlilik dışı gebelikler olmayacaktır, kürtajlar olmayacaktır ve neredeyse hiç boşanma olmayacaktır.",
+            "11": "7. İnsanların hayatlarına ve mallarına azami saygı. Bu sayede, insanların hayatlarına veya mallarına karşı hiçbir suç olmayacaktır.",
+            "12": "8. İnsanlar arasında ve bu ulus ile diğer dünya toplulukları arasında sevginin, nezaketin, barışın ve karşılıklı saygının yaygınlığı (3:110, 60:8-9).",
+            "13": "9. Çevrenin korunması, doğal kaynakları koruma ve savurgan uygulamaların yasaklanması yoluyla garanti altına alınır (30:41)."
         },
         "picture": {},
         "table": {},
         "evidence": {
             "3": {
                 "lines": {
-                    "1": "If the people of the scripture (Jews, Christians, and Muslims) believe and maintain a righteous life, we will remit their sins and admit them into the blissful Heaven. Had they observed the Torah, the Gospel, and what is revealed herein from their Lord, they would have enjoyed provisions from above them, and from beneath their feet. Some of them are righteous, but most of them are evil doers. [5:65-66]",
-                    "2": "If only the people of the various communities believed and maintained a righteous life, we would have showered them with blessings from the heaven and the earth. [7:96]",
-                    "3": "God is the One who controls your happiness, or misery. .... God is the One who makes you rich or poor. [53:43, 53:48]"
+                    "1": "Eğer kutsal yazı halkı (Yahudiler, Hristiyanlar ve Müslümanlar) inanır ve doğru bir hayat sürerse, onların günahlarını örtecek ve onları saadet dolu Cennet içine kabul edeceğiz. Eğer Tevrat’ı, İncil’i ve Rablerinden burada vahyedileni gözetmiş olsalardı, üstlerinden ve ayaklarının altından gelen rızıkların keyfini çıkarırlardı. Onların bir kısmı doğrulardır, ama çoğu kötülük yapanlardır. [5:65-66]",
+                    "2": "Keşke çeşitli toplulukların insanları inansa ve doğru bir hayatı sürdürseydi, onlara gökten ve yeryüzünden nimetler yağdırırdık. [7:96]",
+                    "3": "Mutluluğunuzu ya da perişanlığınızı kontrol eden Tanrı’dır. … Sizi zengin ya da fakir yapan Tanrı’dır. [53:43, 53:48]"
                 },
                 "ref": []
             }
@@ -8805,12 +8805,12 @@
     {
         "page": 507,
         "text": {
-            "3": "If a thief steals a thousand dollars from you, and they put him in prison, what do you get? If the thief has a wife and children, what is their crime? Why should they be deprived of their father?",
+            "3": "Eğer bir hırsız sizden bin dolar çalarsa ve onu hapse atarlarsa, sizin elinize ne geçer? Hırsızın bir karısı ve çocukları varsa, onların suçu nedir? Neden babalarından mahrum bırakılmalılar?",
             "4": "Kuran bu sorunu da, günümüz dünyasında yaygın olan ceza adalet sistemlerine bağlı sorunları da çözer.",
             "6": "Kuranî ceza adaletine göre, sizden bin dolar çalmasından suçlu olduğu kanıtlanmış hırsız, kaybettiğiniz bin dolar size eksiksiz ödenene ve ayrıca hırsızlığın size vermiş olabileceği başka herhangi bir zarar ya da sıkıntı da karşılanana kadar sizin için çalışmak zorundadır. Aynı zamanda, hırsızın suçsuz karısı kocasından, çocukları da babalarından mahrum bırakılmaz ve pahalı hapishane sistemi ortadan kaldırılır. Hapsedilme, ilgili herkes açısından yararsız olduğu kanıtlanmış merhametsiz ve insanlık dışı bir cezadır.",
-            "7": "Contrary to common belief, the thief’s hand shall not be cut off. Thank God for His mercy and His mathematical miracle in the Quran, we know now that the thief’s hand is to be marked. Marking the hand of the thief is stated in 5:38. The sura and verse numbers add up to 5 + 38 = 43. The other place in the Quran where “the hand is cut” is found in 12:31. This is where we see the women who admired Joseph so much, they “cut” their hands. Obviously, they did not sever their hands; no one can do that. The sura and verse numbers add up to 12 + 31 = 43, the same total as in 5:38. This gives mathematical confirmation that the Quranic law calls for marking the hand of the thief, not severing it. Additional mathematical confirmation is provided: 19 verses after 12:31, we see the “cutting of the hand” again. Punishment in Islam (Submission) is based on equivalence and social pressure (2:178, 5:38, 24:2).",
-            "8": "The blasphemy called “Hadith & Sunna” has instituted stoning to death as the punishment for married adulterers. This is not God’s law. As stated in 24:2, the punishment for adultery is whipping in public; a hundred symbolic lashes. As pointed out above, the basic punishment is social pressure and scandalizing the criminal. Whipping in public achieves this goal.",
-            "9": "In dealing with murder, the Quran definitely discourages capital punishment (2:179). “The free for the free, the slave for the slave, and the female for the female” (2:178). Due to human meanness and injustice, many people cannot even imagine what this Quranic law says. They refuse to accept the clear injunctions that strict equivalence must be observed—if a woman kills a man, or a man kills a woman, or a slave kills a free person, or a free person kills a slave, capital punishment cannot be applied. The Quran prefers that the murderer compensate the victim’s family. Killing the murderer does not bring the victim back, nor does the family of the victim benefit from executing the murderer. The compensation, however, must be sufficient to be a deterrent for others. In Islam (Submission), the victim and/or the victim’s family are the judges for all crimes; they decide what the punishment shall be under the supervision of a person who knows the Quran."
+            "7": "Yaygın inanışın aksine, hırsızın eli kesilip koparılmayacaktır. O’nun merhameti ve Kuran’daki matematiksel mucizesi için Tanrı’ya şükürler olsun; artık hırsızın elinin işaretleneceğini biliyoruz. Hırsızın elinin işaretlenmesi 5:38’de belirtilir. Sure ve ayet numaralarının toplamı 5 + 38 = 43 eder. Kuran’da “elin kesildiği” diğer yer 12:31’de bulunur. İşte burada, Yusuf’a öylesine hayran kalan kadınların “ellerini kestiklerini” görürüz. Bariz biçimde, ellerini koparmadılar; bunu kimse yapamaz. Sure ve ayet numaralarının toplamı 12 + 31 = 43 eder; bu da 5:38’dekiyle aynı toplamdır. Bu, Kuranî yasanın hırsızın elinin kesilip koparılmasını değil, işaretlenmesi gerektidiğine dair matematiksel doğrulama sağlar. Ek bir matematiksel doğrulama daha vardır: 12:31’den 19 ayet sonra “elin kesilmesini” yeniden görürüz. İslam’da (Teslimiyet’te) cezalandırma, denklik ve sosyal baskı temeline dayanır (2:178, 5:38, 24:2).",
+            "8": "“Hadis ve Sünnet” denen küfür, zina eden evliler için ceza olarak taşlayarak öldürmeyi tesis etmiştir. Bu Tanrı’nın yasası değildir. 24:2’de belirtildiği gibi, zina cezası aleni olarak kırbaçlamadır; yüz sembolik kırbaç darbesi. Yukarıda işaret edildiği gibi, temel ceza sosyal baskı ve suçluyu mahcup etmektir. Aleni olarak kırbaçlama bu amacı gerçekleştirir.",
+            "9": "Cinayetle başa çıkarken, Kuran kesinlikle idam cezasından caydırır (2:179). “Özgüre özgür, köleye köle ve kadına kadın” (2:178). İnsandaki alçaklık ve adaletsizlik yüzünden birçok insan bu Kuranî yasanın ne dediğini hayal bile edemez. Harfi harfine denkliğin gözetilmesi gerektiğine dair apaçık talimatları kabul etmeyi reddederler—eğer bir kadın bir adamı öldürürse, ya da bir adam bir kadını öldürürse, ya da bir köle özgür bir kişiyi öldürürse, ya da özgür bir kişi bir köleyi öldürürse, idam cezası uygulanamaz. Kuran, katilin, maktülün ailesini tazmin etmesini tayin eder. Katili öldürmek maktülü geri getirmez, maktülün ailesi de katilin idam edilmesinden bir fayda görmez. Bununla birlikte tazminat, başkaları için caydırıcı olacak kadar yeterli olmak zorundadır. İslam’da (Teslimiyet’te), maktül ve/veya maktülün ailesi bütün suçlarda yargıçtır; Kuran’ı bilen bir kişinin gözetimi altında cezanın ne olacağına onlar karar verirler."
         },
         "picture": {},
         "table": {},
