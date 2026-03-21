@@ -77,6 +77,7 @@ const Pages = React.memo(({
     direction,
     upt,
     kvdo,
+    referenceToRestore,
     autoHyphenation = true,
     onEndOverscrollNext,
     onOverscrollProgressChange
@@ -192,13 +193,48 @@ const Pages = React.memo(({
         return applyCachedHyphenationToText(value, hyphenLanguage, hyphenBreakMap, hyphenProtectedTokens);
     }, [hyphenBreakMap, hyphenLanguage, hyphenProtectedTokens, autoHyphenation]);
 
-    const parseReferencesWithHyphen = useCallback((value, from, controller = null) => {
-        const parsed = parseReferences(value, from, controller);
+    const parseReferencesWithHyphen = useCallback((value, from, controller = null, options = null) => {
+        const parsed = parseReferences(value, from, controller, options);
         if (!autoHyphenation) {
             return parsed;
         }
         return hyphenateReactNode(parsed, applyHyphenation);
     }, [parseReferences, applyHyphenation, autoHyphenation]);
+
+    const handleReferenceTokenClick = useCallback((type, value, from, tokenId) => {
+        if (
+            !referenceToRestore
+            || typeof from !== 'string'
+            || typeof type !== 'string'
+            || typeof value !== 'string'
+            || typeof tokenId !== 'string'
+        ) {
+            return;
+        }
+
+        referenceToRestore.current = { type, value, from, tokenId };
+    }, [referenceToRestore]);
+
+    const getReferenceTokenColorClass = useCallback((type, value, from, tokenId) => {
+        if (typeof from !== 'string' || !from.startsWith('notes:')) {
+            return 'text-sky-500';
+        }
+
+        const noteIndex = parseInt(from.split(':')[1], 10);
+        const activeToken = referenceToRestore?.current;
+        if (
+            Number.isInteger(noteIndex)
+            && focusedNoteIndices[noteIndex]
+            && activeToken?.type === type
+            && activeToken?.value === value
+            && activeToken?.from === from
+            && activeToken?.tokenId === tokenId
+        ) {
+            return colors[theme]["matching-text"];
+        }
+
+        return 'text-sky-500';
+    }, [colors, focusedNoteIndices, referenceToRestore, theme]);
 
     const pageData = useMemo(() => quranData[selectedPage], [quranData, selectedPage]);
 
@@ -1124,7 +1160,10 @@ const Pages = React.memo(({
                                         key={"notes:" + index}
                                         lang={lang}
                                         dir={direction}>
-                                        {parseReferencesWithHyphen(note, 'notes:' + index, clickReferenceController)}
+                                        {parseReferencesWithHyphen(note, 'notes:' + index, clickReferenceController, {
+                                            onReferenceTokenClick: handleReferenceTokenClick,
+                                            getReferenceTokenColorClass,
+                                        })}
                                     </div>
                                 ))}
                                 {notesData.tables && notesData.tables.map((table, index) => (

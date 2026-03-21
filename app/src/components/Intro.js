@@ -22,6 +22,7 @@ const Intro = ({
     restoreIntroText,
     refToRestore,
     refToJump,
+    referenceToRestore,
     direction,
     upt,
     autoHyphenation = true,
@@ -38,6 +39,7 @@ const Intro = ({
     const [isRefsReady, setIsRefsReady] = useState(false);
     const textRememberRef = useRef({});
     const [notify, setNotify] = useState(null);
+    const notifyTimeoutRef = useRef(null);
     const [hyphenBreakMap, setHyphenBreakMap] = useState(() => new Map());
     const [hyphenProtectedTokens, setHyphenProtectedTokens] = useState(() => new Set());
     const [hyphenLanguage, setHyphenLanguage] = useState(normalizedLang || 'en');
@@ -110,25 +112,61 @@ const Intro = ({
         return applyCachedHyphenationToText(value, hyphenLanguage, hyphenBreakMap, hyphenProtectedTokens);
     }, [hyphenBreakMap, hyphenLanguage, hyphenProtectedTokens, autoHyphenation]);
 
-    const parseReferencesWithHyphen = useCallback((value, from, controller = null) => {
-        const parsed = parseReferences(value, from, controller);
+    const parseReferencesWithHyphen = useCallback((value, from, controller = null, options = null) => {
+        const parsed = parseReferences(value, from, controller, options);
         if (!autoHyphenation) {
             return parsed;
         }
         return hyphenateReactNode(parsed, applyHyphenation);
     }, [parseReferences, applyHyphenation, autoHyphenation]);
 
+    const startRestoreFeedback = useCallback((target) => {
+        clearTimeout(notifyTimeoutRef.current);
+        setNotify(target);
+        notifyTimeoutRef.current = setTimeout(() => {
+            setNotify(null);
+        }, 5350);
+    }, []);
+
+    const handleReferenceTokenClick = useCallback((type, value, from, tokenId) => {
+        if (
+            !referenceToRestore
+            || typeof from !== 'string'
+            || typeof type !== 'string'
+            || typeof value !== 'string'
+            || typeof tokenId !== 'string'
+        ) {
+            return;
+        }
+
+        referenceToRestore.current = { type, value, from, tokenId };
+    }, [referenceToRestore]);
+
+    const getReferenceTokenColorClass = useCallback((type, value, from, tokenId) => {
+        const activeToken = referenceToRestore?.current;
+        if (
+            notify === from
+            && activeToken?.type === type
+            && activeToken?.value === value
+            && activeToken?.from === from
+            && activeToken?.tokenId === tokenId
+        ) {
+            return colors[theme]["matching-text"];
+        }
+
+        return 'text-sky-500';
+    }, [colors, notify, referenceToRestore, theme]);
+
     useEffect(() => {
         if (currentPage && isRefsReady) {
             setTimeout(() => {
                 if (restoreIntroText.current && refToRestore.current && textRememberRef.current[refToRestore.current]) {
                     textRememberRef.current[refToRestore.current].scrollIntoView({ behavior: 'smooth', block: 'center' });
+                    startRestoreFeedback(refToRestore.current);
+                    restoreIntroText.current = false;
                 } else if (refToJump && textRememberRef.current[refToJump.current]) {
                     textRememberRef.current[refToJump.current].scrollIntoView({ behavior: 'smooth', block: 'center' });
-                    setNotify(refToJump.current);
-                    setTimeout(() => {
-                        setNotify(null);
-                    }, 5350);
+                    startRestoreFeedback(refToJump.current);
                 } else {
                     if (introRef && isRefsReady) {
                         introRef.current.scrollIntoView({ behavior: 'smooth' });
@@ -136,7 +174,11 @@ const Intro = ({
                 }
             }, 38);
         }
-    }, [currentPage, restoreIntroText, refToRestore, refToJump, isRefsReady, textRememberRef, upt]);
+    }, [currentPage, restoreIntroText, refToRestore, refToJump, isRefsReady, textRememberRef, upt, startRestoreFeedback]);
+
+    useEffect(() => () => {
+        clearTimeout(notifyTimeoutRef.current);
+    }, []);
 
     const handleRefsReady = () => {
         setIsRefsReady(true);
@@ -209,7 +251,12 @@ const Intro = ({
                         ref={(el) => textRememberRef.current["intro-" + item.type + "-" + item.order] = el}
                         onClick={(e) => handleRefClick(e, item.type + "-" + item.order)}
                         className={`select-text rounded ${colors[theme]["text-background"]} ${colors[theme]["app-text"]} p-1 mb-1 flex w-full justify-center ${hyphenClassName} ${pulsate}`}>
-                        <p className={`px-0.5 md:px-1`}>{parseReferencesWithHyphen(item.content, "intro-" + item.type + "-" + item.order)}</p>
+                            <p className={`px-0.5 md:px-1`}>
+                                {parseReferencesWithHyphen(item.content, "intro-" + item.type + "-" + item.order, null, {
+                                    onReferenceTokenClick: handleReferenceTokenClick,
+                                    getReferenceTokenColorClass,
+                                })}
+                            </p>
                     </div>
                 );
             } else if (item.type === 'evidence') {
@@ -245,10 +292,20 @@ const Intro = ({
                         onClick={(e) => handleRefClick(e, item.type + "-" + item.order)}
                         className={`${colors[theme]["base-background"]} ${colors[theme]["table-title-text"]} rounded ${smallTextTheme} p-3 border my-1.5 ${colors[theme]["border"]}`}>
                         {Object.entries(item.content.lines).map(([lineKey, lineValue]) => (
-                            <p className={` whitespace-pre-wrap my-1`} key={lineKey}>{parseReferencesWithHyphen(lineValue, "intro-" + item.type + "-" + item.order)}</p>
+                            <p className={` whitespace-pre-wrap my-1`} key={lineKey}>
+                                {parseReferencesWithHyphen(lineValue, "intro-" + item.type + "-" + item.order, null, {
+                                    onReferenceTokenClick: handleReferenceTokenClick,
+                                    getReferenceTokenColorClass,
+                                })}
+                            </p>
                         ))}
                         {item.content.ref.length > 0 && (
-                            <p>{parseReferencesWithHyphen("[" + item.content.ref.join(', ') + "]", "intro-" + item.type + "-" + item.order)}</p>
+                            <p>
+                                {parseReferencesWithHyphen("[" + item.content.ref.join(', ') + "]", "intro-" + item.type + "-" + item.order, null, {
+                                    onReferenceTokenClick: handleReferenceTokenClick,
+                                    getReferenceTokenColorClass,
+                                })}
+                            </p>
                         )}
                     </div>
                 );

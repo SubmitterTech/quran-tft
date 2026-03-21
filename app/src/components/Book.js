@@ -37,6 +37,9 @@ const Book = React.memo(({ incomingSearch = false, incomingAppendix = false, inc
     const appxReferenceToJump = useRef(null);
     const beginingReferenceToRestore = useRef(null);
     const beginingReferenceToJump = useRef(null);
+    const appReferenceToRestore = useRef(null);
+    const introReferenceToRestore = useRef(null);
+    const noteReferenceToRestore = useRef(null);
     const lastPosition = useRef(null);
 
     const [isPrevSettingsOpen, setPrevSettingsOpen] = useState(false);
@@ -468,17 +471,52 @@ const Book = React.memo(({ incomingSearch = false, incomingAppendix = false, inc
         }
     };
 
-    const parseReferences = (text, from = null, controller = null) => {
+    const getReferenceTokenColorClass = useCallback((type, value, from, tokenId, options = null) => {
+        if (typeof options?.getReferenceTokenColorClass === 'function') {
+            const customClassName = options.getReferenceTokenColorClass(type, value, from, tokenId);
+            if (typeof customClassName === 'string' && customClassName.trim().length > 0) {
+                return customClassName.trim();
+            }
+        }
+
+        return 'text-sky-500';
+    }, []);
+
+    const handleReferenceTokenNavigate = useCallback((type, value, from, tokenId, onNavigate, options = null) => {
+        if (typeof options?.onReferenceTokenClick === 'function') {
+            options.onReferenceTokenClick(type, value, from, tokenId);
+        }
+
+        onNavigate();
+    }, []);
+
+    const createReferenceTokenTracker = () => {
+        const counts = new Map();
+
+        return (type, value) => {
+            const normalizedType = String(type || '');
+            const normalizedValue = String(value || '');
+            const trackerKey = `${normalizedType}::${normalizedValue}`;
+            const nextIndex = counts.get(trackerKey) || 0;
+            counts.set(trackerKey, nextIndex + 1);
+            return `${trackerKey}::${nextIndex}`;
+        };
+    };
+
+    const parseReferences = (text, from = null, controller = null, options = null) => {
         if (text === null || text === undefined || typeof text.split !== 'function') {
             return text;
         }
-        return direction === 'rtl' ? parseReferencesRTL(text, from, controller) : parseReferencesLTR(text, from, controller);
+        return direction === 'rtl'
+            ? parseReferencesRTL(text, from, controller, options)
+            : parseReferencesLTR(text, from, controller, options);
     };
 
-    const parseReferencesLTR = (text, from = null, controller = null) => {
+    const parseReferencesLTR = (text, from = null, controller = null, options = null) => {
 
         const versePattern = '(?<!\\d:)\\b(\\d+:\\d+(?:-\\d+)?)\\b(?!:\\d)';
         const fallbackPattern = '(\\d+:\\d+(?:-\\d+)?)';
+        const nextTokenId = createReferenceTokenTracker();
 
         const verseRegex = supportsLookAhead()
             ? new RegExp(`${versePattern}`, 'g')
@@ -491,8 +529,12 @@ const Book = React.memo(({ incomingSearch = false, incomingAppendix = false, inc
         const replaceAppendixNumbers = (part) => {
             return part.split(/(\d+)/).map((segment, index) => {
                 if (/\d+/.test(segment)) {
+                    const tokenId = nextTokenId('appendix', segment);
                     return (
-                        <span key={index} className="cursor-pointer text-sky-500" onClick={() => handleClickAppReference(segment, from)}>
+                        <span
+                            key={index}
+                            className={`cursor-pointer transition-colors duration-100 ease-linear ${getReferenceTokenColorClass('appendix', segment, from, tokenId, options)}`}
+                            onClick={() => handleReferenceTokenNavigate('appendix', segment, from, tokenId, () => handleClickAppReference(segment, from), options)}>
                             {segment}
                         </span>
                     );
@@ -551,8 +593,19 @@ const Book = React.memo(({ incomingSearch = false, incomingAppendix = false, inc
                     if (oldscripture) {
                         elements.push(match[0]);
                     } else {
+                        const tokenId = nextTokenId('verse', match[0]);
                         elements.push(
-                            <span key={index} className="cursor-pointer text-sky-500" onClick={() => controller ? controller(match[0], from) : handleClickReference(match[0], from)}>
+                            <span
+                                key={index}
+                                className={`cursor-pointer transition-colors duration-100 ease-linear ${getReferenceTokenColorClass('verse', match[0], from, tokenId, options)}`}
+                                onClick={() => handleReferenceTokenNavigate('verse', match[0], from, tokenId, () => {
+                                    if (controller) {
+                                        controller(match[0], from);
+                                        return;
+                                    }
+
+                                    handleClickReference(match[0], from);
+                                }, options)}>
                                 {match[0]}
                             </span>
                         );
@@ -572,8 +625,12 @@ const Book = React.memo(({ incomingSearch = false, incomingAppendix = false, inc
                     elements.push(segment);
 
                     if (index < segments.length - 1) {
+                        const tokenId = nextTokenId('intro', 'Introduction');
                         elements.push(
-                            <span key={index} className={`cursor-pointer text-sky-500`} onClick={() => handleClickReference("Introduction", from)}>
+                            <span
+                                key={index}
+                                className={`cursor-pointer transition-colors duration-100 ease-linear ${getReferenceTokenColorClass('intro', 'Introduction', from, tokenId, options)}`}
+                                onClick={() => handleReferenceTokenNavigate('intro', 'Introduction', from, tokenId, () => handleClickReference("Introduction", from), options)}>
                                 {translationApplication?.intro}
                             </span>
                         );
@@ -589,9 +646,10 @@ const Book = React.memo(({ incomingSearch = false, incomingAppendix = false, inc
         return result;
     };
 
-    const parseReferencesRTL = (text, from = null, controller = null) => {
+    const parseReferencesRTL = (text, from = null, controller = null, options = null) => {
         const versePattern = '(?<!\\d:)\b(\\d+:\\d+-\\d+|\\d+-\\d+:\\d+|\\d+:\\d+)\b(?!:\\d)';
         const fallbackPattern = '(\\d+:\\d+-\\d+|\\d+-\\d+:\\d+|\\d+:\\d+)';
+        const nextTokenId = createReferenceTokenTracker();
 
         const verseRegex = false //supportsLookAhead() DISABLE lookahead for RTL
             ? new RegExp(`${versePattern}`, 'g')
@@ -604,8 +662,12 @@ const Book = React.memo(({ incomingSearch = false, incomingAppendix = false, inc
         const replaceAppendixNumbers = (part) => {
             return part.split(/(\d+)/).map((segment, index) => {
                 if (/\d+/.test(segment)) {
+                    const tokenId = nextTokenId('appendix', segment);
                     return (
-                        <span key={index} className="cursor-pointer text-nowrap text-sky-500" onClick={() => handleClickAppReference(segment, from)}>
+                        <span
+                            key={index}
+                            className={`cursor-pointer text-nowrap transition-colors duration-100 ease-linear ${getReferenceTokenColorClass('appendix', segment, from, tokenId, options)}`}
+                            onClick={() => handleReferenceTokenNavigate('appendix', segment, from, tokenId, () => handleClickAppReference(segment, from), options)}>
                             {segment}
                         </span>
                     );
@@ -649,8 +711,20 @@ const Book = React.memo(({ incomingSearch = false, incomingAppendix = false, inc
                             </span>
                         );
                     } else {
+                        const tokenId = nextTokenId('verse', match[0]);
                         elements.push(
-                            <span key={index} dir={"ltr"} className="cursor-pointer text-nowrap text-right ml-0.5 text-sky-500" onClick={() => controller ? controller(match[0], from) : handleClickReference(match[0], from)}>
+                            <span
+                                key={index}
+                                dir={"ltr"}
+                                className={`cursor-pointer text-nowrap text-right ml-0.5 transition-colors duration-100 ease-linear ${getReferenceTokenColorClass('verse', match[0], from, tokenId, options)}`}
+                                onClick={() => handleReferenceTokenNavigate('verse', match[0], from, tokenId, () => {
+                                    if (controller) {
+                                        controller(match[0], from);
+                                        return;
+                                    }
+
+                                    handleClickReference(match[0], from);
+                                }, options)}>
                                 {match[0]}
                             </span>
                         );
@@ -687,8 +761,13 @@ const Book = React.memo(({ incomingSearch = false, incomingAppendix = false, inc
                     elements.push(segment);
 
                     if (index < segments.length - 1) {
+                        const tokenId = nextTokenId('intro', 'Introduction');
                         elements.push(
-                            <span key={index} dir={direction} className={`cursor-pointer text-sky-500`} onClick={() => handleClickReference("Introduction", from)}>
+                            <span
+                                key={index}
+                                dir={direction}
+                                className={`cursor-pointer transition-colors duration-100 ease-linear ${getReferenceTokenColorClass('intro', 'Introduction', from, tokenId, options)}`}
+                                onClick={() => handleReferenceTokenNavigate('intro', 'Introduction', from, tokenId, () => handleClickReference("Introduction", from), options)}>
                                 {translationApplication?.intro}
                             </span>
                         );
@@ -892,6 +971,7 @@ const Book = React.memo(({ incomingSearch = false, incomingAppendix = false, inc
                 restoreIntroText={restoreIntroText}
                 refToRestore={beginingReferenceToRestore}
                 refToJump={beginingReferenceToJump}
+                referenceToRestore={introReferenceToRestore}
                 direction={direction}
                 upt={updatePageTriggered}
                 autoHyphenation={isAutoHyphenationEnabled}
@@ -1001,6 +1081,7 @@ const Book = React.memo(({ incomingSearch = false, incomingAppendix = false, inc
                 direction={direction}
                 upt={updatePageTriggered}
                 kvdo={keepVerseDetailsOpen && rememberHistory}
+                referenceToRestore={noteReferenceToRestore}
                 autoHyphenation={isAutoHyphenationEnabled}
                 onEndOverscrollNext={nextPage}
                 onOverscrollProgressChange={setOverscrollNavProgress}
@@ -1083,6 +1164,7 @@ const Book = React.memo(({ incomingSearch = false, incomingAppendix = false, inc
                 restoreAppText={restoreAppText}
                 refToRestore={endReferenceToRestore}
                 refToJump={appxReferenceToJump}
+                referenceToRestore={appReferenceToRestore}
                 direction={direction}
                 upt={updatePageTriggered}
                 autoHyphenation={isAutoHyphenationEnabled}

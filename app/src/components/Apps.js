@@ -12,7 +12,7 @@ import {
     isHyphenCacheLanguage,
 } from '../utils/Hyphenation';
 
-const Apps = ({ colors, theme, translationApplication, parseReferences, appendices, selected, restoreAppText, refToRestore, refToJump, direction, upt, autoHyphenation = true }) => {
+const Apps = ({ colors, theme, translationApplication, parseReferences, appendices, selected, restoreAppText, refToRestore, refToJump, referenceToRestore, direction, upt, autoHyphenation = true }) => {
 
     const lang = localStorage.getItem("lang");
     const normalizedLang = String(lang || '').toLowerCase();
@@ -27,6 +27,7 @@ const Apps = ({ colors, theme, translationApplication, parseReferences, appendic
 
     const [isRefsReady, setIsRefsReady] = useState(false);
     const [notify, setNotify] = useState(null);
+    const notifyTimeoutRef = useRef(null);
     const [hyphenBreakMap, setHyphenBreakMap] = useState(() => new Map());
     const [hyphenProtectedTokens, setHyphenProtectedTokens] = useState(() => new Set());
     const [hyphenLanguage, setHyphenLanguage] = useState(normalizedLang || 'en');
@@ -86,26 +87,61 @@ const Apps = ({ colors, theme, translationApplication, parseReferences, appendic
         return applyCachedHyphenationToText(value, hyphenLanguage, hyphenBreakMap, hyphenProtectedTokens);
     }, [hyphenBreakMap, hyphenLanguage, hyphenProtectedTokens, autoHyphenation]);
 
-    const parseReferencesWithHyphen = useCallback((value, from, controller = null) => {
-        const parsed = parseReferences(value, from, controller);
+    const parseReferencesWithHyphen = useCallback((value, from, controller = null, options = null) => {
+        const parsed = parseReferences(value, from, controller, options);
         if (!autoHyphenation) {
             return parsed;
         }
         return hyphenateReactNode(parsed, applyHyphenation);
     }, [parseReferences, applyHyphenation, autoHyphenation]);
 
+    const startRestoreFeedback = useCallback((target) => {
+        clearTimeout(notifyTimeoutRef.current);
+        setNotify(target);
+        notifyTimeoutRef.current = setTimeout(() => {
+            setNotify(null);
+        }, 5350);
+    }, []);
+
+    const handleReferenceTokenClick = useCallback((type, value, from, tokenId) => {
+        if (
+            !referenceToRestore
+            || typeof from !== 'string'
+            || typeof type !== 'string'
+            || typeof value !== 'string'
+            || typeof tokenId !== 'string'
+        ) {
+            return;
+        }
+
+        referenceToRestore.current = { type, value, from, tokenId };
+    }, [referenceToRestore]);
+
+    const getReferenceTokenColorClass = useCallback((type, value, from, tokenId) => {
+        const activeToken = referenceToRestore?.current;
+        if (
+            notify === from
+            && activeToken?.type === type
+            && activeToken?.value === value
+            && activeToken?.from === from
+            && activeToken?.tokenId === tokenId
+        ) {
+            return colors[theme]["matching-text"];
+        }
+
+        return 'text-sky-500';
+    }, [colors, notify, referenceToRestore, theme]);
+
     useEffect(() => {
         if (selected && isRefsReady) {
             setTimeout(() => {
                 if (restoreAppText.current && refToRestore.current && textRef.current[refToRestore.current]) {
                     textRef.current[refToRestore.current].scrollIntoView({ behavior: 'smooth', block: 'center' });
+                    startRestoreFeedback(refToRestore.current);
                     restoreAppText.current = null;
                 } else if (refToJump.current && textRef.current[refToJump.current]) {
                     textRef.current[refToJump.current].scrollIntoView({ behavior: 'smooth', block: 'center' });
-                    setNotify(refToJump.current);
-                    setTimeout(() => {
-                        setNotify(null);
-                    }, 5350);
+                    startRestoreFeedback(refToJump.current);
                 } else {
                     if (appendixRef.current && appendixRef.current[`appendix-${selected}`] && isRefsReady) {
                         appendixRef.current[`appendix-${selected}`].scrollIntoView({ behavior: 'smooth' });
@@ -113,7 +149,11 @@ const Apps = ({ colors, theme, translationApplication, parseReferences, appendic
                 }
             }, 266);
         }
-    }, [selected, restoreAppText, refToRestore, refToJump, isRefsReady, textRef, upt]);
+    }, [selected, restoreAppText, refToRestore, refToJump, isRefsReady, textRef, upt, startRestoreFeedback]);
+
+    useEffect(() => () => {
+        clearTimeout(notifyTimeoutRef.current);
+    }, []);
 
     const handleRefsReady = () => {
         setIsRefsReady(true);
@@ -250,7 +290,10 @@ const Apps = ({ colors, theme, translationApplication, parseReferences, appendic
                                                 ref={(el) => (textRef.current[`${appno}-${key}-${rowIndex}-${cell.cellIndex}`] = el)}
                                                 onClick={(e) => handleClick(e, appno, `${key}-${rowIndex}-${cell.cellIndex}`)}
                                                 className={`text-center p-2 ${/^\s+$/.test(cell.content) ? `` : `border ${colors[theme]["border"]} border-opacity-25 `} ${((cell.cellIndex === 0 && row.length > 3) || (cell.cellIndex === row.length - 1 && row.length > 3) || (cell.content.includes('x') && /\d+ x/.test(cell.content))) ? ` text-nowrap ` : ` break-words `} `}>
-                                                {parseReferencesWithHyphen(cell.content, `${appno}-${key}-${rowIndex}-${cell.cellIndex}`)}
+                                                {parseReferencesWithHyphen(cell.content, `${appno}-${key}-${rowIndex}-${cell.cellIndex}`, null, {
+                                                    onReferenceTokenClick: handleReferenceTokenClick,
+                                                    getReferenceTokenColorClass,
+                                                })}
                                             </td>
                                         ))}
                                     </tr>
@@ -261,7 +304,7 @@ const Apps = ({ colors, theme, translationApplication, parseReferences, appendic
                 </div>
             </div>
         );
-    }, [colors, theme, parseReferencesWithHyphen, notify, isPersian, handleClick, applyHyphenation]);
+    }, [colors, theme, parseReferencesWithHyphen, notify, isPersian, handleClick, applyHyphenation, handleReferenceTokenClick, getReferenceTokenColorClass]);
 
     const renderContentItem = (appno, item, index) => {
         switch (item.type) {
@@ -291,7 +334,12 @@ const Apps = ({ colors, theme, translationApplication, parseReferences, appendic
                         onClick={(e) => handleClick(e, appno, index)}
                         className={`rounded ${colors[theme]["text-background"]} ${colors[theme]["text"]} p-0.5 mb-1 flex w-full text-justify ${hyphenClassName} ${pulsate}`}>
                         <div className={`overflow-x-auto`}>
-                            <p className={`px-1 break-words`}>{parseReferencesWithHyphen(item.content, appno + "-" + index)}</p>
+                            <p className={`px-1 break-words`}>
+                                {parseReferencesWithHyphen(item.content, appno + "-" + index, null, {
+                                    onReferenceTokenClick: handleReferenceTokenClick,
+                                    getReferenceTokenColorClass,
+                                })}
+                            </p>
                         </div>
                     </div>
                 );
@@ -306,10 +354,20 @@ const Apps = ({ colors, theme, translationApplication, parseReferences, appendic
                         onClick={(e) => handleClick(e, appno, index)}
                         className={`${colors[theme]["base-background"]} ${colors[theme]["table-title-text"]} rounded ${evidenceTextTheme} p-3 border my-3 ${colors[theme]["border"]}`}>
                         {Object.entries(item.content.lines).map(([lineKey, lineValue]) => (
-                            <p key={`${lineKey}`} className={`whitespace-pre-wrap text-justify my-2`}>{parseReferencesWithHyphen(lineValue, appno + "-" + index)}</p>
+                            <p key={`${lineKey}`} className={`whitespace-pre-wrap text-justify my-2`}>
+                                {parseReferencesWithHyphen(lineValue, appno + "-" + index, null, {
+                                    onReferenceTokenClick: handleReferenceTokenClick,
+                                    getReferenceTokenColorClass,
+                                })}
+                            </p>
                         ))}
                         {item.content.ref.length > 0 && (
-                            <p>{parseReferencesWithHyphen("[" + item.content.ref.join(', ') + "]", appno + "-" + index)}</p>
+                            <p>
+                                {parseReferencesWithHyphen("[" + item.content.ref.join(', ') + "]", appno + "-" + index, null, {
+                                    onReferenceTokenClick: handleReferenceTokenClick,
+                                    getReferenceTokenColorClass,
+                                })}
+                            </p>
                         )}
                     </div>
                 );
@@ -350,7 +408,10 @@ const Apps = ({ colors, theme, translationApplication, parseReferences, appendic
                             direction={direction}
                             colors={colors}
                             theme={theme}
-                            parseReferences={parseReferencesWithHyphen}
+                            parseReferences={(value, from, controller = null) => parseReferencesWithHyphen(value, from, controller, {
+                                onReferenceTokenClick: handleReferenceTokenClick,
+                                getReferenceTokenColorClass,
+                            })}
                             textRef={textRef}
                             appno={appno}
                             handleClick={handleClick}
