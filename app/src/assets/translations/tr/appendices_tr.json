@@ -86,7 +86,7 @@
     {
         "page": 398,
         "text": {
-            "1": "Like the Quran itself, the Quran’s mathematical coding ranges from the very simple, to the very complex. The Simple Facts are those observations that can be ascertained without using any tools. The complex facts require the assistance of a calculator or a computer. The following facts do not require any tools to be verified, but please remember they all refer to the original Arabic text:",
+            "1": "Kuran’ın kendisi gibi, Kuran’ın matematiksel kodlaması da çok basitten çok komplekse kadar uzanır. Basit Gerçekler, herhangi bir araç kullanmadan saptanabilen gözlemlerdir. Kompleks gerçekler bir hesap makinesinin veya bir bilgisayarın yardımını gerektirir. Aşağıdaki gerçekler doğrulanmak için herhangi bir araç gerektirmez, ama lütfen bunların hepsinin orijinal Arapça metne işaret ettiğini hatırlayın:",
             "3": "This is a condensed summary of the Simple Facts."
         },
         "picture": {},
@@ -177,26 +177,26 @@
                 "ref": "Table 1: List of the Quranic Initials and Their Suras",
                 "title": [
                     "No",
-                    "Sura No",
-                    "Sura Title",
-                    "Quranic Initials"
+                    "Sure No",
+                    "Sure Başlığı",
+                    "Kurani Başlangıç Harfleri"
                 ],
                 "values": [
                     "1.",
                     "2",
-                    "The Heifer",
+                    "Düve",
                     "A.L.M.",
                     "2.",
                     "3",
-                    "The Amramites",
+                    "İmran Ailesi",
                     "A.L.M.",
                     "3.",
                     "7",
-                    "The Purgatory",
+                    "Araf",
                     "A.L.M.S",
                     "4.",
                     "10",
-                    "Jonah",
+                    "Yunus",
                     "A.L.R.",
                     "5.",
                     "11",
@@ -204,23 +204,23 @@
                     "A.L.R.",
                     "6.",
                     "12",
-                    "Joseph",
+                    "Yusuf",
                     "A.L.R.",
                     "7.",
                     "13",
-                    "Thunder",
+                    "Gök Gürlemesi",
                     "A.L.M.R.",
                     "8.",
                     "14",
-                    "Abraham",
+                    "İbrahim",
                     "A.L.R.",
                     "9.",
                     "15",
-                    "Al-Hijr Valley",
+                    "Hicr Vadisi",
                     "A.L.R.",
                     "10.",
                     "19",
-                    "Mary",
+                    "Meryem",
                     "K.H.Y.‘A.S.",
                     "11.",
                     "20",
@@ -228,31 +228,31 @@
                     "T.H.",
                     "12.",
                     "26",
-                    "The Poets",
+                    "Şairler",
                     "T.S.M.",
                     "13.",
                     "27",
-                    "The Ant",
+                    "Karınca",
                     "T.S.",
                     "14.",
                     "28",
-                    "History",
+                    "Tarih",
                     "T.S.M.",
                     "15.",
                     "29",
-                    "The Spider",
+                    "Örümcek",
                     "A.L.M.",
                     "16.",
                     "30",
-                    "The Romans ",
+                    "Romalılar",
                     "A.L.M.",
                     "17.",
                     "31",
-                    "Luqmaan",
+                    "Lokman",
                     "A.L.M.",
                     "18.",
                     "32",
-                    "Prostration",
+                    "Secde",
                     "A.L.M.",
                     "19.",
                     "36",
@@ -264,31 +264,31 @@
                     "S.",
                     "21.",
                     "40",
-                    "Forgiver",
+                    "Bağışlayıcı",
                     "H.M.",
                     "22.",
                     "41",
-                    "Elucidated",
+                    "Açıklanmış",
                     "H.M.",
                     "23.",
                     "42",
-                    "Consultation",
+                    "İstişare",
                     "H.M. ‘A.S.Q.",
                     "24.",
                     "43",
-                    "Ornaments",
+                    "Süs Eşyası",
                     "H.M.",
                     "25.",
                     "44",
-                    "Smoke",
+                    "Duman",
                     "H.M.",
                     "26.",
                     "45",
-                    "Kneeling",
+                    "Diz Çöküş",
                     "H.M.",
                     "27.",
                     "46",
-                    "The Dunes ",
+                    "Kum Tepeleri",
                     "H.M.",
                     "28.",
                     "50",
@@ -296,7 +296,7 @@
                     "Q.",
                     "29.",
                     "68",
-                    "The Pen ",
+                    "Kalem",
                     "NuN"
                 ]
             }
@@ -397,7 +397,7 @@
         "page": 402,
         "text": {
             "1": "Another relevant example is the reference to Mecca in 3:96 as “Becca”! This strange spelling of the renowned city has puzzled Islamic scholars for many centuries. Although Mecca is mentioned in the Quran properly spelled in 48:24, the letter “M” is substituted with a “B” in 3:96. It turns out that Sura 3 is an M-initialed sura, and the count of the letter “M” would have deviated from the Quran’s code if “Mecca” was spelled correctly in 3:96.",
-            "2": "This initial is unique; it occurs in one sura, 68, and the name of the letter is spelled out as three letters—Noon Wow Noon—in the original text, and is therefore counted as two N’s. The total count of this letter in the N-initialed sura is 133, 19 x 7.",
+            "2": "Bu başlangıç harfi özgündür; tek bir surede geçer o da 68. sure ve harfin adı orijinal metinde üç harf olarak—açıkça Nun Vav Nun şeklinde—yazılır ve bu nedenle iki N olarak sayılır. Bu harfin N başlangıç harfli suredeki toplam sayısı 133’tür, 19 x 7.",
             "3": "The fact that “N” is the last Quranic Initial (see Table 1) brings out a number of special observations. For example, the number of verses from the first Quranic Initial (A.L.M. of 2:1) to the last initial (N. of 68:1) is 5263, or 19 x 277.",
             "4": "The word “God” (Allah) occurs 2641 (19 x 139) times between the first initial and the last initial. Since the total occurrence of the word “God” is 2698, it follows that its occurrence outside the initials “A.L.M.” of 2:1 on one side, and the initial “N” of 68:1 on the other side, is 57, 19 x 3. Tables 9 to 20 prove that the initial “NuN” must be spelled out to show two N’s.",
             "5": "This initial prefixes three suras, 7, 19, and 38, and the total occurrence of the letter “S” (Saad) in these three suras is 152, 19 x 8 (Table 2). It is noteworthy that in 7:69, the word “Bastatan” is written in some printings with a “Saad,” instead of “Seen.” This is an erroneous distortion that violates the Quran’s code. By looking at the oldest available copy of the Quran, the Tashkent Copy, it was found that the word “Bastatan” is correctly written with a “Seen” (see photocopy below)."
@@ -871,7 +871,7 @@
         "text": {
             "1": "Table 10 presents the total frequency of Quranic Initials, plus the total gematrical value of these letters in the whole sura. The Grand Total for all initialed suras is 1089479. This number, in excess of one million, is a multiple of 19 (1089479 = 19 x 57341). The slightest alteration or distortion destroys the system.",
             "4": "Table 11 shows that the sum of numbers of suras and verses where the Quranic Initials are found, plus the initial’s frequency of occurrence in that sura, plus the number of the first sura where the initials occur, plus the number of the last sura where the initials occur, produces a total that equals 44232, or 19 x 2348. Thus, the distribution of the Quranic Initials in the initialed suras is so intricate that their counts and their placement within suras are intertwined to give a grand total that is a multiple of 19.",
-            "5": "It is noteworthy that the initial “N” must be counted as two N’s. This reflects the fact that the original Quranic text spells out this initial with 2 N’s."
+            "5": "Şu dikkate değerdir ki “N” başlangıç harfi iki N olarak sayılmalıdır. Bu, orijinal Kuran metninin bu başlangıç harflerini 2 N ile yazdığı gerçeğini yansıtır."
         },
         "picture": {},
         "table": {
@@ -2585,7 +2585,7 @@
             "7": {
                 "ref": "Table 29: Verse numbers and Sum of Verse numbers, justified to the left.",
                 "title": [
-                    "Sura",
+                    "Sure",
                     "Ayet No’ları & Ayet No’ları Toplamı"
                 ],
                 "values": [
@@ -2982,14 +2982,14 @@
                     "",
                     "“Reşede”",
                     "",
-                    "“Khalifa”"
+                    "“Halife”"
                 ],
                 "values": [
                     "No",
-                    "Sura",
-                    "Verse",
-                    "Sura",
-                    "Verse",
+                    "Sure",
+                    "Ayet",
+                    "Sure",
+                    "Ayet",
                     "1.",
                     "2",
                     "186",
@@ -3084,7 +3084,7 @@
                     "-",
                     "21",
                     "",
-                    "*(Sura 2 is a Repeat)",
+                    "*(Sure 2 burda bir Tekrardır)",
                     " ",
                     "____",
                     "____",
@@ -3104,7 +3104,7 @@
             }
         },
         "titles": {
-            "2": "The Proof"
+            "2": "Kanıt"
         }
     },
     {
@@ -3194,8 +3194,8 @@
         "evidence": {
             "6": {
                 "lines": {
-                    "1": "Also, “Rashad” (505) + “Khalifa” (725) + Sura ",
-                    "2": "Total (3) + Total of Verses (192) = 1425 (19 x 75) ",
+                    "1": "Ayrıca, “Reşad” (505) + “Halife” (725) + Toplam Sure",
+                    "2": "(3) + Ayetlerin Toplamı (192) = 1425 (19 x 75)",
                     "3": "505 + 725 + 3 + 192 = 1425 = 19 x 75"
                 },
                 "ref": []
@@ -3261,7 +3261,7 @@
                 "lines": {
                     "1": "2 100 187 188 189 ..... 72 21 1 2 3 ..... 19 20 21",
                     "2": "Sure numarasının ardından ayet sayısı gelir, sonra da “Reşede”nin ilk geçtiği yerden son geçtiği yere kadar tek tek ayet numaraları gelir (2:187’den 72:21’e).",
-                    "3": "The complete number consists of 11087 digits, and is divisible by 19."
+                    "3": "Tüm sayı 11087 basamaktan oluşur ve 19’a tam bölünür."
                 },
                 "ref": []
             },
@@ -3721,7 +3721,7 @@
     {
         "page": 437,
         "text": {
-            "1": "As stated in the Quran, 3:81, God’s Messenger of the Covenant shall confirm all the scriptures, which were delivered by all the prophets, and restore them to their original purity.",
+            "1": "Kuran’da, 3:81’de belirtildiği gibi, Tanrı’nın Antlaşma Elçisi bütün kutsal yazıları, ki onlar bütün peygamberler tarafından iletildi, doğrulayacak ve onları orijinal saflığına geri döndürecektir.",
             "2": "When the believers are faced with a problem, they develop a number of possible solutions, and this invariably leads to considerable bickering, disunity, and disarray. We learn from 2:151, 3:164, and 21:107 that it is but mercy from God that He sends to us messengers to provide the final solutions to our problems. We learn from 42:51 that God sends His messengers to communicate with us, and to disseminate new information. Hence the strong injunction in 4:65, 4:80 to accept, without the slightest hesitation, the teachings delivered to us through God’s messengers.",
             "3": "The following is a list of the principal duties of God’s Messenger of the Covenant:"
         },
@@ -3757,7 +3757,7 @@
         "text": {
             "3": "Verse 11:1 informs us that the Quran’s Miracle involves [1] the superhuman mathematical design of its physical structure and [2] the simultaneous composition of a literary work of extraordinary excellence.",
             "4": "One may be able to meet the numerical distribution requirements of a simple mathematical pattern. However, this is invariably accomplished at the expense of the literary quality. The simultaneous control of the literary style and the intricate mathematical distribution of individual letters throughout the Quran (Appendix 1) is evident in the fact that the Quran is made easy to memorize, understand, and enjoy. Unlike a human-made book, the Quran is enjoyable to read over and over, infinitely.",
-            "5": "The title of this Appendix is repeated in Sura 54, verses 17, 22, 32, and 40. As it turns out, the Quran’s Arabic text is composed in such a way as to remind the reader or the memorizer of the next correct expression, or the next verse. God created us and He knows the most efficient way for fixing literary materials into our memory. Memorization of the Quran has played a vital role in preserving the original text generation after generation at a time when written books were a rarity.",
+            "5": "Bu Ekin başlığı 54’üncü surenin 17, 22, 32 ve 40. ayetlerinde tekrar edilmektedir. Anlaşılan o ki Kuran’ın Arapça metni, okura ya da ezberleyene bir sonraki doğru ifadeyi veya bir sonraki ayeti hatırlatacak şekilde düzenlenmiştir. Bizi Tanrı yarattı ve edebî materyalleri hafızamıza sabitlemenin en verimli yolunu O bilir. Kuran’ın ezberlenmesi, yazılı kitapların nadir olduğu bir zamanda, orijinal metni nesilden nesile korumada hayati bir rol oynamıştır.",
             "6": "Without even realizing it, the person who memorizes the Quran is divinely helped by an intricate literary system as he utters the sounds of the Quranic words. Almost every verse in the Quran contains what I call “Memory Bells.” Their function is to remind the reader of what comes next. This system is so vast, I will give only two illustrative examples:",
             "7": "1. In Sura 2, Verses 127, 128, and 129 end with two different names of God each. These pairs of names are “Al-Samee‘Al-‘Aleem (The Hearer, the Omniscient),” “Al-Tawwaab Al-Raheem (The Redeemer, Most Merciful)”, and “Al-‘Azeez Al-Hakeem (The Almighty, Most Wise),” respectively. If this were a regular book, one would easily mis-match these six names. Not so in the Quran. Each one of these pairs is preceded in the same verse by a “Memory Bell” that reminds us of the correct pair of names. Thus, Verse 127 talks about Abraham and Ismail raising the foundations of the Ka‘abah. The verse ends with the names “Al-Samee‘ Al-‘Aleem.” The prominent sounds here are the “S,” “M,” and “ ‘Ayn.” These three letters are prominent in the word “Ismail.” We find that this word is conspicuously delayed in the sentence, while improving its literary quality. Thus, we find that the verse goes like this: “When Abraham raised the foundations of the Ka‘abah, together with Ismail ...” Normally, a human writer would say, “When Abraham and Ismail raised the foundations of the Ka‘abah...” But delaying the sounds in “Ismail” brings them closer to the end of the verse, and thus reminds us that the correct names of God in this verse are “Al-Samee‘ Al-‘Aleem.”",
             "8": "Verse 128 has the prominent word “Tubb” just before the names “Al-Tawwaab Al-Raheem.” The word “Tubb” thus serves as the memory bell. The names of God at the end of 2:129 are “Azeez, Hakeem.” The prominent sounds here are “Z” and “K.” Obviously, the memory bell in this verse is the word “Yuzakkeehim”"
@@ -3902,7 +3902,7 @@
     {
         "page": 444,
         "text": {
-            "2": "Contrary to common belief, the “Original Sin” was not Adam’s violation of God’s law when he ate from the forbidden tree. The original sin was our failure to uphold God’s absolute authority during the Great Feud. If the human person convinces his or her jinn companion to denounce that original sin, and uphold God’s absolute authority, both creatures are redeemed to God’s eternal kingdom on the Day of Judgment. But if the jinn companion convinces the human being to uphold Satan’s idolatrous views, then both creatures are exiled forever from God’s kingdom.",
+            "2": "Yaygın inancın aksine, “Birincil Günah” Âdem’in yasak ağaçtan yediğinde Tanrı’nın yasasını ihlal etmesi değildi. Birincil günah; Büyük Kavga sırasında bizim Tanrı’nın mutlak otoritesine bağlı kalmakta başarısız olmamızdı. Eğer insan olan kişi, kendi cin yoldaşını o birincil günahı kınamaya ve Tanrı’nın mutlak otoritesine bağlı kalmaya ikna ederse, her iki yaratık da Yargı Günü’nde Tanrı’nın ebedi krallığına kurtarılırlar. Ama cin yoldaş, insanı Şeytan’ın putperest görüşlerine bağlı kalmaya ikna ederse, o zaman her iki yaratık da Tanrı’nın krallığından sonsuza dek sürgün edilirler.",
             "3": "To promote his point of view, Satan and his representatives advocate the idolization of such powerless creatures as Muhammad, Jesus, Mary, and the saints. Since we are here due to our polytheistic tendencies, most of us are easy prey for Satan.",
             "4": "Satan’s incompetence as a “god” has already been proven by the prevalence of chaos, disease, accidents, misery, and war throughout his dominion (36:66). On the other hand, the human beings who denounce Satan, uphold God’s absolute authority, and refrain from idolizing powerless and dead creatures like Jesus and Muhammad, are restored to God’s protection—they enjoy a perfect life here in this world and forever.",
             "5": "Because our life in this world is a series of tests designed to expose our polytheistic ideas, idol worship is the only unforgivable offense (4:48, 4:116). The world is divinely designed to manifest our decision to uphold either God’s absolute authority, or Satan’s idolatrous views (67:1-2). The day and the night change constantly to test our willingness to uphold God’s laws by observing the Dawn Prayer and fasting during the hottest and longest days. Only those who are totally certain about God’s absolute authority are redeemed (26:89).",
@@ -3912,7 +3912,7 @@
         "picture": {},
         "evidence": {},
         "titles": {
-            "1": "The Original Sin",
+            "1": "Birincil Günah",
             "6": "Ek 8",
             "7": "The Myth of Intercession"
         }
@@ -3930,7 +3930,7 @@
         "evidence": {},
         "titles": {
             "4": "Ek 9",
-            "5": "Abraham: Original Messenger of Islam",
+            "5": "İbrahim: İslam’ın Birincil Elçisi",
             "7": "God Never Ordered Abraham to Sacrifice His Son"
         }
     },
@@ -3938,9 +3938,9 @@
         "page": 446,
         "text": {
             "1": "Islam is called “Millat Ibrahim” (The Religion of Abraham) throughout the Quran (2:130, 2:135; 3:95; 4:125; 6:161; 12:37-38; 16:123; 21:73; 22:78). Moreover, the Quran informs us that Muhammad was a follower of Abraham (16:123).",
-            "2": "Due to a general unawareness of the fact that Abraham was the original messenger of Islam, many so-called Muslims challenge God: “If the Quran is complete and fully detailed (as claimed by God), where can we find the number of Rak‘ahs (units) in each contact prayer (Salat)?” We learn from the Quran that all religious practices of Islam (Submission) were already established before the Quran’s revelation (8:35, 9:54, 16:123, 21:73, 22:27, 28:27). Verse 16:123 is direct proof that all religious practices in Islam were intact when Muhammad was born. Muhammad was enjoined to “follow the religion of Abraham.” If I ask you to buy a color TV, it is assumed that you know what a color TV is. Similarly, when God enjoined Muhammad to follow the practices of Abraham (16:123), such practices must have been well known.",
+            "2": "İbrahim’in İslam’ın birincil elçisi olduğu gerçeğinin genel olarak bilinmemesi nedeniyle, birçok sözde Müslüman Tanrı’ya meydan okur: “Eğer Kuran (Tanrı tarafından öne sürüldüğü gibi) eksiksiz ve tamamen detaylandırılmış ise, her bir iletişim duasındaki (namazdaki) rekât (ünite) sayısını nerede bulabiliriz?” Kuran’dan, İslam’ın (Teslimiyet’in) bütün dinî uygulamalarının Kuran’ın vahyinden önce zaten tesis edilmiş olduğunu öğreniriz (8:35, 9:54, 16:123, 21:73, 22:27, 28:27). 16:123 ayeti, Muhammed doğduğunda İslam’daki bütün dinî uygulamaların bozulmamış olduğuna doğrudan kanıttır. Muhammed’e “İbrahim’in dinine uyması” emredildi. Ben sizden bir renkli televizyon satın almanızı istersem, bir renkli televizyonun ne olduğunu bildiğiniz varsayılır. Benzer şekilde, Tanrı Muhammed’e İbrahim’in uygulamalarına uymasını emrettiğinde (16:123), bu tür uygulamalar gayet iyi biliniyor olmalıydı.",
             "3": "Another proof of divine preservation of the Islamic practices given to Abraham is the “Universal Acceptance” of such practices. There is no dispute concerning the number of Rak‘ahs in all five daily prayers. This proves the divine preservation of Salat. The Quran’s mathematical code confirms the number of Rak‘ahs in the five prayers 2, 4, 4, 3, and 4, respectively. The number 24434 is a multiple of 19.",
-            "4": "The Quran deals only with practices that were distorted. For example, the distorted ablution is restored in 5:6 to its original four steps. The tone of voice during the contact prayers (Salat) was distorted—many Muslims pray silently. This was corrected in the Quran, 17:110. The fasting during Ramadan was modified in the Quran to allow intercourse during the night (2:187). Zakat is restored in 6:141, and Hajj is restored to the four correct months (see Appendix 15).",
+            "4": "Kuran yalnızca tahrif edilmiş olan uygulamaları ele alır. Örneğin, tahrif edilmiş abdest 5:6’da kendi orijinal dört aşamasına geri döndürülür. İletişim duaları (Namaz) sırasındaki ses tonu tahrif edildi—birçok Müslüman sessizce duaya durur. Bu, Kuran’da 17:110’da düzeltildi. Ramazan sırasındaki oruç, gece sırasında cinsi münasebete izin vermek üzere Kuran’da değiştirildi (2:187). Zekât 6:141’de geri döndürülür ve Hac doğru olan dört aya geri döndürülür (bkz. Ek 15).",
             "7": "In the English speaking world, where the trinity doctrine is prevalent, some people are intrigued by God’s usage of the plural tense in the Quran. The overwhelming message of the Quran, where there is absolutely no compromise is that “GOD IS ONE” (2:133, 2:163; 4:171; 5:73; 6:19; 9:31; 12:39; 13:16; 14:48, 14:52; 16:22, 16:51; 18:110; 21:108; 22:34; 37:4; 38:65; 39:4; 40:16; 41:6; 112:1).",
             "8": "Whenever the first person plural form is used by the Almighty, it invariably indicates participation of other entities, such as the angels. For example, the revelation of this Quran involved participation of the angel Gabriel and the prophet Muhammad. Hence the use of the plural form in 15:9: “We revealed this scripture, and we will preserve it.” The plural form here simply reflects the fact that the angel Gabriel and the prophet Muhammad participated in the process of delivering the Quran."
         },
@@ -4040,7 +4040,7 @@
         "page": 450,
         "text": {
             "3": "We are absolutely free to believe or disbelieve in God. It is God’s will that we will freely (18:29, 25:57, 73:19, 74:37, 76:29, 78:39, 80:12).",
-            "4": "After committing our original sin (Appendix 7), God gave us a chance to denounce our crime and accept His absolute authority (33:72). But we decided that we wanted to see a demonstration of Satan’s competence as a god. Many people protest the fact that God has created them, to put them through this gruesome test. Obviously, such people are not aware that [1] they have committed a horrendous crime (Introduction & Appendix 7), and [2] that they were given a chance to denounce their crime and redeem themslves, but they chose to go through the test.",
+            "4": "Birincil günahımızı işledikten sonra (Ek 7), Tanrı bize suçumuzu kınamamız ve O’nun mutlak otoritesini kabul etmemiz için bir fırsat verdi (33:72). Ama biz, Şeytan’ın bir tanrı olarak yeterliliğinin bir gösterisini görmek istediğimize karar verdik. Birçok insan, Tanrı’nın onları bu ürkütücü teste tabi tutmak için yaratmış olduğu gerçeğine itiraz eder. Bariz biçimde, böyle insanlar [1] korkunç bir suç işlemiş olduklarının (Giriş ve Ek 7) ve [2] suçlarını kınamak ve kendilerini kurtarmak için kendilerine bir fırsat verildiğinin farkında değildir, ama sınavdan geçmeyi seçtiler.",
             "5": "57:22’den öğreniyoruz ki hayatlarımız çevremizdeki her şeyle beraber video kaseti gibi bir şey üzerine önceden kaydedilmiştir. Tanrı, her birimizin ne tür bir karar vermeye mukadder olduğunu tam olarak bilir; hangimizin Cennete, hangimizin Cehenneme gideceğini bilir. Daha bu dünyaya doğmadan önce bile Tanrı hangi nefislerin iyi, hangilerinin kötü olduğunu biliyordu. Tanrı’nın her şeyi bilmesi açısından, herkesin alnında “Cennet” ya da “Cehennem” yazan bir damga olduğunu hayal edebiliriz. Yine de bizim açımızdan, Tanrı’nın mutlak otoritesinin ya da Şeytan’ın çoktanrıcı görüşlerinin yanında yer almakta bütünüyle özgürüz. Bu nedenle kader, Tanrı açısından bir gerçektir; bizim açımızdan gerçek değildir.",
             "6": "Bu anlayış, “Tanrı irade ettiği kimseye rehberlik eder ve irade ettiği kimseyi saptırır” diyen çok sayıdaki ayeti açıklar. Tanrı, Kendi bilgisine istinaden nefislerimizi hak ettiğimiz koşullara atar. Tanrı meleklere, “Ben sizin bilmediklerinizi bilirim” dediğinde (2:30), bu, bazılarımızın kendini kurtarma fırsatını hak ettiği anlamına geliyordu. Hidayeti hak edenlere Tanrı’nın rehberlik etmesine dair bir örnek 21:51’de bulunur: “İbrahim’e hidayetini bahşettik; zira biz onun tamamen farkındaydık.” Başka bir deyişle, Tanrı İbrahim’in rehberlik edilmeyi hak eden iyi bir nefis olduğunu biliyordu ve ona hidayetini ve anlayışını bahşetti. Başka iyi bir örnek 12:24’te belirtilir. Yusuf, Mısırlı soylunun karısına kapıldı ve “Rabbinden bir işaret görmüş olmasaydı” neredeyse zina edecekti. Tanrı bize 12:24’te şunu öğretir ki O, “kötülüğü ve günahı Yusuf’tan çevirdi, zira o Benim adanmış tapınanlarımdan biriydi”. Şehvetini kontrol eden Yusuf muydu? Yoksa onu iffetli kılan, Tanrı’nın onu günahtan koruması mıydı? İşte kader böyledir."
         },
@@ -4930,7 +4930,7 @@
         "page": 465,
         "text": {
             "5": "The Quran is God’s Final Testament. Hence the divine pledge to keep it perfectly preserved. To assure us of both the divine authorship, and the perfect preservation of the Quran, the Almighty author has rendered the Quran mathematically composed. As proven by the physical evidence in Appendix 1, such mathematical composition is far beyond human capabilities. The slightest violation of God’s Final Testament is destined to stand out in glaring disharmony. A deviation by only 1—one sura, one verse, one word, even one letter—is immediately exposed.",
-            "6": "Nineteen years after the Prophet Muhammad’s death, during the reign of Khalifa ‘Uthman, a committee of scribes was appointed to make several copies of the Quran to be dispatched to the new Muslim lands. The copies were to be made from the original Quran which was written by Muhammad’s hand (Appendix 28).",
+            "6": "Muhammed Peygamberin ölümünden on dokuz yıl sonra, Halife Osman’ın dönemi sırasında, yeni Müslüman topraklarına gönderilmek üzere Kuran’ın birkaç nüshasını hazırlamak için kâtiplerden oluşan bir komite atandı. Nüshalar, Muhammed’in eliyle yazılmış olan orijinal Kurandan hazırlanacaktı (Ek 28).",
             "7": "This committee was supervised by ‘Uthman Ibn ‘Affaan, ‘Ali Ibn Abi Taaleb, Zeid Ibn Thaabet, Ubayy Ibn Ka‘ab, ‘Abdullah Ibn Al-Zubair, Sa‘eed Ibn Al-‘Aas, and ‘Abdul Rahman Ibn Al-Haareth Ibn Heshaam. The Prophet, of course, had written the Quran in its chronological order of revelation (Appendix 23), together with the necessary instructions to place every piece in its proper position. The last sura revealed in Medina was Sura 9. Only Sura 110, a very short sura, was revealed after Sura 9, in Mina.",
             "8": "The committee of scribes finally came to Sura 9, and put it in its proper place. One of the scribes suggested adding a couple of verses to honor the Prophet. The majority of scribes agreed. ‘Ali was outraged. He vehemently maintained that the word of God, written down by the hand of His final prophet, must never be altered."
         },
@@ -4967,7 +4967,7 @@
             "7": "(4) The disaster culminated in the infamous Battle of Karbala, where ‘Ali’s son, Hussein, and his family were massacred.",
             "8": "(5) The Muslims were deprived of the pure, unaltered, Quran for 1400 years.",
             "9": "The distorters of the Quran finally won the war, and the “official” history that came to us represented the victors’ point of view. This apparent victory for God’s enemies was, of course, in accordance with God’s will. In just two decades after the Prophet’s death, the idol worshipers who were defeated by the Prophet in the conquest of Mecca (632 AD) reverted to idolatry. Ironically, this time around their idol was the Prophet himself. Such idol worshipers obviously did not deserve to possess the pure Quran. Hence the blessed martyrdom of the true believers who tried to restore the Quran, and the apparent victory for the distorters of God’s word.",
-            "10": "The first peace time ruler after this lengthy and disastrous war was Marwan Ibn Al Hakam (died 65 AH/684 AD). One of the first duties he performed was to destroy the original Quran, the one that was so scrupulously written by the Prophet’s own hand, “fearing it might become the cause of NEW disputes” [see ‘ULUM AL-QURAN, by Ahmad von Denffer, Islamic Foundation, Leicester, United Kingdom, 1983, Page 56]. The question an intelligent person must ask is: “If the original Quran were identical to the Quran in circulation at that time, why did Marwan Ibn Al-Hakam have to destroy it?!”"
+            "10": "Bu uzun ve felaket getiren savaştan sonraki ilk barış dönemi hükümdarı Mervan Bin El-Hakem’di (HS 65 / MS 684’te öldü). Yerine getirdiği ilk görevlerden biri, Peygamberin bizzat kendi eliyle çok titizlikle yazılmış olan orijinal Kuran’ı, “onun YENİ çekişmelerin sebebi hâline gelebileceğinden korkarak” yok etmekti [bkz. Ahmad von Denffer, ‘ULUM AL-QURAN, Islamic Foundation, Leicester, Birleşik Krallık, 1983, Sayfa 56]. Akıllı bir insanın sorması gereken soru şudur: “Eğer orijinal Kuran o sırada dolaşımda olan Kuranla özdeş idiyse, Mervan Bin El-Hakem onu neden yok etmek zorundaydıı?!”"
         },
         "picture": {
             "2": {
@@ -7454,12 +7454,12 @@
             "4": "The seven pairs are the 14 Quranic Initials. The total gematrical value of these profound pillars of the Quran’s miracle pinpoints the year of the end of the world. It is noteworthy that Verse 85 of Sura 15 states: “The end of the world will surely come to pass.” The next verse, 15:86, tells us that God is the Creator of this world, and, of course, He knows when it will end. The following verse, 15:87, tells us when the world will end. As shown in Table 1, the gematrical values of “The Seven Pairs” of Quranic Initials total 1709 (see also Table 1 of Appendix 1). According to 15:87, the world will survive for 1709 lunar years from the time this prophecy is stated in the Quran. This means that the world will end in the year 1710 AH. This number is a multiple of 19; 1710 = 19 x 90.",
             "5": "The unveiling of this information took place in the year 1400 AH, 309 years before the prophesied end of the world (1709-1400 = 309). The number 309 is a Quranic number (18:25), and is connected with the end of the world (18:21). The peculiar way of writing 309 in 18:25, “Three hundred years, increased by nine,” indicates that the 309 are lunar years. The difference between 300 solar years and 300 lunar years is 9 years.",
             "6": "The year of this discovery, 1400 AH, coincided with 1980 AD, and 1980 plus 300 solar years is 2280, also a multiple of 19, 19 x 120. Thus the world ends in 1710 AH, 19 x 90, which coincides with 2280 AD, 19 x 120. For the disbelievers who do not accept these powerful Quranic proofs, the end of the world will come suddenly (6:31, 6:44, 6:47; 7:95, 7:187; 12:107; 21:40, 22:55; 26:202; 29:53; 39:55; 43:66; and 47:18).",
-            "8": "While Hadith is forbidden as a source of religious teachings (Appendix 19), it can be a useful source of history. We can derive a lot of information about historical events and local customs and traditions during the early centuries of Islam. The books of Hadith indicate that the Quranic Initials were believed to determine the life span of the Muslim Ummah. The classic exegesis by Al-Baydaawy cites the following historical event as a possible explanation of the Quranic Initials. The same event is detailed in Al-Suyooty’s ITQAAN, First Printing, 1318 AH, Vol 2, Page 10:"
+            "8": "Hadis, dini öğretilerin bir kaynağı olarak yasak olsa da (Ek 19), yararlı bir tarih kaynağı olabilir. İslam’ın ilk yüzyıllarında tarihsel olaylar ile yerel adetler ve gelenekler hakkında birçok bilgi çıkarabiliriz. Hadis kitapları gösterir ki Kuranî Başlangıç Harflerinin Müslüman Ümmetin ömrünü belirlediğine inanılıyordu. Beydâvî’nin klasik tefsiri, aşağıdaki tarihsel olayı Kuranî Başlangıç Harflerinin olası bir açıklaması olarak örnek verir. Aynı olay, Suyûtî’nin İTKAN’ında detaylandırılmıştır, Birinci Baskı, Hicri 1318, Cilt 2, Sayfa 10:"
         },
         "picture": {},
         "table": {
             "7": {
-                "ref": "Table 1: Total Gematrical Value of “The Seven Pairs” of Quranic Initials.",
+                "ref": "Tablo 1: Kuran Başlangıç Harflerinin “Yedi Çift”inin Toplam Sayısal Değeri.",
                 "title": [
                     "Kuranî Başlangıç Harfi",
                     "Sayısal Değer"
@@ -7503,7 +7503,7 @@
         "evidence": {
             "3": {
                 "lines": {
-                    "1": "We have given you the seven pairs, and the great Quran."
+                    "1": "Sana yedi çifti ve büyük Kuran’ı verdik."
                 },
                 "ref": [
                     "15:87"
@@ -7511,14 +7511,14 @@
             }
         },
         "titles": {
-            "1": "It Will Not Remain Hidden [20:15]"
+            "1": "Gizli Kalmayacaktır [20:15]"
         }
     },
     {
         "page": 490,
         "text": {
-            "2": "Although this narration is well known, many scholars have been reluctant to accept the unmistakable connection between the Quranic Initials and the end of the world. They could not bring themselves to deal with this subject for the simple reason that the calculation makes the end of the world, and judgment, a reality.",
-            "5": "This Appendix provides the Quranic mathematical evidence that [1] Abraham was the original messenger of Islam, i.e., Submission (22:78), [2] Muhammad was the scripture delivering messenger (47:2), and [3] Rashad is the purifying and consolidating messenger who delivered the religion’s authenticating proof (3:81, & Appendix 2).",
+            "2": "Bu anlatım iyi biliniyor olsa da, birçok âlim Kuranî Başlangıç Harfleri ile dünyanın sonu arasındaki şüphe götürmeyen bağlantıyı kabul etmeye isteksiz olmuştur. Hesaplamanın, dünyanın sonunu ve yargıyı bir gerçek hâline getireceği basit nedeninden kaynaklı bu konuyu ele almaya cesaret bulamadılar.",
+            "5": "Bu Ek, şu hususlarda Kuranî matematiksel delil sunar: [1] İbrahim İslam’ın, yani Teslimiyet’in birincil elçisiydi (22:78), [2] Muhammed kutsal yazıyı ileten elçiydi (47:2) ve [3] Reşad, dinin doğrulayıcı kanıtını ileten, arındıran ve sağlamlaştıran elçidir (3:81 ve Ek 2).",
             "7": "[1] Ek 2’de açıkça gösterildiği gibi, “İbrahim”in sayısal değeri 258’dir, “Muhammed”in sayısal değeri 92’dir, “Reşad”ın sayısal değeri 505’tir ve 258 + 92 + 505 = 855 = 19 x 45’tir.",
             "8": "[2] Sayısal değeri 211 olan “İsmail”i ve sayısal değeri 169 olan “İshak”ı da dahil edersek, yine toplam sayısal değer olarak 855 + 211 + 169 = 1235 = 19 x 65 elde ederiz. Üç elçinin ya da beşinin toplam sayısal değeri, eğer İbrahim, Muhammed ya da Reşad’dan herhangi biri dahil edilmezse, Kuran’ın 19 tabanlı matematiksel koduyla uyum gösteremez.",
             "9": "[3] “İbrahim”in ilk ve son geçişleri 2:124 ve 87:19’dadır. Sure numaraları, ayet sayısı ve ilk geçişten son geçişe kadar olan ayet numaralarının toplamı eklenerek elde edilen genel toplam 333260’tır, 19 x 17540 (Tablo 1)."
@@ -8203,7 +8203,7 @@
             "3": "3. Tanrı İrade Ediyorsa (İN ŞA ALLAH): “‘Tanrı irade ediyorsa’ (İN ŞA ALLAH) demeden, ‘Yarın şunu ya da bunu yapacağım’ dememelisiniz.” Eğer bunu yapmayı unutursanız, o zaman özür dileyin ve deyin ki: “Bir dahaki sefere daha iyisini yapmam için Rabbim bana rehberlik etsin.” [18:24]. Bu, kiminle konuşuyor olursak olalım yerine getirmemiz gereken doğrudan bir emirdir.",
             "4": "4. Tanrı’nın Hediyesi (MA ŞA ALLAH): Çok sevdiğimiz şeyler için —çocuklarımız, arabalarımız, evlerimiz vb.— Tanrı’nın korumasını çağırmak üzere, 18:39’da bize “MA ŞA ALLAH” dememiz emredilir (Bu, Tanrı’nın hediyesidir).",
             "5": "5. Tanrı’yı gece gündüz yüceltin: Bir şey yediğimizde hayvanlar gibi olmamalıyız; yediğimiz yiyeceğin Tanrı tarafından yaratılması üzerine derinlemesine düşünmeliyiz —tadını, Tanrı’nın bize verdiği duyular sayesinde aldığımız keyfi, muzun ya da portakalın kusursuz sunuluş şeklini, Tanrı tarafından yaratılan deniz ürünü çeşitlerini vb.— ve O’nun sağladığı yiyeceklerin keyfini çıkarırken O’nu yüceltmeliyiz. Güzel bir çiçek, hayvan ya da gün batımı gördüğümüzde Tanrı’yı yüceltmeliyiz. Tanrı’yı anmak ve yüceltmek için mümkün olan her fırsatı değerlendirmeliyiz, öyle ki Tanrı bizim Tanrımız olsun.",
-            "6": "6. İlk Söz: “En Lütufkâr, En Merhametli Tanrı’nın adıyla. Tanrı’dan başka hiçbir tanrı yoktur,” demeyi her sabah uyanır uyanmaz bir alışkanlık haline getirin. Eğer bu iyi alışkanlığı yerleştirirseniz, diriltildiğinizde söyleyeceğiniz şey de bu olacaktır.",
+            "6": "6. İlk Söz: “En Lütufkâr, En Merhametli Tanrı’nın adıyla. Tanrı’dan başka tanrı yoktur,” demeyi her sabah uyanır uyanmaz bir alışkanlık haline getirin. Eğer bu iyi alışkanlığı yerleştirirseniz, diriltildiğinizde söyleyeceğiniz şey de bu olacaktır.",
             "9": "İlk vahiy “Oku” idi ve şu ifadeyi içeriyordu: “Tanrı kalem yoluyla öğretir” (96:1-4); ikinci vahiy ise “Kalem” idi (68:1). Kalemin tek işlevi yazmaktır.",
             "10": "Kuran’dan sonraki ilk iki yüzyılın cahil Müslüman âlimleri, Kuran’ın onun benzeri herhangi bir şey ortaya koymaya dair meydan okumasını anlayamadılar. Kuran’ın matematiksel bileşimi hakkında hiçbir fikirleri yoktu ve birçok edebiyat devinin Kuran’la kıyaslanabilir eserler meydana getirebileceğini biliyorlardı. Aslında, bunun gibi birçok edebiyat devi, Kuran kadar mükemmel bir edebî eser ortaya koyabilme yeteneğine sahip olduğunu gerçekten de iddia etti. En son iddia meşhur Mısırlı yazar Taha Hüseyin’den geldi."
         },
@@ -8221,7 +8221,7 @@
             "1": "Cahil Müslüman âlimler sonra Muhammed’i okuma yazma bilmeyen bir adam ilan etmeye karar verdiler! Bunun Kuran’ın olağanüstü edebî mükemmelliğini gerçekten mucizevi kılacağının hesabını yaptılar. Peygamber’e okuma yazma bilmeme niteliğini yakıştırmak için dayandıkları sözcük “ÜMMİ” idi. Ne yazık ki o “âlimler” için, bu kelime açıkça “kitap ehli olmayan,” yani herhangi bir kutsal yazıyı (Tevrat, İncil veya Kuran) takip etmeyen kimse anlamına gelir [bkz. 2:78, 3:20 ve 3:75, 62:2]; “okuma yazma bilmeyen” anlamına GELMEZ.",
             "2": "Peygamber başarılı bir tüccardı. “Müslüman âlimler” arasında okuma yazma bilmeme yalanını uyduranlar, Peygamber’in zamanında rakamların bulunmadığını, alfabenin harflerinin rakam olarak kullanıldığını unuttular. Her gün rakamlarla uğraşan bir tüccar olarak Peygamber, birden bine kadar alfabeyi bilmek zorundaydı.",
             "3": "Kuran bize Kuran’ı Muhammed’in yazdığını söyler; Muhammed’in çağdaşlarından şu söz aktarılır: “Bunlar onun yazdığı geçmişten hikâyelerdir. Bunlar ona gece gündüz dikte ediliyor” (25:5). Okuma yazma bilmeyen birine “dikte” edemezsiniz. Onu okuma yazma bilmemekle suçlayan Peygamber düşmanları, özellikle önceki kutsal yazılarla ilgili olan 29:48. ayeti kötüye kullanırlar.",
-            "4": "Ramazan’ın 27. gecesinde, H.Ö. (Hicretten Önce) 13’te, Muhammed — nefis, gerçek kişi, beden değil — en üst evrene çağrıldı ve Kuran kendisine verildi (2:97, 17:1, 44:3, 53:1-18, 97:1-5). Bunun ardından melek Cebrail, her bir defasında Kuran’ın birkaç ayetini, nefisten Muhammed’in hafızasına bırakmada Muhammed’e yardım etti. Peygamber, zihnine az önce bırakılmış ayetleri yazdı ve ezberledi. Peygamber öldüğünde, her ayetin nereye yerleştirileceğine dair spesifik talimatlarla beraber vahyin kronolojik sıralı şekilde kendi eliyle yazılmış eksiksiz Kuran’ı bıraktı. Peygamber tarafından kaydedilen göksel talimatlar, amaçlanan nihai formatta Kuran’ı Tanrı’nın dünyaya Son Ahiti olarak bir araya getirmek üzere tasarlanmıştı (75:17). İlk dönem Müslümanlar’ı, Kuran’ı bir araya getirme işine Halife Raşid Osman zamanına kadar girişmediler. Bu görevi yerine getirmek için bir komite atandı. Ayrıntılar için Ek 24’ü okuyunuz.",
+            "4": "Ramazan’ın 27. gecesinde, HÖ (Hicretten Önce) 13’te, Muhammed — nefis, gerçek kişi, beden değil — en üst evrene çağrıldı ve Kuran kendisine verildi (2:97, 17:1, 44:3, 53:1-18, 97:1-5). Bunun ardından melek Cebrail, her bir defasında Kuran’ın birkaç ayetini, nefisten Muhammed’in hafızasına bırakmada Muhammed’e yardım etti. Peygamber, zihnine az önce bırakılmış ayetleri yazdı ve ezberledi. Peygamber öldüğünde, her ayetin nereye yerleştirileceğine dair spesifik talimatlarla beraber vahyin kronolojik sıralı şekilde kendi eliyle yazılmış eksiksiz Kuran’ı bıraktı. Peygamber tarafından kaydedilen göksel talimatlar, amaçlanan nihai formatta Kuran’ı Tanrı’nın dünyaya Son Ahiti olarak bir araya getirmek üzere tasarlanmıştı (75:17). İlk dönem Müslümanlar’ı, Kuran’ı bir araya getirme işine Halife Raşid Osman zamanına kadar girişmediler. Bu görevi yerine getirmek için bir komite atandı. Ayrıntılar için Ek 24’ü okuyunuz.",
             "7": "9. sure hariç Kuran’daki her sure, “En Lütufkâr, En Merhametli Tanrı’nın adıyla” ifadesiyle açılır; buna Besmele denir. Besmele’nin 9. suredeki bu dikkat çekici yokluğu, 14 yüzyıl boyunca Kuran’ın merak uyandıran bir özelliği olmuştur. Bu olguyu açıklamak için birçok teori ileri sürülmüştür.",
             "8": "Şimdi, kayıp Besmele’nin [1] Kuran’ın matematiksel mucizesinin önemli bir bileşeni olarak ve [2] En Lütufkâr, En Merhametliden gelen, 9’uncu sure üzerinde oynama yapıldığını ve arındırılması gerektiğini gösteren göze batan bir işaret olarak önemli bir rol oynadığını öğreniyoruz (Ek 24). Kayıp Besmele’nin her iki rolü de Kuran’ın matematiksel kodunun keşfiyle ortaya çıkarıldı. Aşağıdaki gerçek gözlemler listesi, kayıp Besmele’nin mucizevi özelliklerini örneklemektedir:"
         },
@@ -8236,7 +8236,7 @@
     {
         "page": 497,
         "text": {
-            "1": "[1] Besmelenin 19 Arapça harften oluştuğu ve bir sure dışında bütün surelerin başında yer aldığı için, Kuran’ın 19 temelli kodunun üzerine kurulduğu temel olarak kabul edilebilir. Ama Besmele’nin 9. surede bulunmayışı, bu kritik açılış ifadesinin sayısını 113 yapar; bu, Kuran’ın koduna uymayan bir sayıdır. Ancak, bu eksikliğin 27. surede telafi edildiğini görürüz. 27. surede iki Besmele geçer; biri açılışta, biri de 30. ayette. Bu, Kuran’daki toplam Besmele sayısını 114’e geri döndürür, 19 x 6.",
+            "1": "[1] Besmelenin 19 Arapça harften oluştuğu ve bir sure dışında bütün surelerin başında yer aldığı için, Kuran’ın 19 tabanlı kodunun üzerine kurulduğu temel olarak kabul edilebilir. Ama Besmele’nin 9. surede bulunmayışı, bu kritik açılış ifadesinin sayısını 113 yapar; bu, Kuran’ın koduna uymayan bir sayıdır. Ancak, bu eksikliğin 27. surede telafi edildiğini görürüz. 27. surede iki Besmele geçer; biri açılışta, biri de 30. ayette. Bu, Kuran’daki toplam Besmele sayısını 114’e geri döndürür, 19 x 6.",
             "2": "[2] 9. surenin kayıp Besmelesinden 27. surenin ekstra Besmelesine kadar 19 sure vardır.",
             "3": "[3] Kayıp Besmeleden (9. sure) ekstra Besmeleye kadar (27. sure) sure numaralarının toplamı 9 + 10 + 11 + 12 + ... + 25 + 26 + 27 = 342’dir, 19 x 18. Bu matematiksel bir özelliktir; art arda gelen herhangi 19 sayı 19’un katı olacak şekilde toplanır. Ama mucizevi olgu şudur: bu 342 sayısı, 27. surenin ilk Besmelesinden 27:30’daki ikinci Besmeleye kadar olan kelime sayısına eşittir.",
             "4": "[4] 27:30’daki ekstra Besmele’nin geçişi Kuran’ın koduna uyar; çünkü sure numarası artı ayet numarası 19’un katıdır (27 + 30 = 57 = 19 x 3).",
@@ -8736,7 +8736,7 @@
                     "Müziği ve sanatı haram kılmak",
                     "7:32; 34:13; 42:21.",
                     "Dünya’nın dev bir balina üzerinde inşa edildiğini söyleyerek İslam ile alay etmek!!",
-                    "(79:30; İbn-i Kesir, M.S. 1200 & Bin Baz, M.S. 1975)"
+                    "(79:30; İbn-i Kesir, MS 1200 & Bin Baz, MS 1975)"
                 ]
             }
         },
