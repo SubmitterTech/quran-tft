@@ -1035,7 +1035,9 @@ function extractLightWordsKeywords(searchTerm, lang, doNormalize, caseSensitive,
         orParts.forEach(part => {
             const tokens = part.split(/\s+/).filter(t => t.trim() !== '');
             const textTokens = tokens.filter(t => !/\d/.test(t));
+            const numericTokens = tokens.filter(t => /\d/.test(t));
             if (textTokens.length > 0) keywords.push(textTokens.join(' '));
+            keywords.push(...numericTokens);
         });
         return keywords;
     } else {
@@ -1178,23 +1180,23 @@ describe("lightWords — keyword extraction", () => {
         expect(extractLightWordsKeywords("most gracious | most merciful", "en", false, false, true)).toEqual(["MOST GRACIOUS", "MOST MERCIFUL"]);
     });
 
-    test("exact mode: formula tokens (with digits) are excluded from keywords", () => {
-        const kw = extractLightWordsKeywords("27:19; 37:154 | statement", "en", false, false, true);
-        expect(kw).toEqual(["STATEMENT"]);
+    test("exact mode: formula tokens are retained as standalone highlight keywords", () => {
+        const kw = extractLightWordsKeywords("22:58 | statement", "en", false, false, true);
+        expect(kw).toEqual(["22:58", "STATEMENT"]);
     });
 
-    test("exact mode: pure formula has no text keywords", () => {
-        expect(extractLightWordsKeywords("2:5, 3:10", "en", false, false, true)).toEqual([]);
+    test("exact mode: pure formula keeps numeric keyword for highlight", () => {
+        expect(extractLightWordsKeywords("22:58", "en", false, false, true)).toEqual(["22:58"]);
     });
 
-    test("exact mode: formula + text in same OR group separates correctly", () => {
+    test("exact mode: formula + text in same OR group keeps phrase and numeric ref", () => {
         const kw = extractLightWordsKeywords("19: meryem", "en", false, false, true);
-        expect(kw).toEqual(["MERYEM"]);
+        expect(kw).toEqual(["MERYEM", "19:"]);
     });
 
-    test("exact mode: mixed formula and text across pipes", () => {
+    test("exact mode: mixed formula and text across pipes retains both keyword types", () => {
         const kw = extractLightWordsKeywords("2:5 god | 3:10 merciful", "en", false, false, true);
-        expect(kw).toEqual(["GOD", "MERCIFUL"]);
+        expect(kw).toEqual(["GOD", "2:5", "MERCIFUL", "3:10"]);
     });
 
     test("normal mode: pipe literal is filtered out", () => {
@@ -1262,9 +1264,21 @@ describe("lightWords — full highlight pipeline", () => {
         expect(h).toEqual(["statement"]);
     });
 
-    test("exact mode: formula tokens excluded from highlighting", () => {
-        const h = lightWordsHighlights("Verse 27:19 says something", "27:19; 37:154 | statement", "en", false, false, true);
-        expect(h).toEqual([]);
+    test("exact mode: formula-only search highlights matching numeric refs in note text", () => {
+        const h = lightWordsHighlights(
+            "At the end of their interim ... (2:154, 3:169, 8:24, 22:58, 36:27).",
+            "22:58",
+            "en",
+            false,
+            false,
+            true
+        );
+        expect(h).toEqual(["22:58"]);
+    });
+
+    test("exact mode: formula and text can both highlight in the same result set", () => {
+        const h = lightWordsHighlights("See 22:58 and the statement here", "22:58 | statement", "en", false, false, true);
+        expect(h).toEqual(["22:58", "statement"]);
     });
 
     test("exact mode: formula + text in same group — text highlights", () => {

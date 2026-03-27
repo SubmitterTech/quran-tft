@@ -1841,13 +1841,16 @@ const Magnify = ({
         let processedTerm = searchFold(searchTerm);
         let keywords;
         if (exactMatch) {
-            // Separate numeric tokens, keep text words as one phrase per OR-group
+            // Keep text words as one phrase per OR-group, but preserve numeric refs
+            // as standalone exact-match highlights
             const orParts = processedTerm.split('|').map(t => t.trim()).filter(t => t !== '');
             keywords = [];
             orParts.forEach(part => {
                 const tokens = part.split(/\s+/).filter(t => t.trim() !== '');
                 const textTokens = tokens.filter(t => !hasLocalizedDigit(t, langDigits));
+                const numericTokens = tokens.filter(t => hasLocalizedDigit(t, langDigits));
                 if (textTokens.length > 0) keywords.push(textTokens.join(' '));
+                keywords.push(...numericTokens);
             });
             if (keywords.length === 0) return [text];
             return highlightExactKeywords(text, keywords);
