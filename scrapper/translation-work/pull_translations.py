@@ -1,6 +1,7 @@
 import os
 import argparse
 import sys
+import time
 
 # --- CLI argument parsing (before heavy imports so --help always works) ---
 ALL_RESOURCE_SLUGS = [
@@ -54,6 +55,14 @@ parser.add_argument('--organization', default='submittertech', metavar='SLUG',
                     help='Transifex organization slug. Default: submittertech')
 parser.add_argument('--project', default='quranthefinaltestament', metavar='SLUG',
                     help='Transifex project slug. Default: quranthefinaltestament')
+parser.add_argument('--poll-interval', type=float, default=2.0, metavar='SECONDS',
+                    help='Seconds between async download status checks. Default: 2')
+parser.add_argument('--poll-timeout', type=float, default=300.0, metavar='SECONDS',
+                    help='Maximum seconds to wait for a Transifex async download. Default: 300')
+parser.add_argument('--download-timeout', type=float, default=120.0, metavar='SECONDS',
+                    help='Read timeout in seconds for the final file download. Default: 120')
+parser.add_argument('--verbosity', choices=['quiet', 'normal', 'debug'], default='normal',
+                    help='Logging detail for async download steps. Default: normal')
 
 args = parser.parse_args()
 
@@ -302,6 +311,128 @@ def reconstruct_dictionary(transformed_data, language_code):
 
     return sort_dictionary(reconstructed_dict, language_code)
 
+
+VERBOSITY_LEVELS = {
+    'quiet': 0,
+    'normal': 1,
+    'debug': 2,
+}
+
+
+def should_log(level):
+    return VERBOSITY_LEVELS[args.verbosity] >= VERBOSITY_LEVELS[level]
+
+
+def log_download_event(language_code, resource_slug, message, level='normal'):
+    if should_log(level):
+        print(f"[{language_code}/{resource_slug}] {message}")
+
+
+def extract_async_errors(download_job):
+    attributes = getattr(download_job, 'attributes', {}) or {}
+    errors = attributes.get('errors') or []
+    if isinstance(errors, list):
+        return errors
+    return []
+
+
+def wait_for_translation_download_url(resource, language, language_code, resource_slug):
+    started_at = time.monotonic()
+    download_job = transifex_api.ResourceTranslationsAsyncDownload.create(
+        resource=resource,
+        language=language
+    )
+
+    last_status = (getattr(download_job, 'attributes', {}) or {}).get('status')
+    job_label = download_job.id or 'unknown'
+    log_download_event(
+        language_code,
+        resource_slug,
+        f"Async download job created (job={job_label}, status={last_status or 'unknown'})",
+        level='debug'
+    )
+
+    while True:
+        errors = extract_async_errors(download_job)
+        if errors:
+            detail = errors[0].get('detail', 'Unknown async download error')
+            raise RuntimeError(
+                f"Transifex async download failed for '{language_code}/{resource_slug}': {detail}"
+            )
+
+        if download_job.redirect:
+            elapsed = time.monotonic() - started_at
+            log_download_event(
+                language_code,
+                resource_slug,
+                f"Export ready after {elapsed:.1f}s"
+            )
+            return download_job.redirect
+
+        current_status = (getattr(download_job, 'attributes', {}) or {}).get('status')
+        if current_status == 'failed':
+            raise RuntimeError(
+                f"Transifex async download failed for '{language_code}/{resource_slug}' "
+                f"without error details."
+            )
+
+        elapsed = time.monotonic() - started_at
+        if elapsed > args.poll_timeout:
+            raise TimeoutError(
+                f"Timed out after {elapsed:.1f}s waiting for '{language_code}/{resource_slug}' "
+                f"(job={job_label}, status={current_status or 'unknown'})."
+            )
+
+        if current_status != last_status and current_status:
+            log_download_event(
+                language_code,
+                resource_slug,
+                f"Async status changed to '{current_status}' after {elapsed:.1f}s",
+                level='debug'
+            )
+            last_status = current_status
+
+        time.sleep(args.poll_interval)
+        download_job.reload()
+
+
+def download_translation_payload(resource, language, language_code, resource_slug):
+    overall_started_at = time.monotonic()
+    log_download_event(language_code, resource_slug, "Requesting translation export")
+    download_url = wait_for_translation_download_url(
+        resource=resource,
+        language=language,
+        language_code=language_code,
+        resource_slug=resource_slug
+    )
+
+    log_download_event(language_code, resource_slug, "Downloading exported file", level='debug')
+    try:
+        response = requests.get(download_url, timeout=(10, args.download_timeout))
+        response.raise_for_status()
+    except requests.RequestException as exc:
+        raise RuntimeError(
+            f"Failed to download exported file for '{language_code}/{resource_slug}': {exc}"
+        ) from exc
+
+    response.encoding = 'utf-8'
+    content_length = response.headers.get('Content-Length', 'unknown')
+    log_download_event(
+        language_code,
+        resource_slug,
+        (
+            f"File downloaded successfully "
+            f"(HTTP {response.status_code}, elapsed={time.monotonic() - overall_started_at:.1f}s)"
+        )
+    )
+    log_download_event(
+        language_code,
+        resource_slug,
+        f"Downloaded bytes={content_length}",
+        level='debug'
+    )
+    return response.text
+
 updated_languages = set()  # Keep track of languages with changes
 
 for language_code in language_codes:
@@ -334,12 +465,13 @@ for language_code in language_codes:
         # Fetch the resource
         resource = project.fetch('resources').get(slug=resource_slug)
 
-        # Fetch the URL for downloading translations
-        url = transifex_api.ResourceTranslationsAsyncDownload.download(resource=resource, language=language)
-
-        # Get the translated content
-        response = requests.get(url)
-        response.encoding = 'utf-8'  # Ensure the response is decoded using UTF-8
+        # Start the async export, poll until it is ready, and then download the file.
+        response_text = download_translation_payload(
+            resource=resource,
+            language=language,
+            language_code=language_code,
+            resource_slug=resource_slug
+        )
 
         # Define the output file path (relative to script_dir)
         lang_dir = os.path.join(base_path, language_code)
@@ -348,7 +480,7 @@ for language_code in language_codes:
         output_path = os.path.join(lang_dir, output_filename)
 
         try:
-            translated_content = json.loads(response.text)
+            translated_content = json.loads(response_text)
         except json.JSONDecodeError as e:
             print(f"ERROR: while parsing JSON for language '{language_code}' and resource '{resource_slug}': {e}")
 
@@ -356,7 +488,7 @@ for language_code in language_codes:
             if language_code == 'ru' and resource_slug == 'appendicesjson':
                 print("Attempting to fix known control character issue in Russian 'appendicesjson'...")
                 # Replace the specific control character (\x02) with a hyphen or appropriate character
-                cleaned_text = response.text.replace('\x02', '-')
+                cleaned_text = response_text.replace('\x02', '-')
                 try:
                     translated_content = json.loads(cleaned_text)
                     print("Successfully parsed JSON after cleaning.")
