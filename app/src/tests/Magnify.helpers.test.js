@@ -18,6 +18,93 @@ function normalizeApostropheLikeMarks(text) {
     return String(text ?? '').replace(/['’‘`´ʼʹʽˈꞌ＇]/g, '');
 }
 
+function isWordChar(ch) {
+    if (!ch) return false;
+    const c = ch.charCodeAt(0);
+    if (c >= 0x30 && c <= 0x39) return true;
+    if (ch.toUpperCase() !== ch.toLowerCase()) return true;
+    if (c >= 0x0621 && c <= 0x064A) return true;
+    if (c >= 0x066E && c <= 0x06D3) return true;
+    if (c >= 0x05D0 && c <= 0x05EA) return true;
+    if (c >= 0x4E00 && c <= 0x9FFF) return true;
+    if (c >= 0x0900 && c <= 0x0DFF) return true;
+    if (c >= 0x0E00 && c <= 0x0E7F) return true;
+    return false;
+}
+
+function collapseSearchWordChars(text) {
+    let collapsed = '';
+    for (const ch of String(text ?? '')) {
+        if (isWordChar(ch)) {
+            collapsed += ch;
+        }
+    }
+    return collapsed;
+}
+
+function extractParentheticalSegments(text) {
+    const segments = [];
+    const pattern = /\(([^()]+)\)/g;
+    let match;
+
+    while ((match = pattern.exec(String(text ?? ''))) !== null) {
+        segments.push({
+            raw: match[0],
+            inner: match[1],
+        });
+    }
+
+    return segments;
+}
+
+function extractSuraTitleSegments(text) {
+    const segments = [];
+    const lines = String(text ?? '')
+        .split('\n')
+        .map((line) => line.trim())
+        .filter(Boolean);
+
+    const titleLine = lines.find((line) => /\d/.test(line) && line.includes(':'));
+    if (titleLine) {
+        const colonIndex = titleLine.lastIndexOf(':');
+        const mainTitle = titleLine.slice(colonIndex + 1).trim();
+        if (mainTitle) {
+            segments.push(mainTitle);
+        }
+    }
+
+    extractParentheticalSegments(text).forEach((segment) => {
+        const inner = segment.inner.trim();
+        if (inner) {
+            segments.push(inner);
+        }
+    });
+
+    return Array.from(new Set(segments));
+}
+
+function buildSuraTitleAutoExpandCandidates(segment, foldFn) {
+    const candidates = new Set();
+    const rawSegment = String(segment ?? '').trim();
+    if (!rawSegment) return candidates;
+
+    const foldedSegment = collapseSearchWordChars(foldFn(rawSegment));
+    if (foldedSegment) {
+        candidates.add(foldedSegment);
+    }
+
+    const hyphenIndex = rawSegment.indexOf('-');
+    if (hyphenIndex !== -1) {
+        const suffixSegment = rawSegment.slice(hyphenIndex + 1).trim();
+        const foldedSuffix = collapseSearchWordChars(foldFn(suffixSegment));
+        if (foldedSuffix) {
+            candidates.add(foldedSuffix);
+        }
+    }
+
+    return candidates;
+}
+
 describe("normalizeText", () => {
     test("strips French accents: 'école' → 'ecole'", () => {
         expect(normalizeText("école")).toBe("ecole");
@@ -108,6 +195,92 @@ function searchFold(text, lang, doNormalize, caseSensitive) {
     return t;
 }
 
+function buildSuraTitleSearchText(titleText, titleNumber, lang, doNormalize, caseSensitive) {
+    const foldedTitleText = searchFold(titleText, lang, doNormalize, caseSensitive);
+    if (String(titleNumber) !== '1') return foldedTitleText;
+
+    const aliasSet = new Set();
+    extractParentheticalSegments(titleText).forEach((segment) => {
+        const collapsedAlias = collapseSearchWordChars(
+            searchFold(segment.inner, lang, doNormalize, caseSensitive)
+        );
+        if (collapsedAlias) {
+            aliasSet.add(collapsedAlias);
+        }
+    });
+
+    if (aliasSet.size === 0) return foldedTitleText;
+    return `${foldedTitleText} ${Array.from(aliasSet).join(' ')}`.trim();
+}
+
+function buildCollapsedSearchTextKeywords(searchTerm, lang, doNormalize, caseSensitive, useExact) {
+    const processedTerm = searchFold(searchTerm, lang, doNormalize, caseSensitive);
+    const keywords = new Set();
+    const orParts = processedTerm.split('|').map((term) => term.trim()).filter(Boolean);
+
+    orParts.forEach((part) => {
+        const tokens = part.split(/\s+/).filter((token) => token.trim() !== '');
+        const textTokens = tokens.filter((token) => !/\d/.test(token));
+        const candidateTerms = useExact ? [textTokens.join(' ')] : textTokens;
+
+        candidateTerms.forEach((term) => {
+            const collapsedKeyword = collapseSearchWordChars(term);
+            if (collapsedKeyword) {
+                keywords.add(collapsedKeyword);
+            }
+        });
+    });
+
+    return Array.from(keywords);
+}
+
+function getSuraTitleAliasHighlightKeywords(titleText, titleNumber, searchTerm, lang, doNormalize, caseSensitive, useExact) {
+    if (String(titleNumber) !== '1') return [];
+
+    const collapsedSearchTextKeywords = buildCollapsedSearchTextKeywords(
+        searchTerm,
+        lang,
+        doNormalize,
+        caseSensitive,
+        useExact
+    );
+
+    const aliasKeywords = new Set();
+    extractParentheticalSegments(titleText).forEach((segment) => {
+        const collapsedAlias = collapseSearchWordChars(
+            searchFold(segment.inner, lang, doNormalize, caseSensitive)
+        );
+        if (
+            collapsedAlias
+            && collapsedSearchTextKeywords.some((keyword) => collapsedAlias.includes(keyword))
+        ) {
+            aliasKeywords.add(segment.inner);
+        }
+    });
+
+    return Array.from(aliasKeywords);
+}
+
+function shouldAutoExpandSuraTitle(titleText, titleNumber, searchTerm, lang, doNormalize, caseSensitive, useExact) {
+    if (String(titleNumber) !== '1') return false;
+
+    const collapsedSearchTextKeywords = buildCollapsedSearchTextKeywords(
+        searchTerm,
+        lang,
+        doNormalize,
+        caseSensitive,
+        useExact
+    );
+
+    return extractSuraTitleSegments(titleText).some((segment) => {
+        const candidates = buildSuraTitleAutoExpandCandidates(
+            segment,
+            (value) => searchFold(value, lang, doNormalize, caseSensitive)
+        );
+        return Array.from(candidates).some((candidate) => collapsedSearchTextKeywords.includes(candidate));
+    });
+}
+
 describe("searchFold — null & edge-case guards", () => {
     test("null → returns ''", () => {
         expect(searchFold(null, "en", true, false)).toBe("");
@@ -131,6 +304,79 @@ describe("searchFold — null & edge-case guards", () => {
     test("very long string does not throw", () => {
         const long = "a".repeat(100000);
         expect(() => searchFold(long, "en", true, false)).not.toThrow();
+    });
+});
+
+describe("sura title alias matching", () => {
+    const lang = "en";
+    const norm = true;
+    const caseSensitive = false;
+
+    test("'taha' matches title #1 containing '(Tã Hã)'", () => {
+        const title = "♦ ♦ ♦ ♦\nSura 20: T. H.\n(Tã Hã)\nIn the name of God";
+        const hay = buildSuraTitleSearchText(title, 1, lang, norm, caseSensitive);
+        const needle = searchFold("taha", lang, norm, caseSensitive);
+
+        expect(hay.includes(needle)).toBe(true);
+    });
+
+    test("'yasin' matches title #1 containing '(Yã Sîn)'", () => {
+        const title = "♦ ♦ ♦ ♦\nSura 36: Y. S.\n(Yã Sîn)\nIn the name of God";
+        const hay = buildSuraTitleSearchText(title, 1, lang, norm, caseSensitive);
+        const needle = searchFold("yasin", lang, norm, caseSensitive);
+
+        expect(hay.includes(needle)).toBe(true);
+    });
+
+    test("same alias does not apply to non-sura title numbers", () => {
+        const title = "T. H. (Tã Hã) 20:8-39";
+        const hay = buildSuraTitleSearchText(title, 2, lang, norm, caseSensitive);
+        const needle = searchFold("taha", lang, norm, caseSensitive);
+
+        expect(hay.includes(needle)).toBe(false);
+    });
+
+    test("alias match yields highlight keyword for the parenthetical sure form", () => {
+        const title = "♦ ♦ ♦ ♦\nSura 20: T. H.\n(Tã Hã)\nIn the name of God";
+        const keywords = getSuraTitleAliasHighlightKeywords(title, 1, "taha", lang, norm, caseSensitive, false);
+
+        expect(keywords).toEqual(["Tã Hã"]);
+    });
+
+    test("auto-expand is enabled for full alias match", () => {
+        const title = "♦ ♦ ♦ ♦\nSura 20: T. H.\n(Tã Hã)\nIn the name of God";
+        expect(shouldAutoExpandSuraTitle(title, 1, "taha", lang, norm, caseSensitive, false)).toBe(true);
+    });
+
+    test("auto-expand is disabled for partial alias syllables", () => {
+        const title = "♦ ♦ ♦ ♦\nSura 20: T. H.\n(Tã Hã)\nIn the name of God";
+        expect(shouldAutoExpandSuraTitle(title, 1, "ta", lang, norm, caseSensitive, false)).toBe(false);
+        expect(shouldAutoExpandSuraTitle(title, 1, "ta ha", lang, norm, caseSensitive, false)).toBe(false);
+    });
+
+    test("auto-expand is enabled for exact full display-name match", () => {
+        const title = "♦ ♦ ♦ ♦\nSura 20: T. H.\n(Tã Hã)\nIn the name of God";
+        expect(shouldAutoExpandSuraTitle(title, 1, "t h", lang, norm, caseSensitive, true)).toBe(true);
+    });
+
+    test("auto-expand stays disabled for non-sura title numbers", () => {
+        const title = "T. H. (Tã Hã) 20:8-39";
+        expect(shouldAutoExpandSuraTitle(title, 2, "taha", lang, norm, caseSensitive, false)).toBe(false);
+    });
+
+    test("auto-expand allows full match after hyphen-prefixed article", () => {
+        const title = "♦ ♦ ♦ ♦\nSura 1: El-Fatiha\nIn the name of God";
+        expect(shouldAutoExpandSuraTitle(title, 1, "fatiha", lang, norm, caseSensitive, false)).toBe(true);
+    });
+
+    test("auto-expand allows full match after hyphen in another sure title", () => {
+        const title = "♦ ♦ ♦ ♦\nSura 114: El-Nas\nIn the name of God";
+        expect(shouldAutoExpandSuraTitle(title, 1, "nas", lang, norm, caseSensitive, false)).toBe(true);
+    });
+
+    test("auto-expand still rejects partial match after hyphen", () => {
+        const title = "♦ ♦ ♦ ♦\nSura 1: El-Fatiha\nIn the name of God";
+        expect(shouldAutoExpandSuraTitle(title, 1, "fat", lang, norm, caseSensitive, false)).toBe(false);
     });
 });
 
@@ -717,20 +963,6 @@ describe("localStorage JSON.parse safety", () => {
 
 // ── exactIndexOf — word-boundary exact phrase matching ──────────────────────
 
-const isWordChar = (ch) => {
-    if (!ch) return false;
-    const c = ch.charCodeAt(0);
-    if (c >= 0x30 && c <= 0x39) return true;
-    if (ch.toUpperCase() !== ch.toLowerCase()) return true;
-    if (c >= 0x0621 && c <= 0x064A) return true;
-    if (c >= 0x066E && c <= 0x06D3) return true;
-    if (c >= 0x05D0 && c <= 0x05EA) return true;
-    if (c >= 0x4E00 && c <= 0x9FFF) return true;
-    if (c >= 0x0900 && c <= 0x0DFF) return true;
-    if (c >= 0x0E00 && c <= 0x0E7F) return true;
-    return false;
-};
-
 function exactIndexOf(hay, phrase, startFrom) {
     const phraseWords = phrase.split(/\s+/).filter(Boolean);
     if (phraseWords.length === 0) return -1;
@@ -1027,7 +1259,7 @@ describe("highlightText — exact mode", () => {
  * Simulates the lightWords keyword-extraction logic from Magnify.js.
  * Returns the list of keywords that would be used for highlighting.
  */
-function extractLightWordsKeywords(searchTerm, lang, doNormalize, caseSensitive, useExact) {
+function extractLightWordsKeywords(searchTerm, lang, doNormalize, caseSensitive, useExact, extraKeywords = []) {
     let processedTerm = searchFold(searchTerm, lang, doNormalize, caseSensitive);
     if (useExact) {
         const orParts = processedTerm.split('|').map(t => t.trim()).filter(t => t !== '');
@@ -1039,9 +1271,13 @@ function extractLightWordsKeywords(searchTerm, lang, doNormalize, caseSensitive,
             if (textTokens.length > 0) keywords.push(textTokens.join(' '));
             keywords.push(...numericTokens);
         });
+        keywords.push(...extraKeywords.filter((keyword) => String(keyword ?? '').trim() !== ''));
         return keywords;
     } else {
-        return processedTerm.split(' ').filter(keyword => (keyword.trim() !== '' && keyword.trim() !== '|' && keyword.trim().length > 0));
+        return [
+            ...processedTerm.split(' ').filter(keyword => (keyword.trim() !== '' && keyword.trim() !== '|' && keyword.trim().length > 0)),
+            ...extraKeywords.filter((keyword) => String(keyword ?? '').trim() !== '')
+        ];
     }
 }
 
@@ -1051,8 +1287,8 @@ function extractLightWordsKeywords(searchTerm, lang, doNormalize, caseSensitive,
  * Here we simulate with {type:'text',value} and {type:'highlight',value} objects.
  * The chaining logic: only 'text' parts get re-highlighted by subsequent keywords.
  */
-function lightWordsHighlights(text, searchTerm, lang = "en", doNormalize = false, caseSensitive = false, useExact = false) {
-    const keywords = extractLightWordsKeywords(searchTerm, lang, doNormalize, caseSensitive, useExact);
+function lightWordsHighlights(text, searchTerm, lang = "en", doNormalize = false, caseSensitive = false, useExact = false, extraKeywords = []) {
+    const keywords = extractLightWordsKeywords(searchTerm, lang, doNormalize, caseSensitive, useExact, extraKeywords);
     if (useExact) {
         if (!text || keywords.length === 0) return [];
 
@@ -1289,6 +1525,22 @@ describe("lightWords — full highlight pipeline", () => {
     test("exact mode: Turkish with normalize — formula + text", () => {
         const h = lightWordsHighlights("Onu taşıyarak Meryem geldi", "19: meryem", "tr", true, false, true);
         expect(h).toEqual(["Meryem"]);
+    });
+
+    test("normal mode: sura alias hit highlights the parenthetical sure form", () => {
+        const title = "♦ ♦ ♦ ♦\nSura 20: T. H.\n(Tã Hã)\nIn the name of God";
+        const aliasKeywords = getSuraTitleAliasHighlightKeywords(title, 1, "taha", "en", true, false, false);
+        const h = lightWordsHighlights(title, "taha", "en", true, false, false, aliasKeywords);
+
+        expect(h).toEqual(["Tã Hã"]);
+    });
+
+    test("exact mode: sura alias hit highlights the parenthetical sure form", () => {
+        const title = "♦ ♦ ♦ ♦\nSura 36: Y. S.\n(Yã Sîn)\nIn the name of God";
+        const aliasKeywords = getSuraTitleAliasHighlightKeywords(title, 1, "yasin", "en", true, false, true);
+        const h = lightWordsHighlights(title, "yasin", "en", true, false, true, aliasKeywords);
+
+        expect(h).toEqual(["Yã Sîn"]);
     });
 
     test("normal mode: no match returns empty highlights", () => {

@@ -10,10 +10,6 @@
 
 // ── helpers (mirror the logic inside Magnify.js) ────────────────────────────
 
-function normalizeText(text) {
-    return text.normalize("NFD").replace(/[\u0300-\u036f]/g, "");
-}
-
 function normalizeApostropheLikeMarks(text) {
     return String(text ?? '').replace(/['’‘`´ʼʹʽˈꞌ＇]/g, '');
 }

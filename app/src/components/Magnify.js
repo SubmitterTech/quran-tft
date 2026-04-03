@@ -89,6 +89,79 @@ const splitQuerySegments = (text) => {
     return segments;
 };
 
+const collapseSearchWordChars = (text) => {
+    let collapsed = '';
+    for (const ch of String(text ?? '')) {
+        if (isWordChar(ch)) {
+            collapsed += ch;
+        }
+    }
+    return collapsed;
+};
+
+const extractParentheticalSegments = (text) => {
+    const segments = [];
+    const pattern = /\(([^()]+)\)/g;
+    let match;
+
+    while ((match = pattern.exec(String(text ?? ''))) !== null) {
+        segments.push({
+            raw: match[0],
+            inner: match[1],
+        });
+    }
+
+    return segments;
+};
+
+const extractSuraTitleSegments = (text) => {
+    const segments = [];
+    const lines = String(text ?? '')
+        .split('\n')
+        .map((line) => line.trim())
+        .filter(Boolean);
+
+    const titleLine = lines.find((line) => /\d/.test(line) && line.includes(':'));
+    if (titleLine) {
+        const colonIndex = titleLine.lastIndexOf(':');
+        const mainTitle = titleLine.slice(colonIndex + 1).trim();
+        if (mainTitle) {
+            segments.push(mainTitle);
+        }
+    }
+
+    extractParentheticalSegments(text).forEach((segment) => {
+        const inner = segment.inner.trim();
+        if (inner) {
+            segments.push(inner);
+        }
+    });
+
+    return Array.from(new Set(segments));
+};
+
+const buildSuraTitleAutoExpandCandidates = (segment, foldFn) => {
+    const candidates = new Set();
+    const rawSegment = String(segment ?? '').trim();
+    if (!rawSegment) return candidates;
+
+    const foldedSegment = collapseSearchWordChars(foldFn(rawSegment));
+    if (foldedSegment) {
+        candidates.add(foldedSegment);
+    }
+
+    const hyphenIndex = rawSegment.indexOf('-');
+    if (hyphenIndex !== -1) {
+        const suffixSegment = rawSegment.slice(hyphenIndex + 1).trim();
+        const foldedSuffix = collapseSearchWordChars(foldFn(suffixSegment));
+        if (foldedSuffix) {
+            candidates.add(foldedSuffix);
+        }
+    }
+
+    return candidates;
+};
+
 const hasLocalizedDigit = (value, localizedDigits = []) => {
     if (value == null) return false;
     const text = String(value);
@@ -590,6 +663,69 @@ const Magnify = ({
         }
         return t;
     }, [lang, normalize, caseSensitive, isRtlLanguage]);
+
+    const buildSuraTitleSearchText = useCallback((titleText, titleNumber) => {
+        const foldedTitleText = searchFold(titleText);
+        if (String(titleNumber) !== '1') return foldedTitleText;
+
+        const aliasSet = new Set();
+        extractParentheticalSegments(titleText).forEach((segment) => {
+            const collapsedAlias = collapseSearchWordChars(searchFold(segment.inner));
+            if (collapsedAlias) {
+                aliasSet.add(collapsedAlias);
+            }
+        });
+
+        if (aliasSet.size === 0) return foldedTitleText;
+        return `${foldedTitleText} ${Array.from(aliasSet).join(' ')}`.trim();
+    }, [searchFold]);
+
+    const collapsedSearchTextKeywords = useMemo(() => {
+        const processedTerm = searchFold(searchTerm);
+        const keywords = new Set();
+        const orParts = processedTerm.split('|').map((term) => term.trim()).filter(Boolean);
+
+        orParts.forEach((part) => {
+            const tokens = part.split(/\s+/).filter((token) => token.trim() !== '');
+            const textTokens = tokens.filter((token) => !hasLocalizedDigit(token, langDigits));
+            const candidateTerms = exactMatch ? [textTokens.join(' ')] : textTokens;
+
+            candidateTerms.forEach((term) => {
+                const collapsedKeyword = collapseSearchWordChars(term);
+                if (collapsedKeyword) {
+                    keywords.add(collapsedKeyword);
+                }
+            });
+        });
+
+        return Array.from(keywords);
+    }, [searchFold, searchTerm, exactMatch, langDigits]);
+
+    const getSuraTitleAliasHighlightKeywords = useCallback((titleText, titleNumber) => {
+        if (String(titleNumber) !== '1' || collapsedSearchTextKeywords.length === 0) return [];
+
+        const aliasKeywords = new Set();
+        extractParentheticalSegments(titleText).forEach((segment) => {
+            const collapsedAlias = collapseSearchWordChars(searchFold(segment.inner));
+            if (
+                collapsedAlias
+                && collapsedSearchTextKeywords.some((keyword) => collapsedAlias.includes(keyword))
+            ) {
+                aliasKeywords.add(segment.inner);
+            }
+        });
+
+        return Array.from(aliasKeywords);
+    }, [collapsedSearchTextKeywords, searchFold]);
+
+    const shouldAutoExpandSuraTitle = useCallback((titleText, titleNumber) => {
+        if (String(titleNumber) !== '1' || collapsedSearchTextKeywords.length === 0) return false;
+
+        return extractSuraTitleSegments(titleText).some((segment) => {
+            const candidates = buildSuraTitleAutoExpandCandidates(segment, searchFold);
+            return Array.from(candidates).some((candidate) => collapsedSearchTextKeywords.includes(candidate));
+        });
+    }, [collapsedSearchTextKeywords, searchFold]);
 
     useEffect(() => {
         let cancelled = false;
@@ -1446,7 +1582,7 @@ const Magnify = ({
                 const titles = suras[suraNumber].titles;
                 for (const titleNumber in titles) {
                     const titleText = titles[titleNumber];
-                    let processedTitleText = searchFold(titleText);
+                    const processedTitleText = buildSuraTitleSearchText(titleText, titleNumber);
 
                     if (keywordGroups.some(keywords => hayContains(processedTitleText, keywords))) {
                         titleResults.push({ suraNumber, titleNumber, titleText });
@@ -1563,7 +1699,7 @@ const Magnify = ({
         });
 
         return hasResults;
-    }, [quran, introduction, appsmap, lang, exactMatch, searchFold, startTransition]);
+    }, [quran, introduction, appsmap, lang, exactMatch, searchFold, startTransition, buildSuraTitleSearchText]);
 
 
     const performSearchSingleLetter = useCallback((term) => {
@@ -1837,7 +1973,7 @@ const Magnify = ({
         return parts.length > 0 ? parts : [originalText];
     }, [caseSensitive, normalize, lang, colors, theme, isRtlLanguage]);
 
-    const lightWords = useCallback((text) => {
+    const lightWords = useCallback((text, extraKeywords = []) => {
         let processedTerm = searchFold(searchTerm);
         let keywords;
         if (exactMatch) {
@@ -1852,11 +1988,13 @@ const Magnify = ({
                 if (textTokens.length > 0) keywords.push(textTokens.join(' '));
                 keywords.push(...numericTokens);
             });
+            keywords.push(...extraKeywords.filter((keyword) => String(keyword ?? '').trim() !== ''));
             if (keywords.length === 0) return [text];
             return highlightExactKeywords(text, keywords);
         } else {
             keywords = processedTerm.split(' ').filter(keyword => (keyword.trim() !== '' && keyword.trim() !== '|' && keyword.trim().length > 0));
         }
+        keywords.push(...extraKeywords.filter((keyword) => String(keyword ?? '').trim() !== ''));
         let highlightedText = [text];
 
         keywords.forEach((keyword) => {
@@ -1869,6 +2007,21 @@ const Magnify = ({
     const renderResultText = useCallback((text) => (
         applyHyphenationToNode(lightWords(text))
     ), [lightWords, applyHyphenationToNode]);
+
+    const renderTitleResultText = useCallback((result) => (
+        applyHyphenationToNode(
+            lightWords(
+                result.titleText,
+                getSuraTitleAliasHighlightKeywords(result.titleText, result.titleNumber)
+            )
+        )
+    ), [lightWords, applyHyphenationToNode, getSuraTitleAliasHighlightKeywords]);
+
+    useEffect(() => {
+        if (searchResultTitles.some((result) => shouldAutoExpandSuraTitle(result.titleText, result.titleNumber))) {
+            setTitlesVisible(true);
+        }
+    }, [searchResultTitles, shouldAutoExpandSuraTitle]);
 
     const lastTitleElementRef = useCallback(node => {
         if (observerTitles.current) observerTitles.current.disconnect();
@@ -2312,7 +2465,7 @@ const Magnify = ({
                                                         key={`title-${thekey}-${index}`}
                                                         className={`py-2 px-5 rounded relative ${colors[theme]["app-background"]} cursor-pointer mx-1.5 md:mr-2 whitespace-pre-line text-center ${pulsate}`}
                                                         onClick={handleConfirm(thekey, `title`)}>
-                                                        <span className="text-sky-500 absolute top-1 left-1 text-xs">{result.suraNumber}:{result.titleNumber}</span> {renderResultText(result.titleText)}
+                                                        <span className="text-sky-500 absolute top-1 left-1 text-xs">{result.suraNumber}:{result.titleNumber}</span> {renderTitleResultText(result)}
                                                     </div>
                                                 );
                                             })
