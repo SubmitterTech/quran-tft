@@ -425,7 +425,7 @@ export const ColorPicker = memo(({ theme, colors, onChangeColor }) => {
                         <span className={`h-1.5 rounded-sm w-full mt-1 ${themeColors["accent"]["fill"]}`} />
                         <span className="grid grid-cols-4 gap-0.5 mt-1.5">
                             <span className={`h-2.5 rounded ${themeColors['surface']['top']}`} />
-                            <span className={`h-2.5 rounded ${themeColors['surface']['middle']}`} />
+                            <span className={`h-2.5 rounded ${themeColors['surface']['relation']}`} />
                             <span className={`h-2.5 rounded ${themeColors['surface']['bottom']}`} />
                             <span className={`h-2.5 rounded ${themeColors['surface']['base']}`} />
                         </span>
