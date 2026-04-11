@@ -27,7 +27,9 @@ export const colorThemes = {
             logger: 'text-neutral-800/80',
             'table-title': 'text-neutral-700',
             'on-map': 'text-neutral-900',
-            'on-map-soft': 'text-neutral-900/60'
+            'on-map-soft': 'text-neutral-900/60',
+            'on-deep': 'text-neutral-900',
+            'on-deep-soft': 'text-neutral-900/60'
         },
         border: {
             strong: 'border-neutral-900',
@@ -81,7 +83,9 @@ export const colorThemes = {
             logger: 'text-neutral-300/80',
             'table-title': 'text-neutral-300',
             'on-map': 'text-neutral-100',
-            'on-map-soft': 'text-neutral-100/60'
+            'on-map-soft': 'text-neutral-100/60',
+            'on-deep': 'text-neutral-100',
+            'on-deep-soft': 'text-neutral-100/60'
         },
         border: {
             strong: 'border-neutral-100',
@@ -135,7 +139,9 @@ export const colorThemes = {
             logger: 'text-neutral-300/80',
             'table-title': 'text-neutral-300',
             'on-map': 'text-neutral-100',
-            'on-map-soft': 'text-neutral-100/60'
+            'on-map-soft': 'text-neutral-100/60',
+            'on-deep': 'text-neutral-100',
+            'on-deep-soft': 'text-neutral-100/60'
         },
         border: {
             strong: 'border-indigo-100',
@@ -189,7 +195,9 @@ export const colorThemes = {
             logger: 'text-neutral-300/80',
             'table-title': 'text-neutral-300',
             'on-map': 'text-neutral-200',
-            'on-map-soft': 'text-neutral-200/60'
+            'on-map-soft': 'text-neutral-200/60',
+            'on-deep': 'text-neutral-200',
+            'on-deep-soft': 'text-neutral-200/60'
         },
         border: {
             strong: 'border-teal-100',
@@ -243,7 +251,9 @@ export const colorThemes = {
             logger: 'text-neutral-300/80',
             'table-title': 'text-neutral-300',
             'on-map': 'text-neutral-50',
-            'on-map-soft': 'text-neutral-100/60'
+            'on-map-soft': 'text-neutral-100/60',
+            'on-deep': 'text-neutral-50',
+            'on-deep-soft': 'text-neutral-100/60'
         },
         border: {
             strong: 'border-yellow-100',
@@ -297,7 +307,9 @@ export const colorThemes = {
             logger: 'text-neutral-300/80',
             'table-title': 'text-neutral-300',
             'on-map': 'text-neutral-100',
-            'on-map-soft': 'text-sky-100/60'
+            'on-map-soft': 'text-sky-100/60',
+            'on-deep': 'text-neutral-100',
+            'on-deep-soft': 'text-sky-100/60'
         },
         border: {
             strong: 'border-sky-100',
@@ -364,78 +376,24 @@ export const colorThemes = {
             focus: 'ring-[#7f5539]/80'
         },
         accent: {
-            top: 'text-fuchsia-700',
-            'on-light': 'text-fuchsia-700',
-            'on-deep': 'text-fuchsia-300',
-            'map-heading': 'text-fuchsia-300',
-            'map-link': 'text-fuchsia-300',
-            border: 'border-fuchsia-700',
-            'on-deep-border': 'border-fuchsia-300',
-            ring: 'ring-fuchsia-600/80',
-            'on-deep-ring': 'ring-fuchsia-300/90',
-            fill: 'bg-fuchsia-600',
-            conic: 'bg-[conic-gradient(#d946ef_20deg,transparent_180deg)]',
-            toast: '#d946ef'
-        },
-        effect: {
-            'focus-ring': 'focus:ring-fuchsia-600/70',
-            'focus-text': 'focus:text-[#4f3c29]',
-            'ring-verse': 'ring-fuchsia-600/70',
-            'ring-title': 'ring-[#f3ddb0]/70'
-        }
-    },
-    pink: {
-        'theme-mode': 'light',
-        'status-bar-style': 'light',
-        surface: {
-            top: 'bg-pink-50',
-            middle: 'bg-pink-100',
-            bottom: 'bg-pink-50',
-            base: 'bg-pink-200',
-            'verse-detail': 'bg-pink-100',
-            encrypted: 'bg-orange-300/40',
-            relation: 'bg-orange-300/40',
-            'map-top': 'bg-orange-200/60',
-            'map-chip-base': 'bg-pink-100',
-            'map-chip': 'bg-pink-100',
-            'map-chip-active': 'bg-orange-200/60',
-            toast: '#fff1f2',
-            'status-bar': '#fbcfe8'
-        },
-        text: {
-            top: 'text-neutral-950',
-            middle: 'text-neutral-900',
-            bottom: 'text-neutral-900/60',
-            deep: 'text-neutral-900/30',
-            logger: 'text-neutral-800/80',
-            'table-title': 'text-neutral-800',
-            'on-map': 'text-neutral-950',
-            'on-map-soft': 'text-neutral-900/60'
-        },
-        border: {
-            strong: 'border-pink-500',
-            soft: 'border-pink-400/80',
-            focus: 'ring-pink-400/80'
-        },
-        accent: {
             top: 'text-green-600',
-            'on-light': 'text-green-700',
-            'on-deep': 'text-green-600',
-            'map-heading': 'text-green-600',
-            'map-link': 'text-green-600',
+            'on-light': 'text-green-600',
+            'on-deep': 'text-lime-400',
+            'map-heading': 'text-lime-400',
+            'map-link': 'text-lime-400',
             border: 'border-green-600',
-            'on-deep-border': 'border-green-600',
-            ring: 'ring-green-600',
-            'on-deep-ring': 'ring-green-600',
+            'on-deep-border': 'border-lime-400',
+            ring: 'ring-green-600/80',
+            'on-deep-ring': 'ring-lime-400/90',
             fill: 'bg-green-600',
-            conic: 'bg-[conic-gradient(#16a34a_20deg,transparent_180deg)]',
+            conic: 'bg-[conic-gradient(#0ea5e9_20deg,transparent_180deg)]',
             toast: '#16a34a'
         },
         effect: {
-            'focus-ring': 'focus:ring-pink-800/80',
-            'focus-text': 'focus:text-neutral-900',
-            'ring-verse': 'ring-green-600/80',
-            'ring-title': 'ring-pink-300/50'
+            'focus-ring': 'focus:ring-green-600/70',
+            'focus-text': 'focus:text-[#f3ddb0]',
+            'ring-verse': 'ring-green-600/70',
+            'ring-title': 'ring-[#f3ddb0]/70'
         }
     }
 };
@@ -487,16 +445,25 @@ export const ColorPicker = memo(({ theme, colors, onChangeColor }) => {
     );
 });
 
-export const FontPicker = memo(({ theme, colors, font, onChangeFont }) => {
+export const FontPicker = memo(({ theme, colors, font, onChangeFont, compact = false }) => {
     const activeLang = (typeof window !== 'undefined' ? localStorage.getItem('lang') : '') || '';
     const sansPreviewFamily = activeLang.toLowerCase() === 'fa'
         ? 'Vazirmatn, ui-sans-serif, system-ui, sans-serif'
         : 'ui-sans-serif, system-ui, sans-serif';
+    const containerClassName = compact
+        ? 'flex flex-col space-y-4 w-full h-full text-lg'
+        : 'flex flex-row gap-3 w-full text-base';
+    const labelClassName = 'flex cursor-pointer flex-1 items-stretch min-w-0';
+    const buttonClassName = compact
+        ? `flex flex-col items-center justify-center rounded flex-1 ${colors[theme]["surface"]["top"]} ${colors[theme]["text"]["top"]}`
+        : `flex items-center justify-center rounded flex-1 px-2 ${colors[theme]["surface"]["top"]} ${colors[theme]["text"]["top"]}`;
+    const selectedBorderClass = `${colors[theme]["accent"]["border"]} border-2`;
+    const idleBorderClass = compact ? 'border border-gray-400/70' : `${colors[theme]["border"]["soft"]} border-2`;
 
     return (
-        <div className={`flex flex-row gap-3 w-full text-base`}>
+        <div className={containerClassName}>
 
-            <label key={`sans`} className="flex cursor-pointer flex-1 items-stretch min-w-0">
+            <label key={`sans`} className={labelClassName}>
                 <input
                     type="radio"
                     name="theme"
@@ -505,16 +472,24 @@ export const FontPicker = memo(({ theme, colors, font, onChangeFont }) => {
                     className="hidden"
                 />
                 <div
-                    className={`flex items-center justify-center rounded flex-1 px-2 ${colors[theme]["surface"]["top"]} ${colors[theme]["text"]["top"]} ${`font-normal` === font ? `${colors[theme]["accent"]["border"]}` : `${colors[theme]["border"]["soft"]}`} border-2 h-12`}>
-                    <div className=" w-full flex items-center justify-center gap-5 leading-none">
-                        <div style={{ fontFamily: sansPreviewFamily }} className="text-3xl">{`Q`}</div>
-                        <div style={{ fontFamily: sansPreviewFamily }} className="text-[2rem] mb-2.5 !font-normal">{`ق`}</div>
-                        <div style={{ fontFamily: sansPreviewFamily }} className="text-2xl">{`57`}</div>
-                    </div>
+                    className={`${buttonClassName} ${`font-normal` === font ? selectedBorderClass : idleBorderClass} ${compact ? 'h-20' : 'h-12 px-2'}`}>
+                    {compact ? (
+                        <>
+                            <div style={{ fontFamily: sansPreviewFamily }}>{`Q`}</div>
+                            <div style={{ fontFamily: sansPreviewFamily }} className={`text-xl -mt-2 !font-normal`}>{`ق`}</div>
+                            <div style={{ fontFamily: sansPreviewFamily }} className={`text-base`}>{`57`}</div>
+                        </>
+                    ) : (
+                        <div className="w-full flex items-center justify-center gap-5 leading-none">
+                            <div style={{ fontFamily: sansPreviewFamily }} className="text-3xl">{`Q`}</div>
+                            <div style={{ fontFamily: sansPreviewFamily }} className="text-[2rem] mb-2.5 !font-normal">{`ق`}</div>
+                            <div style={{ fontFamily: sansPreviewFamily }} className="text-2xl">{`57`}</div>
+                        </div>
+                    )}
                 </div>
             </label>
 
-            <label key={`serif`} className="flex cursor-pointer flex-1 items-stretch min-w-0">
+            <label key={`serif`} className={labelClassName}>
                 <input
                     type="radio"
                     name="theme"
@@ -523,12 +498,20 @@ export const FontPicker = memo(({ theme, colors, font, onChangeFont }) => {
                     className="hidden"
                 />
                 <div
-                    className={`flex items-center justify-center rounded flex-1 px-2 ${colors[theme]["surface"]["top"]} ${colors[theme]["text"]["top"]} ${`font-serif` === font ? `${colors[theme]["accent"]["border"]}` : `${colors[theme]["border"]["soft"]}`} border-2 h-12`}>
-                    <div className=" w-full flex items-center justify-center gap-5 leading-none">
-                        <div style={{ fontFamily: 'serif' }} className="text-3xl">{`Q`}</div>
-                        <div style={{ fontFamily: 'serif' }} className="text-[2rem] mb-2">{`ق`}</div>
-                        <div style={{ fontFamily: 'serif' }} className="text-2xl pt-1">{`57`}</div>
-                    </div>
+                    className={`${buttonClassName} ${`font-serif` === font ? selectedBorderClass : idleBorderClass} ${compact ? 'h-20' : 'h-12 px-2'}`}>
+                    {compact ? (
+                        <>
+                            <div style={{ fontFamily: 'serif' }}>{`Q`}</div>
+                            <div style={{ fontFamily: 'serif' }} className={`text-xl -mt-1.5`}>{`ق`}</div>
+                            <div style={{ fontFamily: 'serif' }} className={`text-base -mt-0.5`}>{`57`}</div>
+                        </>
+                    ) : (
+                        <div className="w-full flex items-center justify-center gap-5 leading-none">
+                            <div style={{ fontFamily: 'serif' }} className="text-3xl">{`Q`}</div>
+                            <div style={{ fontFamily: 'serif' }} className="text-[2rem] mb-2">{`ق`}</div>
+                            <div style={{ fontFamily: 'serif' }} className="text-2xl pt-1">{`57`}</div>
+                        </div>
+                    )}
                 </div>
             </label>
 

@@ -616,7 +616,7 @@ const Verse = ({ besmele,
                                                                     {`${verseNumber}. `}
                                                                 </span>
                                                             )}
-                                                            <span className={isTitle ? `text-center w-full block py-1.5 md:py-2 transform italic font-semibold ${colors[theme]["surface"]["base"]} ${mode === `reading` ? `scale-x-[1.03]` : `scale-x-[1.033] `}` : ``}>
+                                                            <span className={isTitle ? `text-center w-full block py-1.5 md:py-2 transform italic font-semibold ${colors[theme]["surface"]["base"]} ${colors[theme]["text"]["on-deep"]} ${mode === `reading` ? `scale-x-[1.03]` : `scale-x-[1.033] `}` : ``}>
                                                                 {line}
                                                             </span>
                                                         </React.Fragment>
@@ -646,7 +646,7 @@ const Verse = ({ besmele,
                                                                 {`${verseNumber}. `}
                                                             </span>
                                                         )}
-                                                        <span className={isTitle ? `text-center w-full block py-1.5 md:py-2 transform italic font-semibold ${colors[theme]["surface"]["base"]} ${mode === `reading` ? `scale-x-[1.03]` : `scale-x-[1.033] `}` : ``}>
+                                                        <span className={isTitle ? `text-center w-full block py-1.5 md:py-2 transform italic font-semibold ${colors[theme]["surface"]["base"]} ${colors[theme]["text"]["on-deep"]} ${mode === `reading` ? `scale-x-[1.03]` : `scale-x-[1.033] `}` : ``}>
                                                             {line}
                                                         </span>
                                                     </React.Fragment>
@@ -683,7 +683,7 @@ const Verse = ({ besmele,
                                                         {`${verseNumber}. `}
                                                     </span>
                                                 )}
-                                                <span className={isTitle ? `text-center w-full block py-1.5 md:py-2 transform italic font-semibold ${colors[theme]["surface"]["base"]} ${mode === `reading` ? `scale-x-[1.03]` : `scale-x-[1.033] `}` : ``}>
+                                                <span className={isTitle ? `text-center w-full block py-1.5 md:py-2 transform italic font-semibold ${colors[theme]["surface"]["base"]} ${colors[theme]["text"]["on-deep"]} ${mode === `reading` ? `scale-x-[1.03]` : `scale-x-[1.033] `}` : ``}>
                                                     {line}
                                                 </span>
                                             </React.Fragment>
@@ -709,21 +709,21 @@ const Verse = ({ besmele,
                                     <path strokeLinecap="round" strokeLinejoin="round" d="M16.5 3.75V16.5L12 14.25 7.5 16.5V3.75m9 0H18A2.25 2.25 0 0 1 20.25 6v12A2.25 2.25 0 0 1 18 20.25H6A2.25 2.25 0 0 1 3.75 18V6A2.25 2.25 0 0 1 6 3.75h1.5m9 0h-9" />
                                 </svg>
                             </div>
-                            <div className={`${(mode === "reading" && bookmark) ? ` p-1 text-start ${colors[theme]["accent"]["top"]} whitespace-pre-wrap max-h-96 overflow-y-auto cursor-auto` : "h-0 "}`} dir={direction} >
+                            <div className={`${(mode === "reading" && bookmark) ? ` p-1 text-start ${colors[theme]["accent"]["on-deep"]} whitespace-pre-wrap max-h-96 overflow-y-auto cursor-auto` : "h-0 "}`} dir={direction} >
                                 {mode === "reading" && (supportsLookAhead() ? parseReferences(Bookmarks.format(typeof bookmark === 'object' ? bookmark === null ? '' : bookmark.value : bookmark), currentVerseKey + '-bookmarknote') : Bookmarks.format(typeof bookmark === 'object' ? bookmark === null ? '' : bookmark.value : bookmark))}
                             </div>
                         </div>
                     </div>
                     <div className={`w-full flex flex-col flex-1  ${mode === "reading" ? "p-0.5 mt-2" : "h-0"} `}>
                         <div className={`${mode === "reading" ? " select-text ease-linear mb-2 duration-300" : "h-0 "} w-full transition-all  rounded ${colors[theme]["surface"]["encrypted"]} `} >
-                            <p className={` pb-1 pt-2.5 px-2 text-start cursor-auto font-arabic text-3xl/relaxed md:text-4xl/relaxed lg:text-5xl/relaxed`} dir="rtl" >
+                            <p className={` pb-1 pt-2.5 px-2 text-start cursor-auto font-arabic text-3xl/relaxed md:text-4xl/relaxed lg:text-5xl/relaxed ${colors[theme]["text"]["on-deep"]}`} dir="rtl" >
                                 {mode === "reading" && lightAllahwords(encryptedText)}
                             </p>
                         </div>
                         <div className={`${(mode === "reading" && relatedVerses.size > 0) ? "overflow-auto p-2 delay-75 duration-200 ease-in-out " + heightClass : " h-0"}  transition-all w-full rounded ${colors[theme]["surface"]["relation"]}`}>
                             {(mode === "reading" && relatedVerses.size > 0) && Array.from(relatedVerses.entries()).map(([themeKey, verseKeys]) => (
                                 <div key={themeKey}>
-                                    <h3 className={`text-lg text-wrap whitespace-pre ${colors[theme]["accent"]["top"]}`}>{themeKey}</h3>
+                                    <h3 className={`text-lg text-wrap whitespace-pre ${colors[theme]["accent"]["on-deep"]}`}>{themeKey}</h3>
                                     <div>
                                         {verseKeys.map(verseKey => (
                                             <button

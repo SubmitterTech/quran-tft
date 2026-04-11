@@ -885,7 +885,7 @@ const Pages = React.memo(({
                 }}>
                 <div
                     ref={stickyRef}
-                    className={`sticky top-0 p-3 ${colors[theme]["surface"]["base"]} relative flex z-10`}>
+                    className={`sticky top-0 p-3 ${colors[theme]["surface"]["base"]} ${colors[theme]["text"]["on-deep"]} relative flex z-10`}>
                     <div
                         ref={stickyTitlesFocusRef}
                         onClick={() => handlePageTitleClicked()}
@@ -953,7 +953,7 @@ const Pages = React.memo(({
                         const verseTextTheme = isPersian ? `text-3xl md:text-4xl lg:text-5xl ` : `text-lg md:text-xl lg:text-2xl `;
                         const titleTextTheme = isPersian ? `text-2xl md:text-3xl lg:text-4xl ` : `text-lg md:text-xl lg:text-2xl font-semibold `;
                         const verseClassName = `${verseTextTheme} p-0.5 md:p-1 m-0.5 w-full flex flex-col cursor-pointer rounded ${hyphenClassName} text-justify `;
-                        const titleClassName = `${titleTextTheme} mx-1 my-0.5 italic rounded  text-center whitespace-pre-wrap `;
+                        const titleClassName = `${titleTextTheme} mx-1 my-0.5 italic rounded  text-center whitespace-pre-wrap ${colors[theme]["surface"]["base"]} ${colors[theme]["text"]["on-deep"]} `;
                         const verseKey = `${suraNumber}:${verseNumber}`;
                         const noteReference = hasAsterisk ? verseKey : null;
 
@@ -1114,7 +1114,7 @@ const Pages = React.memo(({
 
                     <div className={`sticky -bottom-1 mt-3 flex`}>
                         <div className={`flex text-sm justify-between flex-1`}>
-                            <div className={`py-2 px-3 ${colors[theme]["surface"]["base"]} rounded-r`}>
+                            <div className={`py-2 px-3 ${colors[theme]["surface"]["base"]} ${colors[theme]["text"]["on-deep"]} rounded-r`}>
                                 <p
                                     key={`cfotwG`}
                                     className={`cursor-pointer `} onClick={() => openExplanation('GODnamefrequency')}>
@@ -1126,7 +1126,7 @@ const Pages = React.memo(({
                                     {translationApplication?.wc1} = {formatHitCount(parseInt(pageData.notes.cumulativefrequencyofthewordGOD))}
                                 </div>
                             )}
-                            <div className={`py-2 px-3 ${colors[theme]["surface"]["base"]} rounded-l`}>
+                            <div className={`py-2 px-3 ${colors[theme]["surface"]["base"]} ${colors[theme]["text"]["on-deep"]} rounded-l`}>
                                 <p
                                     key={`csovwGwo`}
                                     className={`cursor-pointer`} onClick={() => openExplanation('GODnamesum')}>
@@ -1193,7 +1193,7 @@ const Pages = React.memo(({
                         className={` w-full h-full absolute left-0 top-0`}></div>
                     <div
                         style={{ animation: 'animate-scale 0.2s ease-in-out' }}
-                        className={`z-[80] mx-4 ${colors[theme]["surface"]["base"]} ${colors[theme]["text"]["middle"]} rounded shadow-lg`}>
+                        className={`z-[80] mx-4 ${colors[theme]["surface"]["base"]} ${colors[theme]["text"]["on-deep"]} rounded shadow-lg`}>
                         <div className={`p-2 flex flex-col w-full h-full space-y-2`}>
 
                             <div className={`w-full p-1 rounded ${colors[theme]["surface"]["verse-detail"]} flex flex-col space-y-2`}>
@@ -1206,7 +1206,7 @@ const Pages = React.memo(({
                                             <path strokeLinecap="round" strokeLinejoin="round" d="M16.5 3.75V16.5L12 14.25 7.5 16.5V3.75m9 0H18A2.25 2.25 0 0 1 20.25 6v12A2.25 2.25 0 0 1 18 20.25H6A2.25 2.25 0 0 1 3.75 18V6A2.25 2.25 0 0 1 6 3.75h1.5m9 0h-9" />
                                         </svg>
                                     </div>
-                                    <div className={`w-full text-lg rounded p-1 text-start whitespace-pre-line ${colors[theme]["accent"]["top"]} ${colors[theme]["surface"]["encrypted"]}`}>
+                                    <div className={`w-full text-lg rounded p-1 text-start whitespace-pre-line ${colors[theme]["accent"]["on-deep"]} ${colors[theme]["surface"]["encrypted"]}`}>
                                         {`${deleteConfirmResolver.data.value}`}
                                     </div>
                                 </div>

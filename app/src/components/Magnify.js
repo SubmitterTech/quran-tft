@@ -2351,7 +2351,7 @@ const Magnify = ({
                                 value={searchTerm}
                                 onChange={(e) => setSearchTerm(e.target.value)}
                                 onFocus={() => { setOptionsVisible(false) }}
-                                className={`w-full p-2 rounded ${colors[theme]["surface"]["base"]} ${colors[theme]["text"]["bottom"]} ring-1 ${colors[theme]["theme-mode"] === 'light' ? `ring-black/10` : `ring-white/10`} focus:outline-none focus:ring-2 ${colors[theme]["effect"]["focus-ring"]} ${colors[theme]["effect"]["focus-text"]}`}
+                                className={`w-full p-2 rounded ${colors[theme]["surface"]["base"]} ${colors[theme]["text"]["on-deep"]} ${colors[theme]["text"]["on-deep-placeholder"]} ring-1 ${colors[theme]["theme-mode"] === 'light' ? `ring-black/10` : `ring-white/10`} focus:outline-none focus:ring-2 ${colors[theme]["effect"]["focus-ring"]}`}
                             />
                             {hitCounts.length > 0 && searchTerm.length > 1 && (
                                 <span
@@ -2378,7 +2378,7 @@ const Magnify = ({
                                     className={`absolute rounded-md left-0 right-0 top-full mt-2 z-[145] ring-1 ${colors[theme]["border"]["focus"]}`}
                                 >
                                     <div className={`rounded-md shadow-lg ring-1 ${colors[theme]["theme-mode"] === 'light' ? `ring-black/10` : `ring-white/10`} ${colors[theme]["surface"]["base"]} overflow-hidden`}>
-                                        <div className={`px-1 py-1.5 text-[11px] text-xs md:text-base text-start border-b mx-2 ${colors[theme]["border"]["soft"]} ${colors[theme]["text"]["bottom"]}`}>
+                                        <div className={`px-1 py-1.5 text-[11px] text-xs md:text-base text-start border-b mx-2 ${colors[theme]["border"]["soft"]} ${colors[theme]["text"]["on-deep-soft"]}`}>
                                             {didYouMeanLabel}
                                         </div>
                                         <div className="flex flex-col">
@@ -2391,7 +2391,7 @@ const Magnify = ({
                                                             inputRef.current.focus();
                                                         }
                                                     }}
-                                                    className={`text-start mx-2 px-2 py-3 text-lg lg:text-xl border-b last:border-b-0 transition-colors duration-100 ease-linear ${colors[theme]["border"]["soft"]} ${colors[theme]["accent"]["top"]}`}
+                                                    className={`text-start mx-2 px-2 py-3 text-lg lg:text-xl border-b last:border-b-0 transition-colors duration-100 ease-linear ${colors[theme]["border"]["soft"]} ${colors[theme]["accent"]["on-deep"]}`}
                                                 >
                                                     {suggestion}
                                                 </button>
@@ -2402,7 +2402,7 @@ const Magnify = ({
                             )}
                         </div>
                         <button
-                            className={`flex items-center justify-center transition-all duration-300 ease-linear ${optionsVisible ? " -rotate-180 " : " rotate-0"} ${optionsVisible ? colors[theme]["accent"]["top"] : colors[theme]["text"]["logger"]}`}
+                            className={`flex items-center justify-center transition-all duration-300 ease-linear ${optionsVisible ? " -rotate-180 " : " rotate-0"} ${optionsVisible ? colors[theme]["accent"]["on-deep"] : colors[theme]["text"]["on-deep-soft"]}`}
                             onClick={() => setOptionsVisible(!optionsVisible)}
                         >
                             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className={`w-8 h-8 `}>
@@ -2463,7 +2463,7 @@ const Magnify = ({
                                                             }
                                                         }}
                                                         key={`title-${thekey}-${index}`}
-                                                        className={`py-2 px-5 rounded relative ${colors[theme]["surface"]["base"]} cursor-pointer mx-1.5 md:mr-2 whitespace-pre-line text-center ${pulsate}`}
+                                                        className={`py-2 px-5 rounded relative ${colors[theme]["surface"]["base"]} ${colors[theme]["text"]["on-deep"]} cursor-pointer mx-1.5 md:mr-2 whitespace-pre-line text-center ${pulsate}`}
                                                         onClick={handleConfirm(thekey, `title`)}>
                                                         <span className="text-sky-500 absolute top-1 left-1 text-xs">{result.suraNumber}:{result.titleNumber}</span> {renderTitleResultText(result)}
                                                     </div>
@@ -2764,7 +2764,7 @@ const Magnify = ({
                     <div className={`flex flex-col text-lg md:text-xl`}>
                         {direction !== 'rtl' && (
                             <label className={`flex items-center justify-between md:justify-end gap-2 p-3 border-b cursor-pointer ${colors[theme]["border"]["soft"]}`}>
-                                <span className={`${caseSensitive ? colors[theme]["text"]["top"] : colors[theme]["text"]["bottom"]}`}>{translationApplication?.case}</span>
+                                <span className={`${caseSensitive ? colors[theme]["text"]["on-deep"] : colors[theme]["text"]["on-deep-soft"]}`}>{translationApplication?.case}</span>
                                 <div>
                                     <label className='flex cursor-pointer select-none items-center'>
                                         <div className='relative'>
@@ -2783,7 +2783,7 @@ const Magnify = ({
                         )}
                         {direction !== 'rtl' && (
                             <label className={`flex items-center justify-between md:justify-end gap-2 p-3 border-b cursor-pointer ${colors[theme]["border"]["soft"]}`}>
-                                <span className={`${normalize ? colors[theme]["text"]["top"] : colors[theme]["text"]["bottom"]}`}>{translationApplication?.norm}</span>
+                                <span className={`${normalize ? colors[theme]["text"]["on-deep"] : colors[theme]["text"]["on-deep-soft"]}`}>{translationApplication?.norm}</span>
                                 <div>
                                     <label className='flex cursor-pointer select-none items-center'>
                                         <div className='relative'>
@@ -2801,7 +2801,7 @@ const Magnify = ({
                             </label>
                         )}
                         <label className={`flex items-center justify-between md:justify-end gap-2 p-3 cursor-pointer`}>
-                            <span className={`${exactMatch ? colors[theme]["text"]["top"] : colors[theme]["text"]["bottom"]}`}>{translationApplication?.exact || "Exact Match"}</span>
+                            <span className={`${exactMatch ? colors[theme]["text"]["on-deep"] : colors[theme]["text"]["on-deep-soft"]}`}>{translationApplication?.exact || "Exact Match"}</span>
                             <div>
                                 <label className='flex cursor-pointer select-none items-center'>
                                     <div className='relative'>
