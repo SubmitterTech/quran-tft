@@ -1193,15 +1193,14 @@ const Pages = React.memo(({
                         className={` w-full h-full absolute left-0 top-0`}></div>
                     <div
                         style={{ animation: 'animate-scale 0.2s ease-in-out' }}
-                        className={`z-[80] mx-4 ${colors[theme]["surface"]["base"]} ${colors[theme]["text"]["on-deep"]} rounded shadow-lg`}>
+                        className={`z-[80] mx-4 ${colors[theme]["surface"]["base"]} ${colors[theme]["text"]["top"]} rounded shadow-lg`}>
                         <div className={`p-2 flex flex-col w-full h-full space-y-2`}>
-
                             <div className={`w-full p-1 rounded ${colors[theme]["surface"]["verse-detail"]} flex flex-col space-y-2`}>
                                 <div className={`p-3 text-lg md:text-xl w-full text-center font-semibold`}>
                                     {translationApplication?.bmdd}
                                 </div>
                                 <div className={`text-lg md:text-xl w-full overflow-y-auto max-h-96`}>
-                                    <div className={`px-0.5 pt-1 -pb-1 ${direction === "rtl" ? "float-right" : "float-left"}`}>
+                                    <div className={`px-0.5 pt-1 -pb-1 ${colors[theme]["text"]["on-deep"]} ${direction === "rtl" ? "float-right" : "float-left"}`}>
                                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className={`w-8 h-7 opacity-50`} >
                                             <path strokeLinecap="round" strokeLinejoin="round" d="M16.5 3.75V16.5L12 14.25 7.5 16.5V3.75m9 0H18A2.25 2.25 0 0 1 20.25 6v12A2.25 2.25 0 0 1 18 20.25H6A2.25 2.25 0 0 1 3.75 18V6A2.25 2.25 0 0 1 6 3.75h1.5m9 0h-9" />
                                         </svg>
@@ -1214,7 +1213,7 @@ const Pages = React.memo(({
                             <div className="flex justify-between space-x-2">
                                 <button
                                     onClick={handleConfirm}
-                                    className={`flex flex-col w-full max-w-24 items-center justify-between pt-2 rounded  ${colors[theme]["surface"]["top"]}`}>
+                                    className={`flex flex-col w-full max-w-24 items-center justify-between pt-2 rounded ${colors[theme]["surface"]["top"]}`}>
                                     <div className={`flex justify-center`}>
                                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" className="w-12 h-12">
                                             <path strokeLinecap="round" strokeLinejoin="round" d="m3 3 1.664 1.664M21 21l-1.5-1.5m-5.485-1.242L12 17.25 4.5 21V8.742m.164-4.078a2.15 2.15 0 0 1 1.743-1.342 48.507 48.507 0 0 1 11.186 0c1.1.128 1.907 1.077 1.907 2.185V19.5M4.664 4.664 19.5 19.5" />
@@ -1224,7 +1223,7 @@ const Pages = React.memo(({
                                         {translationApplication?.delete}
                                     </div>
                                 </button>
-                                <div className={` opacity-70 ${colors[theme]["text"]["bottom"]} h-20 w-full text-lg md:text-xl flex items-center justify-center text-center `}>
+                                <div className={` opacity-70 ${colors[theme]["text"]["on-deep"]} h-20 w-full text-lg md:text-xl flex items-center justify-center text-center `}>
                                     {`${deleteConfirmResolver.data.key}`}
                                 </div>
                                 <button

@@ -376,17 +376,17 @@ export const colorThemes = {
             focus: 'ring-[#7f5539]/80'
         },
         accent: {
-            top: 'text-green-600',
-            'on-light': 'text-green-600',
-            'on-deep': 'text-lime-400',
-            'map-heading': 'text-lime-400',
-            'map-link': 'text-lime-400',
-            border: 'border-green-600',
-            'on-deep-border': 'border-lime-400',
-            ring: 'ring-green-600/80',
+            top: 'text-lime-600',
+            'on-light': 'text-green-500',
+            'on-deep': 'text-lime-500',
+            'map-heading': 'text-lime-500',
+            'map-link': 'text-lime-500',
+            border: 'border-green-500',
+            'on-deep-border': 'border-lime-500',
+            ring: 'ring-green-400/80',
             'on-deep-ring': 'ring-lime-400/90',
-            fill: 'bg-green-600',
-            conic: 'bg-[conic-gradient(#0ea5e9_20deg,transparent_180deg)]',
+            fill: 'bg-green-500',
+            conic: 'bg-[conic-gradient(#22c55e_20deg,transparent_180deg)]',
             toast: '#16a34a'
         },
         effect: {
