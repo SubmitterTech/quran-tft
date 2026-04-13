@@ -5,6 +5,82 @@ import { supportsUnicodeRegex, supportsLookAhead, triggerActionHaptic } from '..
 import Bookmarks from '../utils/Bookmarks';
 
 const SWIPE_LOCK_THRESHOLD_PX = 19;
+const ARABIC_MARK_PATTERN = '[\\u0610-\\u061A\\u064B-\\u065F\\u0670\\u06D6-\\u06ED]*';
+const ALLAH_WORD_RAW_FORMS = [
+    'تالله', 'الله', 'لله', 'ولله', 'والله',
+    'بالله', 'فلله', 'فالله', 'ابالله', 'وتالله',
+];
+
+const createAllahWordPattern = (raw) =>
+    raw
+        .split('')
+        .map((ch, index) => {
+            if (ch === 'ا') {
+                const base = '[اٱ]';
+                if (index === 0) {
+                    return `(?:ء${ARABIC_MARK_PATTERN})?${base}${ARABIC_MARK_PATTERN}`;
+                }
+                return `${base}${ARABIC_MARK_PATTERN}`;
+            }
+
+            return `${ch}${ARABIC_MARK_PATTERN}`;
+        })
+        .join('');
+
+export const getStandaloneAllahWordMatches = (text) => {
+    let reMark = null;
+    let reArabicBaseOrDigit = null;
+    try {
+        if (supportsUnicodeRegex()) {
+            reMark = new RegExp('[\\p{M}\\u0640\\u200D]', 'u');
+            reArabicBaseOrDigit = new RegExp('[\\p{Script=Arabic}\\u0660-\\u0669\\u06F0-\\u06F9]', 'u');
+        }
+    } catch {
+        reMark = null;
+        reArabicBaseOrDigit = null;
+    }
+
+    const fallbackMark = /[\u0640\u200D\u0610-\u061A\u064B-\u065F\u0670\u06D6-\u06ED]/;
+    const fallbackArabicBaseOrDigit = /[\u0600-\u06FF\u0660-\u0669\u06F0-\u06F9]/;
+
+    const isMark = (ch) => {
+        const s = String(ch ?? '');
+        if (!s) return false;
+        return reMark ? reMark.test(s) : fallbackMark.test(s);
+    };
+
+    const isArabicBaseOrDigit = (ch) => {
+        const s = String(ch ?? '');
+        if (!s) return false;
+        return reArabicBaseOrDigit ? reArabicBaseOrDigit.test(s) : fallbackArabicBaseOrDigit.test(s);
+    };
+
+    const core = ALLAH_WORD_RAW_FORMS.map(createAllahWordPattern).join('|');
+
+    let regex;
+    try {
+        regex = new RegExp(core, 'gu');
+        regex.test('');
+    } catch {
+        regex = new RegExp(core, 'g');
+    }
+
+    const matches = [...text.matchAll(regex)];
+    return matches.filter((match) => {
+        const start = match.index;
+        const end = start + match[0].length;
+
+        let li = start - 1;
+        while (li >= 0 && isMark(text[li])) li--;
+        if (li >= 0 && isArabicBaseOrDigit(text[li])) return false;
+
+        let ri = end;
+        while (ri < text.length && isMark(text[ri])) ri++;
+        if (ri < text.length && isArabicBaseOrDigit(text[ri])) return false;
+
+        return true;
+    });
+};
 
 const Verse = ({ besmele,
     colors,
@@ -392,79 +468,7 @@ const Verse = ({ besmele,
 
     const lightAllahwords = (text) => {
         if (!pageGWC[currentVerseKey]) return text;
-
-        // NOTE: Avoid regex literals with Unicode property escapes (e.g. \p{M}),
-        // because they can cause a SyntaxError on older JS engines at parse time.
-        // Build them dynamically and fall back to safe range-based regexes.
-        let reMark = null;
-        let reArabicBaseOrDigit = null;
-        try {
-            if (supportsUnicodeRegex()) {
-                reMark = new RegExp('[\\p{M}\\u0640\\u200D]', 'u');
-                reArabicBaseOrDigit = new RegExp('[\\p{Script=Arabic}\\u0660-\\u0669\\u06F0-\\u06F9]', 'u');
-            }
-        } catch {
-            reMark = null;
-            reArabicBaseOrDigit = null;
-        }
-
-        const fallbackMark = /[\u0640\u200D\u0610-\u061A\u064B-\u065F\u0670\u06D6-\u06ED]/;
-        const fallbackArabicBaseOrDigit = /[\u0600-\u06FF\u0660-\u0669\u06F0-\u06F9]/;
-
-        const isMark = (ch) => {
-            const s = String(ch ?? '');
-            if (!s) return false;
-            return reMark ? reMark.test(s) : fallbackMark.test(s);
-        };
-
-        const isArabicBaseOrDigit = (ch) => {
-            const s = String(ch ?? '');
-            if (!s) return false;
-            return reArabicBaseOrDigit ? reArabicBaseOrDigit.test(s) : fallbackArabicBaseOrDigit.test(s);
-        };
-
-        const MARK = '[\\u0610-\\u061A\\u064B-\\u065F\\u0670\\u06D6-\\u06ED]*';
-
-        const RAW = [
-            'تالله', 'الله', 'لله', 'ولله', 'والله',
-            'بالله', 'فلله', 'فالله', 'ابالله', 'وتالله',
-        ];
-
-        const withMarks = (s) =>
-            s.split('').map((ch) => (ch === 'ا' ? '[اٱ]' : ch) + MARK).join('');
-
-        const core = RAW.map(withMarks).join('|');
-
-        let regex;
-        try {
-            regex = new RegExp(core, 'gu');
-            regex.test(''); // feature test
-        } catch {
-            regex = new RegExp(core, 'g'); // very old engines
-        }
-
-        // Boundary check that skips trailing/leading marks and joiners
-        const isStandaloneAt = (str, start, end) => {
-            // Move left over marks/joiners
-            let li = start - 1;
-            while (li >= 0 && isMark(str[li])) li--;
-            if (li >= 0 && isArabicBaseOrDigit(str[li])) return false;
-
-            // Move right over marks/joiners
-            let ri = end;
-            while (ri < str.length && isMark(str[ri])) ri++;
-            if (ri < str.length && isArabicBaseOrDigit(str[ri])) return false;
-
-            return true;
-        };
-
-        const matches = [...text.matchAll(regex)];
-        const filtered = [];
-        for (const m of matches) {
-            const s = m.index;
-            const e = s + m[0].length;
-            if (isStandaloneAt(text, s, e)) filtered.push(m);
-        }
+        const filtered = getStandaloneAllahWordMatches(text);
 
         if (filtered.length === 0) return text;
 
