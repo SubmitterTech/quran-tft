@@ -1962,7 +1962,7 @@ const Magnify = ({
                 parts.push(origChars.slice(lastOrigEnd, start).join(""));
             }
             const matchText = origChars.slice(start, end).join("");
-            parts.push(<span className={`font-bold ${colors[theme]["matching-text"]}`}>{matchText}</span>);
+            parts.push(<span className={`font-bold ${colors[theme]["accent"]["on-light"]}`}>{matchText}</span>);
             lastOrigEnd = end;
         });
 

@@ -151,7 +151,7 @@ const Intro = ({
             && activeToken?.from === from
             && activeToken?.tokenId === tokenId
         ) {
-            return colors[theme]["matching-text"];
+            return colors[theme]["accent"]["on-light"];
         }
 
         return 'text-sky-500';
