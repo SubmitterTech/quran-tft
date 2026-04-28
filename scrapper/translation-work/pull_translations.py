@@ -30,6 +30,7 @@ parser = argparse.ArgumentParser(
   %(prog)s --translation-mode onlytranslated # omit untranslated strings from downloaded files
   %(prog)s --raw-map-output-dir /tmp/raw-maps # also save raw Transifex mapjson payloads
   %(prog)s --raw-map-only --resource mapjson # save raw mapjson payloads without reconstructing local maps
+  %(prog)s --map-manifest /path/to/manifest.json # stable-key map manifest
   %(prog)s --api-key-file /path/to/key      # use a custom API key file
   %(prog)s --output-dir /path/to/dir        # save translations to a custom directory
   %(prog)s --languages-file /path/to/file   # use a custom supported-languages.json file
@@ -80,6 +81,11 @@ parser.add_argument('--raw-map-only', action='store_true',
                         'For mapjson resources, save the raw Transifex payload and skip '
                         'legacy reconstruction/output. Requires --raw-map-output-dir.'
                     ))
+parser.add_argument('--map-manifest', metavar='PATH',
+                    help=(
+                        'Stable-key map manifest path. Default: ../map-work/map_tx_manifest.json. '
+                        'Used automatically when downloaded mapjson keys match the stable format.'
+                    ))
 parser.add_argument('--verbosity', choices=['quiet', 'normal', 'debug'], default='normal',
                     help='Logging detail for async download steps. Default: normal')
 
@@ -105,10 +111,14 @@ import requests
 import json
 import re
 import subprocess
+import importlib.util
 from icu import Collator, Locale
 
 # Determine the directory where this script is located.
 script_dir = os.path.dirname(os.path.abspath(__file__))
+map_work_dir = os.path.normpath(os.path.join(script_dir, "../map-work"))
+default_map_manifest_path = os.path.join(map_work_dir, "map_tx_manifest.json")
+map_manifest_path = args.map_manifest or default_map_manifest_path
 
 # Read the API token from the file
 api_token_path = args.api_key_file or os.path.join(script_dir, 'transifex-api-key')
@@ -221,6 +231,8 @@ if args.raw_map_output_dir:
     print(f"Raw maps:  {args.raw_map_output_dir}")
 if args.raw_map_only:
     print(f"Raw only:  yes")
+if 'mapjson' in resource_slugs:
+    print(f"Map manifest: {map_manifest_path}")
 if args.dry_run:
     print(f"Mode:      DRY RUN (no files will be written)")
 elif args.no_stage:
@@ -336,6 +348,88 @@ def reconstruct_dictionary(transformed_data, language_code):
                 current_level = current_level[part]
 
     return sort_dictionary(reconstructed_dict, language_code)
+
+
+_map_tx_module = None
+_map_tx_manifest_cache = None
+
+
+def load_map_tx_module():
+    global _map_tx_module
+    if _map_tx_module is not None:
+        return _map_tx_module
+
+    module_path = os.path.join(map_work_dir, "map_tx.py")
+    if not os.path.exists(module_path):
+        raise FileNotFoundError(
+            f"Stable map helper not found: {module_path}. "
+            "Run from the repository checkout or provide legacy mapjson input."
+        )
+
+    spec = importlib.util.spec_from_file_location("quran_tft_map_tx", module_path)
+    module = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(module)
+    _map_tx_module = module
+    return module
+
+
+def load_map_tx_manifest():
+    global _map_tx_manifest_cache
+    if _map_tx_manifest_cache is not None:
+        return _map_tx_manifest_cache
+
+    if not os.path.exists(map_manifest_path):
+        raise FileNotFoundError(
+            f"Stable map manifest not found: {map_manifest_path}. "
+            "Regenerate it with scrapper/map-work/map_tx.py export."
+        )
+
+    with open(map_manifest_path, "r", encoding="utf-8") as manifest_file:
+        manifest = json.load(manifest_file)
+    if manifest.get("kind") != "quran-tft-map-tx-manifest":
+        raise ValueError(f"Unexpected stable map manifest kind in {map_manifest_path}")
+
+    _map_tx_manifest_cache = manifest
+    return manifest
+
+
+def get_manifest_key_set(manifest):
+    return {item["key"] for item in manifest.get("items", [])}
+
+
+def is_stable_map_payload(transformed_data, manifest):
+    if not isinstance(transformed_data, dict) or not transformed_data:
+        return False
+    keys = set(transformed_data.keys())
+    manifest_keys = get_manifest_key_set(manifest)
+    return bool(keys) and keys.issubset(manifest_keys)
+
+
+def reconstruct_stable_map(transformed_data, language_code, language_label):
+    map_tx = load_map_tx_module()
+    manifest = load_map_tx_manifest()
+    manifest_keys = get_manifest_key_set(manifest)
+
+    extra_keys = set(transformed_data.keys()) - manifest_keys
+    if extra_keys:
+        sample = ", ".join(sorted(extra_keys)[:5])
+        raise ValueError(
+            f"Stable map payload for '{language_label}' contains keys missing from the manifest: {sample}"
+        )
+
+    # Transifex can return blank strings for untranslated stable keys. Treat those
+    # as absent so the client map falls back to the English source path.
+    cleaned_flat = {
+        key: value
+        for key, value in transformed_data.items()
+        if isinstance(value, str) and not map_tx.is_blank_translation_value(value)
+    }
+    reconstructed = map_tx.reconstruct_map(cleaned_flat, manifest, fallback_to_source=True)
+    print(
+        f"[{language_label}/mapjson] Detected stable-key map payload "
+        f"({len(cleaned_flat)} translated values, {len(manifest.get('items', [])) - len(cleaned_flat)} source fallbacks)"
+    )
+    return sort_dictionary(reconstructed, language_code)
 
 
 VERBOSITY_LEVELS = {
@@ -551,7 +645,15 @@ for language_code in language_codes:
 
                 if resource_slug == 'mapjson':
                     transformed_data = translated_content
-                    reconstructed_dict = reconstruct_dictionary(transformed_data, language_code)
+                    manifest = load_map_tx_manifest()
+                    if is_stable_map_payload(transformed_data, manifest):
+                        reconstructed_dict = reconstruct_stable_map(
+                            transformed_data,
+                            language_code,
+                            language_code,
+                        )
+                    else:
+                        reconstructed_dict = reconstruct_dictionary(transformed_data, language_code)
                     with open(output_path, 'w', encoding='utf-8') as new_file:
                         json.dump(reconstructed_dict, new_file, ensure_ascii=False, indent=4)
                 else:
