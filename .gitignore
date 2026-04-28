@@ -3,3 +3,6 @@
 .venv
 .claude
 .gradle-cache
+__pycache__/
+*.pyc
+scrapper/map-work/out/

@@ -27,6 +27,9 @@ parser = argparse.ArgumentParser(
   %(prog)s --dry-run                        # show what would be done without writing files
   %(prog)s --assume-yes                     # auto-commit without interactive confirmation
   %(prog)s --skip-completeness              # skip updating completeness percentages in languages.json
+  %(prog)s --translation-mode onlytranslated # omit untranslated strings from downloaded files
+  %(prog)s --raw-map-output-dir /tmp/raw-maps # also save raw Transifex mapjson payloads
+  %(prog)s --raw-map-only --resource mapjson # save raw mapjson payloads without reconstructing local maps
   %(prog)s --api-key-file /path/to/key      # use a custom API key file
   %(prog)s --output-dir /path/to/dir        # save translations to a custom directory
   %(prog)s --languages-file /path/to/file   # use a custom supported-languages.json file
@@ -61,10 +64,28 @@ parser.add_argument('--poll-timeout', type=float, default=300.0, metavar='SECOND
                     help='Maximum seconds to wait for a Transifex async download. Default: 300')
 parser.add_argument('--download-timeout', type=float, default=120.0, metavar='SECONDS',
                     help='Read timeout in seconds for the final file download. Default: 120')
+parser.add_argument('--translation-mode', default='default', metavar='MODE',
+                    help=(
+                        'Transifex translation download mode. Use "onlytranslated" to include '
+                        'translated/reviewed/proofread strings and omit untranslated strings. '
+                        'Default: default'
+                    ))
+parser.add_argument('--raw-map-output-dir', metavar='PATH',
+                    help=(
+                        'Optional directory for raw mapjson key-value payloads downloaded '
+                        'from Transifex before legacy reconstruction.'
+                    ))
+parser.add_argument('--raw-map-only', action='store_true',
+                    help=(
+                        'For mapjson resources, save the raw Transifex payload and skip '
+                        'legacy reconstruction/output. Requires --raw-map-output-dir.'
+                    ))
 parser.add_argument('--verbosity', choices=['quiet', 'normal', 'debug'], default='normal',
                     help='Logging detail for async download steps. Default: normal')
 
 args = parser.parse_args()
+if args.raw_map_only and not args.raw_map_output_dir:
+    parser.error('--raw-map-only requires --raw-map-output-dir')
 
 # --- Heavy imports (after argparse so --help works without dependencies) ---
 import ctypes
@@ -195,6 +216,11 @@ print(f"\n--- Configuration ---")
 print(f"Languages: {', '.join(language_codes)}")
 print(f"Resources: {', '.join(resource_slugs)}")
 print(f"Output:    {base_path}")
+print(f"Download:  {args.translation_mode}")
+if args.raw_map_output_dir:
+    print(f"Raw maps:  {args.raw_map_output_dir}")
+if args.raw_map_only:
+    print(f"Raw only:  yes")
 if args.dry_run:
     print(f"Mode:      DRY RUN (no files will be written)")
 elif args.no_stage:
@@ -338,10 +364,14 @@ def extract_async_errors(download_job):
 
 def wait_for_translation_download_url(resource, language, language_code, resource_slug):
     started_at = time.monotonic()
-    download_job = transifex_api.ResourceTranslationsAsyncDownload.create(
-        resource=resource,
-        language=language
-    )
+    download_kwargs = {
+        'resource': resource,
+        'language': language,
+    }
+    if args.translation_mode != 'default':
+        download_kwargs['mode'] = args.translation_mode
+
+    download_job = transifex_api.ResourceTranslationsAsyncDownload.create(**download_kwargs)
 
     last_status = (getattr(download_job, 'attributes', {}) or {}).get('status')
     job_label = download_job.id or 'unknown'
@@ -500,6 +530,17 @@ for language_code in language_codes:
 
         # Only proceed if there is content to save
         if translated_content:
+            if resource_slug == 'mapjson' and args.raw_map_output_dir and not args.dry_run:
+                os.makedirs(args.raw_map_output_dir, exist_ok=True)
+                raw_output_path = os.path.join(args.raw_map_output_dir, f"map_{language_code}.json")
+                with open(raw_output_path, 'w', encoding='utf-8') as raw_file:
+                    json.dump(translated_content, raw_file, ensure_ascii=False, indent=4)
+                print(f"Saved raw map payload {raw_output_path}")
+
+            if resource_slug == 'mapjson' and args.raw_map_only:
+                files_saved = True
+                continue
+
             if args.dry_run:
                 print(f"[DRY RUN] Would save {output_path}")
                 files_saved = True
