@@ -117,7 +117,7 @@ def translated_path_for(item, flat_data, fallback_to_source):
     if not isinstance(value, str):
         raise TypeError(f"Translation value for {tx_key} must be a string")
 
-    levels = value.split("\n")
+    levels, _ = normalize_map_path(value.split("\n"))
     if not levels:
         if not fallback_to_source:
             raise ValueError(f"Translation value for {tx_key} has no path segments")
@@ -181,6 +181,28 @@ def strip_invisible_blank_chars(value):
     return value
 
 
+def clean_path_part(value):
+    return strip_invisible_blank_chars(value).strip()
+
+
+def normalize_map_path(path):
+    cleaned = [clean_path_part(part) for part in path]
+    cleaned = [part for part in cleaned if part]
+    if not cleaned:
+        return cleaned, cleaned != path
+
+    root = cleaned[0]
+    if len(root) == 1:
+        return cleaned, cleaned != path
+
+    normalized_root = root[0]
+    if len(cleaned) == 1:
+        normalized = [normalized_root, root]
+    else:
+        normalized = [normalized_root] + cleaned[1:]
+    return normalized, True
+
+
 def is_blank_translation_value(value):
     if not isinstance(value, str):
         return False
@@ -191,7 +213,7 @@ def is_blank_translation_value(value):
 def normalized_path_value(value):
     if not isinstance(value, str):
         return []
-    return [strip_invisible_blank_chars(part).strip() for part in value.split("\n")]
+    return [clean_path_part(part) for part in value.split("\n")]
 
 
 def path_from_report(value):
@@ -796,6 +818,7 @@ def legacy_to_stable_command(args):
     missing_count = 0
     blank_count = 0
     source_match_count = 0
+    normalized_path_count = 0
 
     for item in source_items:
         legacy_key = item["legacy_key"]
@@ -803,6 +826,8 @@ def legacy_to_stable_command(args):
         source_value = "\n".join(item["source_path"])
         omitted = False
         omit_reason = ""
+        output_value = value
+        normalized = False
 
         if value is None:
             missing_count += 1
@@ -818,9 +843,14 @@ def legacy_to_stable_command(args):
             source_match_count += 1
             omitted = True
             omit_reason = "matches_source_path"
+        else:
+            normalized_path, normalized = normalize_map_path(value.split("\n"))
+            if normalized:
+                normalized_path_count += 1
+                output_value = "\n".join(normalized_path)
 
         if not omitted:
-            stable_translation[item["new_key"]] = value
+            stable_translation[item["new_key"]] = output_value
 
         audit_rows.append({
             "legacy_key": legacy_key,
@@ -828,6 +858,8 @@ def legacy_to_stable_command(args):
             "reference": item["reference"],
             "source_path": path_for_report(item["source_path"]),
             "translation_path": path_for_report(value.split("\n")) if isinstance(value, str) else "",
+            "normalized_translation_path": path_for_report(output_value.split("\n")) if isinstance(output_value, str) else "",
+            "normalized": normalized,
             "omitted": omitted,
             "omit_reason": omit_reason,
         })
@@ -846,6 +878,8 @@ def legacy_to_stable_command(args):
                 "reference",
                 "source_path",
                 "translation_path",
+                "normalized_translation_path",
+                "normalized",
                 "omitted",
                 "omit_reason",
             ],
@@ -855,6 +889,7 @@ def legacy_to_stable_command(args):
     print(f"Stable translation keys:     {len(stable_translation)}")
     print(f"Missing legacy keys:         {missing_count}")
     print(f"Omitted blank values:        {blank_count}")
+    print(f"Normalized root paths:       {normalized_path_count}")
     if args.omit_source_matches:
         print(f"Omitted source matches:      {source_match_count}")
     else:

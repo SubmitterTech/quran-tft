@@ -299,11 +299,35 @@ def concatenate_and_sort(values):
     concatenated_result = "; ".join(sorted_values)
     return concatenated_result
 
+INVISIBLE_BLANK_CHARS = "\u200b\u200c\u200d\ufeff"
+
+def strip_invisible_blank_chars(value):
+    for char in INVISIBLE_BLANK_CHARS:
+        value = value.replace(char, "")
+    return value
+
+def normalize_map_levels(levels):
+    cleaned = [strip_invisible_blank_chars(part).strip() for part in levels]
+    cleaned = [part for part in cleaned if part]
+    if not cleaned:
+        return []
+
+    root = cleaned[0]
+    if len(root) == 1:
+        return cleaned
+
+    normalized_root = root[0]
+    if len(cleaned) == 1:
+        return [normalized_root, root]
+    return [normalized_root] + cleaned[1:]
+
 def reconstruct_dictionary(transformed_data, language_code):
     reconstructed_dict = {}
 
     for key, path in transformed_data.items():
-        levels = path.split('\n')
+        levels = normalize_map_levels(path.split('\n'))
+        if not levels:
+            continue
         current_level = reconstructed_dict
 
         for i, part in enumerate(levels):
