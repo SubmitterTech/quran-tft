@@ -16,7 +16,9 @@ DEFAULT_MANIFEST = os.path.join(SCRIPT_DIR, "map_tx_manifest.json")
 DEFAULT_PULL_SCRIPT = os.path.join(REPO_ROOT, "scrapper/translation-work/pull_translations.py")
 DEFAULT_PYTHON = os.path.join(REPO_ROOT, "scrapper/.venv/bin/python")
 DEFAULT_LANGUAGES_FILE = os.path.join(REPO_ROOT, "scrapper/translation-work/supported-languages.json")
+DEFAULT_LOCAL_TRANSLATIONS_DIR = os.path.join(REPO_ROOT, "app/src/assets/translations")
 TX_HASH_RE = re.compile(r"^[0-9a-f]{40}$")
+_COLLATOR_CLASSES = None
 
 
 def load_json(path):
@@ -29,6 +31,12 @@ def write_json(path, data, sort_keys=False):
     with open(path, "w", encoding="utf-8") as file:
         json.dump(data, file, ensure_ascii=False, indent=4, sort_keys=sort_keys)
         file.write("\n")
+
+
+def write_local_json(path, data):
+    os.makedirs(os.path.dirname(os.path.abspath(path)), exist_ok=True)
+    with open(path, "w", encoding="utf-8") as file:
+        json.dump(data, file, ensure_ascii=False, indent=4)
 
 
 def write_tsv(path, rows, fieldnames):
@@ -92,6 +100,20 @@ def write_pull_languages_file(args, reports_dir):
     temp_path = os.path.join(reports_dir, "pull-map-languages.json")
     write_json(temp_path, flattened, sort_keys=True)
     return temp_path
+
+
+def selected_languages(args):
+    source_path = args.languages_file or DEFAULT_LANGUAGES_FILE
+    flattened = flatten_language_config(load_json(source_path))
+    if args.lang:
+        missing = [code for code in args.lang if code not in flattened]
+        if missing:
+            raise ValueError(
+                f"Unknown language code(s) in --lang: {', '.join(missing)}. "
+                f"Available: {', '.join(sorted(flattened))}"
+            )
+        return args.lang
+    return list(flattened.keys())
 
 
 def run_pull(args, raw_dir, reports_dir):
@@ -169,7 +191,55 @@ def bad_root_for_value(map_tx, value):
     return bool(levels and len(levels[0]) != 1)
 
 
-def prepare_targets(map_tx, raw_dir, stable_dir, reports_dir, source_flat, manifest):
+def load_icu_collator_classes():
+    global _COLLATOR_CLASSES
+    if _COLLATOR_CLASSES is not None:
+        return _COLLATOR_CLASSES
+
+    try:
+        import ctypes
+        icu_lib_path = "/usr/local/opt/icu4c@76/lib"
+        for lib_name in ["libicuuc.76.dylib", "libicui18n.76.dylib", "libicudata.76.dylib"]:
+            lib_path = os.path.join(icu_lib_path, lib_name)
+            if os.path.exists(lib_path):
+                ctypes.CDLL(lib_path, mode=ctypes.RTLD_GLOBAL)
+    except Exception:
+        pass
+
+    from icu import Collator, Locale
+    _COLLATOR_CLASSES = (Collator, Locale)
+    return _COLLATOR_CLASSES
+
+
+def sort_dictionary(data, language_code):
+    if not isinstance(data, dict):
+        return data
+
+    Collator, Locale = load_icu_collator_classes()
+    collator = Collator.createInstance(Locale(language_code))
+    sorted_items = sorted(data.items(), key=lambda item: collator.getSortKey(str(item[0])))
+    return {
+        key: sort_dictionary(value, language_code)
+        for key, value in sorted_items
+    }
+
+
+def leaf_count(map_tx, data):
+    return sum(1 for _path, _reference in map_tx.walk_map(data))
+
+
+def bad_top_level_keys(map_tx, data):
+    if not isinstance(data, dict):
+        return ["<root-not-dict>"]
+    bad_keys = []
+    for key in data:
+        cleaned = map_tx.clean_path_part(str(key))
+        if len(cleaned) != 1:
+            bad_keys.append(key)
+    return bad_keys
+
+
+def prepare_targets(map_tx, raw_dir, stable_dir, reports_dir, source_flat, manifest, languages=None):
     new_key_by_hash = {}
     duplicate_hashes = []
     for item in manifest["items"]:
@@ -198,6 +268,9 @@ def prepare_targets(map_tx, raw_dir, stable_dir, reports_dir, source_flat, manif
         for filename in os.listdir(raw_dir)
         if filename.startswith("map_") and filename.endswith(".json")
     )
+    if languages:
+        wanted = {f"map_{lang}.json" for lang in languages}
+        raw_files = [filename for filename in raw_files if filename in wanted]
     if not raw_files:
         raise FileNotFoundError(f"No raw map JSON files found under {raw_dir}")
 
@@ -214,6 +287,7 @@ def prepare_targets(map_tx, raw_dir, stable_dir, reports_dir, source_flat, manif
         normalized_count = 0
         non_string_count = 0
         bad_root_count = 0
+        remapped_key_count = 0
 
         for old_key in sorted(raw_data.keys()):
             value = raw_data[old_key]
@@ -252,6 +326,8 @@ def prepare_targets(map_tx, raw_dir, stable_dir, reports_dir, source_flat, manif
                 continue
 
             new_source_path = source_flat[new_key]
+            if old_key != new_key:
+                remapped_key_count += 1
             if not isinstance(value, str):
                 non_string_count += 1
                 audit_rows.append({
@@ -327,6 +403,7 @@ def prepare_targets(map_tx, raw_dir, stable_dir, reports_dir, source_flat, manif
             "blank_values": blank_count,
             "source_matches_omitted": source_match_count,
             "normalized_values": normalized_count,
+            "reference_key_remaps": remapped_key_count,
             "bad_roots_written": bad_root_count,
             "non_string_values": non_string_count,
             "upload_file": upload_path,
@@ -341,6 +418,7 @@ def prepare_targets(map_tx, raw_dir, stable_dir, reports_dir, source_flat, manif
         "blank_values",
         "source_matches_omitted",
         "normalized_values",
+        "reference_key_remaps",
         "bad_roots_written",
         "non_string_values",
         "upload_file",
@@ -391,6 +469,36 @@ def validate_uploads(map_tx, stable_dir, source_flat, manifest):
     return rows
 
 
+def update_local_maps(map_tx, stable_dir, local_output_dir, reports_dir, manifest, languages):
+    rows = []
+    fields = ["lang", "output_file", "upload_keys", "leaf_count", "bad_top_level_count", "bad_top_level_sample"]
+
+    for lang in languages:
+        stable_path = os.path.join(stable_dir, f"map_{lang}.json")
+        if not os.path.exists(stable_path):
+            continue
+
+        flat_data = load_json(stable_path)
+        reconstructed = map_tx.reconstruct_map(flat_data, manifest, fallback_to_source=True)
+        sorted_map = sort_dictionary(reconstructed, lang)
+
+        output_path = os.path.join(local_output_dir, lang, f"map_{lang}.json")
+        write_local_json(output_path, sorted_map)
+        bad_keys = bad_top_level_keys(map_tx, sorted_map)
+        rows.append({
+            "lang": lang,
+            "output_file": output_path,
+            "upload_keys": len(flat_data),
+            "leaf_count": leaf_count(map_tx, sorted_map),
+            "bad_top_level_count": len(bad_keys),
+            "bad_top_level_sample": "; ".join(str(key) for key in bad_keys[:5]),
+        })
+
+    summary_path = os.path.join(reports_dir, "local-map-update-summary.tsv")
+    write_tsv(summary_path, rows, fields)
+    return rows, summary_path
+
+
 def build_parser():
     parser = argparse.ArgumentParser(
         description=(
@@ -414,9 +522,12 @@ Output layout:
   <out-dir>/stable/map_<lang>.json       Upload these to target languages.
   <out-dir>/raw-before/map_<lang>.json   Raw target snapshot before source replace.
   <out-dir>/reports/*.tsv                Audits and missing-hash reports.
+  app/src/assets/translations/<lang>/map_<lang>.json
+                                       Updated local client maps by default.
 
 Version control:
-  Commit app/src/assets/map.json and scrapper/map-work/map_tx_manifest.json.
+  Commit app/src/assets/map.json, scrapper/map-work/map_tx_manifest.json,
+  and updated app/src/assets/translations/<lang>/map_<lang>.json files.
   Do not commit scrapper/map-work/out/**.
 """,
     )
@@ -433,6 +544,16 @@ Version control:
         "--out-dir",
         default=None,
         help="Output directory. Default: scrapper/map-work/out/map-update-<timestamp>",
+    )
+    parser.add_argument(
+        "--local-output-dir",
+        default=DEFAULT_LOCAL_TRANSLATIONS_DIR,
+        help=f"Directory for updated local client map files. Default: {DEFAULT_LOCAL_TRANSLATIONS_DIR}",
+    )
+    parser.add_argument(
+        "--no-local-update",
+        action="store_true",
+        help="Prepare Transifex upload files only; do not update local client map files.",
     )
     parser.add_argument("--lang", nargs="+", metavar="CODE", help="Language code(s) to prepare. Default: all supported languages.")
     parser.add_argument("--skip-pull", action="store_true", help="Use --raw-dir instead of pulling latest mapjson from Transifex.")
@@ -470,6 +591,7 @@ def main():
     raw_dir = args.raw_dir or os.path.join(out_dir, "raw-before")
     stable_dir = os.path.join(out_dir, "stable")
     reports_dir = os.path.join(out_dir, "reports")
+    languages = selected_languages(args)
     os.makedirs(raw_dir, exist_ok=True)
     os.makedirs(stable_dir, exist_ok=True)
     os.makedirs(reports_dir, exist_ok=True)
@@ -501,6 +623,7 @@ def main():
         reports_dir=reports_dir,
         source_flat=source_flat,
         manifest=manifest,
+        languages=languages,
     )
     validation_rows = validate_uploads(map_tx, stable_dir, source_flat, manifest)
     validation_path = os.path.join(reports_dir, "upload-validation.tsv")
@@ -523,6 +646,7 @@ def main():
     ]
     missing_total = sum(row["missing_path_hashes"] for row in summary_rows)
     invalid_total = sum(row["invalid_stable_keys"] for row in summary_rows)
+    bad_local_total = 0
 
     print("\nPrepared Transifex upload files:")
     print(f"Source: {source_upload_path}")
@@ -546,10 +670,40 @@ def main():
             print(f"Upload validation failures: {len(failures)}")
         return 2
 
+    local_summary_path = None
+    local_rows = []
+    if args.no_local_update:
+        print("\nLocal client map update skipped (--no-local-update).")
+    else:
+        local_rows, local_summary_path = update_local_maps(
+            map_tx=map_tx,
+            stable_dir=stable_dir,
+            local_output_dir=args.local_output_dir,
+            reports_dir=reports_dir,
+            manifest=manifest,
+            languages=[row["lang"] for row in summary_rows],
+        )
+        bad_local_total = sum(row["bad_top_level_count"] for row in local_rows)
+        print("\nUpdated local client map files:")
+        for row in local_rows:
+            print(
+                f"{row['lang']}: {row['output_file']} "
+                f"(leaves: {row['leaf_count']}, bad top-level: {row['bad_top_level_count']})"
+            )
+        print(f"Local update summary: {local_summary_path}")
+
+    if bad_local_total:
+        print("\nReview required after local map update.")
+        print(f"Bad top-level keys in local maps: {bad_local_total}")
+        return 2
+
     print("\nUpload order:")
     print(f"1. Replace Transifex mapjson source with {source_upload_path}")
     print(f"2. Upload target files from {stable_dir}/map_<lang>.json")
-    print("3. After upload, run pull_translations.py --assume-yes")
+    if args.no_local_update:
+        print("3. Local client map files were not updated; rerun without --no-local-update when needed.")
+    else:
+        print("3. Local client map files are already updated from the same raw snapshot and new manifest.")
     return 0
 
 

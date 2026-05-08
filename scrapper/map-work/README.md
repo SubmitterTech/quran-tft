@@ -39,6 +39,8 @@ This command:
 - exports the updated English source upload JSON,
 - regenerates `scrapper/map-work/map_tx_manifest.json`,
 - re-keys target translations by the stable path hash,
+- updates local `app/src/assets/translations/<lang>/map_<lang>.json` files from
+  the same raw snapshot and new manifest,
 - omits blank values and values that still match the English source path,
 - writes TSV audit reports under the generated output directory.
 
@@ -46,7 +48,10 @@ Upload order:
 
 1. Replace the Transifex `mapjson` source with `<out-dir>/stable/source_map.json`.
 2. Upload `<out-dir>/stable/map_<lang>.json` to the matching target languages.
-3. Pull back with `scrapper/translation-work/pull_translations.py --assume-yes`.
+
+Local map files are updated by the preparation command itself. Do not run an
+extra map pull just to update local references after a reference-only source map
+change.
 
 Review `<out-dir>/reports/target-rekey-summary.tsv` before uploading. Any non-zero
 `missing_path_hashes` means a source path changed and that translation could not be
