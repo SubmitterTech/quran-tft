@@ -16,10 +16,10 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
 
       - name: Setup Node
-        uses: actions/setup-node@v4
+        uses: actions/setup-node@v5
         with:
           node-version: 20
 
@@ -48,7 +48,7 @@ jobs:
         run: tar -czf site-build.tgz -C app/build .
 
       - name: Upload artifact
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v7
         with:
           name: site-build-${{ github.sha }}
           path: site-build.tgz
@@ -68,7 +68,7 @@ jobs:
       DEPLOY_BASE_DIR: ${{ vars.DEPLOY_BASE_DIR }}
     steps:
       - name: Download artifact
-        uses: actions/download-artifact@v4
+        uses: actions/download-artifact@v7
         with:
           name: site-build-${{ github.sha }}
           path: .
