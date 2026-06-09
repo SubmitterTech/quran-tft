@@ -33,6 +33,7 @@
     "deploy:cloudflare": "npx wrangler deploy",
     "start": "react-scripts start",
     "build": "react-scripts build",
+    "build:sonahit": "npm run build && node scripts/apply-sonahit-branding.mjs",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
   },

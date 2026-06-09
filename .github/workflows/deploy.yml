@@ -32,17 +32,9 @@ jobs:
             npm install --prefer-offline --no-audit --no-fund
           fi
 
-      - name: Build app
+      - name: Build Son Ahit app
         working-directory: app
-        run: npm run build
-
-      - name: Apply domain replacements
-        working-directory: app
-        run: |
-          [ -f build/index.html ] && sed -i 's/Quran The Final Testament (Interactive Book)/Kuran (İnteraktif Kitap)/g' build/index.html || true
-          [ -f build/index.html ] && sed -i 's/QURAN TFT/KURAN SON AHİT/g' build/index.html || true
-          [ -f build/manifest.json ] && sed -i 's/Quran TFT/Kuran/g' build/manifest.json || true
-          [ -f build/manifest.json ] && sed -i 's/Quran The Final Testament/Kuran Son Ahit/g' build/manifest.json || true
+        run: npm run build:sonahit
 
       - name: Package artifact
         run: tar -czf site-build.tgz -C app/build .
@@ -161,7 +153,7 @@ jobs:
           SSH_OPTS="-i $HOME/.ssh/id_ed25519 -o StrictHostKeyChecking=yes -o UserKnownHostsFile=$HOME/.ssh/known_hosts"
           TARGET_PATH="${DEPLOY_BASE_DIR:-/srv/quran-tft}/current"
           ssh $SSH_OPTS "${DEPLOY_USER}@${DEPLOY_HOST}" \
-            "grep -q 'KURAN SON AHİT' '${TARGET_PATH}/index.html' && grep -q 'Kuran (İnteraktif Kitap)' '${TARGET_PATH}/index.html' && grep -q 'Kuran Son Ahit' '${TARGET_PATH}/manifest.json'"
+            "grep -q 'KURAN SON AHİT' '${TARGET_PATH}/index.html' && grep -q 'Kuran Son Ahit (İnteraktif Kitap)' '${TARGET_PATH}/index.html' && grep -q 'Kuran Son Ahit' '${TARGET_PATH}/manifest.json'"
 
       - name: Scenario 3 - verify HTTP healthcheck
         run: |
