@@ -97,9 +97,9 @@
         "Afternoon": "2:238; 103:1",
         "Aggression verboten": "2:190-194; 4:91; 5:2, 87; 7:33, 55; 8:19, 39, 60-61; 9:4, 7; 16:126; 22:39; 42:40-43; 48:20, 24; 49:9; 60:8-9",
         "Al-'Uzzah": "53:19",
-        "Al-Hijr, Volk von": "15:80-84",
+        "Al-Hidschr, Volk von": "15:80-84",
         "Al-Russ": "25:38",
-        "Al-Taareq": "86:1-2",
+        "Al-Taariq": "86:1-2",
         "Albtraum": "40:46",
         "Allaat": "53:19",
         "Allegorie (siehe auch Beispiele)": "2:17, 19-20, 24-26, 265; 3:7; 4:56; 7:58, 179; 9:109; 10:27; 13:14-17; 14:18, 24-26; 15:45-48; 18:45; 22:73; 24:35, 39-40; 29:41; 35:33; 38:50-52, 56-57; 43:70-73; 47:15; 50:11; 52:13-28; 57:20; 62:5; 74:31; 76:4-6, 12-21; 77:30-33, 41-43; 78:24-25, 32-34; 88:1-16",
@@ -1245,7 +1245,7 @@
             "gemeindlich (Freitag)": "62:9-10",
             "Haus der": "2:125",
             "im Jenseits": "10:10",
-            "in der Masjid der Götzenanbeter": "9:108",
+            "in der Masdschid der Götzenanbeter": "9:108",
             "Mittag": "17:78",
             "Morgendämmerung": "11:114; 24:58",
             "Nachmittag": "2:238",
@@ -1713,11 +1713,11 @@
             "keine Fürsprache von Götzen": "36:23",
             "leugnen ihren Götzendienst": "6:22-24",
             "machen Angst mit Götzen": "39:36",
-            "missbrauchen Masjid": "9:107",
+            "missbrauchen Masdschid": "9:107",
             "sagen sich von Götzen los": "2:167; 26:92-102; 30:13",
             "seid nicht": "6:14; 17:2",
-            "sollen die Masjids Gottes nicht häufig besuchen": "9:17",
-            "vergöttern eigenes Ego": "45:23"
+            "vergöttern eigenes Ego": "45:23",
+            "werden die Masdschids Gottes nicht häufig besuchen": "9:17"
         },
         "Götzenanbetung": {
             "ablehnen": "2:256; 3:64, 67, 95; 6:78-79, 161; 12:38, 108; 14:35; 16:120, 123; 18:16, 38; 19:82; 22:15; 23:59; 30:31; 31:13; 39:17; 40:66, 84; 43:26; 60:4",
@@ -1832,7 +1832,7 @@
             "Haus": "14:37",
             "Leben": "6:151; 25:68",
             "Monate": "2:194, 217; 5:2, 97; 9:5, 36, 37",
-            "Moschee/Masjid": "2:144, 149-150, 191, 196, 217; 5:2, 97; 8:34; 9:7, 19, 28; 17:1; 22:25; 48:25, 27",
+            "Moschee/Masdschid": "2:144, 149-150, 191, 196, 217; 5:2, 97; 8:34; 9:7, 19, 28; 17:1; 22:25; 48:25, 27",
             "Ort": "2:198",
             "Pflicht": "33:38",
             "Schrein": "33:33",
@@ -2506,9 +2506,9 @@
         "Märtyrertum": "2:154; 3:140, 169-170, 195; 4:69, 72, 74; 9:52, 72; 22:58-59; 33:23; 47:4; 57:19",
         "Maruut": "2:102",
         "Marwah": "2:158",
-        "Masjid (siehe auch Moschee)": {
+        "Masdschid (siehe auch Moschee)": {
             "": "2:114, 187; 5:97; 7:31; 8:34; 9:7, 17-19, 28, 107-108; 22:25, 40; 48:25, 27",
-            "Götzenanbeter sollen nicht häufig besuchen": "9:17-18"
+            "Götzenanbeter werden nicht häufig besuchen": "9:17-18"
         },
         "Maß": "6:152; 7:85; 11:84-85; 12:59, 88; 13:8; 15:21; 17:35; 23:18; 25:2; 26:181; 42:27; 43:11; 54:49; 65:1; 77:23; 83:2-3",
         "Massen": {
@@ -2658,7 +2658,7 @@
         "Mord": "2:72-73, 178-179, 191, 217; 4:29, 92-93; 5:27-32; 14:6; 16:59; 17:31",
         "Morgen": "3:72; 6:96; 11:81; 15:66, 83; 18:23; 28:18; 30:17; 31:34; 46:25; 54:26; 54:38; 68:17, 20-21; 74:34; 79:29; 81:18; 100:3",
         "Morgendämmerung": "2:187; 3:17; 6:96; 17:78; 24:58; 51:18; 52:49; 54:34; 89:1; 97:5; 113:1",
-        "Moscheen (siehe auch Masjid)": "17:1, 7; 72:18",
+        "Moscheen (siehe auch Masdschid)": "17:1, 7; 72:18",
         "Moschus": "83:26",
         "Moses (siehe auch Kinder Israels)": {
             "Aaron gewährt, zu helfen": "19:53; 20:29-36; 26:13-15; 28:34-35",
