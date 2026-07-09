@@ -191,6 +191,11 @@ def bad_root_for_value(map_tx, value):
     return bool(levels and len(levels[0]) != 1)
 
 
+def normalized_path_parts(map_tx, value):
+    levels, _ = map_tx.normalize_map_path(value.split("\n"))
+    return levels, "\n".join(levels)
+
+
 def load_icu_collator_classes():
     global _COLLATOR_CLASSES
     if _COLLATOR_CLASSES is not None:
@@ -326,6 +331,7 @@ def prepare_targets(map_tx, raw_dir, stable_dir, reports_dir, source_flat, manif
                 continue
 
             new_source_path = source_flat[new_key]
+            _, new_source_value = normalized_path_parts(map_tx, new_source_path)
             if old_key != new_key:
                 remapped_key_count += 1
             if not isinstance(value, str):
@@ -337,7 +343,7 @@ def prepare_targets(map_tx, raw_dir, stable_dir, reports_dir, source_flat, manif
                     "reason": "non_string_value",
                     "raw_path": repr(value),
                     "normalized_path": "",
-                    "new_source_path": new_source_path.replace("\n", " > "),
+                    "new_source_path": new_source_value.replace("\n", " > "),
                     "normalized": "",
                 })
                 continue
@@ -350,7 +356,7 @@ def prepare_targets(map_tx, raw_dir, stable_dir, reports_dir, source_flat, manif
                     "reason": "blank_translation_value",
                     "raw_path": value.replace("\n", " > "),
                     "normalized_path": "",
-                    "new_source_path": new_source_path.replace("\n", " > "),
+                    "new_source_path": new_source_value.replace("\n", " > "),
                     "normalized": "",
                 })
                 continue
@@ -359,7 +365,7 @@ def prepare_targets(map_tx, raw_dir, stable_dir, reports_dir, source_flat, manif
             normalized_value = "\n".join(normalized_path)
             if normalized:
                 normalized_count += 1
-            if normalized_value == new_source_path:
+            if normalized_value == new_source_value:
                 source_match_count += 1
                 audit_rows.append({
                     "old_key": old_key,
@@ -368,7 +374,7 @@ def prepare_targets(map_tx, raw_dir, stable_dir, reports_dir, source_flat, manif
                     "reason": "matches_new_source_path",
                     "raw_path": value.replace("\n", " > "),
                     "normalized_path": normalized_value.replace("\n", " > "),
-                    "new_source_path": new_source_path.replace("\n", " > "),
+                    "new_source_path": new_source_value.replace("\n", " > "),
                     "normalized": str(bool(normalized)).lower(),
                 })
                 continue
@@ -383,7 +389,7 @@ def prepare_targets(map_tx, raw_dir, stable_dir, reports_dir, source_flat, manif
                 "reason": "",
                 "raw_path": value.replace("\n", " > "),
                 "normalized_path": normalized_value.replace("\n", " > "),
-                "new_source_path": new_source_path.replace("\n", " > "),
+                "new_source_path": new_source_value.replace("\n", " > "),
                 "normalized": str(bool(normalized)).lower(),
             })
 
@@ -452,7 +458,11 @@ def validate_uploads(map_tx, stable_dir, source_flat, manifest):
                 blank_count += 1
             normalized_path, _ = map_tx.normalize_map_path(value.split("\n"))
             normalized_value = "\n".join(normalized_path)
-            if normalized_value == source_flat.get(key):
+            source_value = source_flat.get(key)
+            source_normalized_value = None
+            if isinstance(source_value, str):
+                _, source_normalized_value = normalized_path_parts(map_tx, source_value)
+            if normalized_value == source_normalized_value:
                 source_match_count += 1
             if normalized_path and len(normalized_path[0]) != 1:
                 bad_root_count += 1
@@ -630,7 +640,15 @@ def main():
     write_tsv(
         validation_path,
         validation_rows,
-        ["file", "keys", "extra_keys", "blank_values", "source_matches", "bad_roots", "non_string_values"],
+        [
+            "file",
+            "keys",
+            "extra_keys",
+            "blank_values",
+            "source_matches",
+            "bad_roots",
+            "non_string_values",
+        ],
     )
 
     failures = [
