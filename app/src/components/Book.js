@@ -618,7 +618,7 @@ const Book = React.memo(({ incomingSearch = false, incomingAppendix = false, inc
                 return elements;
             }
 
-            if (introRegex.test(part)) {
+            if (introRegex.test(part) && !(lang === 'tr' && Number(currentPage) === 66 && from === 'notes:1')) {
                 const segments = part.split(introRegex);
                 const elements = [];
                 segments.forEach((segment, index) => {
