@@ -4,14 +4,17 @@ const config: CapacitorConfig = {
   appId: 'com.submittertech.quran',
   appName: 'Quran',
   webDir: 'build',
+  ios: {
+    scheme: 'Quran',
+  },
   server: {
     androidScheme: 'https'
   },
   plugins: {
-    StatusBar: {
-      overlaysWebView: false,
-      style: "DARK",
-      backgroundColor: "#082f49",
+    SystemBars: {
+      insetsHandling: 'css',
+      style: 'DARK',
+      hidden: false,
     },
   }
 };

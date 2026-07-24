@@ -18,7 +18,7 @@ const OVERSCROLL_RESET_CONFIG = { tension: 340, friction: 34, mass: 0.95 };
 const OVERSCROLL_RESET_FAST_CONFIG = { tension: 520, friction: 36, mass: 0.82 };
 const OVERSCROLL_RELEASE_GUARD_MS = 200;
 
-export const NEXT_PAGER_INDICATOR_BOTTOM = 'calc(env(safe-area-inset-bottom) * 0.57 + 3.05rem)';
+export const NEXT_PAGER_INDICATOR_BOTTOM = 'calc(var(--app-controls-safe-bottom) + 3.05rem)';
 
 const clamp = (value, min, max) => Math.max(min, Math.min(max, value));
 

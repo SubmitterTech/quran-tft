@@ -12,6 +12,9 @@ const Graph1 = ({
     const lines = item.content.lines;
 
     const [futureManVisible, setFutureManVisible] = useState(false);
+    const baseSoftTextColor = theme === 'leaf'
+        ? colors[theme]["text"]["on-deep-soft"]
+        : colors[theme]["text"]["logger"];
 
     const handleToggleFutureMan = () => {
         setFutureManVisible(!futureManVisible);
@@ -65,16 +68,16 @@ const Graph1 = ({
                 </div>
                 <div className={`w-full flex justify-between px-1`}>
                     <div className={`relative h-6 w-[11%]`}>
-                        <div className={`absolute -left-2 text-xs transition-opacity duration-300 ease-in-out ${colors[theme]["text"]["logger"]} ${futureManVisible ? 'opacity-100' : 'opacity-0'}`}>
+                        <div className={`absolute -left-2 text-xs transition-opacity duration-300 ease-in-out ${baseSoftTextColor} ${futureManVisible ? 'opacity-100' : 'opacity-0'}`}>
                             {translationApplication?.adam}
                         </div>
                     </div>
                     <div className={`relative h-6 w-[100%]`}>
-                        <div className={`absolute -left-1 text-xs transition-opacity duration-300 ease-in-out ${colors[theme]["text"]["logger"]} ${futureManVisible ? 'opacity-100' : 'opacity-0'}`}>
+                        <div className={`absolute -left-1 text-xs transition-opacity duration-300 ease-in-out ${baseSoftTextColor} ${futureManVisible ? 'opacity-100' : 'opacity-0'}`}>
                             1990
                         </div>
                     </div>
-                    <div className={`relative h-6 w-[11%] text-xs transition-opacity duration-300 ease-in-out ${colors[theme]["text"]["logger"]} ${futureManVisible ? 'opacity-100 delay-[2800ms]' : 'opacity-0'}`}>
+                    <div className={`relative h-6 w-[11%] text-xs transition-opacity duration-300 ease-in-out ${baseSoftTextColor} ${futureManVisible ? 'opacity-100 delay-[2800ms]' : 'opacity-0'}`}>
                         <div className={`absolute -right-2`}>
                             2280
                         </div>
@@ -84,7 +87,7 @@ const Graph1 = ({
             <div
                 lang={lang}
                 dir={direction}
-                className={`w-full flex flex-col ${colors[theme]["text"]["logger"]} p-1`}>
+                className={`w-full flex flex-col ${baseSoftTextColor} p-1`}>
                 <div className={`w-full flex items-center justify-between`}>
                     <div className={`w-7 h-9 bg-gray-100 border border-gray-400`}>
                     </div>

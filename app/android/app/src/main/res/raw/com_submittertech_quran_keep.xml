@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:tools="http://schemas.android.com/tools"
+    tools:shrinkMode="safe"
+    tools:keep="
+        @string/app_name,
+        @string/title_activity_main,
+        @string/package_name,
+        @string/custom_url_scheme,
+        @xml/config,
+        @xml/backup_rules,
+        @xml/data_extraction_rules,
+        @xml/file_paths,
+        @layout/activity_main,
+        @layout/capacitor_bridge_layout_main,
+        @layout/no_webview,
+        @mipmap/ic_launcher*,
+        @drawable/ic_launcher*,
+        @drawable/splash,
+        @style/AppTheme*,
+        @color/colorPrimary*,
+        @color/colorAccent,
+        @color/ic_launcher_background" />

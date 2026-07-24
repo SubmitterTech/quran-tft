@@ -2335,11 +2335,15 @@ const Magnify = ({
     const isSearchableQuery = searchTerm.trim().length > 1 || isSingleLocalizedDigit(searchTerm.trim(), langDigits);
 
     return (
-        <div className={` w-screen h-screen fixed z-[120] left-0 top-0 backdrop-blur-2xl`} id="jump-screen"
-            style={{ paddingBottom: 'calc(env(safe-area-inset-bottom) * 0.57)' }}
-        >
-            <div className={`fixed flex flex-col items-center justify-start faster inset-0 outline-none focus:outline-none overflow-auto `}>
-                <div className={`w-full flex p-1.5 sticky top-0 backdrop-blur-2xl z-20`} style={{ paddingTop: 'calc((env(safe-area-inset-top) * 0.76) + 0.3rem)' }}>
+        <div className={` w-screen h-screen fixed z-[120] left-0 top-0 backdrop-blur-2xl`} id="jump-screen">
+            <div
+                className={`fixed flex flex-col items-center justify-start faster inset-0 outline-none focus:outline-none overflow-auto `}
+                style={{
+                    paddingRight: 'var(--app-safe-right)',
+                    paddingLeft: 'var(--app-safe-left)',
+                }}
+            >
+                <div className={`w-full flex p-1.5 sticky top-0 backdrop-blur-2xl z-20`} style={{ paddingTop: 'calc((var(--app-safe-top) * 0.76) + 0.3rem)' }}>
                     <div className={`relative w-full flex rounded  space-x-2`}>
                         <div className={`relative w-full`}>
                             <input
@@ -2439,7 +2443,7 @@ const Magnify = ({
                         dir={direction}
                         className={`flex flex-col lg:grid lg:grid-cols-2 lg:grid-flow-row lg:px-1 gap-1 w-full overflow-auto py-0.5 flex-1`}
                         style={{
-                            marginBottom: `calc(env(safe-area-inset-bottom) * 0.57 + ${window.innerWidth >= 1024 ? '4rem' : '3rem'})`
+                            marginBottom: `calc(var(--app-controls-safe-bottom) + ${window.innerWidth >= 1024 ? '4rem' : '3rem'})`
                         }}>
                         <div className={`${loadedTitles.length > 0 ? titlesVisible ? `flex-1 mx-1 lg:mx-0 ring-1 ${colors[theme]["surface"]["top"]}` : `h-10 p-1 mx-1 lg:mx-0 ring-1 ${colors[theme]["surface"]["bottom"]}` : "hidden"} ${loadedVerses.length > 0 ? "" : "lg:col-span-2"} transition-all duration-100 ease-linear  overflow-auto rounded ${colors[theme]["border"]["focus"]} `}>
                             <div
@@ -2620,7 +2624,13 @@ const Magnify = ({
                     </div>
                 }
                 {searchTerm.length === 0 && (
-                    <div dir={direction} className={`w-full h-full flex items-start justify-center px-5 pt-4 overflow-y-auto opacity-75`}>
+                    <div
+                        dir={direction}
+                        className={`w-full h-full flex items-start justify-center px-5 pt-4 overflow-y-auto opacity-75`}
+                        style={{
+                            marginBottom: `calc(var(--app-controls-safe-bottom) + ${window.innerWidth >= 1024 ? '4rem' : '3rem'})`
+                        }}
+                    >
                         <div className={`text-xs md:text-sm ${colors[theme]["text"]["logger"]} space-y-2.5 max-w-2xl`}>
                             <div className="flex items-center gap-1">
                                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-4 h-4 shrink-0"><path strokeLinecap="round" strokeLinejoin="round" d="m21 21-5.197-5.197m0 0A7.5 7.5 0 1 0 5.196 5.196a7.5 7.5 0 0 0 10.607 10.607Z" /></svg>
@@ -2710,7 +2720,7 @@ const Magnify = ({
                 {(searchTerm.length === 1 && !/^\d$/.test(searchTerm)) &&
                     <div className={`w-full h-full px-1 z-0 overflow-y-scroll`}
                         style={{
-                            marginBottom: `calc(env(safe-area-inset-bottom) * 0.57 + ${window.innerWidth >= 1024 ? '4.2rem' : '3.2rem'})`
+                            marginBottom: `calc(var(--app-controls-safe-bottom) + ${window.innerWidth >= 1024 ? '4.2rem' : '3.2rem'})`
                         }}>
                         <div className={`text-lg md:text-2xl w-full p-0.5 ${colors[theme]["text"]["top"]} transition-all duration-100 ease-linear `}>
                             <div className={` w-full flex flex-col space-y-1.5 transition-all duration-200 ease-linear `}>
@@ -2759,8 +2769,15 @@ const Magnify = ({
                 }
             </div>
             {optionsVisible && (
-                <div dir={direction} className={`fixed left-1 right-1 ${colors[theme]["surface"]["base"]} z-[146] shadow-lg rounded px-1 py-1.5 border ${colors[theme]["border"]["strong"]}`}
-                    style={{ top: `calc(3.3rem + env(safe-area-inset-top) * 0.76)` }}>
+                <div
+                    dir={direction}
+                    className={`fixed ${colors[theme]["surface"]["base"]} z-[146] shadow-lg rounded px-1 py-1.5 border ${colors[theme]["border"]["strong"]}`}
+                    style={{
+                        top: `calc(3.3rem + var(--app-safe-top) * 0.76)`,
+                        right: 'calc(var(--app-safe-right) + 0.25rem)',
+                        left: 'calc(var(--app-safe-left) + 0.25rem)',
+                    }}
+                >
                     <div className={`flex flex-col text-lg md:text-xl`}>
                         {direction !== 'rtl' && (
                             <label className={`flex items-center justify-between md:justify-end gap-2 p-3 border-b cursor-pointer ${colors[theme]["border"]["soft"]}`}>

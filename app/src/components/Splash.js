@@ -11,15 +11,18 @@ const Splash = ({ bookContent, currentPage, colors, theme, direction }) => {
     const cpd = bookContent ? bookContent.find(iterator => iterator.page === currentPage) : null;
     const lines = cpd?.text.split("\n").filter(element => element.trim().length > 0) || [];
     const textTheme = direction === 'rtl' ? `text-2xl md:text-3xl lg:text-4xl ` : `text-lg md:text-xl lg:text-2xl `;
+    const baseTextColor = theme === 'leaf'
+        ? colors[theme]["text"]["on-deep"]
+        : colors[theme]["text"]["top"];
 
     return (
-        <div className={`w-screen h-screen flex flex-col items-center justify-center ${textTheme} ${colors[theme]["text"]["top"]}`}>
+        <div className={`w-screen h-screen flex flex-col items-center justify-center ${textTheme} ${baseTextColor}`}>
             <div className={direction === "ltr" ? `text-left` : `text-right`}>
                 {lines.map((line, index) => (
                     <div
                         key={index}
                         dir={direction}
-                        className={`mb-1 transition-opacity duration-1000 ${showLines ? 'opacity-100' : 'opacity-0'} ${colors[theme]["text"]["top"]}`}
+                        className={`mb-1 transition-opacity duration-1000 ${showLines ? 'opacity-100' : 'opacity-0'} ${baseTextColor}`}
                         style={{ transitionDelay: `${index * 1700}ms` }}
                     >
                         {line}

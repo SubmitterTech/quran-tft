@@ -270,20 +270,18 @@ function Root({ bootData = null }) {
             return;
         }
         setStatusBarStyle(
-            safeTheme,
-            colors[safeTheme]['surface']['status-bar'],
-            colors[safeTheme]['status-bar-style']
+            showCover ? 'sky' : safeTheme,
+            showCover ? 'dark' : colors[safeTheme]['status-bar-style']
         ).catch((error) => {
             console.error('Failed to update status bar style:', error);
         });
-    }, [theme, colors, resolveThemeName]);
+    }, [theme, colors, resolveThemeName, showCover]);
 
     const onChangeColor = useCallback((nextTheme) => {
         const safeTheme = resolveThemeName(nextTheme);
         setTheme(safeTheme);
         setStatusBarStyle(
             safeTheme,
-            colors[safeTheme]['surface']['status-bar'],
             colors[safeTheme]['status-bar-style']
         ).catch((error) => {
             console.error('Failed to update status bar style:', error);

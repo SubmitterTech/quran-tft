@@ -4,6 +4,5 @@
     <include domain="file" path="."/>
     <include domain="sharedpref" path="."/>
     <include domain="database" path="."/>
-    <exclude domain="cache" path="."/>
   </cloud-backup>
 </data-extraction-rules>

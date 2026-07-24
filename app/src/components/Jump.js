@@ -797,14 +797,14 @@ const Jump = React.memo(({
                 </div>
                 {platformVersionLabel && (
                     <div
-                        className={`fixed top-1 right-2 z-20 text-[10px] md:text-xs tracking-wide ${colors[theme]["text"]["bottom"]} opacity-60`}
-                        style={{ paddingTop: 'env(safe-area-inset-top)' }}
+                        className={`fixed top-1 right-2 z-20 text-[10px] md:text-xs tracking-wide ${theme === 'leaf' ? colors[theme]["text"]["on-deep-soft"] : `${colors[theme]["text"]["bottom"]} opacity-60`}`}
+                        style={{ paddingTop: 'var(--app-safe-top)' }}
                     >
                         {platformVersionLabel}
                     </div>
                 )}
                 <div className={`w-full md:w-2/3 lg:w-1/2 2xl:w-1/3 fixed bottom-12 md:bottom-16 left-1/2 -translate-x-1/2 flex justify-center `}
-                    style={{ paddingBottom: 'env(safe-area-inset-bottom)' }}>
+                    style={{ paddingBottom: 'var(--app-safe-bottom)' }}>
                     <div className="relative w-full m-2">
                         <select
                             id="languagepicker"

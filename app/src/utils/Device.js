@@ -1,10 +1,9 @@
 import { Device } from '@capacitor/device';
 import { Clipboard } from '@capacitor/clipboard';
-import { StatusBar, Style } from '@capacitor/status-bar';
+import { SystemBars, SystemBarsStyle, SystemBarType } from '@capacitor/core';
 import { ScreenOrientation } from '@capacitor/screen-orientation';
 import { Haptics, ImpactStyle } from '@capacitor/haptics';
 
-let hasStatusBarPromise = null;
 let isNativePlatform = false;
 let platform = 'web';
 let initPlatformPromise = null;
@@ -125,29 +124,22 @@ export const setInitialLanguage = async () => {
   }
 };
 
-export const setStatusBarStyle = async (theme, bgc, styleMode = null) => {
+export const setStatusBarStyle = async (theme, styleMode = null) => {
+  await initPlatform();
+
+  if (!isNativePlatform) {
+    return;
+  }
+
   const normalizedTheme = (theme || '').toLowerCase();
   const fallbackStyle = (normalizedTheme === 'light' || normalizedTheme === 'leaf' || normalizedTheme === 'pink') ? 'light' : 'dark';
   const normalizedStyle = (styleMode || fallbackStyle).toLowerCase();
-  const st = normalizedStyle === 'light' ? Style.Light : Style.Dark;
+  const style = normalizedStyle === 'light' ? SystemBarsStyle.Light : SystemBarsStyle.Dark;
 
-  if (hasStatusBarPromise === null) {
-    hasStatusBarPromise = (async () => {
-      try {
-        await StatusBar.getInfo();
-        return true;
-      } catch (error) {
-        return false;
-      }
-    })();
-  }
-
-  const hasStatusBar = await hasStatusBarPromise;
-
-  if (hasStatusBar) {
-    await StatusBar.setStyle({ style: st });
-    await StatusBar.setBackgroundColor({ color: bgc });
-  }
+  await SystemBars.setStyle({
+    style,
+    bar: SystemBarType.StatusBar,
+  });
 };
 
 export const triggerActionHaptic = async () => {

@@ -14,15 +14,16 @@ jest.mock('@capacitor/device', () => ({
   }
 }));
 
-jest.mock('@capacitor/status-bar', () => ({
-  StatusBar: {
-    getInfo: jest.fn(),
-    setStyle: jest.fn(),
-    setBackgroundColor: jest.fn()
+jest.mock('@capacitor/core', () => ({
+  SystemBars: {
+    setStyle: jest.fn()
   },
-  Style: {
-    Light: 'Light',
-    Dark: 'Dark'
+  SystemBarsStyle: {
+    Light: 'LIGHT',
+    Dark: 'DARK'
+  },
+  SystemBarType: {
+    StatusBar: 'StatusBar'
   }
 }));
 

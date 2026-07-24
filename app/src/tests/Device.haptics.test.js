@@ -14,15 +14,16 @@ const loadDeviceUtils = () => {
     }
   }));
 
-  jest.doMock('@capacitor/status-bar', () => ({
-    StatusBar: {
-      getInfo: jest.fn(),
-      setStyle: jest.fn(),
-      setBackgroundColor: jest.fn()
+  jest.doMock('@capacitor/core', () => ({
+    SystemBars: {
+      setStyle: jest.fn()
     },
-    Style: {
-      Light: 'Light',
-      Dark: 'Dark'
+    SystemBarsStyle: {
+      Light: 'LIGHT',
+      Dark: 'DARK'
+    },
+    SystemBarType: {
+      StatusBar: 'StatusBar'
     }
   }));
 
@@ -114,4 +115,3 @@ describe('triggerActionHaptic', () => {
     expect(Haptics.impact).toHaveBeenCalledTimes(2);
   });
 });
-

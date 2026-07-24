@@ -25,7 +25,15 @@ const Cover = ({ onCoverSeen, coverData, lang, onChangeLanguage }) => {
     };
 
     return (
-        <div className="splash-screen fixed h-screen flex flex-col w-full justify-between  text-center bg-sky-950 text-neutral-200 overflow-hidden">
+        <div
+            className="splash-screen fixed h-screen flex flex-col w-full justify-between text-center bg-sky-950 text-neutral-200 overflow-hidden"
+            style={{
+                paddingTop: 'var(--app-safe-top)',
+                paddingRight: 'var(--app-safe-right)',
+                paddingBottom: 'var(--app-safe-bottom)',
+                paddingLeft: 'var(--app-safe-left)',
+            }}
+        >
             <div
                 onClick={handleTap}
                 className="w-full h-1/3 flex items-center ">

@@ -943,6 +943,12 @@ const Book = React.memo(({ incomingSearch = false, incomingAppendix = false, inc
     }, []);
 
     const renderBookContent = () => {
+        const baseTextColor = theme === 'leaf'
+            ? colors[theme]["text"]["on-deep"]
+            : colors[theme]["text"]["middle"];
+        const baseSoftTextColor = theme === 'leaf'
+            ? colors[theme]["text"]["on-deep-soft"]
+            : colors[theme]["text"]["logger"];
 
         if (parseInt(currentPage) === 1) {
             return <Splash
@@ -985,7 +991,7 @@ const Book = React.memo(({ incomingSearch = false, incomingAppendix = false, inc
 
             if (!cpd || !cpd.evidence["2"] || !cpd.evidence["2"].lines) {
                 return (
-                    <div className={`${colors[theme]["text"]["logger"]} flex flex-1 items-center justify-center w-full `}>
+                    <div className={`${baseSoftTextColor} flex flex-1 items-center justify-center w-full `}>
                         {translationApplication?.contentNotAvailable}
                     </div>
                 )
@@ -1013,7 +1019,7 @@ const Book = React.memo(({ incomingSearch = false, incomingAppendix = false, inc
                     return (
                         <div
                             key={`each-title-${key}`}
-                            className={`${colors[theme]["text"]["middle"]} w-full flex justify-between`} >
+                            className={`${baseTextColor} w-full flex justify-between`} >
                             <div className={`p-3 w-1/6 flex justify-center text-center`}>{no}</div>
                             <div className={`p-3 w-full flex justify-center`}>{name}</div>
                             <div className={`p-3 w-1/6 flex justify-center text-center`}>{arabic}</div>
@@ -1092,7 +1098,7 @@ const Book = React.memo(({ incomingSearch = false, incomingAppendix = false, inc
             return (
                 <div
                     onClick={nextPage}
-                    className={`w-screen h-screen flex items-center justify-center  ${colors[theme]["text"]["middle"]}`}>
+                    className={`w-screen h-screen flex items-center justify-center  ${baseTextColor}`}>
                     <div className={`text-4xl mx-2`}>
                         {translationApplication?.appendices}
                     </div>
@@ -1108,7 +1114,7 @@ const Book = React.memo(({ incomingSearch = false, incomingAppendix = false, inc
 
             if (!cpd || !cpd.evidence["2"] || !cpd.evidence["2"].lines) {
                 return (
-                    <div className={`${colors[theme]["text"]["logger"]} flex flex-1 items-center justify-center w-full `}>
+                    <div className={`${baseSoftTextColor} flex flex-1 items-center justify-center w-full `}>
                         {translationApplication?.contentNotAvailable}
                     </div>
                 )
@@ -1125,7 +1131,7 @@ const Book = React.memo(({ incomingSearch = false, incomingAppendix = false, inc
                 if (parseInt(key) === 1) {
                     const titles = elements[0].split(" ").filter(element => element);
                     return (
-                        <div className={`${colors[theme]["text"]["middle"]} text-3xl w-full flex justify-center`} key={key}>
+                        <div className={`${baseTextColor} text-3xl w-full flex justify-center`} key={key}>
                             <div className={`p-3`}>{titles[0]}</div>
                         </div>
                     );
@@ -1187,12 +1193,12 @@ const Book = React.memo(({ incomingSearch = false, incomingAppendix = false, inc
     return (
         <div
             className={`fixed w-full h-full flex flex-col justify-start ${colors[theme]["surface"]["base"]} overflow-y-hidden`}
-            style={{ paddingTop: 'calc(env(safe-area-inset-top) * 0.76)', paddingBottom: 'calc(env(safe-area-inset-bottom) * 0.57)' }}>
+            style={{ paddingTop: 'calc(var(--app-safe-top) * 0.76)', paddingBottom: 'var(--app-controls-safe-bottom)' }}>
             <Toaster
                 position="top-center"
                 reverseOrder={false}
                 containerStyle={{
-                    marginTop: 'calc(env(safe-area-inset-top) + 2rem)',
+                    marginTop: 'calc(var(--app-safe-top) + 2rem)',
                 }}
                 toastOptions={{
                     success: {
@@ -1226,7 +1232,7 @@ const Book = React.memo(({ incomingSearch = false, incomingAppendix = false, inc
             <div>
                 <div className={`h-12 lg:h-14`}></div>
                 <div className={`w-full flex z-[220] ${colors[theme]["surface"]["base"]} fixed bottom-0`}
-                    style={{ paddingBottom: 'calc(env(safe-area-inset-bottom) * 0.57)' }}>
+                    style={{ paddingBottom: 'var(--app-controls-safe-bottom)' }}>
                     <div className={`relative flex w-full items-center justify-between`}>
                         <div className={`absolute h-0.5 left-0 -top-0.5 ${colors[theme]["accent"]["fill"]}`} style={{ width: `${progressPercentage}%` }}></div>
                         {hasTranslationProgress &&
@@ -1487,7 +1493,7 @@ const Book = React.memo(({ incomingSearch = false, incomingAppendix = false, inc
                                 style={{ animation: 'animate-scale 0.2s ease-in-out' }}
                                 className={`mx-3 z-40 ${colors[theme]["surface"]["base"]} flex items-center justify-center rounded shadow-lg`}>
                                 <div dir={direction} className={`rounded px-1 py-1.5 border ${colors[theme]["border"]["strong"]}`}
-                                    style={{ top: `calc(3.3rem + env(safe-area-inset-top) * 0.76)` }}>
+                                    style={{ top: `calc(3.3rem + var(--app-safe-top) * 0.76)` }}>
                                     <div className={`flex flex-col text-lg md:text-xl`}>
                                         <label className={`flex items-center justify-between md:justify-end gap-4 pt-3.5 px-3 pb-2 cursor-pointer`}>
                                             <span className={`${rememberHistory ? colors[theme]["text"]["on-deep"] : colors[theme]["text"]["on-deep-soft"]}`}>{translationApplication?.returnToJumped}</span>

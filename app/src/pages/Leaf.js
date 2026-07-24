@@ -10,6 +10,7 @@ import {
     buildHyphenProtectedTokenSetFromSerializedIndex,
     isHyphenCacheLanguage,
 } from '../utils/Hyphenation';
+import { setStatusBarStyle } from '../utils/Device';
 
 const LEAF_BACKGROUND_COLOR = '#414833';
 const NOTE_ACCENT_COLOR = '#7f5539';
@@ -83,6 +84,12 @@ const Leaf = () => {
             [noteKey]: !prevToggles[noteKey],
         }));
     };
+
+    useEffect(() => {
+        setStatusBarStyle('dark', 'dark').catch((error) => {
+            console.error('Failed to update status bar style:', error);
+        });
+    }, []);
 
     useEffect(() => {
         let isCancelled = false;
@@ -232,11 +239,20 @@ const Leaf = () => {
     return (
         <div
             className={`select-text fixed w-screen h-full pb-2 flex flex-col justify-center items-center ${shouldUsePersianSans ? 'font-vazirmatn' : ''}`}
-            style={{ backgroundColor: LEAF_BACKGROUND_COLOR }}
+            style={{
+                backgroundColor: LEAF_BACKGROUND_COLOR,
+                paddingTop: 'var(--app-safe-top)',
+                paddingRight: 'var(--app-safe-right)',
+                paddingBottom: 'calc(var(--app-safe-bottom) + 0.5rem)',
+                paddingLeft: 'var(--app-safe-left)',
+            }}
         >
             <div
                 className="text-base h-14 w-14 md:h-16 md:w-16 lg:h-18 lg:w-18 absolute bottom-0 p-0.5 rounded-t-full z-50"
-                style={{ backgroundColor: LEAF_BACKGROUND_COLOR }}
+                style={{
+                    backgroundColor: LEAF_BACKGROUND_COLOR,
+                    bottom: 'var(--app-safe-bottom)',
+                }}
             >
                 <Link to="/">
                     <img

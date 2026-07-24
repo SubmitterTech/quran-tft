@@ -32,6 +32,15 @@ const Apps = ({ colors, theme, translationApplication, parseReferences, appendic
     const [hyphenProtectedTokens, setHyphenProtectedTokens] = useState(() => new Set());
     const [hyphenLanguage, setHyphenLanguage] = useState(normalizedLang || 'en');
     const hyphenClassName = autoHyphenation ? 'hyphens-auto' : 'hyphens-none';
+    const baseTextColor = theme === 'leaf'
+        ? colors[theme]["text"]["on-deep"]
+        : colors[theme]["text"]["middle"];
+    const baseSoftTextColor = theme === 'leaf'
+        ? colors[theme]["text"]["on-deep-soft"]
+        : colors[theme]["text"]["logger"];
+    const baseMutedTextColor = theme === 'leaf'
+        ? colors[theme]["text"]["on-deep-soft"]
+        : colors[theme]["text"]["bottom"];
 
     const mapAppendicesData = useCallback((appendices) => {
         return mapAppendices(appendices, translationApplication);
@@ -318,7 +327,7 @@ const Apps = ({ colors, theme, translationApplication, parseReferences, appendic
                     <div
                         key={`app-${appno}-${item.type}-${item.order}`}
                         dir={direction}
-                        className={`${isAppendixTitle ? `px-2 pb-1 pt-2.5 ${colors[theme]["text"]["bottom"]}` : `${pulsateTitle} sticky top-10 px-2 pb-1 pt-2 ${colors[theme]["text"]["middle"]}`} flex items-center justify-center text-center  font-semibold  ${colors[theme]["surface"]["base"]} `}
+                        className={`${isAppendixTitle ? `px-2 pb-1 pt-2.5 ${baseMutedTextColor}` : `${pulsateTitle} sticky top-10 px-2 pb-1 pt-2 ${baseTextColor}`} flex items-center justify-center text-center  font-semibold  ${colors[theme]["surface"]["base"]} `}
                         ref={isAppendixTitle ? (el) => appendixRef.current[`appendix-${item.content.match(/\d+/)[0]}`] = el : (el) => textRef.current[appno + "-" + index] = el}>
                         {applyHyphenation(item.content)}
                     </div>
@@ -424,7 +433,7 @@ const Apps = ({ colors, theme, translationApplication, parseReferences, appendic
                             <img src={imageUrl} alt={imageUrl} className={`object-center`} />
                         </div>
                         {item.content.text && (
-                            <div className={`${colors[theme]["text"]["logger"]} w-full text-base flex justify-center`}>
+                            <div className={`${baseSoftTextColor} w-full text-base flex justify-center`}>
                                 <div className={`p-2`}>{applyHyphenation(item.content.text)}</div>
                             </div>
                         )}
@@ -434,7 +443,7 @@ const Apps = ({ colors, theme, translationApplication, parseReferences, appendic
                 return renderTable(item.content, appno, index);
             default:
                 return (
-                    <div key={`unknown-${index}`} className={`${colors[theme]["text"]["logger"]} flex flex-1 items-center justify-center w-full`}>
+                    <div key={`unknown-${index}`} className={`${baseSoftTextColor} flex flex-1 items-center justify-center w-full`}>
                         {translationApplication?.unrecognizedData}
                     </div>
                 );
@@ -475,11 +484,11 @@ const Apps = ({ colors, theme, translationApplication, parseReferences, appendic
 
     return (
         <div
-            className={`h-full w-screen relative overflow-y-auto pb-10 md:pb-14 ${colors[theme]["text"]["middle"]} ${textTheme} select-text`}>
+            className={`h-full w-screen relative overflow-y-auto pb-10 md:pb-14 ${baseTextColor} ${textTheme} select-text`}>
             <div ref={containerRef}>
                 {renderAppendices()}
                 {!isRefsReady &&
-                    <div className={`absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 flex ${colors[theme]["text"]["bottom"]} select-none`}>
+                    <div className={`absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 flex ${baseMutedTextColor} select-none`}>
                         <svg className={`animate-spin -ml-1 mr-3 h-5 w-5 text-white`} xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
                             <circle className={`opacity-25`} cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
                             <path className={`opacity-75`} fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
