@@ -3,12 +3,13 @@ import { useSpring, animated } from '@react-spring/web';
 import { useDrag } from '@use-gesture/react';
 import { supportsUnicodeRegex, supportsLookAhead, triggerActionHaptic } from '../utils/Device';
 import Bookmarks from '../utils/Bookmarks';
+import { getSpecializedGodWordMatches } from '../utils/GodWords';
 
 const SWIPE_LOCK_THRESHOLD_PX = 19;
 const ARABIC_MARK_PATTERN = '[\\u0610-\\u061A\\u064B-\\u065F\\u0670\\u06D6-\\u06ED]*';
 const ALLAH_WORD_RAW_FORMS = [
     'تالله', 'الله', 'لله', 'ولله', 'والله',
-    'بالله', 'فلله', 'فالله', 'ابالله', 'وتالله',
+    'بالله', 'فلله', 'فالله', 'ابالله', 'أبالله', 'وتالله',
 ];
 
 const createAllahWordPattern = (raw) =>
@@ -411,6 +412,31 @@ const Verse = ({ besmele,
 
     const lightGODwords = useCallback((verse, paint = false) => {
         const gw = translationApplication ? translationApplication.gw : "GOD";
+        const specializedMatches = getSpecializedGodWordMatches(verse, lang, currentVerseKey);
+
+        if (specializedMatches !== null) {
+            const elements = [];
+            let lastIndex = 0;
+
+            specializedMatches.forEach((match, index) => {
+                elements.push(verse.substring(lastIndex, match.index));
+                elements.push(
+                    <span
+                        key={`${match.index}-${index}`}
+                        dir={direction}
+                        className={`font-bold ${paint ? 'text-sky-500' : ''}`}
+                    >
+                        {match.text}
+                    </span>
+                );
+                lastIndex = match.index + match.text.length;
+            });
+
+            if (lastIndex < verse.length) {
+                elements.push(verse.substring(lastIndex));
+            }
+            return elements;
+        }
 
         if (direction === 'rtl') {
             try {
@@ -455,7 +481,7 @@ const Verse = ({ besmele,
                 return [<span key="fallback" dir={direction}>{verse}</span>];
             }
         }
-    }, [translationApplication, direction]);
+    }, [translationApplication, direction, lang, currentVerseKey]);
 
 
     const formatHitCount = (count) => {

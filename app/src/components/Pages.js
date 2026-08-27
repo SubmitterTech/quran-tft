@@ -10,6 +10,7 @@ import {
     hyphenateReactNode,
     isHyphenCacheLanguage,
 } from '../utils/Hyphenation';
+import { getSpecializedGodWordMatches } from '../utils/GodWords';
 
 const formatHitCount = (count) => {
     const factor = 19;
@@ -558,7 +559,10 @@ const Pages = React.memo(({
 
     const sortedVerses = parsePageVerses();
 
-    const countGODwords = (verse) => {
+    const countGODwords = (verse, verseKey = '') => {
+        const specializedMatches = getSpecializedGodWordMatches(verse, normalizedLang, verseKey);
+        if (specializedMatches !== null) return specializedMatches.length;
+
         const gw = translationApplication ? translationApplication.gw : "GOD";
         const regex = direction === 'ltr' ? new RegExp(`\\b(${gw})\\b`, 'g') : new RegExp(`(${gw})`, 'g');
         return (verse.match(regex) || []).length;
@@ -575,8 +579,8 @@ const Pages = React.memo(({
         let lastCumulativeCount = newPageGWC["0:0"].cumulative;
 
         sortedVerses.forEach(({ suraNumber, verseNumber, verseText }) => {
-            const count = countGODwords(verseText);
             const key = `${suraNumber}:${verseNumber}`;
+            const count = countGODwords(verseText, key);
 
             if (count > 0) {
                 lastCumulativeCount += count;
@@ -957,7 +961,7 @@ const Pages = React.memo(({
                         const verseKey = `${suraNumber}:${verseNumber}`;
                         const noteReference = hasAsterisk ? verseKey : null;
 
-                        pageGWC[verseKey] = countGODwords(verseText)
+                        pageGWC[verseKey] = countGODwords(verseText, verseKey)
 
                         let notes = null;
 
