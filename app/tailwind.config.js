@@ -9,6 +9,8 @@ module.exports = {
       serif: ['Lora', 'Times New Roman', 'Times', 'serif'],
       arabic: ['"Hafs"', '"Hafs UI"', "Arial", "sans-serif"],
       vazirmatn: ['"Vazirmatn"', 'ui-sans-serif', 'system-ui', 'sans-serif'],
+      tamil: ['"Noto Sans Tamil"', 'ui-sans-serif', 'system-ui', 'sans-serif'],
+      'tamil-serif': ['"Noto Serif Tamil"', 'Lora', 'Times New Roman', 'Times', 'serif'],
     },
     extend: {
       animation: {

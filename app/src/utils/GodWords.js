@@ -1,3 +1,5 @@
+import { expandToTamilGraphemes } from './Tamil';
+
 const RUSSIAN_GOD_WORD_FORMS = Object.freeze([
     'БОЖЬЕГО',
     'БОЖЬИМИ',
@@ -58,6 +60,27 @@ const PERSIAN_GOD_WORD_EXCLUSION_INDEXES = Object.freeze({
     '68:28': [0],
 });
 
+// Tamil inflects கடவுள் by replacing the final virama (கடவுளின், கடவுளுக்கு, கடவுளை),
+// so the stem without the virama matches every form. The excluded occurrences are
+// the parenthetical "(God)" insertions that have no Arabic counterpart.
+const TAMIL_GOD_WORD_EXCLUSION_INDEXES = Object.freeze({
+    '2:124': [0],
+    '2:126': [1],
+    '9:98': [0],
+    '16:91': [1],
+    '19:11': [0],
+    '21:79': [0],
+    '24:36': [1],
+    '27:75': [0],
+    '29:17': [1],
+    '34:39': [0],
+    '36:14': [0],
+    '37:143': [0],
+    '44:23': [0],
+    '56:11': [0],
+    '68:28': [0],
+});
+
 const FALLBACK_WORD_CHARACTER_REGEX = /[A-Za-z\u0400-\u052F0-9_]/;
 
 const GOD_WORD_RULE_DEFINITIONS_BY_LANGUAGE = Object.freeze({
@@ -70,6 +93,16 @@ const GOD_WORD_RULE_DEFINITIONS_BY_LANGUAGE = Object.freeze({
         matchMode: 'whole-word',
         forms: RUSSIAN_GOD_WORD_FORMS,
         excludedOccurrenceIndexesByVerse: Object.freeze({}),
+    }),
+    ta: Object.freeze({
+        matchMode: 'substring',
+        forms: Object.freeze(['கடவுள']),
+        // Highlight only the GOD word, not its suffix. Inflections fuse the last
+        // letter with the suffix vowel (ள + ி), and splitting a vowel sign from its
+        // consonant into another span breaks glyph shaping, so the highlight ends
+        // with the marks of that letter: கடவுளி|ன், கடவுளு|க்கு, கடவுள்.
+        extendToTamilGraphemes: true,
+        excludedOccurrenceIndexesByVerse: TAMIL_GOD_WORD_EXCLUSION_INDEXES,
     }),
 });
 
@@ -86,6 +119,7 @@ const GOD_WORD_RULES_BY_LANGUAGE = new Map(
 
             return [lang, {
                 matchMode: definition.matchMode,
+                extendToTamilGraphemes: Boolean(definition.extendToTamilGraphemes),
                 regex: new RegExp(forms.map(escapeRegExp).join('|'), 'g'),
                 exclusionsByVerse,
             }];
@@ -132,8 +166,11 @@ export const getSpecializedGodWordMatches = (text, lang, verseKey = '') => {
 
     return candidates
         .filter((_match, occurrenceIndex) => !excludedIndexes?.has(occurrenceIndex))
-        .map((match) => ({
-            index: match.index,
-            text: match[0],
-        }));
+        .map((match) => {
+            if (!rule.extendToTamilGraphemes) {
+                return { index: match.index, text: match[0] };
+            }
+            const [, end] = expandToTamilGraphemes(source, match.index, match.index + match[0].length);
+            return { index: match.index, text: source.slice(match.index, end) };
+        });
 };

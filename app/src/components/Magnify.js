@@ -1,4 +1,4 @@
-import { useState, useEffect, useCallback, useRef, useMemo, useDeferredValue, useTransition } from 'react';
+import { cloneElement, isValidElement, useState, useEffect, useCallback, useRef, useMemo, useDeferredValue, useTransition } from 'react';
 import { mapAppendices, mapQuran } from '../utils/Mapper';
 import { isNative, triggerActionHaptic } from '../utils/Device';
 import { ensureDidYouMeanCacheReady, loadDidYouMeanCachedIndex, loadHyphenCachedIndex } from '../utils/Generator';
@@ -10,6 +10,7 @@ import {
     hyphenateReactNode,
     isHyphenCacheLanguage,
 } from '../utils/Hyphenation';
+import { isTamil, foldTamilViramas, expandToTamilGraphemes } from '../utils/Tamil';
 
 
 // Word-boundary check: a character is a boundary (not part of a word) if it's
@@ -88,6 +89,15 @@ const splitQuerySegments = (text) => {
     }
     return segments;
 };
+
+// Highlighted text is rendered as a list of strings and <span> parts, so every element
+// part needs a key. Keys are assigned once on the final list: parts come from several
+// highlight passes, where offsets alone could repeat.
+const withHighlightKeys = (parts) => parts.map((part, index) => (
+    isValidElement(part) && part.key == null
+        ? cloneElement(part, { key: `highlight-${index}` })
+        : part
+));
 
 const collapseSearchWordChars = (text) => {
     let collapsed = '';
@@ -657,6 +667,9 @@ const Magnify = ({
         if (normalize) {
             t = normalizeApostropheLikeMarks(t);
             t = t.normalize("NFD").replace(/[\u0300-\u036f]/g, "");
+            if (isTamil(lang)) {
+                t = foldTamilViramas(t);
+            }
         }
         if (!caseSensitive) {
             t = t.toLocaleUpperCase(lang);
@@ -792,6 +805,9 @@ const Magnify = ({
             }
             t = normalizeApostropheLikeMarks(t);
             t = t.normalize("NFD").replace(/[\u0300-\u036f]/g, "");
+            if (isTamil(suggestionFoldLang)) {
+                t = foldTamilViramas(t);
+            }
             t = t.toLocaleUpperCase(suggestionFoldLang);
             return t;
         };
@@ -1788,6 +1804,9 @@ const Magnify = ({
             if (normalize) {
                 ch = normalizeApostropheLikeMarks(ch);
                 ch = ch.normalize("NFD").replace(/[\u0300-\u036f]/g, "");
+                if (isTamil(lang)) {
+                    ch = foldTamilViramas(ch);
+                }
             }
             if (!caseSensitive) {
                 ch = ch.toLocaleUpperCase(lang);
@@ -1808,6 +1827,9 @@ const Magnify = ({
         if (normalize) {
             processedKeyword = normalizeApostropheLikeMarks(processedKeyword);
             processedKeyword = normalizeText(processedKeyword);
+            if (isTamil(lang)) {
+                processedKeyword = foldTamilViramas(processedKeyword);
+            }
         }
         if (!processedKeyword || processedKeyword.trim() === '') return [originalText];
         processedKeyword = !caseSensitive ? processedKeyword.toLocaleUpperCase(lang) : processedKeyword;
@@ -1829,8 +1851,12 @@ const Magnify = ({
                     if (w > 0) { while (cursor < searchStr.length && !isWordChar(searchStr[cursor])) cursor++; }
                     cursor += phraseWords[w].length;
                 }
-                const origStart = posMap[idx];
-                const origEnd = posMap[cursor - 1] + 1;
+                let origStart = posMap[idx];
+                let origEnd = posMap[cursor - 1] + 1;
+                if (isTamil(lang)) {
+                    [origStart, origEnd] = expandToTamilGraphemes(origChars, origStart, origEnd);
+                    origStart = Math.max(origStart, lastOrigEnd);
+                }
                 const matchText = origChars.slice(origStart, origEnd).join("");
 
                 if (origStart > lastOrigEnd) {
@@ -1848,8 +1874,12 @@ const Magnify = ({
 
             while ((match = regex.exec(searchStr)) !== null) {
                 if (match[0].length === 0) { regex.lastIndex++; continue; }
-                const origStart = posMap[match.index];
-                const origEnd = posMap[match.index + match[0].length - 1] + 1;
+                let origStart = posMap[match.index];
+                let origEnd = posMap[match.index + match[0].length - 1] + 1;
+                if (isTamil(lang)) {
+                    [origStart, origEnd] = expandToTamilGraphemes(origChars, origStart, origEnd);
+                    origStart = Math.max(origStart, lastOrigEnd);
+                }
                 const matchText = origChars.slice(origStart, origEnd).join("");
 
                 if (origStart > lastOrigEnd) {
@@ -1886,6 +1916,9 @@ const Magnify = ({
             if (normalize) {
                 ch = normalizeApostropheLikeMarks(ch);
                 ch = ch.normalize("NFD").replace(/[\u0300-\u036f]/g, "");
+                if (isTamil(lang)) {
+                    ch = foldTamilViramas(ch);
+                }
             }
             if (!caseSensitive) {
                 ch = ch.toLocaleUpperCase(lang);
@@ -1911,6 +1944,9 @@ const Magnify = ({
             if (normalize) {
                 processedKeyword = normalizeApostropheLikeMarks(processedKeyword);
                 processedKeyword = normalizeText(processedKeyword);
+                if (isTamil(lang)) {
+                    processedKeyword = foldTamilViramas(processedKeyword);
+                }
             }
             if (!processedKeyword || processedKeyword.trim() === '') return;
             processedKeyword = !caseSensitive ? processedKeyword.toLocaleUpperCase(lang) : processedKeyword;
@@ -1928,8 +1964,11 @@ const Magnify = ({
                     cursor += phraseWords[w].length;
                 }
 
-                const origStart = posMap[idx];
-                const origEnd = posMap[cursor - 1] + 1;
+                let origStart = posMap[idx];
+                let origEnd = posMap[cursor - 1] + 1;
+                if (isTamil(lang)) {
+                    [origStart, origEnd] = expandToTamilGraphemes(origChars, origStart, origEnd);
+                }
                 if (origEnd > origStart) {
                     ranges.push([origStart, origEnd]);
                 }
@@ -1990,7 +2029,7 @@ const Magnify = ({
             });
             keywords.push(...extraKeywords.filter((keyword) => String(keyword ?? '').trim() !== ''));
             if (keywords.length === 0) return [text];
-            return highlightExactKeywords(text, keywords);
+            return withHighlightKeys(highlightExactKeywords(text, keywords));
         } else {
             keywords = processedTerm.split(' ').filter(keyword => (keyword.trim() !== '' && keyword.trim() !== '|' && keyword.trim().length > 0));
         }
@@ -2001,7 +2040,7 @@ const Magnify = ({
             highlightedText = highlightedText.flatMap(part => typeof part === 'string' ? highlightText(part, keyword) : part);
         });
 
-        return highlightedText;
+        return withHighlightKeys(highlightedText);
     }, [searchTerm, highlightText, highlightExactKeywords, exactMatch, searchFold, langDigits]);
 
     const renderResultText = useCallback((text) => (

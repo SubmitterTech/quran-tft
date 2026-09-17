@@ -11,6 +11,8 @@ import {
     isHyphenCacheLanguage,
 } from '../utils/Hyphenation';
 import { setStatusBarStyle } from '../utils/Device';
+import { isTamil } from '../utils/Tamil';
+import { splitSura9NamesAfterTransliteration, splitsSura9AfterTransliteration } from '../utils/SuraTitles';
 
 const LEAF_BACKGROUND_COLOR = '#414833';
 const NOTE_ACCENT_COLOR = '#7f5539';
@@ -19,7 +21,7 @@ const TITLE_BESMELE_TEXT_COLOR = '#f0f0f0';
 const NOTE_PANEL_MAX_HEIGHT = '57vh';
 const TITLE_DECORATION_PATTERN = /^[\s♦]+$/;
 
-const parseLeafTitle = (title, suraNumber) => {
+const parseLeafTitle = (title, suraNumber, lang) => {
     if (typeof title !== 'string' || !title.includes('♦')) {
         return null;
     }
@@ -51,7 +53,9 @@ const parseLeafTitle = (title, suraNumber) => {
         suraNames = headerLines.slice(1).join(' ').trim();
     }
 
-    if (parseInt(suraNumber, 10) === 9 && suraNames) {
+    if (parseInt(suraNumber, 10) === 9 && suraNames && splitsSura9AfterTransliteration(lang)) {
+        suraNames = splitSura9NamesAfterTransliteration(suraNames);
+    } else if (parseInt(suraNumber, 10) === 9 && suraNames) {
         const words = suraNames.split(/\s+/);
         const firstLine = words.slice(0, 2).join(' ');
         const secondLine = words.slice(2).join(' ');
@@ -72,6 +76,7 @@ const Leaf = () => {
     const [direction, setDirection] = useState('ltr');
     const [noteToggles, setNoteToggles] = useState({});
     const shouldUsePersianSans = (lang || '').toLowerCase() === 'fa';
+    const shouldUseTamilSans = isTamil(lang);
     const normalizedLang = String(lang || '').toLowerCase();
     const [hyphenBreakMap, setHyphenBreakMap] = useState(() => new Map());
     const [hyphenProtectedTokens, setHyphenProtectedTokens] = useState(() => new Set());
@@ -238,7 +243,7 @@ const Leaf = () => {
 
     return (
         <div
-            className={`select-text fixed w-screen h-full pb-2 flex flex-col justify-center items-center ${shouldUsePersianSans ? 'font-vazirmatn' : ''}`}
+            className={`select-text fixed w-screen h-full pb-2 flex flex-col justify-center items-center ${shouldUsePersianSans ? 'font-vazirmatn' : ''} ${shouldUseTamilSans ? 'font-tamil' : ''}`}
             style={{
                 backgroundColor: LEAF_BACKGROUND_COLOR,
                 paddingTop: 'var(--app-safe-top)',
@@ -271,7 +276,7 @@ const Leaf = () => {
                         const hasNote = Boolean(noteList[key]);
                         const isNoteOpen = Boolean(noteToggles[key]);
                         const [suraNumber] = key.split(':');
-                        const parsedTitle = parseLeafTitle(titleList[key], suraNumber);
+                        const parsedTitle = parseLeafTitle(titleList[key], suraNumber, lang);
                         const displayVerseText = applyHyphenation(text);
                         const displayNoteText = noteList[key] ? applyHyphenation(noteList[key]) : noteList[key];
                         const displayTitleText = titleList[key] ? applyHyphenation(titleList[key]) : titleList[key];

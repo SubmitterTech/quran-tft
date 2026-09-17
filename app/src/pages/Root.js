@@ -6,6 +6,7 @@ import { colorThemes } from '../utils/Theme';
 import { setStatusBarStyle, applyConditionalOrientationLock } from '../utils/Device';
 import { init as initBookmarks } from '../utils/Bookmarks';
 import { ensureRuntimeCachesReady, getDidYouMeanBuildProgress } from '../utils/Generator';
+import { isTamil } from '../utils/Tamil';
 import introductionContent from '../assets/introduction.json';
 import quranData from '../assets/qurantft.json';
 import appendicesContent from '../assets/appendices.json';
@@ -917,9 +918,12 @@ function Root({ bootData = null }) {
     ).toFixed(1));
     const normalizedLangForFont = (lang || '').toLowerCase();
     const shouldUsePersianSans = normalizedLangForFont === 'fa' && font !== 'font-serif';
+    const tamilFontClassName = isTamil(normalizedLangForFont)
+        ? (font === 'font-serif' ? 'font-tamil-serif' : 'font-tamil')
+        : '';
 
     return (
-        <div className={`Root select-none flex flex-col h-screen ${font} ${shouldUsePersianSans ? 'font-vazirmatn' : ''}`}>
+        <div className={`Root select-none flex flex-col h-screen ${font} ${shouldUsePersianSans ? 'font-vazirmatn' : ''} ${tamilFontClassName}`}>
             {showCover && <Cover onCoverSeen={hideCover} coverData={coverData} lang={lang} onChangeLanguage={onChangeLanguage} />}
             {!showCover && <Book
                 incomingSearch={isSearch ? isSearch : false}

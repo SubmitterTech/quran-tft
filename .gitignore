@@ -8,3 +8,4 @@ __pycache__/
 scrapper/map-work/out/
 .cloudflare
 *.key
+graphify-out/

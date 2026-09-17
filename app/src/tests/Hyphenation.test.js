@@ -41,6 +41,29 @@ describe('Hyphenation exceptions for Turkic GOD word', () => {
         expect(output).toBe(`Tanrı’${ZERO_WIDTH_SPACE}ya`);
     });
 
+    test('ta: vowel signs and viramas stay inside the cached token', () => {
+        // Break positions from hyphen/ta: நம்-பிக்-கை
+        const hyphenBreakMap = new Map([
+            ['நம்பிக்கை', [3, 7]],
+        ]);
+
+        const output = applyCachedHyphenationToText('நம்பிக்கை கொண்டனர்', 'ta', hyphenBreakMap, new Set());
+        expect(output).toBe(`நம்${SOFT_HYPHEN}பிக்${SOFT_HYPHEN}கை கொண்டனர்`);
+    });
+
+    test('ta: GOD word and its inflections should not be hyphenated even if cache contains breaks', () => {
+        const hyphenBreakMap = new Map([
+            ['கடவுள்', [2]],
+            ['கடவுளின்', [2, 4]],
+            ['கடவுளுக்கு', [2, 4, 7]],
+            ['பெயரால்', [2, 3]],
+        ]);
+        const protectedTokens = new Set(['கடவுள்']);
+
+        const output = applyCachedHyphenationToText('கடவுளின் பெயரால் கடவுள் கடவுளுக்கு', 'ta', hyphenBreakMap, protectedTokens);
+        expect(output).toBe(`கடவுளின் பெ${SOFT_HYPHEN}ய${SOFT_HYPHEN}ரால் கடவுள் கடவுளுக்கு`);
+    });
+
     test('protected tokens can be reconstructed from serialized index payload', () => {
         const set = buildHyphenProtectedTokenSetFromSerializedIndex({
             protectedTokens: ['god', 'tanri'],

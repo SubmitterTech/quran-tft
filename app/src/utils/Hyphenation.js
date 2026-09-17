@@ -1,9 +1,10 @@
 import React from 'react';
+import { TAMIL_WORD_REGEX, isTamil, isTamilInflectionOfProtectedToken } from './Tamil';
 
 const HYPHEN_CHAR = '\u00AD';
 const ZERO_WIDTH_SPACE = '\u200B';
 // Must stay in sync with runtime builder target list in Generator.js.
-const SUPPORTED_HYPHEN_CACHE_LANGUAGES = new Set(['tr', 'az']);
+const SUPPORTED_HYPHEN_CACHE_LANGUAGES = new Set(['tr', 'az', 'ta']);
 const APOSTROPHE_CHARS = new Set(["'", '’']);
 
 let cachedWordRegex = null;
@@ -78,8 +79,11 @@ export const normalizeHyphenToken = (token, lang) => {
 
 const getPrimaryLanguage = (lang) => String(lang || '').toLowerCase().split('-')[0];
 
-const isProtectedHyphenToken = (normalizedToken, protectedTokenSet) => (
-    protectedTokenSet instanceof Set && protectedTokenSet.has(normalizedToken)
+const isProtectedHyphenToken = (normalizedToken, protectedTokenSet, lang) => (
+    protectedTokenSet instanceof Set && (
+        protectedTokenSet.has(normalizedToken)
+        || (isTamil(lang) && isTamilInflectionOfProtectedToken(normalizedToken, protectedTokenSet))
+    )
 );
 
 export const buildHyphenBreakMapFromSerializedIndex = (serializedIndex) => {
@@ -137,7 +141,7 @@ export const applyCachedHyphenationToText = (text, lang, hyphenBreakMap, protect
     }
 
     const source = String(text);
-    const regex = getWordRegex();
+    const regex = isTamil(normalizedLang) ? TAMIL_WORD_REGEX : getWordRegex();
     regex.lastIndex = 0;
 
     let output = '';
@@ -152,7 +156,7 @@ export const applyCachedHyphenationToText = (text, lang, hyphenBreakMap, protect
         output += source.slice(lastIndex, start);
 
         const normalizedToken = normalizeHyphenToken(token, normalizedLang);
-        const isProtectedToken = isProtectedHyphenToken(normalizedToken, protectedTokenSet);
+        const isProtectedToken = isProtectedHyphenToken(normalizedToken, protectedTokenSet, normalizedLang);
 
         if (isProtectedToken) {
             const nextChar = source[end];

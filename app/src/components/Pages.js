@@ -11,6 +11,8 @@ import {
     isHyphenCacheLanguage,
 } from '../utils/Hyphenation';
 import { getSpecializedGodWordMatches } from '../utils/GodWords';
+import { isTamil, stripTamilFinalVirama } from '../utils/Tamil';
+import { splitSura9NamesAfterTransliteration, splitsSura9AfterTransliteration } from '../utils/SuraTitles';
 
 const formatHitCount = (count) => {
     const factor = 19;
@@ -1015,7 +1017,10 @@ const Pages = React.memo(({
                                         ? (
                                             <div className={`text-lg w-full flex flex-col space-y-1 `}>
                                                 {(() => {
-                                                    const gw = translationApplication.gw.toLocaleLowerCase(lang);
+                                                    let gw = translationApplication.gw.toLocaleLowerCase(lang);
+                                                    if (isTamil(lang)) {
+                                                        gw = stripTamilFinalVirama(gw);
+                                                    }
                                                     let parts = title.split('\n').slice(1, -1);
                                                     if (title.toLowerCase().search(gw) === -1) {
                                                         parts = title.split('\n').slice(1)
@@ -1025,8 +1030,10 @@ const Pages = React.memo(({
                                                     const finalParts = concatenated.split(':');
                                                     const surano = finalParts[0]?.trim();
                                                     let suranames = finalParts[1]?.trim();
-                                                    if (parseInt(suraNumber) === 9) {
-                                                        const names = suranames?.split(' ');
+                                                    if (parseInt(suraNumber) === 9 && splitsSura9AfterTransliteration(lang)) {
+                                                        suranames = splitSura9NamesAfterTransliteration(suranames);
+                                                    } else if (parseInt(suraNumber) === 9) {
+                                                        const names = suranames?.split(/\s+/);
                                                         const sn = names?.slice(0, 2).join(' ');
                                                         const nobes = names?.slice(2).join(' ');
                                                         suranames = sn + '\n' + nobes;
@@ -1045,7 +1052,10 @@ const Pages = React.memo(({
                                                 {(() => {
                                                     // THE FIRST SENTENCE OF FIRST SURA : BISMILLAHIRRAHMANIRRAHIM
                                                     const hasGODinit = title.split('\n').pop();
-                                                    const gw = translationApplication.gw.toLocaleLowerCase(lang);
+                                                    let gw = translationApplication.gw.toLocaleLowerCase(lang);
+                                                    if (isTamil(lang)) {
+                                                        gw = stripTamilFinalVirama(gw);
+                                                    }
                                                     const textTheme = isPersian ? `text-2xl md:text-3xl lg:text-4xl xl:text-5xl` : `text-base md:text-lg lg:text-xl xl:text-2xl `;
                                                     if (hasGODinit.toLowerCase().search(gw) !== -1) {
                                                         return (

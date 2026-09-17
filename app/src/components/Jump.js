@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef, useMemo, useCallback } from 'react';
+import React, { useState, useEffect, useLayoutEffect, useRef, useMemo, useCallback } from 'react';
 import { App as CapacitorApp } from '@capacitor/app';
 import languages from '../assets/languages.json';
 import { getRandom } from '../utils/Generator';
@@ -7,9 +7,11 @@ import { isNative, which, triggerActionHaptic } from '../utils/Device';
 import { ColorPicker, FontPicker } from '../utils/Theme';
 import Bookmarks from '../utils/Bookmarks';
 import LongPressable from '../hooks/LongPressable';
+import { isTamil, splitTamilGraphemes, stripTamilArticle } from '../utils/Tamil';
 import { toast } from 'react-hot-toast';
 
 const languageDisabilityThreshold = 38;
+
 const chronologicalOrder = [
     "96", "68", "73", "74", "1", "111", "81", "87", "92", "89", "93", "94", "103", "100", "108", "102", "107", "109", "105",
     "113", "114", "112", "53", "80", "97", "91", "85", "95", "106", "101", "75", "104", "77", "50", "90", "86", "54", "38",
@@ -20,6 +22,78 @@ const chronologicalOrder = [
 ];
 const LOADING_LANGUAGE_OPTION_VALUE = '__jump-loading__';
 const RANDOM_VERSE_REVEAL_DELAY_MS = 76;
+
+// Tamil only. Single-line label that shortens with an ellipsis but stays centered; CSS
+// `truncate` left-aligns overflowing text and leaves the spare width next to the dots.
+function CenteredTruncatedLabel({ text, className }) {
+    const boxRef = useRef(null);
+    const measureRef = useRef(null);
+    const fullText = String(text ?? '');
+    const [shownText, setShownText] = useState(fullText);
+
+    useLayoutEffect(() => {
+        const box = boxRef.current;
+        const measure = measureRef.current;
+        if (!box || !measure) return undefined;
+
+        const fits = (value) => {
+            measure.textContent = value;
+            return measure.getBoundingClientRect().width <= box.clientWidth;
+        };
+
+        const fit = () => {
+            if (fits(fullText)) {
+                setShownText(fullText);
+                return;
+            }
+            // Cut between letters so Tamil vowel signs stay with their letter.
+            const graphemes = splitTamilGraphemes(fullText);
+            let low = 0;
+            let high = graphemes.length;
+            while (low < high) {
+                const mid = Math.ceil((low + high) / 2);
+                if (fits(`${graphemes.slice(0, mid).join('').trimEnd()}…`)) {
+                    low = mid;
+                } else {
+                    high = mid - 1;
+                }
+            }
+            setShownText(`${graphemes.slice(0, low).join('').trimEnd()}…`);
+        };
+
+        fit();
+        let cancelled = false;
+        document.fonts?.ready?.then(() => {
+            if (!cancelled) fit();
+        });
+        const observer = typeof ResizeObserver !== 'undefined' ? new ResizeObserver(fit) : null;
+        observer?.observe(box);
+
+        return () => {
+            cancelled = true;
+            observer?.disconnect();
+        };
+    }, [fullText]);
+
+    return (
+        <div
+            ref={boxRef}
+            className={`relative w-full overflow-hidden whitespace-nowrap text-center ${className}`}
+            title={shownText !== fullText ? fullText : undefined}>
+            {shownText}
+            <span ref={measureRef} aria-hidden="true" className="invisible absolute left-0 top-0 whitespace-nowrap" />
+        </div>
+    );
+}
+
+// Jump menu button label. Tamil labels are long ("பின் இணைப்புகள்"), so they are fitted to
+// one line; other languages keep the original label.
+function JumpButtonLabel({ text, className, fitToWidth }) {
+    if (!fitToWidth) {
+        return <div className={`flex items-center justify-center ${className}`}>{text}</div>;
+    }
+    return <CenteredTruncatedLabel text={text} className={className} />;
+}
 
 function InlineExpandableTextareaTW({
     value,
@@ -365,7 +439,9 @@ const Jump = React.memo(({
         } else {
             // For non-RTL (LTR), if the extracted text has a "-" as the third character,
             // remove the first three characters.
-            if (extracted.length >= 3 && extracted[2] === '-') {
+            if (isTamil(lang)) {
+                extracted = stripTamilArticle(extracted);
+            } else if (extracted.length >= 3 && extracted[2] === '-') {
                 extracted = extracted.slice(3);
             }
         }
@@ -1150,10 +1226,10 @@ const Jump = React.memo(({
                             }
                         </div>
                         {!showBookmarks &&
-                            <div className={`flex w-full justify-between items-center ${colors[theme]["text"]["on-deep"]} space-x-2 px-2 pb-2 `}>
+                            <div className={`flex w-full justify-between ${isTamil(lang) ? 'items-stretch' : 'items-center'} ${colors[theme]["text"]["on-deep"]} space-x-2 px-2 pb-2 `}>
                                 <button
                                     onClick={handleSubmit}
-                                    className={`flex flex-col w-full items-center justify-between pt-1 rounded  transition-all delay-150 duration-700 ease-in-out ${lightOpen ? "bg-sky-500" : colors[theme]["surface"]["top"]}`}>
+                                    className={`flex flex-col w-full ${isTamil(lang) ? 'min-w-0' : ''} items-center justify-between pt-1 rounded  transition-all delay-150 duration-700 ease-in-out ${lightOpen ? "bg-sky-500" : colors[theme]["surface"]["top"]}`}>
                                     <div className={`flex justify-center transition-all delay-150 duration-700 ${lightOpen ? "text-neutral-50" : colors[theme]["text"]["top"]}`} >
                                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className={`w-12 h-12 transition-all delay-150 duration-600 ease-in-out ${lightOpen ? "opacity-0" : "opacity-100"}`}>
                                             <path strokeLinecap="round" strokeLinejoin="round" d="M12 6.042A8.967 8.967 0 0 0 6 3.75c-1.052 0-2.062.18-3 .512v14.25A8.987 8.987 0 0 1 6 18c2.305 0 4.408.867 6 2.292m0-14.25a8.966 8.966 0 0 1 6-2.292c1.052 0 2.062.18 3 .512v14.25A8.987 8.987 0 0 0 18 18a8.967 8.967 0 0 0-6 2.292m0-14.25v14.25" />
@@ -1162,37 +1238,40 @@ const Jump = React.memo(({
                                             <path d="M11.25 4.533A9.707 9.707 0 0 0 6 3a9.735 9.735 0 0 0-3.25.555.75.75 0 0 0-.5.707v14.25a.75.75 0 0 0 1 .707A8.237 8.237 0 0 1 6 18.75c1.995 0 3.823.707 5.25 1.886V4.533ZM12.75 20.636A8.214 8.214 0 0 1 18 18.75c.966 0 1.89.166 2.75.47a.75.75 0 0 0 1-.708V4.262a.75.75 0 0 0-.5-.707A9.735 9.735 0 0 0 18 3a9.707 9.707 0 0 0-5.25 1.533v16.103Z" />
                                         </svg>
                                     </div>
-                                    <div className={` flex text-sm items-center justify-center pb-1 transition-all delay-100 duration-700 ${lightOpen ? "text-neutral-50" : colors[theme]["text"]["bottom"]}`}>
-                                        {translationApplication?.open}
-                                    </div>
+                                    <JumpButtonLabel
+                                        fitToWidth={isTamil(lang)}
+                                        text={translationApplication?.open}
+                                        className={`text-sm pb-1 transition-all delay-100 duration-700 ${lightOpen ? "text-neutral-50" : colors[theme]["text"]["bottom"]}`} />
                                 </button>
                                 <button
                                     onClick={goIntro}
-                                    className={`flex flex-col w-full items-center justify-between pt-2 rounded  ${colors[theme]["surface"]["top"]}`}>
+                                    className={`flex flex-col w-full ${isTamil(lang) ? 'min-w-0' : ''} items-center justify-between pt-2 rounded  ${colors[theme]["surface"]["top"]}`}>
                                     <div className={`flex justify-center ${colors[theme]["text"]["top"]}`}>
                                         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" className={`w-12 h-12`}>
                                             <path fillRule="evenodd" d="M7.5 3.75A1.5 1.5 0 006 5.25v13.5a1.5 1.5 0 001.5 1.5h6a1.5 1.5 0 001.5-1.5V15a.75.75 0 011.5 0v3.75a3 3 0 01-3 3h-6a3 3 0 01-3-3V5.25a3 3 0 013-3h6a3 3 0 013 3V9A.75.75 0 0115 9V5.25a1.5 1.5 0 00-1.5-1.5h-6zm5.03 4.72a.75.75 0 010 1.06l-1.72 1.72h10.94a.75.75 0 010 1.5H10.81l1.72 1.72a.75.75 0 11-1.06 1.06l-3-3a.75.75 0 010-1.06l3-3a.75.75 0 011.06 0z" clipRule="evenodd" />
                                         </svg>
                                     </div>
-                                    <div className={`flex ${colors[theme]["text"]["bottom"]} text-xs items-center justify-center pb-1`}>
-                                        {translationApplication?.intro}
-                                    </div>
+                                    <JumpButtonLabel
+                                        fitToWidth={isTamil(lang)}
+                                        text={translationApplication?.intro}
+                                        className={`${colors[theme]["text"]["bottom"]} text-xs pb-1`} />
                                 </button>
                                 <button
                                     onClick={goApps}
-                                    className={`flex flex-col w-full items-center justify-between pt-2 rounded  ${colors[theme]["surface"]["top"]}`}>
+                                    className={`flex flex-col w-full ${isTamil(lang) ? 'min-w-0' : ''} items-center justify-between pt-2 rounded  ${colors[theme]["surface"]["top"]}`}>
                                     <div className={`flex justify-center ${colors[theme]["text"]["top"]}`} >
                                         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" className={`w-12 h-12`}>
                                             <path fillRule="evenodd" d="M7.5 3.75A1.5 1.5 0 006 5.25v13.5a1.5 1.5 0 001.5 1.5h6a1.5 1.5 0 001.5-1.5V15a.75.75 0 011.5 0v3.75a3 3 0 01-3 3h-6a3 3 0 01-3-3V5.25a3 3 0 013-3h6a3 3 0 013 3V9A.75.75 0 0115 9V5.25a1.5 1.5 0 00-1.5-1.5h-6zm10.72 4.72a.75.75 0 011.06 0l3 3a.75.75 0 010 1.06l-3 3a.75.75 0 11-1.06-1.06l1.72-1.72H9a.75.75 0 010-1.5h10.94l-1.72-1.72a.75.75 0 010-1.06z" clipRule="evenodd" />
                                         </svg>
                                     </div>
-                                    <div className={`flex ${colors[theme]["text"]["bottom"]} text-xs items-center justify-center pb-1`}>
-                                        {translationApplication?.appendices}
-                                    </div>
+                                    <JumpButtonLabel
+                                        fitToWidth={isTamil(lang)}
+                                        text={translationApplication?.appendices}
+                                        className={`${colors[theme]["text"]["bottom"]} text-xs pb-1`} />
                                 </button>
                                 <button
                                     onClick={toggleThemeView}
-                                    className={`flex flex-col w-full items-center justify-between pt-1 rounded  ${colors[theme]["surface"]["top"]}`}>
+                                    className={`flex flex-col w-full ${isTamil(lang) ? 'min-w-0' : ''} items-center justify-between pt-1 rounded  ${colors[theme]["surface"]["top"]}`}>
                                     <div className={`flex justify-center ${colors[theme]["text"]["top"]}`} >
                                         {showThemes ?
                                             (<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" className={`w-12 h-12`}>
@@ -1205,9 +1284,10 @@ const Jump = React.memo(({
                                             </svg>
                                             )}
                                     </div>
-                                    <div className={`flex ${colors[theme]["text"]["bottom"]} text-sm items-center justify-center pb-1`}>
-                                        {translationApplication?.theme}
-                                    </div>
+                                    <JumpButtonLabel
+                                        fitToWidth={isTamil(lang)}
+                                        text={translationApplication?.theme}
+                                        className={`${colors[theme]["text"]["bottom"]} text-sm pb-1`} />
                                 </button>
                             </div>
                         }

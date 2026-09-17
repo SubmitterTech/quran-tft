@@ -22,6 +22,15 @@ import quranData from '../assets/qurantft.json';
 import quranFa from '../assets/translations/fa/quran_fa.json';
 import quranRu from '../assets/translations/ru/quran_ru.json';
 
+// Tamil arrives through the Transifex sync, so the file may be absent in a fresh checkout.
+const quranTa = (() => {
+  try {
+    return require('../assets/translations/ta/quran_ta.json');
+  } catch (error) {
+    return null;
+  }
+})();
+
 describe('getStandaloneAllahWordMatches', () => {
   test('matches standard Allah spelling as a standalone word', () => {
     const matches = getStandaloneAllahWordMatches('بِسْمِ ٱللَّهِ ٱلرَّحْمَٰنِ ٱلرَّحِيمِ');
@@ -66,13 +75,23 @@ describe('specialized GOD word matching', () => {
     expect(getSpecializedGodWordMatches('خداحافظی', 'fa', '38:33')).toHaveLength(0);
   });
 
+  test('highlights the Tamil GOD word without its suffix and excludes parenthetical insertions', () => {
+    const text = 'கடவுளின் பெயரால் கடவுள் கடவுளுக்கு கடவுளை';
+    expect(getSpecializedGodWordMatches(text, 'ta', '1:1').map((match) => match.text)).toEqual([
+      'கடவுளி', 'கடவுள்', 'கடவுளு', 'கடவுளை',
+    ]);
+    expect(getSpecializedGodWordMatches('(கடவுள்) கூறினார்', 'ta', '2:124')).toHaveLength(0);
+  });
+
   test('does not change matching for other languages', () => {
     expect(getSpecializedGodWordMatches('GUDs GUD', 'sv', '3:4')).toBeNull();
   });
 
-  test('matches the corrected Arabic GOD count in every Russian and Persian verse', () => {
+  test('matches the corrected Arabic GOD count in every Russian, Persian and Tamil verse', () => {
+    // Tamil verses not yet translated fall back to English and are not counted.
+    const isTamil = (text) => /[\u0B80-\u0BFF]/.test(text);
     const mismatches = [];
-    const totals = { ar: 0, fa: 0, ru: 0, verses: 0 };
+    const totals = { ar: 0, fa: 0, ru: 0, ta: 0, taExpected: 0, verses: 0 };
 
     Object.entries(quranData).forEach(([pageNumber, page]) => {
       Object.entries(page.sura || {}).forEach(([suraNumber, sura]) => {
@@ -81,22 +100,29 @@ describe('specialized GOD word matching', () => {
           const expected = getStandaloneAllahWordMatches(arabicText).length;
           const faText = quranFa[pageNumber]?.sura?.[suraNumber]?.verses?.[verseNumber] || '';
           const ruText = quranRu[pageNumber]?.sura?.[suraNumber]?.verses?.[verseNumber] || '';
+          const taText = quranTa?.[pageNumber]?.sura?.[suraNumber]?.verses?.[verseNumber] || '';
           const faCount = getSpecializedGodWordMatches(faText, 'fa', verseKey).length;
           const ruCount = getSpecializedGodWordMatches(ruText, 'ru', verseKey).length;
+          const taCount = isTamil(taText) ? getSpecializedGodWordMatches(taText, 'ta', verseKey).length : expected;
 
           totals.ar += expected;
           totals.fa += faCount;
           totals.ru += ruCount;
+          if (isTamil(taText)) {
+            totals.ta += taCount;
+            totals.taExpected += expected;
+          }
           totals.verses += 1;
 
-          if (faCount !== expected || ruCount !== expected) {
-            mismatches.push({ verseKey, expected, faCount, ruCount });
+          if (faCount !== expected || ruCount !== expected || taCount !== expected) {
+            mismatches.push({ verseKey, expected, faCount, ruCount, taCount });
           }
         });
       });
     });
 
     expect(mismatches).toEqual([]);
-    expect(totals).toEqual({ ar: 2698, fa: 2698, ru: 2698, verses: 6234 });
+    expect(totals.ta).toBe(totals.taExpected);
+    expect({ ar: totals.ar, fa: totals.fa, ru: totals.ru, verses: totals.verses }).toEqual({ ar: 2698, fa: 2698, ru: 2698, verses: 6234 });
   }, 20000);
 });

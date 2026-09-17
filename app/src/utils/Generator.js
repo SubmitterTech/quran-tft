@@ -1,4 +1,5 @@
 import languagesCatalog from '../assets/languages.json';
+import { foldTamilViramas, getTamilProtectedStems, isTamil } from './Tamil';
 
 export const getRandom = () => {
     const array = new Uint32Array(1);
@@ -28,7 +29,10 @@ const HYPH_MANIFEST_KEY = 'manifest';
 const HYPHEN_CHAR = '\u00AD';
 // LTR langs with runtime hyphen fallback need. As of 2026-03 caniuse checks
 // against our supported set keep this limited to Turkish + Azerbaijani.
-const RUNTIME_HYPHEN_LANGUAGES = ['tr', 'az'];
+const RUNTIME_HYPHEN_LANGUAGES = ['tr', 'az', 'ta'];
+// Built only when the reader uses them (startup request), not in the background build for
+// everyone. Tamil has no Apple hyphenation dictionary, so it needs the runtime cache too.
+const ON_DEMAND_HYPHEN_LANGUAGES = ['ta'];
 
 const TURKIC_SUFFIXES = [
     'LERİ', 'LARI', 'LERI', 'LARİ',
@@ -485,6 +489,10 @@ const createSuggestionFold = (lang, languagesConfig) => {
             value = value.replace(/[İIıi]/g, 'i');
         }
         value = value.normalize('NFD').replace(/[\u0300-\u036f]/g, '');
+        // Must match Magnify's suggestion fold.
+        if (isTamil(lang)) {
+            value = foldTamilViramas(value);
+        }
         value = value.toLocaleUpperCase(lang || 'en');
         return value;
     };
@@ -707,6 +715,7 @@ const buildHyphenProtectedTokenSet = ({ lang, application }) => {
 const resolveHyphenLoaderLanguage = (lang) => {
     if (lang === 'az') return 'tr';
     if (lang === 'tr') return 'tr';
+    if (lang === 'ta') return 'ta';
     return null;
 };
 
@@ -714,6 +723,8 @@ const loadHyphenModule = async (loaderLanguage) => {
     switch (loaderLanguage) {
         case 'tr':
             return import(/* webpackChunkName: "hyphen-tr" */ 'hyphen/tr');
+        case 'ta':
+            return import(/* webpackChunkName: "hyphen-ta" */ 'hyphen/ta');
         default:
             return null;
     }
@@ -758,6 +769,8 @@ const buildHyphenIndex = async ({
     onProgress = null,
 }) => {
     const protectedTokenSet = protectedTokens instanceof Set ? protectedTokens : new Set();
+    // Tamil GOD word inflections (கடவுளின்) stay unhyphenated like the word itself.
+    const protectedStems = isTamil(lang) ? getTamilProtectedStems(protectedTokenSet) : [];
     const uniqueTokens = new Set();
     const queue = textQueue || [];
     const totalTextEntries = Math.max(queue.length, 1);
@@ -797,6 +810,7 @@ const buildHyphenIndex = async ({
             const normalized = normalizeHyphenToken(segment.value, lang);
             if (!normalized || normalized.length < 5) return;
             if (protectedTokenSet.has(normalized)) return;
+            if (protectedStems.some((stem) => normalized.startsWith(stem))) return;
             uniqueTokens.add(normalized);
         });
 
@@ -1101,7 +1115,9 @@ export const ensureRuntimeCachesReady = async ({
         const requestedLanguages = normalizeRequestedLanguages(languages);
 
         let dymTargetLanguages = (allLanguages ? RUNTIME_DYM_LANGUAGES : ['en']).map(asLanguageCode);
-        let hyphenTargetLanguages = (allLanguages ? RUNTIME_HYPHEN_LANGUAGES : []).map(asLanguageCode);
+        let hyphenTargetLanguages = (allLanguages
+            ? RUNTIME_HYPHEN_LANGUAGES.filter((lang) => !ON_DEMAND_HYPHEN_LANGUAGES.includes(lang))
+            : []).map(asLanguageCode);
 
         if (requestedLanguages.length > 0) {
             const requestedSet = new Set(requestedLanguages);
