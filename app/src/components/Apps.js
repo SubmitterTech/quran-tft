@@ -389,6 +389,7 @@ const Apps = ({ colors, theme, translationApplication, parseReferences, appendic
                 if (no === 4) {
                     return (
                         <Picture4and5
+                            key={`picture-${index}`}
                             item={item}
                             colors={colors}
                             theme={theme}
@@ -401,6 +402,7 @@ const Apps = ({ colors, theme, translationApplication, parseReferences, appendic
                 if (no === 10) {
                     return (
                         <Picture10
+                            key={`picture-${index}`}
                             item={item}
                             imageUrl={imageUrl}
                             colors={colors}
@@ -412,6 +414,7 @@ const Apps = ({ colors, theme, translationApplication, parseReferences, appendic
                 if (parseInt(item.content.no) === 22) {
                     return (
                         <Picture22
+                            key={`picture-${index}`}
                             item={item}
                             lang={lang}
                             direction={direction}
