@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useRef, useState } from 'react';
+import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { useSpring, animated } from '@react-spring/web';
 import { useDrag } from '@use-gesture/react';
 import { supportsUnicodeRegex, supportsLookAhead, triggerActionHaptic } from '../utils/Device';
@@ -114,8 +114,7 @@ const Verse = ({ besmele,
 }) => {
     const currentVerseKey = `${suraNumber}:${verseNumber}`;
     const [mode, setMode] = useState((hasAsterisk && path.current[currentVerseKey] === undefined) ? 'light' : 'idle');
-    const [cn, setCn] = useState(verseClassName);
-    const [text, setText] = useState(displayVerseText || verseText);
+
     const [relatedVerses, setRelatedVerses] = useState([]);
     const lang = localStorage.getItem("lang");
     const [bookmark, setBookmark] = useState(null);
@@ -531,26 +530,27 @@ const Verse = ({ besmele,
 
     const renderVerseText = displayVerseText || verseText;
 
-    useEffect(() => {
-        setText(lightGODwords(renderVerseText));
-        let highlighted = lightGODwords(renderVerseText, true);
+    // The look of a verse is derived from its state, not stored in one. Assigning it from an
+    // effect meant every verse first painted without its surface colour and only gained it on the
+    // next render; on iOS that gap has been seen to last long enough to notice.
+    const cn = useMemo(() => {
         if (mode === "reading") {
-            setCn(verseClassName + " " + colors[theme]["surface"]["verse-detail"] + " flex-col ring-1 " + colors[theme]["border"]["focus"]);
-            setText(highlighted);
-        } else if (mode === "light") {
-            let bcn = `${colors[theme]["surface"]["top"]} ${bookmark ? `border-l-2 ${colors[theme]["accent"]["border"]}` : ''}`;
-            if (hasBesmele) {
-                bcn = `bg-gradient-to-r ${direction === 'rtl' ? ` from-sky-500 to-cyan-300` : ` from-cyan-300 to-sky-500`} text-neutral-800 ${bookmark ? `border-l-2 ${colors[theme]["accent"]["border"]}` : ''}`
-            }
-            setCn(verseClassName + " " + bcn);
-        } else if (mode === "idle") {
-            let bcn = `${colors[theme]["surface"]["top"]} ${bookmark ? `border-l-2 ${colors[theme]["accent"]["border"]}` : ''}`;
-            if (hasBesmele) {
-                bcn = `bg-gradient-to-r ${direction === 'rtl' ? ` from-sky-500 to-cyan-300` : ` from-cyan-300 to-sky-500`} text-neutral-800 ${bookmark ? `border-l-2 ${colors[theme]["accent"]["border"]}` : ''}`
-            }
-            setCn(verseClassName + " " + bcn);
+            return `${verseClassName} ${colors[theme]["surface"]["verse-detail"]} flex-col ring-1 ${colors[theme]["border"]["focus"]}`;
         }
-    }, [mode, verseClassName, renderVerseText, lightGODwords, colors, theme, encryptedText, hasBesmele, bookmark, direction]);
+
+        const bookmarkBorder = bookmark ? `border-l-2 ${colors[theme]["accent"]["border"]}` : '';
+        const besmeleGradient = direction === 'rtl' ? ' from-sky-500 to-cyan-300' : ' from-cyan-300 to-sky-500';
+        const surface = hasBesmele
+            ? `bg-gradient-to-r ${besmeleGradient} text-neutral-800 ${bookmarkBorder}`
+            : `${colors[theme]["surface"]["top"]} ${bookmarkBorder}`;
+
+        return `${verseClassName} ${surface}`;
+    }, [mode, verseClassName, colors, theme, hasBesmele, bookmark, direction]);
+
+    const text = useMemo(
+        () => lightGODwords(renderVerseText, mode === "reading"),
+        [lightGODwords, renderVerseText, mode],
+    );
 
 
     const handleClick = () => {

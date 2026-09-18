@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef, useCallback } from 'react';
+import React, { useState, useEffect, useRef, useCallback, useMemo } from 'react';
 import { mapAppendices } from '../utils/Mapper';
 import Picture4and5 from '../specials/Picture4and5';
 import Picture10 from '../specials/Picture10';
@@ -20,7 +20,6 @@ const Apps = ({ colors, theme, translationApplication, parseReferences, appendic
     const containerRef = useRef(null);
     const appendixRef = useRef({});
 
-    const [appendixMap, setAppendixMap] = useState({});
     const images = require.context('../assets/pictures/', false, /\.jpg$/);
 
     const textRef = useRef({});
@@ -46,10 +45,9 @@ const Apps = ({ colors, theme, translationApplication, parseReferences, appendic
         return mapAppendices(appendices, translationApplication);
     }, [translationApplication]);
 
-    useEffect(() => {
-        const initialAppendixMap = mapAppendicesData(appendices);
-        setAppendixMap(initialAppendixMap);
-    }, [appendices, mapAppendicesData]);
+    // Derived from the appendices themselves, so it is computed while rendering. Assigning it
+    // from an effect meant the page painted once with nothing in it.
+    const appendixMap = useMemo(() => mapAppendicesData(appendices), [appendices, mapAppendicesData]);
 
     useEffect(() => {
         let isCancelled = false;

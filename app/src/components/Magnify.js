@@ -493,8 +493,7 @@ const Magnify = ({
     const [openTheme, setOpenTheme] = useState(null);
     const [openSubTheme, setOpenSubTheme] = useState({});
 
-    const [quranmap, setQuranmap] = useState({});
-    const [appsmap, setAppsmap] = useState({});
+
 
     const lastSelection = useRef(localStorage.getItem("qurantft-magnify-ls") || "");
     const hasConsumedLastSelection = useRef(false);
@@ -525,13 +524,14 @@ const Magnify = ({
         setMultiSelect((previous) => !previous);
     }, [setMultiSelect]);
 
-    useEffect(() => {
-        setQuranmap(mapQuran(quran));
-    }, [quran]);
+    // Both are pure transforms of the content, so they belong in the render pass. As effects they
+    // left the first render searching through empty maps.
+    const quranmap = useMemo(() => mapQuran(quran), [quran]);
 
-    useEffect(() => {
-        setAppsmap(mapAppendices(appendices, translationApplication));
-    }, [appendices, translationApplication]);
+    const appsmap = useMemo(
+        () => mapAppendices(appendices, translationApplication),
+        [appendices, translationApplication],
+    );
 
     useEffect(() => {
         let isCancelled = false;
