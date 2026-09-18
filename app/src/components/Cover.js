@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import '../assets/css/Splash.css';
-import languages from '../assets/languages.json';
+import languages from '../utils/LanguageCatalog';
 
 const Cover = ({ onCoverSeen, coverData, lang, onChangeLanguage }) => {
     const [show19, setShow19] = useState(true)

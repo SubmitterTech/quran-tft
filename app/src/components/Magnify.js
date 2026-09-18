@@ -2,7 +2,7 @@ import { cloneElement, isValidElement, useState, useEffect, useCallback, useRef,
 import { mapAppendices, mapQuran } from '../utils/Mapper';
 import { isNative, triggerActionHaptic } from '../utils/Device';
 import { ensureDidYouMeanCacheReady, loadDidYouMeanCachedIndex, loadHyphenCachedIndex } from '../utils/Generator';
-import languages from '../assets/languages.json';
+import languages from '../utils/LanguageCatalog';
 import {
     applyCachedHyphenationToText,
     buildHyphenBreakMapFromSerializedIndex,

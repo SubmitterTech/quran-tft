@@ -7,13 +7,13 @@ import { setStatusBarStyle, applyConditionalOrientationLock } from '../utils/Dev
 import { init as initBookmarks } from '../utils/Bookmarks';
 import { ensureRuntimeCachesReady, getDidYouMeanBuildProgress } from '../utils/Generator';
 import { isTamil } from '../utils/Tamil';
-import introductionContent from '../assets/introduction.json';
-import quranData from '../assets/qurantft.json';
-import appendicesContent from '../assets/appendices.json';
+import { getBaseAppendices, getBaseIntroduction, getBaseQuran } from '../utils/BaseContent';
 import application from '../assets/application.json';
 import cover from '../assets/cover.json';
 import map from '../assets/map.json';
-import languages from '../assets/languages.json';
+import { getContent } from '../utils/ContentStore';
+import { CONTENT_UPDATE_PROGRESS_EVENT } from '../utils/ContentUpdater';
+import languages from '../utils/LanguageCatalog';
 
 const coverTranslationContext = require.context(
     '../assets/translations',
@@ -69,11 +69,12 @@ function Root({ bootData = null }) {
 
     const [translation, setTranslation] = useState(hasInitialBootData ? (bootData.translation || null) : null);
     const [translationApplication, setTranslationApplication] = useState(hasInitialBootData && bootData.application ? bootData.application : application);
-    const [translationIntro, setTranslationIntro] = useState(hasInitialBootData && bootData.introduction ? bootData.introduction : introductionContent);
-    const [translationAppx, setTranslationAppx] = useState(hasInitialBootData && bootData.appendices ? bootData.appendices : appendicesContent);
+    const [translationIntro, setTranslationIntro] = useState(hasInitialBootData && bootData.introduction ? bootData.introduction : getBaseIntroduction());
+    const [translationAppx, setTranslationAppx] = useState(hasInitialBootData && bootData.appendices ? bootData.appendices : getBaseAppendices());
     const [translationMap, setTranslationMap] = useState(hasInitialBootData && bootData.map ? bootData.map : map);
     const [translationLoadProgress, setTranslationLoadProgress] = useState({ active: false, loaded: 0, total: 0, uiProgress: 0 });
     const [didYouMeanLoadProgress, setDidYouMeanLoadProgress] = useState({ active: false, loaded: 0, total: 0, uiProgress: 0 });
+    const [contentUpdateProgress, setContentUpdateProgress] = useState({ active: false, uiProgress: 0 });
     const [theme, setTheme] = useState(() => resolveThemeName(localStorage.getItem("theme")));
     const [font, setFont] = useState(localStorage.getItem("qurantft-font") ? localStorage.getItem("qurantft-font") : "font-normal");
     const activeLangRef = useRef(normalizedInitialLang);
@@ -168,6 +169,21 @@ function Root({ bootData = null }) {
             await initBookmarks();
         };
         initialize();
+    }, []);
+
+    // The background content check and download are shown on the same bar as the other background
+    // work; they simply come first in the sequence.
+    useEffect(() => {
+        const onContentProgress = (event) => {
+            const detail = event?.detail || {};
+            setContentUpdateProgress({
+                active: Boolean(detail.active),
+                uiProgress: Math.max(0, Math.min(100, Number(detail.percent) || 0)),
+            });
+        };
+
+        window.addEventListener(CONTENT_UPDATE_PROGRESS_EVENT, onContentProgress);
+        return () => window.removeEventListener(CONTENT_UPDATE_PROGRESS_EVENT, onContentProgress);
     }, []);
 
     useEffect(() => {
@@ -479,18 +495,24 @@ function Root({ bootData = null }) {
                 translatedAppendix,
                 translatedApplication,
             ] = await Promise.all([
-                loadOptional("loadQuran", () => import(`../assets/translations/${normalizedLanguage}/quran_${normalizedLanguage}.json`)),
-                loadOptional("loadCover", () => import(`../assets/translations/${normalizedLanguage}/cover_${normalizedLanguage}.json`)),
-                loadOptional("loadIntro", () => import(`../assets/translations/${normalizedLanguage}/introduction_${normalizedLanguage}.json`)),
-                loadOptional("loadAppendices", () => import(`../assets/translations/${normalizedLanguage}/appendices_${normalizedLanguage}.json`)),
-                loadOptional("loadApplication", () => import(`../assets/translations/${normalizedLanguage}/application_${normalizedLanguage}.json`)),
+                loadOptional("loadQuran", () => getContent('quran', normalizedLanguage)),
+                loadOptional("loadCover", () => import(
+                    /* webpackInclude: /cover_[a-z0-9-]+\.json$/ */
+                    `../assets/translations/${normalizedLanguage}/cover_${normalizedLanguage}.json`
+                )),
+                loadOptional("loadIntro", () => getContent('introduction', normalizedLanguage)),
+                loadOptional("loadAppendices", () => getContent('appendices', normalizedLanguage)),
+                loadOptional("loadApplication", () => import(
+                    /* webpackInclude: /application_[a-z0-9-]+\.json$/ */
+                    `../assets/translations/${normalizedLanguage}/application_${normalizedLanguage}.json`
+                )),
             ]);
 
             return {
-                translation: translatedQuran?.default || null,
+                translation: translatedQuran || null,
                 coverData: translatedCover?.default || null,
-                introduction: translatedIntro?.default || null,
-                appendices: translatedAppendix?.default || null,
+                introduction: translatedIntro || null,
+                appendices: translatedAppendix || null,
                 application: translatedApplication?.default || null,
             };
         } catch (error) {
@@ -507,8 +529,8 @@ function Root({ bootData = null }) {
         }
 
         try {
-            const translatedMap = await import(`../assets/translations/${normalizedLanguage}/map_${normalizedLanguage}.json`).catch(() => null);
-            return translatedMap?.default || null;
+            const translatedMap = await getContent('map', normalizedLanguage).catch(() => null);
+            return translatedMap || null;
         } catch (error) {
             console.error('Error loading map translation:', error);
             return null;
@@ -579,8 +601,8 @@ function Root({ bootData = null }) {
             coverPreviewLangRef.current = '';
             setTranslation(null);
             setTranslationApplication(application);
-            setTranslationIntro(introductionContent);
-            setTranslationAppx(appendicesContent);
+            setTranslationIntro(getBaseIntroduction());
+            setTranslationAppx(getBaseAppendices());
             setTranslationMap(map);
             setCoverData(cover);
             resetTranslationProgress();
@@ -593,8 +615,8 @@ function Root({ bootData = null }) {
             coverPreviewLangRef.current = '';
             setTranslation(bootData.translation || null);
             setTranslationApplication(bootData.application || application);
-            setTranslationIntro(bootData.introduction || introductionContent);
-            setTranslationAppx(bootData.appendices || appendicesContent);
+            setTranslationIntro(bootData.introduction || getBaseIntroduction());
+            setTranslationAppx(bootData.appendices || getBaseAppendices());
             setTranslationMap(bootData.map || map);
             setCoverData(bootData.coverData || cover);
             resetTranslationProgress();
@@ -612,8 +634,8 @@ function Root({ bootData = null }) {
             const hasCoverPreview = coverPreviewLangRef.current === normalizedLang;
             setTranslation(null);
             setTranslationApplication(application);
-            setTranslationIntro(introductionContent);
-            setTranslationAppx(appendicesContent);
+            setTranslationIntro(getBaseIntroduction());
+            setTranslationAppx(getBaseAppendices());
             setTranslationMap(map);
             if (!hasCoverPreview) {
                 setCoverData(cover);
@@ -911,10 +933,14 @@ function Root({ bootData = null }) {
     const isTranslationProgressActive = translationLoadProgress.active || translationProgressPercent > 0;
     const isDidYouMeanProgressActive = didYouMeanLoadProgress.active || didYouMeanProgressPercent > 0;
     const isDidYouMeanBuildBusy = Boolean(didYouMeanLoadProgress.active);
+    const contentUpdatePercent = Math.max(0, Math.min(100, contentUpdateProgress.uiProgress || 0));
+    const isContentUpdateActive = Boolean(contentUpdateProgress.active);
     const combinedProgressPercent = Number((
-        isTranslationProgressActive && isDidYouMeanProgressActive
-            ? (translationProgressPercent + didYouMeanProgressPercent) / 2
-            : (isTranslationProgressActive ? translationProgressPercent : didYouMeanProgressPercent)
+        isContentUpdateActive && !isTranslationProgressActive && !isDidYouMeanProgressActive
+            ? contentUpdatePercent
+            : (isTranslationProgressActive && isDidYouMeanProgressActive
+                ? (translationProgressPercent + didYouMeanProgressPercent) / 2
+                : (isTranslationProgressActive ? translationProgressPercent : didYouMeanProgressPercent))
     ).toFixed(1));
     const normalizedLangForFont = (lang || '').toLowerCase();
     const shouldUsePersianSans = normalizedLangForFont === 'fa' && font !== 'font-serif';
@@ -935,14 +961,14 @@ function Root({ bootData = null }) {
                 colors={colors} theme={theme}
                 translationApplication={translationApplication}
                 introductionContent={translationIntro}
-                quranData={quranData}
+                quranData={getBaseQuran()}
                 map={translationMap}
                 appendicesContent={translationAppx}
                 translation={translation}
                 onChangeLanguage={onChangeLanguage}
                 onPageChange={onBookPageChange}
                 onIntroTranslationNeeded={onIntroTranslationNeeded}
-                isTranslationLoading={isTranslationProgressActive || isDidYouMeanProgressActive}
+                isTranslationLoading={isTranslationProgressActive || isDidYouMeanProgressActive || isContentUpdateActive}
                 translationLoadProgress={combinedProgressPercent}
                 isDidYouMeanBuildBusy={isDidYouMeanBuildBusy}
                 direction={(languages[lang] && languages[lang]["dir"]) ? languages[lang]["dir"] : 'ltr'}

@@ -15,6 +15,18 @@ const STYLE_CACHE_NAME = 'quran-tft-style-cache';
 const IMAGE_CACHE_NAME = 'quran-tft-image-cache';
 const FONT_CACHE_NAME = 'quran-tft-font-cache';
 const JSON_CACHE_NAME = 'quran-tft-json-cache';
+const CONTENT_CACHE_NAME = 'quran-tft-content-cache';
+
+// The English base text is what every language falls back to, so it is kept offline for
+// everyone. The translations are cached as they are opened; see the /content route below.
+const BASE_CONTENT_URLS = [
+  '/content/quran_en.json',
+  '/content/introduction_en.json',
+  '/content/appendices_en.json',
+  '/content/application_en.json',
+  '/content/cover_en.json',
+  '/content/inventory.json',
+];
 
 // Precache all webpack-generated assets.
 precacheAndRoute(self.__WB_MANIFEST);
@@ -68,6 +80,30 @@ self.addEventListener('install', (event) => {
         );
       } catch (error) {
         console.warn('Failed to warm shell scripts during install', error);
+      }
+
+      try {
+        // Warm the base content so a fresh install works offline, the way the bundled
+        // JSON chunks used to. Re-fetched on every service worker update.
+        const cache = await caches.open(CONTENT_CACHE_NAME);
+        await Promise.all(
+          BASE_CONTENT_URLS.map(async (path) => {
+            const contentUrl = toAbsoluteUrl(process.env.PUBLIC_URL + path);
+            if (!contentUrl) {
+              return;
+            }
+            try {
+              const response = await fetch(contentUrl, { cache: 'reload' });
+              if (response.ok) {
+                await cache.put(contentUrl, response.clone());
+              }
+            } catch (error) {
+              console.warn('Failed to warm base content for:', contentUrl, error);
+            }
+          })
+        );
+      } catch (error) {
+        console.warn('Failed to warm base content during install', error);
       }
     })()
   );
@@ -135,6 +171,33 @@ registerRoute(
     plugins: [
       new ExpirationPlugin({
         maxEntries: 12,
+      }),
+    ],
+  })
+);
+
+// A missing file is served as the single page app shell with status 200, which must never
+// take the place of a content file in the cache.
+const cacheJsonOnly = {
+  cacheWillUpdate: async ({ response }) => {
+    const isJson = (response?.headers.get('content-type') || '').includes('json');
+    return response && response.ok && isJson ? response : null;
+  },
+};
+
+// Content files (Quran text, appendices, introduction, sura map). They are static assets
+// outside the JavaScript bundle, so only the languages a reader actually opens are stored.
+registerRoute(
+  ({ url, request }) =>
+    url.origin === self.location.origin &&
+    request.method === 'GET' &&
+    url.pathname.startsWith(process.env.PUBLIC_URL + '/content/'),
+  new StaleWhileRevalidate({
+    cacheName: CONTENT_CACHE_NAME,
+    plugins: [
+      cacheJsonOnly,
+      new ExpirationPlugin({
+        maxEntries: 48,
       }),
     ],
   })

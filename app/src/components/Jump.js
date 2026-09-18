@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useLayoutEffect, useRef, useMemo, useCallback } from 'react';
 import { App as CapacitorApp } from '@capacitor/app';
-import languages from '../assets/languages.json';
+import languages from '../utils/LanguageCatalog';
 import { getRandom } from '../utils/Generator';
 import { adjustReference, toRoman } from '../utils/Mapper';
 import { isNative, which, triggerActionHaptic } from '../utils/Device';

@@ -1,4 +1,5 @@
-import languagesCatalog from '../assets/languages.json';
+import languagesCatalog from './LanguageCatalog';
+import { getContentLanguages, getContentRevisions, getContentWithFallback, releaseContent } from './ContentStore';
 import { foldTamilViramas, getTamilProtectedStems, isTamil } from './Tamil';
 
 export const getRandom = () => {
@@ -48,22 +49,14 @@ const TURKIC_SUFFIXES = [
 ];
 const SINGLE_SUFFIXES = ['I', 'İ', 'U', 'Ü', 'A', 'E'];
 
-const quranTranslationContext = require.context(
-    '../assets/translations',
-    true,
-    /quran_[a-z0-9-]+\.json$/,
-    'lazy',
-);
-
-const RUNTIME_DYM_LANGUAGES = Array.from(new Set([
-    'en',
-    ...quranTranslationContext.keys()
-        .map((filePath) => {
-            const match = filePath.match(/^\.\/([^/]+)\/quran_[^/]+\.json$/);
-            return match ? match[1].toLowerCase() : null;
-        })
-        .filter(Boolean),
-])).filter((lang) => !!languagesCatalog[lang] || lang === 'en').sort();
+// Languages the runtime caches can be built for: the ones with published content, kept to the
+// catalog the app offers. ContentStore answers from the generated content index.
+const getRuntimeDidYouMeanLanguages = async () => {
+    const contentLanguages = await getContentLanguages();
+    return Array.from(new Set(['en', ...contentLanguages]))
+        .filter((lang) => !!languagesCatalog[lang] || lang === 'en')
+        .sort();
+};
 
 const DB_STORES_BY_NAME = {
     [DYM_DB_NAME]: [DYM_STORE_NAME, HYPH_STORE_NAME],
@@ -80,6 +73,11 @@ let didYouMeanBuildProgress = {
     cacheType: null,
     startupBlocking: false,
 };
+
+// How long a database open may stay silent before the app decides to live without the cache.
+// Long enough that a slow device is never cut off, short enough that a wedged database cannot
+// hold the splash screen.
+const IDB_OPEN_TIMEOUT_MS = 8000;
 
 const dbPromiseCache = new Map();
 const hyphenatorPromiseCache = new Map();
@@ -155,6 +153,25 @@ const openIndexedKeyValueDb = ({ dbName, dbVersion, storeName }) => {
     const promise = new Promise((resolve, reject) => {
         const request = indexedDB.open(dbName, dbVersion);
 
+        // A database can stop answering: another tab holding a connection while a delete is
+        // pending, storage under pressure, a broken profile. Waiting forever would leave the
+        // app on its splash screen with nothing to show, so an unanswered open counts as no
+        // cache for now. It is not remembered as a failure: the next caller tries again, and a
+        // database that was only busy is used as soon as it answers.
+        const openTimeout = setTimeout(() => {
+            dbPromiseCache.delete(cacheKey);
+            resolve(null);
+        }, IDB_OPEN_TIMEOUT_MS);
+        const settle = (value) => {
+            clearTimeout(openTimeout);
+            resolve(value);
+        };
+        const fail = (error) => {
+            clearTimeout(openTimeout);
+            dbPromiseCache.delete(cacheKey);
+            reject(error);
+        };
+
         request.onupgradeneeded = () => {
             const db = request.result;
             const stores = new Set([storeName, ...(DB_STORES_BY_NAME[dbName] || [])]);
@@ -165,8 +182,8 @@ const openIndexedKeyValueDb = ({ dbName, dbVersion, storeName }) => {
             });
         };
 
-        request.onsuccess = () => resolve(request.result);
-        request.onerror = () => reject(request.error);
+        request.onsuccess = () => settle(request.result);
+        request.onerror = () => fail(request.error);
     });
 
     dbPromiseCache.set(cacheKey, promise);
@@ -233,12 +250,15 @@ const writeDidYouMeanManifest = async ({
     appVersion,
     languagesReady,
     failed = {},
+    contentRevisions = {},
 }) => {
     await dymIdbSet(DYM_MANIFEST_KEY, {
         schemaVersion: DYM_SCHEMA_VERSION,
         appVersion,
         algoVersion: DYM_ALGO_VERSION,
         languagesReady: Array.from(new Set(languagesReady || [])).sort(),
+        // Which text each index was built from, so a translation update invalidates it.
+        contentRevisions,
         failed,
         updatedAt: new Date().toISOString(),
     });
@@ -253,16 +273,29 @@ const writeHyphenManifest = async ({
     appVersion,
     languagesReady,
     failed = {},
+    contentRevisions = {},
 }) => {
     await hyphenIdbSet(HYPH_MANIFEST_KEY, {
         schemaVersion: HYPH_SCHEMA_VERSION,
         appVersion,
         algoVersion: HYPH_ALGO_VERSION,
         languagesReady: Array.from(new Set(languagesReady || [])).sort(),
+        contentRevisions,
         failed,
         updatedAt: new Date().toISOString(),
     });
 };
+
+// A language whose index was built from an older revision of its text. The index still works,
+// it is only behind, so startup keeps using it and the rebuild happens in the background.
+const getStaleLanguages = (manifest, contentRevisions, languages) => new Set(
+    languages.filter((lang) => {
+        const wanted = contentRevisions[lang];
+        if (!wanted) return false;
+        const built = manifest?.contentRevisions?.[lang];
+        return Boolean(built) && built !== wanted;
+    })
+);
 
 const getRuntimeBuildSignature = () => {
     if (typeof window === 'undefined') return 'server';
@@ -947,32 +980,23 @@ export const buildHyphenSerializedIndex = async ({
     };
 };
 
-const loadTranslation = async (lang, prefix, fallback) => {
-    const normalizedLang = asLanguageCode(lang);
-    const module = await import(
-        `../assets/translations/${normalizedLang}/${prefix}_${normalizedLang}.json`
-    ).catch(() => null);
-    if (module?.default) {
-        return module.default;
-    }
-    if (typeof fallback === 'function') {
-        return fallback();
-    }
-    return fallback;
-};
-
-const loadBaseQuran = async () => (await import('../assets/qurantft.json')).default;
-const loadBaseIntroduction = async () => (await import('../assets/introduction.json')).default;
-const loadBaseAppendices = async () => (await import('../assets/appendices.json')).default;
 const loadBaseApplication = async () => (await import('../assets/application.json')).default;
+
+const loadApplicationTranslation = async (lang) => {
+    const module = await import(
+        /* webpackInclude: /application_[a-z0-9-]+\.json$/ */
+        `../assets/translations/${lang}/application_${lang}.json`
+    ).catch(() => null);
+    return module?.default || loadBaseApplication();
+};
 
 const loadLanguagePayload = async (lang) => {
     const normalizedLang = asLanguageCode(lang);
     if (normalizedLang === 'en') {
         const [quran, introduction, appendices, application] = await Promise.all([
-            loadBaseQuran(),
-            loadBaseIntroduction(),
-            loadBaseAppendices(),
+            getContentWithFallback('quran', 'en'),
+            getContentWithFallback('introduction', 'en'),
+            getContentWithFallback('appendices', 'en'),
             loadBaseApplication(),
         ]);
 
@@ -985,10 +1009,10 @@ const loadLanguagePayload = async (lang) => {
     }
 
     return {
-        quran: await loadTranslation(normalizedLang, 'quran', loadBaseQuran),
-        introduction: await loadTranslation(normalizedLang, 'introduction', loadBaseIntroduction),
-        appendices: await loadTranslation(normalizedLang, 'appendices', loadBaseAppendices),
-        application: await loadTranslation(normalizedLang, 'application', loadBaseApplication),
+        quran: await getContentWithFallback('quran', normalizedLang),
+        introduction: await getContentWithFallback('introduction', normalizedLang),
+        appendices: await getContentWithFallback('appendices', normalizedLang),
+        application: await loadApplicationTranslation(normalizedLang),
     };
 };
 
@@ -1113,15 +1137,17 @@ export const ensureRuntimeCachesReady = async ({
     runtimeCachesBuildPromise = (async () => {
         const appVersion = getRuntimeBuildSignature();
         const requestedLanguages = normalizeRequestedLanguages(languages);
+        const runtimeDidYouMeanLanguages = await getRuntimeDidYouMeanLanguages();
+        const contentRevisions = await getContentRevisions();
 
-        let dymTargetLanguages = (allLanguages ? RUNTIME_DYM_LANGUAGES : ['en']).map(asLanguageCode);
+        let dymTargetLanguages = (allLanguages ? runtimeDidYouMeanLanguages : ['en']).map(asLanguageCode);
         let hyphenTargetLanguages = (allLanguages
             ? RUNTIME_HYPHEN_LANGUAGES.filter((lang) => !ON_DEMAND_HYPHEN_LANGUAGES.includes(lang))
             : []).map(asLanguageCode);
 
         if (requestedLanguages.length > 0) {
             const requestedSet = new Set(requestedLanguages);
-            const availableDidYouMeanLanguages = new Set(RUNTIME_DYM_LANGUAGES.map(asLanguageCode));
+            const availableDidYouMeanLanguages = new Set(runtimeDidYouMeanLanguages.map(asLanguageCode));
             const availableHyphenLanguages = new Set(RUNTIME_HYPHEN_LANGUAGES.map(asLanguageCode));
 
             dymTargetLanguages = requestedLanguages.filter((lang) => availableDidYouMeanLanguages.has(lang));
@@ -1181,6 +1207,18 @@ export const ensureRuntimeCachesReady = async ({
                 )
                 : []
         );
+
+        // Indexes built from an older revision of the text still work, so a startup never waits
+        // for them; the background pass is the one that rebuilds them.
+        const dymContentRevisions = { ...(didYouMeanManifest?.contentRevisions || {}) };
+        const hyphenContentRevisions = { ...(hyphenManifest?.contentRevisions || {}) };
+
+        if (!startupBlocking) {
+            getStaleLanguages(didYouMeanManifest, contentRevisions, Array.from(didYouMeanReadySet))
+                .forEach((lang) => didYouMeanReadySet.delete(lang));
+            getStaleLanguages(hyphenManifest, contentRevisions, Array.from(hyphenReadySet))
+                .forEach((lang) => hyphenReadySet.delete(lang));
+        }
 
         const didYouMeanFailed = {};
         const hyphenFailed = {};
@@ -1306,6 +1344,9 @@ export const ensureRuntimeCachesReady = async ({
                         });
                     });
                     hyphenReadySet.add(lang);
+                    if (contentRevisions[lang]) {
+                        hyphenContentRevisions[lang] = contentRevisions[lang];
+                    }
                 } catch (error) {
                     hyphenFailed[lang] = error?.message || 'build_failed';
                 }
@@ -1314,6 +1355,7 @@ export const ensureRuntimeCachesReady = async ({
                     appVersion,
                     languagesReady: Array.from(hyphenReadySet),
                     failed: hyphenFailed,
+                    contentRevisions: hyphenContentRevisions,
                 });
 
                 currentStepIndex += 1;
@@ -1342,6 +1384,9 @@ export const ensureRuntimeCachesReady = async ({
                         });
                     });
                     didYouMeanReadySet.add(lang);
+                    if (contentRevisions[lang]) {
+                        dymContentRevisions[lang] = contentRevisions[lang];
+                    }
                 } catch (error) {
                     didYouMeanFailed[lang] = error?.message || 'build_failed';
                 }
@@ -1350,8 +1395,14 @@ export const ensureRuntimeCachesReady = async ({
                     appVersion,
                     languagesReady: Array.from(didYouMeanReadySet),
                     failed: didYouMeanFailed,
+                    contentRevisions: dymContentRevisions,
                 });
             }
+
+            // The indexes are written to IndexedDB, so the parsed text is not needed any more.
+            // Without this the whole corpus of every language would stay resident.
+            loadedPayload = null;
+            releaseContent(lang);
 
             completedLanguages += 1;
             const nextLang = completedLanguages < buildLanguages.length
@@ -1380,12 +1431,14 @@ export const ensureRuntimeCachesReady = async ({
             appVersion,
             languagesReady: Array.from(didYouMeanReadySet),
             failed: didYouMeanFailed,
+            contentRevisions: dymContentRevisions,
         });
 
         await writeHyphenManifest({
             appVersion,
             languagesReady: Array.from(hyphenReadySet),
             failed: hyphenFailed,
+            contentRevisions: hyphenContentRevisions,
         });
 
         const missingDidYouMeanAfterBuild = dymTargetLanguages.filter((lang) => !didYouMeanReadySet.has(lang));

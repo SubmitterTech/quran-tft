@@ -9,3 +9,4 @@ scrapper/map-work/out/
 .cloudflare
 *.key
 graphify-out/
+app/public/content/

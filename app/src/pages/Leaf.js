@@ -1,7 +1,8 @@
 import React, { useCallback, useEffect, useState } from 'react';
 import { useParams, useLocation, Link } from 'react-router-dom';
-import defaultQuran from '../assets/qurantft.json';
-import languages from '../assets/languages.json';
+import { ensureBaseQuran } from '../utils/BaseContent';
+import { getContent } from '../utils/ContentStore';
+import languages from '../utils/LanguageCatalog';
 import { mapQuranWithNotes } from '../utils/Mapper';
 import { loadHyphenCachedIndex } from '../utils/Generator';
 import {
@@ -147,18 +148,18 @@ const Leaf = () => {
 
         if (lang && lang !== 'en') {
             // Dynamically load translated Quran data for the specified language
-            import(`../assets/translations/${lang}/quran_${lang}.json`)
+            getContent('quran', lang)
                 .then(translatedQuran => {
-                    processQuranData(translatedQuran.default);
+                    processQuranData(translatedQuran);
                 })
                 .catch(error => {
                     console.error("Error loading the translated Quran: ", error);
                     // Fallback to default Quran in case of error
-                    processQuranData(defaultQuran);
+                    return ensureBaseQuran().then(processQuranData);
                 });
         } else {
             // Use the default Quran data
-            processQuranData(defaultQuran);
+            void ensureBaseQuran().then(processQuranData);
         }
     }, [lang]);
 

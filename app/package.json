@@ -40,8 +40,9 @@
     "predeploy": "npm run build",
     "deploy": "gh-pages -d build",
     "deploy:cloudflare": "npx wrangler deploy",
+    "prestart": "node scripts/build-content-assets.mjs",
     "start": "react-scripts start",
-    "build": "CI=false react-scripts build",
+    "build": "node scripts/build-content-assets.mjs && CI=false react-scripts build",
     "build:sonahit": "npm run build && node scripts/apply-sonahit-branding.mjs",
     "test": "react-scripts test",
     "eject": "react-scripts eject"

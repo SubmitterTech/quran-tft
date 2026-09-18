@@ -7,7 +7,11 @@ import { initPlatform, isNative, setInitialLanguage } from './utils/Device';
 import Boundary from './utils/Boundary';
 import * as serviceWorkerRegistration from './serviceWorkerRegistration';
 import defaultApplication from './assets/application.json';
-import languages from './assets/languages.json';
+import { getContent } from './utils/ContentStore';
+import { primeBaseContent } from './utils/BaseContent';
+import { clearTrying } from './utils/ContentFiles';
+import { primeCatalogFromDownloads } from './utils/LanguageCatalog';
+import languages from './utils/LanguageCatalog';
 
 window.onerror = (message, source, lineno, colno, error) => {
   console.error('Global error caught:', { message, source, lineno, colno, error });
@@ -86,19 +90,27 @@ const loadBootTranslationBundle = async (language, preloadPlan) => {
     translatedAppendix,
     translatedApplication,
   ] = await Promise.all([
-    loadOptional('loadQuran', () => import(`./assets/translations/${normalizedLanguage}/quran_${normalizedLanguage}.json`)),
-    loadOptional('loadCover', () => import(`./assets/translations/${normalizedLanguage}/cover_${normalizedLanguage}.json`)),
-    loadOptional('loadIntro', () => import(`./assets/translations/${normalizedLanguage}/introduction_${normalizedLanguage}.json`)),
-    loadOptional('loadAppendices', () => import(`./assets/translations/${normalizedLanguage}/appendices_${normalizedLanguage}.json`)),
-    import(`./assets/translations/${normalizedLanguage}/application_${normalizedLanguage}.json`).catch(() => null),
+    // The big files come from /content as plain JSON; cover and application stay in the
+    // bundle because they are a few kilobytes and needed before the first paint.
+    loadOptional('loadQuran', () => getContent('quran', normalizedLanguage)),
+    loadOptional('loadCover', () => import(
+      /* webpackInclude: /cover_[a-z0-9-]+\.json$/ */
+      `./assets/translations/${normalizedLanguage}/cover_${normalizedLanguage}.json`
+    )),
+    loadOptional('loadIntro', () => getContent('introduction', normalizedLanguage)),
+    loadOptional('loadAppendices', () => getContent('appendices', normalizedLanguage)),
+    import(
+      /* webpackInclude: /application_[a-z0-9-]+\.json$/ */
+      `./assets/translations/${normalizedLanguage}/application_${normalizedLanguage}.json`
+    ).catch(() => null),
   ]);
 
   return {
     language: normalizedLanguage,
-    translation: translatedQuran?.default || null,
+    translation: translatedQuran || null,
     coverData: translatedCover?.default || null,
-    introduction: translatedIntro?.default || null,
-    appendices: translatedAppendix?.default || null,
+    introduction: translatedIntro || null,
+    appendices: translatedAppendix || null,
     map: null,
     application: translatedApplication?.default || null,
     preloadPlan: preloadPlan || null,
@@ -205,6 +217,8 @@ const renderApp = async () => {
 
   try {
     await initPlatform();
+    // A language that arrived with a content update joins the catalog before anything reads it.
+    await primeCatalogFromDownloads();
     const initializedLang = await setInitialLanguage();
 
     const languageCandidates = getLanguageCandidates(
@@ -231,10 +245,17 @@ const renderApp = async () => {
       }
     })();
 
+    // A last resort, not a budget: the cache build is normally over in well under a second and a
+    // database that stops answering is already handled where it is opened. This only makes sure
+    // that nothing can leave the app on its splash screen for ever.
+    const startupCacheDeadline = new Promise((resolve) => setTimeout(resolve, 20000));
+
     const [preloadedBootData] = await Promise.all([
       loadBootTranslationBundle(resolvedLang, preloadPlan),
+      // The English base text is what every screen falls back to, so it is ready before render.
+      primeBaseContent(),
       preloadInitialRouteChunk(),
-      runtimeCacheReadyPromise,
+      Promise.race([runtimeCacheReadyPromise, startupCacheDeadline]),
     ]);
 
     bootData = preloadedBootData;
@@ -265,6 +286,16 @@ const renderApp = async () => {
     </React.StrictMode>
   );
   signalReactReady();
+
+  // Once per cold start, after the screen is up: look for newer text in the background and keep
+  // it for the next start. Never in the way of reading, never retried within this session.
+  window.setTimeout(() => {
+    // The app got this far, so whatever it read at start works; the mark can go.
+    void clearTrying();
+    import('./utils/ContentUpdater')
+      .then(({ runContentUpdateOnce }) => runContentUpdateOnce({ language: localStorage.getItem('lang') || 'en' }))
+      .catch(() => null);
+  }, 5000);
 
   if (isNative()) {
     serviceWorkerRegistration.unregister();
