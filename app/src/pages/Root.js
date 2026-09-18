@@ -12,7 +12,9 @@ import application from '../assets/application.json';
 import cover from '../assets/cover.json';
 import map from '../assets/map.json';
 import { getContent } from '../utils/ContentStore';
-import { CONTENT_UPDATE_PROGRESS_EVENT } from '../utils/ContentUpdater';
+import { CONTENT_UPDATE_PROGRESS_EVENT, CONTENT_UPDATED_EVENT } from '../utils/ContentUpdater';
+import { releaseContent } from '../utils/ContentStore';
+import { getBaseAppendices as readBaseAppendices, getBaseIntroduction as readBaseIntroduction, refreshBaseContent } from '../utils/BaseContent';
 import languages from '../utils/LanguageCatalog';
 
 const coverTranslationContext = require.context(
@@ -74,7 +76,8 @@ function Root({ bootData = null }) {
     const [translationMap, setTranslationMap] = useState(hasInitialBootData && bootData.map ? bootData.map : map);
     const [translationLoadProgress, setTranslationLoadProgress] = useState({ active: false, loaded: 0, total: 0, uiProgress: 0 });
     const [didYouMeanLoadProgress, setDidYouMeanLoadProgress] = useState({ active: false, loaded: 0, total: 0, uiProgress: 0 });
-    const [contentUpdateProgress, setContentUpdateProgress] = useState({ active: false, uiProgress: 0 });
+    const [contentFetchProgress, setContentFetchProgress] = useState({ active: false, uiProgress: 0 });
+    const [contentRevisionTick, setContentRevisionTick] = useState(0);
     const [theme, setTheme] = useState(() => resolveThemeName(localStorage.getItem("theme")));
     const [font, setFont] = useState(localStorage.getItem("qurantft-font") ? localStorage.getItem("qurantft-font") : "font-normal");
     const activeLangRef = useRef(normalizedInitialLang);
@@ -171,19 +174,20 @@ function Root({ bootData = null }) {
         initialize();
     }, []);
 
-    // The background content check and download are shown on the same bar as the other background
-    // work; they simply come first in the sequence.
+    // Fetching new text runs alongside the other background work rather than after it, so it
+    // reports on its own channel and the bar shows the two together.
     useEffect(() => {
-        const onContentProgress = (event) => {
+        const onContentFetchProgress = (event) => {
             const detail = event?.detail || {};
-            setContentUpdateProgress({
-                active: Boolean(detail.active),
-                uiProgress: Math.max(0, Math.min(100, Number(detail.percent) || 0)),
+            const active = Boolean(detail.active);
+            setContentFetchProgress({
+                active,
+                uiProgress: active ? Math.max(0, Math.min(100, Number(detail.percent) || 0)) : 0,
             });
         };
 
-        window.addEventListener(CONTENT_UPDATE_PROGRESS_EVENT, onContentProgress);
-        return () => window.removeEventListener(CONTENT_UPDATE_PROGRESS_EVENT, onContentProgress);
+        window.addEventListener(CONTENT_UPDATE_PROGRESS_EVENT, onContentFetchProgress);
+        return () => window.removeEventListener(CONTENT_UPDATE_PROGRESS_EVENT, onContentFetchProgress);
     }, []);
 
     useEffect(() => {
@@ -325,6 +329,54 @@ function Root({ bootData = null }) {
         const normalized = (value || "").toLowerCase();
         return normalized === "en" || normalized.startsWith("en-");
     }, []);
+
+    // Text that arrived in the background is put on screen as soon as it is there. The language
+    // is reloaded through the same path a language switch uses, so nothing new has to be trusted.
+    useEffect(() => {
+        const onContentUpdated = async (event) => {
+            const updatedLanguage = String(event?.detail?.language || '').toLowerCase();
+            const currentLanguage = String(lang || '').toLowerCase();
+            const finishContentFetch = () => setContentFetchProgress({ active: false, uiProgress: 0 });
+
+            if (!updatedLanguage || (updatedLanguage !== currentLanguage && updatedLanguage !== 'en')) {
+                finishContentFetch();
+                return;
+            }
+
+            releaseContent(updatedLanguage);
+
+            if (updatedLanguage === 'en') {
+                await refreshBaseContent().catch(() => null);
+                if (isEnglishLanguage(currentLanguage)) {
+                    setTranslationIntro(readBaseIntroduction());
+                    setTranslationAppx(readBaseAppendices());
+                }
+            }
+
+            if (!isEnglishLanguage(currentLanguage)) {
+                loadedSegmentsRef.current = {
+                    ...loadedSegmentsRef.current,
+                    loadQuran: false,
+                    loadCover: false,
+                    loadIntro: false,
+                    loadAppendices: false,
+                    loadApplication: false,
+                    loadMap: false,
+                };
+            }
+
+            setContentRevisionTick((tick) => tick + 1);
+
+            // The search and hyphenation indexes are built from this text, so they are refreshed
+            // in the same session instead of leaving the work for the next start.
+            void ensureRuntimeCachesReady({ languages: [currentLanguage] })
+                .catch(() => null)
+                .finally(finishContentFetch);
+        };
+
+        window.addEventListener(CONTENT_UPDATED_EVENT, onContentUpdated);
+        return () => window.removeEventListener(CONTENT_UPDATED_EVENT, onContentUpdated);
+    }, [lang, isEnglishLanguage]);
 
     const getCoverTranslationSnapshot = useCallback((language) => {
         const normalizedLanguage = (language || "").toLowerCase();
@@ -817,7 +869,7 @@ function Root({ bootData = null }) {
         return () => {
             cancelled = true;
         };
-    }, [lang, bookPage, showCover, loadCoreTranslations, getRequiredTranslationPlan, isEnglishLanguage, resetTranslationProgress, startGuidedTranslationProgress, stopTranslationProgressTimer]);
+    }, [lang, bookPage, showCover, contentRevisionTick, loadCoreTranslations, getRequiredTranslationPlan, isEnglishLanguage, resetTranslationProgress, startGuidedTranslationProgress, stopTranslationProgressTimer]);
 
     useEffect(() => {
         let cancelled = false;
@@ -877,7 +929,7 @@ function Root({ bootData = null }) {
             cancelled = true;
             window.clearTimeout(timer);
         };
-    }, [lang, bookPage, showCover, loadCoreTranslations, getRequiredTranslationPlan, isEnglishLanguage]);
+    }, [lang, bookPage, showCover, contentRevisionTick, loadCoreTranslations, getRequiredTranslationPlan, isEnglishLanguage]);
 
     useEffect(() => {
         const normalizedLang = (lang || "").toLowerCase();
@@ -933,14 +985,20 @@ function Root({ bootData = null }) {
     const isTranslationProgressActive = translationLoadProgress.active || translationProgressPercent > 0;
     const isDidYouMeanProgressActive = didYouMeanLoadProgress.active || didYouMeanProgressPercent > 0;
     const isDidYouMeanBuildBusy = Boolean(didYouMeanLoadProgress.active);
-    const contentUpdatePercent = Math.max(0, Math.min(100, contentUpdateProgress.uiProgress || 0));
-    const isContentUpdateActive = Boolean(contentUpdateProgress.active);
-    const combinedProgressPercent = Number((
-        isContentUpdateActive && !isTranslationProgressActive && !isDidYouMeanProgressActive
-            ? contentUpdatePercent
-            : (isTranslationProgressActive && isDidYouMeanProgressActive
-                ? (translationProgressPercent + didYouMeanProgressPercent) / 2
-                : (isTranslationProgressActive ? translationProgressPercent : didYouMeanProgressPercent))
+    const contentFetchPercent = Math.max(0, Math.min(100, contentFetchProgress.uiProgress || 0));
+    const isContentFetchActive = contentFetchProgress.active || contentFetchPercent > 0;
+    // Several background tasks can be running at once. They report separately and the reader is
+    // shown one bar: the average of whatever is running.
+    const activeBackgroundProgresses = [
+        isTranslationProgressActive ? translationProgressPercent : null,
+        isDidYouMeanProgressActive ? didYouMeanProgressPercent : null,
+        isContentFetchActive ? contentFetchPercent : null,
+    ].filter((value) => value !== null);
+    const isBackgroundWorkActive = activeBackgroundProgresses.length > 0;
+    const backgroundWorkPercent = Number((
+        isBackgroundWorkActive
+            ? activeBackgroundProgresses.reduce((total, value) => total + value, 0) / activeBackgroundProgresses.length
+            : 0
     ).toFixed(1));
     const normalizedLangForFont = (lang || '').toLowerCase();
     const shouldUsePersianSans = normalizedLangForFont === 'fa' && font !== 'font-serif';
@@ -968,8 +1026,8 @@ function Root({ bootData = null }) {
                 onChangeLanguage={onChangeLanguage}
                 onPageChange={onBookPageChange}
                 onIntroTranslationNeeded={onIntroTranslationNeeded}
-                isTranslationLoading={isTranslationProgressActive || isDidYouMeanProgressActive || isContentUpdateActive}
-                translationLoadProgress={combinedProgressPercent}
+                isBackgroundWorkActive={isBackgroundWorkActive}
+                backgroundWorkProgress={backgroundWorkPercent}
                 isDidYouMeanBuildBusy={isDidYouMeanBuildBusy}
                 direction={(languages[lang] && languages[lang]["dir"]) ? languages[lang]["dir"] : 'ltr'}
             />}

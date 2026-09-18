@@ -6,7 +6,7 @@
 // parsed it before the first render. It is now fetched once during bootstrap, so the screens can
 // keep reading it synchronously while the bytes stay plain JSON.
 
-import { getContent } from './ContentStore';
+import { getContent, releaseContent } from './ContentStore';
 
 let baseQuran = null;
 let baseIntroduction = null;
@@ -34,6 +34,15 @@ export const primeBaseContent = () => {
         });
     }
     return primePromise;
+};
+
+/**
+ * Reads the base text again, for when a content update replaced it on disk.
+ */
+export const refreshBaseContent = async () => {
+    primePromise = null;
+    releaseContent('en');
+    return primeBaseContent();
 };
 
 export const getBaseQuran = () => baseQuran;

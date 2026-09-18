@@ -18,7 +18,7 @@ import '../assets/css/Book.css';
 
 const AUTO_HYPHEN_STORAGE_KEY = 'qurantft-ah';
 
-const Book = React.memo(({ incomingSearch = false, incomingAppendix = false, incomingAppendixNumber = 1, onChangeFont, font, onChangeColor, colors, theme, translationApplication, introductionContent, quranData, map, appendicesContent, translation, onChangeLanguage, onPageChange = null, onIntroTranslationNeeded = null, isTranslationLoading = false, translationLoadProgress = 0, direction, isDidYouMeanBuildBusy = false }) => {
+const Book = React.memo(({ incomingSearch = false, incomingAppendix = false, incomingAppendixNumber = 1, onChangeFont, font, onChangeColor, colors, theme, translationApplication, introductionContent, quranData, map, appendicesContent, translation, onChangeLanguage, onPageChange = null, onIntroTranslationNeeded = null, isBackgroundWorkActive = false, backgroundWorkProgress = 0, direction, isDidYouMeanBuildBusy = false }) => {
     const lang = localStorage.getItem("lang")
     const magnifyConfirm = useRef(false);
     const [currentPage, setCurrentPage] = useState(parseInt(localStorage.getItem("qurantft-pn")) ? parseInt(localStorage.getItem("qurantft-pn")) : 1);
@@ -94,8 +94,8 @@ const Book = React.memo(({ incomingSearch = false, incomingAppendix = false, inc
     const [remainingTime, setRemainingTime] = useState(0);
     const [overscrollNavProgress, setOverscrollNavProgress] = useState(0);
     const progressPercentage = remainingTime ? (remainingTime / 20000) * 100 : 0;
-    const translationProgressPercentage = Math.max(0, Math.min(100, translationLoadProgress));
-    const hasTranslationProgress = isTranslationLoading || translationProgressPercentage > 0;
+    const backgroundProgressPercentage = Math.max(0, Math.min(100, backgroundWorkProgress));
+    const hasBackgroundProgress = isBackgroundWorkActive || backgroundProgressPercentage > 0;
     const nextProgressSide = direction === 'rtl' ? 'left' : 'right';
 
     const skipPages = useMemo(() => [3, 4, 8, 9, 10, 12], []);
@@ -1235,10 +1235,10 @@ const Book = React.memo(({ incomingSearch = false, incomingAppendix = false, inc
                     style={{ paddingBottom: 'var(--app-controls-safe-bottom)' }}>
                     <div className={`relative flex w-full items-center justify-between`}>
                         <div className={`absolute h-0.5 left-0 -top-0.5 ${colors[theme]["accent"]["fill"]}`} style={{ width: `${progressPercentage}%` }}></div>
-                        {hasTranslationProgress &&
+                        {hasBackgroundProgress &&
                             <div
                                 className={`absolute h-0.5 left-0 -top-[3px] transition-[width] duration-100 ease-linear ${colors[theme]["accent"]["fill"]}`}
-                                style={{ width: `${translationProgressPercentage}%`, opacity: 0.9 }}></div>
+                                style={{ width: `${backgroundProgressPercentage}%`, opacity: 0.9 }}></div>
                         }
                         {progressPercentage > 0 &&
                             <div className={`absolute pb-1 left-1/2 -translate-x-1/2 -top-14 ${colors[theme]["surface"]["base"]} rounded flex flex-col justify-center shadow-md shadow-cyan-300/30`}>

@@ -27,6 +27,7 @@ import {
 import { getContentSources, getSourceUrl, isAllowedContentUrl } from './ContentSources';
 
 export const CONTENT_UPDATE_PROGRESS_EVENT = 'content:update-progress';
+export const CONTENT_UPDATED_EVENT = 'content:updated';
 
 const CHECK_TIMEOUT_MS = 4000;
 const DOWNLOAD_CONNECT_TIMEOUT_MS = 10000;
@@ -255,7 +256,19 @@ export const runContentUpdateOnce = async ({ language } = {}) => {
     }
 
     await rememberCheckTime(startedAt);
-    emitProgress({ active: false, percent: 100, stage: 'content-download', currentLanguage: lang });
+
+    // When something was fetched the work is not over: it still has to be put on screen and the
+    // indexes built from it refreshed. The channel stays open until the screen says it is done,
+    // so the reader sees one bar rather than one closing and another opening behind it.
+    emitProgress(updated > 0
+        ? { active: true, percent: 95, stage: 'content-apply', currentLanguage: lang }
+        : { active: false, percent: 0, stage: 'content-check', currentLanguage: lang });
+
+    if (updated > 0 && typeof window !== 'undefined') {
+        // The screens read the new text straight away; there is nothing to gain by holding it
+        // back until the next start.
+        window.dispatchEvent(new CustomEvent(CONTENT_UPDATED_EVENT, { detail: { language: lang, updated } }));
+    }
 
     return { ran: true, updated };
 };
