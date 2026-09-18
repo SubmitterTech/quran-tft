@@ -1,6 +1,7 @@
 import { Filesystem, Directory } from '@capacitor/filesystem';
 import { Share } from '@capacitor/share';
 import { isNative } from '../utils/Device';
+import { persistSet } from './Persist';
 
 const bookmarksKey = 'bookmarks';
 const BACKUP_DIR = Directory.Data;
@@ -149,7 +150,7 @@ const reconcile = async () => {
 
     if (!isNative()) {
         bookmarks = sortByTimestampDesc(local);
-        if (localChanged) localStorage.setItem(bookmarksKey, JSON.stringify(bookmarks));
+        if (localChanged) persistSet(bookmarksKey, JSON.stringify(bookmarks));
         return;
     }
 
@@ -162,15 +163,15 @@ const reconcile = async () => {
 
     if (backup && backupMap && backupEpoch > localEpoch) {
         bookmarks = sortByTimestampDesc(backupMap);
-        localStorage.setItem(bookmarksKey, JSON.stringify(bookmarks));
+        persistSet(bookmarksKey, JSON.stringify(bookmarks));
         if (backupChanged) await writeBackupFile(buildPayload(bookmarks));
     } else if (localEpoch > 0) {
         bookmarks = sortByTimestampDesc(local);
-        if (localChanged) localStorage.setItem(bookmarksKey, JSON.stringify(bookmarks));
+        if (localChanged) persistSet(bookmarksKey, JSON.stringify(bookmarks));
         await writeBackupFile(buildPayload(bookmarks));
     } else if (backup && backupMap) {
         bookmarks = sortByTimestampDesc(backupMap);
-        localStorage.setItem(bookmarksKey, JSON.stringify(bookmarks));
+        persistSet(bookmarksKey, JSON.stringify(bookmarks));
         if (backupChanged) await writeBackupFile(buildPayload(bookmarks));
     } else {
         bookmarks = {};
@@ -179,7 +180,7 @@ const reconcile = async () => {
 
 // ---------- persistence ----------
 const persistAll = async () => {
-    localStorage.setItem(bookmarksKey, JSON.stringify(bookmarks));
+    persistSet(bookmarksKey, JSON.stringify(bookmarks));
     if (isNative()) {
         try { await writeBackupFile(buildPayload(bookmarks)); } catch { /* ignore */ }
     }

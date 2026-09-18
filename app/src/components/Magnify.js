@@ -11,6 +11,7 @@ import {
     isHyphenCacheLanguage,
 } from '../utils/Hyphenation';
 import { isTamil, foldTamilViramas, expandToTamilGraphemes } from '../utils/Tamil';
+import { persistSet, persistRemove } from '../utils/Persist';
 
 
 // Word-boundary check: a character is a boundary (not part of a word) if it's
@@ -617,20 +618,20 @@ const Magnify = ({
 
     useEffect(() => {
         if (searchTerm !== "") {
-            localStorage.setItem("qurantft-magnify-st", searchTerm)
+            persistSet("qurantft-magnify-st", searchTerm)
         }
     }, [searchTerm]);
 
     useEffect(() => {
-        localStorage.setItem("case", JSON.stringify(caseSensitive));
+        persistSet("case", JSON.stringify(caseSensitive));
     }, [caseSensitive]);
 
     useEffect(() => {
-        localStorage.setItem("norm", JSON.stringify(normalize));
+        persistSet("norm", JSON.stringify(normalize));
     }, [normalize]);
 
     useEffect(() => {
-        localStorage.setItem("exact", JSON.stringify(exactMatch));
+        persistSet("exact", JSON.stringify(exactMatch));
     }, [exactMatch]);
 
     const cancelScheduledSearch = useCallback(() => {
@@ -2254,7 +2255,7 @@ const Magnify = ({
     useEffect(() => {
         return () => {
             if (hasConsumedLastSelection.current && !saveLastSelection.current) {
-                localStorage.removeItem("qurantft-magnify-ls");
+                persistRemove("qurantft-magnify-ls");
             }
         }
     }, []);
@@ -2273,7 +2274,7 @@ const Magnify = ({
     const handleClose = useCallback(() => {
         if (lastSelection.current && lastSelection.current !== "") {
             saveLastSelection.current = true;
-            localStorage.setItem("qurantft-magnify-ls", lastSelection.current);
+            persistSet("qurantft-magnify-ls", lastSelection.current);
         }
         onClose && onClose();
     }, [onClose]);
@@ -2459,7 +2460,7 @@ const Magnify = ({
                             onClick={() => {
                                 if (searchTerm.length > 0) {
                                     setSearchTerm("");
-                                    localStorage.removeItem("qurantft-magnify-st");
+                                    persistRemove("qurantft-magnify-st");
                                     inputRef.current && inputRef.current.focus();
                                 } else {
                                     handleClose();

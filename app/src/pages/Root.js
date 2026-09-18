@@ -16,6 +16,7 @@ import { CONTENT_UPDATE_PROGRESS_EVENT, CONTENT_UPDATED_EVENT } from '../utils/C
 import { releaseContent } from '../utils/ContentStore';
 import { getBaseAppendices as readBaseAppendices, getBaseIntroduction as readBaseIntroduction, refreshBaseContent } from '../utils/BaseContent';
 import languages from '../utils/LanguageCatalog';
+import { persistSet } from '../utils/Persist';
 
 const coverTranslationContext = require.context(
     '../assets/translations',
@@ -280,14 +281,14 @@ function Root({ bootData = null }) {
 
     const onChangeFont = useCallback((f) => {
         setFont(f);
-        localStorage.setItem("qurantft-font", f);
+        persistSet("qurantft-font", f);
     }, []);
 
     useEffect(() => {
         const safeTheme = resolveThemeName(theme);
         if (safeTheme !== theme) {
             setTheme(safeTheme);
-            localStorage.setItem("theme", safeTheme);
+            persistSet("theme", safeTheme);
             return;
         }
         setStatusBarStyle(
@@ -307,7 +308,7 @@ function Root({ bootData = null }) {
         ).catch((error) => {
             console.error('Failed to update status bar style:', error);
         });
-        localStorage.setItem("theme", safeTheme);
+        persistSet("theme", safeTheme);
     }, [colors, resolveThemeName]);
 
     const onBookPageChange = useCallback((nextPage) => {
@@ -703,7 +704,7 @@ function Root({ bootData = null }) {
             };
         }
 
-        localStorage.setItem("lang", lang);
+        persistSet("lang", lang);
     }, [lang, bootData, isEnglishLanguage, resetTranslationProgress]);
 
     useEffect(() => {

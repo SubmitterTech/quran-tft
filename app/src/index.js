@@ -11,6 +11,7 @@ import { getContent } from './utils/ContentStore';
 import { primeBaseContent } from './utils/BaseContent';
 import { clearTrying } from './utils/ContentFiles';
 import { primeCatalogFromDownloads } from './utils/LanguageCatalog';
+import { primePersistedState } from './utils/Persist';
 import languages from './utils/LanguageCatalog';
 
 window.onerror = (message, source, lineno, colno, error) => {
@@ -217,6 +218,9 @@ const renderApp = async () => {
 
   try {
     await initPlatform();
+    // What the reader left behind comes back from the app's own file before a single screen
+    // reads it, because the web view's own store cannot be trusted to still hold it.
+    await primePersistedState();
     // A language that arrived with a content update joins the catalog before anything reads it.
     await primeCatalogFromDownloads();
     const initializedLang = await setInitialLanguage();

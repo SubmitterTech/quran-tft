@@ -6,9 +6,82 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
 
+    // A web view opens its store when it is built and keeps it open for the life of the process,
+    // so a store the app has found unusable can only be thrown away from here, before the first
+    // web view exists. The page asks for it by leaving this file behind when it catches the store
+    // dropping writes; everything that was in the store is kept in the file beside it and put back
+    // once the new one is up, which is what makes clearing it safe.
+    // The folder is the one the file system plugin writes its "library, not backed up" files to.
+    private static let resetMarkerPath = "NoCloud/state/reset-web-storage"
+
+    func application(_ application: UIApplication, willFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]? = nil) -> Bool {
+        clearLocalStorageIfAsked()
+        return true
+    }
+
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
         return true
+    }
+
+    private func clearLocalStorageIfAsked() {
+        let fileManager = FileManager.default
+        guard let library = fileManager.urls(for: .libraryDirectory, in: .userDomainMask).first else {
+            return
+        }
+        let marker = library.appendingPathComponent(AppDelegate.resetMarkerPath)
+        guard fileManager.fileExists(atPath: marker.path) else {
+            return
+        }
+
+        let webKit = library.appendingPathComponent("WebKit")
+        var roots = [webKit.appendingPathComponent("WebsiteData")]
+        if let bundleIdentifier = Bundle.main.bundleIdentifier {
+            roots.append(webKit.appendingPathComponent(bundleIdentifier).appendingPathComponent("WebsiteData"))
+        }
+        for root in roots {
+            removeLocalStorageFolders(under: root, using: fileManager)
+        }
+
+        try? fileManager.removeItem(at: marker)
+    }
+
+    // The store sits a few hashed folders deep and shares the innermost one with IndexedDB, which
+    // has no part in this and can take minutes to build again. So only the folders that hold the
+    // store are taken, wherever this version of the system decided to put them.
+    private func removeLocalStorageFolders(under root: URL, using fileManager: FileManager) {
+        guard let walker = fileManager.enumerator(
+            at: root,
+            includingPropertiesForKeys: [.isDirectoryKey],
+            options: [.skipsHiddenFiles]
+        ) else {
+            return
+        }
+
+        var folders: [URL] = []
+        for case let url as URL in walker where url.lastPathComponent == "LocalStorage" {
+            if (try? url.resourceValues(forKeys: [.isDirectoryKey]))?.isDirectory == true {
+                folders.append(url)
+                walker.skipDescendants()
+            }
+        }
+
+        for folder in folders {
+            // A store that stopped taking writes may have lost the right to be written to at all,
+            // and what is inside a folder only goes if the folder itself can be written.
+            makeWritable(folder, using: fileManager)
+            try? fileManager.removeItem(at: folder)
+        }
+    }
+
+    private func makeWritable(_ url: URL, using fileManager: FileManager) {
+        try? fileManager.setAttributes([.posixPermissions: 0o700], ofItemAtPath: url.path)
+        guard let walker = fileManager.enumerator(at: url, includingPropertiesForKeys: nil) else {
+            return
+        }
+        for case let child as URL in walker {
+            try? fileManager.setAttributes([.posixPermissions: 0o600], ofItemAtPath: child.path)
+        }
     }
 
     func applicationWillResignActive(_ application: UIApplication) {

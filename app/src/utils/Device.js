@@ -3,6 +3,7 @@ import { Clipboard } from '@capacitor/clipboard';
 import { SystemBars, SystemBarsStyle, SystemBarType } from '@capacitor/core';
 import { ScreenOrientation } from '@capacitor/screen-orientation';
 import { Haptics, ImpactStyle } from '@capacitor/haptics';
+import { persistSet } from './Persist';
 
 let isNativePlatform = false;
 let platform = 'web';
@@ -114,12 +115,12 @@ export const setInitialLanguage = async () => {
   }
   try {
     const langCode = await getDeviceLanguage();
-    localStorage.setItem("lang", langCode);
+    persistSet("lang", langCode);
     return langCode;
   } catch (error) {
     console.error("Failed to get device language", error);
     const fallbackLang = process.env.REACT_APP_DEFAULT_LANG || "en";
-    localStorage.setItem("lang", fallbackLang);
+    persistSet("lang", fallbackLang);
     return fallbackLang;
   }
 };

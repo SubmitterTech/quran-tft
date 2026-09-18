@@ -15,6 +15,7 @@ import { listCopy, smartCopy, supportsLookAhead, isNative, triggerActionHaptic }
 import LongPressable from '../hooks/LongPressable';
 import { NextPagerProgressRing } from '../hooks/NextPager';
 import '../assets/css/Book.css';
+import { persistSet } from '../utils/Persist';
 
 const AUTO_HYPHEN_STORAGE_KEY = 'qurantft-ah';
 
@@ -148,7 +149,7 @@ const Book = React.memo(({ incomingSearch = false, incomingAppendix = false, inc
 
     useEffect(() => {
         if (currentPage) {
-            localStorage.setItem("qurantft-pn", currentPage);
+            persistSet("qurantft-pn", currentPage);
         }
     }, [currentPage]);
 
@@ -166,19 +167,19 @@ const Book = React.memo(({ incomingSearch = false, incomingAppendix = false, inc
     }, [currentPage, isMagnifyOpen]);
 
     useEffect(() => {
-        localStorage.setItem("qurantft-rh", JSON.stringify(rememberHistory));
+        persistSet("qurantft-rh", JSON.stringify(rememberHistory));
     }, [rememberHistory]);
 
     useEffect(() => {
-        localStorage.setItem("qurantft-kvdo", JSON.stringify(keepVerseDetailsOpen));
+        persistSet("qurantft-kvdo", JSON.stringify(keepVerseDetailsOpen));
     }, [keepVerseDetailsOpen]);
 
     useEffect(() => {
-        localStorage.setItem("qurantft-iss", JSON.stringify(includeSearchScreen));
+        persistSet("qurantft-iss", JSON.stringify(includeSearchScreen));
     }, [includeSearchScreen]);
 
     useEffect(() => {
-        localStorage.setItem(AUTO_HYPHEN_STORAGE_KEY, JSON.stringify(Boolean(autoHyphenationEnabled)));
+        persistSet(AUTO_HYPHEN_STORAGE_KEY, JSON.stringify(Boolean(autoHyphenationEnabled)));
     }, [autoHyphenationEnabled]);
 
     const handleAutoHyphenationChange = useCallback((nextValue) => {
@@ -819,7 +820,7 @@ const Book = React.memo(({ incomingSearch = false, incomingAppendix = false, inc
                     } else {
                         const pageToPersist = pendingExitPageRef.current;
                         if (Number.isFinite(pageToPersist) && pageToPersist > 0) {
-                            localStorage.setItem("qurantft-pn", String(pageToPersist));
+                            persistSet("qurantft-pn", String(pageToPersist));
                         }
                         if (backButtonResetTimerRef.current) {
                             clearTimeout(backButtonResetTimerRef.current);

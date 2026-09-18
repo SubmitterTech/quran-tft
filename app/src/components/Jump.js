@@ -9,6 +9,7 @@ import Bookmarks from '../utils/Bookmarks';
 import LongPressable from '../hooks/LongPressable';
 import { isTamil, splitTamilGraphemes, stripTamilArticle } from '../utils/Tamil';
 import { toast } from 'react-hot-toast';
+import { persistSet } from '../utils/Persist';
 
 const languageDisabilityThreshold = 38;
 
@@ -291,7 +292,7 @@ const Jump = React.memo(({
     }, []);
 
     useEffect(() => {
-        localStorage.setItem("qurantft-jump-so", order);
+        persistSet("qurantft-jump-so", order);
     }, [order]);
 
     useEffect(() => {
