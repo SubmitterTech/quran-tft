@@ -244,11 +244,11 @@
                     "A.L.M.",
                     "16.",
                     "30",
-                    "The Romans ",
+                    "Romarna",
                     "A.L.M.",
                     "17.",
                     "31",
-                    "Luqmaan",
+                    "Luqman",
                     "A.L.M.",
                     "18.",
                     "32",
@@ -264,31 +264,31 @@
                     "S.",
                     "21.",
                     "40",
-                    "Forgiver",
+                    "Förlåtare",
                     "H.M.",
                     "22.",
                     "41",
-                    "Elucidated",
+                    "Förklarad",
                     "H.M.",
                     "23.",
                     "42",
-                    "Consultation",
+                    "Konsultation",
                     "H.M. ‘A.S.Q.",
                     "24.",
                     "43",
-                    "Ornaments",
+                    "Prydnaderna",
                     "H.M.",
                     "25.",
                     "44",
-                    "Smoke",
+                    "Rök",
                     "H.M.",
                     "26.",
                     "45",
-                    "Kneeling",
+                    "Knäböjande",
                     "H.M.",
                     "27.",
                     "46",
-                    "The Dunes ",
+                    "Sanddynerna",
                     "H.M.",
                     "28.",
                     "50",
@@ -296,7 +296,7 @@
                     "Q.",
                     "29.",
                     "68",
-                    "The Pen ",
+                    "Pennan",
                     "NuN"
                 ]
             }
@@ -304,7 +304,7 @@
         "evidence": {
             "3": {
                 "lines": {
-                    "1": "They said, “Why hasn’t a miracle come down to him from his Lord?” Say, “Only God knows the future. Therefore, wait, and I will wait along with you.”"
+                    "1": "De sade: ”Varför har inte ett mirakel kommit ner till honom från hans Herre?” Säg: ”Endast Gud känner framtiden. Vänta därför, och jag kommer att vänta tillsammans med er.”"
                 },
                 "ref": [
                     "10:20"
@@ -312,7 +312,7 @@
             },
             "4": {
                 "lines": {
-                    "3": "Those who disbelieved said, “This is no more than a fabrication by him, with the help of other people.” Indeed, they uttered a blasphemy; a falsehood. Others said, “Tales from the past that he wrote down; they were dictated to him day and night.” Say, “This was sent down from the One who knows ‘the secret’ in the heavens and the earth.” Surely, He is Forgiving, Most Merciful."
+                    "3": "De som förnekade sade: ”Detta är inget annat än något fabricerat av honom, med hjälp av andra människor.” Sannerligen, de yttrade en hädelse; en falskhet. Andra sade: ”Berättelser från det förflutna som han skrev ner; de dikterades för honom dag och natt.” Säg: ”Detta sändes ner från Den som känner ’hemligheten’ i himlarna och på jorden.” Sannerligen, Han är den Förlåtande, Barmhärtigast."
                 },
                 "ref": [
                     "25:4-6"
@@ -320,25 +320,25 @@
             }
         },
         "titles": {
-            "1": "The Literary Mathematical Composition"
+            "1": "Den Litterära Matematiska Kompositionen"
         }
     },
     {
         "page": 400,
         "text": {
-            "1": "In 1968, I realized that the existing English translations of the Quran did not present the truthful message of God’s Final Testament. For example, the two most popular translators, Yusuf Ali and Marmaduke Pickthall, could not overcome their corrupted religious traditions when it came to the Quran’s great criterion in 39:45.",
-            "3": "Yusuf Ali omitted the crucial word “ALONE” from his translation, and altered the rest of the verse by inserting the word “(gods).” Thus, he utterly destroyed this most important Quranic criterion. He translated 39:45 as follows:",
-            "5": "The expression “When God, the One and Only, is mentioned,” is not the same as saying, “When God alone is mentioned.” One can mention “God, the One and Only,” and also mention Muhammad or Jesus, and no one will be upset. But if “God ALONE is mentioned,” you cannot mention anyone else, and a lot of people—those who idolize Muhammad or Jesus—will be upset. Thus, Yusuf Ali could not bring himself to present the truth of the Quran, if it exposed his corrupted belief.",
-            "6": "Marmaduke Pickthall translated “ALONE” correctly, but destroyed the criterion by inserting his personal belief in parentheses; he translated 39:45 as follows:",
-            "8": "When I saw the truth of God’s word thus distorted, I decided to translate the Quran, at least for the benefit of my own children. Since I was a chemist by profession, and despite my extensive religious background—my father was a renowned Sufi leader in Egypt—I vowed to God that I would not move from one verse to the next unless I fully understood it.",
-            "9": "I purchased all the available books of Quranic translations and exegeses (Tafseer) I could find, placed them on a large table, and began my translation. The first sura, The Key, was completed in a few days. The first verse in Sura 2 is “A.L.M.” The translation of this verse took four years, and coincided with the divine unveiling of “the secret,” the great mathematical Miracle of the Quran.",
-            "10": "The books of Quranic exegeses unanimously agreed that “no one knows the meaning or significance of the Quranic Initials A.L.M., or any other initials.” I decided to write the Quran into the computer, analyze the whole text, and see if there were any mathematical correlations among these Quranic initials."
+            "1": "År 1968 insåg jag att de befintliga engelska översättningarna av Koranen inte presenterade det sanningsenliga budskapet i Guds Sista Testamente. Till exempel kunde de två mest populära översättarna, Yusuf Ali och Marmaduke Pickthall, inte övervinna sina korrumperade religiösa traditioner när det gällde Koranens stora kriterium i 39:45.",
+            "3": "Yusuf Ali utelämnade det avgörande ordet ”ENSAM” från sin översättning och ändrade resten av versen genom att infoga ordet ”(gudar)”. Således förstörde han fullständigt detta mycket viktiga koraniska kriterium. Han översatte 39:45 enligt följande:",
+            "5": "Uttrycket ”När Gud, den Ende och Endast, nämns” är inte detsamma som att säga ”När Gud ensam nämns”. Man kan nämna ”Gud, den Ende och Endast”, och också nämna Muhammad eller Jesus, och ingen kommer att bli upprörd. Men om ”Gud ENSAM nämns”, kan man inte nämna någon annan, och många människor—de som idoliserar Muhammad eller Jesus—kommer att bli upprörda. Således kunde Yusuf Ali inte förmå sig att presentera Koranens sanning, om den avslöjade hans korrumperade tro.",
+            "6": "Marmaduke Pickthall översatte ”ENSAM” korrekt, men förstörde kriteriet genom att infoga sin personliga tro inom parentes; han översatte 39:45 enligt följande:",
+            "8": "När jag såg sanningen i Guds ord på detta sätt förvrängas, bestämde jag mig för att översätta Koranen, åtminstone till nytta för mina egna barn. Eftersom jag var kemist till yrket, och trots min omfattande religiösa bakgrund—min far var en välkänd sufisk ledare i Egypten—lovade jag Gud att jag inte skulle gå vidare från en vers till nästa om jag inte förstod den fullständigt.",
+            "9": "Jag köpte alla tillgängliga böcker med Koranöversättningar och uttolkningar (Tafseer) som jag kunde hitta, lade dem på ett stort bord och började min översättning. Den första suran, Nyckeln, blev färdig på några dagar. Den första versen i Sura 2 är ”A.L.M.” Översättningen av denna vers tog fyra år och sammanföll med det gudomliga avslöjandet av ”hemligheten”, Koranens stora matematiska Mirakel.",
+            "10": "Böckerna med Koranuttolkningar var enhälligt överens om att ”ingen känner betydelsen eller innebörden av de Koraniska Initialerna A.L.M., eller några andra initialer.” Jag bestämde mig för att skriva in Koranen i datorn, analysera hela texten och se om det fanns några matematiska samband mellan dessa Koraniska Initialer."
         },
         "picture": {},
         "evidence": {
             "2": {
                 "lines": {
-                    "1": "When God ALONE is mentioned, the hearts of those who do not believe in the Hereafter shrink with aversion. But when others are mentioned beside Him, they rejoice."
+                    "1": "När GUD ENSAM nämns, krymper hjärtana hos dem som inte tror på Livet Efter Detta av aversion. Men när andra nämns vid sidan av Honom, gläder de sig."
                 },
                 "ref": [
                     "39:45"
@@ -346,66 +346,66 @@
             },
             "4": {
                 "lines": {
-                    "1": "When God, the One and Only, is mentioned, the hearts of those who believe not in the Hereafter are filled with disgust and horror; but when (gods) other than He are mentioned, behold, they are filled with joy. [39:45] (according to A. Yusuf Ali)"
+                    "1": "När Gud, den Ende och Endast, nämns, fylls hjärtana hos dem som inte tror på Livet Efter Detta av avsky och fasa; men när (gudar) andra än Han nämns, se, då fylls de av glädje. [39:45] (enligt A. Yusuf Ali)"
                 },
                 "ref": []
             },
             "7": {
                 "lines": {
-                    "1": "And when Allah alone is mentioned, the hearts of those who believe not in the Hereafter are repelled, and when those (whom they worship) beside Him are mentioned, behold! they are glad. [39:45] (according to Marmaduke Pickthal)"
+                    "1": "Och när Allah ensam nämns, känner hjärtana hos dem som inte tror på Livet Efter Detta motvilja, och när de (som de dyrkar) vid sidan av Honom nämns, se! då gläder de sig. [39:45] (enligt Marmaduke Pickthall)"
                 },
                 "ref": []
             }
         },
         "titles": {
-            "1": "Historical Background"
+            "1": "Historisk Bakgrund"
         }
     },
     {
         "page": 401,
         "text": {
-            "1": "I used a time-share terminal, connected by telephone to a giant computer. To test my hypothesis, I decided to look at the single-lettered Quranic Initials—“Q” (Qaaf) of Suras 42 and 50, “S” (Saad) of Suras 7, 19, and 38, and “N” (Noon) of Sura 68. As detailed in my first book MIRACLE OF THE QURAN: SIGNIFICANCE OF THE MYSTERIOUS ALPHABETS (Islamic Productions, 1973), many previous attempts to unravel the mystery had failed.",
-            "2": "The computer data showed that the text of the only Q-initialed suras, 42 and 50, contained the same number of Q’s, 57 and 57. That was the first hint that a deliberate mathematical system might exist in the Quran.",
-            "3": "Sura 50 is entitled “Q,” prefixed with “Q,” and the first verse reads, “Q, and the glorious Quran.” This indicated that “Q” stands for “Quran,” and the total number of Q’s in the two Q-initialed suras represents the Quran’s 114 suras (57 + 57 = 114 = 19 x 6). This idea was strengthened by the fact that “the Quran” occurs in the Quran 57 times.",
-            "4": "The Quran is described in Sura “Q” as “Majid” (glorious), and the Arabic word “Majid” has a gematrical value of 57: M (40) + J (3) + I (10) +D (4) = 57.",
-            "5": "Sura 42 consists of 53 verses, and 42 + 53 = 95 = 19 x 5.",
+            "1": "Jag använde en tidsdelad terminal, ansluten via telefon till en jättelik dator. För att testa min hypotes bestämde jag mig för att undersöka de enbokstavliga Koraniska Initialerna—”Q” (Qaaf) i Surorna 42 och 50, ”S” (Saad) i Surorna 7, 19 och 38, och ”N” (Noon) i Sura 68. Som beskrivs i detalj i min första bok, MIRACLE OF THE QURAN: SIGNIFICANCE OF THE MYSTERIOUS ALPHABETS (Islamic Productions, 1973), hade många tidigare försök att lösa mysteriet misslyckats.",
+            "2": "Datordatan visade att texten i de enda Q-initialerade surorna, 42 och 50, innehöll samma antal Q:n, 57 och 57. Detta var den första antydan om att ett avsiktligt matematiskt system kunde existera i Koranen.",
+            "3": "Sura 50 har titeln ”Q”, inleds med ”Q”, och den första versen lyder: ”Q, och den ärorika Koranen.” Detta visade att ”Q” står för ”Koranen”, och det totala antalet Q:n i de två Q-initialerade surorna representerar Koranens 114 suror (57 + 57 = 114 = 19 x 6). Denna idé stärktes av det faktum att ”Koranen” förekommer 57 gånger i Koranen.",
+            "4": "Koranen beskrivs i Sura ”Q” som ”Majid” (ärorik), och det arabiska ordet ”Majid” har det gematriska värdet 57: M (40) + J (3) + I (10) + D (4) = 57.",
+            "5": "Sura 42 består av 53 verser, och 42 + 53 = 95 = 19 x 5.",
             "6": "Sura 50 consists of 45 verses, and 50 + 45 = 95, same total as in Sura 42.",
-            "7": "By counting the letter “Q” in every “Verse 19” throughout the Quran, the total count comes to 76, 19 x 4. Here is a summary of the Q-related data:",
-            "9": "Glimpses of the Quran’s mathematical composition began to emerge. For example, it was observed that the people who disbelieved in Lot are mentioned in 50:13 and occur in the Quran 13 times—7:80; 11:70, 11:74, 11:89; 21:74; 22:43; 26:160; 27:54, 27:56; 29:28; 38:13; 50:13; and 54:33. Consistently, they are referred to as “Qawm,” with the single exception of the Q-initialed Sura 50 where they are referred to as “Ikhwaan.” Obviously, if the regular, Q-containing word “Qawm” were used, the count of the letter “Q” in Sura 50 would have become 58, and this whole phenomenon would have disappeared. With the recognized absolute accuracy of mathematics, the alteration of a single letter destroys the system."
+            "7": "Genom att räkna bokstaven ”Q” i varje ”Vers 19” genom hela Koranen blir det totala antalet 76, 19 x 4. Här är en sammanfattning av de Q-relaterade uppgifterna:",
+            "9": "Glimtar av Koranens matematiska komposition började framträda. Till exempel observerades det att folket som förnekade Lot nämns i 50:13 och förekommer 13 gånger i Koranen—7:80; 11:70, 11:74, 11:89; 21:74; 22:43; 26:160; 27:54, 27:56; 29:28; 38:13; 50:13; och 54:33. Konsekvent benämns de som ”Qawm”, med det enda undantaget av den Q-initialerade Sura 50 där de benämns som ”Ikhwaan”. Uppenbarligen, om det vanliga Q-innehållande ordet ”Qawm” hade använts, skulle antalet av bokstaven ”Q” i Sura 50 ha blivit 58, och hela detta fenomen skulle ha försvunnit. Med matematikens erkända absoluta exakthet förstör ändringen av en enda bokstav systemet."
         },
         "picture": {},
         "evidence": {
             "8": {
                 "lines": {
-                    "1": "1. The frequency of occurrence of “Q” in Sura “Q” (No. 50) is 57, 19 x 3.",
-                    "2": "2. The letter “Q” occurs in the other Q-initialed sura (No. 42) exactly the same number of times, 57.",
-                    "3": "3. The total occurrence of the letter “Q” in the two Q-initialed suras is 114, which equals the number of suras in the Quran.",
-                    "4": "4. “The Quran” is mentioned in the Quran 57 times.",
-                    "5": "5. The description of the Quran as “Majid” (Glorious) is correlated with the frequency of occurrence of the letter “Q” in each of the Q-initialed suras. The word “Majid” has a gematrical value of 57.",
-                    "6": "7. Sura 42 consists of 53 verses, and 42 + 53 is 95, or 19 x 5.",
-                    "7": "8. Sura 50 consists of 45 verses, and 50 + 45 is also 95, 19 x 5.",
-                    "8": "9. The number of Q’s in all verses numbered “19” throughout the Quran is 76, 19 x 4."
+                    "1": "1. Förekomstfrekvensen av ”Q” i Sura ”Q” (nr 50) är 57, 19 x 3.",
+                    "2": "2. Bokstaven ”Q” förekommer i den andra Q-initialerade suran (nr 42) exakt lika många gånger, 57.",
+                    "3": "3. Den totala förekomsten av bokstaven ”Q” i de två Q-initialerade surorna är 114, vilket är lika med antalet suror i Koranen.",
+                    "4": "4. ”Koranen” nämns 57 gånger i Koranen.",
+                    "5": "5. Beskrivningen av Koranen som ”Majid” (Ärorik) är korrelerad med förekomstfrekvensen av bokstaven ”Q” i var och en av de Q-initialerade surorna. Ordet ”Majid” har det gematriska värdet 57.",
+                    "6": "7. Sura 42 består av 53 verser, och 42 + 53 är 95, eller 19 x 5.",
+                    "7": "8. Sura 50 består av 45 verser, och 50 + 45 är också 95, 19 x 5.",
+                    "8": "9. Antalet Q:n i alla verser numrerade ”19” genom hela Koranen är 76, 19 x 4."
                 },
                 "ref": []
             }
         },
         "titles": {
-            "2": "The Quranic Initial “Q” (Qaaf)"
+            "2": "Den Koraniska Initialen ”Q” (Qaaf)"
         }
     },
     {
         "page": 402,
         "text": {
-            "1": "Another relevant example is the reference to Mecca in 3:96 as “Becca”! This strange spelling of the renowned city has puzzled Islamic scholars for many centuries. Although Mecca is mentioned in the Quran properly spelled in 48:24, the letter “M” is substituted with a “B” in 3:96. It turns out that Sura 3 is an M-initialed sura, and the count of the letter “M” would have deviated from the Quran’s code if “Mecca” was spelled correctly in 3:96.",
-            "2": "This initial is unique; it occurs in one sura, 68, and the name of the letter is spelled out as three letters—Noon Wow Noon—in the original text, and is therefore counted as two N’s. The total count of this letter in the N-initialed sura is 133, 19 x 7.",
-            "3": "The fact that “N” is the last Quranic Initial (see Table 1) brings out a number of special observations. For example, the number of verses from the first Quranic Initial (A.L.M. of 2:1) to the last initial (N. of 68:1) is 5263, or 19 x 277.",
-            "4": "The word “God” (Allah) occurs 2641 (19 x 139) times between the first initial and the last initial. Since the total occurrence of the word “God” is 2698, it follows that its occurrence outside the initials “A.L.M.” of 2:1 on one side, and the initial “N” of 68:1 on the other side, is 57, 19 x 3. Tables 9 to 20 prove that the initial “NuN” must be spelled out to show two N’s.",
-            "5": "This initial prefixes three suras, 7, 19, and 38, and the total occurrence of the letter “S” (Saad) in these three suras is 152, 19 x 8 (Table 2). It is noteworthy that in 7:69, the word “Bastatan” is written in some printings with a “Saad,” instead of “Seen.” This is an erroneous distortion that violates the Quran’s code. By looking at the oldest available copy of the Quran, the Tashkent Copy, it was found that the word “Bastatan” is correctly written with a “Seen” (see photocopy below)."
+            "1": "Ett annat relevant exempel är hänvisningen till Mecka i 3:96 som ”Becka”! Denna märkliga stavning av den välkända staden har förbryllat islamiska lärda i många århundraden. Även om Mecka nämns i Koranen med korrekt stavning i 48:24, ersätts bokstaven ”M” med ett ”B” i 3:96. Det visar sig att Sura 3 är en M-initialerad sura, och antalet av bokstaven ”M” skulle ha avvikit från Koranens kod om ”Mecka” hade stavats korrekt i 3:96.",
+            "2": "Denna initial är unik; den förekommer i en sura, 68, och bokstavens namn stavas ut med tre bokstäver—Noon Wow Noon—i originaltexten och räknas därför som två N. Det totala antalet av denna bokstav i den N-initialerade suran är 133, 19 x 7.",
+            "3": "Det faktum att ”N” är den sista Koraniska Initialen (se Tabell 1) framhäver ett antal särskilda observationer. Till exempel är antalet verser från den första Koraniska Initialen (A.L.M. i 2:1) till den sista initialen (N. i 68:1) 5263, eller 19 x 277.",
+            "4": "Ordet ”Gud” (Allah) förekommer 2641 (19 x 139) gånger mellan den första initialen och den sista initialen. Eftersom den totala förekomsten av ordet ”Gud” är 2698, följer det att dess förekomst utanför initialerna ”A.L.M.” i 2:1 på ena sidan, och initialen ”N” i 68:1 på andra sidan, är 57, 19 x 3. Tabellerna 9 till 20 bevisar att initialen ”NuN” måste skrivas ut för att visa två N.",
+            "5": "Denna initial inleder tre suror, 7, 19 och 38, och den totala förekomsten av bokstaven ”S” (Saad) i dessa tre suror är 152, 19 x 8 (Tabell 2). Det är anmärkningsvärt att ordet ”Bastatan” i 7:69 skrivs i vissa tryckningar med ett ”Saad” i stället för ”Seen”. Detta är en felaktig förvrängning som bryter mot Koranens kod. Genom att undersöka det äldsta tillgängliga exemplaret av Koranen, Tasjkent-exemplaret, fann man att ordet ”Bastatan” är korrekt skrivet med ett ”Seen” (se fotokopian nedan)."
         },
         "picture": {
             "7": {
                 "no": "4",
-                "text": "Photocopy from the Tashkent Quran."
+                "text": "Fotokopia från Tasjkent-Koranen."
             },
             "8": {
                 "no": "5"
@@ -413,10 +413,10 @@
         },
         "table": {
             "6": {
-                "ref": "Table 2: The Frequency of Occurrence of the Letter “S” in the Saad-initialed Suras",
+                "ref": "Tabell 2: Förekomstfrekvensen av Bokstaven ”S” i de Saad-initialerade Surorna",
                 "title": [
                     "Sura",
-                    "Frequency of “S”"
+                    "Frekvens av ”S”"
                 ],
                 "values": [
                     "7",
@@ -443,22 +443,22 @@
     {
         "page": 403,
         "text": {
-            "1": "The momentous discovery that “19” is the Quran’s common denominator became a reality in January 1974, coinciding with Zul-Hijjah 1393 A.H. The Quran was revealed in 13 B.H. (Before Hijrah). This makes the number of years from the revelation of the Quran to the revelation of its miracle 1393 + 13 = 1406 = 19 x 74. As noted above, the unveiling of the Miracle took place in January 1974. The correlation between 19 x 74 lunar years and 1974 solar years could not escape notice. This is especially uncanny in view of the fact that “19” is mentioned in Sura 74.",
-            "2": "These two letters prefix Sura 36. The letter “Y” occurs in this sura 237 times, while the letter “S” (Seen) occurs 48 times. The total of both letters is 285, 19 x 15.",
-            "3": "It is noteworthy that the letter “Y” is written in the Quran in two forms; one is obvious and the other is subtle. The subtle form of the letter may be confusing to those who are not thoroughly familiar with the Arabic language. A good example is the word “Araany ارينى ” which is mentioned twice in 12:36. The letter “Y” is used twice in this word, the first “Y” is subtle and the second is obvious. Sura 36 does not contain a single “Y” of the subtle type. This is a remarkable phenomenon, and one that does not normally occur in a long sura like Sura 36. In my book QURAN: VISUAL PRESENTATION OF THE MIRACLE (Islamic Productions, 1982) every “Y” and “S” in Sura 36 is marked with a star. ",
-            "4": "Seven suras are prefixed with the letters “H ح ” “M م ;” Suras 40 through 46. The total occurrence of these two letters in the seven H.M.-initialed suras is 2147, or 19 x 113. The detailed data are shown in Table 3.",
-            "5": "Naturally, the alteration of a single letter “H” or “M” in any of the seven H.M.-initialed suras would have destroyed this intricate phenomenon.",
+            "1": "Den betydelsefulla upptäckten att ”19” är Koranens gemensamma nämnare blev verklighet i januari 1974, vilket sammanföll med Zul-Hijjah 1393 A.H. (efter Hijrah). Koranen uppenbarades år 13 B.H. (före Hijrah). Detta gör antalet år från Koranens uppenbarelse till uppenbarelsen av dess mirakel 1393 + 13 = 1406 = 19 x 74. Som noterats ovan ägde avslöjandet av Miraklet rum i januari 1974. Korrelationen mellan 19 x 74 månår och 1974 solår kunde inte undgå att uppmärksammas. Detta är särskilt märkligt med tanke på det faktum att ”19” nämns i Sura 74.",
+            "2": "Dessa två bokstäver inleder Sura 36. Bokstaven ”Y” förekommer i denna sura 237 gånger, medan bokstaven ”S” (Seen) förekommer 48 gånger. Det totala antalet av båda bokstäverna är 285, 19 x 15.",
+            "3": "Det är anmärkningsvärt att bokstaven ”Y” skrivs i Koranen i två former; den ena är tydlig och den andra är subtil. Bokstavens subtila form kan vara förvirrande för dem som inte är grundligt förtrogna med det arabiska språket. Ett bra exempel är ordet ”Araany ارينى”, som nämns två gånger i 12:36. Bokstaven ”Y” används två gånger i detta ord; det första ”Y” är subtilt och det andra är tydligt. Sura 36 innehåller inte ett enda ”Y” av den subtila typen. Detta är ett anmärkningsvärt fenomen, och ett som normalt inte förekommer i en lång sura som Sura 36. I min bok QURAN: VISUAL PRESENTATION OF THE MIRACLE (Islamic Productions, 1982) är varje ”Y” och ”S” i Sura 36 markerat med en stjärna.",
+            "4": "Sju suror inleds med bokstäverna ”H ح” ”M م”; Surorna 40 till 46. Den totala förekomsten av dessa två bokstäver i de sju H.M.-initialerade surorna är 2147, eller 19 x 113. De detaljerade uppgifterna visas i Tabell 3.",
+            "5": "Naturligtvis skulle ändringen av en enda bokstav, ”H” eller ”M”, i någon av de sju H.M.-initialerade surorna ha förstört detta invecklade fenomen.",
             "7": "These initials constitute Verse 2 of Sura 42, and the total occurrence of these letters in this sura is 209, or 19 x 11. The letter “ ‘A” (‘Ayn) occurs 98 times, the letter “S” (Seen) occurs 54 times, and the letter “Q” (Qaf) occurs 57 times."
         },
         "picture": {},
         "table": {
             "6": {
-                "ref": "Table 3: Occurrence of the Letters “H” and “M” in the Seven H.M.-initialed Suras",
+                "ref": "Tabell 3: Förekomst av Bokstäverna ”H” och ”M” i de Sju H.M.-initialerade Surorna",
                 "title": [
-                    "Sura No.",
-                    "Frequency of Occurence “H”",
-                    "Frequency of Occurence “M”",
-                    "Frequency of Occurence “H + M”"
+                    "Sura Nr.",
+                    "Förekomstfrekvens av ”H”",
+                    "Förekomstfrekvens av ”M”",
+                    "Förekomstfrekvens av “H + M”"
                 ],
                 "values": [
                     "40",
@@ -506,7 +506,7 @@
         },
         "evidence": {},
         "titles": {
-            "1": "Historical Note",
+            "1": "Historisk Not",
             "2": "Y.S. (Ya Seen)",
             "4": "H.M. (Ha Mim)",
             "7": "‘A.S.Q. (‘Ayn Seen Qaf)"
@@ -515,23 +515,23 @@
     {
         "page": 404,
         "text": {
-            "2": "The letters “A,” “L,” and “M” are the most frequently used letters in the Arabic language, and in the same order as we see in the Quranic Initials—“A,” then “L,” then “M.” These letters prefix six suras—2, 3, 29, 30, 31, and 32—and the total occurrence of the three letters in each of the six suras is a multiple of 19 [9899 (19 x 521), 5662 (19 x 298), 1672 (19 x 88), 1254 (19 x 66), 817 (19 x 43), and 570 (19 x 30), respectively]. Thus, the total occurrence of the three letters in the six suras is 19874 (19 x 1046), and the alteration of one of these letters destroys this phenomenon.",
-            "4": "These initials are found in Suras 10, 11, 12, 14, and 15. The total occurrences of these letters in these suras are 2489 (19 x 131), 2489 (19 x 131), 2375 (19 x 125), 1197 (19 x 63), and 912 (19 x 48), respectively (Table 5).",
-            "6": "These initials prefix one sura, No. 13, and the total frequency of occurrence of the four letters is 1482, or 19 x 78. The letter “A” occurs 605 times, “L” occurs 480 times, “M” occurs 260 times, and “R” occurs 137 times.",
-            "8": "Only one sura is prefixed with these initials, Sura 7, and the letter “A” occurs in this sura 2529 times, “L” occurs 1530 times, “M” occurs 1164 times, and “S” (Saad) occurs 97 times. Thus, the total occurrence of the four letters in this sura is 2529 + 1530 + 1164 + 97 = 5320 = 19 x 280.",
-            "9": "An important observation here is the interlocking relationship involving the letter “S” (Saad). This initial occurs also in Suras 19 and 38. While complementing its sister letters in Sura 7 to give a total that is divisible by 19, the frequency of this letter also complements its sister letters in Suras 19 and 38 to give a multiple of 19 (see Page 380).",
-            "10": "Additionally, the Quranic Initial “S” (Saad) interacts with the Quranic Initials “K.H.Y. ‘A.” (Kaaf Haa Ya ‘Ayn) in Sura 19 to give another total that is also a multiple of 19 (see Page 383). This interlocking relationship—which is not unique to the initial “S” (Saad)—contributes to the intricacy of the Quran’s numerical code."
+            "2": "Bokstäverna ”A”, ”L” och ”M” är de mest frekvent använda bokstäverna i det arabiska språket, och i samma ordning som vi ser i de Koraniska Initialerna—”A”, sedan ”L”, sedan ”M”. Dessa bokstäver inleder sex suror—2, 3, 29, 30, 31 och 32—och den totala förekomsten av de tre bokstäverna i var och en av de sex surorna är en multipel av 19 [9899 (19 x 521), 5662 (19 x 298), 1672 (19 x 88), 1254 (19 x 66), 817 (19 x 43) och 570 (19 x 30), respektive]. Således är den totala förekomsten av de tre bokstäverna i de sex surorna 19874 (19 x 1046), och ändringen av en av dessa bokstäver förstör detta fenomen.",
+            "4": "Dessa initialer finns i Surorna 10, 11, 12, 14 och 15. De totala förekomsterna av dessa bokstäver i dessa suror är 2489 (19 x 131), 2489 (19 x 131), 2375 (19 x 125), 1197 (19 x 63) och 912 (19 x 48), respektive (Tabell 5).",
+            "6": "Dessa initialer inleder en sura, nr 13, och den totala förekomstfrekvensen av de fyra bokstäverna är 1482, eller 19 x 78. Bokstaven ”A” förekommer 605 gånger, ”L” förekommer 480 gånger, ”M” förekommer 260 gånger och ”R” förekommer 137 gånger.",
+            "8": "Endast en sura inleds med dessa initialer, Sura 7, och bokstaven ”A” förekommer i denna sura 2529 gånger, ”L” förekommer 1530 gånger, ”M” förekommer 1164 gånger och ”S” (Saad) förekommer 97 gånger. Således är den totala förekomsten av de fyra bokstäverna i denna sura 2529 + 1530 + 1164 + 97 = 5320 = 19 x 280.",
+            "9": "En viktig observation här är det sammanlänkade sambandet som omfattar bokstaven ”S” (Saad). Denna initial förekommer också i Surorna 19 och 38. Samtidigt som den kompletterar sina systerbokstäver i Sura 7 för att ge en totalsumma som är delbar med 19, kompletterar frekvensen av denna bokstav också sina systerbokstäver i Surorna 19 och 38 för att ge en multipel av 19 (se Sida 380).",
+            "10": "Dessutom samverkar den Koraniska Initialen ”S” (Saad) med de Koraniska Initialerna ”K.H.Y. ‘A.” (Kaaf Haa Ya ‘Ayn) i Sura 19 för att ge ytterligare en totalsumma som också är en multipel av 19 (se Sida 383). Detta sammanlänkade samband—som inte är unikt för initialen ”S” (Saad)—bidrar till komplexiteten i Koranens numeriska kod."
         },
         "picture": {},
         "table": {
             "2": {
-                "ref": "Table 4: Occurrence of the Letters “A,” “L,” and “M” in the A.L.M.-Initialed Suras",
+                "ref": "Tabell 4: Förekomst av Bokstäverna ”A”, ”L” och ”M” i de A.L.M.-initialerade Surorna",
                 "title": [
-                    "Sura No.",
-                    "Frequency of Occurence “A”",
-                    "Frequency of Occurence “L”",
-                    "Frequency of Occurence “M”",
-                    "Total"
+                    "Sura Nr.",
+                    "Förekomstfrekvens av ”A”",
+                    "Förekomstfrekvens av “L”",
+                    "Förekomstfrekvens av  “M”",
+                    "Totalt"
                 ],
                 "values": [
                     "2",
@@ -577,13 +577,13 @@
                 ]
             },
             "4": {
-                "ref": "Table 5: Occurrence of the Letters “A,” “L,” and “R” in the A.L.R.-initialed Suras",
+                "ref": "Tabell 5: Förekomst av Bokstäverna ”A”, ”L” och ”R” i de A.L.R.-initialerade Surorna",
                 "title": [
-                    "Sura No.",
-                    "Frequency of Occurence “A”",
-                    "Frequency of Occurence “L”",
-                    "Frequency of Occurence “R”",
-                    "Total"
+                    "Sura Nr.",
+                    "Förekomstfrekvens av “A”",
+                    "Förekomstfrekvens av “L”",
+                    "Förekomstfrekvens av “R”",
+                    "Totalt"
                 ],
                 "values": [
                     "10",
@@ -635,27 +635,27 @@
     {
         "page": 405,
         "text": {
-            "1": "This is the longest set of initials, consisting of five letters, and it occurs in one sura, Sura 19. The letter “K” in Sura 19 occurs 137 times, “H” occurs 175 times, “Y” occurs 343 times, “ ‘A” occurs 117 times, and “S” (Saad) occurs 26 times. Thus, the total occurrence of the five letters is 137 + 175 + 343 + 117 + 26 = 798 = 19 x 42.",
-            "2": "An intricate interlocking relationship links these overlapping Quranic Initials to produce a total that is also a multiple of 19. The initial “H.” is found in Suras 19 and 20. The initials “T.H.” prefix Sura 20. The initials “T.S.” are found in Sura 27, while the initials “T.S.M.” prefix its surrounding Suras 26 & 28.",
-            "3": "It should be noted at this time that the longer, more complex, interlocking and overlapping initials are found in the suras where uncommonly powerful miracles are narrated. For example, the virgin birth of Jesus is given in Sura 19, which is prefixed with the longest set of initials, K.H.Y.‘A.S.",
-            "4": "The interlocking initials “H.,” “T.H.,” “T.S.,” and “T.S.M.” prefix suras describing the miracles of Moses, Jesus, and the uncommon occurrences surrounding Solomon and his jinns. God thus provides stronger evidence to support stronger miracles. The frequencies of occurrence of these initials are presented in Table 6.",
-            "6": "When the Quran was revealed, 14 centuries ago, the numbers known today did not exist. A universal system was used where the letters of the Arabic, Hebrew, Aramaic, and Greek alphabets were used as numerals. The number assigned to each letter is its “Gematrical Value.” The numerical values of the Arabic alphabet are shown in Table 7."
+            "1": "Detta är den längsta uppsättningen av initialer, bestående av fem bokstäver, och den förekommer i en sura, Sura 19. Bokstaven ”K” i Sura 19 förekommer 137 gånger, ”H” förekommer 175 gånger, ”Y” förekommer 343 gånger, “‘A” förekommer 117 gånger och ”S” (Saad) förekommer 26 gånger. Således är den totala förekomsten av de fem bokstäverna 137 + 175 + 343 + 117 + 26 = 798 = 19 x 42.",
+            "2": "Ett invecklat sammanlänkat samband förbinder dessa överlappande Koraniska Initialer för att ge en totalsumma som också är en multipel av 19. Initialen ”H.” finns i Surorna 19 och 20. Initialerna ”T.H.” inleder Sura 20. Initialerna ”T.S.” finns i Sura 27, medan initialerna ”T.S.M.” inleder de omgivande Surorna 26 och 28.",
+            "3": "Det bör vid denna tidpunkt noteras att de längre, mer komplexa, sammanlänkade och överlappande initialerna finns i de suror där ovanligt mäktiga mirakel återges. Till exempel återges Jesus jungfrufödelse i Sura 19, som inleds med den längsta uppsättningen av initialer, K.H.Y.‘A.S.",
+            "4": "De sammanlänkade initialerna ”H.”, ”T.H.”, ”T.S.” och ”T.S.M.” inleder suror som beskriver Moses och Jesus mirakel, samt de ovanliga händelserna kring Salomo och hans djinner. Gud ger således starkare bevis för att stödja starkare mirakel. Förekomstfrekvenserna av dessa initialer presenteras i Tabell 6.",
+            "6": "När Koranen uppenbarades för 14 århundraden sedan fanns inte de tal som är kända i dag. Ett universellt system användes där bokstäverna i de arabiska, hebreiska, arameiska och grekiska alfabetena användes som siffror. Det tal som tilldelats varje bokstav är dess ”gematriska värde”. De numeriska värdena i det arabiska alfabetet visas i Tabell 7."
         },
         "picture": {
             "9": {
                 "no": "9",
-                "text": "Table 7: Gematrical Values of the Arabic Alphabet"
+                "text": "Tabell 7: Gematriska Värden för det Arabiska Alfabetet"
             }
         },
         "table": {
             "5": {
-                "ref": "Table 6: Occurrence of the Quranic Initials “H.,” “T.H.,” “T.S.,” and “T.S.M.” in Their Suras",
+                "ref": "Tabell 6: Förekomst av de Koraniska Initialerna ”H.”, ”T.H.”, ”T.S.” och ”T.S.M.” i Deras Suror",
                 "title": [
-                    "Sura No.",
-                    "Frequency of Occurence “H”",
-                    "Frequency of Occurence “T”",
-                    "Frequency of Occurence “S”",
-                    "Frequency of Occurence “M”"
+                    "Sura Nr.",
+                    "Förekomstfrekvens av ”H”",
+                    "Förekomstfrekvens av “T”",
+                    "Förekomstfrekvens av “S”",
+                    "Förekomstfrekvens av “M”"
                 ],
                 "values": [
                     "19",
@@ -705,24 +705,24 @@
         "titles": {
             "1": "K.H.Y.‘A.S. (Kaaf Ha Ya ‘Ayn Saad)",
             "2": "H., T.H. (Ta Ha), T.S. (Ta Seen), & T.S.M. (Ta Seen Mim)",
-            "6": "What Is A “Gematrical Value”?"
+            "6": "Vad Är Ett ”Gematriskt Värde”?"
         }
     },
     {
         "page": 406,
         "text": {
-            "1": "Fourteen Arabic letters, half the Arabic alphabet, participate in the formation of 14 different sets of Quranic Initials. By adding the gematrical value of each one of these letters, plus the number of suras which are prefixed with Quranic Initials (29), we obtain a total of 722, or 19 x 19 x 2.",
-            "2": "Additionally, if we add the total gematrical value of all 14 initials, plus the number of the first sura where the initial occurs, we get a grand total of 988, 19 x 52. Table 8 presents these data.",
-            "4": "If we add the number of occurrences of each of the 14 letters listed in Table 8 as an initial, plus the numbers of the suras where it occurs as an initial, the Grand Total comes to 2033, 19x107. See Table 9."
+            "1": "Fjorton arabiska bokstäver, hälften av det arabiska alfabetet, deltar i bildandet av 14 olika uppsättningar av Koraniska Initialer. Genom att lägga till det gematriska värdet för var och en av dessa bokstäver, plus antalet suror som inleds med Koraniska Initialer (29), får vi en totalsumma på 722, eller 19 x 19 x 2.",
+            "2": "Dessutom, om vi lägger till det totala gematriska värdet av alla 14 initialer, plus numret på den första suran där initialen förekommer, får vi en totalsumma på 988, 19 x 52. Tabell 8 presenterar dessa uppgifter.",
+            "4": "Om vi lägger till antalet förekomster av var och en av de 14 bokstäverna som anges i Tabell 8 som initial, plus numren på de suror där den förekommer som initial, blir totalsumman 2033, 19 x 107. Se Tabell 9."
         },
         "picture": {},
         "table": {
             "3": {
-                "ref": "Table 8: The 14 Letters Used in Forming Quranic Initials",
+                "ref": "Tabell 8: De 14 Bokstäver som Används för att Bilda Koraniska Initialer",
                 "title": [
-                    "Letter",
-                    "Value",
-                    "First Sura"
+                    "Bokstav",
+                    "Värde",
+                    "Första Suran"
                 ],
                 "values": [
                     "A (Alef) ",
@@ -778,16 +778,16 @@
                     "693 + 295 = 988 = 19 x 52",
                     "",
                     "",
-                    "also 693 + 29 (suras) = 722 = 19 x 19 x 2"
+                    "också 693 + 29 (suror) = 722 = 19 x 19 x 2"
                 ]
             },
             "5": {
-                "ref": "Table 9: Mathematically Structured Distribution of the Quranic Initials",
+                "ref": "Tabell 9: Matematiskt Strukturerad Fördelning av de Koraniska Initialerna",
                 "title": [
                     "Initial",
-                    "Number of Occurences",
-                    "Sura Where It Occurs",
-                    "Total"
+                    "Antal Förekomster",
+                    "Sura där den Förekommer",
+                    "Totalt"
                 ],
                 "values": [
                     "A (Alef) ",
@@ -863,25 +863,25 @@
         },
         "evidence": {},
         "titles": {
-            "1": "Other Mathematical Properties of the Initialed Suras"
+            "1": "Andra Matematiska Egenskaper hos Surorna med Initialer"
         }
     },
     {
         "page": 407,
         "text": {
-            "1": "Table 10 presents the total frequency of Quranic Initials, plus the total gematrical value of these letters in the whole sura. The Grand Total for all initialed suras is 1089479. This number, in excess of one million, is a multiple of 19 (1089479 = 19 x 57341). The slightest alteration or distortion destroys the system.",
-            "4": "Table 11 shows that the sum of numbers of suras and verses where the Quranic Initials are found, plus the initial’s frequency of occurrence in that sura, plus the number of the first sura where the initials occur, plus the number of the last sura where the initials occur, produces a total that equals 44232, or 19 x 2348. Thus, the distribution of the Quranic Initials in the initialed suras is so intricate that their counts and their placement within suras are intertwined to give a grand total that is a multiple of 19.",
-            "5": "It is noteworthy that the initial “N” must be counted as two N’s. This reflects the fact that the original Quranic text spells out this initial with 2 N’s."
+            "1": "Tabell 10 presenterar den totala frekvensen av Koraniska Initialer, plus det totala gematriska värdet av dessa bokstäver i hela suran. Totalsumman för alla suror med initialer är 1089479. Detta tal, som överstiger en miljon, är en multipel av 19 (1089479 = 19 x 57341). Den minsta ändring eller förvrängning förstör systemet.",
+            "4": "Tabell 11 visar att summan av numren på de suror och verser där de Koraniska Initialerna finns, plus initialens förekomstfrekvens i den suran, plus numret på den första suran där initialerna förekommer, plus numret på den sista suran där initialerna förekommer, ger en totalsumma som är lika med 44232, eller 19 x 2348. Således är fördelningen av de Koraniska Initialerna i surorna med initialer så invecklad att deras antal och deras placering inom surorna är sammanflätade för att ge en totalsumma som är en multipel av 19.",
+            "5": "Det är anmärkningsvärt att initialen ”N” måste räknas som två N. Detta återspeglar det faktum att den ursprungliga koraniska texten skriver ut denna initial med 2 N."
         },
         "picture": {},
         "table": {
             "3": {
-                "ref": "Table 10: Total Gematrical Values of All Quranic Initials In Their Suras",
+                "ref": "Tabell 10: Totala Gematriska Värden för Alla Koraniska Initialer i Deras Suror",
                 "title": [
                     "Sura",
-                    "Initials",
-                    "Frequency Of Initials",
-                    "Tot. G. Val. in Sura"
+                    "Initialer",
+                    "Initialernas Förekomstfrekvens",
+                    "Tot. Gem. Värde i Suran"
                 ],
                 "values": [
                     "2",
@@ -1018,29 +1018,29 @@
         "evidence": {
             "2": {
                 "lines": {
-                    "1": "Note: The total gematrical value of the Quranic Initials in a given sura equals the gematrical value of each initial multiplied by the frequency of occurrence of that initial in the sura."
+                    "1": "Obs: Det totala gematriska värdet av de Koraniska Initialerna i en given sura är lika med det gematriska värdet av varje initial multiplicerat med förekomstfrekvensen för den initialen i suran."
                 },
                 "ref": []
             }
         },
         "titles": {
-            "4": "Major Parameters of the Quranic, Initials (Suras, Verses, Frequency, First Sura, & Last Sura)"
+            "4": "Huvudsakliga Parametrar för de Koraniska Initialerna (Suror, Verser, Frekvens, Första Suran & Sista Suran)"
         }
     },
     {
         "page": 408,
         "text": {
-            "2": "A special mathematical coding authenticates the number of verses where the Quranic Initials themselves are found. As detailed in Table 11, all Quranic Initials occur in Verse 1, except in Sura 42 (initials in Verses 1 and 2). This fact is supported by the remarkable mathematical phenomenon detailed in Table 12. If we multiply the first two columns of Table 12, instead of adding, we still end up with a Total that is divisible by 19 (see Table 13)."
+            "2": "En särskild matematisk kodning autentiserar antalet verser där de Koraniska Initialerna själva finns. Som beskrivs i detalj i Tabell 11 förekommer alla Koraniska Initialer i Vers 1, utom i Sura 42 (initialer i Verserna 1 och 2). Detta faktum stöds av det anmärkningsvärda matematiska fenomen som beskrivs i detalj i Tabell 12. Om vi multiplicerar de två första kolumnerna i Tabell 12 i stället för att addera, får vi fortfarande en totalsumma som är delbar med 19 (se Tabell 13)."
         },
         "picture": {},
         "table": {
             "1": {
-                "ref": "Table 11: Parameters of the 14 Individual Quranic Initials",
+                "ref": "Tabell 11: Parametrar för de 14 Individuella Koraniska Initialerna",
                 "title": [
                     "Initial",
-                    "Sura, Verse, & (Frequency) of Initial in Each Sura",
-                    "First Sura",
-                    "Last Sura"
+                    "Sura, Vers & (Frekvens) för Initialen i Varje Sura",
+                    "Första Suran",
+                    "Sista Suran"
                 ],
                 "values": [
                     "A (Alef)",
@@ -1108,7 +1108,7 @@
                     "295",
                     "514",
                     "",
-                    "Grand Total = 43423 + 295 + 514 = 44232 = 19 x 2328.",
+                    "Totalsumma = 43423 + 295 + 514 = 44232 = 19 x 2328.",
                     "",
                     ""
                 ]
@@ -1120,18 +1120,18 @@
     {
         "page": 409,
         "text": {
-            "3": "Obviously, it is crucial to have two different initialed verses in Sura 42 in order to conform with the Quran’s mathematical code. The fact that Verse 1 of Sura 42 consists of the two Quranic Initials “H.M.” and the second verse consists of the three Initials “ ‘A.S.Q.” has perplexed Muslim scholars and orientalists for 14 centuries.",
-            "4": "By the end of this Appendix, the reader will see that every element of the Quran is mathematically authenticated. The elements we are dealing with now are “the number of Quranic Initials in each initialed sura” and “the number of verses that contain Quranic Initials.” Tables 11 through 13 have dealt with these two elements.",
-            "5": "Additional mathematical authentication is shown in Tables 14 and 15. In Table 14, we have the numbers of all initialed suras added to the number of verses in each sura, plus the number of verses containing initials, plus the gematrical values of those initials. The Grand Total is 7030, or 19 x 370."
+            "3": "Uppenbarligen är det avgörande att ha två olika verser med initialer i Sura 42 för att överensstämma med Koranens matematiska kod. Det faktum att Vers 1 i Sura 42 består av de två Koraniska Initialerna ”H.M.” och att den andra versen består av de tre Initialerna ”‘A.S.Q.” har förbryllat muslimska lärda och orientalister i 14 århundraden.",
+            "4": "Vid slutet av denna Bilaga kommer läsaren att se att varje element i Koranen är matematiskt autentiserat. De element vi behandlar nu är ”antalet Koraniska Initialer i varje sura med initialer” och ”antalet verser som innehåller Koraniska Initialer”. Tabellerna 11 till 13 har behandlat dessa två element.",
+            "5": "Ytterligare matematisk autentisering visas i Tabellerna 14 och 15. I Tabell 14 har vi numren på alla suror med initialer adderade till antalet verser i varje sura, plus antalet verser som innehåller initialer, plus de gematriska värdena för dessa initialer. Totalsumman är 7030, eller 19 x 370."
         },
         "picture": {},
         "table": {
             "1": {
-                "ref": "Table 12: Mathematical Coding of the Number of Verses With Initials",
+                "ref": "Tabell 12: Matematisk Kodning av Antalet Verser med Initialer",
                 "title": [
-                    "Sura No.",
-                    "No. of Initials",
-                    "Initialed Verses"
+                    "Sura Nr.",
+                    "Antal initialer",
+                    "Verser med Initialer"
                 ],
                 "values": [
                     "2",
@@ -1233,12 +1233,12 @@
                 ]
             },
             "2": {
-                "ref": "Table 13: Multiplying the First Two Columns of Table 12, Instead of Adding",
+                "ref": "Tabell 13: Multiplicering av de Två Första Kolumnerna i Tabell 12, i Stället för Addition",
                 "title": [
-                    "Sura No.",
+                    "Sura Nr.",
                     " ",
-                    "No. of Initials",
-                    "No. of Init'Id Verses"
+                    "Antal Initialer",
+                    "Antal Verser med Initialer"
                 ],
                 "values": [
                     "2",
@@ -2105,7 +2105,7 @@
                     "Most Merciful",
                     "One",
                     "Possessor of\nInfinite Grace",
-                    "Glorious",
+                    "Ärorik",
                     "Gatherer"
                 ]
             }
