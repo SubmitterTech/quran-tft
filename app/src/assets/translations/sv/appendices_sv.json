@@ -1294,19 +1294,19 @@
     {
         "page": 410,
         "text": {
-            "2": "Remarkably, if we multiply the first two columns of Table 14, instead of adding them, we still get a Grand Total that is divisible by 19 (Table 15).",
-            "3": "The number of verses per sura, and the numbers assigned to each verse are among the basic elements of the Quran. Not only are these elements authenticated mathematically, but both initialed and un-initialed suras are independently coded. Since we are now dealing with the initialed suras, Table 16 presents the numbers assigned to these suras, added to the numbers of verses in each sura, plus the sum of verse numbers (1 + 2 + 3 + ... + n). The Grand total is 190133, or 19 x 10007."
+            "2": "Anmärkningsvärt nog, om vi multiplicerar de två första kolumnerna i Tabell 14, i stället för att addera dem, får vi fortfarande en Totalsumma som är delbar med 19 (Tabell 15).",
+            "3": " Antalet verser per sura, och numren som tilldelats varje vers, är bland Koranens grundläggande element. Dessa element är inte bara matematiskt autentiserade, utan både suror med initialer och suror utan initialer är oberoende kodade. Eftersom vi nu behandlar surorna med initialer, presenterar Tabell 16 numren som tilldelats dessa suror, adderade till antalet verser i varje sura, plus summan av versnumren (1 + 2 + 3 + ... + n). Totalsumman är 190133, eller 19 x 10007."
         },
         "picture": {},
         "table": {
             "1": {
-                "ref": "Table 14: Mathematical Properties of the Initialed Suras",
+                "ref": "Tabell 14: Matematiska Egenskaper hos Surorna med Initialer",
                 "title": [
-                    "Sura Number",
-                    "Number of Verses",
-                    "Number of Initialed Verses",
-                    "Gematrical Value of the Initials",
-                    "TOTAL"
+                    "Suranummer",
+                    "Antal Verser",
+                    "Antal Verser med Initialer",
+                    "Initialernas Gematriska Värde",
+                    "TOTALT"
                 ],
                 "values": [
                     "2",
@@ -1478,23 +1478,23 @@
     {
         "page": 411,
         "text": {
-            "3": "By adding the number of every sura to the number of the next sura, and accumulating the sums of sura numbers as we continue this process to the end of the Quran, we will have a value that corresponds to each sura. Thus, Sura 1 will have a corresponding value of 1, Sura 2 will have a value of 1 + 2 = 3, Sura 3 will have a value of 3 + 3 = 6, Sura 4 will have a value of 6 + 4 = 10, and so on to the end of the Quran. The total values for the initialed and the un-initialed suras are independently divisible by 19. The values for the initialed suras are shown in Table 17.",
-            "4": "The values calculated for the un-initialed suras add up to a total of 237785, which is also a multiple of 19 (237785 = 19 x 12515)."
+            "3": "Genom att addera numret för varje sura till numret för nästa sura, och ackumulera summorna av suranumren medan vi fortsätter denna process till slutet av Koranen, kommer vi att få ett värde som motsvarar varje sura. Således kommer Sura 1 att ha ett motsvarande värde på 1, Sura 2 kommer att ha ett värde på 1 + 2 = 3, Sura 3 kommer att ha ett värde på 3 + 3 = 6, Sura 4 kommer att ha ett värde på 6 + 4 = 10, och så vidare till slutet av Koranen. De totala värdena för surorna med initialer och surorna utan initialer är oberoende delbara med 19. Värdena för surorna med initialer visas i Tabell 17.",
+            "4": "De värden som beräknats för surorna utan initialer summerar till totalt 237785, vilket också är en multipel av 19 (237785 = 19 x 12515)."
         },
         "picture": {},
         "table": {
             "1": {
-                "ref": "Table 15: Multiplying the First 2 Columns of Table 14, Instead of Adding Them",
+                "ref": "Tabell 15: Multiplicering av de 2 Första Kolumnerna i Tabell 14, i Stället för Addition",
                 "title": [
-                    "Sura Number",
+                    "Suranummer",
                     "",
-                    "Number of Verse",
+                    "Antal Verser",
                     "",
-                    "Number of Initialed Verses",
+                    "Antal Verser med Initialer",
                     "",
-                    "Gematrical Value of the Initials",
+                    "Initialernas Gematriska Värde",
                     "",
-                    "TOTAL"
+                    "TOTALT"
                 ],
                 "values": [
                     "2",
@@ -1583,10 +1583,10 @@
             "2": {
                 "ref": "Table 16: Mathematical Structuring of the Verses of Initialed Suras",
                 "title": [
-                    "Sura No.",
-                    "No. of Verses",
-                    "Sum of No. Verses #s",
-                    "Total"
+                    "Sura Nr.",
+                    "Antal Verser",
+                    "Summan av Versnumren",
+                    "Totalt"
                 ],
                 "values": [
                     "2",
@@ -1628,10 +1628,10 @@
                 ]
             },
             "5": {
-                "ref": "Table 17: Values Obtained by Successive Addition of Sura Numbers",
+                "ref": "Tabell 17: Värden Erhållna genom Successiv Addition av Suranummer",
                 "title": [
-                    "Sura Number",
-                    "Calculated Value"
+                    "Suranummer",
+                    "Beräknat Värde"
                 ],
                 "values": [
                     "2",
@@ -1683,22 +1683,22 @@
     {
         "page": 412,
         "text": {
-            "2": "[1] As shown earlier the word “God” occurs in the Quran 2698 times, 19 x 142.",
-            "3": "[2] The numbers of verses where the word “God” occurs add up to 118123, also a multiple of 19 (118123 = 19 x 6217).",
-            "4": "These simple phenomena gave us many difficulties while simply counting the word “God.” We were a group of workers, equipped with computers, and all of us college graduates. Yet, we made several errors in counting, calculating, or simply writing the counts of the word “God.” Those who still claim that Muhammad was the author of the Quran are totally illogical; he never went to college, and he did not have a computer.",
-            "5": "[3] From the first Quranic Initials (A.L.M. 2:1) to the last initial (N. 68:1), there are 2641, 19 x 139, occurrences of the word “God.”",
-            "6": "[4] The word “God” occurs 57 times in the section outside the Initials (Table 18).",
-            "7": "[5] By adding the numbers of the suras and verses where these 57 occurrences of the word “God” are found, we get a total of 2432, or 19 x 128. See Table 18.",
-            "8": "[6] The word “God” occurs in 85 suras. If we add the number of each sura to the number of verses between the first and last occurrences of the word “God,” both verses inclusive, the Grand Total comes to 8170 or 19 x 430. An abbreviated representation of the data is shown in Table 19."
+            "2": "[1] Som visats tidigare förekommer ordet ”Gud” i Koranen 2698 gånger, 19 x 142.",
+            "3": "[2] Numren på de verser där ordet ”Gud” förekommer summerar till 118123, också en multipel av 19 (118123 = 19 x 6217).",
+            "4": "Dessa enkla fenomen orsakade oss många svårigheter när vi helt enkelt räknade ordet ”Gud”. Vi var en grupp arbetare, utrustade med datorer, och vi var alla högskoleutbildade. Ändå gjorde vi flera fel när vi räknade, beräknade eller helt enkelt skrev ned antalet förekomster av ordet ”Gud”. De som fortfarande hävdar att Muhammad var Koranens författare är fullständigt ologiska; han gick aldrig på högskola, och han hade ingen dator.",
+            "5": "[3] Från de första Koraniska Initialerna (A.L.M. 2:1) till den sista initialen (N. 68:1) finns det 2641, 19 x 139, förekomster av ordet ”Gud”.",
+            "6": "[4] Ordet ”Gud” förekommer 57 gånger i avsnittet utanför Initialerna (Tabell 18).",
+            "7": "[5] Genom att addera numren på de suror och verser där dessa 57 förekomster av ordet ”Gud” finns, får vi totalt 2432, eller 19 x 128. Se Tabell 18.",
+            "8": "[6] Ordet ”Gud” förekommer i 85 suror. Om vi adderar numret på varje sura till antalet verser mellan den första och den sista förekomsten av ordet ”Gud”, med båda verserna inkluderade, blir Totalsumman 8170 eller 19 x 430. En förkortad presentation av uppgifterna visas i Tabell 19."
         },
         "picture": {},
         "table": {
             "4": {
-                "ref": "Table 18: Occurrence of the Word “God” Outside the Initialed Section",
+                "ref": "Tabell 18: Förekomst av Ordet ”Gud” Utanför Avsnittet med Initialer",
                 "title": [
-                    "Number of Sura",
-                    "Numbers of Verses",
-                    "Time Occurs"
+                    "Suranummer",
+                    "Versnummer",
+                    "Antal Förekomster"
                 ],
                 "values": [
                     "1",
@@ -1843,14 +1843,14 @@
                     "",
                     "",
                     "",
-                    "These mathematical properties cover all Occurrences of the word “God.”"
+                    "Dessa matematiska egenskaper omfattar alla förekomster av ordet ”Gud”."
                 ]
             }
         },
         "evidence": {},
         "titles": {
-            "1": "Mathematical Coding of Special Words",
-            "2": "The Word “God” (Allah)"
+            "1": "Matematisk Kodning av Speciella Ord",
+            "2": "Ordet ”Gud” (Allah)"
         }
     },
     {
