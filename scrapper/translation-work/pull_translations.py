@@ -96,8 +96,8 @@ if args.raw_map_only and not args.raw_map_output_dir:
 # --- Heavy imports (after argparse so --help works without dependencies) ---
 import ctypes
 
-# Path to your Homebrew ICU 76 libraries (adjust if using Apple Silicon)
-icu_lib_path = "/usr/local/opt/icu4c@76/lib"
+# Path to your Homebrew ICU 76 libraries (Apple Silicon Homebrew prefix)
+icu_lib_path = "/opt/homebrew/opt/icu4c@76/lib"
 
 # Explicitly load the necessary ICU libraries into the global namespace.
 # This forces the dynamic linker to use these libraries instead of the system ICU.
