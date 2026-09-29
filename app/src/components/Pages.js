@@ -906,6 +906,9 @@ const Pages = React.memo(({
                                         style={{
                                             maxHeight: isPageTitlesExpanded ? `${expandedTitlesHeight}px` : '0px',
                                             opacity: isPageTitlesExpanded ? 1 : 0,
+                                            // A folded layer is clipped too: otherwise its invisible rows hang over the
+                                            // verses under the bar and take their taps and swipes.
+                                            overflow: isPageTitlesExpanded ? 'visible' : 'hidden',
                                             transition: 'max-height 100ms ease-in, opacity 100ms ease-in',
                                         }}>
                                         <div ref={expandedTitlesListRef} className={`flex flex-col space-y-2 w-full`}>
@@ -917,6 +920,7 @@ const Pages = React.memo(({
                                         style={{
                                             maxHeight: isPageTitlesExpanded ? '0px' : `${collapsedTitlesHeight}px`,
                                             opacity: isPageTitlesExpanded ? 0 : 1,
+                                            overflow: isPageTitlesExpanded ? 'hidden' : 'visible',
                                             transition: 'max-height 100ms ease-out, opacity 100ms ease-out',
                                         }}>
                                         <div
