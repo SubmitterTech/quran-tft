@@ -198,7 +198,12 @@ const Jump = React.memo(({
     const [showBookmarks, setShowBookmarks] = useState(false);
     const [lightOpen, setLightOpen] = useState(false);
     const isMobile = !!isNative();
-    const showPickerNotSupported = (which() === 'ios') || !("showPicker" in HTMLSelectElement.prototype);
+    // A select has no showPicker() in iOS's WebKit, but focusing it from a tap opens its picker all
+    // the same, so iOS keeps the sura button and its long press as they are everywhere else. Only an
+    // engine that can do neither needs the select laid over the button, where the reader's own tap
+    // opens it.
+    const canShowSelectPicker = "showPicker" in HTMLSelectElement.prototype;
+    const selectAboveButton = !canShowSelectPicker && which() !== 'ios';
 
     const [lang, setLang] = useState(localStorage.getItem("lang"));
 
@@ -221,6 +226,7 @@ const Jump = React.memo(({
     });
 
     const suraSelectRef = useRef(null);
+    const suraTapPendingRef = useRef(false);
 
     const [isShufflingSura, setIsShufflingSura] = useState(false);
     const [isShufflingVerse, setIsShufflingVerse] = useState(false);
@@ -714,15 +720,26 @@ const Jump = React.memo(({
         }
     }, [onChangeLanguage, onClose, isMagnifyVisited, isDidYouMeanBuildBusy]);
 
-    const handleSuraSelectClick = (e) => {
-        if (showPickerNotSupported) {
+    const handleSuraSelectClick = () => {
+        if (selectAboveButton) {
             setSuraSettingsOpen(false);
             setSuraSettingsOpenningProgress(0);
+        } else if (canShowSelectPicker) {
+            suraSelectRef.current?.showPicker();
         } else {
-            if (suraSelectRef.current) {
-                suraSelectRef.current.showPicker(e);
-            }
+            suraTapPendingRef.current = true;
         }
+    };
+
+    // Without showPicker() the select is focused from the click that ends the tap, not from the tap
+    // itself: iOS sends mouse events after the touch, and the first of them takes a focus given any
+    // earlier away again before the picker can show.
+    const handleSuraButtonClick = () => {
+        if (!suraTapPendingRef.current) {
+            return;
+        }
+        suraTapPendingRef.current = false;
+        suraSelectRef.current?.focus();
     };
 
     const longPressCancelled = () => {
@@ -1069,7 +1086,7 @@ const Jump = React.memo(({
                                         <div>
                                             <div className={` w-full flex space-x-2 mt-2`}>
                                                 <div className={`relative w-full flex justify-end`}>
-                                                    {showPickerNotSupported &&
+                                                    {selectAboveButton &&
                                                         <div
                                                             style={{ opacity: ((suraSettingsOpenningProgress * 1.0 / 5) + 0.05) }}
                                                             className={`z-40 w-1/3 absolute left-0 h-14 flex items-center justify-center ${colors[theme]["text"]["on-deep-soft"]}`}>
@@ -1082,13 +1099,14 @@ const Jump = React.memo(({
                                                     <div
                                                         style={isShufflingSura ? { animation: 'animate-scale 0.2s ease-in-out' } : {}}
                                                         onAnimationEnd={handleRandomSuraAnimationEnd}
-                                                        className={`z-40 ${showPickerNotSupported ? `w-full absolute flex justify-end` : `w-2/3 absolute`} h-14 `}>
+                                                        onClick={handleSuraButtonClick}
+                                                        className={`z-40 ${selectAboveButton ? `w-full absolute flex justify-end` : `w-2/3 absolute`} h-14 `}>
                                                         <LongPressable
                                                             onTap={() => { handleSuraSelectClick() }}
-                                                            onLongPress={() => { setSuraSettingsOpenningProgress(1) }}
+                                                            onLongPress={() => { suraTapPendingRef.current = false; setSuraSettingsOpenningProgress(1) }}
                                                             onTimerUpdate={handleTimerUpdate}
                                                             onCancel={longPressCancelled}>
-                                                            <div className={`${showPickerNotSupported ? `w-2/3 absolute right-0 top-0` : `w-full`} h-full flex justify-center cursor-pointer text-center shadow-md rounded ${colors[theme]["text"]["top"]} ${colors[theme]["surface"]["middle"]} ${parseInt(suraNumber) !== 0 ? `text-3xl pt-2.5` : `text-2xl pt-3.5`}`}>
+                                                            <div className={`${selectAboveButton ? `w-2/3 absolute right-0 top-0` : `w-full`} h-full flex justify-center cursor-pointer text-center shadow-md rounded ${colors[theme]["text"]["top"]} ${colors[theme]["surface"]["middle"]} ${parseInt(suraNumber) !== 0 ? `text-3xl pt-2.5` : `text-2xl pt-3.5`}`}>
                                                                 {parseInt(suraNumber) !== 0 ? suraNumber : translationApplication?.sura}
                                                             </div>
                                                             {parseInt(suraNumber) !== 0 && <div className={`text-xs absolute bottom-0.5 right-1 ${colors[theme]["text"]["bottom"]} brightness-75 z-50`}>{translationApplication?.sura}</div>}
@@ -1102,7 +1120,7 @@ const Jump = React.memo(({
                                                         dir={isMobile ? `ltr` : direction}
                                                         onChange={handleSuraChange}
                                                         value={suraNumber}
-                                                        className={`${showPickerNotSupported ? `z-50 ` : `z-30`} w-2/3 inset-0 opacity-0 text-3xl p-3 rounded ${colors[theme]["text"]["top"]} ${colors[theme]["surface"]["middle"]} focus:ring-2 focus:outline-none focus:ring-sky-500  `}>
+                                                        className={`${selectAboveButton ? `z-50 ` : `z-30`} w-2/3 inset-0 opacity-0 text-3xl p-3 rounded ${colors[theme]["text"]["top"]} ${colors[theme]["surface"]["middle"]} focus:ring-2 focus:outline-none focus:ring-sky-500  `}>
                                                         <option key="0" value="0" disabled>
                                                             {(() => {
                                                                 if (order === 'alphabetical') {
