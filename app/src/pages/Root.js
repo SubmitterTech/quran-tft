@@ -17,6 +17,7 @@ import { releaseContent } from '../utils/ContentStore';
 import { getBaseAppendices as readBaseAppendices, getBaseIntroduction as readBaseIntroduction, refreshBaseContent } from '../utils/BaseContent';
 import languages from '../utils/LanguageCatalog';
 import { persistSet } from '../utils/Persist';
+import { IDLE_BACKGROUND_RUN, followBackgroundRun } from '../utils/BackgroundProgress';
 
 const coverTranslationContext = require.context(
     '../assets/translations',
@@ -90,6 +91,7 @@ function Root({ bootData = null }) {
     const didYouMeanProgressResetTimerRef = useRef(null);
     const didYouMeanProgressTimerRef = useRef(null);
     const didYouMeanProgressTargetRef = useRef(0);
+    const backgroundRunRef = useRef(IDLE_BACKGROUND_RUN);
     const coverPreviewRequestRef = useRef(0);
     const coverPreviewLangRef = useRef('');
     const loadedSegmentsRef = useRef({
@@ -228,14 +230,19 @@ function Root({ bootData = null }) {
             }
 
             if (normalized.total > 0 && normalized.uiProgress >= 100) {
-                didYouMeanProgressTargetRef.current = 100;
+                didYouMeanProgressTargetRef.current = 0;
                 stopDidYouMeanProgressTimer();
-                setDidYouMeanLoadProgress({
-                    active: false,
-                    loaded: normalized.total,
-                    total: normalized.total,
-                    uiProgress: 100,
-                });
+                // Only a build the bar was following is shown reaching its end. The one the splash
+                // already waited for, or one with nothing to build, would flash a full bar that the
+                // next build then takes back.
+                setDidYouMeanLoadProgress((prev) => (prev.active
+                    ? {
+                        active: false,
+                        loaded: normalized.total,
+                        total: normalized.total,
+                        uiProgress: 100,
+                    }
+                    : prev));
                 loadedSegmentsRef.current.loadDidYouMean = true;
                 didYouMeanProgressResetTimerRef.current = window.setTimeout(() => {
                     if (cancelled) return;
@@ -989,18 +996,14 @@ function Root({ bootData = null }) {
     const contentFetchPercent = Math.max(0, Math.min(100, contentFetchProgress.uiProgress || 0));
     const isContentFetchActive = contentFetchProgress.active || contentFetchPercent > 0;
     // Several background tasks can be running at once. They report separately and the reader is
-    // shown one bar: the average of whatever is running.
-    const activeBackgroundProgresses = [
-        isTranslationProgressActive ? translationProgressPercent : null,
-        isDidYouMeanProgressActive ? didYouMeanProgressPercent : null,
-        isContentFetchActive ? contentFetchPercent : null,
-    ].filter((value) => value !== null);
-    const isBackgroundWorkActive = activeBackgroundProgresses.length > 0;
-    const backgroundWorkPercent = Number((
-        isBackgroundWorkActive
-            ? activeBackgroundProgresses.reduce((total, value) => total + value, 0) / activeBackgroundProgresses.length
-            : 0
-    ).toFixed(1));
+    // shown one bar that only moves forward; see BackgroundProgress.
+    backgroundRunRef.current = followBackgroundRun(backgroundRunRef.current, {
+        translation: isTranslationProgressActive ? translationProgressPercent : null,
+        didYouMean: isDidYouMeanProgressActive ? didYouMeanProgressPercent : null,
+        contentFetch: isContentFetchActive ? contentFetchPercent : null,
+    });
+    const isBackgroundWorkActive = backgroundRunRef.current !== IDLE_BACKGROUND_RUN;
+    const backgroundWorkPercent = backgroundRunRef.current.percent;
     const normalizedLangForFont = (lang || '').toLowerCase();
     const shouldUsePersianSans = normalizedLangForFont === 'fa' && font !== 'font-serif';
     const tamilFontClassName = isTamil(normalizedLangForFont)

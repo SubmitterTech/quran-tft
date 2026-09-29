@@ -33,6 +33,9 @@ const CHECK_TIMEOUT_MS = 4000;
 const DOWNLOAD_CONNECT_TIMEOUT_MS = 10000;
 const DOWNLOAD_READ_TIMEOUT_MS = 60000;
 const PASS_BUDGET_MS = 90000;
+// How far the pass itself fills the bar. If it fetched something, putting that on screen is the
+// rest of the work, so the pass alone never reads as finished and the bar never has to step back.
+const PASS_PERCENT = 95;
 
 // Everything a language needs to stand on its own.
 const UPDATABLE_KINDS = ['quran', 'appendices', 'introduction', 'map', 'application', 'cover'];
@@ -231,7 +234,7 @@ export const runContentUpdateOnce = async ({ language } = {}) => {
             known: getDownloadedRevisions(),
             onProgress: (fraction) => emitProgress({
                 active: true,
-                percent: Math.round(((stepsDone + Math.max(0, Math.min(1, fraction))) / steps.length) * 100),
+                percent: Math.round(((stepsDone + Math.max(0, Math.min(1, fraction))) / steps.length) * PASS_PERCENT),
                 stage: 'content-download',
                 currentLanguage: lang,
             }),
@@ -249,7 +252,7 @@ export const runContentUpdateOnce = async ({ language } = {}) => {
         done += 1;
         emitProgress({
             active: true,
-            percent: Math.round((done / steps.length) * 100),
+            percent: Math.round((done / steps.length) * PASS_PERCENT),
             stage: 'content-check',
             currentLanguage: lang,
         });
@@ -261,7 +264,7 @@ export const runContentUpdateOnce = async ({ language } = {}) => {
     // indexes built from it refreshed. The channel stays open until the screen says it is done,
     // so the reader sees one bar rather than one closing and another opening behind it.
     emitProgress(updated > 0
-        ? { active: true, percent: 95, stage: 'content-apply', currentLanguage: lang }
+        ? { active: true, percent: PASS_PERCENT, stage: 'content-apply', currentLanguage: lang }
         : { active: false, percent: 0, stage: 'content-check', currentLanguage: lang });
 
     if (updated > 0 && typeof window !== 'undefined') {
