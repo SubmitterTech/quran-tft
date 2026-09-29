@@ -93,6 +93,10 @@ const Book = React.memo(({ incomingSearch = false, incomingAppendix = false, inc
     const accumulatedCopiesRef = useRef({});
     const copyTimerRef = useRef(null);
     const timerRef = useRef(null);
+    // The language of the text on screen, which is English while a translation is still loading.
+    const displayedLanguage = translation ? String(lang || 'en').toLowerCase() : 'en';
+    const copyLanguageRef = useRef(displayedLanguage);
+    copyLanguageRef.current = displayedLanguage;
     const [remainingTime, setRemainingTime] = useState(0);
     const [overscrollNavProgress, setOverscrollNavProgress] = useState(0);
     const progressPercentage = remainingTime ? (remainingTime / 20000) * 100 : 0;
@@ -907,7 +911,7 @@ const Book = React.memo(({ incomingSearch = false, incomingAppendix = false, inc
             setRemainingTime(20000);
 
             const clip = `[${currentVerseKey}]`;
-            const s = await smartCopy(clip, accumulatedCopiesRef, verseText, hasTitle, hasNotes);
+            const s = await smartCopy(clip, accumulatedCopiesRef, verseText, hasTitle, hasNotes, copyLanguageRef.current);
             if (s) {
                 const textToShow = Object.keys(accumulatedCopiesRef.current).join(", ") + ` ` + translationApplication.copied
                 toast.success(textToShow, { duration: 3000 });
@@ -942,6 +946,12 @@ const Book = React.memo(({ incomingSearch = false, incomingAppendix = false, inc
         if (copyTimerRef.current) clearTimeout(copyTimerRef.current);
         if (timerRef.current) cancelAnimationFrame(timerRef.current);
     }, []);
+
+    // A copy session belongs to the language it was gathered in; when the text on screen changes
+    // language the session ends, and the next copy starts afresh in the new one.
+    useEffect(() => {
+        stopCopyTimer();
+    }, [displayedLanguage, stopCopyTimer]);
 
     const renderBookContent = () => {
         const baseTextColor = theme === 'leaf'

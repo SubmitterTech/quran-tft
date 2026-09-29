@@ -414,7 +414,7 @@ const buildNotesByInsertPoint = (notes, verseEntries) => {
   return notesByInsertPoint;
 };
 
-export const smartCopy = async (key, accumulatedCopiesRef, verseText, hasTitle = null, hasNotes = null) => {
+export const smartCopy = async (key, accumulatedCopiesRef, verseText, hasTitle = null, hasNotes = null, language = null) => {
   const parsedCurrentVerse = parseVerseKey(key);
   const verseKey = `${key} ${verseText}`;
   let accumulatedText = verseKey;
@@ -423,14 +423,22 @@ export const smartCopy = async (key, accumulatedCopiesRef, verseText, hasTitle =
     accumulatedText = `${hasTitle}\n${accumulatedText}`;
   }
 
-  if (!accumulatedCopiesRef.current || Object.keys(accumulatedCopiesRef.current).length === 0) {
+  // Everything a session gathers goes to the clipboard on every copy, so a session holds one
+  // language: a copy in another language starts over rather than mixing the two.
+  const existingSession = smartCopyState.get(accumulatedCopiesRef);
+  const isSessionEmpty = !accumulatedCopiesRef.current || Object.keys(accumulatedCopiesRef.current).length === 0;
+  const isOtherLanguage = Boolean(language && existingSession?.language && existingSession.language !== language);
+  if (isSessionEmpty || isOtherLanguage) {
     accumulatedCopiesRef.current = {};
-    smartCopyState.set(accumulatedCopiesRef, { notes: new Map() });
+    smartCopyState.set(accumulatedCopiesRef, { notes: new Map(), language });
   }
 
-  const copySession = smartCopyState.get(accumulatedCopiesRef) || { notes: new Map() };
+  const copySession = smartCopyState.get(accumulatedCopiesRef) || { notes: new Map(), language };
   if (!smartCopyState.has(accumulatedCopiesRef)) {
     smartCopyState.set(accumulatedCopiesRef, copySession);
+  }
+  if (language && !copySession.language) {
+    copySession.language = language;
   }
 
   accumulatedCopiesRef.current = {

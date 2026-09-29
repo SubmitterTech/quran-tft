@@ -205,6 +205,34 @@ describe('listCopy note placement', () => {
     );
   });
 
+  test('smartCopy leaves no note behind when the same verse is copied again in another language', async () => {
+    const accumulatedCopiesRef = { current: {} };
+
+    await smartCopy('[110:1]', accumulatedCopiesRef, 'Ayet 1', null, '*110:1-3 Türkçe not', 'tr');
+    await smartCopy('[110:1]', accumulatedCopiesRef, 'Vers 1', null, '*110:1-3 Deutsche Anmerkung', 'de');
+
+    expect(getCopiedText()).toBe('[110:1] Vers 1\n\n*110:1-3 Deutsche Anmerkung');
+  });
+
+  test('smartCopy starts over when a copy arrives in another language', async () => {
+    const accumulatedCopiesRef = { current: {} };
+
+    await smartCopy('[107:2]', accumulatedCopiesRef, 'Ayet 2', null, null, 'tr');
+    await smartCopy('[107:3]', accumulatedCopiesRef, 'Vers 3', null, null, 'de');
+
+    expect(getCopiedText()).toBe('[107:3] Vers 3');
+    expect(Object.keys(accumulatedCopiesRef.current)).toEqual(['[107:3]']);
+  });
+
+  test('smartCopy keeps gathering copies made in the same language', async () => {
+    const accumulatedCopiesRef = { current: {} };
+
+    await smartCopy('[107:2]', accumulatedCopiesRef, 'Ayet 2', null, null, 'tr');
+    await smartCopy('[107:3]', accumulatedCopiesRef, 'Ayet 3', null, null, 'tr');
+
+    expect(getCopiedText()).toBe('[107:2] Ayet 2\n\n[107:3] Ayet 3');
+  });
+
   test('smartCopy falls back to execCommand when Clipboard.write fails', async () => {
     Clipboard.write.mockRejectedValueOnce(new Error('clipboard blocked'));
 
