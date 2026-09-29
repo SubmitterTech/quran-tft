@@ -92,7 +92,9 @@ function Root({ bootData = null }) {
     const didYouMeanProgressTimerRef = useRef(null);
     const didYouMeanProgressTargetRef = useRef(0);
     const backgroundRunRef = useRef(IDLE_BACKGROUND_RUN);
-    const coverPreviewRequestRef = useRef(0);
+    const languageRequestRef = useRef(0);
+    const pendingLanguageRef = useRef('');
+    const preloadedLanguageRef = useRef('');
     const coverPreviewLangRef = useRef('');
     const loadedSegmentsRef = useRef({
         loadQuran: false,
@@ -451,74 +453,6 @@ function Root({ bootData = null }) {
         });
     }, [startGuidedProgressTimer]);
 
-    const onChangeLanguage = useCallback((nextLang) => {
-        const normalizedNext = (nextLang || "").toLowerCase();
-        const normalizedCurrent = (activeLangRef.current || "").toLowerCase();
-
-        if (!normalizedNext || normalizedNext === normalizedCurrent) {
-            return;
-        }
-
-        const requestId = coverPreviewRequestRef.current + 1;
-        coverPreviewRequestRef.current = requestId;
-
-        if (!isEnglishLanguage(normalizedNext)) {
-            const syncedCover = showCover ? getCoverTranslationSnapshot(normalizedNext) : null;
-            if (syncedCover) {
-                coverPreviewLangRef.current = normalizedNext;
-                loadedSegmentsRef.current.loadCover = true;
-                coverTranslationCacheRef.current[normalizedNext] = syncedCover;
-                setCoverData(syncedCover);
-            }
-
-            translationProgressStartedAtRef.current = performance.now();
-            setTranslationLoadProgress({
-                active: true,
-                loaded: 0,
-                total: 0,
-                uiProgress: 0,
-            });
-            startGuidedTranslationProgress();
-
-            if (showCover) {
-                if (syncedCover) {
-                    deferLanguageCommit(nextLang);
-                    return;
-                }
-
-                const cachedCover = coverTranslationCacheRef.current[normalizedNext];
-                if (cachedCover) {
-                    coverPreviewLangRef.current = normalizedNext;
-                    loadedSegmentsRef.current.loadCover = true;
-                    setCoverData(cachedCover);
-                    deferLanguageCommit(nextLang);
-                    return;
-                }
-
-                loadCoverTranslationOnly(normalizedNext).then((translatedCoverData) => {
-                    if (coverPreviewRequestRef.current !== requestId) {
-                        return;
-                    }
-
-                    if (translatedCoverData) {
-                        coverPreviewLangRef.current = normalizedNext;
-                        loadedSegmentsRef.current.loadCover = true;
-                        setCoverData(translatedCoverData);
-                    } else {
-                        coverPreviewLangRef.current = '';
-                    }
-
-                    deferLanguageCommit(nextLang);
-                });
-                return;
-            }
-        } else {
-            resetTranslationProgress();
-        }
-
-        setLang(nextLang);
-    }, [isEnglishLanguage, startGuidedTranslationProgress, resetTranslationProgress, showCover, loadCoverTranslationOnly, getCoverTranslationSnapshot, deferLanguageCommit]);
-
     const loadCoreTranslations = useCallback(async (language, preloadPlan = null, onSegmentSettled = null) => {
         const normalizedLanguage = (language || "").toLowerCase();
 
@@ -617,6 +551,143 @@ function Root({ bootData = null }) {
         };
     }, []);
 
+    const onChangeLanguage = useCallback((nextLang) => {
+        const normalizedNext = (nextLang || "").toLowerCase();
+        const normalizedCurrent = (activeLangRef.current || "").toLowerCase();
+
+        if (!normalizedNext || normalizedNext === pendingLanguageRef.current) {
+            return;
+        }
+
+        // Any newer choice supersedes one still loading.
+        const requestId = languageRequestRef.current + 1;
+        languageRequestRef.current = requestId;
+
+        if (normalizedNext === normalizedCurrent) {
+            if (pendingLanguageRef.current) {
+                pendingLanguageRef.current = '';
+                resetTranslationProgress();
+            }
+            return;
+        }
+        pendingLanguageRef.current = '';
+
+        if (!isEnglishLanguage(normalizedNext)) {
+            const syncedCover = showCover ? getCoverTranslationSnapshot(normalizedNext) : null;
+            if (syncedCover) {
+                coverPreviewLangRef.current = normalizedNext;
+                loadedSegmentsRef.current.loadCover = true;
+                coverTranslationCacheRef.current[normalizedNext] = syncedCover;
+                setCoverData(syncedCover);
+            }
+
+            translationProgressStartedAtRef.current = performance.now();
+            setTranslationLoadProgress({
+                active: true,
+                loaded: 0,
+                total: 0,
+                uiProgress: 0,
+            });
+            startGuidedTranslationProgress();
+
+            if (showCover) {
+                if (syncedCover) {
+                    deferLanguageCommit(nextLang);
+                    return;
+                }
+
+                const cachedCover = coverTranslationCacheRef.current[normalizedNext];
+                if (cachedCover) {
+                    coverPreviewLangRef.current = normalizedNext;
+                    loadedSegmentsRef.current.loadCover = true;
+                    setCoverData(cachedCover);
+                    deferLanguageCommit(nextLang);
+                    return;
+                }
+
+                loadCoverTranslationOnly(normalizedNext).then((translatedCoverData) => {
+                    if (languageRequestRef.current !== requestId) {
+                        return;
+                    }
+
+                    if (translatedCoverData) {
+                        coverPreviewLangRef.current = normalizedNext;
+                        loadedSegmentsRef.current.loadCover = true;
+                        setCoverData(translatedCoverData);
+                    } else {
+                        coverPreviewLangRef.current = '';
+                    }
+
+                    deferLanguageCommit(nextLang);
+                });
+                return;
+            }
+
+            // The page stays in the language it is in while the new one loads, with the bar
+            // showing the work, and then changes in one go: text, interface, direction and
+            // font together. Emptying it first showed the English base text in between, and a
+            // verse copied in that moment was copied in English.
+            pendingLanguageRef.current = normalizedNext;
+            const plan = getRequiredTranslationPlan(bookPage, false);
+            const planSegments = CORE_TRANSLATION_SEGMENTS.filter((key) => plan[key]);
+            setTranslationLoadProgress((prev) => ({ ...prev, total: planSegments.length }));
+
+            const settledSegments = new Set();
+            const onSegmentSettled = (segmentKey) => {
+                if (languageRequestRef.current !== requestId || settledSegments.has(segmentKey)) {
+                    return;
+                }
+                settledSegments.add(segmentKey);
+                setTranslationLoadProgress((prev) => (prev.active
+                    ? {
+                        ...prev,
+                        loaded: settledSegments.size,
+                        uiProgress: Math.max(prev.uiProgress, Number(((settledSegments.size / planSegments.length) * 100).toFixed(1))),
+                    }
+                    : prev));
+            };
+
+            loadCoreTranslations(normalizedNext, plan, onSegmentSettled).then((bundle) => {
+                if (languageRequestRef.current !== requestId) {
+                    return;
+                }
+                pendingLanguageRef.current = '';
+
+                if (!bundle?.translation) {
+                    // The text could not be read: switch the way it always did, with the
+                    // English base standing in while the loader tries again.
+                    setLang(nextLang);
+                    return;
+                }
+
+                // The screens read the saved language while they render, so it changes first.
+                persistSet("lang", nextLang);
+                preloadedLanguageRef.current = normalizedNext;
+                loadedSegmentsRef.current = {
+                    loadQuran: true,
+                    loadCover: false,
+                    loadIntro: Boolean(plan.loadIntro),
+                    loadAppendices: Boolean(plan.loadAppendices),
+                    loadApplication: true,
+                    loadMap: false,
+                    loadDidYouMean: loadedSegmentsRef.current.loadDidYouMean,
+                };
+                setTranslation(bundle.translation);
+                setTranslationApplication(bundle.application || application);
+                setTranslationIntro((plan.loadIntro && bundle.introduction) || getBaseIntroduction());
+                setTranslationAppx((plan.loadAppendices && bundle.appendices) || getBaseAppendices());
+                setTranslationMap(map);
+                setCoverData(cover);
+                setLang(nextLang);
+            });
+            return;
+        } else {
+            resetTranslationProgress();
+        }
+
+        setLang(nextLang);
+    }, [isEnglishLanguage, startGuidedTranslationProgress, resetTranslationProgress, showCover, loadCoverTranslationOnly, getCoverTranslationSnapshot, deferLanguageCommit, bookPage, getRequiredTranslationPlan, loadCoreTranslations]);
+
     const onIntroTranslationNeeded = useCallback(() => {
         const normalizedLang = (activeLangRef.current || "").toLowerCase();
 
@@ -657,7 +728,11 @@ function Root({ bootData = null }) {
         introLoadPromiseRef.current = null;
         const canUseBootData = bootData?.language === normalizedLang;
 
-        if (isEnglishLanguage(normalizedLang)) {
+        if (preloadedLanguageRef.current === normalizedLang) {
+            // Everything the screen needs came with the switch and is already in place.
+            preloadedLanguageRef.current = '';
+            coverPreviewLangRef.current = '';
+        } else if (isEnglishLanguage(normalizedLang)) {
             coverPreviewLangRef.current = '';
             setTranslation(null);
             setTranslationApplication(application);
