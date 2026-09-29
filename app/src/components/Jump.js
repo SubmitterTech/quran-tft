@@ -231,6 +231,10 @@ const Jump = React.memo(({
     const [isShufflingSura, setIsShufflingSura] = useState(false);
     const [isShufflingVerse, setIsShufflingVerse] = useState(false);
     const languagePickerValue = isDidYouMeanBuildBusy ? LOADING_LANGUAGE_OPTION_VALUE : lang;
+    // On Windows and Linux the browser draws the list of a select itself, with the options' colours
+    // over the picker's see-through background; the options carry the menu colours of the theme so
+    // the list stays readable.
+    const languageOptionColors = `${colors[theme]["surface"]["base"]} ${colors[theme]["text"]["on-deep"]}`;
     const [platformVersionLabel, setPlatformVersionLabel] = useState('');
     const pendingRandomSelectionRef = useRef(null);
     const randomRevealTimeoutRef = useRef(null);
@@ -908,14 +912,14 @@ const Jump = React.memo(({
                             disabled={isDidYouMeanBuildBusy}
                             className={`w-full text-center rounded px-4 py-2 border border-neutral-400/40 text-lg brightness-80 bg-neutral-500/30 ${colors[theme]["text"]["bottom"]} focus:outline-none focus:ring-2 focus:border-sky-500 focus:ring-sky-500 transition-opacity duration-150 ${isDidYouMeanBuildBusy ? 'opacity-70 cursor-not-allowed' : ''}`}>
                             {isDidYouMeanBuildBusy && (
-                                <option value={LOADING_LANGUAGE_OPTION_VALUE}>
+                                <option value={LOADING_LANGUAGE_OPTION_VALUE} className={languageOptionColors}>
                                     {translationApplication?.loading || 'Loading...'}
                                 </option>
                             )}
                             {Object.keys(languages).map((key) => {
                                 if (key && languages[key]["comp"] >= languageDisabilityThreshold) {
                                     return (
-                                        <option dir={languages[key]["dir"]} key={key} value={key}>
+                                        <option dir={languages[key]["dir"]} key={key} value={key} className={languageOptionColors}>
                                             {languages[key]["name"]}
                                         </option>
                                     );

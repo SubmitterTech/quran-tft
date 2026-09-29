@@ -161,6 +161,10 @@ const Book = React.memo(({ incomingSearch = false, incomingAppendix = false, inc
     copyLanguageRef.current = displayedLanguage;
     const [overscrollNavProgress, setOverscrollNavProgress] = useState(0);
     const backgroundProgressPercentage = Math.max(0, Math.min(100, backgroundWorkProgress));
+    // On Windows and Linux the browser draws a select's list itself, with the options' colours over
+    // the select's background, which here is see-through. The options carry the menu colours of the
+    // theme instead, so the list stays readable in every theme.
+    const selectOptionColors = `${colors[theme]["surface"]["base"]} ${colors[theme]["text"]["on-deep"]}`;
     const nextProgressSide = direction === 'rtl' ? 'left' : 'right';
 
     const skipPages = useMemo(() => [3, 4, 8, 9, 10, 12], []);
@@ -1373,7 +1377,7 @@ const Book = React.memo(({ incomingSearch = false, incomingAppendix = false, inc
                                             className={`inset-0 opacity-0 w-20 h-full text-3xl ${isJumpOpen ? `hidden` : ``} bg-transparent focus:outline-none focus:ring-2 focus:border-sky-500 focus:ring-sky-500`}
                                         >
                                             {pages.map(({ page, value }, index) => (
-                                                <option key={index} value={value}>
+                                                <option key={index} value={value} className={selectOptionColors}>
                                                     {page}
                                                 </option>
                                             ))}
@@ -1402,7 +1406,7 @@ const Book = React.memo(({ incomingSearch = false, incomingAppendix = false, inc
                                             className={`inset-0 opacity-0 w-20 h-full text-3xl ${isJumpOpen ? `hidden` : ``} bg-transparent focus:outline-none focus:ring-2 focus:border-sky-500 focus:ring-sky-500`}
                                         >
                                             {pages.map(({ page, value }, index) => (
-                                                <option key={index} value={value}>
+                                                <option key={index} value={value} className={selectOptionColors}>
                                                     {page}
                                                 </option>
                                             ))}
@@ -1430,7 +1434,7 @@ const Book = React.memo(({ incomingSearch = false, incomingAppendix = false, inc
                                             className={`inset-0 opacity-0 w-20 h-full text-3xl ${isJumpOpen ? `hidden` : ``} bg-transparent focus:outline-none focus:ring-2 focus:border-sky-500 focus:ring-sky-500`}
                                         >
                                             {appendices.map((appendix, index) => (
-                                                <option key={index} value={appendix.number}>
+                                                <option key={index} value={appendix.number} className={selectOptionColors}>
                                                     {`${appendix.number} ${appendix.title}`}
                                                 </option>
                                             ))}
