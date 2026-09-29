@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useRef, useCallback, useMemo } from 'react';
+import { useSpring, animated } from '@react-spring/web';
 import { App } from '@capacitor/app';
 import { Toast } from '@capacitor/toast';
 import { Share } from '@capacitor/share';
@@ -19,6 +20,67 @@ import { persistSet } from '../utils/Persist';
 import { BackgroundProgressBar } from '../utils/BackgroundProgress';
 
 const AUTO_HYPHEN_STORAGE_KEY = 'qurantft-ah';
+const COPY_SESSION_MS = 20000;
+
+// A function whose identity never changes but that always runs the latest version of `callback`.
+// Handlers re-created on every render would otherwise redraw the memoized children they are
+// passed to. The ref is set during render because Pages calls parseReferences while rendering.
+const useStableCallback = (callback) => {
+    const callbackRef = useRef(callback);
+    callbackRef.current = callback;
+    return useCallback((...args) => callbackRef.current(...args), []);
+};
+
+// The copy countdown under the page. It is the only thing that moves while a copy session runs,
+// so it owns its motion: the bar glides on its own and the number changes once a second, and the
+// book around it is not redrawn on every frame.
+const CopyCountdown = React.memo(({ deadline, onCancel, colors, theme }) => {
+    const [{ width }, api] = useSpring(() => ({ width: 0 }));
+    const [secondsLeft, setSecondsLeft] = useState(0);
+
+    useEffect(() => {
+        const remaining = deadline - Date.now();
+        if (!deadline || remaining <= 0) {
+            api.set({ width: 0 });
+            setSecondsLeft(0);
+            return undefined;
+        }
+
+        api.set({ width: (remaining / COPY_SESSION_MS) * 100 });
+        api.start({ width: 0, config: { duration: remaining } });
+
+        let timer = null;
+        const tick = () => {
+            const left = deadline - Date.now();
+            setSecondsLeft(Math.max(Math.floor(left / 1000), 0));
+            if (left > 0) {
+                timer = setTimeout(tick, (left % 1000) || 1000);
+            }
+        };
+        tick();
+        return () => clearTimeout(timer);
+    }, [deadline, api]);
+
+    return (
+        <>
+            <animated.div
+                className={`absolute h-0.5 left-0 -top-0.5 ${colors[theme]["accent"]["fill"]}`}
+                style={{ width: width.to((value) => `${value}%`) }} />
+            {deadline > 0 &&
+                <div className={`absolute pb-1 left-1/2 -translate-x-1/2 -top-14 ${colors[theme]["surface"]["base"]} rounded flex flex-col justify-center shadow-md shadow-cyan-300/30`}>
+                    <button className={`flex justify-center ${colors[theme]["text"]["on-deep"]}`} onClick={onCancel}>
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className={`w-12 h-12`}>
+                            <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
+                        </svg>
+                    </button>
+                    <div className={`absolute bottom-0 w-full flex items-center justify-center text-xs ${colors[theme]["accent"]["on-deep"]}`}>
+                        <div>{secondsLeft}</div>
+                    </div>
+                </div>
+            }
+        </>
+    );
+});
 
 const Book = React.memo(({ incomingSearch = false, incomingAppendix = false, incomingAppendixNumber = 1, onChangeFont, font, onChangeColor, colors, theme, translationApplication, introductionContent, quranData, map, appendicesContent, translation, onChangeLanguage, onPageChange = null, onIntroTranslationNeeded = null, isBackgroundWorkActive = false, backgroundWorkProgress = 0, direction, isDidYouMeanBuildBusy = false }) => {
     const lang = localStorage.getItem("lang")
@@ -92,14 +154,12 @@ const Book = React.memo(({ incomingSearch = false, incomingAppendix = false, inc
 
     const accumulatedCopiesRef = useRef({});
     const copyTimerRef = useRef(null);
-    const timerRef = useRef(null);
+    const [copyDeadline, setCopyDeadline] = useState(0);
     // The language of the text on screen, which is English while a translation is still loading.
     const displayedLanguage = translation ? String(lang || 'en').toLowerCase() : 'en';
     const copyLanguageRef = useRef(displayedLanguage);
     copyLanguageRef.current = displayedLanguage;
-    const [remainingTime, setRemainingTime] = useState(0);
     const [overscrollNavProgress, setOverscrollNavProgress] = useState(0);
-    const progressPercentage = remainingTime ? (remainingTime / 20000) * 100 : 0;
     const backgroundProgressPercentage = Math.max(0, Math.min(100, backgroundWorkProgress));
     const nextProgressSide = direction === 'rtl' ? 'left' : 'right';
 
@@ -903,12 +963,18 @@ const Book = React.memo(({ incomingSearch = false, incomingAppendix = false, inc
         setJumpOpen(false);
     }, []);
 
+    const stopCopyTimer = useCallback(() => {
+        accumulatedCopiesRef.current = {};
+        setCopyDeadline(0);
+        if (copyTimerRef.current) clearTimeout(copyTimerRef.current);
+    }, []);
+
     const startCopyTimer = useCallback((currentVerseKey, verseText, hasTitle, hasNotes, translationApplication) => {
         const handleAccumulatedCopy = async () => {
-            // Reset visual timer immediately on each new copy action.
+            // Every copy restarts the window, and the session ends exactly when the countdown does.
             if (copyTimerRef.current) clearTimeout(copyTimerRef.current);
-            if (timerRef.current) cancelAnimationFrame(timerRef.current);
-            setRemainingTime(20000);
+            setCopyDeadline(Date.now() + COPY_SESSION_MS);
+            copyTimerRef.current = setTimeout(stopCopyTimer, COPY_SESSION_MS);
 
             const clip = `[${currentVerseKey}]`;
             const s = await smartCopy(clip, accumulatedCopiesRef, verseText, hasTitle, hasNotes, copyLanguageRef.current);
@@ -916,42 +982,23 @@ const Book = React.memo(({ incomingSearch = false, incomingAppendix = false, inc
                 const textToShow = Object.keys(accumulatedCopiesRef.current).join(", ") + ` ` + translationApplication.copied
                 toast.success(textToShow, { duration: 3000 });
             }
-
-            // Start a new timeout
-            copyTimerRef.current = setTimeout(() => {
-                accumulatedCopiesRef.current = {};
-                setRemainingTime(0);
-            }, 19000);
-
-            let startTime = Date.now();
-            let endTime = startTime + 19999;
-
-            const updateRemainingTime = () => {
-                let now = Date.now();
-                let remaining = Math.max(endTime - now, 0);
-                setRemainingTime(remaining);
-                if (remaining > 0) {
-                    timerRef.current = requestAnimationFrame(updateRemainingTime);
-                }
-            };
-            updateRemainingTime();
         };
 
         handleAccumulatedCopy();
-    }, [accumulatedCopiesRef, copyTimerRef, timerRef]);
-
-    const stopCopyTimer = useCallback(() => {
-        accumulatedCopiesRef.current = {};
-        setRemainingTime(0);
-        if (copyTimerRef.current) clearTimeout(copyTimerRef.current);
-        if (timerRef.current) cancelAnimationFrame(timerRef.current);
-    }, []);
+    }, [stopCopyTimer]);
 
     // A copy session belongs to the language it was gathered in; when the text on screen changes
     // language the session ends, and the next copy starts afresh in the new one.
     useEffect(() => {
         stopCopyTimer();
     }, [displayedLanguage, stopCopyTimer]);
+
+    // The page components are memoized; stable handlers keep them from being redrawn every time
+    // the book re-renders for something that does not concern them.
+    const stableParseReferences = useStableCallback(parseReferences);
+    const stableHandleClickReference = useStableCallback(handleClickReference);
+    const stableHandleToggleJump = useStableCallback(handleToggleJump);
+    const stableNextPage = useStableCallback(nextPage);
 
     const renderBookContent = () => {
         const baseTextColor = theme === 'leaf'
@@ -982,7 +1029,7 @@ const Book = React.memo(({ incomingSearch = false, incomingAppendix = false, inc
                 colors={colors}
                 theme={theme}
                 translationApplication={translationApplication}
-                parseReferences={parseReferences}
+                parseReferences={stableParseReferences}
                 introduction={introductionContent}
                 currentPage={currentPage}
                 restoreIntroText={restoreIntroText}
@@ -992,7 +1039,7 @@ const Book = React.memo(({ incomingSearch = false, incomingAppendix = false, inc
                 direction={direction}
                 upt={updatePageTriggered}
                 autoHyphenation={isAutoHyphenationEnabled}
-                onEndOverscrollNext={nextPage}
+                onEndOverscrollNext={stableNextPage}
                 onOverscrollProgressChange={setOverscrollNavProgress}
             />;
         }
@@ -1085,14 +1132,14 @@ const Book = React.memo(({ incomingSearch = false, incomingAppendix = false, inc
                 translation={translation}
                 actionType={action}
                 from={lastPosition}
-                parseReferences={parseReferences}
+                parseReferences={stableParseReferences}
                 selectedPage={currentPage}
                 selectedSura={selectedSura}
                 selectedVerse={selectedVerse}
                 setSelectedSura={setSelectedSura}
                 setSelectedVerse={setSelectedVerse}
-                handleClickReference={handleClickReference}
-                handleToggleJump={handleToggleJump}
+                handleClickReference={stableHandleClickReference}
+                handleToggleJump={stableHandleToggleJump}
                 path={path}
                 startCopyTimer={startCopyTimer}
                 direction={direction}
@@ -1100,7 +1147,7 @@ const Book = React.memo(({ incomingSearch = false, incomingAppendix = false, inc
                 kvdo={keepVerseDetailsOpen && rememberHistory}
                 referenceToRestore={noteReferenceToRestore}
                 autoHyphenation={isAutoHyphenationEnabled}
-                onEndOverscrollNext={nextPage}
+                onEndOverscrollNext={stableNextPage}
                 onOverscrollProgressChange={setOverscrollNavProgress}
             />;
         }
@@ -1175,7 +1222,7 @@ const Book = React.memo(({ incomingSearch = false, incomingAppendix = false, inc
                 colors={colors}
                 theme={theme}
                 translationApplication={translationApplication}
-                parseReferences={parseReferences}
+                parseReferences={stableParseReferences}
                 appendices={appendicesContent}
                 selected={selectedApp}
                 restoreAppText={restoreAppText}
@@ -1245,23 +1292,15 @@ const Book = React.memo(({ incomingSearch = false, incomingAppendix = false, inc
                 <div className={`w-full flex z-[220] ${colors[theme]["surface"]["base"]} fixed bottom-0`}
                     style={{ paddingBottom: 'var(--app-controls-safe-bottom)' }}>
                     <div className={`relative flex w-full items-center justify-between`}>
-                        <div className={`absolute h-0.5 left-0 -top-0.5 ${colors[theme]["accent"]["fill"]}`} style={{ width: `${progressPercentage}%` }}></div>
+                        <CopyCountdown
+                            deadline={copyDeadline}
+                            onCancel={stopCopyTimer}
+                            colors={colors}
+                            theme={theme} />
                         <BackgroundProgressBar
                             active={isBackgroundWorkActive}
                             percent={backgroundProgressPercentage}
                             className={`absolute h-0.5 left-0 -top-[3px] pointer-events-none ${colors[theme]["accent"]["fill"]}`} />
-                        {progressPercentage > 0 &&
-                            <div className={`absolute pb-1 left-1/2 -translate-x-1/2 -top-14 ${colors[theme]["surface"]["base"]} rounded flex flex-col justify-center shadow-md shadow-cyan-300/30`}>
-                                <button className={`flex justify-center ${colors[theme]["text"]["on-deep"]}`} onClick={stopCopyTimer}>
-                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className={`w-12 h-12`}>
-                                        <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
-                                    </svg>
-                                </button>
-                                <div className={`absolute bottom-0 w-full flex items-center justify-center text-xs ${colors[theme]["accent"]["on-deep"]}`}>
-                                    <div>{parseInt(remainingTime / 1000)}</div>
-                                </div>
-                            </div>
-                        }
                         <div className={`w-1/2 h-full`}>
                             {multiSelect ?
                                 (<button onClick={handleShare}
