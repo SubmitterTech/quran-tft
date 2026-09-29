@@ -16,6 +16,7 @@ import LongPressable from '../hooks/LongPressable';
 import { NextPagerProgressRing } from '../hooks/NextPager';
 import '../assets/css/Book.css';
 import { persistSet } from '../utils/Persist';
+import { BackgroundProgressBar } from '../utils/BackgroundProgress';
 
 const AUTO_HYPHEN_STORAGE_KEY = 'qurantft-ah';
 
@@ -96,7 +97,6 @@ const Book = React.memo(({ incomingSearch = false, incomingAppendix = false, inc
     const [overscrollNavProgress, setOverscrollNavProgress] = useState(0);
     const progressPercentage = remainingTime ? (remainingTime / 20000) * 100 : 0;
     const backgroundProgressPercentage = Math.max(0, Math.min(100, backgroundWorkProgress));
-    const hasBackgroundProgress = isBackgroundWorkActive || backgroundProgressPercentage > 0;
     const nextProgressSide = direction === 'rtl' ? 'left' : 'right';
 
     const skipPages = useMemo(() => [3, 4, 8, 9, 10, 12], []);
@@ -1236,11 +1236,10 @@ const Book = React.memo(({ incomingSearch = false, incomingAppendix = false, inc
                     style={{ paddingBottom: 'var(--app-controls-safe-bottom)' }}>
                     <div className={`relative flex w-full items-center justify-between`}>
                         <div className={`absolute h-0.5 left-0 -top-0.5 ${colors[theme]["accent"]["fill"]}`} style={{ width: `${progressPercentage}%` }}></div>
-                        {hasBackgroundProgress &&
-                            <div
-                                className={`absolute h-0.5 left-0 -top-[3px] transition-[width] duration-100 ease-linear ${colors[theme]["accent"]["fill"]}`}
-                                style={{ width: `${backgroundProgressPercentage}%`, opacity: 0.9 }}></div>
-                        }
+                        <BackgroundProgressBar
+                            active={isBackgroundWorkActive}
+                            percent={backgroundProgressPercentage}
+                            className={`absolute h-0.5 left-0 -top-[3px] pointer-events-none ${colors[theme]["accent"]["fill"]}`} />
                         {progressPercentage > 0 &&
                             <div className={`absolute pb-1 left-1/2 -translate-x-1/2 -top-14 ${colors[theme]["surface"]["base"]} rounded flex flex-col justify-center shadow-md shadow-cyan-300/30`}>
                                 <button className={`flex justify-center ${colors[theme]["text"]["on-deep"]}`} onClick={stopCopyTimer}>

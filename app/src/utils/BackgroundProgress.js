@@ -1,3 +1,6 @@
+import React, { useEffect, useRef } from 'react';
+import { useSpring, animated } from '@react-spring/web';
+
 // The bar under the page stands for all the work the app does in the background: loading a
 // translation, building the search indexes, fetching new text. Each task reports on its own and
 // they start and finish at their own times, so an average of whatever happens to be running moves
@@ -35,4 +38,47 @@ export const followBackgroundRun = (run, tasks) => {
         return run;
     }
     return { tasks: seen, percent };
+};
+
+// The work can also report a long step at once, as when the search index finishes and its share
+// goes from the estimate to done. So the bar glides to each value it is given instead of being set
+// there. A clamped spring never passes its target, and within a run the bar is only ever sent
+// forward, so it only ever moves forward.
+const FILL_SPRING = { tension: 170, friction: 26, clamp: true };
+const FADE = { duration: 250 };
+
+export const BackgroundProgressBar = ({ active, percent, className }) => {
+    const [{ width, opacity }, api] = useSpring(() => ({ width: 0, opacity: 0 }));
+    const runningRef = useRef(false);
+
+    useEffect(() => {
+        if (active) {
+            if (!runningRef.current) {
+                runningRef.current = true;
+                // A run starts from an empty bar, even while the previous one is still fading.
+                api.set({ width: 0 });
+            }
+            api.start({ width: percent, opacity: 0.9, config: FILL_SPRING });
+            return;
+        }
+
+        if (!runningRef.current) {
+            return;
+        }
+
+        // When the work is over the bar fills to the end and then fades, instead of vanishing
+        // wherever it happened to be.
+        runningRef.current = false;
+        Promise.all(api.start({ width: 100, opacity: 0.9, config: FILL_SPRING })).then(() => {
+            if (!runningRef.current) {
+                api.start({ opacity: 0, config: FADE });
+            }
+        });
+    }, [active, percent, api]);
+
+    return (
+        <animated.div
+            className={className}
+            style={{ width: width.to((value) => `${value}%`), opacity }} />
+    );
 };
