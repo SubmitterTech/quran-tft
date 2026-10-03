@@ -448,7 +448,7 @@
             "3": "Det är anmärkningsvärt att bokstaven ”Y” skrivs i Koranen i två former; den ena är tydlig och den andra är subtil. Bokstavens subtila form kan vara förvirrande för dem som inte är grundligt förtrogna med det arabiska språket. Ett bra exempel är ordet ”Araany ارينى”, som nämns två gånger i 12:36. Bokstaven ”Y” används två gånger i detta ord; det första ”Y” är subtilt och det andra är tydligt. Sura 36 innehåller inte ett enda ”Y” av den subtila typen. Detta är ett anmärkningsvärt fenomen, och ett som normalt inte förekommer i en lång sura som Sura 36. I min bok QURAN: VISUAL PRESENTATION OF THE MIRACLE (Islamic Productions, 1982) är varje ”Y” och ”S” i Sura 36 markerat med en stjärna.",
             "4": "Sju suror inleds med bokstäverna ”H ح” ”M م”; Surorna 40 till 46. Den totala förekomsten av dessa två bokstäver i de sju H.M.-initialerade surorna är 2147, eller 19 x 113. De detaljerade uppgifterna visas i Tabell 3.",
             "5": "Naturligtvis skulle ändringen av en enda bokstav, ”H” eller ”M”, i någon av de sju H.M.-initialerade surorna ha förstört detta invecklade fenomen.",
-            "7": "These initials constitute Verse 2 of Sura 42, and the total occurrence of these letters in this sura is 209, or 19 x 11. The letter “ ‘A” (‘Ayn) occurs 98 times, the letter “S” (Seen) occurs 54 times, and the letter “Q” (Qaf) occurs 57 times."
+            "7": "Dessa initialer utgör Vers 2 i Sura 42, och det totala antalet förekomster av dessa bokstäver i denna sura är 209, eller 19 x 11. Bokstaven ”‘A” (‘Ayn) förekommer 98 gånger, bokstaven ”S” (Seen) förekommer 54 gånger, och bokstaven ”Q” (Qaf) förekommer 57 gånger."
         },
         "picture": {},
         "table": {
@@ -1788,7 +1788,7 @@
                 "ref": "Table 19: All Suras in Which the Word “God” (Allah) Is Mentioned",
                 "title": [
                     "",
-                    "Sura No.",
+                    "Sura Nr.",
                     "First Verse",
                     "Last Verse",
                     "Verses 1st to Last"
@@ -2483,9 +2483,9 @@
     {
         "page": 419,
         "text": {
-            "2": "Write down the sura number, followed by the number of verses in that sura, then the number of every verse, and finally, the sum of verse numbers. So, for Sura 1 you would write 1 for the sura, then 7 for the number of verses, 1234567 for each verse number, and finally 28 for the sum of verse numbers, i.e. 1 7 1234567 28. The number for Sura 2 will look like this: 2 286 123456 ... 286 41041. Do the same for all the 114 suras, and than add these numbers. The total consists of 759 digits, and is a multiple of 19.",
-            "4": "Now write down the total number of verses in a sura, followed by the sum of verse numbers, and keep all numbers justified to the left. For example, the number of verses in Sura 1 is 7, and the sum of verse numbers is 28. Thus, the combined number for Sura 1will be 7 28, for Sura 2 it will be 286 41041, for Sura 3 it will be 200 20100; and so on to Sura 114 for which the combined number is 6 21. Remember that these n u m b e r s a r e wr i t -ten all the way to the left, as shown in Table 28. Then add them in the usual manner, from right to left. The total of all these left justified numbers is 4,859,309,774, or 19 x 255753146.",
-            "6": "Finally, do the same thing as above (continuing to keep all numbers left justified), except write down the number of every verse, instead of the total number of verses. For example, the number for Sura 1 consists of its seven verse numbers (1234567) combined with the sum of those numbers (28). Thus, the combined number for Sura 1 will be 1234567 28. The combined number for Sura 114 will be 123456 21. Table 29 demonstrates this process. The total of all these left justified numbers consists of 757 digits, and is still a multiple of 19."
+            "2": "Skriv ned suranumret, följt av antalet verser i den suran, sedan numret på varje vers och slutligen summan av versnumren. För Sura 1 skulle ni alltså skriva 1 för suran, sedan 7 för antalet verser, 1234567 för varje versnummer och slutligen 28 för summan av versnumren, dvs. 1 7 1234567 28. Talet för Sura 2 kommer att se ut så här: 2 286 123456 ... 286 41041. Gör samma sak för alla de 114 surorna och addera sedan dessa tal. Totalsumman består av 759 siffror och är en multipel av 19.",
+            "4": "Skriv nu ned det totala antalet verser i en sura, följt av summan av versnumren, och håll alla tal vänsterjusterade. Till exempel är antalet verser i Sura 1 7, och summan av versnumren är 28. Således blir det kombinerade talet för Sura 1 7 28, för Sura 2 blir det 286 41041, för Sura 3 blir det 200 20100; och så vidare till Sura 114, för vilken det kombinerade talet är 6 21. Kom ihåg att dessa tal skrivs hela vägen till vänster, såsom visas i Tabell 28. Addera dem sedan på det vanliga sättet, från höger till vänster. Summan av alla dessa vänsterjusterade tal är 4 859 309 774, eller 19 x 255753146.",
+            "6": "Slutligen, gör samma sak som ovan (fortsätt att hålla alla tal vänsterjusterade), förutom att ni skriver ned numret på varje vers i stället för det totala antalet verser. Till exempel består talet för Sura 1 av dess sju versnummer (1234567) kombinerade med summan av dessa nummer (28). Således blir det kombinerade talet för Sura 1 1234567 28. Det kombinerade talet för Sura 114 blir 123456 21. Tabell 29 demonstrerar denna process. Summan av alla dessa vänsterjusterade tal består av 757 siffror och är fortfarande en multipel av 19."
         },
         "picture": {},
         "table": {
@@ -2541,10 +2541,10 @@
                 ]
             },
             "3": {
-                "ref": "Table 27: Sura, Total Number of Verses, Verse numbers & Sum of Verse numbers for every sura.",
+                "ref": "Tabell 27: Sura, Totalt Antal Verser, Versnummer & Summan av Versnumren för Varje Sura.",
                 "title": [
                     "Sura",
-                    "Sura,# of Verses, Verse #’s & Sum of Verse #’s"
+                    "Sura, Antal Verser, Versnummer & Summan av Versnumren"
                 ],
                 "values": [
                     "1",
@@ -2556,11 +2556,11 @@
                     "114",
                     "114123456621",
                     "",
-                    "Total is 759 digits and a multiple of 19"
+                    "Totalsumman består av 759 siffror och är en multipel av 19"
                 ]
             },
             "5": {
-                "ref": "Table 28: Number of verses for every sura & sum of verse numbers, justified to the left.",
+                "ref": "Tabell 28: Antal Verser för Varje Sura & Summan av Versnumren, Vänsterjusterade.",
                 "title": [
                     "Sura",
                     "Totalt Antal Verser & Summan av Verserna"
@@ -2583,10 +2583,10 @@
                 ]
             },
             "7": {
-                "ref": "Table 29: Verse numbers and Sum of Verse numbers, justified to the left.",
+                "ref": "Tabell 29: Versnummer och Summan av Versnumren, Vänsterjusterade.",
                 "title": [
                     "Sura",
-                    "Verse #’s & Sum of Verses"
+                    "Versnummer & Summan av Verserna"
                 ],
                 "values": [
                     "1",
@@ -2598,7 +2598,7 @@
                     "114",
                     "12345621",
                     "",
-                    "Total is 757 digits & a multiple of 19"
+                    "Totalsumman består av 757 siffror & är en multipel av 19"
                 ]
             }
         },
@@ -2608,18 +2608,18 @@
     {
         "page": 420,
         "text": {
-            "1": "Let us write down the number of each verse in the Quran, preceded for each sura by the number of verses in that sura. Thus, Sura 1, which consists of seven verses, will be represented by the number 7 1234567. What we are doing here is forming long numbers by writing the numbers of verses next to each other. To find the number representing Sura 2, you write down the number of verses in this sura, 286, followed by the number of every verse, written next to each other. Thus, the number representing Sura 2 will look like this: 286 12345 ... 284285286. The two numbers representing the first two suras are:",
+            "1": "Låt oss skriva ned numret på varje vers i Koranen, föregånget för varje sura av antalet verser i den suran. Således kommer Sura 1, som består av sju verser, att representeras av talet 7 1234567. Vad vi gör här är att bilda långa tal genom att skriva versnumren bredvid varandra. För att finna talet som representerar Sura 2 skriver ni ned antalet verser i denna sura, 286, följt av numret på varje vers, skrivna bredvid varandra. Således kommer talet som representerar Sura 2 att se ut så här: 286 12345 ... 284285286. De två talen som representerar de två första surorna är:",
             "2": "7 1 2 3 4 5 6 7 & 286 1 2 3 4 5 ... 284 285 286.",
-            "3": "Putting these two numbers together to form one number representing the first two suras, we get this number:",
+            "3": "Genom att sätta samman dessa två tal för att bilda ett enda tal som representerar de två första surorna, får vi detta tal:",
             "4": "7 1 2 3 4 5 6 7 2 8 6 1 2 3 4 5 ... 284 285 286.",
-            "5": "This process is continued until every verse in the Quran is written down, thus forming one very long number encompassing the number of every verse in the Quran. The number representing the whole Quran is a multiple of 19 & consists of 12692 digits, which is also a multiple of 19.",
-            "8": "Instead of putting the total number of verses in every sura ahead of the sura, let us put it at the end of every sura. Thus, the number representing Sura 1 will look like this: 1234567 7, instead of 7 1234567. The number representing Sura 2 will look like this: 12345 ... 284 285 286 286 instead of 286 12345 ... 284285286. The numbers representing the first two suras will look like this:",
+            "5": "Denna process fortsätter tills varje vers i Koranen har skrivits ned, och bildar således ett mycket långt tal som omfattar numret på varje vers i Koranen. Talet som representerar hela Koranen är en multipel av 19 & består av 12692 siffror, vilket också är en multipel av 19.",
+            "8": "I stället för att placera det totala antalet verser i varje sura framför suran, låt oss placera det i slutet av varje sura. Således kommer talet som representerar Sura 1 att se ut så här: 1234567 7, i stället för 7 1234567. Talet som representerar Sura 2 kommer att se ut så här: 12345 ... 284 285 286 286 i stället för 286 12345 ... 284285286. Talen som representerar de två första surorna kommer att se ut så här:",
             "9": "1 2 3 4 5 6 7 7 & 1 2 3 4 5 ... 284 285 286 286.",
-            "10": "Putting these two numbers together to form a longer number representing the first two suras, we get a number that looks like this:",
+            "10": "Genom att sätta samman dessa två tal för att bilda ett längre tal som representerar de två första surorna, får vi ett tal som ser ut så här:",
             "11": "1 2 3 4 5 6 7 7 1 2 3 4 5 ... 284 285 286 286.",
-            "12": "Since we are putting the total number of verses per sura at the end of each sura, we must put the total number of numbered verses (6234) at the end of the Quran. The last numbers, therefore, represent the last sura (123456 6), followed by the total number of numbered verses in the Quran (6234):",
+            "12": "Eftersom vi placerar det totala antalet verser per sura i slutet av varje sura, måste vi placera det totala antalet numrerade verser (6234) i slutet av Koranen. De sista talen representerar därför den sista suran (123456 6), följd av det totala antalet numrerade verser i Koranen (6234):",
             "13": "1 2 3 4 5 6 6 & 6234 > > > 1 2 3 4 5 6 6 6234.",
-            "14": "Putting together all the verses of all the suras, produces a long number that consists of 12696 digits, and is a multiple of 19."
+            "14": "Genom att sätta samman alla verserna i alla surorna bildas ett långt tal som består av 12696 siffror och är en multipel av 19."
         },
         "picture": {},
         "evidence": {
@@ -2631,20 +2631,20 @@
             },
             "7": {
                 "lines": {
-                    "1": "FIRST No: This very long number consists of 12692 digits (19 x 668) and and includes every verse in the Quran. The number of verses in each sura precedes its verses. A special computer program that divides very long numbers has shown that this long number is a multiple of 19."
+                    "1": "FÖRSTA TALET: Detta mycket långa tal består av 12692 siffror (19 x 668) och inkluderar varje vers i Koranen. Antalet verser i varje sura föregår dess verser. Ett särskilt datorprogram som dividerar mycket långa tal har visat att detta långa tal är en multipel av 19."
                 },
                 "ref": []
             }
         },
         "titles": {
-            "1": "Superhuman Numerical Combinations"
+            "1": "Övermänskliga Numeriska Kombinationer"
         }
     },
     {
         "page": 421,
         "text": {
-            "3": "Write down the number of every verse in every sura, followed by the number of the sura, followed by the number of verses in the sura. Thus, the number representing Sura 1 looks like this: 1234567 1 7. The number representing Sura 2 looks like this: 1 2 3 4 5 ... 284 285 286 2 286. The number representing the last sura (No. 114) looks like this: 1 2 3 4 5 6 114 6. Again, the total number of numbered verses (6234) is added at the end. This number, representing the whole Quran, is a multiple of 19; it looks like this:",
-            "6": "Instead of putting the total number of verses in every sura after the sura, let us now put it ahead of the sura. Thus, the number representing Sura 1 looks like this: 7 1234567 1, instead of 1234567 1 7, and the number representing Sura 2 looks like this: 286 12345 ... 284 285 286 2, instead of 12345 ... 284 285 286 2 286. This very long number representing the whole Quran is a multiple of 19."
+            "3": "Skriv ned numret på varje vers i varje sura, följt av suranumret, följt av antalet verser i suran. Således ser talet som representerar Sura 1 ut så här: 1234567 1 7. Talet som representerar Sura 2 ser ut så här: 1 2 3 4 5 ... 284 285 286 2 286. Talet som representerar den sista suran (nr 114) ser ut så här: 1 2 3 4 5 6 114 6. Återigen läggs det totala antalet numrerade verser (6234) till i slutet. Detta tal, som representerar hela Koranen, är en multipel av 19; det ser ut så här:",
+            "6": "I stället för att placera det totala antalet verser i varje sura efter suran, låt oss nu placera det framför suran. Således ser talet som representerar Sura 1 ut så här: 7 1234567 1, i stället för 1234567 1 7, och talet som representerar Sura 2 ser ut så här: 286 12345 ... 284 285 286 2, i stället för 12345 ... 284 285 286 2 286. Detta mycket långa tal som representerar hela Koranen är en multipel av 19."
         },
         "picture": {},
         "evidence": {
@@ -2656,7 +2656,7 @@
             },
             "2": {
                 "lines": {
-                    "1": "SECOND No: The number of every verse in every sura is followed by the number of verses per sura. The last 11 digits shown here are the 6 verses of the last sura, followed by its number of verses (6), followed by the total number of numbered verses in the Quran (6234). The complete, very long number, is a multiple of 19."
+                    "1": "ANDRA TALET: Numret på varje vers i varje sura följs av antalet verser per sura. De sista 11 siffrorna som visas här är den sista surans 6 verser, följda av dess antal verser (6), följda av det totala antalet numrerade verser i Koranen (6234). Det fullständiga, mycket långa talet är en multipel av 19."
                 },
                 "ref": []
             },
@@ -2668,7 +2668,7 @@
             },
             "5": {
                 "lines": {
-                    "1": "THIRD No: The number of every verse, followed by the sura number, then the number of verses in the sura. The total number of numbered verses is added at the end. The long number (12930 digits) is a multiple of 19."
+                    "1": "TREDJE TALET: Numret på varje vers, följt av suranumret, sedan antalet verser i suran. Det totala antalet numrerade verser läggs till i slutet. Det långa talet (12930 siffror) är en multipel av 19."
                 },
                 "ref": []
             },
@@ -2680,24 +2680,24 @@
             },
             "8": {
                 "lines": {
-                    "1": "FOURTH No: The total number of verses in each sura is followed by the number of every verse, then the sura number. The last 14 digits shown above are the number of verses in the last sura (6), followed by the numbers of the six verses (123456), followed by the number of the sura (114), then the total number of numbered verses in the Quran. The very long number (consisting of 12930 digits) is a multiple of 19."
+                    "1": "FJÄRDE TALET: Det totala antalet verser i varje sura följs av numret på varje vers, sedan suranumret. De sista 14 siffrorna som visas ovan är antalet verser i den sista suran (6), följt av numren på de sex verserna (123456), följt av suranumret (114), sedan det totala antalet numrerade verser i Koranen. Det mycket långa talet (bestående av 12930 siffror) är en multipel av 19."
                 },
                 "ref": []
             }
         },
         "titles": {
-            "3": "Now let us include the number of every sura."
+            "3": "Låt oss nu inkludera numret på varje sura."
         }
     },
     {
         "page": 422,
         "text": {
-            "1": "Now, let us write down the number of every verse in every sura, followed by the sum of verse numbers for every sura. Sura 1 consists of 7 verses, and the sum of verse numbers is 1 + 2 + 3 + 4 + 5 + 6 + 7 = 28. Thus, the number representing Sura 1 looks like this: 1234567 28.",
-            "2": "The sum of verse numbers for Sura 2 is 41041 (1 + 2 + 3 + ... + 286). Thus, the number representing Sura 2 looks like this: 12345 ... 284 285 286 41041.",
-            "3": "The number representing the last sura, which consists of 6 verses, looks like this: 123456 21, since 1 + 2 + 3 + 4 + 5 + 6 = 21.",
-            "4": "The complete number, representing the whole Quran, consists of 12836 digits and is a multiple of 19. It looks like this:",
-            "7": "Remarkably, if we take the “Fifth No.” shown above and reverse the order of verse numbers and sum of verse numbers, i.e., move the sum of verse numbers, and put it ahead of the sura, the resulting long number is still a multiple of 19.",
-            "10": "Even writing the suras backward, i.e., reversing the order of suras by starting with the last sura and ending with the first sura, and placing the sum of verse numbers after the verses of each sura, the product is still a multiple of 19"
+            "1": "Låt oss nu skriva ned numret på varje vers i varje sura, följt av summan av versnumren för varje sura. Sura 1 består av 7 verser, och summan av versnumren är 1 + 2 + 3 + 4 + 5 + 6 + 7 = 28. Således ser talet som representerar Sura 1 ut så här: 1234567 28.",
+            "2": "Summan av versnumren för Sura 2 är 41041 (1 + 2 + 3 + ... + 286). Således ser talet som representerar Sura 2 ut så här: 12345 ... 284 285 286 41041.",
+            "3": "Talet som representerar den sista suran, som består av 6 verser, ser ut så här: 123456 21, eftersom 1 + 2 + 3 + 4 + 5 + 6 = 21.",
+            "4": "Det fullständiga talet, som representerar hela Koranen, består av 12836 siffror och är en multipel av 19. Det ser ut så här:",
+            "7": "Anmärkningsvärt nog, om vi tar det ”Femte Talet” som visas ovan och vänder på ordningen mellan versnumren och summan av versnumren, dvs. flyttar summan av versnumren och placerar den framför suran, är det resulterande långa talet fortfarande en multipel av 19.",
+            "10": "Även om vi skriver surorna baklänges, dvs. vänder på surornas ordning genom att börja med den sista suran och sluta med den första suran, och placerar summan av versnumren efter verserna i varje sura, är resultatet fortfarande en multipel av 19."
         },
         "picture": {},
         "evidence": {
@@ -2709,7 +2709,7 @@
             },
             "6": {
                 "lines": {
-                    "1": "FIFTH No: The number of every verse in every sura is followed by the sum of verse numbers. The long number consists of 12836 digits, and is a multiple of 19."
+                    "1": "FEMTE TALET: Numret på varje vers i varje sura följs av summan av versnumren. Det långa talet består av 12836 siffror och är en multipel av 19."
                 },
                 "ref": []
             },
@@ -2721,7 +2721,7 @@
             },
             "9": {
                 "lines": {
-                    "1": "SIXTH No: Placing the sum of verse numbers ahead of each sura, instead of after it, produces a long number (12836 digits) that is also a multiple of 19."
+                    "1": "SJÄTTE TALET: Att placera summan av versnumren framför varje sura, i stället för efter den, producerar ett långt tal (12836 siffror) som också är en multipel av 19."
                 },
                 "ref": []
             },
@@ -2733,7 +2733,7 @@
             },
             "12": {
                 "lines": {
-                    "1": "SEVENTH No: Reversing the order of suras—starting from the last sura and ending with the first sura—and writing down the number of every verse, with the sum of verse numbers for every sura after its verses, the product is a long number consisting of 12836 digits. This long number is a multiple of 19."
+                    "1": "SJUNDE TALET: Genom att vända på surornas ordning—med början från den sista suran och slut med den första suran—och skriva ned numret på varje vers, med summan av versnumren för varje sura efter dess verser, blir resultatet ett långt tal bestående av 12836 siffror. Detta långa tal är en multipel av 19."
                 },
                 "ref": []
             }
@@ -2743,10 +2743,10 @@
     {
         "page": 423,
         "text": {
-            "1": "Write the sum of verse numbers for the whole Quran (333410), followed by the total number of numbered verses in the Quran (6234), then the number of suras (114). Every sura is then represented by its number followed by its number of verses. The numbers representing Suras 1 and 2 are 1 7 and 2 286. The complete number, covering all suras of the Quran, consists of 474 digits, and is a multiple of 19—it looks like this:",
-            "4": "Now let us reverse the order of sura number and its number of verses as presented in the “Eighth No.” Thus, the numbers representing the first two suras look like this: 7 1 & 286 2, instead of 1 7 & 2 286. The complete number also consists of 474 digits and is still a multiple of 19. It looks like this:",
-            "7": "If we write down the sum of verse numbers for Sura 1 (28), followed by the sum of verse numbers for Sura 2 (41041), and so on to the end of the Quran, and placing the Grand Sum of verse numbers (333410) at the end, the resulting long number (Tenth No.) consists of 377 digits, and is a multiple of 19.",
-            "10": "If we write down the number of suras in the Quran (114), followed by the total number of numbered verses (6234), followed by the number of every sura and its sum of verse numbers, the final long number (612 digits) is a multiple of 19."
+            "1": "Skriv summan av versnumren för hela Koranen (333410), följd av det totala antalet numrerade verser i Koranen (6234), sedan antalet suror (114). Varje sura representeras sedan av sitt nummer följt av sitt antal verser. Talen som representerar Surorna 1 och 2 är 1 7 och 2 286. Det fullständiga talet, som omfattar alla Koranens suror, består av 474 siffror och är en multipel av 19—det ser ut så här:",
+            "4": "Låt oss nu vända på ordningen mellan suranumret och dess antal verser såsom den presenteras i det ”Åttonde Talet”. Således ser talen som representerar de två första surorna ut så här: 7 1 & 286 2, i stället för 1 7 & 2 286. Det fullständiga talet består också av 474 siffror och är fortfarande en multipel av 19. Det ser ut så här:",
+            "7": "Om vi skriver ned summan av versnumren för Sura 1 (28), följd av summan av versnumren för Sura 2 (41041), och så vidare till slutet av Koranen, och placerar Totalsumman av versnumren (333410) i slutet, består det resulterande långa talet (Tionde Talet) av 377 siffror och är en multipel av 19.",
+            "10": "Om vi skriver ned antalet suror i Koranen (114), följt av det totala antalet numrerade verser (6234), följt av numret på varje sura och dess summa av versnummer, är det slutliga långa talet (612 siffror) en multipel av 19."
         },
         "picture": {},
         "evidence": {
@@ -2758,7 +2758,7 @@
             },
             "3": {
                 "lines": {
-                    "1": "EIGHTH No: The Grand Sum of verse numbers (333410) is followed by the total number of numbered verses (6234), the number of suras (114), then the sura numbers and numbers of verses of every sura."
+                    "1": "ÅTTONDE TALET: Totalsumman av versnumren (333410) följs av det totala antalet numrerade verser (6234), antalet suror (114), sedan suranumren och antalet verser i varje sura."
                 },
                 "ref": []
             },
@@ -2770,7 +2770,7 @@
             },
             "6": {
                 "lines": {
-                    "1": "NINTH No: Reversing the sequence of sura number and number of verses still gives us a long number that is a multiple of 19"
+                    "1": "NIONDE TALET: Att vända på ordningsföljden mellan suranumret och antalet verser ger oss fortfarande ett långt tal som är en multipel av 19."
                 },
                 "ref": []
             },
@@ -2782,7 +2782,7 @@
             },
             "9": {
                 "lines": {
-                    "1": "TENTH No: The sums of verse numbers for every sura in the Quran, are written next to each other, followed at the end by the Grand Sum of verse numbers (333410). This long number (377 digits) is a multiple of 19."
+                    "1": "TIONDE TALET: Summorna av versnumren för varje sura i Koranen skrivs bredvid varandra, följda i slutet av Totalsumman av versnumren (333410). Detta långa tal (377 siffror) är en multipel av 19."
                 },
                 "ref": []
             }
@@ -2792,11 +2792,11 @@
     {
         "page": 424,
         "text": {
-            "3": "Lest anyone may think that any Quranic parameter is left un-guarded with this awesome mathematical code, let us look at more parameters.",
-            "4": "If we write down the number of suras (114), followed by the total number of numbered verses, followed by the Grand Sum of verse numbers in the whole Quran (333410), followed by the numbers of every sura and its verses, we end up with a very long number (12712 digits) that is a multiple of 19.",
-            "6": "If we write down the numbers of verses in every sura next to each other, we end up with a 235-digit number that is a multiple of 19. To do this, write down the total number of numbered verses in the Quran (6234), followed by the number of verses in every sura, then close with the total number of numbered verses in the Quran. The final long number looks like this:",
-            "8": "If we write down the number of numbered verses in the Quran (6234), followed by the number of suras (114), followed by the number of every verse in every sura, then close with the number of numbered verses in the Quran (6234) and the number of suras (114), the final number consists of 12479 digits, and is a multiple of 19.",
-            "10": "Another long number that consists of 12774 digits is formed by writing down the number of every verse in every sura, followed by the number of every sura added to its number of verses. Sura 1 consists of 7 verses, and the total 1 + 7 is 8. Therefore, the number representing Sura 1 looks like this: 1234567 8. Since Sura 2 consists of 286 verses, the number representing Sura 2 looks like this: 12345 ... 286 288. This is done for every sura in the Quran. The final combined number consists of 12774 digits, and is a multiple of 19."
+            "3": "För att ingen ska tro att någon Koranisk parameter lämnas obevakad av denna imponerande matematiska kod, låt oss titta på fler parametrar.",
+            "4": "Om vi skriver ned antalet suror (114), följt av det totala antalet numrerade verser, följt av Totalsumman av versnumren i hela Koranen (333410), följt av numren på varje sura och dess verser, får vi ett mycket långt tal (12712 siffror) som är en multipel av 19.",
+            "6": "Om vi skriver ned antalet verser i varje sura bredvid varandra, får vi ett 235-siffrigt tal som är en multipel av 19. För att göra detta, skriv ned det totala antalet numrerade verser i Koranen (6234), följt av antalet verser i varje sura, och avsluta sedan med det totala antalet numrerade verser i Koranen. Det slutliga långa talet ser ut så här:",
+            "8": "Om vi skriver ned antalet numrerade verser i Koranen (6234), följt av antalet suror (114), följt av numret på varje vers i varje sura, och sedan avslutar med antalet numrerade verser i Koranen (6234) och antalet suror (114), består det slutliga talet av 12479 siffror och är en multipel av 19.",
+            "10": "Ett annat långt tal som består av 12774 siffror bildas genom att skriva ned numret på varje vers i varje sura, följt av numret på varje sura adderat till dess antal verser. Sura 1 består av 7 verser, och summan 1 + 7 är 8. Därför ser talet som representerar Sura 1 ut så här: 1234567 8. Eftersom Sura 2 består av 286 verser, ser talet som representerar Sura 2 ut så här: 12345 ... 286 288. Detta görs för varje sura i Koranen. Det slutliga kombinerade talet består av 12774 siffror och är en multipel av 19."
         },
         "picture": {},
         "evidence": {
@@ -2808,29 +2808,29 @@
             },
             "2": {
                 "lines": {
-                    "1": "ELEVENTH No: The number of suras, followed by the total number of numbered verses, then the number of every sura and its sum of verse numbers, produce this long number (612 digits) that is a multiple of 19."
+                    "1": "ELFTE TALET: Antalet suror, följt av det totala antalet numrerade verser, sedan numret på varje sura och dess summa av versnummer, producerar detta långa tal (612 siffror) som är en multipel av 19."
                 },
                 "ref": []
             },
             "5": {
                 "lines": {
                     "1": "114 6234 333410 1 1 2 3 4 5 6 7 ... 114 1 2 3 4 5 6",
-                    "2": "TWELFTH NUMBER"
+                    "2": "TOLFTE TALET"
                 },
                 "ref": []
             },
             "7": {
                 "lines": {
                     "1": "6234 7 286 200 176 .... 127 ... 5 4 5 6 6234",
-                    "2": "(total verses) (First 4 suras) (Sura 9) (Last 4 suras) (total verses)",
-                    "3": "THIRTEENTH NUMBER"
+                    "2": "(totalt antal verser) (De första 4 surorna) (Sura 9) (De sista 4 surorna) (totalt antal verser)",
+                    "3": "TRETTONDE TALET"
                 },
                 "ref": []
             },
             "9": {
                 "lines": {
                     "1": "6234 114 1234567 12345 ... 286 ... 123456 6234 114",
-                    "2": "FOURTEENTH NUMBER"
+                    "2": "FJORTONDE TALET"
                 },
                 "ref": []
             }
@@ -2840,9 +2840,9 @@
     {
         "page": 425,
         "text": {
-            "3": "More specialized features are in Appendices 2, 9,19, 24, 25, 26, 29, and 37.",
-            "5": "The following quotation is taken from STUDIES IN JEWISH MYSTICISM, (Association for Jewish Studies, Cambridge, Mass., Joseph Dan & Frank Talmage, eds., Page 88, 1982). The quotation refers to the work of Rabbi Judah the Pious (12th Century AD):",
-            "6": "The people [Jews] in France made it a custom to add [in the morning prayer] the words: “ ’Ashrei temimei derekh [blessed are those who walk the righteous way],” and our Rabbi, the Pious, of blessed memory, wrote that they were completely and utterly wrong. It is all gross falsehood, because there are only nineteen times that the Holy Name is mentioned [in that portion of the morning prayer]... and similarly you find the word ’Elohim nineteen times in the pericope of Ve-’elleh shemot. . . . Similarly, you find that Israel were called “sons” nineteen times, and there are many other examples. All these sets of nineteen are intricately intertwined, and they contain many secrets and esoteric meanings, which are contained in more than eight large volumes... Furthermore, in this section there are 152 (19 x 8) words."
+            "3": "Fler specialiserade egenskaper finns i Bilagorna 2, 9, 19, 24, 25, 26, 29 och 37.",
+            "5": "Följande citat är hämtat från STUDIES IN JEWISH MYSTICISM, (Association for Jewish Studies, Cambridge, Mass., Joseph Dan & Frank Talmage, red., sidan 88, 1982). Citatet hänvisar till Rabbi Judah den Frommes arbete (1100-talet e.Kr.):",
+            "6": "Människorna [judarna] i Frankrike gjorde det till en sed att lägga till [i morgonbönen] orden: ”’Ashrei temimei derekh [välsignade är de som vandrar den rättfärdiga vägen],” och vår Rabbi, den Fromme, av välsignat minne, skrev att de hade fullständigt och totalt fel. Allt detta är grov falskhet, eftersom det endast är nitton gånger som det Heliga Namnet nämns [i den delen av morgonbönen]... och på liknande sätt finner ni ordet ’Elohim nitton gånger i perikopen Ve-’elleh shemot. . . . På liknande sätt finner ni att Israel kallades ”söner” nitton gånger, och det finns många andra exempel. Alla dessa grupper om nitton är intrikat sammanflätade, och de innehåller många hemligheter och esoteriska betydelser, vilka finns i mer än åtta stora volymer... Dessutom finns det i detta avsnitt 152 (19 x 8) ord."
         },
         "picture": {},
         "evidence": {
@@ -2850,26 +2850,26 @@
                 "lines": {
                     "1": "1234567 8 12345 ... 286 288 ... 123456 120",
                     "2": "(1 + 7) (2 + 286) (114 + 6)",
-                    "3": "FIFTEENTH NUMBER"
+                    "3": "FEMTONDE TALET"
                 },
                 "ref": []
             },
             "4": {
                 "lines": {
-                    "1": "Proclaim: “What if it is from God, and you disbelieved in it? A witness from the Children of Israel has borne witness to a similar phenomenon, and he has believed, while you have turned too arrogant to believe. God does not guide the wicked” [46:10]"
+                    "1": "Förkunna: ”Tänk om det är från Gud, och ni inte trodde på det? Ett vittne från Israels Barn har vittnat om ett liknande fenomen, och han har trott, medan ni har blivit alltför arroganta för att tro. Gud vägleder inte de ogudaktiga” [46:10]"
                 },
                 "ref": []
             },
             "8": {
                 "lines": {
-                    "1": "All praise and thanks are due to God who has willed that His miracle of the Quran shall be revealed at this time. He has distinguished the following individuals and blessed them by revealing through them many portions of this momentous discovery: Abdullah Arik, Mohamoud Ali Abib, Lisa Spray, Edip Yuksel, Ihsan Ramadan, Feroz Karmally, Ismail Barakat, Gatut Adisoma, Ahmed Yusuf, Cesar A. Majul, Muhtesem Erisen, and Emily Kay Sterrett."
+                    "1": "All lovprisning och tacksamhet tillkommer Gud, som har velat att Hans mirakel i Koranen ska uppenbaras vid denna tid. Han har utmärkt följande individer och välsignat dem genom att genom dem uppenbara många delar av denna betydelsefulla upptäckt: Abdullah Arik, Mohamoud Ali Abib, Lisa Spray, Edip Yuksel, Ihsan Ramadan, Feroz Karmally, Ismail Barakat, Gatut Adisoma, Ahmed Yusuf, Cesar A. Majul, Muhtesem Erisen och Emily Kay Sterrett."
                 },
                 "ref": []
             }
         },
         "titles": {
-            "4": "A Witness From the Children of Israel [46:10]",
-            "7": "Acknowledgments"
+            "4": "Ett Vittne från Israels Barn [46:10]",
+            "7": "Tack"
         }
     },
     {
@@ -2878,35 +2878,35 @@
         "evidence": {
             "2": {
                 "lines": {
-                    "1": "God’s Messenger of the Covenant is a consolidating messenger. His mission is to purify and unify all existing religions into one: Islam (Submission).",
-                    "2": "Islam is NOT a name; it is a description of one’s total submission and devotion to God ALONE, without idolizing Jesus, Mary, Muhammad, or the saints. Anyone who meets this criterion is a “Muslim” (Submitter). Therefore, one may be a Muslim Jew, a Muslim Christian, a Muslim Hindu, a Muslim Buddhist, or Muslim Muslim.",
-                    "3": "God’s Messenger of the Covenant delivers God’s proclamation that “The only religion approved by God is Submission” (3:19) and that “Anyone who seeks other than Submission as a religion, it will not be accepted from him/her” (3:85).",
-                    "4": "A messenger of God must present proof that he is God’s messenger. Every messenger of God is supported by incontrovertible divine signs proving that he is authorized by the Almighty to deliver His messages. Moses threw down his staff and it turned into a serpent, Jesus healed the leprous and revived the dead by God’s leave, Saaleh’s sign was the famous camel, Abraham walked out of the fire, and Muhammad’s miracle was the Quran (29:50-51).",
-                    "5": "The Quran (3:81, 33:7, 33:40) and the Bible (Malachi 3:1-3) have prophesied the advent of the consolidating messenger, God’s Messenger of the Covenant. It is only befitting that a messenger with such a crucial mission must be supported by the most powerful miracle (74:30-35). While the miracles of previous messengers were limited in time and place, God’s miracle supporting His Messenger of the Covenant is perpetual; it can be witnessed by anyone, at anytime, in any place.",
-                    "6": "This Appendix presents physical, examinable, verifiable, and irrefutable evidence that Rashad Khalifa is God’s Messenger of the Covenant."
+                    "1": "Guds Förbundssändebud är ett förenande sändebud. Hans uppdrag är att rena och förena alla existerande religioner till en: Islam (Underkastelse).",
+                    "2": "Islam är INTE ett namn; det är en beskrivning av ens totala underkastelse och hängivenhet till Gud ENSAM, utan att idolisera Jesus, Maria, Muhammad eller helgonen. Var och en som uppfyller detta kriterium är en ”Muslim” (Underkastare). Därför kan man vara en muslimsk jude, en muslimsk kristen, en muslimsk hindu, en muslimsk buddhist eller en muslimsk muslim.\n\n ",
+                    "3": "Guds Förbundssändebud framför Guds förkunnelse att ”Den enda religion som godkänts av Gud är Underkastelse” (3:19) och att ”Var och en som söker något annat än Underkastelse som religion, kommer det inte att accepteras från honom/henne” (3:85).",
+                    "4": "Ett sändebud från Gud måste presentera bevis på att han är Guds sändebud. Varje sändebud från Gud stöds av obestridliga gudomliga tecken som bevisar att han är bemyndigad av den Allsmäktige att framföra Hans budskap. Moses kastade ned sin stav och den förvandlades till en orm, Jesus botade de spetälska och återupplivade de döda med Guds tillåtelse, Salehs tecken var den berömda kamelen, Abraham gick ut ur elden, och Muhammads mirakel var Koranen (29:50-51).",
+                    "5": "Koranen (3:81, 33:7, 33:40) och Bibeln (Malaki 3:1-3) har profeterat om ankomsten av det förenande sändebudet, Guds Förbundssändebud. Det är endast passande att ett sändebud med ett så avgörande uppdrag måste stödjas av det mäktigaste miraklet (74:30-35). Medan tidigare sändebuds mirakel var begränsade i tid och rum, är Guds mirakel som stöder Hans Förbundssändebud evigt; det kan bevittnas av vem som helst, när som helst, var som helst.",
+                    "6": "Denna Bilaga presenterar fysiska, undersökningsbara, verifierbara och obestridliga bevis på att Rashad Khalifa är Guds Förbundssändebud."
                 },
                 "ref": []
             }
         },
         "titles": {
-            "0": "Appendix 2",
-            "1": "God’s Messenger of the Covenant"
+            "0": "Bilaga 2",
+            "1": "Guds Förbundssändebud"
         }
     },
     {
         "page": 427,
         "text": {
-            "1": "One of the major prophecies in the Quran is that God’s Messenger of the Covenant will be sent after all the prophets have come to this world, and after all of God’s scriptures have been delivered.",
-            "3": "Muhammad Marmaduke Pickthall translated 3:81 as follows:",
-            "5": "We learn from Sura 33 that Muhammad was one of the prophets who made that solemn covenant with God. ",
-            "7": "Verse 3:81, among many other verses, provides the definitions of “Nabi” (Prophet) and “Rasoul” (Messenger). Thus, “Nabi” is a messenger of God who delivers a new scripture, while “Rasoul” is a messenger commissioned by God to confirm existing scripture; he does not bring a new scripture. According to the Quran, every “Nabi” is a “Rasoul” but not every “Rasoul” is a “Nabi”",
-            "8": "Not every messenger was given a new scripture. It is not logical that God will give a scripture to a prophet, then ask him to keep it exclusively for himself, as stated by some Muslim “scholars” (2:42, 2:146, 2:159). Those who are not sufficiently familiar with the Quran tend to think that Aaron was a “Nabi” as stated in 19:53, who did not receive a scripture. However, the Quran clearly states that the statute book was given specifically “to both Moses and Aaron” (21:48, 37:117).",
-            "9": "We learn from the Quran, 33:40, that Muhammad was the last prophet (Nabi), but not the last messenger (Rasoul):"
+            "1": "En av de stora profetiorna i Koranen är att Guds Förbundssändebud kommer att sändas efter att alla profeterna har kommit till denna värld, och efter att alla Guds skrifter har framförts.",
+            "3": "Muhammad Marmaduke Pickthall översatte 3:81 enligt följande:",
+            "5": "Vi lär oss från Sura 33 att Muhammad var en av profeterna som ingick detta högtidliga förbund med Gud.",
+            "7": "Vers 3:81, bland många andra verser, tillhandahåller definitionerna av ”Nabi” (Profet) och ”Rasoul” (Sändebud). Således är en ”Nabi” ett sändebud från Gud som framför en ny skrift, medan en ”Rasoul” är ett sändebud som fått i uppdrag av Gud att bekräfta en existerande skrift; han kommer inte med en ny skrift. Enligt Koranen är varje ”Nabi” en ”Rasoul”, men inte varje ”Rasoul” är en ”Nabi”.",
+            "8": "Inte varje sändebud fick en ny skrift. Det är inte logiskt att Gud skulle ge en skrift till en profet och sedan be honom att behålla den uteslutande för sig själv, såsom vissa muslimska ”lärda” hävdar (2:42, 2:146, 2:159). De som inte är tillräckligt bekanta med Koranen tenderar att tro att Aron var en ”Nabi”, såsom anges i 19:53, som inte fick någon skrift. Koranen anger dock tydligt att lagboken gavs specifikt ”till både Moses och Aron” (21:48, 37:117).",
+            "9": "Vi lär oss från Koranen, 33:40, att Muhammad var den siste profeten (Nabi), men inte det sista sändebudet (Rasoul):"
         },
         "evidence": {
             "2": {
                 "lines": {
-                    "1": "God took a covenant from the prophets, saying, “I will give you the scripture and wisdom. Afterwards, a messenger will come to confirm all existing scriptures. You shall believe in him and support him.” He said, “Do you agree with this, and pledge to fulfill this covenant?” They said, “We agree.” He said, “You have thus borne witness, and I bear witness along with you.”"
+                    "1": "Gud tog ett förbund från profeterna och sade: ”Jag ska ge er skriften och visdom. Därefter ska ett sändebud komma för att bekräfta alla befintliga skrifter. Ni ska tro på honom och stödja honom.” Han sade: ”Samtycker ni till detta och lovar att uppfylla detta förbund?” De sade: ”Vi samtycker.” Han sade: ”Ni har således burit vittnesbörd, och jag bär vittnesbörd tillsammans med er.”"
                 },
                 "ref": [
                     "3:81"
@@ -2914,13 +2914,13 @@
             },
             "4": {
                 "lines": {
-                    "1": "When Allah made (His) covenant with the Prophets, (He said): Behold that which I have given you of the Scripture and knowledge. And afterward there will come unto you a messenger, confirming that which ye possess. Ye shall believe in him and ye shall help him. He said: Do ye agree, and will ye take up My burden (which I lay upon you) in this (matter)? They answered: We agree. He said: Then bear witness. I will be a witness with you. "
+                    "1": "När Allah ingick (Sitt) förbund med Profeterna, (sade Han): Se det som Jag har gett er av Skriften och kunskapen. Och därefter kommer ett sändebud att komma till er, som bekräftar det som ni besitter. Ni ska tro på honom och ni ska hjälpa honom. Han sade: Är ni överens, och kommer ni att ta på er Min börda (som Jag lägger på er) i denna (sak)? De svarade: Vi är överens. Han sade: Vittna då. Jag kommer att vara ett vittne tillsammans med er."
                 },
                 "ref": []
             },
             "6": {
                 "lines": {
-                    "1": "And when we exacted a covenant from the Prophets, and from thee (O Muhammad) and from Noah and Abraham and Moses and Jesus son of Mary, We took from them a solemn covenant. (according to Muhammad Marmaduke Pickthall)"
+                    "1": "Och när vi avkrävde Profeterna ett förbund, och av dig (O Muhammad) och av Noa och Abraham och Moses och Jesus, Marias son, tog Vi från dem ett högtidligt förbund. (enligt Muhammad Marmaduke Pickthall)"
                 },
                 "ref": [
                     "33:7"
@@ -2928,7 +2928,7 @@
             },
             "10": {
                 "lines": {
-                    "1": "Muhammad was not the father of any of your men; he was a messenger (Rasoul) of God and the last prophet (Nabi). "
+                    "1": "Muhammad var inte far till någon av era män; han var ett sändebud (Rasoul) från Gud och den siste profeten (Nabi)."
                 },
                 "ref": [
                     "33:40"
@@ -2936,38 +2936,38 @@
             }
         },
         "titles": {
-            "1": "A Quranic Truth"
+            "1": "En Koranisk Sanning"
         }
     },
     {
         "page": 428,
         "text": {
-            "1": "This crucial definition is confirmed by the Quran’s mathematical code. The expression used in 33:40, “Muhammad Khaatum Al-Nabiyyeen” (the last prophet) has a gematrical value of 1349, 19 x 71, while the value of the erroneous expression “Muhammad Khaatum Al-Mursaleen” (the last messenger) is not a multiple of 19.",
-            "2": "From time immemorial, it has been a human trait to reject a contemporary, living messenger. Joseph was declared “the last messenger” (40:34). Yet, many messengers came after him, including Moses, David, Solomon, Jesus, and Muhammad.",
-            "3": "Although the prophets are dead, as far as this world is concerned, we know that their souls, the real persons, are now in the Garden of Eden where Adam and Eve lived. Several verses enjoin us from thinking that the believers who shed their bodies and departed this world are dead (2:154, 3:169, 4:69). Although they cannot come back to our world (23:100), they are “alive” in Paradise. Please see Appendix 17.",
-            "4": "During my Hajj pilgrimage to Mecca, and before sunrise on Tuesday, Zul-Hijjah 3, 1391, December 21, 1971, I, Rashad Khalifa, the soul, the real person, not the body, was taken to some place in the universe where I was introduced to all the prophets as God’s Messenger of the Covenant. I was not informed of the details and true significance of this event until Ramadan 1408.",
-            "5": "What I witnessed, in sharp consciousness, was that I was sitting still, while the prophets, one by one, came towards me, looked at my face, then nodded their heads. God showed them to me as they had looked in this world, attired in their respective mode of dress. There was an atmosphere of great awe, joy, and respect.",
-            "6": "Except for Abraham, none of the prophets were identified to me. I knew that all the prophets were there, including Moses, Jesus, Muhammad, Aaron, David, Noah, and the rest. I believe that the reason for revealing Abraham’s identity was that I asked about him. I was taken aback by the strong resemblance he had with my own family—myself, my father, my uncles. It was the only time that I wondered, “Who is this prophet who looks like my relatives?” The answer came: “Abraham.” No language was spoken. All communication was done mentally.",
-            "7": "It is noteworthy that the date of this fulfillment of the prophets’ covenant was Zul-Hijjah 3, 1391. If we add the month (12), plus the day (3), plus the year (1391), we get a total of 1406, 19 x 74. Sura 74 is where the Quran’s common denominator, the number 19, is mentioned. Note that the number 1406 is also the number of years from the revelation of the Quran to the revelation of its miracle (Appendix 1).",
-            "8": "The mission of God’s Messenger of the Covenant is to confirm existing scriptures, purify them, and consolidate them into one divine message. The Quran states that such a messenger is charged with restoring God’s message to its pristine purity, to lead the righteous believers—Jews, Christians, Muslims, Buddhists, Sikhs, Hindus, and others—out of darkness into the light (5:19 & 65:11). He is to proclaim that Islam (total submission to God) is the only religion acceptable by God (3:19)."
+            "1": "Denna avgörande definition bekräftas av Koranens matematiska kod. Uttrycket som används i 33:40, ”Muhammad Khaatum Al-Nabiyyeen” (den siste profeten), har ett gematriskt värde på 1349, 19 x 71, medan värdet av det felaktiga uttrycket ”Muhammad Khaatum Al-Mursaleen” (det sista sändebudet) inte är en multipel av 19.",
+            "2": "Sedan urminnes tider har det varit ett mänskligt drag att förkasta ett samtida, levande sändebud. Josef förklarades vara ”det sista sändebudet” (40:34). Ändå kom många sändebud efter honom, däribland Moses, David, Salomo, Jesus och Muhammad.",
+            "3": "Även om profeterna är döda, vad denna värld beträffar, vet vi att deras själar, de verkliga personerna, nu befinner sig i Edens trägård där Adam och Eva levde. Flera verser ålägger oss att inte tänka att de troende som lämnat sina kroppar och lämnat denna värld är döda (2:154, 3:169, 4:69). Även om de inte kan komma tillbaka till vår värld (23:100), är de ”levande” i Paradiset. Se Bilaga 17.",
+            "4": "Under min Hajj-pilgrimsfärd till Mecka, och före soluppgången på tisdagen den 3 Zul-Hijjah 1391, den 21 december 1971, fördes jag, Rashad Khalifa, själen, den verkliga personen, inte kroppen, till någon plats i universum där jag introducerades för alla profeterna som Guds Förbundssändebud. Jag informerades inte om detaljerna och den verkliga betydelsen av denna händelse förrän Ramadan 1408.",
+            "5": "Vad jag bevittnade, i skarpt medvetande, var att jag satt stilla, medan profeterna, en efter en, kom mot mig, såg på mitt ansikte och sedan nickade med sina huvuden. Gud visade dem för mig såsom de hade sett ut i denna värld, klädda i sina respektive klädstilar. Det rådde en atmosfär av stor vördnad, glädje och respekt.",
+            "6": "Förutom Abraham identifierades ingen av profeterna för mig. Jag visste att alla profeterna var där, däribland Moses, Jesus, Muhammad, Aron, David, Noa och resten. Jag tror att anledningen till att Abrahams identitet avslöjades var att jag frågade om honom. Jag blev häpen över den starka likheten han hade med min egen familj—mig själv, min far, mina farbröder och morbröder. Det var den enda gången jag undrade: ”Vem är denna profet som ser ut som mina släktingar?” Svaret kom: ”Abraham.” Inget språk talades. All kommunikation skedde mentalt.",
+            "7": "Det är anmärkningsvärt att datumet för detta uppfyllande av profeternas förbund var den 3 Zul-Hijjah 1391. Om vi adderar månaden (12), plus dagen (3), plus året (1391), får vi totalt 1406, 19 x 74. Sura 74 är där Koranens gemensamma nämnare, talet 19, nämns. Notera att talet 1406 också är antalet år från uppenbarelsen av Koranen till uppenbarelsen av dess mirakel (Bilaga 1).",
+            "8": "Guds Förbundssändebuds uppdrag är att bekräfta existerande skrifter, rena dem och förena dem till ett gudomligt budskap. Koranen anger att ett sådant sändebud har fått i uppdrag att återställa Guds budskap till dess ursprungliga renhet, för att leda de rättfärdiga troende—judar, kristna, muslimer, buddhister, sikher, hinduer och andra—ut ur mörkret in i ljuset (5:19 & 65:11). Han ska förkunna att Islam (total underkastelse under Gud) är den enda religion som är godtagbar för Gud (3:19)."
         },
         "evidence": {},
         "titles": {
-            "3": "The Covenant Fulfilled"
+            "3": "Förbundet Uppfyllt"
         }
     },
     {
         "page": 429,
         "text": {
-            "2": "The name of God’s Messenger of the Covenant is mathematically coded into the Quran as “Rashad Khalifa.” This is certainly the most appropriate method of introducing God’s messenger to the world in the computer-age.",
-            "3": "(1) As shown in Appendix 1, God’s great miracle in the Quran is based on the prime number 19, and it remained hidden for 1406 years (19 x 74). This awesome miracle was predestined by Almighty God to be unveiled through Rashad Khalifa. Hundreds of Muslim and Orientalist scholars during the last 14 centuries have tried in vain, but none of them was permitted to decipher the significance of the Quranic Initials.",
-            "4": "(2) The Quran is made easy for the sincere believers and seekers (54:17, 54:22, 54:32, 54:40 & 39:28). It is an irrevocable divine law that no one is permitted access to the Quran, let alone its great miracle, unless he or she is a sincere believer who is given specific divine authorization (17:45-46, 18:57, 41:44, 56:79). The unveiling of the Quran’s miracle through Rashad Khalifa is a major sign of his messengership.",
-            "5": "(3) The root word of the name “Rashad رَشَاد” is “Rashada رَشَدَ” (to uphold the right guidance). This root word is mentioned in the Quran 19 times. Nineteen is the Quran’s common denominator (see INDEX TO THE WORDS OF QURAN, First Printing, Page 320). "
+            "2": "Namnet på Guds Förbundssändebud är matematiskt kodat i Koranen som ”Rashad Khalifa”. Detta är förvisso den mest lämpliga metoden för att introducera Guds sändebud för världen i datoråldern.",
+            "3": "(1) Som visas i Bilaga 1 är Guds stora mirakel i Koranen baserat på primtalet 19, och det förblev dolt i 1406 år (19 x 74). Detta imponerande mirakel var förutbestämt av den Allsmäktige Guden att avslöjas genom Rashad Khalifa. Hundratals muslimska och orientalistiska lärda har under de senaste 14 århundradena försökt förgäves, men ingen av dem tilläts att dechiffrera betydelsen av de Koraniska Initialerna.",
+            "4": "(2) Koranen görs lätt för de uppriktiga troende och sökarna (54:17, 54:22, 54:32, 54:40 & 39:28). Det är en oåterkallelig gudomlig lag att ingen tillåts tillgång till Koranen, än mindre till dess stora mirakel, om inte han eller hon är en uppriktig troende som ges specifik gudomlig bemyndigande (17:45-46, 18:57, 41:44, 56:79). Avslöjandet av Koranens mirakel genom Rashad Khalifa är ett stort tecken på hans sändebudskap.",
+            "5": "(3) Rotordet till namnet ”Rashad رَشَاد” är ”Rashada رَشَدَ” (att upprätthålla den rätta vägledningen). Detta rotord nämns i Koranen 19 gånger. Nitton är Koranens gemensamma nämnare (se INDEX TO THE WORDS OF QURAN, Första Tryckningen, Sida 320)."
         },
         "evidence": {
             "1": {
                 "lines": {
-                    "1": "Lo, I am sending my messenger to prepare the way before me; and suddenly there will come to the temple the Lord whom you seek and the messenger of the covenant whom you desire. Yes, he is coming, says the Lord of hosts. But who will endure the day of his coming? And who can stand when he appears? For he is like the refiner’s fire, or like the fuller’s lye."
+                    "1": "Se, Jag sänder mitt sändebud för att bereda vägen framför Mig; och plötsligt kommer Herren som ni söker och förbundets sändebud som ni önskar att komma till templet. Ja, han kommer, säger härskarornas Herre. Men vem kommer att uthärda dagen för hans ankomst? Och vem kan stå när han visar sig? För han är som smältarens eld eller som valkarens lut."
                 },
                 "ref": [
                     "Malachi 3:1-2"
@@ -2976,7 +2976,7 @@
         },
         "table": {
             "4": {
-                "ref": "Table 1: Suras and Verses of “Rashada” and “Khalifa”",
+                "ref": "Tabell 1: Suror och Verser för ”Rashada” och ”Khalifa”",
                 "title": [
                     " ",
                     "",
@@ -2985,11 +2985,11 @@
                     "“Khalifa”"
                 ],
                 "values": [
-                    "No.",
+                    "Nr.",
                     "Sura",
-                    "Verse",
+                    "Vers",
                     "Sura",
-                    "Verse",
+                    "Vers",
                     "1.",
                     "2",
                     "186",
@@ -3084,7 +3084,7 @@
                     "-",
                     "21",
                     "",
-                    "*(Sura 2 is a Repeat)",
+                    "*(Sura 2 är en Upprepning)",
                     " ",
                     "____",
                     "____",
@@ -3104,27 +3104,27 @@
             }
         },
         "titles": {
-            "2": "The Proof"
+            "2": "Beviset"
         }
     },
     {
         "page": 430,
         "text": {
-            "1": "(4) The word “Rashad” occurs in 40:29 & 40:38. The word “Khalifa” occurs in 2:30 and 38:26. The first “Khalifa” refers to a non-human “Khalifa,” namely, Satan, while the second occurrence (Sura 38), refers to a human “Khalifa.” If we add the numbers of suras and verses of “Rashad” (40:29, 40:38) and “Khalifa” (38:26) we get 40 + 29 + 38 + 38 + 26 = 171 = 19 x 9.",
-            "2": "(5) The sum of all sura and verse numbers where all “Rashada” and all “Khalifa” occur, without discrimination, add up to 1463, 19 x 77 (Table 1).",
-            "3": "(6) The total of all suras and verses where the root word “Rashada” occurs is 1369, or (19 x 72) + 1, while the total for all occurrences of “Khalifa” is 94, (19 x 5)-1. The fact that “Rashada” is up by one and “Khalifa” is down by one pins down the name as “Rashad Khalifa,” and not any “Rashad” or any “Khalifa.”",
-            "4": "(7) The gematrical value of “Rashad” is 505 and the value of “Khalifa” is 725 (Table 7, Appendix 1). If we add the value of “Rashad Khalifa” (1230) to the sura numbers, and the number of verses, from the beginning of the Quran to the first occurrence of “Rashada,” the total is 1425, 19 x 75. The details are given in Table 2. ",
-            "7": "(8) If we add the numbers of all the verses in every sura, i.e., the sum of verse numbers (1 + 2 + 3 + ... + n) from the beginning of the Quran to the first occurrence of the root word “Rashada,” the total comes to 17233,19 x 907 (Table 2). ",
-            "8": "(9) The Quranic Initials constitute the basic foundation of the Quran’s miracle. These initials occur in suras 2, 3, 7, 10, 11, 12, 13, 14, 15, 19, 20, 26, 27, 28, 29, 30, 31, 32, 36, 38, 40, 41, 42, 43, 44, 45, 46, 50, and 68. If we add the sum of these numbers (822) to the value of “Rashad Khalifa” (1230), the total is 2052, 19 x 108.",
-            "10": "(10) As shown in Table 3, if we add the numbers of all suras where the root word “Rashada” occurs, plus the number of verses, we get 1368, or 19 x 72."
+            "1": "(4) Ordet ”Rashad” förekommer i 40:29 & 40:38. Ordet ”Khalifa” förekommer i 2:30 och 38:26. Den första ”Khalifa” syftar på en icke-mänsklig ”Khalifa”, nämligen Satan, medan den andra förekomsten (Sura 38) syftar på en mänsklig ”Khalifa”. Om vi adderar numren på surorna och verserna för ”Rashad” (40:29, 40:38) och ”Khalifa” (38:26), får vi 40 + 29 + 38 + 38 + 26 = 171 = 19 x 9.",
+            "2": "(5) Summan av alla sura- och versnummer där alla ”Rashada” och alla ”Khalifa” förekommer, utan åtskillnad, uppgår till 1463, 19 x 77 (Tabell 1).",
+            "3": "(6) Summan av alla suror och verser där rotordet ”Rashada” förekommer är 1369, eller (19 x 72) + 1, medan summan för alla förekomster av ”Khalifa” är 94, (19 x 5)-1. Det faktum att ”Rashada” ligger ett över och ”Khalifa” ligger ett under fastställer namnet som ”Rashad Khalifa”, och inte vilken ”Rashad” eller vilken ”Khalifa” som helst.",
+            "4": "(7) Det gematriska värdet för ”Rashad” är 505 och värdet för ”Khalifa” är 725 (Tabell 7, Bilaga 1). Om vi adderar värdet för ”Rashad Khalifa” (1230) till suranumren och antalet verser, från början av Koranen till den första förekomsten av ”Rashada”, blir summan 1425, 19 x 75. Detaljerna anges i Tabell 2.",
+            "7": "(8) Om vi adderar numren på alla verserna i varje sura, dvs. summan av versnumren (1 + 2 + 3 + ... + n) från början av Koranen till den första förekomsten av rotordet ”Rashada”, blir summan 17233, 19 x 907 (Tabell 2).",
+            "8": "(9) De Koraniska Initialerna utgör den grundläggande grunden för Koranens mirakel. Dessa initialer förekommer i surorna 2, 3, 7, 10, 11, 12, 13, 14, 15, 19, 20, 26, 27, 28, 29, 30, 31, 32, 36, 38, 40, 41, 42, 43, 44, 45, 46, 50 och 68. Om vi adderar summan av dessa tal (822) till värdet för ”Rashad Khalifa” (1230), blir summan 2052, 19 x 108.",
+            "10": "(10) Som visas i Tabell 3, om vi adderar numren på alla suror där rotordet ”Rashada” förekommer, plus antalet verser, får vi 1368, eller 19 x 72."
         },
         "table": {
             "2": {
-                "ref": "Table 2: The Suras and Verses from the Beginning of the Quran to the First Occurrence of the Root Word “Rashada”",
+                "ref": "Tabell 2: Surorna och Verserna från Början av Koranen till den Första Förekomsten av Rotordet ”Rashada”",
                 "title": [
-                    "Sura No.",
-                    "No. of Verses",
-                    "Sum of Verse #s"
+                    "Sura Nr.",
+                    "Antal Verser",
+                    "Summan av Versnumren"
                 ],
                 "values": [
                     "1",
@@ -3145,11 +3145,11 @@
                 ]
             },
             "9": {
-                "ref": "Table 3: The Suras Where the Root Word “Rashada” Occurs.",
+                "ref": "Tabell 3: Surorna Där Rotordet ”Rashada” Förekommer.",
                 "title": [
-                    "Sura No.",
-                    "No. of Verses",
-                    "Total"
+                    "Sura Nr.",
+                    "Antal Verser",
+                    "Totalt"
                 ],
                 "values": [
                     "2",
@@ -3194,8 +3194,8 @@
         "evidence": {
             "6": {
                 "lines": {
-                    "1": "Also, “Rashad” (505) + “Khalifa” (725) + Sura ",
-                    "2": "Total (3) + Total of Verses (192) = 1425 (19 x 75) ",
+                    "1": "Also, “Rashad” (505) + “Khalifa” (725) + Sura",
+                    "2": "Total (3) + Totalt antal verser (192) = 1425 (19 x 75)",
                     "3": "505 + 725 + 3 + 192 = 1425 = 19 x 75"
                 },
                 "ref": []
@@ -3206,18 +3206,18 @@
     {
         "page": 431,
         "text": {
-            "1": "(11) If we write down the sura number, followed by the number of verses per sura, followed by the individual verse numbers, from the first occurrence of the root word “Rashada” (2:186) to the last occurrence of “Rashada” (72:21), and place these numbers next to each other, we get a very long number that consists of 11087 digits, and is a multiple of 19. This very long number begins with the number of Sura 2, followed by the number of verses in Sura 2 from the first occurrence of “Rashada” at verse 186 to the end of the sura (100 verses). Thus, the beginning of the number looks like this: 2 100. The numbers of these 100 individual verses (187 to 286) are placed next to this number. Thus, the number representing Sura 2 looks like this: 2 100 187 188 189 .... 285 286. The same process is carried out all the way to 72:21, the last occurrence of the root “Rashada.” The complete number looks like this:",
-            "3": "(12) If we examine the suras and verses from the first occurrence of the root word “Rashada” to the word “Khalifa” in 38:26, we find that the sum of sura numbers and their numbers of verses is 4541, or 19 x 239. The details are in Table 4.",
-            "5": "(13) When we write down the value of “Rashad” (505), followed by the value of “Khalifa” (725), followed by every sura number where the root word “Rashada” occurs, followed by the numbers of its verses, from the first “Rashada” (2:186) to the word “Khalifa” (38:26), we get a long number that is divisible by 19. ",
-            "6": "The first occurrence of “Rashada” is in 2:186. So, we write down 2 186. The second occurrence is in 2:256, so we write down 256. The next occurrence is in 4:6, so we write down 4 6, and so on, until we write down 38 26 (“Khalifa” occurs in 38:26). The complete number looks like this:"
+            "1": "(11) Om vi skriver ner suranumret, följt av antalet verser per sura, följt av de individuella versnumren, från den första förekomsten av rotordet ”Rashada” (2:186) till den sista förekomsten av ”Rashada” (72:21), och placerar dessa nummer bredvid varandra, får vi ett mycket långt tal som består av 11087 siffror och är en multipel av 19. Detta mycket långa tal börjar med numret på Sura 2, följt av antalet verser i Sura 2 från den första förekomsten av ”Rashada” i vers 186 till slutet av suran (100 verser). Således ser början av talet ut så här: 2 100. Numren på dessa 100 individuella verser (187 till 286) placeras bredvid detta tal. Således ser talet som representerar Sura 2 ut så här: 2 100 187 188 189 .... 285 286. Samma process genomförs hela vägen till 72:21, den sista förekomsten av roten ”Rashada”. Det fullständiga talet ser ut så här:",
+            "3": "(12) Om vi undersöker surorna och verserna från den första förekomsten av rotordet ”Rashada” till ordet ”Khalifa” i 38:26, finner vi att summan av suranumren och deras antal verser är 4541, eller 19 x 239. Detaljerna finns i Tabell 4.",
+            "5": "(13) När vi skriver ner värdet av ”Rashad” (505), följt av värdet av ”Khalifa” (725), följt av varje suranummer där rotordet ”Rashada” förekommer, följt av numren på dess verser, från det första ”Rashada” (2:186) till ordet ”Khalifa” (38:26), får vi ett långt tal som är delbart med 19.",
+            "6": "Den första förekomsten av ”Rashada” är i 2:186. Så, skriver vi ner 2 186. Den andra förekomsten är i 2:256, så vi skriver ner 256. Nästa förekomst är i 4:6, så vi skriver ner 4 6, och så vidare, tills vi skriver ner 38 26 (”Khalifa” förekommer i 38:26). Det fullständiga talet ser ut så här:"
         },
         "table": {
             "4": {
-                "ref": "Table 4: The Suras and Verses from the First “Rashada” to “Khalifa.” ",
+                "ref": "Tabell 4: Surorna och Verserna från det Första ”Rashada” till ”Khalifa”.",
                 "title": [
-                    "Sura No",
-                    "No. of Verses",
-                    "Total"
+                    "Sura Nr",
+                    "Antal Verser",
+                    "Totalt"
                 ],
                 "values": [
                     "2",
@@ -3260,8 +3260,8 @@
             "2": {
                 "lines": {
                     "1": "2 100 187 188 189 ..... 72 21 1 2 3 ..... 19 20 21",
-                    "2": "The Sura number is followed by the number of verses, then the numbers of individual verses, from the first to the last occurrence of “Rashada” (2:187 through 72:21).",
-                    "3": "The complete number consists of 11087 digits, and is divisible by 19."
+                    "2": "Suranumret följs av antalet verser, sedan numren på de individuella verserna, från den första till den sista förekomsten av ”Rashada” (2:187 till 72:21).",
+                    "3": "Det fullständiga talet består av 11087 siffror och är delbart med 19."
                 },
                 "ref": []
             },
@@ -3273,7 +3273,7 @@
             },
             "8": {
                 "lines": {
-                    "1": "The gematrical value of “Rashad” is followed by the value of “Khalifa,” followed by the sura number and verse numbers of every occurrence of the root word “Rashada” from the first occurrence of “Rashada” to the occurrence of “Khalifa” in 38:26. "
+                    "1": "Det gematriska värdet av ”Rashad” följs av värdet av ”Khalifa”, följt av suranumret och versnumren för varje förekomst av rotordet ”Rashada” från den första förekomsten av ”Rashada” till förekomsten av ”Khalifa” i 38:26."
                 },
                 "ref": []
             }
@@ -3284,21 +3284,21 @@
         "page": 432,
         "text": {
             "1": "[3:19]",
-            "2": "(14) The Quran specifies three messengers of Islam (Submission): ",
-            "8": "The true Judaism, Christianity, and Islam will be consolidated into one religion—complete submission and absolute devotion to God ALONE. ",
-            "9": "The existing religions, including Judaism, Christianity, and Islam are severely corrupted and will simply die out (9:33, 48:28, 61:9).",
-            "10": "(15) Since the Quran sometimes refers to “Abraham, Ismail, and Isaac,” it was suggested that Ismail and Isaac should be included. Remarkably, the addition of Ismail and Isaac gave a total that is still a multiple of 19. As shown in Table 5, the new total is 1235, or 19 x 65. This divisibility by 19 is not possible if any of the 3 names Abraham, Muhammad, or Rashad is omitted.",
-            "11": "(16) God’s Messenger of the Covenant is prophesied in Verse 81 of Sura 3. The addition of the gematrical value of “Rashad” (505), plus the gematrical value of “Khalifa” (725), plus the Verse number (81), produces 505 + 725 + 81 = 1311 = 19 x 69.",
-            "12": "(17) If we look at Sura 81, we read about a messenger of God who is powerfully supported and authorized by the Almighty (Verse 19). Thus, Verse 81 of Sura 3, and Sura 81, Verse 19 are strongly connected with the name “Rashad Khalifa” 505 + 725 + 81 = 1311 = 19 x 69.",
-            "13": "(18) If we add the sura numbers plus the number of verses from the beginning of the Quran to Verse 3:81, where the Messenger of the Covenant is prophesied, the total comes to 380, 19 x 20. These data are in Table 6."
+            "2": "(14) Koranen specificerar tre sändebud av Islam (Underkastelse):",
+            "8": "Den sanna judendomen, kristendomen och islam kommer att förenas till en religion—fullständig underkastelse och absolut hängivenhet till Gud ENSAM.",
+            "9": "De existerande religionerna, inklusive judendomen, kristendomen och islam, är allvarligt korrumperade och kommer helt enkelt att dö ut (9:33, 48:28, 61:9).",
+            "10": "(15) Eftersom Koranen ibland hänvisar till ”Abraham, Ismail och Isaac”, föreslogs det att Ismail och Isaac borde inkluderas. Anmärkningsvärt nog gav tillägget av Ismail och Isaac en totalsumma som fortfarande är en multipel av 19. Som visas i Tabell 5 är den nya totalsumman 1235, eller 19 x 65. Denna delbarhet med 19 är inte möjlig om något av de 3 namnen Abraham, Muhammad eller Rashad utelämnas.",
+            "11": "(16) Guds Förbundsändebud är profeterad i Vers 81 i Sura 3. Tillägget av det gematriska värdet av ”Rashad” (505), plus det gematriska värdet av ”Khalifa” (725), plus Versnumret (81), ger 505 + 725 + 81 = 1311 = 19 x 69.",
+            "12": "(17) Om vi tittar på Sura 81, läser vi om ett sändebud från Gud som är kraftfullt stödd och auktoriserad av den Allsmäktige (Vers 19). Således är Vers 81 i Sura 3, och Sura 81, Vers 19 starkt förbundna med namnet ”Rashad Khalifa” 505 + 725 + 81 = 1311 = 19 x 69.",
+            "13": "(18) Om vi adderar suranumren plus antalet verser från Koranens början till Vers 3:81, där Förbundsändebudet är profeterad, blir totalsumman 380, 19 x 20. Dessa data finns i Tabell 6."
         },
         "table": {
             "11": {
-                "ref": "Table 5: Gematrical Value of the 5 Messengers",
+                "ref": "Tabell 5: Gematriskt Värde för de 5 Sändebuden",
                 "title": [
-                    "Name",
-                    "Value of Individual Letters",
-                    "Total"
+                    "Namn",
+                    "Värde för Enskilda Bokstäver",
+                    "Totalt"
                 ],
                 "values": [
                     "Abraham",
@@ -3307,7 +3307,7 @@
                     "Ismail",
                     "1 + 60 + 40 + 70 + 10 + 30",
                     "211",
-                    "Isaac",
+                    "Isak",
                     "1 + 60 + 8 + 100",
                     "169",
                     "Muhammad",
@@ -3328,11 +3328,11 @@
                 ]
             },
             "15": {
-                "ref": "Table 6: The Suras and Verses from 1:1 to 3:81",
+                "ref": "Tabell 6: Surorna och Verserna från 1:1 till 3:81",
                 "title": [
-                    "Sura No",
-                    "No. of Verses",
-                    "Total"
+                    "Sura Nr",
+                    "Antal Verser",
+                    "Totalt"
                 ],
                 "values": [
                     "1",
@@ -3359,40 +3359,40 @@
         "evidence": {
             "2": {
                 "lines": {
-                    "3": "Abraham delivered all the practices of Islam. The value of his name = 258",
-                    "4": "Muhammad delivered the Quran. The value of his name = 92",
-                    "5": "Rashad delivered Islam’s proof of authenticity. The value of his name = 505",
-                    "6": "Total gematrical value of the 3 names = 258 + 92 + 505 = 855 (19 x 45)"
+                    "3": "Abraham framförde alla utövanden inom Islam. Värdet av hans namn = 258",
+                    "4": "Muhammad framförde Koranen. Värdet av hans namn = 92",
+                    "5": "Rashad framförde Islams bevis på äkthet. Värdet av hans namn = 505",
+                    "6": "Totalt gematriskt värde för de 3 namnen = 258 + 92 + 505 = 855 (19 x 45)"
                 },
                 "ref": []
             }
         },
         "titles": {
-            "1": "The Only Religion Approved by God is Islam",
-            "11": "Why 81: Verse 81 & Sura 81"
+            "1": "Den Enda Religionen Godkänd av Gud är Islam",
+            "11": "Varför 81: Vers 81 & Sura 81"
         }
     },
     {
         "page": 433,
         "text": {
-            "1": "(19) The gematrical value of Verse 3:81 is 13148, 19 x 692. This value is obtained by adding the gematrical values of every letter in the verse.",
-            "2": "(20) If we look at that portion of Verse 3:81 which refers specifically to the messenger of the Covenant: “A messenger will come to you, confirming what you have,” in Arabic:",
-            "3": "we find that the gematrical value of this key phrase is 836, 19 x 44. ",
-            "4": "(21) I was told most assertively, through the angel Gabriel, that Verse 3 of Sura 36 refers specifically to me. If we arrange the initialed suras only, starting with Sura 2, then Sura 3, then Sura 7, and so on, we find that Sura 36, Ya Seen, occupies position number 19.",
-            "5": "(22) Verse 3 of Sura 36 says, “Surely, you are one of the messengers.” The gematrical value of this phrase is 612. By adding this value (612), plus the sura number (36), plus the verse number (3), plus the gematrical value of “Rashad Khalifa” (505 + 725), we get 36 + 3 + 612 + 505 + 725 = 1881 = 19 x 99.",
-            "6": "(23) Sura 36 consists of 83 verses. If we add the sura number (36), plus its number of verses (83), plus the gematrical value of “Rashad Khalifa” (505 + 725), we get 36 + 83 + 505 + 725 = 1349 = 19 x 71.",
-            "7": "(24) From 3:81, where the Messenger of the Covenant is prophesied, to Sura 36, there are 3330 verses. By adding the value of “Rashad Khalifa” (1230), to this number of verses (3330), we get 505 + 725 + 3330 = 4560, 19 x 240.",
-            "8": "(25) From 3:81 to 36:3 there are 3333 verses. By adding this number to the gematrical value of “Rashad” (505), we get 3333 + 505 = 3838 = 19 x 202. ",
-            "9": "(26) The number of verses from 1:1 to 36:3 is 3705, 19 x 195 (Table 7).",
-            "10": "(27) The sum of verse numbers of every sura from 1:1 to 36:3 is 257925, 19 x 13575 (Table 7)."
+            "1": "(19) Det gematriska värdet för Vers 3:81 är 13148, 19 x 692. Detta värde erhålls genom att addera de gematriska värdena för varje bokstav i versen.",
+            "2": "(20) Om vi tittar på den del av Vers 3:81 som specifikt hänvisar till Förbundsändebudet: ”Ett sändebud kommer att komma till er, som bekräftar det ni har”, på arabiska:",
+            "3": "finner vi att det gematriska värdet för denna nyckelfras är 836, 19 x 44.",
+            "4": "(21) Jag fick veta på det mest bestämda sättet, genom ängeln Gabriel, att Vers 3 i Sura 36 specifikt hänvisar till mig. Om vi ordnar endast de initialförsedda surorna, med början med Sura 2, sedan Sura 3, sedan Sura 7, och så vidare, finner vi att Sura 36, Ya Seen, intar position nummer 19.",
+            "5": "(22) Vers 3 i Sura 36 säger: ”Säkerligen, du är ett av sändebuden.” Det gematriska värdet för denna fras är 612. Genom att addera detta värde (612), plus suranumret (36), plus versnumret (3), plus det gematriska värdet av ”Rashad Khalifa” (505 + 725), får vi 36 + 3 + 612 + 505 + 725 = 1881 = 19 x 99.",
+            "6": "(23) Sura 36 består av 83 verser. Om vi adderar suranumret (36), plus dess antal verser (83), plus det gematriska värdet av ”Rashad Khalifa” (505 + 725), får vi 36 + 83 + 505 + 725 = 1349 = 19 x 71.",
+            "7": "(24) Från 3:81, där Förbundsändebudet är profeterad, till Sura 36, finns det 3330 verser. Genom att addera värdet av ”Rashad Khalifa” (1230) till detta antal verser (3330), får vi 505 + 725 + 3330 = 4560, 19 x 240.",
+            "8": "(25) Från 3:81 till 36:3 finns det 3333 verser. Genom att addera detta tal till det gematriska värdet av ”Rashad” (505), får vi 3333 + 505 = 3838 = 19 x 202.",
+            "9": "(26) Antalet verser från 1:1 till 36:3 är 3705, 19 x 195 (Tabell 7).",
+            "10": "(27) Summan av versnumren i varje sura från 1:1 till 36:3 är 257925, 19 x 13575 (Tabell 7)."
         },
         "table": {
             "11": {
-                "ref": "Table 7: Suras and Verses From Sura 1 to Verse 3 of Sura 36.",
+                "ref": "Tabell 7: Suror och Verser Från Sura 1 till Vers 3 i Sura 36.",
                 "title": [
-                    "Sura No",
-                    "No. of Verses",
-                    "Sum of Verse #s"
+                    "Sura Nr",
+                    "Antal Verser",
+                    "Summan av Versnumren"
                 ],
                 "values": [
                     "1",
@@ -3442,27 +3442,27 @@
         },
         "evidence": {},
         "titles": {
-            "4": "“Surely, You Are One of the Messengers” (36:3)"
+            "4": "”Säkerligen, Du Är Ett av Sändebuden” (36:3)"
         }
     },
     {
         "page": 434,
         "text": {
-            "1": "(28) The sum of sura numbers from Sura 1 to Sura 36 is 666 (Table 7). If we add this sum to the gematrical value of “Rashad Khalifa” (505 + 725), plus the gematrical value of verse 36:3 “Surely, you are one of the messengers,” (612), the total is: 666 + 505 + 725 + 612 = 2508 = 19 x 132.",
-            "2": "(29) If we add the sum of verse numbers (1 + 2 + 3 + ... + n) from the first occurrence of the root word “Rashada” (2:186) to 36:3 (You are one of the messengers) to the total of suras (35), plus the sura numbers themselves, the total is 241395, or 19 x 12705 (Table 8).",
-            "3": "(30) The sum of sura numbers from the first occurrence of the root word “Rashada” to 36:3 is 665, 19 x 35. Note that these are 35 suras (Table 8).",
-            "8": "(31) Obviously, the number of this verse is 19, the Quran’s common denominator discovered by Rashad, and the number of occurrences of “Rashada” in the Quran.",
-            "9": "(32) If we add the value of “Rashad Khalifa” (1230), plus the sura number (5), plus the verse number (19), we get 1230 + 5 + 19 = 1254 = 19 x 66.",
-            "10": "(33) The sum of the sura numbers and the number of verses from the beginning of the Quran to this verse (5:19) is 703,19 x 37. See Table 9."
+            "1": "(28) Summan av suranumren från Sura 1 till Sura 36 är 666 (Tabell 7). Om vi adderar denna summa till det gematriska värdet av ”Rashad Khalifa” (505 + 725), plus det gematriska värdet för vers 36:3 ”Säkerligen, du är ett av sändebuden,” (612), är totalsumman: 666 + 505 + 725 + 612 = 2508 = 19 x 132.",
+            "2": "(29) Om vi adderar summan av versnumren (1 + 2 + 3 + ... + n) från den första förekomsten av rotordet ”Rashada” (2:186) till 36:3 (Du är ett av sändebuden) till det totala antalet suror (35), plus själva suranumren, är totalsumman 241395, eller 19 x 12705 (Tabell 8).",
+            "3": "(30) Summan av suranumren från den första förekomsten av rotordet ”Rashada” till 36:3 är 665, 19 x 35. Observera att dessa är 35 suror (Tabell 8).",
+            "8": "(31) Uppenbarligen är numret på denna vers 19, Koranens gemensamma nämnare upptäckt av Rashad, och antalet förekomster av ”Rashada” i Koranen.",
+            "9": "(32) Om vi adderar värdet av ”Rashad Khalifa” (1230), plus suranumret (5), plus versnumret (19), får vi 1230 + 5 + 19 = 1254 = 19 x 66.",
+            "10": "(33) Summan av suranumren och antalet verser från Koranens början till denna vers (5:19) är 703,19 x 37. Se Tabell 9."
         },
         "picture": {},
         "table": {
             "4": {
-                "ref": "Table 8: The Suras and Verses from the First “Rashada” to 36:3.",
+                "ref": "Tabell 8: Surorna och Verserna från det Första ”Rashada” till 36:3.",
                 "title": [
-                    "No.",
-                    "Sura No.",
-                    "Sum of Verse #s"
+                    "Nr.",
+                    "Sura Nr.",
+                    "Summan av Versnumren"
                 ],
                 "values": [
                     "1.",
@@ -3507,11 +3507,11 @@
                 ]
             },
             "11": {
-                "ref": "Table 9: The Suras and Verses from the Beginning to 5:19.",
+                "ref": "Tabell 9: Surorna och Verserna från Början till 5:19.",
                 "title": [
-                    "Sura No.",
-                    "No. of Verses",
-                    "Total"
+                    "Sura Nr.",
+                    "Antal Verser",
+                    "Totalt"
                 ],
                 "values": [
                     "1",
@@ -3544,7 +3544,7 @@
         "evidence": {
             "7": {
                 "lines": {
-                    "1": "O people of the scripture, our messenger has come to you, to clarify things for you, after a long period without messengers. Lest you say, “No preacher or warner has come to us.” A preacher and warner has come to you. God is Omnipotent."
+                    "1": "O skriftens folk, vårt sändebud har kommit till er, för att klargöra saker för er, efter en lång period utan sändebud. Så att ni inte säger: ”Ingen predikare eller varnare har kommit till oss.” En predikare och varnare har kommit till er. Gud är Allsmäktig."
                 },
                 "ref": [
                     "5:19"
@@ -3552,28 +3552,28 @@
             }
         },
         "titles": {
-            "5": "“A Messenger to the People of the Scripture”",
-            "6": "(Jews, Christians, and Muslims)"
+            "5": "”Ett Sändebud till Skriftens Folk”",
+            "6": "(Judar, Kristna och Muslimer)"
         }
     },
     {
         "page": 435,
         "text": {
-            "1": "(34) Sura 98, “The Proof,” Verse 2, proclaims the advent of God’s Messenger of the Covenant for the benefit of “The People of the Scripture (Jews, Christians, and Muslims).” By adding the gematrical value of “Rashad Khalifa” (505 + 725) to the sura number (98), plus the verse number (2), we get: 505 + 725 + 98 + 2 = 1330 = 19 x 70.",
-            "3": "(35) It is noteworthy that the word “Bayyinah,” which means “Profound Sign,” and is the title of Sura 98, occurs in the Quran 19 times. This is another mathematical confirmation that the Quran’s proof of divine authorship is based on the prime number 19, and that “Rashad Khalifa” is the messenger in 98:2.",
-            "4": "(36) By adding the sura numbers, plus the number of verses in each sura, from the 1:1 to 44:13, the total comes to 5415, 19 x 19 x 15 (Table 10).",
-            "5": "(37) The sum of the sura number (44) plus the number of the verse where the messenger is predicted (13) equals 57, 19 x 3. See Table 10.",
-            "8": "(38) God is the only Knower of the future; He knows exactly when this world will end (7:187, 31:34, 33:63, 41:47, 43:85). We learn from the Quran that God reveals certain aspects of the future to His chosen messengers. In Appendix 25, evidence is presented that Rashad Khalifa was blessed with unveiling the End of the World, in accordance with 72:27.",
-            "9": "(39) The number of verses from the beginning of the Quran to Verse 72:27 is 5472, or 19 x 72 x 4. Note that the messenger who is given information about the future in 72:27, and that this sura contains 4 “Rashada” words (72:2, 72:10, 72:14, & 72:21). By adding the value of “Rashad Khalifa” (1230), plus the sura number (72), plus the numbers of the 4 verses where “Rashada” is mentioned, we get 1230 + 72 + 2 + 10 + 14 + 21 = 1349 = 19 x 71.",
-            "10": "(40) Verse 72:27 begins with the statement “إِلَّا مَنِ ارْتَضَى مِن رَّسُولٍ” This reference to the messenger who is chosen by God to receive news about the future has a gematrical value of 1919. Table 11 presents the data."
+            "1": "(34) Sura 98, ”Beviset”, Vers 2, förkunnar ankomsten av Guds Förbundsändebud till gagn för ”Skriftens Folk (Judar, Kristna och Muslimer).” Genom att addera det gematriska värdet av ”Rashad Khalifa” (505 + 725) till suranumret (98), plus versnumret (2), får vi: 505 + 725 + 98 + 2 = 1330 = 19 x 70.",
+            "3": "(35) Det är anmärkningsvärt att ordet ”Bayyinah”, som betyder ”Djupgående Tecken” och är titeln på Sura 98, förekommer i Koranen 19 gånger. Detta är ytterligare en matematisk bekräftelse på att Koranens bevis på gudomligt författarskap är baserat på primtalet 19, och att ”Rashad Khalifa” är sändebudet i 98:2.",
+            "4": "(36) Genom att addera suranumren, plus antalet verser i varje sura, från 1:1 till 44:13, blir totalsumman 5415, 19 x 19 x 15 (Tabell 10).",
+            "5": "(37) Summan av suranumret (44) plus versnumret där sändebudet är förutsagt (13) är lika med 57, 19 x 3. Se Tabell 10.",
+            "8": "(38) Gud är den ende som känner framtiden; Han vet exakt när denna värld kommer att ta slut (7:187, 31:34, 33:63, 41:47, 43:85). Vi lär oss från Koranen att Gud uppenbarar vissa aspekter av framtiden för Hans utvalda sändebud. I Appendix 25 presenteras bevis för att Rashad Khalifa välsignades med att avslöja Världens Slut, i enlighet med 72:27.",
+            "9": "(39) Antalet verser från Koranens början till Vers 72:27 är 5472, eller 19 x 72 x 4. Observera att sändebudet som ges information om framtiden i 72:27, och att denna sura innehåller 4 ”Rashada”-ord (72:2, 72:10, 72:14, & 72:21). Genom att addera värdet av ”Rashad Khalifa” (1230), plus suranumret (72), plus numren på de 4 verserna där ”Rashada” nämns, får vi 1230 + 72 + 2 + 10 + 14 + 21 = 1349 = 19 x 71.",
+            "10": "(40) Vers 72:27 börjar med uttalandet ”إِلَّا مَنِ ارْتَضَى مِن رَّسُولٍ” Denna hänvisning till sändebudet som är utvalt av Gud för att ta emot nyheter om framtiden har ett gematriskt värde på 1919. Tabell 11 presenterar uppgifterna."
         },
         "table": {
             "6": {
-                "ref": "Table 10: The Suras and Verses from 1:1 to 44:13.",
+                "ref": "Tabell 10: Surorna och Verserna från 1:1 till 44:13.",
                 "title": [
-                    "Sura No.",
-                    "No. of Verses",
-                    "Total"
+                    "Sura Nr.",
+                    "Antal Verser",
+                    "Totalt"
                 ],
                 "values": [
                     "1",
@@ -3624,39 +3624,39 @@
         "picture": {
             "11": {
                 "no": "14",
-                "text": "(Only the Messenger that He chooses)."
+                "text": "(Endast Sändebudet som Han väljer)."
             }
         },
         "evidence": {
             "2": {
                 "lines": {
-                    "1": "Those who disbelieved among the people of the scripture (Jews, Christians, Muslims), and the idolators, will not believe, despite the profound sign given to them. [98:1]",
-                    "2": "A messenger from God, reciting Sacred Scriptures. [98:2]"
+                    "1": "De som förnekade bland Skriftens folk (Judar, Kristna, Muslimer), och avgudadyrkarna, kommer inte att tro, trots det djupgående tecknet som gavs till dem. [98:1]",
+                    "2": "Ett sändebud från Gud, som reciterar Heliga Skrifter. [98:2]"
                 },
                 "ref": []
             }
         },
         "titles": {
-            "4": "A Profound Messenger Has Come [44:13]",
-            "7": "END OF THE WORLD"
+            "4": "Ett Djupgående Sändebud Har Kommit [44:13]",
+            "7": "VÄRLDENS SLUT"
         }
     },
     {
         "page": 436,
         "text": {
-            "3": "The Quran provides straightforward criteria to distinguish the true messengers of God from the false messengers:",
-            "4": "[1] God’s messenger advocates the worship of God ALONE, and the abolition of all forms of idol worship.",
-            "5": "[2] God’s messenger never asks for a wage for himself.",
-            "6": "[3] God’s messenger is given divine, incontrovertible proof of his messengership.",
-            "7": "Anyone who claims to be God’s messenger, and does not meet the three minimum criteria listed above is a false claimant.",
-            "9": "Thus, the truthfulness of God’s messenger invariably prevails, while the falsehood of a fake messenger invariably, sooner or later, is exposed."
+            "3": "Koranen tillhandahåller tydliga kriterier för att skilja Guds sanna sändebud från de falska sändebuden:",
+            "4": "[1] Guds sändebud förespråkar dyrkan av Gud ENSAM, och avskaffandet av alla former av idoldyrkan.",
+            "5": "[2] Guds sändebud ber aldrig om lön för sig själv.",
+            "6": "[3] Guds sändebud ges gudomligt, obestridligt bevis på sitt sändebudskap.",
+            "7": "Den som hävdar sig vara Guds sändebud och inte uppfyller de tre minimikriterier som anges ovan är en falsk pretendent.",
+            "9": "Således segrar sanningsenligheten hos Guds sändebud ofelbart, medan falskheten hos ett falskt sändebud ofelbart, förr eller senare, avslöjas."
         },
         "table": {
             "2": {
-                "ref": "Table 11: Gematrical Value of the Chosen Messenger in 72:27.",
+                "ref": "Tabell 11: Det Gematriska Värdet av det Utvalda Sändebudet i 72:27.",
                 "title": [
-                    "Letter",
-                    "Gematrical Value"
+                    "Bokstav",
+                    "Gematriskt Värde"
                 ],
                 "values": [
                     "A",
@@ -3706,67 +3706,67 @@
         "evidence": {
             "8": {
                 "lines": {
-                    "1": "The most important difference between God’s messenger and a fake messenger is that God’s messenger is supported by God, while the fake messenger is not:",
-                    "2": "* God’s messenger is supported by God’s invisible soldiers (3:124-126, 9:26, 9:40, 33:9, 37:171-173, 48:4, 48:7, 74:31).",
-                    "3": "* God’s messenger is supported by God’s treasury (63:7-8).",
-                    "4": "* God’s messenger, as well as the believers, are guaranteed victory and dignity, in this world and forever (40:51 & 58:21)."
+                    "1": "Den viktigaste skillnaden mellan Guds sändebud och ett falskt sändebud är att Guds sändebud stöds av Gud, medan det falska sändebudet inte gör det:",
+                    "2": "* Guds sändebud stöds av Guds osynliga soldater (3:124-126, 9:26, 9:40, 33:9, 37:171-173, 48:4, 48:7, 74:31).",
+                    "3": "* Guds sändebud stöds av Guds skattkammare (63:7-8).",
+                    "4": "* Guds sändebud, såväl som de troende, garanteras seger och värdighet, i denna värld och för evigt (40:51 & 58:21)."
                 },
                 "ref": []
             }
         },
         "titles": {
-            "3": "HOW TO DISTINGUISH GOD’S MESSENGER FROM A FAKE MESSENGER"
+            "3": "HUR MAN SKILJER GUDS SÄNDEBUD FRÅN ETT FALSKT SÄNDEBUD"
         }
     },
     {
         "page": 437,
         "text": {
-            "1": "As stated in the Quran, 3:81, God’s Messenger of the Covenant shall confirm all the scriptures, which were delivered by all the prophets, and restore them to their original purity.",
-            "2": "When the believers are faced with a problem, they develop a number of possible solutions, and this invariably leads to considerable bickering, disunity, and disarray. We learn from 2:151, 3:164, and 21:107 that it is but mercy from God that He sends to us messengers to provide the final solutions to our problems. We learn from 42:51 that God sends His messengers to communicate with us, and to disseminate new information. Hence the strong injunction in 4:65, 4:80 to accept, without the slightest hesitation, the teachings delivered to us through God’s messengers.",
-            "3": "The following is a list of the principal duties of God’s Messenger of the Covenant:"
+            "1": "Som det anges i Koranen, 3:81, ska Guds Förbundsändebud bekräfta alla skrifterna, som framfördes av alla profeterna, och återställa dem till deras ursprungliga renhet.",
+            "2": "När de troende ställs inför ett problem, utvecklar de ett antal möjliga lösningar, och detta leder ofelbart till betydande käbbel, oenighet och oordning. Vi lär oss från 2:151, 3:164 och 21:107 att det endast är barmhärtighet från Gud att Han sänder sändebud till oss för att tillhandahålla de slutliga lösningarna på våra problem. Vi lär oss från 42:51 att Gud sänder Sina sändebud för att kommunicera med oss och för att sprida ny information. Därför den starka uppmaningen i 4:65, 4:80 att acceptera, utan minsta tvekan, lärorna som framförs till oss genom Guds sändebud.",
+            "3": "Följande är en lista över de huvudsakliga uppgifterna för Guds Förbundsändebud:"
         },
         "picture": {},
         "evidence": {
             "4": {
                 "lines": {
-                    "1": "1. Unveil and proclaim the Quran’s mathematical miracle (Appendix 1).",
-                    "2": "2. Expose and remove the two false verses 9:128-129 from the Quran (Appendix 24).",
-                    "3": "3. Explain the purpose of our lives; why we are here (Appendix 7).",
-                    "4": "4. Proclaim one religion for all the people, and point out and purge away all the corruptions afflicting Judaism, Christianity, and Islam (Appendices 13, 15, 19).",
+                    "1": "1. Avslöja och förkunna Koranens matematiska mirakel (Bilaga 1).",
+                    "2": "2. Avslöja och avlägsna de två falska verserna 9:128-129 från Koranen (Bilaga 24).",
+                    "3": "3. Förklara syftet med våra liv; varför vi är här (Bilaga 7).",
+                    "4": "4. Förkunna en religion för alla människor, och påpeka och rensa bort all korruption som drabbar judendomen, kristendomen och islam (Bilaga 13, 15, 19).",
                     "5": "5. Förkunna att Zakat (obligatorisk välgörenhet) är en förutsättning för återlösning (7:156), och förklara den korrekta metoden för att förrätta Zakat (Bilaga 15).",
-                    "6": "6. Unveil the end of the world (Appendix 25).",
-                    "7": "7. Proclaim that those who die before the age of 40 go to Heaven (Appendix 32).",
-                    "8": "8. Explain Jesus’ death (Appendix 22).",
-                    "9": "9. Explain the Quran’s delivery to, then through Muhammad (Appendix 28).",
-                    "10": "10. Announce that Muhammad wrote God’s revelations (the Quran) with his own hand (Appendix 28).",
-                    "11": "11. Explain why most believers in God do not make it to Heaven (Appendix 27).",
-                    "12": "12. Proclaim that God never ordered Abraham to kill his son (Appendix 9).",
-                    "13": "13. Proclaim the secret of perfect happiness (Introduction, xx).",
-                    "14": "14. Establish a criminal justice system (Appendix 37)."
+                    "6": "6. Avslöja världens slut (Bilaga 25).",
+                    "7": "7. Förkunna att de som dör före 40 års ålder kommer till Himlen (Bilaga 32).",
+                    "8": "8. Förklara Jesus död (Bilaga 22).",
+                    "9": "9. Förklara Koranens framförande till, sedan genom Muhammad (Bilaga 28).",
+                    "10": "10. Tillkännage att Muhammad skrev Guds uppenbarelser (Koranen) med sin egen hand (Bilaga 28).",
+                    "11": "11. Förklara varför de flesta som tror på Gud inte kommer till Himlen (Bilaga 27).",
+                    "12": "12. Förkunna att Gud aldrig beordrade Abraham att döda sin son (Bilaga 9).",
+                    "13": "13. Förkunna hemligheten till fullkomlig lycka (Inledning, xx).",
+                    "14": "14. Upprätta ett straffrättssystem (Bilaga 37)."
                 },
                 "ref": []
             }
         },
         "titles": {
-            "1": "PRINCIPAL DUTIES OF GOD’S MESSENGER OF THE COVENANT",
-            "2": "MERCY FROM GOD [21:107]"
+            "1": "HUVUDSAKLIGA UPPGIFTER FÖR GUDS FÖRBUNDSÄNDEBUD",
+            "2": "BARMHÄRTIGHET FRÅN GUD [21:107]"
         }
     },
     {
         "page": 438,
         "text": {
-            "3": "Verse 11:1 informs us that the Quran’s Miracle involves [1] the superhuman mathematical design of its physical structure and [2] the simultaneous composition of a literary work of extraordinary excellence.",
-            "4": "One may be able to meet the numerical distribution requirements of a simple mathematical pattern. However, this is invariably accomplished at the expense of the literary quality. The simultaneous control of the literary style and the intricate mathematical distribution of individual letters throughout the Quran (Appendix 1) is evident in the fact that the Quran is made easy to memorize, understand, and enjoy. Unlike a human-made book, the Quran is enjoyable to read over and over, infinitely.",
-            "5": "The title of this Appendix is repeated in Sura 54, verses 17, 22, 32, and 40. As it turns out, the Quran’s Arabic text is composed in such a way as to remind the reader or the memorizer of the next correct expression, or the next verse. God created us and He knows the most efficient way for fixing literary materials into our memory. Memorization of the Quran has played a vital role in preserving the original text generation after generation at a time when written books were a rarity.",
-            "6": "Without even realizing it, the person who memorizes the Quran is divinely helped by an intricate literary system as he utters the sounds of the Quranic words. Almost every verse in the Quran contains what I call “Memory Bells.” Their function is to remind the reader of what comes next. This system is so vast, I will give only two illustrative examples:",
-            "7": "1. In Sura 2, Verses 127, 128, and 129 end with two different names of God each. These pairs of names are “Al-Samee‘Al-‘Aleem (The Hearer, the Omniscient),” “Al-Tawwaab Al-Raheem (The Redeemer, Most Merciful)”, and “Al-‘Azeez Al-Hakeem (The Almighty, Most Wise),” respectively. If this were a regular book, one would easily mis-match these six names. Not so in the Quran. Each one of these pairs is preceded in the same verse by a “Memory Bell” that reminds us of the correct pair of names. Thus, Verse 127 talks about Abraham and Ismail raising the foundations of the Ka‘abah. The verse ends with the names “Al-Samee‘ Al-‘Aleem.” The prominent sounds here are the “S,” “M,” and “ ‘Ayn.” These three letters are prominent in the word “Ismail.” We find that this word is conspicuously delayed in the sentence, while improving its literary quality. Thus, we find that the verse goes like this: “When Abraham raised the foundations of the Ka‘abah, together with Ismail ...” Normally, a human writer would say, “When Abraham and Ismail raised the foundations of the Ka‘abah...” But delaying the sounds in “Ismail” brings them closer to the end of the verse, and thus reminds us that the correct names of God in this verse are “Al-Samee‘ Al-‘Aleem.”",
-            "8": "Verse 128 has the prominent word “Tubb” just before the names “Al-Tawwaab Al-Raheem.” The word “Tubb” thus serves as the memory bell. The names of God at the end of 2:129 are “Azeez, Hakeem.” The prominent sounds here are “Z” and “K.” Obviously, the memory bell in this verse is the word “Yuzakkeehim”"
+            "3": "Vers 11:1 informerar oss om att Koranens Mirakel omfattar [1] den övermänskliga matematiska utformningen av dess fysiska struktur och [2] den samtidiga kompositionen av ett litterärt verk av extraordinär förträfflighet.",
+            "4": "Man kan kanske uppfylla kraven på den numeriska fördelningen i ett enkelt matematiskt mönster. Detta åstadkoms dock ofelbart på bekostnad av den litterära kvaliteten. Den samtidiga kontrollen av den litterära stilen och den invecklade matematiska fördelningen av enskilda bokstäver genom hela Koranen (Bilaga 1) är uppenbar i det faktum att Koranen har gjorts lätt att memorera, förstå och njuta av. Till skillnad från en människoskapad bok är Koranen njutbar att läsa om och om igen, i det oändliga.",
+            "5": "Titeln på denna Bilaga upprepas i Sura 54, verserna 17, 22, 32 och 40. Det visar sig att Koranens arabiska text är sammansatt på ett sådant sätt att den påminner läsaren eller den som memorerar om nästa korrekta uttryck eller nästa vers. Gud skapade oss och Han känner till det mest effektiva sättet att fästa litterärt material i vårt minne. Memorering av Koranen har spelat en avgörande roll i att bevara originaltexten generation efter generation under en tid då skrivna böcker var en sällsynthet.",
+            "6": "Utan att ens inse det blir den som memorerar Koranen gudomligt hjälpt av ett invecklat litterärt system när han uttalar ljuden i Koranens ord. Nästan varje vers i Koranen innehåller vad jag kallar ”Minnesklockor”. Deras funktion är att påminna läsaren om vad som kommer härnäst. Detta system är så omfattande att jag endast kommer att ge två illustrativa exempel:",
+            "7": "1. I Sura 2 slutar Verserna 127, 128 och 129 med två olika namn på Gud vardera. Dessa namnpar är ”Al-Samee‘ Al-‘Aleem (Den Hörande, den Allvetande)”, ”Al-Tawwaab Al-Raheem (Återlösaren, Barmhärtigaste)” och ”Al-‘Azeez Al-Hakeem (Den Allsmäktige, Visaste)”, respektive. Om detta vore en vanlig bok skulle man lätt kunna para ihop dessa sex namn fel. Inte så i Koranen. Vart och ett av dessa par föregås i samma vers av en ”Minnesklocka” som påminner oss om det korrekta namnparet. Således handlar Vers 127 om Abraham och Ismail som höjer Ka‘abahs grunder. Versen slutar med namnen ”Al-Samee‘ Al-‘Aleem”. De framträdande ljuden här är ”S”, ”M” och ”‘Ayn”. Dessa tre bokstäver är framträdande i ordet ”Ismail”. Vi finner att detta ord påfallande fördröjs i meningen, samtidigt som dess litterära kvalitet förbättras. Således finner vi att versen lyder så här: ”När Abraham höjde Ka‘abahs grunder, tillsammans med Ismail ...” Normalt skulle en mänsklig författare säga: ”När Abraham och Ismail höjde Ka‘abahs grunder ...” Men genom att fördröja ljuden i ”Ismail” förs de närmare slutet av versen, och påminner oss således om att de korrekta namnen på Gud i denna vers är ”Al-Samee‘ Al-‘Aleem”.",
+            "8": "Vers 128 har det framträdande ordet ”Tubb” precis före namnen ”Al-Tawwaab Al-Raheem”. Ordet ”Tubb” fungerar således som minnesklockan. Guds namn i slutet av 2:129 är ”Azeez, Hakeem”. De framträdande ljuden här är ”Z” och ”K”. Uppenbarligen är minnesklockan i denna vers ordet ”Yuzakkeehim”"
         },
         "picture": {},
         "evidence": {},
         "titles": {
-            "1": "Appendix 3",
-            "2": "We Made the Quran Easy [54:17]"
+            "1": "Bilaga 3",
+            "2": "Vi Gjorde Koranen Lätt [54:17]"
         }
     },
     {
@@ -5532,7 +5532,7 @@
                 "title": [
                     "Sura No.",
                     "No. of Verses",
-                    "Sum of Verse #s",
+                    "Summan av Versnumren",
                     "Total"
                 ],
                 "values": [
@@ -6737,7 +6737,7 @@
                 "title": [
                     "Sura No.",
                     "No. of Verses",
-                    "Sum of Verse #s",
+                    "Summan av Versnumren",
                     "Total"
                 ],
                 "values": [
@@ -6768,7 +6768,7 @@
                 "title": [
                     "Sura No.",
                     "No. of Verses",
-                    "sum of Verse #s",
+                    "Summan av Versnumren",
                     "Total"
                 ],
                 "values": [
@@ -6821,7 +6821,7 @@
                 "title": [
                     "Sura No.",
                     "No. of Verses",
-                    "sum of Verse #s",
+                    "Summan av Versnumren",
                     "Total"
                 ],
                 "values": [
@@ -6872,7 +6872,7 @@
                 "title": [
                     "Sura No.",
                     "No. of Verses",
-                    "sum of Verse #s",
+                    "Summan av Versnumren",
                     "Total"
                 ],
                 "values": [
@@ -7269,7 +7269,7 @@
                 "title": [
                     "Sura No.",
                     "No. of Verses",
-                    "Sum of Verse #s"
+                    "Summan av Versnumren"
                 ],
                 "values": [
                     "3",
