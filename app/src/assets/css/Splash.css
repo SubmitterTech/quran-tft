@@ -1,5 +1,6 @@
 .splash-line {
-  animation: fadeIn 1s ease-in-out forwards, colorChange 10s infinite;
+  /* backwards: a line that is already in waits on the first color until its color wave starts. */
+  animation: fadeIn 0.25s ease-in-out forwards, colorChange 10s infinite backwards;
   opacity: 0;
 }
 

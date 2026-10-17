@@ -81,7 +81,8 @@ const Cover = ({ onCoverSeen, coverData, lang, onChangeLanguage }) => {
                                 key={index}
                                 className="splash-line "
                                 style={{
-                                    animationDelay: `${0.4 * (18 - index)}s`,
+                                    // The lines come in four times faster than the color wave that runs over them.
+                                    animationDelay: `${0.1 * (18 - index)}s, ${0.4 * (18 - index)}s`,
                                     width: `${90 - 2.2 * (18 - index)}%`,
                                     height: `${lineHeight}px`,
                                     margin: `${lineMargin}px 0`,
