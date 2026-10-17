@@ -4,6 +4,7 @@ import { useDrag } from '@use-gesture/react';
 import { supportsUnicodeRegex, supportsLookAhead, triggerActionHaptic } from '../utils/Device';
 import Bookmarks from '../utils/Bookmarks';
 import { getSpecializedGodWordMatches } from '../utils/GodWords';
+import { useHoverIntent } from '../hooks/HoverIntent';
 
 const SWIPE_LOCK_THRESHOLD_PX = 19;
 const ARABIC_MARK_PATTERN = '[\\u0610-\\u061A\\u064B-\\u065F\\u0670\\u06D6-\\u06ED]*';
@@ -243,22 +244,56 @@ const Verse = ({ besmele,
         eventOptions: { passive: false }
     });
 
-    const handleMouseEnter = (side) => {
-        if (mode !== 'reading') {
-            if (side === 'right') {
-                api.start({ x: -110 });
-                setSwipeDistance(-110);
-            } else if (side === 'left') {
-                api.start({ x: 110 });
-                setSwipeDistance(110);
-            }
+    const revealSide = useCallback((side) => {
+        if (mode === 'reading') {
+            return;
+        }
+        const distance = side === 'left' ? 110 : -110;
+        api.start({ x: distance });
+        setSwipeDistance(distance);
+    }, [api, mode]);
+
+    const concealSide = useCallback(() => {
+        setSwipeDistance(0);
+        api.start({ x: 0 });
+    }, [api]);
+
+    const { bindHoverIntent, cancelHoverIntent, commitHoverIntent, isMousePointer } = useHoverIntent({
+        onReveal: revealSide,
+        onConceal: concealSide,
+    });
+
+    const handleEdgeClick = (side) => {
+        if (!isMousePointer()) {
+            handleActions();
+            return;
+        }
+        const isScrollBusy = Boolean(isScrollingRef?.current ?? isScrolling);
+        if (isScrollBusy) {
+            return;
+        }
+        // A click on an edge is intent enough; the card opens with it instead of after the rest.
+        commitHoverIntent(side);
+        if (side === 'left') {
+            handleBookmark();
+        } else {
+            handleCopy();
         }
     };
 
-    const handleMouseLeave = () => {
-        setSwipeDistance(0);
-        api.start({ x: 0 });
-    };
+    // A verse being read does not draw its edges, so no leave event follows the mouse out of them.
+    useEffect(() => {
+        if (mode === 'reading') {
+            cancelHoverIntent();
+            concealSide();
+        }
+    }, [mode, cancelHoverIntent, concealSide]);
+
+    useEffect(() => {
+        if (isScrolling) {
+            cancelHoverIntent();
+        }
+    }, [isScrolling, cancelHoverIntent]);
 
     useEffect(() => {
         return () => {
@@ -772,18 +807,16 @@ const Verse = ({ besmele,
                 </div>
             </animated.div>
             {mode !== "reading" && <div
-                onClick={() => handleActions()}
+                onClick={() => handleEdgeClick('left')}
                 className={`absolute left-0 top-0 h-full cursor-pointer w-0 sm:w-1/12`}
-                onMouseEnter={() => handleMouseEnter('left')}
-                onMouseLeave={handleMouseLeave}
+                {...bindHoverIntent('left')}
             />
             }
             {mode !== "reading" &&
                 <div
-                    onClick={() => handleActions()}
+                    onClick={() => handleEdgeClick('right')}
                     className={`absolute right-0 top-0 h-full cursor-pointer w-0 sm:w-1/12`}
-                    onMouseEnter={() => handleMouseEnter('right')}
-                    onMouseLeave={handleMouseLeave}
+                    {...bindHoverIntent('right')}
                 />}
         </div>
     );
