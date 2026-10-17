@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import '../assets/css/Splash.css';
 import languages from '../utils/LanguageCatalog';
+import { isTamil } from '../utils/Tamil';
 
 const Cover = ({ onCoverSeen, coverData, lang, onChangeLanguage }) => {
     const [show19, setShow19] = useState(true)
@@ -9,6 +10,19 @@ const Cover = ({ onCoverSeen, coverData, lang, onChangeLanguage }) => {
     const [lineMargin, setLineMargin] = useState(0);
     const direction = (languages[lang] && languages[lang]["dir"]) ? languages[lang]["dir"] : 'ltr';
     const languageDisabilityThreshold = 38;
+    // Tamil and Persian letters reach further above and below the line than the Latin capitals the
+    // titles were set for. The gradient fill (background-clip: text) paints only inside the heading
+    // box, so the tight title line heights cut them off. Tamil titles get line boxes tall enough to
+    // hold them, which also keeps their lines apart; on short screens they step down one size so the
+    // taller stack still fits above the 19 lines. The full size needs about 643px of cover, and the
+    // viewport the query sees still includes up to ~80px of system bars, hence 740px. In Persian
+    // only the 60px title is cut, so it gets padding inside equal negative margins: the painted box
+    // grows, the layout stays as it was.
+    const isPersianCover = (lang || '').toLowerCase() === 'fa';
+    const quranClass = isTamil(lang)
+        ? " leading-tight [@media(max-height:740px)]:text-[3rem]"
+        : isPersianCover ? " py-2 -my-2" : "";
+    const titleClass = isTamil(lang) ? " leading-tight [@media(max-height:740px)]:text-[1.875rem]" : "";
 
     useEffect(() => {
         if (parentRef.current) {
@@ -38,7 +52,7 @@ const Cover = ({ onCoverSeen, coverData, lang, onChangeLanguage }) => {
                 onClick={handleTap}
                 className="w-full h-1/3 flex items-center ">
                 <div className="flex flex-col w-full space-y-1 md:space-y-3 mt-3">
-                    <h1 className="text-6xl font-extrabold" style={{
+                    <h1 className={`text-6xl font-extrabold${quranClass}`} style={{
                         backgroundImage: 'linear-gradient(45deg, #ECC440, #FFFA8A, #DDAC17, #FFFF95)',
                         color: 'transparent',
                         WebkitBackgroundClip: 'text',
@@ -47,7 +61,7 @@ const Cover = ({ onCoverSeen, coverData, lang, onChangeLanguage }) => {
                     }}>
                         {coverData.quran}
                     </h1>
-                    <h2 className="text-4xl font-bold whitespace-pre" style={{
+                    <h2 className={`text-4xl font-bold whitespace-pre${titleClass}`} style={{
                         backgroundImage: 'linear-gradient(45deg, #ECC440, #FFFA8A, #DDAC17, #FFFF95)',
                         color: 'transparent',
                         WebkitBackgroundClip: 'text',
