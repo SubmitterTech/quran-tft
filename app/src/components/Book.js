@@ -14,7 +14,7 @@ import Isbn from '../components/Isbn';
 import { adjustReference, generateReferenceMap, transformAppendices, findPageNumber, extractReferenceDetails, mapQuranWithNotes, generateFormula, toRoman } from '../utils/Mapper';
 import { listCopy, smartCopy, supportsLookAhead, isNative, triggerActionHaptic } from '../utils/Device';
 import LongPressable from '../hooks/LongPressable';
-import { LanguageRingPicker } from '../hooks/LanguageRing';
+import { LanguageRingPicker, keepInRing } from '../hooks/LanguageRing';
 import { NextPagerProgressRing } from '../hooks/NextPager';
 import '../assets/css/Book.css';
 import { persistSet } from '../utils/Persist';
@@ -160,6 +160,11 @@ const Book = React.memo(({ incomingSearch = false, incomingAppendix = false, inc
     const displayedLanguage = translation ? String(lang || 'en').toLowerCase() : 'en';
     const copyLanguageRef = useRef(displayedLanguage);
     copyLanguageRef.current = displayedLanguage;
+    // Every language the book is shown in joins the verses' ring of languages, to turn back to later.
+    // The one shown, not the one asked for: a device language with no translation is read in English.
+    useEffect(() => {
+        keepInRing(displayedLanguage);
+    }, [displayedLanguage]);
     const [overscrollNavProgress, setOverscrollNavProgress] = useState(0);
     const backgroundProgressPercentage = Math.max(0, Math.min(100, backgroundWorkProgress));
     // On Windows and Linux the browser draws a select's list itself, with the options' colours over

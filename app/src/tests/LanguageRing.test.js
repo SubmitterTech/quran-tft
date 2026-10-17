@@ -7,6 +7,7 @@ import {
     RING_ON_STORAGE_KEY,
     RING_STORAGE_KEY,
     getRingChoice,
+    keepInRing,
     readRingChoice,
     readRingOn,
     readRingVerse,
@@ -301,6 +302,21 @@ describe("the reader's choice of languages for the ring", () => {
         saveRingOn(true);
         localStorage.removeItem(RING_STORAGE_KEY);
         localStorage.removeItem(RING_ON_STORAGE_KEY);
+    });
+
+    test('takes in every language the book is read in, so a reader going from one to another turns back to it', async () => {
+        await keepInRing('de');
+        saveRingChoice([...getRingChoice(), 'tr']);
+        await keepInRing('tr');
+        await keepInRing('en');
+        // Codes with no text to turn to: one the app has not settled yet, and one it does not have.
+        await keepInRing('de-de');
+        await keepInRing('es');
+
+        expect(getRingChoice()).toEqual(['de', 'tr']);
+        expect(JSON.parse(localStorage.getItem(RING_STORAGE_KEY))).toEqual(['de', 'tr']);
+        expect(verseRingLanguages('de', getRingChoice())).toEqual(['de', 'en', 'tr']);
+        expect(verseRingLanguages('tr', getRingChoice())).toEqual(['tr', 'en', 'de']);
     });
 
     test('is kept and passed on to whoever follows it', () => {

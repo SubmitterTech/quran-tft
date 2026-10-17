@@ -14,8 +14,10 @@ import { ensureBaseQuran, getBaseQuran } from '../utils/BaseContent';
 // back in it the next time it opens.
 //
 // The book's language comes first and English second, English being the text every translation is
-// made from; when the book is read in English the ring starts with it alone and does not turn. Any
-// further languages are the reader's to add, and the ring takes them in the order they were added.
+// made from; when the book is read in English the ring starts with it alone and does not turn. Then
+// come the reader's languages, in the order they joined the ring: every language the book has been
+// read in joins it by itself, so that a reader who goes from German to Turkish still turns back to
+// German, and any other is the reader's to add.
 //
 // Nothing is read for the ring until it turns. A language's text is read then, for that verse only,
 // and kept while the verse stays open. A verse a language has not translated yet comes in English,
@@ -119,6 +121,27 @@ export const saveRingChoice = (chosen) => ringChoiceSetting.save(chosen.filter((
 export const useRingChoice = () => useSyncExternalStore(ringChoiceSetting.subscribe, ringChoiceSetting.get);
 
 /**
+ * Puts the language the book is read in into the ring, after the languages already in it, so that
+ * it is there to turn back to once the book is read in another one. English is in every ring and is
+ * not kept. Only a language with a text to turn to is kept: a code the app has not settled yet, such
+ * as a device's de-DE, would be a place in the ring that cannot be read, and that the list, which
+ * offers only languages with text, could not take out again. A reader can still take a kept
+ * language out while the book is read in another.
+ *
+ * @returns {Promise<void>}
+ */
+export const keepInRing = async (lang) => {
+    if (!lang || lang === BASE_CONTENT_LANGUAGE) {
+        return;
+    }
+    const readable = await getReadableLanguages().catch(() => []);
+    const chosen = ringChoiceSetting.get();
+    if (readable.includes(lang) && !chosen.includes(lang)) {
+        ringChoiceSetting.save([...chosen, lang]);
+    }
+};
+
+/**
  * Turns the ring on or off for every verse.
  */
 export const saveRingOn = (on) => ringOnSetting.save(Boolean(on));
@@ -126,11 +149,11 @@ export const saveRingOn = (on) => ringOnSetting.save(Boolean(on));
 export const useRingOn = () => useSyncExternalStore(ringOnSetting.subscribe, ringOnSetting.get);
 
 /**
- * The ring: the book's language, then English, then the languages the reader added, in the order
- * they added them.
+ * The ring: the book's language, then English, then the reader's languages, those the book has been
+ * read in and those the reader added, in the order they joined it.
  *
  * @param {string} selected the language the book is read in
- * @param {string[]} chosen the languages the reader added, in order
+ * @param {string[]} chosen the reader's languages, in order
  */
 export const verseRingLanguages = (selected, chosen) => (
     [...new Set([selected, BASE_CONTENT_LANGUAGE, ...chosen])]
