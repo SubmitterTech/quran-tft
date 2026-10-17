@@ -14,6 +14,7 @@ import Isbn from '../components/Isbn';
 import { adjustReference, generateReferenceMap, transformAppendices, findPageNumber, extractReferenceDetails, mapQuranWithNotes, generateFormula, toRoman } from '../utils/Mapper';
 import { listCopy, smartCopy, supportsLookAhead, isNative, triggerActionHaptic } from '../utils/Device';
 import LongPressable from '../hooks/LongPressable';
+import { LanguageRingPicker } from '../hooks/LanguageRing';
 import { NextPagerProgressRing } from '../hooks/NextPager';
 import '../assets/css/Book.css';
 import { persistSet } from '../utils/Persist';
@@ -1547,7 +1548,7 @@ const Book = React.memo(({ incomingSearch = false, incomingAppendix = false, inc
                                 className={`mx-3 z-40 ${colors[theme]["surface"]["base"]} flex items-center justify-center rounded shadow-lg`}>
                                 <div dir={direction} className={`rounded px-1 py-1.5 border ${colors[theme]["border"]["strong"]}`}
                                     style={{ top: `calc(3.3rem + var(--app-safe-top) * 0.76)` }}>
-                                    <div className={`flex flex-col text-lg md:text-xl`}>
+                                    <div className={`relative flex flex-col text-lg md:text-xl`}>
                                         <label className={`flex items-center justify-between md:justify-end gap-4 pt-3.5 px-3 pb-2 cursor-pointer`}>
                                             <span className={`${rememberHistory ? colors[theme]["text"]["on-deep"] : colors[theme]["text"]["on-deep-soft"]}`}>{translationApplication?.returnToJumped}</span>
                                             <div>
@@ -1603,6 +1604,14 @@ const Book = React.memo(({ incomingSearch = false, incomingAppendix = false, inc
                                                 </label>
                                             </div>
                                         </label>
+                                        <div className={`border-b ${colors[theme]["border"]["soft"]} mx-1 mt-2`} ></div>
+                                        <LanguageRingPicker
+                                            bookLanguage={lang || 'en'}
+                                            switchTitle={translationApplication?.ringSwipe || 'Swipe through languages in verse details'}
+                                            title={translationApplication?.ringLanguages || 'Languages'}
+                                            searchLabel={translationApplication?.search || 'Search'}
+                                            colors={colors}
+                                            theme={theme} />
                                     </div>
                                 </div>
                             </div>)}

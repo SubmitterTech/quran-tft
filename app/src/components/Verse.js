@@ -5,8 +5,22 @@ import { supportsUnicodeRegex, supportsLookAhead, triggerActionHaptic } from '..
 import Bookmarks from '../utils/Bookmarks';
 import { getSpecializedGodWordMatches } from '../utils/GodWords';
 import { useHoverIntent } from '../hooks/HoverIntent';
+import { LanguageRing, readRingVerse } from '../hooks/LanguageRing';
+import languages from '../utils/LanguageCatalog';
 
 const SWIPE_LOCK_THRESHOLD_PX = 19;
+// The ring's arrows take the colour of the encrypted text's panel, lifted away from the verse's own
+// surface so they can be seen: lighter on the dark surfaces, darker on the light one. Leaf's panel is
+// dark on a light page and is used as it is.
+const RING_ARROW_LIFT = { light: 'brightness-[0.65]', leaf: '' };
+// The name of a language other than the book's is written in the theme's accent, except on the
+// light themes, where the accent is too pale for text this small: light uses a deeper shade of it,
+// leaf the dark green of its encrypted text's panel.
+const RING_NAME_COLOR = { light: 'text-rose-700', leaf: 'text-[#36472f]' };
+// An arrow a mouse rests by turns to the accent, the colour of that name. Leaf's name has the colour
+// its arrows already have, so leaf takes a deep shade of its accent green instead, one that still
+// stands out from its light page.
+const RING_ARROW_ACCENT = { light: 'bg-rose-700', leaf: 'bg-lime-700' };
 const ARABIC_MARK_PATTERN = '[\\u0610-\\u061A\\u064B-\\u065F\\u0670\\u06D6-\\u06ED]*';
 const ALLAH_WORD_RAW_FORMS = [
     'تالله', 'الله', 'لله', 'ولله', 'والله',
@@ -444,9 +458,11 @@ const Verse = ({ besmele,
         }
     }, [mode, currentVerseKey, findRelatedVerses]);
 
-    const lightGODwords = useCallback((verse, paint = false) => {
-        const gw = translationApplication ? translationApplication.gw : "GOD";
-        const specializedMatches = getSpecializedGodWordMatches(verse, lang, currentVerseKey);
+    // `language` is given for a verse shown in another language than the book's, as the ring does.
+    const lightGODwords = useCallback((verse, paint = false, language = null) => {
+        const gw = language ? language.gw : (translationApplication ? translationApplication.gw : "GOD");
+        const textDirection = language ? language.direction : direction;
+        const specializedMatches = getSpecializedGodWordMatches(verse, language ? language.lang : lang, currentVerseKey);
 
         if (specializedMatches !== null) {
             const elements = [];
@@ -457,7 +473,7 @@ const Verse = ({ besmele,
                 elements.push(
                     <span
                         key={`${match.index}-${index}`}
-                        dir={direction}
+                        dir={textDirection}
                         className={`font-bold ${paint ? 'text-sky-500' : ''}`}
                     >
                         {match.text}
@@ -472,7 +488,7 @@ const Verse = ({ besmele,
             return elements;
         }
 
-        if (direction === 'rtl') {
+        if (textDirection === 'rtl') {
             try {
                 const regex = supportsUnicodeRegex()
                     ? new RegExp(`(?<!\\p{L})(${gw})(?!\\p{L})`, 'gu') // Enhanced with Unicode properties for RTL
@@ -485,7 +501,7 @@ const Verse = ({ besmele,
 
                 matches.forEach(match => {
                     elements.push(verse.substring(lastIndex, match.index));
-                    elements.push(<span key={match.index} dir={direction} className={`font-bold ${paint ? 'text-sky-500' : ''}`}>{match[0]}</span>);
+                    elements.push(<span key={match.index} dir={textDirection} className={`font-bold ${paint ? 'text-sky-500' : ''}`}>{match[0]}</span>);
                     lastIndex = match.index + match[0].length;
                 });
 
@@ -496,7 +512,7 @@ const Verse = ({ besmele,
             } catch (error) {
                 console.error("Error processing regex: ", error);
                 // Fallback behavior in case of regex failure
-                return [<span key="fallback" dir={direction}>{verse}</span>];
+                return [<span key="fallback" dir={textDirection}>{verse}</span>];
             }
         } else {
             try {
@@ -506,13 +522,13 @@ const Verse = ({ besmele,
                     if (index % 2 === 0) {
                         return [...prev, current];
                     } else {
-                        return [...prev, <span key={index} dir={direction} className={`font-bold ${paint ? 'text-sky-500' : ''}`}>{gw}</span>];
+                        return [...prev, <span key={index} dir={textDirection} className={`font-bold ${paint ? 'text-sky-500' : ''}`}>{gw}</span>];
                     }
                 }, []);
             } catch (error) {
                 console.error("Error processing regex for LTR: ", error);
                 // Fallback behavior in case of regex failure
-                return [<span key="fallback" dir={direction}>{verse}</span>];
+                return [<span key="fallback" dir={textDirection}>{verse}</span>];
             }
         }
     }, [translationApplication, direction, lang, currentVerseKey]);
@@ -587,6 +603,146 @@ const Verse = ({ besmele,
         [lightGODwords, renderVerseText, mode],
     );
 
+    // A verse being read can turn through its ring of languages; each is read for this verse when
+    // the ring first turns to it.
+    const loadRingLanguage = useCallback(
+        (code) => readRingVerse(code, suraNumber, verseNumber),
+        [suraNumber, verseNumber],
+    );
+
+    // The verse's text with its number, inner titles and line breaks, written in `bodyDirection`.
+    const renderVerseBody = (body, bodyDirection) => (
+        Array.isArray(body) ? (
+            body.some(element => typeof element === 'string' && element.includes('\n')) ? (
+                body.flatMap((element, index) => {
+                    if (typeof element === 'string' && element.includes('\n')) {
+                        return element.split('\n').map((line, lineIndex) => ({
+                            line,
+                            indexToStart: `${lineIndex}`
+                        }));
+                    }
+                    return [{ line: element, combinedIndex: index }];
+                })
+                    .map(({ line, indexToStart }, index) => {
+                        // SPECIAL CASE FOR RTL 29:17 inner title HACK for proper demonstration
+                        if (currentVerseKey === `29:17` && bodyDirection === 'rtl' && index !== 0) {
+                            if (parseInt(index) === 5) {
+                                line = line?.props?.children + body[4].split('\n')[0];
+                                const isTitle = true;
+                                return (
+                                    <React.Fragment key={index}>
+                                        {index === 0 && typeof line === 'string' && (
+                                            <span className={mode === "light" ? `${colors[theme]["accent"]["top"]} font-semibold` : `brightness-150`}>
+                                                {`${verseNumber}. `}
+                                            </span>
+                                        )}
+                                        <span className={isTitle ? `text-center w-full block py-1.5 md:py-2 transform italic font-semibold ${colors[theme]["surface"]["base"]} ${colors[theme]["text"]["on-deep"]} ${mode === `reading` ? `scale-x-[1.03]` : `scale-x-[1.033] `}` : ``}>
+                                            {line}
+                                        </span>
+                                    </React.Fragment>
+                                );
+                            } else if (parseInt(index) === 6) {
+                                return <></>;
+                            } else {
+                                return (
+                                    <React.Fragment key={index}>
+                                        {index === 0 && typeof line === 'string' && (
+                                            <span className={mode === "light" ? `${colors[theme]["accent"]["top"]} font-semibold` : `brightness-150`}>
+                                                {`${verseNumber}. `}
+                                            </span>
+                                        )}
+                                        <span>
+                                            {line}
+                                        </span>
+                                    </React.Fragment>
+                                );
+                            }
+                        } else {
+                            const isTitle = parseInt(indexToStart) === 2;
+                            return (
+                                <React.Fragment key={index}>
+                                    {index === 0 && typeof line === 'string' && (
+                                        <span className={mode === "light" ? `${colors[theme]["accent"]["top"]} font-semibold` : `brightness-150`}>
+                                            {`${verseNumber}. `}
+                                        </span>
+                                    )}
+                                    <span className={isTitle ? `text-center w-full block py-1.5 md:py-2 transform italic font-semibold ${colors[theme]["surface"]["base"]} ${colors[theme]["text"]["on-deep"]} ${mode === `reading` ? `scale-x-[1.03]` : `scale-x-[1.033] `}` : ``}>
+                                        {line}
+                                    </span>
+                                </React.Fragment>
+                            );
+                        }
+                    })
+            ) : (
+                body.map((element, index) => (
+                    <React.Fragment key={index}>
+                        {index === 0 && typeof element === 'string' && (
+                            <span className={mode === "light" ? hasBesmele ? `text-rose-600 font-semibold` : `${colors[theme]["accent"]["top"]} font-semibold` : `brightness-150`}>
+                                {`${verseNumber}. `}
+                            </span>
+                        )}
+                        {typeof element === 'string' ? (
+                            <span>
+                                {element}
+                            </span>
+                        ) : (
+                            element
+                        )}
+                    </React.Fragment>
+                ))
+            )
+        ) : (
+            body.includes('\n') ? (
+                body.split('\n').map((line, index, array) => {
+                    const middleIndex = Math.floor(array.length / 2);
+                    const isTitle = index === middleIndex;
+                    return (
+                        <React.Fragment key={index}>
+                            {index === 0 && (
+                                <span className={mode === "light" ? `${colors[theme]["accent"]["top"]} font-semibold ` : `brightness-150`}>
+                                    {`${verseNumber}. `}
+                                </span>
+                            )}
+                            <span className={isTitle ? `text-center w-full block py-1.5 md:py-2 transform italic font-semibold ${colors[theme]["surface"]["base"]} ${colors[theme]["text"]["on-deep"]} ${mode === `reading` ? `scale-x-[1.03]` : `scale-x-[1.033] `}` : ``}>
+                                {line}
+                            </span>
+                        </React.Fragment>
+                    );
+                })
+            ) : (
+                <span className={`relative`}>
+                    <span className={mode === "light" ? hasBesmele ? `text-rose-600 font-semibold relative` : `${colors[theme]["accent"]["top"]} font-semibold relative` : `relative brightness-150`}>
+                        {`${verseNumber}. `}
+                    </span>
+                    <span>
+                        {body}
+                    </span>
+                </span>
+            )
+        )
+    );
+
+    // A language in the ring is written in its own direction, and at the size Pages gives its
+    // script when that differs from the book's: Persian is set larger than the others. A verse the
+    // language has not translated yet comes in English and is written as English.
+    const renderRingLanguage = (code, loaded) => {
+        if (code === (lang || 'en')) {
+            return renderVerseBody(text, direction);
+        }
+        if (!loaded) {
+            return null;
+        }
+        const shownAs = loaded.untranslated ? 'en' : code;
+        const codeDirection = languages[shownAs]?.dir || 'ltr';
+        const size = (shownAs === 'fa') === (lang === 'fa')
+            ? ''
+            : (shownAs === 'fa' ? 'text-3xl md:text-4xl lg:text-5xl' : 'text-lg md:text-xl lg:text-2xl');
+        return (
+            <div lang={shownAs} dir={codeDirection} className={size}>
+                {renderVerseBody(lightGODwords(loaded.text, true, { gw: loaded.gw, lang: shownAs, direction: codeDirection }), codeDirection)}
+            </div>
+        );
+    };
 
     const handleClick = () => {
         if (mode === "light") {
@@ -656,116 +812,20 @@ const Verse = ({ besmele,
                     dir={direction}
                     className={`${cn} relative`}>
                     <div onClick={() => handleClick()} className={`px-1 w-full`}>
-                        {
-                            Array.isArray(text) ? (
-                                text.some(element => typeof element === 'string' && element.includes('\n')) ? (
-                                    text.flatMap((element, index) => {
-                                        if (typeof element === 'string' && element.includes('\n')) {
-                                            return element.split('\n').map((line, lineIndex) => ({
-                                                line,
-                                                indexToStart: `${lineIndex}`
-                                            }));
-                                        }
-                                        return [{ line: element, combinedIndex: index }];
-                                    })
-                                        .map(({ line, indexToStart }, index) => {
-                                            // SPECIAL CASE FOR RTL 29:17 inner title HACK for proper demonstration
-                                            if (currentVerseKey === `29:17` && direction === 'rtl' && index !== 0) {
-                                                if (parseInt(index) === 5) {
-                                                    line = line?.props?.children + text[4].split('\n')[0];
-                                                    const isTitle = true;
-                                                    return (
-                                                        <React.Fragment key={index}>
-                                                            {index === 0 && typeof line === 'string' && (
-                                                                <span className={mode === "light" ? `${colors[theme]["accent"]["top"]} font-semibold` : `brightness-150`}>
-                                                                    {`${verseNumber}. `}
-                                                                </span>
-                                                            )}
-                                                            <span className={isTitle ? `text-center w-full block py-1.5 md:py-2 transform italic font-semibold ${colors[theme]["surface"]["base"]} ${colors[theme]["text"]["on-deep"]} ${mode === `reading` ? `scale-x-[1.03]` : `scale-x-[1.033] `}` : ``}>
-                                                                {line}
-                                                            </span>
-                                                        </React.Fragment>
-                                                    );
-                                                } else if (parseInt(index) === 6) {
-                                                    return <></>;
-                                                } else {
-                                                    return (
-                                                        <React.Fragment key={index}>
-                                                            {index === 0 && typeof line === 'string' && (
-                                                                <span className={mode === "light" ? `${colors[theme]["accent"]["top"]} font-semibold` : `brightness-150`}>
-                                                                    {`${verseNumber}. `}
-                                                                </span>
-                                                            )}
-                                                            <span>
-                                                                {line}
-                                                            </span>
-                                                        </React.Fragment>
-                                                    );
-                                                }
-                                            } else {
-                                                const isTitle = parseInt(indexToStart) === 2;
-                                                return (
-                                                    <React.Fragment key={index}>
-                                                        {index === 0 && typeof line === 'string' && (
-                                                            <span className={mode === "light" ? `${colors[theme]["accent"]["top"]} font-semibold` : `brightness-150`}>
-                                                                {`${verseNumber}. `}
-                                                            </span>
-                                                        )}
-                                                        <span className={isTitle ? `text-center w-full block py-1.5 md:py-2 transform italic font-semibold ${colors[theme]["surface"]["base"]} ${colors[theme]["text"]["on-deep"]} ${mode === `reading` ? `scale-x-[1.03]` : `scale-x-[1.033] `}` : ``}>
-                                                            {line}
-                                                        </span>
-                                                    </React.Fragment>
-                                                );
-                                            }
-                                        })
-                                ) : (
-                                    text.map((element, index) => (
-                                        <React.Fragment key={index}>
-                                            {index === 0 && typeof element === 'string' && (
-                                                <span className={mode === "light" ? hasBesmele ? `text-rose-600 font-semibold` : `${colors[theme]["accent"]["top"]} font-semibold` : `brightness-150`}>
-                                                    {`${verseNumber}. `}
-                                                </span>
-                                            )}
-                                            {typeof element === 'string' ? (
-                                                <span>
-                                                    {element}
-                                                </span>
-                                            ) : (
-                                                element
-                                            )}
-                                        </React.Fragment>
-                                    ))
-                                )
-                            ) : (
-                                text.includes('\n') ? (
-                                    text.split('\n').map((line, index, array) => {
-                                        const middleIndex = Math.floor(array.length / 2);
-                                        const isTitle = index === middleIndex;
-                                        return (
-                                            <React.Fragment key={index}>
-                                                {index === 0 && (
-                                                    <span className={mode === "light" ? `${colors[theme]["accent"]["top"]} font-semibold ` : `brightness-150`}>
-                                                        {`${verseNumber}. `}
-                                                    </span>
-                                                )}
-                                                <span className={isTitle ? `text-center w-full block py-1.5 md:py-2 transform italic font-semibold ${colors[theme]["surface"]["base"]} ${colors[theme]["text"]["on-deep"]} ${mode === `reading` ? `scale-x-[1.03]` : `scale-x-[1.033] `}` : ``}>
-                                                    {line}
-                                                </span>
-                                            </React.Fragment>
-                                        );
-                                    })
-                                ) : (
-                                    <span className={`relative`}>
-                                        <span className={mode === "light" ? hasBesmele ? `text-rose-600 font-semibold relative` : `${colors[theme]["accent"]["top"]} font-semibold relative` : `relative brightness-150`}>
-                                            {`${verseNumber}. `}
-                                        </span>
-                                        <span>
-                                            {text}
-                                        </span>
-                                    </span>
-                                )
-                            )
-                        }
+                        {mode === "reading"
+                            ? <LanguageRing
+                                language={lang || 'en'}
+                                loadLanguage={loadRingLanguage}
+                                renderLanguage={renderRingLanguage}
+                                accentClassName={colors[theme]["accent"]["top"]}
+                                arrowClassName={`${colors[theme]["surface"]["encrypted"]} ${RING_ARROW_LIFT[theme] ?? 'brightness-[1.75]'}`}
+                                arrowActiveClassName={RING_ARROW_ACCENT[theme] ?? colors[theme]["accent"]["fill"]}
+                                nameClassName={RING_NAME_COLOR[theme] ?? colors[theme]["accent"]["top"]}
+                                untranslatedNote={translationApplication?.ringUntranslated || 'not translated yet · showing Authorized English'}
+                                onSwipeStateChange={setSwipeActive}>
+                                {renderVerseBody(text, direction)}
+                            </LanguageRing>
+                            : renderVerseBody(text, direction)}
                     </div>
                     <div className={`w-full flex ${(mode === "reading" && bookmark) ? "p-0.5 mt-2 -mb-1" : "h-0"} `}>
                         <div className={`${(mode === "reading" && bookmark) ? " select-text ease-linear duration-300 " : "h-0 "} w-full transition-all  rounded ${colors[theme]["surface"]["encrypted"]} `} >

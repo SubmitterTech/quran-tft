@@ -46,6 +46,11 @@ export const mergeDownloadedLanguages = (remoteCatalog, availableLanguages) => {
     return catalog;
 };
 
+// The languages whose Quran text a content update brought, going by the files it downloaded.
+const downloadedQuranLanguages = (state) => Object.keys(state?.files || {})
+    .filter((name) => name.startsWith('quran_'))
+    .map((name) => name.slice('quran_'.length));
+
 /**
  * Bootstrap step: folds in a catalog that arrived with a content update, limited to the
  * languages whose text is on the device.
@@ -57,13 +62,27 @@ export const primeCatalogFromDownloads = async () => {
     try {
         const state = await getState();
         const remote = await readDownloaded('languages');
-        const downloaded = Object.keys(state?.files || {})
-            .filter((name) => name.startsWith('quran_'))
-            .map((name) => name.slice('quran_'.length));
+        const downloaded = downloadedQuranLanguages(state);
         const bundled = await getContentLanguages();
         return mergeDownloadedLanguages(remote, [...bundled, ...downloaded]);
     } catch (error) {
         return catalog;
+    }
+};
+
+/**
+ * The languages whose Quran text can be read on this device: those the build shipped and those a
+ * content update brought.
+ */
+export const getReadableLanguages = async () => {
+    const bundled = await getContentLanguages();
+    if (!isDownloadSupported()) {
+        return bundled;
+    }
+    try {
+        return [...new Set([...bundled, ...downloadedQuranLanguages(await getState())])];
+    } catch (error) {
+        return bundled;
     }
 };
 

@@ -31,6 +31,8 @@ const MAX_RESIDENT_LANGUAGES = 2;
 
 const contentCache = new Map();
 const inFlight = new Map();
+// Reads that keep nothing, shared only while they are in flight.
+const onceInFlight = new Map();
 const languageUse = [];
 
 let inventoryPromise = null;
@@ -175,7 +177,9 @@ export const getContent = (kind, lang) => {
         return inFlight.get(key);
     }
 
-    const request = fetchContent(kind, language)
+    // A read that keeps nothing may already be under way for the same file; it is taken over rather
+    // than started again, and what it brings is kept.
+    const request = (onceInFlight.get(key) || fetchContent(kind, language))
         .then((data) => {
             contentCache.set(key, data);
             touchLanguage(language);
@@ -217,6 +221,31 @@ export const getContentWithFallback = async (kind, lang) => {
  */
 export const releaseContent = (lang) => {
     evictLanguage(asLanguage(lang));
+};
+
+/**
+ * Reads one content file without keeping it, for a caller that needs a few values out of a
+ * language it is not showing. A file already in memory is handed over as it is; any other is
+ * read and not cached, so it is gone once the caller lets go of it, and the languages kept in
+ * memory stay as they were. Callers asking while it is being read share that read.
+ */
+export const readContentOnce = (kind, lang) => {
+    const language = asLanguage(lang);
+    const key = cacheKey(kind, language);
+    if (contentCache.has(key)) {
+        return Promise.resolve(contentCache.get(key));
+    }
+    if (inFlight.has(key)) {
+        return inFlight.get(key);
+    }
+    if (onceInFlight.has(key)) {
+        return onceInFlight.get(key);
+    }
+    const request = fetchContent(kind, language).finally(() => {
+        onceInFlight.delete(key);
+    });
+    onceInFlight.set(key, request);
+    return request;
 };
 
 // The inventory of what this build shipped, written by scripts/build-content-assets.mjs.

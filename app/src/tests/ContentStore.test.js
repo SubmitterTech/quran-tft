@@ -4,6 +4,7 @@ import {
     getContentLanguages,
     getContentRevisions,
     getContentWithFallback,
+    readContentOnce,
     releaseContent,
 } from '../utils/ContentStore';
 
@@ -25,6 +26,34 @@ describe('ContentStore', () => {
         ]);
 
         expect(second).toBe(first);
+    });
+
+    test('a read that keeps nothing is shared by callers asking at the same time, and kept by none', async () => {
+        const [first, second] = await Promise.all([
+            readContentOnce('quran', 'ta'),
+            readContentOnce('quran', 'ta'),
+        ]);
+
+        expect(second).toBe(first);
+        expect(await readContentOnce('quran', 'ta')).not.toBe(first);
+    });
+
+    test('a read that keeps nothing and one that keeps share the file whichever comes first', async () => {
+        const [once, kept] = await Promise.all([
+            readContentOnce('quran', 'az'),
+            getContent('quran', 'az'),
+        ]);
+        expect(kept).toBe(once);
+        // The reader that keeps has kept it.
+        expect(await getContent('quran', 'az')).toBe(kept);
+
+        releaseContent('az');
+        const [keptFirst, onceAfter] = await Promise.all([
+            getContent('quran', 'az'),
+            readContentOnce('quran', 'az'),
+        ]);
+        expect(onceAfter).toBe(keptFirst);
+        releaseContent('az');
     });
 
     test('releaseContent hands the memory back', async () => {
