@@ -7,7 +7,7 @@
     },
     "tr": {
         "name": "Türkçe Tercümesi",
-        "comp": 100,
+        "comp": 99.98,
         "dir": "ltr",
         "nums": "0 1 2 3 4 5 6 7 8 9"
     },
@@ -31,19 +31,19 @@
     },
     "fr": {
         "name": "Traduction française",
-        "comp": 80.03,
+        "comp": 80.04,
         "dir": "ltr",
         "nums": "0 1 2 3 4 5 6 7 8 9"
     },
     "nl": {
         "name": "Nederlandse Vertaling",
-        "comp": 67.06,
+        "comp": 67.07,
         "dir": "ltr",
         "nums": "0 1 2 3 4 5 6 7 8 9"
     },
     "ru": {
         "name": "Русский Перевод",
-        "comp": 53.98,
+        "comp": 53.99,
         "dir": "ltr",
         "nums": "0 1 2 3 4 5 6 7 8 9"
     },
@@ -55,13 +55,13 @@
     },
     "sv": {
         "name": "Svensk översättning",
-        "comp": 77.51,
+        "comp": 77.61,
         "dir": "ltr",
         "nums": "0 1 2 3 4 5 6 7 8 9"
     },
     "ta": {
         "name": "தமிழ் மொழிபெயர்ப்பு",
-        "comp": 69.58,
+        "comp": 70.06,
         "dir": "ltr",
         "nums": "0 1 2 3 4 5 6 7 8 9"
     },
