@@ -4067,7 +4067,7 @@
                 "titles": {
                     "101": "Verdoppelte Strafe für die Heuchler*",
                     "107": "Masdschids, die Gott und Seinem Gesandten Opponieren*",
-                    "108": "Betet Nicht in Jenen Masdschid"
+                    "108": "Betet Nicht in Jenen Masdschids"
                 }
             }
         },
@@ -14444,7 +14444,7 @@
     },
     "387": {
         "page": [
-            "Morgendämmerung (Al-Fdschr) 89:22-30 & Die Stadt (Al-Balad) 90:1-20 & Die Sonne (Al-Shams) 91:1-8",
+            "Morgendämmerung (Al-Fdschr) 89:22-30 & Die Stadt (Al-Balad) 90:1-20 & Die Sonne (Al-Schams) 91:1-8",
             "365"
         ],
         "sura": {
@@ -14495,13 +14495,13 @@
                     "2": "Dem Mond, der ihr folgt.",
                     "3": "Dem Tag, der offenbart.",
                     "4": "Der Nacht, die bedeckt.",
-                    "5": "Dem Himmel und Dem, der ihn erbaut hat.",
-                    "6": "Der Erde und Dem, der sie stützt.",
-                    "7": "Der Seele und Dem, der sie erschaffen hat.",
+                    "5": "Dem Himmel und Dem, der ihn erbaute.",
+                    "6": "Der Erde und Dem, der sie erhält.",
+                    "7": "Der Seele und Dem, der sie erschuf.",
                     "8": "Ihr dann zeigte, was böse und was gut ist."
                 },
                 "titles": {
-                    "1": "♦ ♦ ♦ ♦\nSure 91: Die Sonne\n(Al-Shams)\nIm Namen Gottes, des Allergnädigsten, des Barmherzigsten"
+                    "1": "♦ ♦ ♦ ♦\nSure 91: Die Sonne\n(Al-Schams)\nIm Namen Gottes, des Allergnädigsten, des Barmherzigsten"
                 }
             }
         },
@@ -14514,58 +14514,58 @@
     "388": {
         "page": [
             "366",
-            "Die Sonne (Al-Shams) 91:9-15 & Die Nacht (Al-Lail) 92:1-21 & Der Vormittag (Al-Duhaa) 93:1-8"
+            "Die Sonne (Al-Schams) 91:9-15 & Die Nacht (Al-Layl) 92:1-21 & Der Vormittag (Al-Duhaa) 93:1-8"
         ],
         "sura": {
             "91": {
                 "verses": {
                     "9": "Erfolgreich ist einer, der sie erlöst.",
-                    "10": "Gescheitert ist einer, der sie vernachlässigt.",
-                    "11": "Thamuds Ungläubigkeit ließ sie übertreten.",
-                    "12": "Sie folgten den Schlechtesten unter ihnen.",
-                    "13": "Der Botschafter GOTT'es sagte zu ihnen, „Dies ist das Kamel GOTT'es; lasst sie trinken“.",
-                    "14": "Sie glaubten ihm nicht und schlachteten sie. Ihr Herr vergalt ihnen dann für ihre Sünden und vernichtete sie.",
-                    "15": "Dennoch blieben diejenigen, die nach ihnen kamen, achtlos."
+                    "10": "Erfolglos ist einer, der sie vernachlässigt.",
+                    "11": "Thamuds Unglaube veranlasste sie zum Übertreten.",
+                    "12": "Sie folgten dem Schlechtesten unter ihnen.",
+                    "13": "GOTT'es Gesandter sagte zu ihnen: „Dies ist GOTT'es Kamel; lasst sie trinken.“",
+                    "14": "Sie glaubten ihm nicht und schlachteten sie. Ihr Herr vergalt ihnen dann ihre Sünde und vernichtete sie.",
+                    "15": "Dennoch bleiben diejenigen, die nach ihnen kamen, achtlos."
                 },
                 "titles": {}
             },
             "92": {
                 "verses": {
-                    "1": "Bei der Nacht, wie sie bedeckt.",
-                    "2": "Dem Tag, wie er offenbart.",
-                    "3": "Und Ihm, der das Männchen und das Weibchen erschuf. ",
+                    "1": "Bei der Nacht, während sie bedeckt.",
+                    "2": "Dem Tag, während er offenbart.",
+                    "3": "Und Dem, der das Männliche und das Weibliche erschuf.",
                     "4": "Eure Werke sind von unterschiedlicher Art.",
-                    "5": "Was ihn betrifft, der eine wohltätige Gabe gibt und Rechtschaffenheit aufrecht hält.",
-                    "6": "Und die Schrift wahrt.",
-                    "7": "Wir werden ihn zum Glück führen.",
-                    "8": "Aber er, der geizig ist, obwohl er reich ist.",
+                    "5": "Was denjenigen betrifft, der eine wohltätige Gabe gibt und Rechtschaffenheit aufrechterhält.",
+                    "6": "Und die Schrift hochhält.",
+                    "7": "Wir werden ihn zum Glück lenken.",
+                    "8": "Aber derjenige, der geizig ist, obwohl er reich ist.",
                     "9": "Und nicht an die Schrift glaubt.",
-                    "10": "Wir werden ihn zur Misere führen.",
+                    "10": "Wir werden ihn zum Jammer lenken.",
                     "11": "Sein Geld kann ihm nicht helfen, wenn er fällt.",
                     "12": "Wir stellen die Leitung bereit.",
-                    "13": "Wir kontrollieren das Jenseits sowie auch dieses Leben.",
+                    "13": "Wir kontrollieren das Jenseits ebenso wie dieses Leben.",
                     "14": "Ich habe euch vor dem lodernden Höllenfeuer gewarnt.",
-                    "15": "Niemand brennt darin, außer den Boshaften.",
-                    "16": "Die nicht glauben und sich abwenden.",
-                    "17": "Der Rechtschaffene wird sie meiden.",
-                    "18": "Der von seinem Geld als wohltätige Gabe gibt.",
+                    "15": "Niemand brennt darin außer dem Boshaften.",
+                    "16": "Der nicht glaubt und sich abwendet.",
+                    "17": "Meiden wird es der Rechtschaffene.",
+                    "18": "Der von seinem Geld eine wohltätige Gabe gibt.",
                     "19": "Nichts im Gegenzug suchend.",
                     "20": "Nur seinen Herrn suchend, den Allerhöchsten.",
                     "21": "Er wird gewiss Erlösung erlangen."
                 },
                 "titles": {
-                    "1": "♦ ♦ ♦ ♦\nSure 92: Die Nacht\n(Al-Lail)\nIm Namen Gottes, des Allergnädigsten, des Barmherzigsten"
+                    "1": "♦ ♦ ♦ ♦\nSure 92: Die Nacht\n(Al-Layl)\nIm Namen Gottes, des Allergnädigsten, des Barmherzigsten"
                 }
             },
             "93": {
                 "verses": {
                     "1": "Bei dem Vormittag.",
-                    "2": "Bei der Nacht, wie sie hereinbricht.",
-                    "3": "Dein Herr hat dich nie verlassen, noch hat Er vergessen. ",
+                    "2": "Bei der Nacht, während sie hereinbricht.",
+                    "3": "Dein Herr hat dich nie verlassen, noch hat Er vergessen.",
                     "4": "Das Jenseits ist weitaus besser für dich als dieses erste (Leben).",
-                    "5": "Und dein Herr wird dir genug geben; du wirst zufrieden sein. ",
-                    "6": "Fand Er dich nicht verwaist, und Er gab dir ein Heim?",
-                    "7": "Er fand dich in der Irre und leitete dich recht. ",
+                    "5": "Und dein Herr wird dir genug geben; du wirst zufrieden sein.",
+                    "6": "Fand Er dich nicht verwaist, und Er gab dir ein Zuhause?",
+                    "7": "Er fand dich in der Irre und leitete dich recht.",
                     "8": "Er fand dich arm und machte dich reich."
                 },
                 "titles": {
@@ -14585,22 +14585,22 @@
         "sura": {
             "93": {
                 "verses": {
-                    "9": "Darum sollst du die Waisen nicht im Stich lassen.",
-                    "10": "Noch sollst du den Bettler maßregeln.",
+                    "9": "Daher sollst du die Waise nicht im Stich lassen.",
+                    "10": "Auch sollst du den Bettler nicht zurechtweisen.",
                     "11": "Du sollst den Segen verkünden, den dein Herr dir verliehen hat."
                 },
                 "titles": {}
             },
             "94": {
                 "verses": {
-                    "1": "Beruhigten wir nicht dein Gemüt?",
-                    "2": "Und wir entluden deine Last (von Sünden).",
-                    "3": "Eine, die deinen Rücken belastete. ",
-                    "4": "Wir erhoben dich zu einer ehrenvollen Position.",
-                    "5": "Mit Mühe gibt es Gewinn.",
-                    "6": "In der Tat, mit Mühe gibt es Gewinn.",
+                    "1": "Beruhigten wir nicht deinen Zorn?",
+                    "2": "Und wir nahmen dir deine Last (von Sünden) ab.",
+                    "3": "Eine, die deinen Rücken belastete.",
+                    "4": "Wir erhoben dich zu einer ehrenvollen Stellung.",
+                    "5": "Mit Mühsal gibt es Gewinn.",
+                    "6": "Fürwahr, mit Mühsal gibt es Gewinn.",
                     "7": "Wann immer möglich, sollst du dich abmühen.",
-                    "8": "Einzig nach deinem Herrn suchend. "
+                    "8": "Nur deinen Herrn suchend."
                 },
                 "titles": {
                     "1": "♦ ♦ ♦ ♦\nSure 94: Die Beruhigung des Zorns\n(Al-Scharh)\nIm Namen Gottes, des Allergnädigsten, des Barmherzigsten "
@@ -14611,11 +14611,11 @@
                     "1": "Bei der Feige und der Olive.",
                     "2": "Dem Berg Sinai.",
                     "3": "Und dieser geehrten Stadt (Mekka).*",
-                    "4": "Wir erschufen den Menschen in der besten Gestaltung. ",
-                    "5": "Dann wendeten wir ihn zu den Niedrigsten der Niedrigen.",
-                    "6": "Abgesehen von jenen, die glauben und ein rechtschaffenes Leben führen; sie haben einen Lohn verdient, der wohlverdient ist.",
+                    "4": "Wir erschufen den Menschen in der besten Gestaltung.",
+                    "5": "Dann machten wir ihn zum Niedrigsten der Niedrigen.",
+                    "6": "Ausgenommen diejenigen, die glauben und ein rechtschaffenes Leben führen; sie erhalten einen Lohn, der wohlverdient ist.",
                     "7": "Warum lehnst du den Glauben noch immer ab?",
-                    "8": "Ist GOTT nicht der Allweise, von allen den Weisen?"
+                    "8": "Ist GOTT nicht der Allweise unter allen Weisen?"
                 },
                 "titles": {
                     "1": "♦ ♦ ♦ ♦\nSure 95: Die Feige\n(Al-Tiin)\nIm Namen Gottes, des Allergnädigsten, des Barmherzigsten "
@@ -14623,16 +14623,16 @@
             },
             "96": {
                 "verses": {
-                    "1": "Lies, im Namen deines Herrn, der erschaffen hat*",
+                    "1": "Lies, im Namen deines Herrn, der erschuf.*",
                     "2": "Er erschuf den Menschen aus einem Embryo.",
                     "3": "Lies, und dein Herr, der Höchsterhabene.",
                     "4": "Lehrt mittels des Stifts.",
                     "5": "Er lehrt den Menschen, was er nie wusste.",
-                    "6": "Allerdings, der Mensch übertretet.",
+                    "6": "Fürwahr, der Mensch übertritt.",
                     "7": "Wenn er reich wird.",
                     "8": "Zu deinem Herrn ist die endgültige Bestimmung.",
-                    "9": "Hast du gesehen denjenigen, der untersagt.",
-                    "10": "Andere vom Beten?",
+                    "9": "Hast du denjenigen gesehen, der untersagt.",
+                    "10": "Dass andere beten?",
                     "11": "Ist es nicht besser für ihn, der Leitung zu folgen?"
                 },
                 "titles": {
@@ -14642,7 +14642,7 @@
         },
         "notes": {
             "data": [
-                "*95:1-3 Die Feige, die Olive, der Sinai und die Mekka symbolisieren möglicherweise in dieser Reihenfolge Adam, Jesus, Moses, Abraham und Mohammed. Demnach sind alle Hauptreligionen vertreten.",
+                "*95:1-3 Die Feige, die Olive, der Sinai und Mekka symbolisieren möglicherweise Adam, Jesus, Moses, Abraham und Mohammed in dieser Reihenfolge. Somit sind alle großen Religionen vertreten.",
                 "*96:1-19 Von 96 bis 114 sind es 19 Suren. Die erste Offenbarung (96:1-5) besteht aus 19 arabischen Wörtern und 76 Buchstaben (19x4). Die Sure besteht aus 19 Versen und 304 arabischen Buchstaben (Anhänge 1 & 23)."
             ]
         }
@@ -14650,18 +14650,18 @@
     "390": {
         "page": [
             "368",
-            "Der Embryo (Al-‘Alaq) 96:12-19 & Bestimmung (Al-Qadr) 97:1-5 & Beweis (Al-Bajjina) 98:1-8"
+            "Der Embryo (Al-‘Alaq) 96:12-19 & Bestimmung (Al-Qadr) 97:1-5 & Beweis (Al-Bayyinah) 98:1-8"
         ],
         "sura": {
             "96": {
                 "verses": {
                     "12": "Oder Rechtschaffenheit zu befürworten?",
                     "13": "Wenn er nicht glaubt und sich abwendet.",
-                    "14": "Merkt er nicht, dass GOTT sieht?",
-                    "15": "In der Tat, wenn er sich nicht zurückhält, werden wir ihn an der Stirnlocke packen.",
-                    "16": "Eine Stirnlocke, die ungläubig ist und sündhaft.",
-                    "17": "Dann soll er seine Helfer rufen. ",
-                    "18": "Wir werden die Wächter der Hölle rufen. ",
+                    "14": "Erkennt er nicht, dass GOTT sieht?",
+                    "15": "Fürwahr, wenn er nicht davon ablässt, werden wir ihn an der Stirnlocke packen.",
+                    "16": "Eine Stirnlocke, die ungläubig und sündhaft ist.",
+                    "17": "Dann soll er seine Helfer rufen.",
+                    "18": "Wir werden die Wächter der Hölle rufen.",
                     "19": "Du sollst ihm nicht gehorchen; du sollst dich niederwerfen und näher kommen."
                 },
                 "titles": {}
@@ -14669,10 +14669,10 @@
             "97": {
                 "verses": {
                     "1": "Wir offenbarten ihn in der Nacht der Bestimmung.*",
-                    "2": "Wie großartig ist die Nacht der Bestimmung! ",
-                    "3": "Die Nacht der Bestimmung ist besser als tausend Monate. ",
-                    "4": "Die Engel und der Geist steigen darin herab, durch die Erlaubnis ihres Herrn, um jeden Befehl auszuführen.",
-                    "5": "Friedlich ist es bis zum Anbruch der Morgendämmerung. "
+                    "2": "Wie überwältigend ist die Nacht der Bestimmung!",
+                    "3": "Die Nacht der Bestimmung ist besser als tausend Monate.",
+                    "4": "Die Engel und der Geist steigen darin herab, mit Erlaubnis ihres Herrn, um jeden Befehl auszuführen.",
+                    "5": "Friedlich ist sie bis zum Anbruch der Morgendämmerung."
                 },
                 "titles": {
                     "1": "♦ ♦ ♦ ♦\nSure 97: Bestimmung\n(Al-Qadr)\nIm Namen Gottes, des Allergnädigsten, des Barmherzigsten"
@@ -14680,43 +14680,43 @@
             },
             "98": {
                 "verses": {
-                    "1": "Diejenigen, die unter den Leuten der Schrift nicht glaubten, sowie die Götzenanbeter, beharren auf ihren Wegen, trotz des ihnen gegebenen Beweises.*",
+                    "1": "Diejenigen unter den Leuten der Schrift, die nicht glaubten, sowie die Götzenanbeter beharren trotz des ihnen gegebenen Beweises auf ihren Wegen.*",
                     "2": "Ein Gesandter von GOTT rezitiert ihnen heilige Anweisungen.*",
-                    "3": "In ihnen finden sich wertvolle Lehren. ",
-                    "4": "In der Tat, diejenigen, die die Schrift empfingen, bestritten nicht, bis der Beweis ihnen gegeben wurde.",
-                    "5": "Alles, was von ihnen verlangt wurde, war, GOTT anzubeten, die Religion absolut Ihm allein zu widmen, die Kontaktgebete (Salat) einzuhalten und die Pflichtabgabe (Zakat) zu geben. Solches ist die vollkommene Religion.",
-                    "6": "Diejenigen, die unter den Leuten der Schrift nicht glaubten, und die Götzenanbeter haben das Feuer der Gehenna für immer auf sich gezogen. Sie sind die schlimmsten Geschöpfe.",
+                    "3": "In ihnen finden sich wertvolle Lehren.",
+                    "4": "In der Tat gerieten diejenigen, die die Schrift erhielten, nicht in Streit, bis ihnen der Beweis gegeben wurde.",
+                    "5": "Alles, was von ihnen verlangt wurde, war, GOTT anzubeten, indem sie die Religion ganz und gar Ihm allein widmen, die Kontaktgebete (Salat) einzuhalten und die Pflichtabgabe (Zakat) zu geben. So ist die vollkommene Religion.",
+                    "6": "Diejenigen unter den Leuten der Schrift, die nicht glaubten, und die Götzenanbeter haben das Feuer der Gehenna für immer auf sich gezogen. Sie sind die schlimmsten Geschöpfe.",
                     "7": "Diejenigen, die glaubten und ein rechtschaffenes Leben führten, sind die besten Geschöpfe.",
-                    "8": "Ihre Belohnung bei ihrem Herrn sind die Gärten von Eden mit fließenden Bächen, worin sie für immer verweilen werden. GOTT ist mit ihnen zufrieden und sie sind mit Ihm zufrieden. Solch ist die Belohnung für diejenigen, die ihren Herrn verehren."
+                    "8": "Ihr Lohn bei ihrem Herrn sind die Gärten von Eden mit fließenden Bächen, worin sie für immer verweilen. GOTT ist mit ihnen zufrieden, und sie sind mit Ihm zufrieden. So ist der Lohn für diejenigen, die Ehrfurcht vor ihrem Herrn haben."
                 },
                 "titles": {
-                    "1": "♦ ♦ ♦ ♦\nSure 98: Beweis\n(Al-Bajjina)\nIm Namen Gottes, des Allergnädigsten, des Barmherzigsten"
+                    "1": "♦ ♦ ♦ ♦\nSure 98: Beweis\n(Al-Bayyinah)\nIm Namen Gottes, des Allergnädigsten, des Barmherzigsten"
                 }
             }
         },
         "notes": {
             "data": [
-                "*97:1 Der Koran wurde in der 27. Nacht des Ramadan, 13 v.H. (vor Hidschra), in Mohammeds Seele platziert. Siehe auch 17:1, 44:3, 53:1-18 und Anhang 28.",
-                "*98:1-2 Der Beweis ist der mathematische Kode des Korans (Anhang 1), und der Gesandte ist Rashad Khalifa. Die Nummer der Sure (98), plus der Versnummer (2), plus des numerischen Wertes von „Rashad Khalifa“ (1230) ergeben zusammen 1330 (19x70), dieselbe Summe wie in 81:19 (Anhang 2)."
+                "*97:1 Der Koran wurde in der 27. Nacht des Ramadan, 13 v. H. (vor der Hidschra), in Mohammeds Seele gelegt. Siehe auch 17:1, 44:3, 53:1-18 und Anhang 28.",
+                "*98:1-2 Der Beweis ist der mathematische Kode des Korans (Anhang 1), und der Gesandte ist Rashad Khalifa. Die Nummer der Sure (98) plus die Versnummer (2) plus der numerische Wert von „Rashad Khalifa“ (1230) ergeben zusammen 1330 (19x70), dieselbe Summe wie in 81:19 (Anhang 2)."
             ]
         }
     },
     "391": {
         "page": [
-            "Das Beben (Al-Salsala) 99:1-8 & Die Galopper (Al-‘Aadijaat) 100:1-11 & Der Schocker (Al-Qaari‘a) 101:1-11 & Horten (Al-Takaathur) 102:1-4",
+            "Das Beben (Al-Salsala) 99:1-8 & Die Galopper (Al-‘Aadiyaat) 100:1-11 & Der Schocker (Al-Qaari‘a) 101:1-11 & Horten (Al-Takaathur) 102:1-4",
             "369"
         ],
         "sura": {
             "99": {
                 "verses": {
-                    "1": "Wenn die Erde heftig bebt.",
-                    "2": "Und die Erde ihre Ladungen ausstößt.",
-                    "3": "Wird sich der Mensch wundern: „Was geschieht hier?“ ",
-                    "4": "An diesem Tag wird sie ihre Nachrichten mitteilen.",
-                    "5": "Dass dein Herr es befohlen hat.",
-                    "6": "An diesem Tag werden die Menschen aus allen Richtungen hervorkommen, um sich ihre Werke zeigen zu lassen. ",
-                    "7": "Wer auch nur das Gewicht eines Atoms an Gutem tut, wird es sehen. ",
-                    "8": "Und wer auch nur das Gewicht eines Atoms an Bösem tut, wird es sehen."
+                    "1": "Wenn die Erde heftig erschüttert wird.",
+                    "2": "Und die Erde ihre Lasten ausstößt.",
+                    "3": "Wird sich der Mensch wundern: „Was geschieht?“",
+                    "4": "An jenem Tag wird sie ihre Nachrichten mitteilen.",
+                    "5": "Dass dein Herr ihr befohlen hat.",
+                    "6": "An jenem Tag werden die Menschen aus allen Richtungen hervorkommen, damit ihnen ihre Werke gezeigt werden.",
+                    "7": "Wer auch immer im Gewicht eines Atoms Gutes tut, wird es sehen.",
+                    "8": "Und wer auch immer im Gewicht eines Atoms Böses tut, wird es sehen."
                 },
                 "titles": {
                     "1": "♦ ♦ ♦ ♦\nSure 99: Das Beben\n(Al-Salsala)\nIm Namen Gottes, des Allergnädigsten, des Barmherzigsten "
@@ -14726,18 +14726,18 @@
                 "verses": {
                     "1": "Bei den schnellen Galoppern.",
                     "2": "Funken entzündend.",
-                    "3": "Am Morgen (beim Feind) einfallend.",
+                    "3": "Am Morgen (den Feind) überfallend.",
                     "4": "Darin Schrecken auslösend.",
-                    "5": "In das Herz ihres Territoriums eindringend. ",
+                    "5": "In das Herz ihres Territoriums eindringend.",
                     "6": "Der Mensch ist seinem Herrn gegenüber undankbar.",
-                    "7": "Er legt Zeugnis ab für diese Tatsache.",
-                    "8": "Er liebt die materiellen Dinge übermäßig.",
-                    "9": "Erkennt er nicht, dass der Tag kommen wird, an dem die Gräber geöffnet werden? ",
-                    "10": "Und alle Geheimnisse werden hervorgebracht. ",
-                    "11": "An jenem Tag werden sie herausfinden, dass ihr Herr ihrer voll Kundig gewesen ist."
+                    "7": "Er legt Zeugnis von dieser Tatsache ab.",
+                    "8": "Er liebt materielle Dinge übermäßig.",
+                    "9": "Erkennt er nicht, dass der Tag kommen wird, an dem die Gräber geöffnet werden?",
+                    "10": "Und alle Geheimnisse werden aufgedeckt.",
+                    "11": "Sie werden an jenem Tag erfahren, dass ihr Herr ihrer vollkommen Kundig gewesen ist."
                 },
                 "titles": {
-                    "1": "♦ ♦ ♦ ♦\nSure 100: Die Galopper\n(Al-‘Aadijaat)\nIm Namen Gottes, des Allergnädigsten, des Barmherzigsten "
+                    "1": "♦ ♦ ♦ ♦\nSure 100: Die Galopper\n(Al-‘Aadiyaat)\nIm Namen Gottes, des Allergnädigsten, des Barmherzigsten "
                 }
             },
             "101": {
