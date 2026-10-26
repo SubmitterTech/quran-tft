@@ -69,7 +69,9 @@ const isTabletSizedScreen = () => {
 export const applyConditionalOrientationLock = async () => {
   await initPlatform();
 
-  if (!isNativePlatform) {
+  // iOS takes its orientations from Info.plist: portrait on iPhone, all on iPad. iPhone Duo's
+  // inner display ignores those, but a runtime lock would force it to portrait, sideways.
+  if (platform !== 'android') {
     return;
   }
 
