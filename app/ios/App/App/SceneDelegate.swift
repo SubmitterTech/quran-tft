@@ -8,7 +8,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         guard let windowScene = scene as? UIWindowScene else { return }
 
         window = UIWindow(windowScene: windowScene)
-        window?.rootViewController = CAPBridgeViewController()
+        window?.rootViewController = BridgeViewController()
         window?.makeKeyAndVisible()
 
         SceneDelegateProxy.shared.scene(scene, willConnectTo: session, options: connectionOptions)
@@ -20,5 +20,25 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
     func scene(_ scene: UIScene, continue userActivity: NSUserActivity) {
         SceneDelegateProxy.shared.scene(scene, continue: userActivity)
+    }
+}
+
+// Forwards window size changes and layout passes to WindowGeometryPlugin, which the web layer
+// reads for the window shape and the system regions drawn over it.
+class BridgeViewController: CAPBridgeViewController {
+    private let windowGeometryPlugin = WindowGeometryPlugin()
+
+    override open func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
+        super.viewWillTransition(to: size, with: coordinator)
+        windowGeometryPlugin.windowWillResize(to: size)
+    }
+
+    override open func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+        windowGeometryPlugin.windowDidLayout()
+    }
+
+    override open func capacitorDidLoad() {
+        bridge?.registerPluginInstance(windowGeometryPlugin)
     }
 }

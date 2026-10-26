@@ -12,6 +12,7 @@ import { primeBaseContent } from './utils/BaseContent';
 import { clearTrying } from './utils/ContentFiles';
 import { primeCatalogFromDownloads } from './utils/LanguageCatalog';
 import { primePersistedState } from './utils/Persist';
+import { startWindowGeometry } from './utils/WindowGeometry';
 import languages from './utils/LanguageCatalog';
 
 window.onerror = (message, source, lineno, colno, error) => {
@@ -218,6 +219,8 @@ const renderApp = async () => {
 
   try {
     await initPlatform();
+    // The system regions over the window are asked for now, so they are known by the first screen.
+    startWindowGeometry();
     // What the reader left behind comes back from the app's own file before a single screen
     // reads it, because the web view's own store cannot be trusted to still hold it.
     await primePersistedState();
