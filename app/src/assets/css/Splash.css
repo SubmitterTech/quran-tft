@@ -1,20 +1,61 @@
-.splash-line {
-  /* backwards: a line that is already in waits on the first color until its color wave starts. */
-  animation: fadeIn 0.25s ease-in-out forwards, colorChange 10s infinite backwards;
-  opacity: 0;
+/*
+  The cover keeps clear of the system bars on every side. Upright, the title, the
+  languages and the translator's lines stand one under the other. Wider than it
+  is tall, the title and the translator's lines take the left column and the
+  languages the right one.
+*/
+.cover {
+  display: grid;
+  padding: var(--app-safe-top) var(--app-safe-right) var(--app-safe-bottom) var(--app-safe-left);
 }
 
-@keyframes fadeIn {
-  to {
-      opacity: 1;
-  }
+.cover-portrait {
+  grid-template-columns: minmax(0, 1fr);
+  grid-template-rows: auto minmax(0, 1fr) auto;
+  grid-template-areas: "title" "languages" "credit";
 }
 
-@keyframes colorChange {
-  0% { background-color: #38bdf8; }
-  25% { background-color: #38bdf8; }
-  50% { background-color: #7dd3fc; }
-  75% { background-color: #e0f2fe; }
-  100% { background-color: #e0f2fe; }
+.cover-landscape {
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  grid-template-rows: minmax(0, 1fr) auto;
+  grid-template-areas: "title languages" "credit languages";
 }
 
+.cover-title {
+  grid-area: title;
+}
+
+.cover-landscape .cover-title {
+  align-self: center;
+}
+
+.cover-languages {
+  grid-area: languages;
+}
+
+.cover-credit {
+  grid-area: credit;
+}
+
+/*
+  iPhone Duo: the side inset exists only because of the camera island at the top
+  (utils/WindowGeometry sets data-occlusion-band and the band's size). The cover
+  takes the full width. Upright, the title sits beside the island, so it keeps
+  clear of it on both sides to stay centred, and reaches at least to the bottom
+  of the island, so the languages and their arrow start below it. In landscape
+  the island is above the languages, which stand clear of the edge beside their
+  arrow.
+*/
+html[data-occlusion-band="right"] .cover {
+  padding-right: 0;
+}
+
+html[data-occlusion-band="left"] .cover {
+  padding-left: 0;
+}
+
+html[data-occlusion-band] .cover-portrait .cover-title {
+  padding-left: max(0.75rem, var(--app-occlusion-band-inset));
+  padding-right: max(0.75rem, var(--app-occlusion-band-inset));
+  min-height: calc(var(--app-occlusion-band-bottom) - var(--app-safe-top));
+}
