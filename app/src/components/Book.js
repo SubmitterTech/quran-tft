@@ -1124,7 +1124,7 @@ const Book = React.memo(({ incomingSearch = false, incomingAppendix = false, inc
                     key={`title-of-suras}`}
                     className={`w-full h-screen flex flex-col overflow-auto ${colors[theme]["text"]["middle"]}`}>
                     <div className={`island-aside-even w-full p-3`} style={{ '--island-aside-base': '0.75rem' }}>
-                        <div className={`w-full flex items-center justify-center text-center ${colors[theme]["surface"]["bottom"]} rounded p-2 font-semibold ${colors[theme]["text"]["middle"]} text-2xl `}>
+                        <div className={`w-full flex items-center justify-center text-center p-2 font-semibold ${baseTextColor} text-2xl `}>
                             <h2>{cpd.titles["1"]}</h2>
                         </div>
                     </div>
