@@ -56,6 +56,18 @@ html[data-occlusion-band] .island-aside-even {
 }
 
 /*
+  A row taken in beside the island (useIslandAside in hooks/IslandClearance) adds the island's width
+  to the margin it has on that side, so it keeps the same gap to the island as to the screen's edge.
+*/
+html[data-occlusion-band="right"] [data-beside-island] {
+  margin-right: calc(var(--beside-island-base, 0px) + var(--app-occlusion-band-inset));
+}
+
+html[data-occlusion-band="left"] [data-beside-island] {
+  margin-left: calc(var(--beside-island-base, 0px) + var(--app-occlusion-band-inset));
+}
+
+/*
   Jump stands its panel in the middle row of a grid. The rows above and below it share the free height,
   so the panel stays in the middle of the screen while there is room, and a taller one (the theme view, a
   page of many suras) moves up rather than covering the language picker in the bottom row. The panel's

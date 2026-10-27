@@ -12,6 +12,7 @@ import {
 } from '../utils/Hyphenation';
 import { isTamil, foldTamilViramas, expandToTamilGraphemes } from '../utils/Tamil';
 import { persistSet, persistRemove } from '../utils/Persist';
+import { useIslandAside } from '../hooks/IslandClearance';
 
 
 // Word-boundary check: a character is a boundary (not part of a word) if it's
@@ -490,6 +491,8 @@ const Magnify = ({
     const observerAppendices = useRef();
 
     const inputRef = useRef(null);
+    const islandRootRef = useRef(null);
+    useIslandAside(islandRootRef);
 
     const [openTheme, setOpenTheme] = useState(null);
     const [openSubTheme, setOpenSubTheme] = useState({});
@@ -2377,13 +2380,10 @@ const Magnify = ({
     return (
         <div className={` w-screen h-screen fixed z-[120] left-0 top-0 backdrop-blur-2xl`} id="jump-screen">
             <div
-                className={`fixed flex flex-col items-center justify-start faster inset-0 outline-none focus:outline-none overflow-auto `}
-                style={{
-                    paddingRight: 'var(--app-safe-right)',
-                    paddingLeft: 'var(--app-safe-left)',
-                }}
+                ref={islandRootRef}
+                className={`app-safe-x fixed flex flex-col items-center justify-start faster inset-0 outline-none focus:outline-none overflow-auto `}
             >
-                <div className={`w-full flex p-1.5 sticky top-0 backdrop-blur-2xl z-20`} style={{ paddingTop: 'calc((var(--app-safe-top) * 0.76) + 0.3rem)' }}>
+                <div className={`island-aside w-full flex p-1.5 sticky top-0 backdrop-blur-2xl z-20`} style={{ paddingTop: 'calc((var(--app-safe-top) * 0.76) + 0.3rem)', '--island-aside-base': '0.375rem' }}>
                     <div className={`relative w-full flex rounded  space-x-2`}>
                         <div className={`relative w-full`}>
                             <input
@@ -2487,12 +2487,13 @@ const Magnify = ({
                         }}>
                         <div className={`${loadedTitles.length > 0 ? titlesVisible ? `flex-1 mx-1 lg:mx-0 ring-1 ${colors[theme]["surface"]["top"]}` : `h-10 p-1 mx-1 lg:mx-0 ring-1 ${colors[theme]["surface"]["bottom"]}` : "hidden"} ${loadedVerses.length > 0 ? "" : "lg:col-span-2"} transition-all duration-100 ease-linear  overflow-auto rounded ${colors[theme]["border"]["focus"]} `}>
                             <div
+                                data-island-item
                                 onClick={() => setTitlesVisible(!titlesVisible)}
                                 className={`${loadedTitles.length > 0 ? "opacity-100" : "opacity-0 h-0"} ${titlesVisible ? `sticky z-40 top-0 text-base md:text-lg mb-1.5 p-2 justify-center rounded-t drop-shadow-md backdrop-blur-xl` : ` h-full justify-between px-2 text-xl md:text-2xl`} transition-all duration-100 ease-linear flex items-center text-center ${colors[theme]["text"]["bottom"]}`}>
                                 <div className={`${titlesVisible ? "" : "flex justify-between w-full"}`}>{translationApplication.titles}{` `}<span className={`${colors[theme]["accent"]["top"]}`}>{searchResultTitles.length}</span></div>
                             </div>
                             <div className={`text-sm md:text-base w-full ${colors[theme]["text"]["top"]} `}>
-                                <div className={`w-full flex flex-col space-y-1.5 ${titlesVisible ? `pb-1.5` : ``}`}>
+                                <div data-island-list className={`w-full flex flex-col space-y-1.5 ${titlesVisible ? `pb-1.5` : ``}`}>
                                     {titlesVisible &&
                                         (
                                             loadedTitles.map((result, index) => {
@@ -2519,7 +2520,7 @@ const Magnify = ({
                         </div>
 
                         <div className={`${loadedVerses.length > 0 ? versesVisible ? " flex-1 mx-1 lg:mx-0 ring-1 " : "h-10 mx-1 lg:mx-0 ring-1 " : "hidden"} ${loadedTitles.length > 0 ? "" : " lg:col-span-2"} transition-all duration-100 ease-linear overflow-auto rounded ${colors[theme]["border"]["focus"]} ${colors[theme]["surface"]["bottom"]}`}>
-                            <div className={`${loadedVerses.length > 0 ? "opacity-100" : "opacity-0 h-0"} ${versesVisible ? `sticky top-0 text-base md:text-lg mb-1.5 justify-between rounded-t drop-shadow-md backdrop-blur-xl` : ` h-full justify-between text-xl md:text-2xl`} transition-all duration-100 ease-linear flex items-center text-center ${colors[theme]["text"]["bottom"]}`}>
+                            <div data-island-item className={`${loadedVerses.length > 0 ? "opacity-100" : "opacity-0 h-0"} ${versesVisible ? `sticky top-0 text-base md:text-lg mb-1.5 justify-between rounded-t drop-shadow-md backdrop-blur-xl` : ` h-full justify-between text-xl md:text-2xl`} transition-all duration-100 ease-linear flex items-center text-center ${colors[theme]["text"]["bottom"]}`}>
                                 {versesVisible &&
                                     <div
                                         onClick={() => handleSelectAll()}
@@ -2552,7 +2553,7 @@ const Magnify = ({
                             <div
                                 lang={lang}
                                 className={`text-sm md:text-base text-justify ${hyphenClassName} w-full ${colors[theme]["text"]["top"]} ${loadedVerses.length > 0 ? "max-h-full" : "h-0"}`}>
-                                <div className={`w-full flex flex-col space-y-1.5 ${versesVisible ? `pb-1.5` : ``}`}>
+                                <div data-island-list className={`w-full flex flex-col space-y-1.5 ${versesVisible ? `pb-1.5` : ``}`}>
                                     {versesVisible &&
                                         (
                                             loadedVerses.map((result, index) => {
@@ -2583,6 +2584,7 @@ const Magnify = ({
 
                         <div className={`${loadedNotes.length > 0 ? notesVisible ? "flex-1 mx-1 lg:mx-0 ring-1" : "h-10 p-1 mx-1 lg:mx-0 ring-1" : "hidden"} ${loadedAppendices.length > 0 ? "" : "lg:col-span-2"} transition-all duration-100 ease-linear  overflow-auto rounded ${colors[theme]["border"]["focus"]} ${colors[theme]["surface"]["bottom"]}`}>
                             <div
+                                data-island-item
                                 onClick={() => setNotesVisible(!notesVisible)}
                                 className={`${loadedNotes.length > 0 ? "opacity-100" : "opacity-0 "} ${notesVisible ? `sticky top-0 text-base md:text-lg mb-1.5 p-2 justify-center rounded-t drop-shadow-md backdrop-blur-xl` : ` h-full justify-between px-2 text-xl md:text-2xl`} transition-all duration-100 ease-linear flex items-center text-center ${colors[theme]["text"]["bottom"]}`}>
                                 <div className={`${notesVisible ? "" : "flex justify-between w-full"}`}>{translationApplication.notes}{` `}<span className={`${colors[theme]["accent"]["top"]}`}>{searchResultNotes.length}</span></div>
@@ -2590,7 +2592,7 @@ const Magnify = ({
                             <div
                                 lang={lang}
                                 className={`text-sm md:text-base text-justify ${hyphenClassName} w-full ${colors[theme]["text"]["top"]} transition-all duration-100 ease-linear ${loadedNotes.length > 0 ? "max-h-full" : "h-0"}`}>
-                                <div className={`w-full flex flex-col space-y-1.5 ${notesVisible ? `pb-1.5` : ``}`}>
+                                <div data-island-list className={`w-full flex flex-col space-y-1.5 ${notesVisible ? `pb-1.5` : ``}`}>
                                     {notesVisible &&
                                         (loadedNotes.map((result, index) => {
                                             const thekey = `${result.suraNumber}:${result.verseNumber}`;
@@ -2618,6 +2620,7 @@ const Magnify = ({
 
                         <div className={`${loadedAppendices.length > 0 ? appendicesVisible ? "flex-1 mx-1 lg:mx-0 ring-1" : "h-10 p-1 mx-1 lg:mx-0 ring-1" : "hidden"} ${loadedNotes.length > 0 ? "" : "lg:col-span-2"} transition-all duration-100 ease-linear  overflow-auto rounded ${colors[theme]["border"]["focus"]} ${colors[theme]["surface"]["bottom"]}`}>
                             <div
+                                data-island-item
                                 onClick={() => setAppendicesVisible(!appendicesVisible)}
                                 className={`${loadedAppendices.length > 0 ? "opacity-100" : "opacity-0 "} ${appendicesVisible ? `sticky top-0 text-base md:text-lg mb-1.5 p-2 justify-center rounded-t drop-shadow-md backdrop-blur-xl` : ` h-full justify-between px-2 text-xl md:text-2xl`} transition-all duration-100 ease-linear flex items-center text-center ${colors[theme]["text"]["bottom"]}`}>
                                 <div className={`${appendicesVisible ? "" : "flex justify-between w-full"}`}>{translationApplication.appendices}{` `}<span className={`${colors[theme]["accent"]["top"]}`}>{searchResultAppendices.length}</span></div>
@@ -2625,7 +2628,7 @@ const Magnify = ({
                             <div
                                 lang={lang}
                                 className={`text-sm md:text-base text-justify ${hyphenClassName} w-full ${colors[theme]["text"]["top"]} transition-all duration-100 ease-linear ${loadedAppendices.length > 0 ? "max-h-full" : "h-0"}`}>
-                                <div className={`w-full flex flex-col space-y-1.5 ${appendicesVisible ? "mb-10 pb-1.5" : ""}`}>
+                                <div data-island-list className={`w-full flex flex-col space-y-1.5 ${appendicesVisible ? "mb-10 pb-1.5" : ""}`}>
                                     {appendicesVisible &&
                                         loadedAppendices.map((result, index) => {
                                             const isIntro = result.appx === '0';
@@ -2671,7 +2674,7 @@ const Magnify = ({
                             marginBottom: `calc(var(--app-controls-safe-bottom) + ${window.innerWidth >= 1024 ? '4rem' : '3rem'})`
                         }}
                     >
-                        <div className={`text-xs md:text-sm ${colors[theme]["text"]["logger"]} space-y-2.5 max-w-2xl`}>
+                        <div data-island-list className={`text-xs md:text-sm ${colors[theme]["text"]["logger"]} space-y-2.5 max-w-2xl`}>
                             <div className="flex items-center gap-1">
                                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-4 h-4 shrink-0"><path strokeLinecap="round" strokeLinejoin="round" d="m21 21-5.197-5.197m0 0A7.5 7.5 0 1 0 5.196 5.196a7.5 7.5 0 0 0 10.607 10.607Z" /></svg>
                                 <span>{translationApplication?.searchHint1}</span>
@@ -2763,7 +2766,7 @@ const Magnify = ({
                             marginBottom: `calc(var(--app-controls-safe-bottom) + ${window.innerWidth >= 1024 ? '4.2rem' : '3.2rem'})`
                         }}>
                         <div className={`text-lg md:text-2xl w-full p-0.5 ${colors[theme]["text"]["top"]} transition-all duration-100 ease-linear `}>
-                            <div className={` w-full flex flex-col space-y-1.5 transition-all duration-200 ease-linear `}>
+                            <div data-island-list className={` w-full flex flex-col space-y-1.5 transition-all duration-200 ease-linear `}>
                                 {Object.entries(loadedMap).map(([exp, themeorref], index) => (
                                     <div
                                         key={index + exp}
