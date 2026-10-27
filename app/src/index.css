@@ -16,6 +16,45 @@
   );
 }
 
+/*
+  The horizontal safe area of a full-screen layer, such as the side the Android
+  navigation bar takes beside a split-screen pane. On iPhone Duo the camera
+  island explains the whole inset on its side (utils/WindowGeometry sets
+  data-occlusion-band), so there the layer keeps the full width and only what
+  sits beside the island steps aside (hooks/IslandClearance).
+*/
+.app-safe-x {
+  padding-left: var(--app-safe-left);
+  padding-right: var(--app-safe-right);
+}
+
+html[data-occlusion-band="right"] .app-safe-x {
+  padding-right: 0;
+}
+
+html[data-occlusion-band="left"] .app-safe-x {
+  padding-left: 0;
+}
+
+/*
+  A header that stands beside the island at the top of a full-width screen
+  keeps its content out from under it. --island-aside-base is the padding the
+  header has on that side anyway.
+*/
+html[data-occlusion-band="right"] .island-aside {
+  padding-right: max(var(--island-aside-base, 0px), var(--app-occlusion-band-inset));
+}
+
+html[data-occlusion-band="left"] .island-aside {
+  padding-left: max(var(--island-aside-base, 0px), var(--app-occlusion-band-inset));
+}
+
+/* A centred header steps aside on both sides, so it stays centred. */
+html[data-occlusion-band] .island-aside-even {
+  padding-left: max(var(--island-aside-base, 0px), var(--app-occlusion-band-inset));
+  padding-right: max(var(--island-aside-base, 0px), var(--app-occlusion-band-inset));
+}
+
 body {
   margin: 0;
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',

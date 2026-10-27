@@ -11,6 +11,7 @@ import {
     hyphenateReactNode,
     isHyphenCacheLanguage,
 } from '../utils/Hyphenation';
+import { IslandSpacer } from '../hooks/IslandClearance';
 
 const Intro = ({
     colors,
@@ -351,9 +352,13 @@ const Intro = ({
             }
         });
 
+        // The page title stands beside a camera island at the top of the screen; the text starts below it.
+        const leadsWithTitle = introContent[0]?.type === 'titles';
         return (
             <div key={`content-${currentPage}-${lang}`} ref={() => handleRefsReady()} className={`${baseContentTextColor} overflow-auto flex-1 p-1 text-justify lg:text-start ${textTheme}`}>
-                {renderContent}
+                {leadsWithTitle && <div className="island-aside-even">{renderContent[0]}</div>}
+                <IslandSpacer />
+                {leadsWithTitle ? renderContent.slice(1) : renderContent}
             </div>
         );
     };
@@ -367,7 +372,7 @@ const Intro = ({
             onTouchMove={handleTouchMove}
             onTouchEnd={handleTouchEnd}
             onTouchCancel={handleTouchEnd}
-            className={`h-screen w-screen relative overflow-y-auto pb-10 md:pb-14 ${baseTextColor} text-lg md:text-xl lg:text-2xl select-text`}>
+            className={`h-screen w-full relative overflow-y-auto pb-10 md:pb-14 ${baseTextColor} text-lg md:text-xl lg:text-2xl select-text`}>
             <animated.div
                 className="relative z-20 will-change-transform"
                 style={{

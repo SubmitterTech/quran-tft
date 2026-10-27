@@ -11,6 +11,7 @@ import {
     hyphenateReactNode,
     isHyphenCacheLanguage,
 } from '../utils/Hyphenation';
+import { IslandSpacer } from '../hooks/IslandClearance';
 
 const Apps = ({ colors, theme, translationApplication, parseReferences, appendices, selected, restoreAppText, refToRestore, refToJump, referenceToRestore, direction, upt, autoHyphenation = true }) => {
 
@@ -325,7 +326,7 @@ const Apps = ({ colors, theme, translationApplication, parseReferences, appendic
                     <div
                         key={`app-${appno}-${item.type}-${item.order}`}
                         dir={direction}
-                        className={`${isAppendixTitle ? `px-2 pb-1 pt-2.5 ${baseMutedTextColor}` : `${pulsateTitle} sticky top-10 px-2 pb-1 pt-2 ${baseTextColor}`} flex items-center justify-center text-center  font-semibold  ${colors[theme]["surface"]["base"]} `}
+                        className={`${isAppendixTitle ? `island-aside-even px-2 pb-1 pt-2.5 ${baseMutedTextColor}` : `${pulsateTitle} island-aside-even sticky top-10 px-2 pb-1 pt-2 ${baseTextColor}`} flex items-center justify-center text-center  font-semibold  ${colors[theme]["surface"]["base"]} `}
                         ref={isAppendixTitle ? (el) => appendixRef.current[`appendix-${item.content.match(/\d+/)[0]}`] = el : (el) => textRef.current[appno + "-" + index] = el}>
                         {applyHyphenation(item.content)}
                     </div>
@@ -469,12 +470,17 @@ const Apps = ({ colors, theme, translationApplication, parseReferences, appendic
         if (currentGroup.length > 0) {
             groups.push(currentGroup);
         }
+        const spacerGroup = groups.length > 1 ? 1 : 0;
 
         return (
             <div className={``} key={selected} ref={() => handleRefsReady()}>
                 {groups.map((group, groupIndex) => (
                     <div key={`group-${groupIndex}`} className={`${groupIndex === 0 ? `main-group sticky -top-0.5 z-10 shadow-md` : `group px-1`}`}>
-                        {group.map((element) => element)}
+                        {/* The appendix's number and its first title stand beside a camera island
+                            if there is one; the text starts below it. */}
+                        {groupIndex === spacerGroup
+                            ? [group[0], <IslandSpacer key="island-spacer" />, ...group.slice(1)]
+                            : group.map((element) => element)}
                     </div>
                 ))}
             </div>
@@ -485,7 +491,7 @@ const Apps = ({ colors, theme, translationApplication, parseReferences, appendic
 
     return (
         <div
-            className={`h-full w-screen relative overflow-y-auto pb-10 md:pb-14 ${baseTextColor} ${textTheme} select-text`}>
+            className={`h-full w-full relative overflow-y-auto pb-10 md:pb-14 ${baseTextColor} ${textTheme} select-text`}>
             <div ref={containerRef}>
                 {renderAppendices()}
                 {!isRefsReady &&

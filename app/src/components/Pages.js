@@ -13,6 +13,7 @@ import {
 import { getSpecializedGodWordMatches } from '../utils/GodWords';
 import { isTamil, stripTamilFinalVirama } from '../utils/Tamil';
 import { splitSura9NamesAfterTransliteration, splitsSura9AfterTransliteration } from '../utils/SuraTitles';
+import { IslandSpacer } from '../hooks/IslandClearance';
 
 const formatHitCount = (count) => {
     const factor = 19;
@@ -92,7 +93,6 @@ const Pages = React.memo(({
     // Refs
     const scrollContainerRef = useRef(null);
     const verseRefs = useRef({});
-    const topRef = useRef(null);
     const noteRefs = useRef({});
     const notifyTimeoutRef = useRef();
     const notifyRange = useRef({});
@@ -489,10 +489,10 @@ const Pages = React.memo(({
                         noteRefs.current[index]?.scrollIntoView({ behavior: 'smooth', block: 'center' });
                     }, 50);
                 } else {
+                    // The top of the page itself: beside a camera island the verses start below it
+                    // (IslandSpacer), and aligning them under the sticky header would scroll that away.
                     setTimeout(() => {
-                        if (topRef.current) {
-                            topRef.current.scrollIntoView({ behavior: 'smooth', block: 'start' });
-                        }
+                        scrollContainerRef.current?.scrollTo({ top: 0, behavior: 'smooth' });
                     }, 78);
                 }
             } else {
@@ -891,7 +891,8 @@ const Pages = React.memo(({
                 }}>
                 <div
                     ref={stickyRef}
-                    className={`sticky top-0 p-3 ${colors[theme]["surface"]["base"]} ${colors[theme]["text"]["on-deep"]} relative flex z-10`}>
+                    className={`island-aside sticky top-0 p-3 ${colors[theme]["surface"]["base"]} ${colors[theme]["text"]["on-deep"]} relative flex z-10`}
+                    style={{ '--island-aside-base': '0.75rem' }}>
                     <div
                         ref={stickyTitlesFocusRef}
                         onClick={() => handlePageTitleClicked()}
@@ -954,7 +955,8 @@ const Pages = React.memo(({
                         </div>
                     )}
                 </div>
-                <div ref={topRef} className={`flex flex-col `}>
+                <IslandSpacer />
+                <div className={`flex flex-col `}>
                     {sortedVerses.map(({ suraNumber, verseNumber, verseText, encryptedText, title }) => {
                         const hasAsterisk = verseText.includes('*') || (title && title.includes('*'));
                         const hasTitleAsterisk = (title && title.includes('*'));

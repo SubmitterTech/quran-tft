@@ -16,7 +16,7 @@ const Splash = ({ bookContent, currentPage, colors, theme, direction }) => {
         : colors[theme]["text"]["top"];
 
     return (
-        <div className={`w-screen h-screen flex flex-col items-center justify-center ${textTheme} ${baseTextColor}`}>
+        <div className={`w-full h-screen flex flex-col items-center justify-center ${textTheme} ${baseTextColor}`}>
             <div className={direction === "ltr" ? `text-left` : `text-right`}>
                 {lines.map((line, index) => (
                     <div

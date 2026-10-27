@@ -16,6 +16,7 @@ import { listCopy, smartCopy, supportsLookAhead, isNative, triggerActionHaptic }
 import LongPressable from '../hooks/LongPressable';
 import { LanguageRingPicker, keepInRing } from '../hooks/LanguageRing';
 import { NextPagerProgressRing } from '../hooks/NextPager';
+import { IslandSpacer } from '../hooks/IslandClearance';
 import '../assets/css/Book.css';
 import { persistSet } from '../utils/Persist';
 import { BackgroundProgressBar } from '../utils/BackgroundProgress';
@@ -1121,12 +1122,13 @@ const Book = React.memo(({ incomingSearch = false, incomingAppendix = false, inc
             return (
                 <div
                     key={`title-of-suras}`}
-                    className={`w-screen h-screen flex flex-col overflow-auto ${colors[theme]["text"]["middle"]}`}>
-                    <div className={`w-full p-3`}>
+                    className={`w-full h-screen flex flex-col overflow-auto ${colors[theme]["text"]["middle"]}`}>
+                    <div className={`island-aside-even w-full p-3`} style={{ '--island-aside-base': '0.75rem' }}>
                         <div className={`w-full flex items-center justify-center text-center ${colors[theme]["surface"]["bottom"]} rounded p-2 font-semibold ${colors[theme]["text"]["middle"]} text-2xl `}>
                             <h2>{cpd.titles["1"]}</h2>
                         </div>
                     </div>
+                    <IslandSpacer />
                     {renderedContent}
                 </div>
             );
@@ -1166,7 +1168,7 @@ const Book = React.memo(({ incomingSearch = false, incomingAppendix = false, inc
             return (
                 <div
                     onClick={nextPage}
-                    className={`w-screen h-screen flex items-center justify-center  ${baseTextColor}`}>
+                    className={`w-full h-screen flex items-center justify-center  ${baseTextColor}`}>
                     <div className={`text-4xl mx-2`}>
                         {translationApplication?.appendices}
                     </div>
@@ -1199,9 +1201,12 @@ const Book = React.memo(({ incomingSearch = false, incomingAppendix = false, inc
                 if (parseInt(key) === 1) {
                     const titles = elements[0].split(" ").filter(element => element);
                     return (
-                        <div className={`${baseTextColor} text-3xl w-full flex justify-center`} key={key}>
-                            <div className={`p-3`}>{titles[0]}</div>
-                        </div>
+                        <React.Fragment key={key}>
+                            <div className={`island-aside-even ${baseTextColor} text-3xl w-full flex justify-center`}>
+                                <div className={`p-3`}>{titles[0]}</div>
+                            </div>
+                            <IslandSpacer />
+                        </React.Fragment>
                     );
                 } else {
                     return (
@@ -1222,7 +1227,7 @@ const Book = React.memo(({ incomingSearch = false, incomingAppendix = false, inc
             });
 
             return (
-                <div className={`w-screen h-screen flex flex-col overflow-auto ${colors[theme]["text"]["middle"]}`}>
+                <div className={`w-full h-screen flex flex-col overflow-auto ${colors[theme]["text"]["middle"]}`}>
                     {renderedContent}
                 </div>);
         }
@@ -1260,7 +1265,7 @@ const Book = React.memo(({ incomingSearch = false, incomingAppendix = false, inc
 
     return (
         <div
-            className={`fixed w-full h-full flex flex-col justify-start ${colors[theme]["surface"]["base"]} overflow-y-hidden`}
+            className={`app-safe-x fixed w-full h-full flex flex-col justify-start ${colors[theme]["surface"]["base"]} overflow-y-hidden`}
             style={{ paddingTop: 'calc(var(--app-safe-top) * 0.76)', paddingBottom: 'var(--app-controls-safe-bottom)' }}>
             <Toaster
                 position="top-center"
@@ -1299,7 +1304,7 @@ const Book = React.memo(({ incomingSearch = false, incomingAppendix = false, inc
             {renderBookContent()}
             <div>
                 <div className={`h-12 lg:h-14`}></div>
-                <div className={`w-full flex z-[220] ${colors[theme]["surface"]["base"]} fixed bottom-0`}
+                <div className={`app-safe-x w-full flex z-[220] ${colors[theme]["surface"]["base"]} fixed bottom-0 left-0`}
                     style={{ paddingBottom: 'var(--app-controls-safe-bottom)' }}>
                     <div className={`relative flex w-full items-center justify-between`}>
                         <CopyCountdown

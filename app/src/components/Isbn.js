@@ -44,7 +44,7 @@ const Isbn = ({ colors, theme, translationApplication }) => {
         : colors[theme]["text"]["bottom"];
 
     return (
-        <div className={`h-screen w-screen relative ${baseTextColor} text-lg md:text-xl lg:text-2xl select-text`}
+        <div className={`h-screen w-full relative ${baseTextColor} text-lg md:text-xl lg:text-2xl select-text`}
             style={{ paddingBottom: 'calc((var(--app-safe-bottom) * 1.90) + 4rem)' }}>
             <div className={`flex flex-col flex-1 lg:grid lg:grid-flow-dense lg:grid-cols-2 p-0.5 pb-1.5 h-full overflow-y-auto `}>
                 {loading ? (
