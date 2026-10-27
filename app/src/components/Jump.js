@@ -888,20 +888,22 @@ const Jump = React.memo(({
 
     return (
         <div className={`w-screen h-full fixed left-0 top-0 inset-0 z-50 outline-none focus:outline-none `} id="jump-screen">
-            <div className={` w-full h-full backdrop-blur-xl `}>
+            {/* jump-layout (index.css) places the panel above the language picker. */}
+            <div className={` w-full h-full backdrop-blur-xl jump-layout `}>
                 <div
                     onClick={onClose}
-                    className={`w-full h-full`}>
+                    className={`absolute inset-0`}>
                 </div>
+                <div className={`jump-safe-top`}></div>
                 {platformVersionLabel && (
                     <div
-                        className={`fixed top-1 right-2 z-20 text-[10px] md:text-xs tracking-wide ${theme === 'leaf' ? colors[theme]["text"]["on-deep-soft"] : `${colors[theme]["text"]["bottom"]} opacity-60`}`}
-                        style={{ paddingTop: 'var(--app-safe-top)' }}
+                        className={`fixed top-1 z-20 text-[10px] md:text-xs tracking-wide ${theme === 'leaf' ? colors[theme]["text"]["on-deep-soft"] : `${colors[theme]["text"]["bottom"]} opacity-60`}`}
+                        style={{ paddingTop: 'var(--app-safe-top)', right: 'calc(var(--app-safe-right) + 0.5rem)' }}
                     >
                         {platformVersionLabel}
                     </div>
                 )}
-                <div className={`w-full md:w-2/3 lg:w-1/2 2xl:w-1/3 fixed bottom-12 md:bottom-16 left-1/2 -translate-x-1/2 flex justify-center `}
+                <div className={`w-full md:w-2/3 lg:w-1/2 2xl:w-1/3 relative jump-picker justify-self-center mb-12 md:mb-16 flex justify-center `}
                     style={{ paddingBottom: 'var(--app-safe-bottom)' }}>
                     <div className="relative w-full m-2">
                         <select
@@ -929,7 +931,15 @@ const Jump = React.memo(({
                         </select>
                     </div>
                 </div>
-                <div className={` w-full md:w-2/3 lg:w-1/2 2xl:w-1/3 px-2 flex flex-col fixed top-1/2 left-1/2 transform -translate-y-1/2 -translate-x-1/2 z-10 `}>
+                {/* The panel stays in the middle of the screen and moves aside only as far as it must to keep to the
+                    safe area, so on iPhone Duo's outer display it stands beside the camera island while the wider
+                    inner display leaves it centred. 50vw - 50% is the room on either side of the centred panel. Its
+                    transform also holds the overlays fixed inside it to the panel. */}
+                <div className={` w-full md:w-2/3 lg:w-1/2 2xl:w-1/3 px-2 flex flex-col jump-panel justify-self-center `}
+                    style={{
+                        maxWidth: 'calc(100% - var(--app-safe-left) - var(--app-safe-right))',
+                        transform: 'translateX(max(calc(var(--app-safe-left) - (50vw - 50%)), min(0px, calc(50vw - 50% - var(--app-safe-right)))))',
+                    }}>
                     <div className={`shadow-[rgba(125,211,252,0.4)_0px_2px_10px_10px] flex flex-col items-center justify-center ${colors[theme]["surface"]["base"]} rounded  w-full `}>
                         <div className={`w-full pt-2`}>
                             <div className={`w-full flex space-x-2 px-2`}>

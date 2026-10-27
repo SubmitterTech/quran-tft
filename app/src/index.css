@@ -55,6 +55,49 @@ html[data-occlusion-band] .island-aside-even {
   padding-right: max(var(--island-aside-base, 0px), var(--app-occlusion-band-inset));
 }
 
+/*
+  Jump stands its panel in the middle row of a grid. The rows above and below it share the free height,
+  so the panel stays in the middle of the screen while there is room, and a taller one (the theme view, a
+  page of many suras) moves up rather than covering the language picker in the bottom row. The panel's
+  row never gets shorter than the panel: the overlays fixed inside the panel take its box, so a shorter
+  box would leave part of the panel uncovered. On a screen too short for both, the picker moves down.
+*/
+.jump-layout {
+  display: grid;
+  grid-template-rows: 1fr auto 1fr;
+}
+
+.jump-layout > .jump-safe-top {
+  grid-row: 1;
+  height: var(--app-safe-top);
+}
+
+.jump-layout > .jump-panel {
+  grid-row: 2;
+}
+
+.jump-layout > .jump-picker {
+  grid-row: 3;
+  align-self: end;
+}
+
+/*
+  Where a camera island takes a strip of the screen (iPhone Duo), the panel keeps out of that strip and
+  stands beside the island. It is then centred in the room between the top safe area and the picker,
+  next to the island rather than low on the screen.
+*/
+html[data-occlusion-band] .jump-layout {
+  grid-template-rows: auto 1fr auto 1fr auto;
+}
+
+html[data-occlusion-band] .jump-layout > .jump-panel {
+  grid-row: 3;
+}
+
+html[data-occlusion-band] .jump-layout > .jump-picker {
+  grid-row: 5;
+}
+
 body {
   margin: 0;
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
