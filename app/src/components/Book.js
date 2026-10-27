@@ -1274,6 +1274,16 @@ const Book = React.memo(({ incomingSearch = false, incomingAppendix = false, inc
                     marginTop: 'calc(var(--app-safe-top) + 2rem)',
                 }}
                 toastOptions={{
+                    // A toast stays in the middle and moves aside only as far as it must to keep to the
+                    // safe area, so on iPhone Duo's outer display a long one ends beside the camera
+                    // island. 50vw - 50% is the room on either side of the centred toast, and 16px the
+                    // toaster's own inset. translate leaves the toast's own transform to its animation,
+                    // and the width is left alone: the toaster measures a toast's height only when it
+                    // first draws it, so a width that changed with the safe area would stack toasts on
+                    // each other.
+                    style: {
+                        translate: 'max(calc(16px + var(--app-safe-left) - (50vw - 50%)), min(0px, calc(50vw - 50% - 16px - var(--app-safe-right)))) 0',
+                    },
                     success: {
                         style: {
                             background: colors[theme]["surface"]["toast"],
