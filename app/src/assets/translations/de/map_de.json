@@ -594,6 +594,9 @@
             "verloren Kontaktgebet": "19:59"
         },
         "Christus siehe Jesus, Messias": "",
+        "Code": {
+            "siehe Koranisches Wunder": "74:30"
+        },
         "Computer": "27:82"
     },
     "D": {
@@ -2179,17 +2182,13 @@
         "Klagen": "23:64-65",
         "Kleidung": "2:233; 4:5; 5:89; 6:142; 7:31; 11:5; 18:31; 22:23; 24:31, 58, 60; 33:55, 59; 35:33; 71:7; 76:21",
         "Kleidung (siehe auch Bekleidung)": {
-            "Kode": "24:30-31, 60; 33:55, 59"
+            "Code": "24:30-31, 60; 33:55, 59"
         },
         "Klettern": "6:125; 15:14; 32:5; 34:2; 35:10; 57:4; 70:4",
         "Kloster": "22:40",
         "Knien": "45:28",
         "Knoblauch": "2:61",
         "Knochen": "2:259; 6:146; 17:49, 98; 19:4; 23:14, 35, 82; 36:78; 37:53; 56:47; 75:3; 79:11",
-        "Kode": {
-            "Kleidung": "24:30-31, 60; 33:55, 59",
-            "siehe Koranisches Wunder": "74:30"
-        },
         "Kolonne": "24:41; 37:1; 61:4; 67:19; 104:9",
         "Koma des Todes": "50:19",
         "Kommunikation, mit Gott": "42:51",
@@ -2518,7 +2517,7 @@
         },
         "Mäßigung": "7:31; 25:67",
         "Materielle Dinge": "2:79, 174; 3:77, 199; 4:77, 134; 5:44; 8:67; 9:38, 69, 74; 10:11; 11:15, 116; 20:131; 24:33; 21:13; 28:60-61; 38:32, 34; 39:50; 42:20, 36; 43:32-35; 53:29; 100:8; 111:2",
-        "Mathematischer Kode (siehe auch Koranisches Wunder) Sura 74 Zweck des Wunderkodes": "74:31",
+        "Mathematischer Code (siehe auch Koranisches Wunder) Sura 74 Zweck des Wundercodes": "74:31",
         "Mauer": "18:77, 82; 49:4; 59:14; 61:4",
         "Maultiere": "16:8",
         "Meditation": "3:17, 41; 9:112; 17:79; 19:11; 25:64; 26:218; 37:143; 39:9; 50:40; 73:2-4, 6, 20",
@@ -3563,7 +3562,7 @@
             "Schrift/Koran": "2:145; 4:82; 7:169; 10:39; 34:44; 47:24; 73:20"
         },
         "Studium": {
-            "Kode": "27:84"
+            "Code": "27:84"
         },
         "Stufen": {
             "in der Schöpfung des Menschen": "11:61; 18:37; 23:12; 32:7; 35:11; 71:14"
@@ -4240,6 +4239,9 @@
         "Vormittag": "20:59; 93:1",
         "Vorrang": "2:228; 9:16, 23-24, 113, 120; 14:3; 17:18-19; 18:46; 33:6; 59:9; 87:16",
         "Vorsätzlich": "2:173",
+        "Vorschrift": {
+            "Kleidung": "24:30-31, 60; 33:55, 59"
+        },
         "Vorübergehend": {
             "Genuss": "2:126; 3:197"
         },
