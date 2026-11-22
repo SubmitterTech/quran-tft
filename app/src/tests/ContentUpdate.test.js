@@ -24,13 +24,37 @@ describe('content sources', () => {
     });
 
     test('addresses follow the layout of each source', () => {
-        const [primary, jsdelivr] = getContentSources('de');
+        const [primary, jsdelivr, raw] = getContentSources('de');
 
         expect(getSourceUrl(primary, 'quran', 'tr')).toBe('https://qurantft.com/content/quran_tr.json');
         expect(getSourceUrl(primary, 'languages')).toBe('https://qurantft.com/content/languages.json');
-        // The repository keeps the translators' files, which the sync writes.
-        expect(getSourceUrl(jsdelivr, 'quran', 'tr')).toContain('/app/src/assets/translations/tr/quran_tr.json');
-        expect(getSourceUrl(jsdelivr, 'quran', 'en')).toContain('/app/src/assets/qurantft.json');
+        // The translators' files and the catalog are in the translations repository, on the
+        // branch that only holds what passed its checks.
+        expect(getSourceUrl(jsdelivr, 'quran', 'tr')).toBe(
+            'https://cdn.jsdelivr.net/gh/SubmitterTech/quran-tft-translations@release/tr/quran_tr.json',
+        );
+        expect(getSourceUrl(raw, 'quran', 'tr')).toBe(
+            'https://raw.githubusercontent.com/SubmitterTech/quran-tft-translations/release/tr/quran_tr.json',
+        );
+        expect(getSourceUrl(jsdelivr, 'languages')).toBe(
+            'https://cdn.jsdelivr.net/gh/SubmitterTech/quran-tft-translations@release/languages.json',
+        );
+        // The English base stays in the app repository.
+        expect(getSourceUrl(jsdelivr, 'quran', 'en')).toBe(
+            'https://cdn.jsdelivr.net/gh/SubmitterTech/quran-tft@main/app/src/assets/qurantft.json',
+        );
+        expect(getSourceUrl(raw, 'cover', 'en')).toBe(
+            'https://raw.githubusercontent.com/SubmitterTech/quran-tft/main/app/src/assets/cover.json',
+        );
+    });
+
+    test('every address a source gives stays on a host we follow', () => {
+        getContentSources('de').forEach((source) => {
+            ['languages', 'quran', 'map'].forEach((kind) => {
+                expect(isAllowedContentUrl(getSourceUrl(source, kind, 'tr'))).toBe(true);
+            });
+            expect(isAllowedContentUrl(getSourceUrl(source, 'quran', 'en'))).toBe(true);
+        });
     });
 
     test('only our own hosts are followed', () => {

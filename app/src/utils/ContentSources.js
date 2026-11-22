@@ -3,7 +3,9 @@
 // The first source is our own site. If it does not answer, the next ones are deliberately on a
 // different platform: a problem that takes our site down (a bad deploy, a blocked domain, a zone
 // misconfiguration) usually takes the sibling domain with it, since both are on the same
-// Cloudflare account. GitHub is where the same files live anyway, the project being open source.
+// Cloudflare account. GitHub is where the same files live anyway, the project being open source:
+// the English base in this repository, the translations and the language catalog in their own,
+// on the release branch, which only holds what passed the checks there.
 //
 // The last line of defence is not in this list: it is the copy inside the app package, which is
 // what the app reads by default. Everything here is an optimisation on top of that.
@@ -14,6 +16,7 @@ const REPOSITORY = 'repository';
 const PRIMARY_ORIGIN = process.env.REACT_APP_CONTENT_ORIGIN || 'https://qurantft.com';
 const MIRROR_ORIGIN = process.env.REACT_APP_CONTENT_MIRROR || 'https://sonahit.org';
 const REPOSITORY_PATH = 'SubmitterTech/quran-tft';
+const TRANSLATIONS_PATH = 'SubmitterTech/quran-tft-translations';
 
 // Base files do not follow the <kind>_<lang>.json convention in the repository.
 const REPOSITORY_BASE_FILES = {
@@ -26,8 +29,18 @@ const REPOSITORY_BASE_FILES = {
 
 const SOURCES = [
     { id: 'primary', origin: PRIMARY_ORIGIN, layout: PUBLISHED },
-    { id: 'jsdelivr', origin: `https://cdn.jsdelivr.net/gh/${REPOSITORY_PATH}@main`, layout: REPOSITORY },
-    { id: 'raw', origin: `https://raw.githubusercontent.com/${REPOSITORY_PATH}/main`, layout: REPOSITORY },
+    {
+        id: 'jsdelivr',
+        origin: `https://cdn.jsdelivr.net/gh/${REPOSITORY_PATH}@main`,
+        translations: `https://cdn.jsdelivr.net/gh/${TRANSLATIONS_PATH}@release`,
+        layout: REPOSITORY,
+    },
+    {
+        id: 'raw',
+        origin: `https://raw.githubusercontent.com/${REPOSITORY_PATH}/main`,
+        translations: `https://raw.githubusercontent.com/${TRANSLATIONS_PATH}/release`,
+        layout: REPOSITORY,
+    },
     { id: 'mirror', origin: MIRROR_ORIGIN, layout: PUBLISHED },
 ];
 
@@ -44,8 +57,9 @@ export const getContentSources = (lang) => {
 };
 
 /**
- * Address of one content file at one source. The repository layout points at the files the
- * translators' sync writes; they are the same content, only indented.
+ * Address of one content file at one source. The repository layout points at the files as
+ * they are kept in git: the English base in this repository, the files the translators' sync
+ * writes in the translations repository. They are the same content, only indented.
  */
 export const getSourceUrl = (source, kind, lang) => {
     if (!source?.origin) {
@@ -58,15 +72,14 @@ export const getSourceUrl = (source, kind, lang) => {
             : `${source.origin}/content/${kind}_${lang}.json`;
     }
 
-    const assets = `${source.origin}/app/src/assets`;
     if (kind === 'languages') {
-        return `${assets}/languages.json`;
+        return `${source.translations}/languages.json`;
     }
     if (lang === 'en') {
         const fileName = REPOSITORY_BASE_FILES[kind];
-        return fileName ? `${assets}/${fileName}` : null;
+        return fileName ? `${source.origin}/app/src/assets/${fileName}` : null;
     }
-    return `${assets}/translations/${lang}/${kind}_${lang}.json`;
+    return `${source.translations}/${lang}/${kind}_${lang}.json`;
 };
 
 /**
