@@ -5,7 +5,7 @@
 .gradle-cache
 __pycache__/
 *.pyc
-scrapper/map-work/out/
+/scrapper/
 .cloudflare
 *.key
 graphify-out/

@@ -9,10 +9,13 @@
  * precache, and the parsed objects stay in the webpack module cache for the lifetime of the
  * page. Serving the same data as plain JSON avoids all three.
  *
- * The files under src/assets stay the source of truth, so the Transifex sync is untouched.
+ * The files under src/assets stay the source of truth. The English base is part of this
+ * repository; the translations and the language catalog are a submodule under
+ * src/assets/translations that follows the release branch of its own repository.
  * Everything written here is generated output and stays out of version control.
  */
 
+import { execFileSync } from 'node:child_process';
 import crypto from 'node:crypto';
 import fs from 'node:fs';
 import path from 'node:path';
@@ -58,6 +61,25 @@ const writeContentFile = (name, serialized) => {
     return Buffer.byteLength(serialized);
 };
 
+// Which state of the translations this build carries. They follow their own release branch,
+// so the app's commit does not say. Asked of the submodule itself: without the check a
+// submodule that is not checked out would answer with this repository's commit.
+const readTranslationsSource = () => {
+    const git = (...args) => execFileSync('git', ['-C', translationsRoot, ...args], {
+        encoding: 'utf8',
+        stdio: ['ignore', 'pipe', 'ignore'],
+    }).trim();
+    try {
+        if (fs.realpathSync(git('rev-parse', '--show-toplevel')) !== fs.realpathSync(translationsRoot)) {
+            return null;
+        }
+        const [commit, committedAt] = git('log', '-1', '--format=%H%n%cI').split('\n');
+        return commit && committedAt ? { commit, committedAt } : null;
+    } catch (error) {
+        return null;
+    }
+};
+
 const main = () => {
     fs.mkdirSync(outputRoot, { recursive: true });
 
@@ -87,7 +109,7 @@ const main = () => {
 
     // The catalog travels with the content: a language added later needs its name, direction
     // and completeness figure to be offered at all.
-    publish('languages', 'catalog', path.join(assetsRoot, 'languages.json'));
+    publish('languages', 'catalog', path.join(translationsRoot, 'languages.json'));
 
     const translatedLanguages = fs.existsSync(translationsRoot)
         ? fs.readdirSync(translationsRoot).filter((entry) => (
@@ -117,6 +139,12 @@ const main = () => {
     inventory.revision = shortHash(
         Object.entries(inventory.languages).map(([lang, entry]) => `${lang}:${entry.revision}`).join('|')
     );
+
+    // Not part of the revision: it says where the text came from, not what the text is.
+    const translationsSource = readTranslationsSource();
+    if (translationsSource) {
+        inventory.source = { translations: translationsSource };
+    }
 
     publishedBytes += writeContentFile('inventory', JSON.stringify(inventory));
     published.add('inventory.json');

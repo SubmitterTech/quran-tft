@@ -39,12 +39,16 @@
   "scripts": {
     "predeploy": "npm run build",
     "deploy": "gh-pages -d build",
+    "predeploy:cloudflare": "CONTENT_VERIFY=1 node scripts/verify-content.mjs",
     "deploy:cloudflare": "npx wrangler deploy",
-    "prestart": "node scripts/build-content-assets.mjs",
+    "prestart": "node scripts/sync-translations.mjs && node scripts/build-content-assets.mjs",
     "start": "react-scripts start",
-    "build": "node scripts/build-content-assets.mjs && CI=false react-scripts build",
+    "build": "node scripts/sync-translations.mjs && node scripts/build-content-assets.mjs && CI=false react-scripts build && node scripts/verify-content.mjs",
     "build:sonahit": "npm run build && node scripts/apply-sonahit-branding.mjs",
+    "pretest": "node scripts/sync-translations.mjs",
     "test": "react-scripts test",
+    "translations:update": "node scripts/sync-translations.mjs update",
+    "translations:pin": "node scripts/sync-translations.mjs pin",
     "eject": "react-scripts eject"
   },
   "eslintConfig": {

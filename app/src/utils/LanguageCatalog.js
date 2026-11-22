@@ -7,7 +7,7 @@
 //
 // Consumers import this instead of the JSON file and keep reading it synchronously.
 
-import bundledLanguages from '../assets/languages.json';
+import bundledLanguages from '../assets/translations/languages.json';
 import { getState, isDownloadSupported, readDownloaded } from './ContentFiles';
 import { getContentLanguages } from './ContentStore';
 

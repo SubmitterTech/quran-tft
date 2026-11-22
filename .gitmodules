@@ -1,0 +1,5 @@
+[submodule "app/src/assets/translations"]
+	path = app/src/assets/translations
+	url = https://github.com/SubmitterTech/quran-tft-translations.git
+	branch = release
+	ignore = all
